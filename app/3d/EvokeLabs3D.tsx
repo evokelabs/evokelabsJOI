@@ -6,11 +6,14 @@ import { PerspectiveCamera, Vector3 } from 'three'
 import CyberpunkMap from './models/CyberpunkMap'
 import { getFov } from '../libs/helpers'
 
+const debug = true
+
 // CameraRig component
 function CameraRig() {
   const { camera, size } = useThree()
 
   useFrame(state => {
+    if (debug) return null
     const XPosition = 0 - (state.pointer.x * state.viewport.width) / 3
     const YPosition = (3 + state.pointer.y) / 2
     const ZPosition = -0.5
@@ -38,12 +41,12 @@ const Evokelabs3D = () => {
   return (
     <Canvas camera={{ position: [0, 1.5, -1], fov: fov, near: 1, far: 200 }} shadows>
       <Perf position='top-right' />
-      <OrbitControls makeDefault target={new Vector3(-0.2, 1.4, 2.5)} enableZoom={false} enablePan={false} enableRotate={false} />
+      <OrbitControls makeDefault target={new Vector3(-0.2, 1.4, 2.5)} enableZoom={debug} enablePan={debug} enableRotate={debug} />
       <directionalLight castShadow position={[1, 2, 3]} intensity={1.5} shadow-normalBias={0.04} />
       <ambientLight intensity={1} />
       <TransformControls />
       <CyberpunkMap />
-      <CameraRig />
+      {!debug && <CameraRig />}
     </Canvas>
   )
 }
