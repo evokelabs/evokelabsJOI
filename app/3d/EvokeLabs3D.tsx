@@ -1,4 +1,4 @@
-import { Canvas, useThree } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import { OrbitControls, TransformControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import CyberpunkMap from './models/CyberpunkMap'
