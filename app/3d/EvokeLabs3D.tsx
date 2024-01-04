@@ -33,7 +33,7 @@ function CameraRig() {
 
 // Main component
 const Evokelabs3D = () => {
-  const fov = getFov(window.innerWidth)
+  const fov = typeof window !== 'undefined' ? getFov(window.innerWidth) : 20 // Default to 20 if window object does not exist
 
   return (
     <Canvas camera={{ position: [0, 1.5, -1], fov: fov, near: 1, far: 200 }} shadows>
