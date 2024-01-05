@@ -6,8 +6,7 @@ import { Perf } from 'r3f-perf'
 import CyberpunkMap from './models/CyberpunkMap'
 import { getFov } from '../libs/helpers'
 
-import PointLight from './lights/PointLight'
-import DirectionLight from './lights/DirectionLight'
+import { Lights } from './lights'
 
 const debug = true
 // const debug = false
@@ -46,11 +45,7 @@ const Evokelabs3D = () => {
       {debug && <Perf position='top-right' />}
       {!debug && <CameraRig />}
       <OrbitControls makeDefault target={new Vector3(-0.2, 1.4, 2.5)} enableZoom={debug} enablePan={debug} enableRotate={debug} />
-
-      <DirectionLight />
-      <PointLight />
-      <PointLight positionOffset={[2.88, 0, 0]} />
-      <ambientLight intensity={0.75} color={'#005068'} />
+      <Lights />
       <CyberpunkMap />
     </Canvas>
   )
