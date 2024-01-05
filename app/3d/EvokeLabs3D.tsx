@@ -10,7 +10,7 @@ import { useEffect, useRef } from 'react'
 const debug = true
 // const debug = false
 
-function CameraRig() {
+const CameraRig = () => {
   const { camera, size } = useThree()
 
   useFrame(state => {
@@ -35,15 +35,15 @@ function CameraRig() {
   return null
 }
 
-function PointLight() {
-  return <pointLight color={'#FFB31F'} position={[-1.9, 2.45, 1.1]} intensity={2} castShadow shadow-normalBias={0.04} decay={2} />
-}
+const PointLight = () => (
+  <pointLight color={'#FFB31F'} position={[-1.9, 2.45, 1.1]} intensity={2} castShadow shadow-normalBias={0.04} decay={2} />
+)
 
-function ClonedPointLight() {
-  return <pointLight color={'#FFB31F'} position={[0.98, 2.45, 1.1]} intensity={2} castShadow shadow-normalBias={0.04} decay={2} />
-}
+const ClonedPointLight = () => (
+  <pointLight color={'#FFB31F'} position={[0.98, 2.45, 1.1]} intensity={2} castShadow shadow-normalBias={0.04} decay={2} />
+)
 
-function DirectionalLight() {
+const DirectionalLight = () => {
   const lightRef = useRef<any>(null)
   const { scene } = useThree()
 
