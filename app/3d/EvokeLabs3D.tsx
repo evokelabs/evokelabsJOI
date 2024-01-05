@@ -1,13 +1,13 @@
-import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, OrbitControls } from '@react-three/drei'
-import { Perf } from 'r3f-perf'
 import { PerspectiveCamera, Vector3 } from 'three'
+import { Perf } from 'r3f-perf'
+
 import CyberpunkMap from './models/CyberpunkMap'
 import { getFov } from '../libs/helpers'
-import { useEffect, useRef } from 'react'
 
 import PointLight from './lights/PointLight'
+import DirectionLight from './lights/DirectionLight'
 
 const debug = true
 // const debug = false
@@ -37,22 +37,6 @@ const CameraRig = () => {
   return null
 }
 
-const DirectionalLight = () => {
-  const lightRef = useRef<any>(null)
-  const { scene } = useThree()
-
-  useEffect(() => {
-    if (lightRef.current) {
-      const targetObject = new THREE.Object3D()
-      targetObject.position.set(0, 0.8, 2)
-      scene.add(targetObject)
-      lightRef.current.target = targetObject
-    }
-  }, [scene])
-
-  return <directionalLight ref={lightRef} color={'#003C67'} position={[11, 6, 15]} intensity={150} shadow-normalBias={0.04} castShadow />
-}
-
 const Evokelabs3D = () => {
   const fov = typeof window !== 'undefined' ? getFov(window.innerWidth) : 50
 
@@ -63,7 +47,7 @@ const Evokelabs3D = () => {
       {!debug && <CameraRig />}
       <OrbitControls makeDefault target={new Vector3(-0.2, 1.4, 2.5)} enableZoom={debug} enablePan={debug} enableRotate={debug} />
 
-      <DirectionalLight />
+      <DirectionLight />
       <PointLight />
       <PointLight positionOffset={[2.88, 0, 0]} />
       <ambientLight intensity={0.75} color={'#005068'} />

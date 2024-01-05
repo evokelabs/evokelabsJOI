@@ -1,11 +1,11 @@
-import { useThree } from '@react-three/fiber'
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
+import { useThree } from '@react-three/fiber'
 
 const BASE_POSITION: [number, number, number] = [11, 6, 15]
 const LIGHT_COLOR = '#003C67'
 const LIGHT_INTENSITY = 150
-const SHADOW_NORMAL_BIAS = 52
+const SHADOW_NORMAL_BIAS = 0.04
 
 const DirectionLight = () => {
   const lightRef = useRef<any>(null)
@@ -14,7 +14,7 @@ const DirectionLight = () => {
   useEffect(() => {
     if (lightRef.current) {
       const targetObject = new THREE.Object3D()
-      targetObject.position.set(0, 1.8, 7)
+      targetObject.position.set(0, 0.8, 2)
       scene.add(targetObject)
       lightRef.current.target = targetObject
     }
@@ -24,12 +24,12 @@ const DirectionLight = () => {
 
   return (
     <directionalLight
-      color={LIGHT_COLOR}
       ref={lightRef}
+      color={LIGHT_COLOR}
       position={position}
       intensity={LIGHT_INTENSITY}
       castShadow
-      shadow-NormalBias={SHADOW_NORMAL_BIAS}
+      shadow-normalBias={SHADOW_NORMAL_BIAS}
     />
   )
 }
