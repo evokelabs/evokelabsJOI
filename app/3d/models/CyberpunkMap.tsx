@@ -18,11 +18,16 @@ const CyberpunkMap = () => {
 
   useEffect(() => {
     if (gltf.scene) {
+      console.log('gltf.scene', gltf.scene)
       scene.add(gltf.scene)
       gltf.scene.traverse(object => {
         if (object instanceof Mesh) {
-          object.castShadow = true
-          object.receiveShadow = true
+          if (object.name === 'Window_Glass_Main') {
+            object.castShadow = false
+          } else {
+            object.castShadow = true
+            object.receiveShadow = true
+          }
         }
       })
     }
