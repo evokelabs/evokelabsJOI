@@ -7,6 +7,8 @@ import CyberpunkMap from './models/CyberpunkMap'
 import { getFov } from '../libs/helpers'
 import { useEffect, useRef } from 'react'
 
+import PointLight from './lights/PointLight'
+
 const debug = true
 // const debug = false
 
@@ -35,14 +37,6 @@ const CameraRig = () => {
   return null
 }
 
-const PointLight = () => (
-  <pointLight color={'#FFB31F'} position={[-1.9, 2.45, 1.1]} intensity={2} castShadow shadow-normalBias={0.04} decay={2} />
-)
-
-const ClonedPointLight = () => (
-  <pointLight color={'#FFB31F'} position={[0.98, 2.45, 1.1]} intensity={2} castShadow shadow-normalBias={0.04} decay={2} />
-)
-
 const DirectionalLight = () => {
   const lightRef = useRef<any>(null)
   const { scene } = useThree()
@@ -65,12 +59,13 @@ const Evokelabs3D = () => {
   return (
     <Canvas camera={{ position: [0, 1.5, -1], fov: fov, near: 0.1, far: 200 }} shadows>
       <Environment background files={['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']} path='/textures/cubeMap/' />
-      <Perf position='top-right' />
+      {debug && <Perf position='top-right' />}
+      {!debug && <CameraRig />}
       <OrbitControls makeDefault target={new Vector3(-0.2, 1.4, 2.5)} enableZoom={debug} enablePan={debug} enableRotate={debug} />
 
-      <PointLight />
       <DirectionalLight />
-      <ClonedPointLight />
+      <PointLight />
+      <PointLight positionOffset={[2.88, 0, 0]} />
       <ambientLight intensity={0.75} color={'#005068'} />
       <CyberpunkMap />
     </Canvas>
