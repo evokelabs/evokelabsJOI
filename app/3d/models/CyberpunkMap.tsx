@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useLoader, useThree } from '@react-three/fiber'
 import { DRACOLoader, GLTFLoader } from 'three/examples/jsm/Addons.js'
+import { Mesh } from 'three'
 
 const DRACO_DECODER_PATH = 'https://www.gstatic.com/draco/versioned/decoders/1.5.6/'
 
@@ -18,6 +19,12 @@ const CyberpunkMap = () => {
   useEffect(() => {
     if (gltf.scene) {
       scene.add(gltf.scene)
+      gltf.scene.traverse(object => {
+        if (object instanceof Mesh) {
+          object.castShadow = true
+          object.receiveShadow = true
+        }
+      })
     }
     return () => {
       if (gltf.scene) {
