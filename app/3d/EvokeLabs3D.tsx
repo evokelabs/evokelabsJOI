@@ -8,8 +8,8 @@ import { getFov } from '../libs/helpers'
 
 import { Lights } from './lights'
 
-const debug = true
-// const debug = false
+// const debug = true
+const debug = false
 
 const CameraRig = () => {
   const { camera, size } = useThree()
