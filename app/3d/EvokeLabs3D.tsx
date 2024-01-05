@@ -7,8 +7,8 @@ import CyberpunkMap from './models/CyberpunkMap'
 import { getFov } from '../libs/helpers'
 import { useEffect, useRef } from 'react'
 
-// const debug = true
-const debug = false
+const debug = true
+// const debug = false
 
 function CameraRig() {
   const { camera, size } = useThree()
@@ -35,6 +35,48 @@ function CameraRig() {
   return null
 }
 
+function PointLightWithHelper() {
+  const lightRef = useRef<THREE.PointLight>(null)
+  const { scene } = useThree()
+  const helperSize = 0.05
+
+  useEffect(() => {
+    if (lightRef.current) {
+      const helper = new THREE.PointLightHelper(lightRef.current, helperSize)
+      scene.add(helper)
+    }
+  }, [scene, helperSize])
+
+  return (
+    <pointLight ref={lightRef} color={'#FFB31F'} position={[-1.9, 2.45, 1.1]} intensity={2} castShadow shadow-normalBias={0.04} decay={2} />
+  )
+}
+
+function ClonedPointLightWithHelper() {
+  const lightRef = useRef<THREE.PointLight>(null)
+  const { scene } = useThree()
+  const helperSize = 0.05
+
+  useEffect(() => {
+    if (lightRef.current) {
+      const helper = new THREE.PointLightHelper(lightRef.current, helperSize)
+      scene.add(helper)
+    }
+  }, [scene, helperSize])
+
+  return (
+    <pointLight
+      ref={lightRef}
+      color={'#FFB31F'}
+      position={[0.98, 2.45, 1.1]}
+      intensity={2}
+      castShadow
+      shadow-normalBias={0.04}
+      decay={2}
+    />
+  )
+}
+
 function DirectionalLightWithHelper() {
   const lightRef = useRef<any>(null)
   const { scene } = useThree()
@@ -50,7 +92,7 @@ function DirectionalLightWithHelper() {
 
   useHelper(lightRef, THREE.DirectionalLightHelper, 0.5, 'hotpink')
 
-  return <directionalLight ref={lightRef} color={'#003C67'} position={[11, 6, 13]} intensity={150} shadow-normalBias={0.04} castShadow />
+  return <directionalLight ref={lightRef} color={'#003C67'} position={[11, 6, 15]} intensity={150} shadow-normalBias={0.04} castShadow />
 }
 const Evokelabs3D = () => {
   const fov = typeof window !== 'undefined' ? getFov(window.innerWidth) : 50
@@ -61,7 +103,9 @@ const Evokelabs3D = () => {
       <Perf position='top-right' />
       <OrbitControls makeDefault target={new Vector3(-0.2, 1.4, 2.5)} enableZoom={debug} enablePan={debug} enableRotate={debug} />
 
+      <PointLightWithHelper />
       <DirectionalLightWithHelper />
+      <ClonedPointLightWithHelper />
       <ambientLight intensity={0.75} color={'#005068'} />
       <CyberpunkMap />
       {!debug && <CameraRig />}
