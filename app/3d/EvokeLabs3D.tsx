@@ -7,9 +7,10 @@ import CyberpunkMap from './models/CyberpunkMap'
 import { getFov } from '../libs/helpers'
 
 import { Lights } from './lights'
+import Rain from './particles/Rain'
 
-// const debug = true
-const debug = false
+const debug = true
+// const debug = false
 
 const CameraRig = () => {
   const { camera, size } = useThree()
@@ -47,6 +48,7 @@ const Evokelabs3D = () => {
       <OrbitControls makeDefault target={new Vector3(-0.2, 1.4, 2.5)} enableZoom={debug} enablePan={debug} enableRotate={debug} />
       <Lights />
       <CyberpunkMap />
+      <Rain />
     </Canvas>
   )
 }
