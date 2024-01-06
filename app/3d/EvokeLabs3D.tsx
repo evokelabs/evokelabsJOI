@@ -3,6 +3,7 @@ import { Environment, OrbitControls } from '@react-three/drei'
 import { PerspectiveCamera, Vector3 } from 'three'
 import { Perf } from 'r3f-perf'
 
+
 import CyberpunkMap from './models/CyberpunkMap'
 import { getFov } from '../libs/helpers'
 
@@ -41,7 +42,7 @@ const Evokelabs3D = () => {
   const fov = typeof window !== 'undefined' ? getFov(window.innerWidth) : 50
 
   return (
-    <Canvas camera={{ position: [0, 1.5, -1], fov: fov, near: 0.1, far: 200 }} shadows>
+    <Canvas camera={{ position: [0, 1.5, -1], fov: fov, near: 0.1, far: 2000 }} shadows>
       <Environment background files={['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']} path='/textures/cubeMap/' />
       {debug && <Perf position='top-right' />}
       {!debug && <CameraRig />}
