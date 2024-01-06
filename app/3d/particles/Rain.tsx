@@ -9,7 +9,8 @@ const Rain = () => {
 
   const rainMaterial = new THREE.SpriteMaterial({
     color: 0x96e7ff,
-    transparent: true
+    transparent: true,
+    opacity: 0.25
   })
 
   const rain = new THREE.Group()
@@ -18,13 +19,13 @@ const Rain = () => {
   const [isReady, setIsReady] = useState(false)
 
   const parameters = {
-    speed: -0.05,
-    scale: 0.1,
-    size: 0.05
+    speed: -0.095,
+    scale: 0.35,
+    size: 0.005
   }
 
   useEffect(() => {
-    const rainCount = 1500
+    const rainCount = 5000
     const positions = new Float32Array(rainCount * 3)
     const velocities = new Float32Array(rainCount)
 
