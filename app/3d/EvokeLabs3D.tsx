@@ -1,6 +1,6 @@
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
 import { Environment, OrbitControls } from '@react-three/drei'
-import { PerspectiveCamera, Vector3 } from 'three'
+import { Mesh, BufferGeometry, MeshBasicMaterial, BackSide, VideoTexture, Vector3, PerspectiveCamera } from 'three'
 import { Perf } from 'r3f-perf'
 
 import CyberpunkMap from './models/CyberpunkMap'
@@ -8,9 +8,10 @@ import { getFov } from '../libs/helpers'
 
 import { Lights } from './lights'
 import Rain from './particles/Rain'
+import { useEffect, useRef } from 'react'
 
-const debug = true
-// const debug = false
+// const debug = true
+const debug = false
 
 const CameraRig = () => {
   const { camera, size } = useThree()
@@ -37,12 +38,40 @@ const CameraRig = () => {
   return null
 }
 
+const VideoSkybox = () => {
+  const meshRef = useRef<Mesh<BufferGeometry, MeshBasicMaterial>>(null)
+  const video = document.createElement('video')
+
+  useEffect(() => {
+    video.src = './videos/CyberpunkCityBG.mp4'
+    video.loop = true
+    video.muted = true
+    video.play()
+  }, [])
+
+  useFrame(() => {
+    if (meshRef.current) {
+      if (meshRef.current && meshRef.current.material && meshRef.current.material.map) {
+        meshRef.current.material.map.needsUpdate = true
+      }
+    }
+  })
+
+  return (
+    <mesh ref={meshRef} scale={[-1, 0.55, 0.8]}>
+      <boxGeometry attach='geometry' args={[2000, 2000, 2000]} />
+      <meshBasicMaterial side={BackSide} map={new VideoTexture(video)} />
+    </mesh>
+  )
+}
+
 const Evokelabs3D = () => {
   const fov = typeof window !== 'undefined' ? getFov(window.innerWidth) : 50
 
   return (
     <Canvas camera={{ position: [0, 1.5, -1], fov: fov, near: 0.1, far: 2000 }} shadows>
       <Environment background files={['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']} path='/textures/cubeMap/' />
+      <VideoSkybox />
       {debug && <Perf position='top-left' />}
       {!debug && <CameraRig />}
       <OrbitControls makeDefault target={new Vector3(-0.2, 1.4, 2.5)} enableZoom={debug} enablePan={debug} enableRotate={debug} />
