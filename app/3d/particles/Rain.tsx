@@ -1,35 +1,35 @@
 import React, { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
-import { GUI } from 'dat.gui'
+
+// Rain settings
+const MAX_FALL_HEIGHT = 10
+const MIN_FALL_HEIGHT = 0
+const MIN_FALL_HEIGHT_OFFSET = 6
+const RAIN_COUNT = 5000
+const SPEED = -0.06
+const SCALE = 0.35
+const SIZE = 0.005
+const ROTATION = 0.05
+const SLANT = 0.05
 
 const Rain = () => {
-  const MAX_FALL_HEIGHT = 10
-  const MIN_FALL_HEIGHT = 0
-  const MIN_FALL_HEIGHT_OFFSET = 6
-
-  const rainMaterial = new THREE.SpriteMaterial({
-    color: 0x96e7ff,
-    transparent: true,
-    opacity: 0.25
-  })
-
-  const rain = new THREE.Group()
-
-  const rainRef = useRef<THREE.Group>(rain)
+  const rainRef = useRef<THREE.Group | null>(null)
   const [isReady, setIsReady] = useState(false)
 
-  const parameters = {
-    speed: -0.095,
-    scale: 0.35,
-    size: 0.005
-  }
-
   useEffect(() => {
-    const rainCount = 5000
-    const positions = new Float32Array(rainCount * 3)
-    const velocities = new Float32Array(rainCount)
+    const rainMaterial = new THREE.SpriteMaterial({
+      color: 0x96e7ff,
+      transparent: true,
+      opacity: 0.25
+    })
 
-    for (let i = 0; i < rainCount; i++) {
+    const positions = new Float32Array(RAIN_COUNT * 3)
+    const velocities = new Float32Array(RAIN_COUNT)
+
+    const rain = new THREE.Group()
+    rainRef.current = rain
+
+    for (let i = 0; i < RAIN_COUNT; i++) {
       positions[i * 3] = Math.random() * 23 - 12
       positions[i * 3 + 1] = Math.random() * (MAX_FALL_HEIGHT - (MIN_FALL_HEIGHT - MIN_FALL_HEIGHT_OFFSET))
       positions[i * 3 + 2] = Math.random() * -16 + 20
@@ -37,36 +37,33 @@ const Rain = () => {
 
       const sprite = new THREE.Sprite(rainMaterial)
       sprite.position.set(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2])
-      sprite.scale.set(parameters.size, parameters.scale, 1) // Set the x and y scale to create a rectangle
+      sprite.scale.set(SIZE, SCALE, 1)
       rain.add(sprite)
     }
 
-    // Create a GUI and add controls for the parameters
-    const gui = new GUI()
-    gui.add(parameters, 'speed', -0.5, 0)
-    gui.add(parameters, 'scale', 0.005, 2)
-    gui.add(parameters, 'size', 0.001, 1)
-
-    // Set isReady to true to trigger a re-render
     setIsReady(true)
 
     const animate = () => {
-      for (let i = 0; i < rainCount; i++) {
-        velocities[i] = parameters.speed
+      for (let i = 0; i < RAIN_COUNT; i++) {
+        velocities[i] = SPEED
         positions[i * 3 + 1] += velocities[i]
+        positions[i * 3] += velocities[i] * SLANT
+
         if (positions[i * 3 + 1] < MIN_FALL_HEIGHT - MIN_FALL_HEIGHT_OFFSET) {
           positions[i * 3 + 1] = MAX_FALL_HEIGHT
+          positions[i * 3] = Math.random() * 23 - 12
           velocities[i] = 0
         }
 
         const sprite = rain.children[i] as THREE.Sprite
         sprite.position.y = positions[i * 3 + 1]
-        sprite.scale.set(parameters.size, parameters.scale, 1)
+        sprite.position.x = positions[i * 3]
+        sprite.scale.set(SIZE, SCALE, 1)
+        sprite.material.rotation = ROTATION
       }
 
       requestAnimationFrame(animate)
     }
-
     animate()
   }, [])
 
