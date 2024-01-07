@@ -43,7 +43,7 @@ const Evokelabs3D = () => {
 
   return (
     <Canvas camera={{ position: [0, 1.5, -1], fov: fov, near: 0.1, far: 2000 }} shadows>
-      <Environment background files={['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']} path='/textures/cubeMap/' />
+      <Environment background files={'./textures/cyberpunk.hdr'} />
       <VideoSkybox />
       {debug && <Perf position='top-left' />}
       {!debug && <CameraRig />}
