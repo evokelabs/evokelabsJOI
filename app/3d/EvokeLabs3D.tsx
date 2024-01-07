@@ -1,6 +1,6 @@
-import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, OrbitControls } from '@react-three/drei'
-import { Mesh, BufferGeometry, MeshBasicMaterial, BackSide, VideoTexture, Vector3, PerspectiveCamera } from 'three'
+import { Vector3, PerspectiveCamera } from 'three'
 import { Perf } from 'r3f-perf'
 
 import CyberpunkMap from './models/CyberpunkMap'
@@ -8,7 +8,7 @@ import { getFov } from '../libs/helpers'
 
 import { Lights } from './lights'
 import Rain from './particles/Rain'
-import { useEffect, useRef } from 'react'
+import VideoSkybox from './textures/VideoSkyBox'
 
 // const debug = true
 const debug = false
@@ -36,33 +36,6 @@ const CameraRig = () => {
   })
 
   return null
-}
-
-const VideoSkybox = () => {
-  const meshRef = useRef<Mesh<BufferGeometry, MeshBasicMaterial>>(null)
-  const video = document.createElement('video')
-
-  useEffect(() => {
-    video.src = './videos/CyberpunkCityBG.mp4'
-    video.loop = true
-    video.muted = true
-    video.play()
-  }, [])
-
-  useFrame(() => {
-    if (meshRef.current) {
-      if (meshRef.current && meshRef.current.material && meshRef.current.material.map) {
-        meshRef.current.material.map.needsUpdate = true
-      }
-    }
-  })
-
-  return (
-    <mesh ref={meshRef} scale={[-1, 0.55, 0.8]}>
-      <boxGeometry attach='geometry' args={[2000, 2000, 2000]} />
-      <meshBasicMaterial side={BackSide} map={new VideoTexture(video)} />
-    </mesh>
-  )
 }
 
 const Evokelabs3D = () => {
