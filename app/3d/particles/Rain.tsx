@@ -20,7 +20,7 @@ const Rain = () => {
     const rainMaterial = new THREE.SpriteMaterial({
       color: 0x96e7ff,
       transparent: true,
-      opacity: 0.25
+      opacity: 0.375
     })
 
     const positions = new Float32Array(RAIN_COUNT * 3)

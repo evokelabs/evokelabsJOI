@@ -21,8 +21,7 @@ const VideoSkybox = () => {
   }, [])
 
   useFrame(() => {
-    if (meshRef.current && videoTexture) {
-      ;(meshRef.current.material as MeshBasicMaterial).map = videoTexture
+    if (meshRef.current && videoTexture) {(meshRef.current.material as MeshBasicMaterial).map = videoTexture
       videoTexture.needsUpdate = true
     }
   })

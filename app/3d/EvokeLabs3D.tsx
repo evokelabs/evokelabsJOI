@@ -10,8 +10,8 @@ import { Lights } from './lights'
 import Rain from './particles/Rain'
 import VideoSkybox from './textures/VideoSkyBox'
 
-// const debug = true
-const debug = false
+const debug = true
+// const debug = false
 
 const CameraRig = () => {
   const { camera, size } = useThree()
