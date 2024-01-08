@@ -6,10 +6,10 @@ import { Object3D } from 'three'
 const DRACO_DECODER_PATH = 'https://www.gstatic.com/draco/versioned/decoders/1.5.6/'
 
 const CAR_OFFSET_X = 20
-const CAR_OFFSET_Y = [-0.4, 2.2]
-const CAR_OFFSET_Z = [4.5, 20]
+const CAR_OFFSET_Y = [-0.4, 2.2] //distance from the ground
+const CAR_OFFSET_Z = [4.5, 10] // distance from the camera
 
-const CAR_ANIM_SPEED = 3
+const CAR_ANIM_SPEED = [2, 5]
 const CAR_ANIM_DISTANCE = -40
 
 const CyberpunkCar = () => {
@@ -25,6 +25,7 @@ const CyberpunkCar = () => {
   const gltf = useLoader(GLTFLoader, '/glb/Cyberpunk-Car.glb', loader => loader.setDRACOLoader(dracoLoader))
 
   const [direction, setDirection] = useState(1)
+  const [carAnimSpeed, setCarAnimSpeed] = useState(CAR_ANIM_SPEED[0]) // You can set the initial speed to any value you want
 
   const setRandomYPosition = () => {
     if (carRef.current) {
@@ -38,6 +39,13 @@ const CyberpunkCar = () => {
       const randomZ = Math.random() * (CAR_OFFSET_Z[1] - CAR_OFFSET_Z[0]) + CAR_OFFSET_Z[0]
       carRef.current.position.z = randomZ
     }
+  }
+
+  const setRandomSpeed = () => {
+    const minSpeed = CAR_ANIM_SPEED[0] // Set the minimum speed
+    const maxSpeed = CAR_ANIM_SPEED[1] // Set the maximum speed
+    const randomSpeed = Math.random() * (maxSpeed - minSpeed) + minSpeed
+    setCarAnimSpeed(randomSpeed)
   }
 
   useEffect(() => {
@@ -62,20 +70,25 @@ const CyberpunkCar = () => {
 
   useFrame(({ clock }) => {
     if (carRef.current) {
-      const elapsedTime = clock.getElapsedTime()
-      const loopTime = elapsedTime % CAR_ANIM_SPEED
-      carRef.current.position.x = direction * ((loopTime / CAR_ANIM_SPEED) * CAR_ANIM_DISTANCE + CAR_OFFSET_X)
-      if (Math.abs(loopTime - CAR_ANIM_SPEED) < 0.1) {
+      let elapsedTime = clock.getElapsedTime()
+
+      // Reset the animation when the car's X position reaches a certain value
+      if (carRef.current.position.x < -CAR_OFFSET_X || carRef.current.position.x > CAR_OFFSET_X) {
+        clock.start() // Reset the clock
+        elapsedTime = clock.getElapsedTime() // Get the reset elapsedTime
+
         carRef.current.position.x = CAR_OFFSET_X
         setRandomYPosition()
         setRandomZPosition()
-        // Change the direction and rotation of the car
+        // Change the direction, rotation, and speed of the car
         const newDirection = Math.random() < 0.5 ? 1 : -1
         setDirection(newDirection)
         carRef.current.rotation.z = newDirection === 1 ? 0 : Math.PI
-        console.log('direction', newDirection)
-        console.log('carRef.current.rotation.z', carRef.current.rotation.z)
+        setRandomSpeed()
       }
+
+      // Calculate the car's position based on the reset elapsedTime
+      carRef.current.position.x = direction * ((elapsedTime / carAnimSpeed) * CAR_ANIM_DISTANCE + CAR_OFFSET_X)
     }
   })
 
