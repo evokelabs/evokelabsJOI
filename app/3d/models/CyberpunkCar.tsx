@@ -5,7 +5,7 @@ import { Object3D } from 'three'
 
 const DRACO_DECODER_PATH = 'https://www.gstatic.com/draco/versioned/decoders/1.5.6/'
 
-const CAR_OFFSET_X = 20
+const CAR_OFFSET_X = 65
 const CAR_OFFSET_Y = [-0.4, 2.2] //distance from the ground
 const CAR_OFFSET_Z = [4.5, 10] // distance from the camera
 
