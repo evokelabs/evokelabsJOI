@@ -11,8 +11,8 @@ import Rain from './particles/Rain'
 import VideoSkybox from './textures/VideoSkyBox'
 import CyberpunkCar from './models/CyberpunkCar/index'
 
-const debug = true
-// const debug = false
+// const debug = true
+const debug = false
 
 const CameraRig = () => {
   const { camera, size } = useThree()

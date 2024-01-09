@@ -1,6 +1,6 @@
 const BASE_POSITION: [number, number, number] = [-1.9, 2.45, 1.1]
 const LIGHT_COLOR = '#FFB31F'
-const LIGHT_INTENSITY = 4
+const LIGHT_INTENSITY = 6.5
 const SHADOW_NORMAL_BIAS = 0.04
 const DECAY = 2.75
 
