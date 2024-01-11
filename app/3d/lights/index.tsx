@@ -8,7 +8,7 @@ export const Lights = () => {
       <DirectionLight />
       <PointLight />
       <PointLight positionOffset={[2.88, 0, 0]} />
-      <ambientLight intensity={0.75} color={'#005068'} />
+      <ambientLight intensity={0.5} color={'#005068'} />
     </>
   )
 }
