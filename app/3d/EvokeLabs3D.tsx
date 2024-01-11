@@ -10,6 +10,7 @@ import { Lights } from './lights'
 import Rain from './particles/Rain'
 import VideoSkybox from './textures/VideoSkyBox'
 import CyberpunkCar from './models/CyberpunkCar/index'
+import JOI from './models/JOI'
 
 // const debug = true
 const debug = false
@@ -51,6 +52,7 @@ const Evokelabs3D = () => {
       <OrbitControls makeDefault target={new Vector3(-0.2, 1.4, 2.5)} enableZoom={debug} enablePan={debug} enableRotate={debug} />
       <Lights />
       <CyberpunkMap />
+      <JOI />
       <CyberpunkCar />
       <Rain />
     </Canvas>
