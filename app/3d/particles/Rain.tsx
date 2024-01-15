@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
 
 // Rain settings
@@ -13,10 +13,9 @@ const ROTATION = 0.05
 const SLANT = 0.05
 
 const Rain = () => {
-  const rainRef = useRef<THREE.Group | null>(null)
   const [isReady, setIsReady] = useState(false)
 
-  useEffect(() => {
+  const rainRef = useMemo(() => {
     const rainMaterial = new THREE.SpriteMaterial({
       color: 0x96e7ff,
       transparent: true,
@@ -27,7 +26,6 @@ const Rain = () => {
     const velocities = new Float32Array(RAIN_COUNT)
 
     const rain = new THREE.Group()
-    rainRef.current = rain
 
     for (let i = 0; i < RAIN_COUNT; i++) {
       positions[i * 3] = Math.random() * 23 - 12
@@ -43,7 +41,13 @@ const Rain = () => {
 
     setIsReady(true)
 
+    return { rain, positions, velocities }
+  }, [])
+
+  useEffect(() => {
     const animate = () => {
+      const { rain, positions, velocities } = rainRef
+
       for (let i = 0; i < RAIN_COUNT; i++) {
         velocities[i] = SPEED
         positions[i * 3 + 1] += velocities[i]
@@ -65,9 +69,9 @@ const Rain = () => {
       requestAnimationFrame(animate)
     }
     animate()
-  }, [])
+  }, [rainRef])
 
-  return isReady ? <primitive object={rainRef.current as THREE.Object3D} /> : null
+  return isReady ? <primitive object={rainRef.rain as THREE.Object3D} /> : null
 }
 
 export default Rain
