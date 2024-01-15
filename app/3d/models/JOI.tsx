@@ -21,6 +21,7 @@ const JOI = () => {
   useEffect(() => {
     if (gltf.scene) {
       scene.add(gltf.scene)
+      console.log(gltf.scene)
 
       // Create a new dat.GUI instance
       gui.current = new dat.GUI()
@@ -38,8 +39,11 @@ const JOI = () => {
               folder = gui.current.addFolder(child.name)
             }
 
-            folder.add(child.material, 'metalness', 0, 1)
-            folder.add(child.material, 'roughness', 0, 1)
+            folder.add(child.material, 'metalness', 0, 1).step(0.01)
+            folder.add(child.material, 'roughness', 0, 1).step(0.01)
+
+            // If the name of the child is JOI_Hair, set transparent to true
+
             folder.open()
           }
         }

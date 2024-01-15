@@ -50,7 +50,7 @@ const CyberpunkCarSoundControl: React.FC<CarSoundControlProps> = ({ carRef }) =>
 
   useFrame(() => {
     if (carRef.current && gainNode && panner) {
-      const volume = 1 - Math.abs(carRef.current.position.x) / 25
+      const volume = 0.75 - Math.abs(carRef.current.position.x) / 25
       gainNode.gain.value = Math.max(0, Math.min(1, volume))
 
       const pan = carRef.current.position.x / -25
