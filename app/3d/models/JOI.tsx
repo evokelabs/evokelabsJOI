@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useLoader, useThree } from '@react-three/fiber'
 import { DRACOLoader, GLTFLoader } from 'three/examples/jsm/Addons.js'
+import { Group } from 'three'
 
 const DRACO_DECODER_PATH = 'https://www.gstatic.com/draco/versioned/decoders/1.5.6/'
 
@@ -17,21 +18,23 @@ const JOI = () => {
   const gltfHair = useLoader(GLTFLoader, '/glb/JOI-hair.glb', loader => loader.setDRACOLoader(dracoLoader))
 
   useEffect(() => {
+    const JOIgroup = new Group()
+
     if (gltf.scene) {
-      scene.add(gltf.scene)
+      JOIgroup.add(gltf.scene)
     }
 
     if (gltfHair.scene) {
-      scene.add(gltfHair.scene)
+      JOIgroup.add(gltfHair.scene)
     }
 
+    scene.add(JOIgroup)
+
+    JOIgroup.position.x -= 0.1
+
     return () => {
-      if (gltf.scene) {
-        scene.remove(gltf.scene)
-      }
-      if (gltfHair.scene) {
-        scene.remove(gltfHair.scene)
-      }
+      // Remove the group from the scene
+      scene.remove(JOIgroup)
     }
   }, [gltf, gltfHair, scene])
 
