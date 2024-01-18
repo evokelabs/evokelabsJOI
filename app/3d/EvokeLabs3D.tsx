@@ -11,6 +11,7 @@ import Rain from './particles/Rain'
 import VideoSkybox from './textures/VideoSkyBox'
 import CyberpunkCar from './models/CyberpunkCar/index'
 import JOI from './models/JOI'
+import Music from './audio/Music'
 
 const debug = false
 // const debug = true
@@ -59,16 +60,19 @@ const Evokelabs3D = () => {
   const fov = typeof window !== 'undefined' ? getFov(window.innerWidth) : 50
 
   return (
-    <Canvas camera={{ position: [0, 1.5, -1], fov, near: 0.1, far: 2000 }} shadows>
-      <VideoSkybox />
-      {debug ? <Perf position='top-left' /> : <CameraRig />}
-      <OrbitControls makeDefault target={vector} enableZoom={debug} enablePan={debug} enableRotate={debug} />
-      <Lights />
-      <CyberpunkMap />
-      <JOI />
-      <CyberpunkCar />
-      <Rain />
-    </Canvas>
+    <>
+      <Canvas camera={{ position: [0, 1.5, -1], fov, near: 0.1, far: 2000 }} shadows>
+        <VideoSkybox />
+        {debug ? <Perf position='top-left' /> : <CameraRig />}
+        <OrbitControls makeDefault target={vector} enableZoom={debug} enablePan={debug} enableRotate={debug} />
+        <Lights />
+        <CyberpunkMap />
+        <JOI />
+        <CyberpunkCar />
+        <Rain />
+      </Canvas>
+      <Music />
+    </>
   )
 }
 
