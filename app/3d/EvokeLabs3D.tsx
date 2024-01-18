@@ -13,6 +13,7 @@ import CyberpunkCar from './models/CyberpunkCar/index'
 import JOI from './models/JOI'
 
 const debug = false
+// const debug = true
 
 const CameraRig = () => {
   const { camera, size } = useThree()
