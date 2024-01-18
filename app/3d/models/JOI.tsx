@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { AnimationMixer, Clock, Mesh } from 'three'
+import { AnimationMixer, Clock, Mesh, Vector3 } from 'three'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { SkeletonUtils } from 'three/examples/jsm/Addons.js'
 
@@ -15,6 +15,7 @@ const JOI = () => {
   const { actions } = useAnimations(animations, model)
 
   const head = nodes.rigHead // Access the head bone
+  const neck = nodes.rigNeck // Access the neck bone
 
   useEffect(() => {
     if (!model || !head) return
@@ -52,7 +53,11 @@ const JOI = () => {
   useFrame(() => {
     mixer.current?.update(new Clock().getDelta())
 
-    // Make the neck bone look at the camera
+    if (neck) {
+      const midpoint = new Vector3().addVectors(neck.position, camera.position).multiplyScalar(0.5)
+      neck.lookAt(midpoint)
+    }
+
     head?.lookAt(camera.position)
   })
 
