@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { AnimationMixer, Clock } from 'three'
+import { AnimationMixer, Clock, Mesh } from 'three'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { SkeletonUtils } from 'three/examples/jsm/Addons.js'
 
@@ -35,6 +35,13 @@ const JOI = () => {
       mixer.current = new AnimationMixer(model)
       Object.values(actions).forEach(action => action!.play())
     }
+
+    // Make the entire model receive shadows
+    model.traverse(object => {
+      if (object instanceof Mesh) {
+        object.receiveShadow = true
+      }
+    })
 
     return () => {
       // Remove the model from the scene

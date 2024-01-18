@@ -27,6 +27,8 @@ const CyberpunkMap = () => {
           } else if (object.name === 'Window_Shutters_Closed') {
             object.castShadow = true
             gsap.to(object.position, { y: 2.7, duration: 5, delay: 2, ease: 'Power1.easeOut' })
+          } else if (object.name === 'Wall_Curved_VendingMachine_Outdoor') {
+            object.castShadow = true
           } else {
             object.castShadow = true
             object.receiveShadow = true
