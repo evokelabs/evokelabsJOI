@@ -61,7 +61,6 @@ const Evokelabs3D = () => {
   return (
     <Canvas camera={{ position: [0, 1.5, -1], fov, near: 0.1, far: 2000 }} shadows>
       <VideoSkybox />
-      <Environment background files={'./hdr/cyberpunk.hdr'} />
       {debug ? <Perf position='top-left' /> : <CameraRig />}
       <OrbitControls makeDefault target={vector} enableZoom={debug} enablePan={debug} enableRotate={debug} />
       <Lights />
