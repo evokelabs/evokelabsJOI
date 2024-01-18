@@ -1,5 +1,5 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Environment, OrbitControls } from '@react-three/drei'
+import { OrbitControls } from '@react-three/drei'
 import { Vector3, PerspectiveCamera } from 'three'
 import { Perf } from 'r3f-perf'
 import { useEffect, useState } from 'react'

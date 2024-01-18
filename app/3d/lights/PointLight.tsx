@@ -1,6 +1,5 @@
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
-import { useThree } from '@react-three/fiber'
 
 const BASE_POSITION: [number, number, number] = [-0.6, 2.5, 0.7]
 const LIGHT_COLOR = '#FFA775'
@@ -23,7 +22,6 @@ const PointLight: React.FC<PointLightProps> = ({ positionOffset = [0, 0, 0] }) =
     BASE_POSITION[2] + positionOffset[2]
   ]
   const lightRef = useRef<THREE.PointLight>(null)
-
 
   useEffect(() => {
     if (lightRef.current) {
