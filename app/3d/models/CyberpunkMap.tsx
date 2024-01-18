@@ -19,8 +19,6 @@ const CyberpunkMap = () => {
   useEffect(() => {
     if (gltf.scene) {
       scene.add(gltf.scene)
-
-      console.log(gltf.scene)
       gltf.scene.traverse(object => {
         if (object instanceof Mesh) {
           if (object.name === 'Window_Glass_Main') {
