@@ -4,9 +4,9 @@ import { useThree } from '@react-three/fiber'
 
 const BASE_POSITION: [number, number, number] = [-0.6, 2.5, 0.7]
 const LIGHT_COLOR = '#FFA775'
-const LIGHT_INTENSITY = 60
+const LIGHT_INTENSITY = 90
 const SHADOW_NORMAL_BIAS = 0.04
-const DECAY = 5
+const DECAY = 4.85
 
 const LIGHT_ANIMATION_DURATION = 4
 const LIGHT_ANIMATION_DELAY = 4
@@ -23,7 +23,7 @@ const PointLight: React.FC<PointLightProps> = ({ positionOffset = [0, 0, 0] }) =
     BASE_POSITION[2] + positionOffset[2]
   ]
   const lightRef = useRef<THREE.PointLight>(null)
-  const { scene } = useThree()
+
 
   useEffect(() => {
     if (lightRef.current) {

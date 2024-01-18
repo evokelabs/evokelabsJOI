@@ -4,7 +4,7 @@ import { useThree } from '@react-three/fiber'
 
 const BASE_POSITION: [number, number, number] = [11, 6, 15]
 const LIGHT_COLOR = '#003C67'
-const LIGHT_INTENSITY = 150
+const LIGHT_INTENSITY = 500
 const SHADOW_NORMAL_BIAS = 0.04
 
 const DirectionLight = () => {
