@@ -7,7 +7,7 @@ const Music = () => {
     const audioContext = new AudioContext()
     audioElement.current = document.createElement('audio')
     audioElement.current.src = '/sounds/joi-mix.mp3'
-    audioElement.current.volume = 0.7
+    audioElement.current.volume = 0.0
 
     const track = audioContext.createMediaElementSource(audioElement.current)
     track.connect(audioContext.destination)
