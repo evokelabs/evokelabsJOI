@@ -8,17 +8,19 @@ const CAMERA_Y_OFFSET = 0.5
 const CameraRig = ({ fov, debug }: { fov: number; debug: boolean }) => {
   const { camera } = useThree()
 
-  useFrame(state => {
+  useFrame(({ pointer, viewport }) => {
     if (debug) return
-    const XPosition = 0 - (state.pointer.x * state.viewport.width) / CAMERA_X_OFFSET
-    const YPosition = (CAMERA_X_OFFSET + state.pointer.y) / 2
-    const ZPosition = -CAMERA_Y_OFFSET
-    const dampingValue = CAMERA_DAMPING
 
+    // Calculate the target position of the camera
+    const XPosition = 0 - (pointer.x * viewport.width) / CAMERA_X_OFFSET
+    const YPosition = (CAMERA_X_OFFSET + pointer.y) / 2
+    const ZPosition = -CAMERA_Y_OFFSET
     const targetPosition = new Vector3(XPosition, YPosition, ZPosition)
 
-    camera.position?.lerp(targetPosition, dampingValue)
+    // Move the camera towards the target position
+    camera.position?.lerp(targetPosition, CAMERA_DAMPING)
 
+    // Update the field of view and the projection matrix of the camera
     const perspectiveCamera = camera as PerspectiveCamera
     perspectiveCamera.fov = fov
     perspectiveCamera.updateProjectionMatrix()
