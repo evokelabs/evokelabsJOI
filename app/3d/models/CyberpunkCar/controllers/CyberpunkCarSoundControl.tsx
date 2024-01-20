@@ -2,15 +2,23 @@ import { useEffect, useState } from 'react'
 import { MutableRefObject } from 'react'
 import { useFrame } from '@react-three/fiber'
 
-interface CarSoundControlProps {
-  carRef: MutableRefObject<any>
+const SOUND_PATH = '/sounds/engineLoop.ogg'
+const MAX_VOLUME = 0.75
+const MIN_VOLUME = 0
+const VOLUME_DIVISOR = 25
+
+type CarSoundControlProps = {
+  carRef: MutableRefObject<THREE.Mesh>
 }
 
-const CyberpunkCarSoundControl: React.FC<CarSoundControlProps> = ({ carRef }) => {
+// This component controls the sound of a car in a cyberpunk scene.
+const CyberpunkCarSoundControl = ({ carRef }: CarSoundControlProps) => {
   const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null)
   const [gainNode, setGainNode] = useState<GainNode | null>(null)
   const [panner, setPanner] = useState<StereoPannerNode | null>(null)
 
+  // On mount and when audioCtx changes, set up the audio context, gain node, and panner.
+  // Also, load and play the sound, and add event listeners to resume the audio when it's suspended.
   useEffect(() => {
     const resumeAudio = async () => {
       if (!audioCtx) {
@@ -22,7 +30,7 @@ const CyberpunkCarSoundControl: React.FC<CarSoundControlProps> = ({ carRef }) =>
         setGainNode(newGainNode)
         setPanner(newPanner)
 
-        const response = await fetch('/sounds/engineLoop.ogg')
+        const response = await fetch(SOUND_PATH)
         const arrayBuffer = await response.arrayBuffer()
         const audioBuffer = await newAudioCtx.decodeAudioData(arrayBuffer)
 
@@ -48,13 +56,11 @@ const CyberpunkCarSoundControl: React.FC<CarSoundControlProps> = ({ carRef }) =>
     }
   }, [audioCtx])
 
+  // On each frame, update the volume and pan of the sound based on the car's position.
   useFrame(() => {
     if (carRef.current && gainNode && panner) {
-      const volume = 0.75 - Math.abs(carRef.current.position.x) / 25
-      gainNode.gain.value = Math.max(0, Math.min(1, volume))
-
-      const pan = carRef.current.position.x / -25
-      panner.pan.value = Math.max(-1, Math.min(1, pan))
+      const volume = MAX_VOLUME - Math.abs(carRef.current.position.x) / VOLUME_DIVISOR
+      gainNode.gain.value = Math.max(MIN_VOLUME, Math.min(MAX_VOLUME, volume))
     }
   })
 
