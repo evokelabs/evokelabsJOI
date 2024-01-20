@@ -1,14 +1,16 @@
-// Helper function to get FOV based on viewport width
+// getFov is a helper function that returns the Field of View (FOV) based on the viewport width.
+// It uses different FOV values for different viewport widths to ensure the best user experience on all devices.
 export const getFov = (width: number): number => {
-  if (width <= 480) {
-    return 50 // Mobile devices
-  } else if (width <= 1024) {
-    return 40 // Desktop Min
-  } else if (width <= 2024) {
-    return 36 // Desktop Med
-  } else if (width <= 3024) {
-    return 28 // Desktop Max
-  } else {
-    return 23 // Widescreen
+  switch (true) {
+    case width <= 480:
+      return 50 // Mobile devices
+    case width <= 1024:
+      return 40 // Desktop Min
+    case width <= 2024:
+      return 36 // Desktop Med
+    case width <= 3024:
+      return 28 // Desktop Max
+    default:
+      return 23 // Widescreen
   }
 }
