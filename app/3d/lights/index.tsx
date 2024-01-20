@@ -1,15 +1,17 @@
 import React, { useRef, useEffect, useContext } from 'react'
 import { gsap } from 'gsap'
+
 import PointLight from './PointLight'
 import DirectionLight from './DirectionLight'
-import { AnimationContext } from '@/app/libs/AnimationContext'
+
+import { AnimationContext } from './../../libs/AnimationContext'
+
+const LIGHT_INTENSITY = 90
+const LIGHT_ANIMATION_DURATION = 4
+const LIGHT_ANIMATION_DELAY = 0
+const LIGHT_ANIMATION_EASE = 'Power1.easeIn'
 
 export const Lights = () => {
-  const LIGHT_INTENSITY = 90
-  const LIGHT_ANIMATION_DURATION = 4
-  const LIGHT_ANIMATION_DELAY = 0
-  const LIGHT_ANIMATION_EASE = 'Power1.easeIn'
-
   const light1Ref = useRef(null)
   const light2Ref = useRef(null)
   const ambientLightRef = useRef<THREE.AmbientLight>(null)
@@ -17,7 +19,7 @@ export const Lights = () => {
 
   useEffect(() => {
     if (shouldAmbientLightPlay) {
-      gsap.fromTo(ambientLightRef.current, { intensity: 0 }, { intensity: 1.5, duration: 4 })
+      gsap.fromTo(ambientLightRef.current, { intensity: 0 }, { intensity: 1.5, duration: LIGHT_ANIMATION_DURATION })
     }
   }, [shouldAmbientLightPlay])
 
