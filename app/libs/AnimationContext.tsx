@@ -1,5 +1,4 @@
 import { createContext } from 'react'
-import { gsap } from 'gsap'
 
 export const AnimationContext = createContext({
   shouldPointLightPlay: false,
