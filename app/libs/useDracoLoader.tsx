@@ -1,6 +1,6 @@
 import { DRACOLoader, GLTFLoader } from 'three/examples/jsm/Addons.js'
 
-const DRACO_DECODER_PATH = 'https://www.gstatic.com/draco/versioned/decoders/1.5.6/'
+const DRACO_DECODER_PATH = 'https://www.gstatic.com/draco/v1/decoders/'
 
 export const useDracoLoader = () => {
   const dracoLoader = new DRACOLoader()
