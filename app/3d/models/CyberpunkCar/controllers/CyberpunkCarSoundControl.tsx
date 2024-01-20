@@ -8,7 +8,6 @@ const MAX_VOLUME = 0.75
 const MIN_VOLUME = 0
 const VOLUME_DIVISOR = 25
 
-
 // This component controls the sound of a car in a cyberpunk scene.
 const CyberpunkCarSoundControl = ({ carRef }: CyberpunkRefType) => {
   const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null)
@@ -59,6 +58,9 @@ const CyberpunkCarSoundControl = ({ carRef }: CyberpunkRefType) => {
     if (carRef.current && gainNode && panner) {
       const volume = MAX_VOLUME - Math.abs(carRef.current.position.x) / VOLUME_DIVISOR
       gainNode.gain.value = Math.max(MIN_VOLUME, Math.min(MAX_VOLUME, volume))
+
+      const pan = carRef.current.position.x / -25
+      panner.pan.value = Math.max(-1, Math.min(1, pan))
     }
   })
 
