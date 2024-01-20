@@ -1,13 +1,10 @@
 import { useFrame } from '@react-three/fiber'
-import { MutableRefObject, useState } from 'react'
+import { useState } from 'react'
 import { CAR_OFFSET_X, CAR_OFFSET_Y, CAR_OFFSET_Z, CAR_ANIM_SPEED, CAR_ANIM_DISTANCE } from '../constants'
-
-type CyberpunkCarAnimationProps = {
-  carRef: MutableRefObject<THREE.Mesh>
-}
+import { CyberpunkRefType } from '../index'
 
 // This component animates a car in a cyberpunk scene.
-const CyberpunkCarAnimation = ({ carRef }: CyberpunkCarAnimationProps) => {
+const CyberpunkCarAnimation = ({ carRef }: CyberpunkRefType) => {
   const [direction, setDirection] = useState(1)
   const [carAnimSpeed, setCarAnimSpeed] = useState(CAR_ANIM_SPEED[0]) // You can set the initial speed to any value you want
 

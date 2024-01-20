@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Object3D, Object3DEventMap } from 'three'
 import { useDracoLoader } from '@/app/libs/useDracoLoader'
@@ -7,6 +7,10 @@ import CyberpunkCarAnimation from './controllers/CyberpunkCarAnimation'
 import CyberpunkCarSoundControl from './controllers/CyberpunkCarSoundControl'
 
 import { CAR_OFFSET_X, CAR_OFFSET_Y, CAR_OFFSET_Z } from './constants'
+
+export type CyberpunkRefType = {
+  carRef: MutableRefObject<THREE.Mesh | THREE.Object3D | null>
+}
 
 const CyberpunkCar = () => {
   const { scene } = useThree()

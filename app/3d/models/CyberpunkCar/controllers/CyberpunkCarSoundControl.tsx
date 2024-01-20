@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react'
-import { MutableRefObject } from 'react'
 import { useFrame } from '@react-three/fiber'
+
+import { CyberpunkRefType } from '../index'
 
 const SOUND_PATH = '/sounds/engineLoop.ogg'
 const MAX_VOLUME = 0.75
 const MIN_VOLUME = 0
 const VOLUME_DIVISOR = 25
 
-type CarSoundControlProps = {
-  carRef: MutableRefObject<THREE.Mesh>
-}
 
 // This component controls the sound of a car in a cyberpunk scene.
-const CyberpunkCarSoundControl = ({ carRef }: CarSoundControlProps) => {
+const CyberpunkCarSoundControl = ({ carRef }: CyberpunkRefType) => {
   const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null)
   const [gainNode, setGainNode] = useState<GainNode | null>(null)
   const [panner, setPanner] = useState<StereoPannerNode | null>(null)
