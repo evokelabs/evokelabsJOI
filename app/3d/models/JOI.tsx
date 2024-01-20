@@ -7,8 +7,7 @@ import { useDracoLoader } from '@/app/libs/useDracoLoader'
 
 const JOI = () => {
   const { scene } = useThree()
-
-  const gltfLoader = useDracoLoader()
+  const gltfLoader = useRef(useDracoLoader()).current
 
   useEffect(() => {
     gltfLoader.load(

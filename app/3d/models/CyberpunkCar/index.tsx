@@ -12,12 +12,14 @@ const CyberpunkCar = () => {
   const { scene } = useThree()
   const carRef = useRef<Object3D | null>(null)
   const [isCarLoaded, setCarLoaded] = useState(false)
+  const gltfRef = useRef<{ scene: Object3D<Object3DEventMap> } | null>(null)
 
-  const gltfLoader = useDracoLoader()
+  const gltfLoader = useRef(useDracoLoader()).current
 
   const handleModelLoad = useCallback(
     (gltf: { scene: Object3D<Object3DEventMap> }) => {
       const car = gltf.scene.children[0] as Object3D
+      gltfRef.current = gltf
       if (carRef.current && scene.children.includes(carRef.current)) {
         return // If the car model already exists in the scene, do not execute the rest of the code
       }
@@ -42,9 +44,9 @@ const CyberpunkCar = () => {
     loadModel()
 
     return () => {
-      scene.children.forEach(child => {
-        if (child instanceof Object3D) scene.remove(child)
-      })
+      if (gltfRef.current?.scene) {
+        scene.remove(gltfRef.current.scene)
+      }
     }
   }, [scene, loadModel])
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Mesh, Scene } from 'three'
 import { gsap } from 'gsap'
@@ -6,8 +6,7 @@ import { useDracoLoader } from '@/app/libs/useDracoLoader'
 
 const CyberpunkMap = () => {
   const { scene } = useThree()
-
-  const gltfLoader = useDracoLoader()
+  const gltfLoader = useRef(useDracoLoader()).current
 
   useEffect(() => {
     gltfLoader.load(
@@ -40,6 +39,9 @@ const CyberpunkMap = () => {
         console.error('An error occurred while loading the model:', error)
       }
     )
+
+    console.log('CyberpunkMap.tsx: scene.children:', scene.children)
+    console.log('CyberpunkMap.tsx: scene:', scene)
 
     return () => {
       scene.children.forEach(child => {
