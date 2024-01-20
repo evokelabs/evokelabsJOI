@@ -25,16 +25,10 @@ const VideoSkybox = () => {
     const imageTexture = imageLoader.load(VIDEO_IMAGE)
     setTexture(imageTexture)
 
-    // Check if the screen is high resolution or ultrawide
     const isHighRes = window.screen.width > 1920 || window.screen.height > 1080
     const isUltrawide = window.matchMedia('(aspect-ratio: 21/9)').matches
+    const isFastNetwork = navigator.connection ? navigator.connection.downlink > 5 : true
 
-    // Check if the network is fast
-    const isFastNetwork = navigator.connection
-      ? navigator.connection.downlink > 5 //
-      : true
-
-    // Use the 4K video for high resolution or ultrawide screens with a fast network, and the normal video for other cases
     video.src = (isHighRes || isUltrawide) && isFastNetwork ? VIDEO_4K : VIDEO_NORMAL
     video.loop = true
     video.muted = true
