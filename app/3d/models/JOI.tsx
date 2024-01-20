@@ -1,83 +1,37 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useMemo, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { AnimationMixer, Clock, Mesh, Vector3 } from 'three'
-import { useGLTF, useAnimations } from '@react-three/drei'
-import { useControls } from 'leva' // Import useControls from leva
-import { SkeletonUtils } from 'three-stdlib'
+import { Scene } from 'three'
+import { useAnimations } from '@react-three/drei'
+import { useControls } from 'leva'
+import { useDracoLoader } from '@/app/libs/useDracoLoader'
 
 const JOI = () => {
-  const { scene, camera } = useThree()
-  const mixer = useRef<AnimationMixer | null>(null)
+  const { scene } = useThree()
 
-  const gltf = useGLTF('/glb/JOI.glb')
-  const gltfHair = useGLTF('/glb/JOI-Hair.glb')
-  const { nodes, animations } = gltf
-  const model = nodes.Scene || nodes.scene
-  const { actions } = useAnimations(animations, model)
-
-  const head = nodes.rigHead as Mesh // Access the head bone
-  const neck = nodes.rigNeck as Mesh // Access the neck bone
-
-  const { animation } = useControls({
-    animation: {
-      value: Object.keys(actions)[0], // Use the first animation as the initial value
-      options: Object.keys(actions) // Use the names of the animations as options
-    }
-  })
+  const gltfLoader = useDracoLoader()
 
   useEffect(() => {
-    if (!model || !head) return
-
-    scene.add(model)
-
-    // Add the hair to the model
-    const hair = gltfHair.nodes['JOI-Hair'] as Mesh
-
-    // Clone the hair model and attach it to the spine bone
-    const clonedHair = SkeletonUtils.clone(hair) as Mesh
-    head.add(clonedHair)
-
-    clonedHair.position.set(0.01, 0.175, 0)
-    clonedHair.rotation.set(-89.5, Math.PI, Math.PI) // Set all rotations at once to correct alignment
-
-    if (animations && animations.length > 0) {
-      mixer.current = new AnimationMixer(model)
-      Object.values(actions).forEach(action => action!.play())
-    }
-
-    // Make the entire model receive shadows
-    model.traverse(object => {
-      if (object instanceof Mesh) {
-        object.receiveShadow = true
+    gltfLoader.load(
+      '/glb/JOI.glb',
+      gltf => {
+        scene.add(gltf.scene)
+      },
+      undefined,
+      error => {
+        console.error('An error occurred while loading the model:', error)
       }
-    })
-
-    console.log(actions)
+    )
 
     return () => {
-      // Remove the model from the scene
-      scene.remove(model)
+      scene.children.forEach(child => {
+        if (child instanceof Scene) scene.remove(child)
+      })
     }
-  }, [model, scene, actions, animations, gltfHair, head])
+  }, [gltfLoader, scene])
 
-  useEffect(() => {
-    // Stop all animations
-    Object.values(actions)?.forEach(action => action?.stop())
-
-    // Play the selected animation
-    actions?.[animation]?.play()
-  }, [animation, actions])
-
-  useFrame(() => {
-    mixer.current?.update(new Clock().getDelta())
-
-    if (neck) {
-      const midpoint = new Vector3().addVectors(neck.position, camera.position).multiplyScalar(0.5)
-      neck.lookAt(midpoint)
-    }
-
-    head?.lookAt(camera.position)
-  })
+  // useFrame(() => {
+  //   mixer.current?.update(new Clock().getDelta())
+  // })
 
   return null
 }

@@ -11,25 +11,14 @@ const CyberpunkCarAnimation: React.FC<CyberpunkCarAnimationProps> = ({ carRef })
   const [direction, setDirection] = useState(1)
   const [carAnimSpeed, setCarAnimSpeed] = useState(CAR_ANIM_SPEED[0]) // You can set the initial speed to any value you want
 
-  const setRandomYPosition = () => {
-    if (carRef.current) {
-      const randomY = Math.random() * (CAR_OFFSET_Y[1] - CAR_OFFSET_Y[0]) + CAR_OFFSET_Y[0]
-      carRef.current.position.y = randomY
-    }
+  const getRandomPosition = (range: [number, number]) => {
+    return Math.random() * (range[1] - range[0]) + range[0]
   }
 
-  const setRandomZPosition = () => {
-    if (carRef.current) {
-      const randomZ = Math.random() * (CAR_OFFSET_Z[1] - CAR_OFFSET_Z[0]) + CAR_OFFSET_Z[0]
-      carRef.current.position.z = randomZ
-    }
-  }
-
-  const setRandomSpeed = () => {
+  const getRandomSpeed = () => {
     const minSpeed = CAR_ANIM_SPEED[0] // Set the minimum speed
     const maxSpeed = CAR_ANIM_SPEED[1] // Set the maximum speed
-    const randomSpeed = Math.random() * (maxSpeed - minSpeed) + minSpeed
-    setCarAnimSpeed(randomSpeed)
+    return Math.random() * (maxSpeed - minSpeed) + minSpeed
   }
 
   useFrame(({ clock }) => {
@@ -41,13 +30,14 @@ const CyberpunkCarAnimation: React.FC<CyberpunkCarAnimationProps> = ({ carRef })
         clock.start() // Reset the clock
         elapsedTime = clock.getElapsedTime() // Get the reset elapsedTime
         carRef.current.position.x = CAR_OFFSET_X
-        setRandomYPosition()
-        setRandomZPosition()
+
+        carRef.current.position.y = getRandomPosition(CAR_OFFSET_Y as [number, number])
+        carRef.current.position.z = getRandomPosition(CAR_OFFSET_Z as [number, number])
         // Change the direction, rotation, and speed of the car
         const newDirection = Math.random() < 0.5 ? 1 : -1
         setDirection(newDirection)
         carRef.current.rotation.z = newDirection === 1 ? 0 : Math.PI
-        setRandomSpeed()
+        setCarAnimSpeed(getRandomSpeed())
       }
       // Calculate the car's position based on the reset elapsedTime
       carRef.current.position.x = direction * ((elapsedTime / carAnimSpeed) * CAR_ANIM_DISTANCE + CAR_OFFSET_X)

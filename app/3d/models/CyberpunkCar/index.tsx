@@ -1,45 +1,57 @@
-import { useEffect, useRef } from 'react'
-import { useLoader, useThree } from '@react-three/fiber'
-import { DRACOLoader, GLTFLoader } from 'three/examples/jsm/Addons.js'
-import { Object3D } from 'three'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useThree } from '@react-three/fiber'
+import { Object3D, Object3DEventMap } from 'three'
+import { useDracoLoader } from '@/app/libs/useDracoLoader'
 
 import CyberpunkCarAnimation from './controllers/CyberpunkCarAnimation'
 import CyberpunkCarSoundControl from './controllers/CyberpunkCarSoundControl'
 
 import { CAR_OFFSET_X, CAR_OFFSET_Y, CAR_OFFSET_Z } from './constants'
 
-const DRACO_DECODER_PATH = 'https://www.gstatic.com/draco/versioned/decoders/1.5.6/'
-
 const CyberpunkCar = () => {
   const { scene } = useThree()
-  const carRef = useRef<Object3D>()
+  const carRef = useRef<Object3D | null>(null)
+  const [isCarLoaded, setCarLoaded] = useState(false)
 
-  const dracoLoader = new DRACOLoader()
-  dracoLoader.setDecoderPath(DRACO_DECODER_PATH)
+  const gltfLoader = useDracoLoader()
 
-  const gltfLoader = new GLTFLoader()
-  gltfLoader.setDRACOLoader(dracoLoader)
+  const handleModelLoad = useCallback(
+    (gltf: { scene: Object3D<Object3DEventMap> }) => {
+      const car = gltf.scene.children[0] as Object3D
+      if (carRef.current && scene.children.includes(carRef.current)) {
+        return // If the car model already exists in the scene, do not execute the rest of the code
+      }
+      carRef.current = car
+      car.castShadow = true
+      car.position.set(CAR_OFFSET_X, CAR_OFFSET_Y[0], CAR_OFFSET_Z[0])
+      scene.add(car)
+      setCarLoaded(true) // Set isCarLoaded to true when the model finishes loading
+    },
+    [scene, carRef, setCarLoaded]
+  )
 
-  const gltf = useLoader(GLTFLoader, '/glb/Cyberpunk-Car.glb', loader => loader.setDRACOLoader(dracoLoader))
+  const loadModel = useCallback(() => {
+    gltfLoader.load('/glb/CyberpunkCar.glb', handleModelLoad, undefined, handleModelError)
+  }, [gltfLoader, handleModelLoad])
+
+  const handleModelError = (error: unknown) => {
+    console.error('An error occurred while loading the model:', error)
+  }
 
   useEffect(() => {
-    if (gltf.scene) {
-      carRef.current = gltf.scene.children[0]
-      gltf.scene.children[0].castShadow = true
-      carRef.current.position.set(CAR_OFFSET_X, CAR_OFFSET_Y[0], CAR_OFFSET_Z[0])
-      scene.add(gltf.scene)
-    }
+    loadModel()
+
     return () => {
-      if (gltf.scene) {
-        scene.remove(gltf.scene)
-      }
+      scene.children.forEach(child => {
+        if (child instanceof Object3D) scene.remove(child)
+      })
     }
-  }, [gltf, scene])
+  }, [scene, loadModel])
 
   return (
     <>
-      <CyberpunkCarAnimation carRef={carRef} />
-      <CyberpunkCarSoundControl carRef={carRef} />
+      {isCarLoaded && <CyberpunkCarAnimation carRef={carRef} />}
+      {isCarLoaded && <CyberpunkCarSoundControl carRef={carRef} />}
     </>
   )
 }
