@@ -30,7 +30,7 @@ const CyberpunkMap = () => {
                   ease: 'Power1.easeOut',
                   onStart: () => {
                     setAmbientLightPlay(true)
-                    gsap.delayedCall(4, () => {
+                    gsap.delayedCall(3, () => {
                       setPointLightPlay(true)
                     })
                   }

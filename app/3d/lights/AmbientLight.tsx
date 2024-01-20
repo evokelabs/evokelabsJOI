@@ -6,6 +6,7 @@ import { AnimationContext } from '../../libs/AnimationContext'
 // Constants
 const LIGHT_ANIMATION_DURATION = 4
 const LIGHT_INTENSITY = 1.5
+const LIGHT_ANIMATION_EASE = 'Power1.easeIn'
 
 const AmbientLight = () => {
   const ambientLightRef = useRef<THREE.AmbientLight>(null)
@@ -13,7 +14,11 @@ const AmbientLight = () => {
 
   useEffect(() => {
     if (shouldAmbientLightPlay && ambientLightRef.current) {
-      gsap.fromTo(ambientLightRef.current, { intensity: 0 }, { intensity: LIGHT_INTENSITY, duration: LIGHT_ANIMATION_DURATION })
+      gsap.fromTo(
+        ambientLightRef.current,
+        { intensity: 0 },
+        { intensity: LIGHT_INTENSITY, duration: LIGHT_ANIMATION_DURATION, ease: LIGHT_ANIMATION_EASE }
+      )
     }
   }, [shouldAmbientLightPlay])
 
