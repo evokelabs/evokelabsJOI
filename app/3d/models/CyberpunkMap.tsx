@@ -1,12 +1,14 @@
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Mesh, Scene } from 'three'
 import { gsap } from 'gsap'
-import { useDracoLoader } from '@/app/libs/useDracoLoader'
+import { useDracoLoader } from './../../libs/useDracoLoader'
+import { AnimationContext } from './../../libs/AnimationContext'
 
 const CyberpunkMap = () => {
   const { scene } = useThree()
   const gltfLoader = useRef(useDracoLoader()).current
+  const { setPointLightPlay, setAmbientLightPlay } = useContext(AnimationContext)
 
   useEffect(() => {
     gltfLoader.load(
@@ -21,7 +23,18 @@ const CyberpunkMap = () => {
                 break
               case 'Window_Shutters_Closed':
                 object.castShadow = true
-                gsap.to(object.position, { y: 2.7, duration: 5, delay: 2, ease: 'Power1.easeOut' })
+                gsap.to(object.position, {
+                  y: 2.7,
+                  duration: 5,
+                  delay: 2,
+                  ease: 'Power1.easeOut',
+                  onStart: () => {
+                    setAmbientLightPlay(true)
+                    gsap.delayedCall(4, () => {
+                      setPointLightPlay(true)
+                    })
+                  }
+                })
                 break
               case 'Wall_Curved_VendingMachine_Outdoor':
                 object.castShadow = true
@@ -40,15 +53,12 @@ const CyberpunkMap = () => {
       }
     )
 
-    console.log('CyberpunkMap.tsx: scene.children:', scene.children)
-    console.log('CyberpunkMap.tsx: scene:', scene)
-
     return () => {
       scene.children.forEach(child => {
         if (child instanceof Scene) scene.remove(child)
       })
     }
-  }, [scene, gltfLoader])
+  }, [scene, gltfLoader, setPointLightPlay, setAmbientLightPlay])
 
   return null
 }

@@ -2,7 +2,8 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { Vector3, PerspectiveCamera } from 'three'
 import { Perf } from 'r3f-perf'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
+import { gsap } from 'gsap'
 
 import CyberpunkMap from './models/CyberpunkMap'
 import { getFov } from '../libs/helpers'
@@ -12,6 +13,7 @@ import VideoSkybox from './textures/VideoSkyBox'
 import CyberpunkCar from './models/CyberpunkCar/index'
 import JOI from './models/JOI'
 import Music from './audio/Music'
+import { AnimationContext } from '../libs/AnimationContext'
 
 // const debug = false
 const debug = true
@@ -43,6 +45,9 @@ const Evokelabs3D = () => {
   const initialVector = isMobile ? new Vector3(0.8, 1.4, 2.5) : new Vector3(0.15, 1.4, 2.5)
   const [vector, setVector] = useState(initialVector)
 
+  const [shouldAmbientLightPlay, setAmbientLightPlay] = useState(false)
+  const [shouldPointLightPlay, setPointLightPlay] = useState(false)
+
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.innerWidth <= 768
@@ -65,11 +70,15 @@ const Evokelabs3D = () => {
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : <CameraRig />}
         <OrbitControls makeDefault target={vector} enableZoom={debug} enablePan={debug} enableRotate={debug} />
-        <Lights />
-        <CyberpunkMap />
-        <JOI />
-        <CyberpunkCar />
-        <Rain />
+        <AnimationContext.Provider value={{ shouldAmbientLightPlay, shouldPointLightPlay, setAmbientLightPlay, setPointLightPlay }}>
+          <Suspense fallback={null}>
+            <Lights />
+            <CyberpunkMap />
+            <JOI />
+            <CyberpunkCar />
+            <Rain />
+          </Suspense>
+        </AnimationContext.Provider>
       </Canvas>
       <Music />
     </>
