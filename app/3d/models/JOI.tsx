@@ -1,8 +1,6 @@
-import { useEffect, useRef, useMemo, useState } from 'react'
-import { useFrame, useThree } from '@react-three/fiber'
+import { useEffect, useRef } from 'react'
+import { useThree } from '@react-three/fiber'
 import { Scene } from 'three'
-import { useAnimations } from '@react-three/drei'
-import { useControls } from 'leva'
 import { useDracoLoader } from '@/app/libs/useDracoLoader'
 
 const JOI = () => {
@@ -27,10 +25,6 @@ const JOI = () => {
       })
     }
   }, [gltfLoader, scene])
-
-  // useFrame(() => {
-  //   mixer.current?.update(new Clock().getDelta())
-  // })
 
   return null
 }
