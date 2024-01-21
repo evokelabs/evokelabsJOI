@@ -4,8 +4,8 @@ import { Mesh, MeshStandardMaterial, Object3D } from 'three'
 import { GLTF } from 'three/examples/jsm/Addons.js'
 
 // Constants for the emission animation
-const EMISSIVE_INTENSITY_RANGE = { min: 0.15, max: 3.75 }
-const DURATION = 0.4
+const EMISSIVE_INTENSITY_RANGE = { min: 0.15, max: 5.5 }
+const DURATION = 0.25
 
 /**
  * Custom hook to create an eye emission animation.
