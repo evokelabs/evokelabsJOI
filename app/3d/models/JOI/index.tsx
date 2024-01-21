@@ -1,38 +1,21 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Mesh, MeshStandardMaterial, Object3D, Scene } from 'three'
-import { useDracoLoader } from './../../libs/useDracoLoader'
+import { useDracoLoader } from './../../../libs/useDracoLoader'
 import { gsap } from 'gsap'
+import { useEyeEmissionAnimation } from './controllers/useEyeEmissionAnimation'
 
 // Constants
 const MODEL_PATH = '/glb/JOI.glb'
 const POSITION = { x: 0.7, y: 0.12, z: 2.1 }
 const ROTATION = { pitch: 0, yaw: Math.PI / 0.9, roll: 0 }
 const EYE_NAMES = ['JOI-Eye-Left', 'JOI-Eye-Right']
-const EMISSIVE_INTENSITY_RANGE = { min: 0.5, max: 1.25 }
-const DURATION_RANGE = { min: 0.25, max: 0.65 }
 
 const JOI = () => {
   const { scene } = useThree()
   const gltfLoader = useRef(useDracoLoader()).current
 
-  // Generate an initial random value for duration
-  let newDuration = gsap.utils.random(DURATION_RANGE.min, DURATION_RANGE.max)
-
-  // Define the onRepeat function
-  const onRepeat = (material: gsap.TweenTarget) => {
-    // Generate a new random value for emissiveIntensity
-    const newEmissiveIntensity = gsap.utils.random(EMISSIVE_INTENSITY_RANGE.min, EMISSIVE_INTENSITY_RANGE.max)
-
-    // Update the random value for duration
-    newDuration = gsap.utils.random(DURATION_RANGE.min, DURATION_RANGE.max)
-
-    // Create a new tween that transitions to the new random value over the new random duration
-    gsap.to(material, {
-      emissiveIntensity: newEmissiveIntensity,
-      duration: newDuration
-    })
-  }
+  const startEyeEmissionAnimation = useEyeEmissionAnimation()
 
   useEffect(() => {
     gltfLoader.load(
@@ -51,11 +34,8 @@ const JOI = () => {
               node.receiveShadow = true
 
               if (node.material instanceof MeshStandardMaterial) {
-                // Create a GSAP timeline with the onRepeat function as the onRepeat callback
-                const tl = gsap.timeline({ repeat: -1, onRepeat: () => onRepeat(node.material) })
-
-                // Add a dummy tween to the timeline with the initial random duration
-                tl.to({}, { duration: newDuration })
+                // Create a GSAP timeline with the startAnimation function as the onRepeat callback
+                gsap.timeline({ repeat: -1, onRepeat: () => startEyeEmissionAnimation(node.material) })
               }
             }
           })
@@ -73,7 +53,7 @@ const JOI = () => {
         if (child instanceof Scene) scene.remove(child)
       })
     }
-  }, [gltfLoader, scene])
+  }, [gltfLoader, startEyeEmissionAnimation, scene])
 
   return null
 }
