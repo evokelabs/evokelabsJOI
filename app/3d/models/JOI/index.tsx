@@ -1,104 +1,90 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { AnimationClip, AnimationMixer, Clock, Group, LoopOnce } from 'three'
-import { useAnimations } from '@react-three/drei'
+import { AnimationMixer, Clock, Matrix4, Mesh, Quaternion, Vector3 } from 'three'
+import { useGLTF, useAnimations } from '@react-three/drei'
+import { useControls } from 'leva' // Import useControls from leva
 
-import { useDracoLoader } from './../../../libs/useDracoLoader'
 import { useEyeEmissionAnimation } from './controllers/useEyeEmissionAnimation'
 import { useInitialJOIPositioning } from './controllers/useInitialJOIPositioning'
-
-// Constants
-const MODEL_PATH = '/glb/JOI.glb'
+import { GLTF } from 'three/examples/jsm/Addons.js'
 
 const JOI = () => {
-  const { scene } = useThree()
+  const { scene, camera } = useThree()
   const mixer = useRef<AnimationMixer | null>(null)
-  const gltfLoader = useRef(useDracoLoader()).current
-  const [model, setModel] = useState<Group | null>(null)
-  const [animations, setAnimations] = useState<AnimationClip[] | null>(null)
-  const currentAnimationIndex = useRef(0)
 
   const setInitialPositioning = useInitialJOIPositioning()
   const startEyeEmissionAnimation = useEyeEmissionAnimation()
 
-  const { actions } = useAnimations(animations || [], model || undefined)
+  const gltf = useGLTF('/glb/JOI.glb')
+  const { nodes, animations } = gltf
+  const model = nodes.Scene || nodes.scene
+  const { actions } = useAnimations(animations, model)
 
-  useEffect(() => {
-    gltfLoader.load(
-      MODEL_PATH,
-      gltf => {
-        const loadedModel = gltf.scene
-        setModel(loadedModel)
-        setAnimations(gltf.animations)
+  const head = nodes.mixamorigHead as Mesh // Access the head bone
+  const neck = nodes.mixamorigNeck as Mesh // Access the neck bone
 
-        setInitialPositioning(gltf)
-        startEyeEmissionAnimation(gltf)
-        scene.add(loadedModel)
-        console.log('JOI model loaded', gltf)
-
-        if (gltf.animations && gltf.animations.length > 0) {
-          mixer.current = new AnimationMixer(loadedModel)
-          const action = mixer.current.clipAction(gltf.animations[currentAnimationIndex.current])
-          action.play()
-        }
-
-        // Cleanup function
-        return () => {
-          scene.remove(loadedModel)
-          if (mixer.current) {
-            mixer.current.stopAllAction()
-          }
-        }
-      },
-      undefined,
-      error => {
-        console.error('An error occurred while loading the model:', error)
-      }
-    )
-  }, [gltfLoader, scene, setInitialPositioning, startEyeEmissionAnimation])
-
-  useEffect(() => {
-    if (actions && mixer.current) {
-      const actionKeys = Object.keys(actions)
-
-      const playAnimation = (index: number) => {
-        const action = actions[actionKeys[index]]
-        if (action) {
-          action.loop = LoopOnce
-          action.clampWhenFinished = true
-          action.play()
-        }
-      }
-
-      playAnimation(currentAnimationIndex.current)
-
-      const handleAnimationFinished = function (e: any) {
-        console.log('finished')
-        if (mixer.current) {
-          const currentAction = actions[actionKeys[currentAnimationIndex.current]]
-          if (currentAction) {
-            currentAction.stop()
-          }
-          currentAnimationIndex.current = (currentAnimationIndex.current + 1) % actionKeys.length
-          playAnimation(currentAnimationIndex.current)
-        }
-      }
-
-      mixer.current.addEventListener('finished', handleAnimationFinished)
-
-      // Cleanup function
-      return () => {
-        if (mixer.current) {
-          mixer.current.removeEventListener('finished', handleAnimationFinished)
-        }
-      }
+  const { animation } = useControls({
+    animation: {
+      value: Object.keys(actions)[0], // Use the first animation as the initial value
+      options: Object.keys(actions) // Use the names of the animations as options
     }
-  }, [actions])
-
-  useFrame((state, delta) => {
-    mixer.current?.update(new Clock().getDelta())
   })
 
+  useEffect(() => {
+    if (!model || !head) return
+
+    scene.add(model)
+
+    setInitialPositioning(gltf as GLTF)
+    startEyeEmissionAnimation(gltf as GLTF)
+
+    if (animations && animations.length > 0) {
+      mixer.current = new AnimationMixer(model)
+      Object.values(actions).forEach(action => action!.play())
+    }
+
+    // Make the entire model receive shadows
+    model.traverse(object => {
+      if (object instanceof Mesh) {
+        object.receiveShadow = true
+      }
+    })
+
+    console.log(actions)
+
+    return () => {
+      // Remove the model from the scene
+      scene.remove(model)
+    }
+  }, [model, scene, actions, animations, head, setInitialPositioning, gltf, startEyeEmissionAnimation])
+
+  useEffect(() => {
+    // Stop all animations
+    Object.values(actions)?.forEach(action => action?.stop())
+
+    // Play the selected animation
+    actions?.[animation]?.play()
+  }, [animation, actions])
+
+  useFrame(() => {
+    mixer.current?.update(new Clock().getDelta())
+
+    if (head) {
+      // Calculate the target rotation
+      const targetRotation = new Quaternion().setFromRotationMatrix(
+        new Matrix4().lookAt(head.position, camera.position, new Vector3(0, 0, 0))
+      )
+
+      // Create a new Quaternion for the offset
+      const offset = new Quaternion().setFromAxisAngle(new Vector3(-1.5, 0, 0), Math.PI / 3.5) // Adjust the axis and angle to fit your needs
+
+      // Apply the offset to the target rotation
+      targetRotation.multiply(offset)
+
+      // Interpolate between the current rotation and the target rotation
+      head.quaternion.slerp(targetRotation, 0.65)
+    }
+  })
   return null
 }
 

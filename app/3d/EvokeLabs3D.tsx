@@ -9,15 +9,15 @@ import CyberpunkMap from './models/CyberpunkMap'
 import CyberpunkCar from './models/CyberpunkCar/index'
 import VideoSkybox from './textures/VideoSkyBox'
 import Rain from './particles/Rain'
-import JOI from './models/JOI'
+import JOI from './models/JOI/index'
 import Music from './audio/Music'
 
 import { AnimationContext } from '../libs/AnimationContext'
 import { useCameraSettings } from '../libs/useCameraSettings'
 
 // Constants
-// const debug = false
-const debug = true
+const debug = false
+// const debug = true
 
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 
