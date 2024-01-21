@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { AnimationMixer, AnimationAction } from 'three'
+import { AnimationClip, AnimationMixer, Clock, Group, LoopOnce } from 'three'
+import { useAnimations } from '@react-three/drei'
 
 import { useDracoLoader } from './../../../libs/useDracoLoader'
 import { useEyeEmissionAnimation } from './controllers/useEyeEmissionAnimation'
@@ -10,39 +11,43 @@ import { useInitialJOIPositioning } from './controllers/useInitialJOIPositioning
 const MODEL_PATH = '/glb/JOI.glb'
 
 const JOI = () => {
-  const { scene, clock } = useThree()
+  const { scene } = useThree()
+  const mixer = useRef<AnimationMixer | null>(null)
   const gltfLoader = useRef(useDracoLoader()).current
-  const mixerRef = useRef<AnimationMixer | null>(null)
-  const actionRef = useRef<AnimationAction | null>(null)
+  const [model, setModel] = useState<Group | null>(null)
+  const [animations, setAnimations] = useState<AnimationClip[] | null>(null)
+  const currentAnimationIndex = useRef(0)
 
   const setInitialPositioning = useInitialJOIPositioning()
   const startEyeEmissionAnimation = useEyeEmissionAnimation()
 
-  useFrame(() => {
-    if (mixerRef.current) {
-      const delta = clock.getDelta()
-      mixerRef.current.update(delta)
-    }
-  })
+  const { actions } = useAnimations(animations || [], model || undefined)
 
   useEffect(() => {
     gltfLoader.load(
       MODEL_PATH,
       gltf => {
+        const loadedModel = gltf.scene
+        setModel(loadedModel)
+        setAnimations(gltf.animations)
+
         setInitialPositioning(gltf)
         startEyeEmissionAnimation(gltf)
-        scene.add(gltf.scene)
+        scene.add(loadedModel)
         console.log('JOI model loaded', gltf)
 
-        // Create an AnimationMixer instance
-        const mixer = new AnimationMixer(gltf.scene)
-        mixerRef.current = mixer
-
-        // If there are animations, play the first one
-        if (gltf.animations.length > 0) {
-          const action = mixer.clipAction(gltf.animations[0])
-          actionRef.current = action
+        if (gltf.animations && gltf.animations.length > 0) {
+          mixer.current = new AnimationMixer(loadedModel)
+          const action = mixer.current.clipAction(gltf.animations[currentAnimationIndex.current])
           action.play()
+        }
+
+        // Cleanup function
+        return () => {
+          scene.remove(loadedModel)
+          if (mixer.current) {
+            mixer.current.stopAllAction()
+          }
         }
       },
       undefined,
@@ -52,6 +57,49 @@ const JOI = () => {
     )
   }, [gltfLoader, scene, setInitialPositioning, startEyeEmissionAnimation])
 
+  useEffect(() => {
+    if (actions && mixer.current) {
+      const actionKeys = Object.keys(actions)
+
+      const playAnimation = (index: number) => {
+        const action = actions[actionKeys[index]]
+        if (action) {
+          action.loop = LoopOnce
+          action.clampWhenFinished = true
+          action.play()
+        }
+      }
+
+      playAnimation(currentAnimationIndex.current)
+
+      const handleAnimationFinished = function (e: any) {
+        console.log('finished')
+        if (mixer.current) {
+          const currentAction = actions[actionKeys[currentAnimationIndex.current]]
+          if (currentAction) {
+            currentAction.stop()
+          }
+          currentAnimationIndex.current = (currentAnimationIndex.current + 1) % actionKeys.length
+          playAnimation(currentAnimationIndex.current)
+        }
+      }
+
+      mixer.current.addEventListener('finished', handleAnimationFinished)
+
+      // Cleanup function
+      return () => {
+        if (mixer.current) {
+          mixer.current.removeEventListener('finished', handleAnimationFinished)
+        }
+      }
+    }
+  }, [actions])
+
+  useFrame((state, delta) => {
+    mixer.current?.update(new Clock().getDelta())
+  })
+
   return null
 }
+
 export default JOI
