@@ -18,7 +18,7 @@ const JOI = () => {
   const { nodes, animations } = gltf
   const model = nodes.Scene || nodes.scene
 
-  useIdleAnimationPoseControl(animations, model, 2, true)
+  useIdleAnimationPoseControl(animations, model, 1.35, true, 1.35)
 
   const head = nodes.mixamorigHead as Mesh // Access the head bone
   const neck = nodes.mixamorigNeck as Mesh // Access the neck bone
@@ -43,14 +43,20 @@ const JOI = () => {
   }, [gltf, model, scene, setInitialPositioning, startEyeEmissionAnimation])
 
   useFrame(({ camera }) => {
+    // if (head) {
+    //   const targetRotation = new Quaternion().setFromRotationMatrix(
+    //     new Matrix4().lookAt(head.position, camera.position, new Vector3(0, 1, 0))
+    //   )
+    //   const offset = new Quaternion().setFromAxisAngle(new Vector3(-1.5, 0, 0), Math.PI / 3.5)
+    //   targetRotation.multiply(offset)
+    //   head.quaternion.slerp(targetRotation, 0.2)
+    // }
     if (head) {
       const targetRotation = new Quaternion().setFromRotationMatrix(
         new Matrix4().lookAt(head.position, camera.position, new Vector3(0, 0, 0))
       )
-
       const offset = new Quaternion().setFromAxisAngle(new Vector3(-1.5, 0, 0), Math.PI / 3.5)
       targetRotation.multiply(offset)
-
       head.quaternion.slerp(targetRotation, 1)
     }
   })
