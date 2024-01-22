@@ -30,6 +30,22 @@ const JOI = () => {
 
   const currentActionIndex = useRef(0)
 
+  const animationNames = animations.map(animation => animation.name)
+
+  const { selectedAnimation } = useControls({
+    selectedAnimation: {
+      options: animationNames,
+      value: animationNames[0]
+    }
+  })
+
+  useEffect(() => {
+    if (selectedAnimation && actionsRef.current[selectedAnimation]) {
+      const event = { action: actionsRef.current[selectedAnimation] }
+      onLoop(event)
+    }
+  }, [selectedAnimation])
+
   useEffect(() => {
     if (!model || !head) return
 
@@ -49,6 +65,19 @@ const JOI = () => {
     }
   }, [model, scene, actions, animations, head, setInitialPositioning, gltf, startEyeEmissionAnimation])
 
+  // Define the listener function
+  const onLoop = (event: any) => {
+    const actionNames = Object.keys(actionsRef.current)
+
+    currentActionIndex.current = (currentActionIndex.current + 1) % actionNames.length
+    const nextAction = actionsRef.current[actionNames[currentActionIndex.current]]
+
+    event.action.crossFadeTo(nextAction, ANIMATION_BLEND_TIME, true)
+    // Play the next action
+    nextAction.play()
+    console.log('looping triggered, playing', nextAction)
+  }
+
   useEffect(() => {
     if (animations && animations.length > 0) {
       mixer.current = new AnimationMixer(model)
@@ -58,18 +87,6 @@ const JOI = () => {
         const action = mixer.current!.clipAction(animation)
         actionsRef.current[animation.name] = action
       })
-
-      // Define the listener function
-      const onLoop = (event: any) => {
-        const actionNames = Object.keys(actionsRef.current)
-
-        currentActionIndex.current = (currentActionIndex.current + 1) % actionNames.length
-        const nextAction = actionsRef.current[actionNames[currentActionIndex.current]]
-
-        event.action.crossFadeTo(nextAction, ANIMATION_BLEND_TIME, true)
-        // Play the next action
-        nextAction.play()
-      }
 
       mixer.current.addEventListener('loop', onLoop)
 
