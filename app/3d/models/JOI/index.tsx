@@ -73,7 +73,14 @@ const JOI = () => {
     currentActionIndex.current = (currentActionIndex.current + 1) % actionNames.length
     const nextAction = actionsRef.current[actionNames[currentActionIndex.current]]
 
+    // Crossfade to the next action
     event.action.crossFadeTo(nextAction, ANIMATION_BLEND_TIME, true)
+
+    // Stop the current action after the crossfade duration
+    setTimeout(() => {
+      event.action.stop()
+    }, ANIMATION_BLEND_TIME * 1000) // Convert to milliseconds
+
     // Play the next action
     nextAction.play()
     console.log('looping triggered, playing', nextAction)
