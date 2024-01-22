@@ -39,10 +39,10 @@ const Evokelabs3D = () => {
           <Suspense fallback={null}>
             <Lights />
             <CyberpunkMap />
-            <JOI />
-            {/* <CyberpunkCar /> */}
-            <Rain />
+            <CyberpunkCar />
           </Suspense>
+          <JOI />
+          <Rain />
         </AnimationContext.Provider>
       </Canvas>
       <Music />
