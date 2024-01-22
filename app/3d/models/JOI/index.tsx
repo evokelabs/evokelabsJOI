@@ -18,7 +18,7 @@ const JOI = () => {
   const { nodes, animations } = gltf
   const model = nodes.Scene || nodes.scene
 
-  useIdleAnimationPoseControl(animations, model, 6, true, 1.25)
+  useIdleAnimationPoseControl(animations, model, 6, true, 1.5)
 
   const head = nodes.mixamorigHead as Mesh // Access the head bone
   const neck = nodes.mixamorigNeck as Mesh // Access the neck bone
