@@ -2,11 +2,10 @@ import { useEffect } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Mesh } from 'three'
 import { useGLTF } from '@react-three/drei'
+import { GLTF } from 'three/examples/jsm/Addons.js'
 
 import { useEyeEmissionAnimation } from './controllers/useEyeEmissionAnimation'
 import { useInitialJOIPositioning } from './controllers/useInitialJOIPositioning'
-import { GLTF } from 'three/examples/jsm/Addons.js'
-
 import { useIdleAnimationPoseControl } from './controllers/useIdleAnimationPoseControl'
 
 const JOI = () => {
@@ -19,7 +18,7 @@ const JOI = () => {
   const { nodes, animations } = gltf
   const model = nodes.Scene || nodes.scene
 
-  useIdleAnimationPoseControl(animations, model)
+  useIdleAnimationPoseControl(animations, model, 5)
 
   useEffect(() => {
     if (!model) return

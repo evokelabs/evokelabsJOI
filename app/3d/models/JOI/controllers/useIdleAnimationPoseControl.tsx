@@ -1,18 +1,21 @@
-import { useEffect, useRef } from 'react'
-import { AnimationAction, AnimationClip, AnimationMixer, Clock } from 'three'
+import { useCallback, useEffect, useRef } from 'react'
+import { AnimationAction, AnimationClip, AnimationMixer, Clock, Object3D } from 'three'
 import { useControls } from 'leva' // Import useControls from leva
 import { shuffleArray } from '@/app/libs/helpers'
 import { useFrame } from '@react-three/fiber'
 
-export const useIdleAnimationPoseControl = (animations: any, model: any) => {
+export const useIdleAnimationPoseControl = (
+  animations: AnimationClip[],
+  model: Object3D,
+  timescale: number = 1,
+  playPosesInOrder: boolean = false,
+  animation_blend_time: number = 0.75
+) => {
   const mixer = useRef<AnimationMixer | null>(null)
   const actionsRef = useRef<{ [name: string]: AnimationAction }>({})
   const shuffledAnimationNamesRef = useRef<string[]>([])
   const isFirstRender = useRef(true)
   const animationNames = animations.map((animation: any) => animation.name)
-
-  const ANIMATION_BLEND_TIME = 0.75
-  const TIMESCALE = 2
   const currentActionIndex = useRef(0)
   const clock = useRef(new Clock())
 
@@ -23,25 +26,28 @@ export const useIdleAnimationPoseControl = (animations: any, model: any) => {
     }
   })
 
-  const onLoop = (event: any) => {
-    // Use the shuffled animation names from the ref
-    const actionNames = shuffledAnimationNamesRef.current
+  const onLoop = useCallback(
+    (event: { action: AnimationAction; loopDelta: number }) => {
+      // Use the shuffled animation names from the ref
+      const actionNames = shuffledAnimationNamesRef.current
 
-    currentActionIndex.current = (currentActionIndex.current + 1) % actionNames.length
-    const nextAction = actionsRef.current[actionNames[currentActionIndex.current]]
+      currentActionIndex.current = (currentActionIndex.current + 1) % actionNames.length
+      const nextAction = actionsRef.current[actionNames[currentActionIndex.current]]
 
-    // Crossfade to the next action
-    event.action.crossFadeTo(nextAction, ANIMATION_BLEND_TIME, true)
+      // Cross fade to the next action
+      event.action.crossFadeTo(nextAction, animation_blend_time, true)
 
-    // Stop the current action after the crossfade duration
-    setTimeout(() => {
-      event.action.stop()
-    }, ANIMATION_BLEND_TIME * 1000) // Convert to milliseconds
+      // Stop the current action after the cross fade duration
+      setTimeout(() => {
+        event.action.stop()
+      }, animation_blend_time * 1000) // Convert to milliseconds
 
-    // Play the next action
-    nextAction.play()
-    console.log('looping triggered, playing', nextAction.getClip().name)
-  }
+      // Play the next action
+      nextAction.play()
+      console.log('looping triggered, playing', nextAction.getClip().name)
+    },
+    [animation_blend_time]
+  )
 
   useEffect(() => {
     // If it's the first render, do nothing
@@ -70,12 +76,12 @@ export const useIdleAnimationPoseControl = (animations: any, model: any) => {
       const firstAction = actionsRef.current[shuffledAnimationNamesRef.current[0]]
       firstAction?.play()
     }
-  }, [selectedAnimation])
+  }, [onLoop, selectedAnimation])
 
   useEffect(() => {
     if (animations && animations.length > 0) {
       mixer.current = new AnimationMixer(model)
-      mixer.current.timeScale = TIMESCALE
+      mixer.current.timeScale = timescale
 
       // Create AnimationAction instances for each animation
       animations.forEach((animation: AnimationClip) => {
@@ -102,7 +108,7 @@ export const useIdleAnimationPoseControl = (animations: any, model: any) => {
         Object.values(currentActionsRef).forEach(action => action.stop())
       }
     }
-  }, [animations, model])
+  }, [animations, model, onLoop, timescale])
   useFrame(() => {
     mixer.current?.update(clock.current.getDelta())
   })
