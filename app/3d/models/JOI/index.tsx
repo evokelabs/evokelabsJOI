@@ -11,6 +11,26 @@ import { GLTF } from 'three/examples/jsm/Addons.js'
 const ANIMATION_BLEND_TIME = 0.75
 const TIMESCALE = 5
 
+function shuffleArray(array: any[]) {
+  let currentIndex = array.length,
+    temporaryValue,
+    randomIndex
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex]
+    array[currentIndex] = array[randomIndex]
+    array[randomIndex] = temporaryValue
+  }
+
+  return array
+}
+
 const JOI = () => {
   const { scene, camera } = useThree()
   const mixer = useRef<AnimationMixer | null>(null)
@@ -18,6 +38,8 @@ const JOI = () => {
 
   const setInitialPositioning = useInitialJOIPositioning()
   const startEyeEmissionAnimation = useEyeEmissionAnimation()
+
+  const shuffledAnimationNamesRef = useRef<string[]>([])
 
   const gltf = useGLTF('/glb/JOI.glb')
   const { nodes, animations } = gltf
@@ -68,7 +90,8 @@ const JOI = () => {
 
   // Define the listener function
   const onLoop = (event: any) => {
-    const actionNames = Object.keys(actionsRef.current)
+    // Use the shuffled animation names from the ref
+    const actionNames = shuffledAnimationNamesRef.current
 
     currentActionIndex.current = (currentActionIndex.current + 1) % actionNames.length
     const nextAction = actionsRef.current[actionNames[currentActionIndex.current]]
@@ -83,7 +106,7 @@ const JOI = () => {
 
     // Play the next action
     nextAction.play()
-    console.log('looping triggered, playing', nextAction)
+    console.log('looping triggered, playing', nextAction.getClip().name)
   }
 
   useEffect(() => {
@@ -97,9 +120,11 @@ const JOI = () => {
         actionsRef.current[animation.name] = action
       })
 
+      shuffledAnimationNamesRef.current = shuffleArray(Object.keys(actionsRef.current))
+
       mixer.current.addEventListener('loop', onLoop)
 
-      const firstAction = actionsRef.current[Object.keys(actionsRef.current)[0]]
+      const firstAction = actionsRef.current[shuffledAnimationNamesRef.current[0]]
       firstAction?.play()
 
       // Capture the current value of clock.current in a variable
