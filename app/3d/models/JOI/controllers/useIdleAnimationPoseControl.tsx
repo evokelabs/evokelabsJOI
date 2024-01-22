@@ -89,7 +89,11 @@ export const useIdleAnimationPoseControl = (
         actionsRef.current[animation.name] = action
       })
 
-      shuffledAnimationNamesRef.current = shuffleArray(Object.keys(actionsRef.current))
+      if (!playPosesInOrder) {
+        shuffledAnimationNamesRef.current = shuffleArray(animationNames)
+      } else {
+        shuffledAnimationNamesRef.current = [...animationNames]
+      }
 
       mixer.current.addEventListener('loop', onLoop)
 

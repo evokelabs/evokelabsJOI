@@ -18,7 +18,7 @@ const JOI = () => {
   const { nodes, animations } = gltf
   const model = nodes.Scene || nodes.scene
 
-  useIdleAnimationPoseControl(animations, model, 5)
+  useIdleAnimationPoseControl(animations, model, 2, true)
 
   useEffect(() => {
     if (!model) return
