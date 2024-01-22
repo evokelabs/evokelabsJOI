@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { useThree } from '@react-three/fiber'
-import { Mesh } from 'three'
+import { useFrame, useThree } from '@react-three/fiber'
+import { Matrix4, Mesh, Quaternion, Vector3 } from 'three'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three/examples/jsm/Addons.js'
 
@@ -19,6 +19,9 @@ const JOI = () => {
   const model = nodes.Scene || nodes.scene
 
   useIdleAnimationPoseControl(animations, model, 2, true)
+
+  const head = nodes.mixamorigHead as Mesh // Access the head bone
+  const neck = nodes.mixamorigNeck as Mesh // Access the neck bone
 
   useEffect(() => {
     if (!model) return
@@ -39,7 +42,18 @@ const JOI = () => {
     }
   }, [gltf, model, scene, setInitialPositioning, startEyeEmissionAnimation])
 
-  // Define the listener function
+  useFrame(({ camera }) => {
+    if (head) {
+      const targetRotation = new Quaternion().setFromRotationMatrix(
+        new Matrix4().lookAt(head.position, camera.position, new Vector3(0, 0, 0))
+      )
+
+      const offset = new Quaternion().setFromAxisAngle(new Vector3(-1.5, 0, 0), Math.PI / 3.5)
+      targetRotation.multiply(offset)
+
+      head.quaternion.slerp(targetRotation, 1)
+    }
+  })
 
   return null
 }
