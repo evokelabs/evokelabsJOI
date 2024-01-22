@@ -62,10 +62,34 @@ const JOI = () => {
     }
   })
 
+  const isFirstRender = useRef(true)
+
   useEffect(() => {
-    if (selectedAnimation && actionsRef.current[selectedAnimation]) {
-      const event = { action: actionsRef.current[selectedAnimation] }
-      onLoop(event)
+    // If it's the first render, do nothing
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
+
+    // If an animation is selected, stop the current animation and play the selected one
+    if (selectedAnimation) {
+      // Remove the loop event listener
+      mixer.current?.removeEventListener('loop', onLoop)
+
+      // Stop all actions
+      Object.values(actionsRef.current).forEach(action => action.stop())
+
+      // Play the selected animation
+      const selectedAction = actionsRef.current[selectedAnimation]
+      console.log('playing', selectedAction.getClip().name)
+      selectedAction?.play()
+    } else {
+      // If no animation is selected, add the loop event listener back
+      mixer.current?.addEventListener('loop', onLoop)
+
+      // Play the first animation in the shuffled list
+      const firstAction = actionsRef.current[shuffledAnimationNamesRef.current[0]]
+      firstAction?.play()
     }
   }, [selectedAnimation])
 
