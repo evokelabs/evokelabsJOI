@@ -7,29 +7,10 @@ import { useControls } from 'leva' // Import useControls from leva
 import { useEyeEmissionAnimation } from './controllers/useEyeEmissionAnimation'
 import { useInitialJOIPositioning } from './controllers/useInitialJOIPositioning'
 import { GLTF } from 'three/examples/jsm/Addons.js'
+import { shuffleArray } from '@/app/libs/helpers'
 
 const ANIMATION_BLEND_TIME = 0.75
 const TIMESCALE = 5
-
-function shuffleArray(array: any[]) {
-  let currentIndex = array.length,
-    temporaryValue,
-    randomIndex
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex)
-    currentIndex -= 1
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex]
-    array[currentIndex] = array[randomIndex]
-    array[randomIndex] = temporaryValue
-  }
-
-  return array
-}
 
 const JOI = () => {
   const { scene, camera } = useThree()
