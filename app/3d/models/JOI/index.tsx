@@ -8,6 +8,8 @@ import { useEyeEmissionAnimation } from './controllers/useEyeEmissionAnimation'
 import { useInitialJOIPositioning } from './controllers/useInitialJOIPositioning'
 import { GLTF } from 'three/examples/jsm/Addons.js'
 
+const ANIMATION_BLEND_TIME = 0.75
+
 const JOI = () => {
   const { scene, camera } = useThree()
   const mixer = useRef<AnimationMixer | null>(null)
@@ -61,9 +63,12 @@ const JOI = () => {
       const onLoop = (event: any) => {
         const actionNames = Object.keys(actionsRef.current)
 
-        event.action.stop()
         currentActionIndex.current = (currentActionIndex.current + 1) % actionNames.length
-        actionsRef.current[actionNames[currentActionIndex.current]]?.play()
+        const nextAction = actionsRef.current[actionNames[currentActionIndex.current]]
+
+        event.action.crossFadeTo(nextAction, ANIMATION_BLEND_TIME, true)
+        // Play the next action
+        nextAction.play()
       }
 
       mixer.current.addEventListener('loop', onLoop)
