@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Matrix4, Mesh, Quaternion, Vector3 } from 'three'
 import { useGLTF } from '@react-three/drei'
@@ -7,9 +7,10 @@ import { GLTF } from 'three/examples/jsm/Addons.js'
 import { useEyeEmissionAnimation } from './controllers/useEyeEmissionAnimation'
 import { useInitialJOIPositioning } from './controllers/useInitialJOIPositioning'
 import { useIdleAnimationPoseControl } from './controllers/useIdleAnimationPoseControl'
+import { GUI } from 'dat.gui'
 
 const JOI = () => {
-  const { scene } = useThree()
+  const { scene, camera } = useThree()
 
   const setInitialPositioning = useInitialJOIPositioning()
   const startEyeEmissionAnimation = useEyeEmissionAnimation()
@@ -22,6 +23,17 @@ const JOI = () => {
 
   const head = nodes.mixamorigHead as Mesh // Access the head bone
   const neck = nodes.mixamorigNeck as Mesh // Access the neck bone
+
+  const axisAngleVector = useRef(new Vector3(-1.5, 0, 0))
+  const piValue = useRef(3.5)
+
+  useEffect(() => {
+    const gui = new GUI()
+    gui.add(axisAngleVector.current, 'x', -10, 10).step(0.1).name('AxisAngle X')
+    gui.add(axisAngleVector.current, 'y', -10, 10).step(0.1).name('AxisAngle Y')
+    gui.add(axisAngleVector.current, 'z', -10, 10).step(0.1).name('AxisAngle Z')
+    gui.add(piValue, 'current', 0, 10).step(0.1).name('Pi Value')
+  }, [])
 
   useEffect(() => {
     if (!model) return
@@ -42,20 +54,20 @@ const JOI = () => {
     }
   }, [gltf, model, scene, setInitialPositioning, startEyeEmissionAnimation])
 
-  useFrame(({ camera }) => {
-    // if (head) {
-    //   const targetRotation = new Quaternion().setFromRotationMatrix(
-    //     new Matrix4().lookAt(head.position, camera.position, new Vector3(0, 1, 0))
-    //   )
-    //   const offset = new Quaternion().setFromAxisAngle(new Vector3(-1.5, 0, 0), Math.PI / 3.5)
-    //   targetRotation.multiply(offset)
-    //   head.quaternion.slerp(targetRotation, 0.2)
-    // }
+  const lowestPoint = 1
+  const highestPoint = 2
+
+  useFrame(() => {
     if (head) {
       const targetRotation = new Quaternion().setFromRotationMatrix(
         new Matrix4().lookAt(head.position, camera.position, new Vector3(0, 0, 0))
       )
-      const offset = new Quaternion().setFromAxisAngle(new Vector3(-1.5, 0, 0), Math.PI / 3.5)
+
+      // Map the cameraY to a value between 2 and 5
+      piValue.current = 5 + ((camera.position.y - lowestPoint) / (highestPoint - lowestPoint)) * (2 - 5)
+      // console.log(piValue.current)
+
+      const offset = new Quaternion().setFromAxisAngle(axisAngleVector.current, Math.PI / piValue.current)
       targetRotation.multiply(offset)
       head.quaternion.slerp(targetRotation, 1)
     }
