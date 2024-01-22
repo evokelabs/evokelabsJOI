@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { AnimationAction, AnimationClip, AnimationMixer, Clock, Object3D } from 'three'
 import { useControls } from 'leva' // Import useControls from leva
 import { shuffleArray } from '@/app/libs/helpers'
@@ -15,7 +15,7 @@ export const useIdleAnimationPoseControl = (
   const actionsRef = useRef<{ [name: string]: AnimationAction }>({})
   const shuffledAnimationNamesRef = useRef<string[]>([])
   const isFirstRender = useRef(true)
-  const animationNames = animations.map((animation: any) => animation.name)
+  const animationNames = animations.map(animation => animation.name)
   const currentActionIndex = useRef(0)
   const clock = useRef(new Clock())
 
@@ -25,6 +25,11 @@ export const useIdleAnimationPoseControl = (
       value: animationNames[0]
     }
   })
+
+  shuffledAnimationNamesRef.current = useMemo(() => {
+    const animationNames = animations.map(animation => animation.name)
+    return playPosesInOrder ? [...animationNames] : shuffleArray(animationNames)
+  }, [animations, playPosesInOrder])
 
   const onLoop = useCallback(
     (event: { action: AnimationAction; loopDelta: number }) => {
@@ -89,12 +94,6 @@ export const useIdleAnimationPoseControl = (
         actionsRef.current[animation.name] = action
       })
 
-      if (!playPosesInOrder) {
-        shuffledAnimationNamesRef.current = shuffleArray(animationNames)
-      } else {
-        shuffledAnimationNamesRef.current = [...animationNames]
-      }
-
       mixer.current.addEventListener('loop', onLoop)
 
       const firstAction = actionsRef.current[shuffledAnimationNamesRef.current[0]]
@@ -112,7 +111,7 @@ export const useIdleAnimationPoseControl = (
         Object.values(currentActionsRef).forEach(action => action.stop())
       }
     }
-  }, [animations, model, onLoop, timescale])
+  }, [animations, model, onLoop, playPosesInOrder, timescale])
   useFrame(() => {
     mixer.current?.update(clock.current.getDelta())
   })
