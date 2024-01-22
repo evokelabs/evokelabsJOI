@@ -43,46 +43,52 @@ const JOI = () => {
       Object.values(actions).forEach(action => action!.play())
     }
 
-    // Make the entire model receive shadows
     model.traverse(object => {
       if (object instanceof Mesh) {
         object.receiveShadow = true
       }
     })
 
-    console.log(actions)
-
     return () => {
-      // Remove the model from the scene
       scene.remove(model)
     }
   }, [model, scene, actions, animations, head, setInitialPositioning, gltf, startEyeEmissionAnimation])
 
   useEffect(() => {
     // Stop all animations
-    Object.values(actions)?.forEach(action => action?.stop())
+    Object.values(actions)?.forEach(action => action?.fadeOut(0.5))
 
-    // Play the selected animation
-    actions?.[animation]?.play()
+    // Get the current animation
+    const currentAction = Object.values(actions)?.find(action => action?.isRunning())
+
+    // Get the new animation
+    const newAction = actions?.[animation]
+
+    if (newAction) {
+      // If there's a current animation, crossfade to the new animation
+      if (currentAction) {
+        currentAction.enabled = true
+        newAction.enabled = true
+        currentAction.crossFadeTo(newAction, 0.75, true)
+      } else {
+        // If there's no current animation, just play the new animation
+        newAction.play()
+      }
+    }
   }, [animation, actions])
 
   useFrame(() => {
     mixer.current?.update(new Clock().getDelta())
 
     if (head) {
-      // Calculate the target rotation
       const targetRotation = new Quaternion().setFromRotationMatrix(
         new Matrix4().lookAt(head.position, camera.position, new Vector3(0, 0, 0))
       )
 
-      // Create a new Quaternion for the offset
-      const offset = new Quaternion().setFromAxisAngle(new Vector3(-1.5, 0, 0), Math.PI / 3.5) // Adjust the axis and angle to fit your needs
-
-      // Apply the offset to the target rotation
+      const offset = new Quaternion().setFromAxisAngle(new Vector3(-1.5, 0, 0), Math.PI / 3.5)
       targetRotation.multiply(offset)
 
-      // Interpolate between the current rotation and the target rotation
-      head.quaternion.slerp(targetRotation, 0.65)
+      head.quaternion.slerp(targetRotation, 0.5)
     }
   })
   return null
