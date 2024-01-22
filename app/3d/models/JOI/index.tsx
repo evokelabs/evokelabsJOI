@@ -9,6 +9,7 @@ import { useInitialJOIPositioning } from './controllers/useInitialJOIPositioning
 import { GLTF } from 'three/examples/jsm/Addons.js'
 
 const ANIMATION_BLEND_TIME = 0.75
+const TIMESCALE = 5
 
 const JOI = () => {
   const { scene, camera } = useThree()
@@ -81,6 +82,7 @@ const JOI = () => {
   useEffect(() => {
     if (animations && animations.length > 0) {
       mixer.current = new AnimationMixer(model)
+      mixer.current.timeScale = TIMESCALE
 
       // Create AnimationAction instances for each animation
       animations.forEach(animation => {
