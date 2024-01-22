@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { AnimationMixer, AnimationAction, Clock, Matrix4, Mesh, Quaternion, Vector3 } from 'three'
+import { AnimationMixer, AnimationAction, Clock, Mesh } from 'three'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { useControls } from 'leva' // Import useControls from leva
 
@@ -21,17 +21,12 @@ const JOI = () => {
   const model = nodes.Scene || nodes.scene
   const { actions } = useAnimations(animations, model)
 
-  const head = nodes.mixamorigHead as Mesh // Access the head bone
-  const neck = nodes.mixamorigNeck as Mesh // Access the neck bone
+  const head = nodes.mixamorigHead as Mesh
+  const neck = nodes.mixamorigNeck as Mesh
 
   const clock = useRef(new Clock())
 
-  const { animation } = useControls({
-    animation: {
-      value: Object.keys(actions)[0], // Use the first animation as the initial value
-      options: Object.keys(actions) // Use the names of the animations as options
-    }
-  })
+  const currentActionIndex = useRef(0)
 
   useEffect(() => {
     if (!model || !head) return
@@ -62,29 +57,33 @@ const JOI = () => {
         actionsRef.current[animation.name] = action
       })
 
-      const firstAction = actionsRef.current[Object.keys(actionsRef.current)[0]]
-
-      firstAction?.play()
-      clock.current.start()
-
       // Define the listener function
       const onLoop = (event: any) => {
-        if (event.action === firstAction) {
-          console.log('Animation looped!')
-          // Add your callback logic here
-        }
+        const actionNames = Object.keys(actionsRef.current)
+
+        event.action.stop()
+        currentActionIndex.current = (currentActionIndex.current + 1) % actionNames.length
+        actionsRef.current[actionNames[currentActionIndex.current]]?.play()
       }
 
-      // Add a loop event listener to the first action
-      // Add a loop event listener to the first action
-      mixer.current?.addEventListener('loop', onLoop)
+      mixer.current.addEventListener('loop', onLoop)
 
-      // Clean up the event listener when the component is unmounted or the dependencies change
+      const firstAction = actionsRef.current[Object.keys(actionsRef.current)[0]]
+      firstAction?.play()
+
+      // Capture the current value of clock.current in a variable
+      const currentClock = clock.current
+      const currentActionsRef = actionsRef.current
+      currentClock.start()
+
+      // Use the captured value in the cleanup function
       return () => {
         mixer.current?.removeEventListener('loop', onLoop)
+        currentClock.stop()
+        Object.values(currentActionsRef).forEach(action => action.stop())
       }
     }
-  }, [actions, animation, animations, clock, model])
+  }, [actions, animations, model])
 
   useFrame(() => {
     mixer.current?.update(clock.current.getDelta())
