@@ -3,13 +3,14 @@ import { AnimationAction, AnimationClip, AnimationMixer, Clock, Object3D } from 
 import { useControls } from 'leva' // Import useControls from leva
 import { shuffleArray } from '@/app/libs/helpers'
 import { useFrame } from '@react-three/fiber'
+import { gsap } from 'gsap'
 
 export const useIdleAnimationPoseControl = (
   animations: AnimationClip[],
   model: Object3D,
   timescale: number = 1,
   playPosesInOrder: boolean = false,
-  animation_blend_time: number = 0.75
+  animationBlendTime: number = 0.75
 ) => {
   const mixer = useRef<AnimationMixer | null>(null)
   const actionsRef = useRef<{ [name: string]: AnimationAction }>({})
@@ -31,27 +32,52 @@ export const useIdleAnimationPoseControl = (
     return playPosesInOrder ? [...animationNames] : shuffleArray(animationNames)
   }, [animations, playPosesInOrder])
 
+  // Store a reference to the GSAP animation
+  const gsapAnimation = useRef<gsap.core.Tween | null>(null)
+
+  // Cleanup function
+  const cleanup = useCallback((action: AnimationAction | null) => {
+    if (gsapAnimation.current) {
+      gsapAnimation.current.kill()
+      gsapAnimation.current = null
+      if (action) {
+        action.stop()
+      }
+    }
+  }, [])
+
   const onLoop = useCallback(
     (event: { action: AnimationAction; loopDelta: number }) => {
-      // Use the shuffled animation names from the ref
+      // If the GSAP animation is still active when onLoop is called again, return early
+      if (gsapAnimation.current && gsapAnimation.current.isActive()) {
+        return
+      }
+
       const actionNames = shuffledAnimationNamesRef.current
 
       currentActionIndex.current = (currentActionIndex.current + 1) % actionNames.length
       const nextAction = actionsRef.current[actionNames[currentActionIndex.current]]
 
-      // Cross fade to the next action
-      event.action.crossFadeTo(nextAction, animation_blend_time, true)
+      const blendTime = { value: 0 }
 
-      // Stop the current action after the cross fade duration
-      setTimeout(() => {
-        event.action.stop()
-      }, animation_blend_time * 1000) // Convert to milliseconds
+      gsapAnimation.current = gsap.to(blendTime, {
+        value: 1,
+        duration: animationBlendTime,
+        ease: 'power1.inOut',
+        onUpdate: function () {
+          // Manually control the weights of the two actions
+          event.action.setEffectiveWeight(1 - blendTime.value)
+          nextAction.setEffectiveWeight(blendTime.value)
+        },
+        onComplete: function () {
+          event.action.stop()
+        }
+      })
 
-      // Play the next action
       nextAction.play()
       console.log('looping triggered, playing', nextAction.getClip().name)
     },
-    [animation_blend_time]
+    [animationBlendTime]
   )
 
   useEffect(() => {
@@ -81,7 +107,12 @@ export const useIdleAnimationPoseControl = (
       const firstAction = actionsRef.current[shuffledAnimationNamesRef.current[0]]
       firstAction?.play()
     }
-  }, [onLoop, selectedAnimation])
+
+    // Return the cleanup function
+    return () => {
+      cleanup(null)
+    }
+  }, [selectedAnimation, onLoop, cleanup])
 
   useEffect(() => {
     if (animations && animations.length > 0) {
