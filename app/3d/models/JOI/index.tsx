@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { AnimationMixer, Clock, Matrix4, Mesh, Quaternion, Vector3 } from 'three'
+import { AnimationMixer, AnimationAction, Clock, Matrix4, Mesh, Quaternion, Vector3 } from 'three'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { useControls } from 'leva' // Import useControls from leva
 
@@ -11,6 +11,7 @@ import { GLTF } from 'three/examples/jsm/Addons.js'
 const JOI = () => {
   const { scene, camera } = useThree()
   const mixer = useRef<AnimationMixer | null>(null)
+  const actionsRef = useRef<{ [name: string]: AnimationAction }>({})
 
   const setInitialPositioning = useInitialJOIPositioning()
   const startEyeEmissionAnimation = useEyeEmissionAnimation()
@@ -22,6 +23,8 @@ const JOI = () => {
 
   const head = nodes.mixamorigHead as Mesh // Access the head bone
   const neck = nodes.mixamorigNeck as Mesh // Access the neck bone
+
+  const clock = useRef(new Clock())
 
   const { animation } = useControls({
     animation: {
@@ -38,11 +41,6 @@ const JOI = () => {
     setInitialPositioning(gltf as GLTF)
     startEyeEmissionAnimation(gltf as GLTF)
 
-    if (animations && animations.length > 0) {
-      mixer.current = new AnimationMixer(model)
-      Object.values(actions).forEach(action => action!.play())
-    }
-
     model.traverse(object => {
       if (object instanceof Mesh) {
         object.receiveShadow = true
@@ -55,41 +53,52 @@ const JOI = () => {
   }, [model, scene, actions, animations, head, setInitialPositioning, gltf, startEyeEmissionAnimation])
 
   useEffect(() => {
-    // Stop all animations
-    Object.values(actions)?.forEach(action => action?.fadeOut(0.5))
+    if (animations && animations.length > 0) {
+      mixer.current = new AnimationMixer(model)
 
-    // Get the current animation
-    const currentAction = Object.values(actions)?.find(action => action?.isRunning())
+      // Create AnimationAction instances for each animation
+      animations.forEach(animation => {
+        const action = mixer.current!.clipAction(animation)
+        actionsRef.current[animation.name] = action
+      })
 
-    // Get the new animation
-    const newAction = actions?.[animation]
+      const firstAction = actionsRef.current[Object.keys(actionsRef.current)[0]]
 
-    if (newAction) {
-      // If there's a current animation, crossfade to the new animation
-      if (currentAction) {
-        currentAction.enabled = true
-        newAction.enabled = true
-        currentAction.crossFadeTo(newAction, 0.75, true)
-      } else {
-        // If there's no current animation, just play the new animation
-        newAction.play()
+      firstAction?.play()
+      clock.current.start()
+
+      // Define the listener function
+      const onLoop = (event: any) => {
+        if (event.action === firstAction) {
+          console.log('Animation looped!')
+          // Add your callback logic here
+        }
+      }
+
+      // Add a loop event listener to the first action
+      // Add a loop event listener to the first action
+      mixer.current?.addEventListener('loop', onLoop)
+
+      // Clean up the event listener when the component is unmounted or the dependencies change
+      return () => {
+        mixer.current?.removeEventListener('loop', onLoop)
       }
     }
-  }, [animation, actions])
+  }, [actions, animation, animations, clock, model])
 
   useFrame(() => {
-    mixer.current?.update(new Clock().getDelta())
+    mixer.current?.update(clock.current.getDelta())
 
-    if (head) {
-      const targetRotation = new Quaternion().setFromRotationMatrix(
-        new Matrix4().lookAt(head.position, camera.position, new Vector3(0, 0, 0))
-      )
+    // if (head) {
+    //   const targetRotation = new Quaternion().setFromRotationMatrix(
+    //     new Matrix4().lookAt(head.position, camera.position, new Vector3(0, 0, 0))
+    //   )
 
-      const offset = new Quaternion().setFromAxisAngle(new Vector3(-1.5, 0, 0), Math.PI / 3.5)
-      targetRotation.multiply(offset)
+    //   const offset = new Quaternion().setFromAxisAngle(new Vector3(-1.5, 0, 0), Math.PI / 3.5)
+    //   targetRotation.multiply(offset)
 
-      head.quaternion.slerp(targetRotation, 0.5)
-    }
+    //   head.quaternion.slerp(targetRotation, 0.5)
+    // }
   })
   return null
 }
