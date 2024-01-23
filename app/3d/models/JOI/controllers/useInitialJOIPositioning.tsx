@@ -3,7 +3,7 @@ import { Mesh, Object3D } from 'three'
 import { GLTF } from 'three/examples/jsm/Addons.js'
 
 // Constants
-const POSITION = { x: 0.7, y: 0.12, z: 2.1 }
+const POSITION = { x: 0.7, y: 0.095, z: 2.1 }
 const ROTATION = { pitch: 0, yaw: Math.PI / 0.9, roll: 0 }
 const EYE_NAMES = ['JOI-Eye-Left', 'JOI-Eye-Right']
 
