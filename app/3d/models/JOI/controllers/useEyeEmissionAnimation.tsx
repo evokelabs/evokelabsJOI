@@ -4,8 +4,12 @@ import { Mesh, MeshStandardMaterial, Object3D } from 'three'
 import { GLTF } from 'three/examples/jsm/Addons.js'
 
 // Constants for the emission animation
+
 const EMISSIVE_INTENSITY_RANGE = { min: 0.15, max: 5.5 }
 const DURATION = 0.25
+
+const START_EYE_EMISSION_ANIMATION_DELAY = 3.5
+const START_EYE_EMISSION_ANIMATION_DURATION = 5
 
 /**
  * Custom hook to create an eye emission animation.
@@ -23,22 +27,39 @@ export const useEyeEmissionAnimation = (): ((gltf: GLTF) => void) => {
         }
       })
 
-      // Create a GSAP timeline with the startAnimation function as the onRepeat callback
-      gsap.timeline({
-        repeat: -1,
-        onRepeat: () => {
-          materials.forEach(material => {
-            // Generate a new random value for emissiveIntensity
-            const newEmissiveIntensity = gsap.utils.random(EMISSIVE_INTENSITY_RANGE.min, EMISSIVE_INTENSITY_RANGE.max)
+      // Set the initial emissiveIntensity to 0
+      materials.forEach(material => {
+        material.emissiveIntensity = 0
+      })
 
-            // Create a new tween that transitions to the new random value over the constant duration
-            gsap.to(material, {
-              emissiveIntensity: newEmissiveIntensity,
-              duration: DURATION
-            })
+      // Create a new GSAP animation that animates the emissiveIntensity initially
+      const initialAnimation = gsap.to(materials, {
+        emissiveIntensity: EMISSIVE_INTENSITY_RANGE.max,
+        duration: START_EYE_EMISSION_ANIMATION_DURATION,
+        easing: 'power2.in',
+        paused: true,
+        onComplete: () => {
+          // Create a GSAP timeline with the startAnimation function as the onRepeat callback
+          gsap.timeline({
+            repeat: -1,
+            onRepeat: () => {
+              materials.forEach(material => {
+                // Generate a new random value for emissiveIntensity
+                const newEmissiveIntensity = gsap.utils.random(EMISSIVE_INTENSITY_RANGE.min, EMISSIVE_INTENSITY_RANGE.max)
+
+                // Create a new tween that transitions to the new random value over the constant duration
+                gsap.to(material, {
+                  emissiveIntensity: newEmissiveIntensity,
+                  duration: DURATION
+                })
+              })
+            }
           })
         }
       })
+
+      // Play the initial animation after a 5 second delay
+      gsap.delayedCall(START_EYE_EMISSION_ANIMATION_DELAY, () => initialAnimation.play())
     }
   }, [])
 
