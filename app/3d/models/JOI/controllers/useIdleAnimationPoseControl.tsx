@@ -93,7 +93,7 @@ export const useIdleAnimationPoseControl = (
       mixer.current?.removeEventListener('loop', onLoop)
 
       // Stop all actions
-      // Object.values(actionsRef.current).forEach(action => action.stop())
+      Object.values(actionsRef.current).forEach(action => action.stop())
 
       // Play the selected animation
       const selectedAction = actionsRef.current[selectedAnimation]

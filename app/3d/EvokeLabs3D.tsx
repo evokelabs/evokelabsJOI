@@ -1,4 +1,4 @@
-import { Suspense, useRef, useState } from 'react'
+import { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
@@ -39,7 +39,7 @@ const Evokelabs3D = () => {
           <Suspense fallback={null}>
             <Lights />
             <CyberpunkMap />
-            <CyberpunkCar />
+            {/* <CyberpunkCar /> */}
           </Suspense>
           <JOI />
           <Rain />
