@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Matrix4, Mesh, Quaternion, Vector3 } from 'three'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three/examples/jsm/Addons.js'
+import { gsap } from 'gsap'
 
 import { useEyeEmissionAnimation } from './controllers/useEyeEmissionAnimation'
 import { useInitialJOIPositioning } from './controllers/useInitialJOIPositioning'
@@ -41,20 +42,37 @@ const JOI = () => {
     }
   }, [gltf, model, scene, setInitialPositioning, startEyeEmissionAnimation])
 
+  const weightRef = useRef(0) // Use useRef to preserve weight across renders
+
+  useEffect(() => {
+    const changeWeight = () => {
+      const newWeight = Math.random() < 0.5 ? 0 : 1 // Use weightRef.current to access and modify the weight
+      gsap.to(weightRef, {
+        duration: 1.5,
+        current: newWeight,
+        onComplete: () => {
+          console.log('change weight trigger', weightRef.current) // Log the updated weight
+          const delay = Math.random() * 5000 + 5000 // Random delay between 5 and 10 seconds
+          setTimeout(changeWeight, delay)
+        }
+      })
+    }
+    changeWeight()
+  }, [])
+
   useFrame(() => {
     if (head) {
       const m1 = new Matrix4()
       const v1 = new Vector3()
       const v3 = new Vector3(0, 0, 0)
       const q1 = new Quaternion()
-      const weight = 0 // Change this to control the weight
       v1.copy(camera.position)
       head.updateWorldMatrix(true, false)
       m1.copy(head.matrixWorld).invert()
       v1.applyMatrix4(m1)
       q1.copy(head.quaternion) // Save the original orientation
       head.quaternion.setFromRotationMatrix(m1.lookAt(v1, v3, head.up))
-      head.quaternion.slerp(q1, weight)
+      head.quaternion.slerp(q1, weightRef.current)
     }
   })
 
