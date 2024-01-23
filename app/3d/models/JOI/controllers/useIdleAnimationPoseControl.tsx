@@ -46,7 +46,6 @@ export const useIdleAnimationPoseControl = (
     }
   }, [])
 
-
   const onLoop = useCallback(
     (event: { action: AnimationAction; loopDelta: number }) => {
       // If the GSAP animation is still active when onLoop is called again, return early
@@ -139,6 +138,15 @@ export const useIdleAnimationPoseControl = (
       })
 
       mixer.current.addEventListener('loop', onLoop)
+
+      // If playPosesInOrder is false, ensure 'Idle-00-BootUp' is the first animation to play
+      if (!playPosesInOrder) {
+        const index = shuffledAnimationNamesRef.current.indexOf('Idle-00-BootUp')
+        if (index > -1) {
+          shuffledAnimationNamesRef.current.splice(index, 1)
+        }
+        shuffledAnimationNamesRef.current.unshift('Idle-00-BootUp')
+      }
 
       const firstAction = actionsRef.current[shuffledAnimationNamesRef.current[0]]
       firstAction?.play()
