@@ -57,15 +57,16 @@ const JOI = () => {
   const lowestPoint = 1
   const highestPoint = 2
 
+  const headTiltDown = 6
+  const headTiltUp = 2.5
+
   useFrame(() => {
     if (head) {
       const targetRotation = new Quaternion().setFromRotationMatrix(
         new Matrix4().lookAt(head.position, camera.position, new Vector3(0, 0, 0))
       )
 
-      // Map the cameraY to a value between 2 and 5
-      piValue.current = 5 + ((camera.position.y - lowestPoint) / (highestPoint - lowestPoint)) * (2 - 5)
-      // console.log(piValue.current)
+      piValue.current = headTiltDown + ((camera.position.y - lowestPoint) / (highestPoint - lowestPoint)) * (headTiltUp - headTiltDown)
 
       const offset = new Quaternion().setFromAxisAngle(axisAngleVector.current, Math.PI / piValue.current)
       targetRotation.multiply(offset)
