@@ -5,7 +5,7 @@ import { gsap, Power2 } from 'gsap'
 
 const MIN_WEIGHT_TIME = 2 // Minimum wait time in milliseconds
 const MAX_WAIT_TIME = 4 // Maximum wait time in milliseconds
-const CHANCE_TO_CHANGE = 0.75 // 20% chance to change weight
+const CHANCE_TO_CHANGE = 0.85 // chance to change weight to full
 const WEIGHT_MULTIPLIER = 0.25
 const ANIMATION_DURATION = 1.75
 const MILLISECONDS_IN_SECOND = 1000
@@ -32,7 +32,7 @@ export const useHeadAnimation = (nodes: Nodes) => {
         onUpdate: () => {
           weightRef.current = weight.value
         },
-        onComplete: () => {      
+        onComplete: () => {
           const delay =
             Math.random() * (MAX_WAIT_TIME * MILLISECONDS_IN_SECOND - MIN_WEIGHT_TIME * MILLISECONDS_IN_SECOND) +
             MIN_WEIGHT_TIME * MILLISECONDS_IN_SECOND

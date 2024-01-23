@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { gsap } from 'gsap'
+import { gsap, Power2 } from 'gsap'
 import { Mesh, MeshStandardMaterial, Object3D } from 'three'
 import { GLTF } from 'three/examples/jsm/Addons.js'
 
@@ -8,8 +8,8 @@ import { GLTF } from 'three/examples/jsm/Addons.js'
 const EMISSIVE_INTENSITY_RANGE = { min: 0.15, max: 5.5 }
 const DURATION = 0.25
 
-const START_EYE_EMISSION_ANIMATION_DELAY = 3.5
-const START_EYE_EMISSION_ANIMATION_DURATION = 5
+const START_EYE_EMISSION_ANIMATION_DELAY = 0
+const START_EYE_EMISSION_ANIMATION_DURATION = 2
 
 /**
  * Custom hook to create an eye emission animation.
@@ -36,7 +36,7 @@ export const useEyeEmissionAnimation = (): ((gltf: GLTF) => void) => {
       const initialAnimation = gsap.to(materials, {
         emissiveIntensity: EMISSIVE_INTENSITY_RANGE.max,
         duration: START_EYE_EMISSION_ANIMATION_DURATION,
-        easing: 'power2.in',
+        ease: Power2.easeIn,
         paused: true,
         onComplete: () => {
           // Create a GSAP timeline with the startAnimation function as the onRepeat callback

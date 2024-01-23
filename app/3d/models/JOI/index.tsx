@@ -16,7 +16,7 @@ const JOI = () => {
   const { nodes, animations } = gltf
   const model = nodes.Scene || nodes.scene
 
-  useIdleAnimationPoseControl(animations, model, 1, true, 1.5)
+  useIdleAnimationPoseControl(animations, model, 1, false, 1.5)
 
   const setInitialPositioning = useInitialJOIPositioning()
   const startEyeEmissionAnimation = useEyeEmissionAnimation()
