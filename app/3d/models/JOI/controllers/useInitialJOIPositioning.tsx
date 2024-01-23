@@ -24,6 +24,8 @@ export const useInitialJOIPositioning = (): ((gltf: GLTF) => void) => {
     const { pitch, yaw, roll } = ROTATION
     gltf.scene.rotation.set(pitch, yaw, roll)
 
+    
+
     const object3DChild = gltf.scene.children.find(child => child instanceof Object3D)
     if (object3DChild) {
       object3DChild.traverse(node => {
