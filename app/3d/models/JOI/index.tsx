@@ -44,15 +44,21 @@ const JOI = () => {
 
   const weightRef = useRef(0) // Use useRef to preserve weight across renders
 
+  const minWait = 2 // Minimum wait time in milliseconds
+  const maxWait = 4 // Maximum wait time in milliseconds
+
   useEffect(() => {
     const changeWeight = () => {
-      const newWeight = Math.random() < 0.5 ? 0 : 1 // Use weightRef.current to access and modify the weight
+      let newWeight = Math.random()
+      newWeight = newWeight < 0.8 ? newWeight * 0.2 : newWeight // 80% chance to be between 0 and 0.2
+      newWeight = parseFloat(newWeight.toFixed(2))
       gsap.to(weightRef, {
-        duration: 1.5,
+        duration: 1.75,
         current: newWeight,
+        easing: 'power2.inOut',
         onComplete: () => {
           console.log('change weight trigger', weightRef.current) // Log the updated weight
-          const delay = Math.random() * 5000 + 5000 // Random delay between 5 and 10 seconds
+          const delay = Math.random() * (maxWait * 1000 - minWait * 1000) + minWait * 1000 // Random delay between minWait and maxWait
           setTimeout(changeWeight, delay)
         }
       })
