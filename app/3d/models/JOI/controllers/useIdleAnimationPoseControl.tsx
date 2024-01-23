@@ -46,6 +46,7 @@ export const useIdleAnimationPoseControl = (
     }
   }, [])
 
+
   const onLoop = useCallback(
     (event: { action: AnimationAction; loopDelta: number }) => {
       // If the GSAP animation is still active when onLoop is called again, return early
@@ -54,6 +55,8 @@ export const useIdleAnimationPoseControl = (
       }
 
       const actionNames = shuffledAnimationNamesRef.current
+
+      console.log('actionNames', actionNames)
 
       currentActionIndex.current = (currentActionIndex.current + 1) % actionNames.length
       const nextAction = actionsRef.current[actionNames[currentActionIndex.current]]
@@ -68,6 +71,16 @@ export const useIdleAnimationPoseControl = (
           // Manually control the weights of the two actions
           event.action.setEffectiveWeight(1 - blendTime.value)
           nextAction.setEffectiveWeight(blendTime.value)
+
+          // If the current animation is 'Idle-00-BootUp' and it has finished playing, remove it from actionNames
+          if (event.action.getClip().name === 'Idle-00-BootUp' && blendTime.value === 1) {
+            const index = actionNames.indexOf('Idle-00-BootUp')
+            if (index > -1) {
+              actionNames.splice(index, 1)
+              // Decrement currentActionIndex.current by one
+              currentActionIndex.current -= 1
+            }
+          }
         },
         onComplete: function () {
           event.action.stop()
