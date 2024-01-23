@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { Matrix4, Vector3, Quaternion, Object3D, Object3DEventMap } from 'three'
+import { Matrix4, Vector3, Quaternion, Object3D, Object3DEventMap, MathUtils, Euler } from 'three'
 import { gsap, Power2 } from 'gsap'
 
 const MIN_WEIGHT_TIME = 2 // Minimum wait time in milliseconds
@@ -57,6 +57,11 @@ export const useHeadAnimation = (nodes: Nodes) => {
       q1.copy(head.quaternion) // Save the original orientation
       head.quaternion.setFromRotationMatrix(m1.lookAt(v1, v3, head.up))
       head.quaternion.slerp(q1, weightRef.current)
+
+      // Limit the rotation of the head to 180 degrees
+      const euler = new Euler().setFromQuaternion(head.quaternion, 'YXZ')
+      euler.y = MathUtils.clamp(euler.y, -Math.PI / 2, Math.PI / 2)
+      head.quaternion.setFromEuler(euler)
     }
   })
 }
