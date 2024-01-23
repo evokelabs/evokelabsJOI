@@ -32,8 +32,7 @@ export const useHeadAnimation = (nodes: Nodes) => {
         onUpdate: () => {
           weightRef.current = weight.value
         },
-        onComplete: () => {
-          // console.log('change weight trigger', weightRef.current) // Log the updated weight
+        onComplete: () => {      
           const delay =
             Math.random() * (MAX_WAIT_TIME * MILLISECONDS_IN_SECOND - MIN_WEIGHT_TIME * MILLISECONDS_IN_SECOND) +
             MIN_WEIGHT_TIME * MILLISECONDS_IN_SECOND

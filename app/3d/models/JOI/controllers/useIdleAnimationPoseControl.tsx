@@ -55,8 +55,6 @@ export const useIdleAnimationPoseControl = (
 
       const actionNames = shuffledAnimationNamesRef.current
 
-      console.log('actionNames', actionNames)
-
       currentActionIndex.current = (currentActionIndex.current + 1) % actionNames.length
       const nextAction = actionsRef.current[actionNames[currentActionIndex.current]]
 
@@ -109,7 +107,6 @@ export const useIdleAnimationPoseControl = (
 
       // Play the selected animation
       const selectedAction = actionsRef.current[selectedAnimation]
-      console.log('playing', selectedAction.getClip().name)
       selectedAction?.play()
     } else {
       // If no animation is selected, add the loop event listener back
