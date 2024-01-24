@@ -8,6 +8,7 @@ import { useEyeEmissionAnimation } from './controllers/useEyeEmissionAnimation'
 import { useInitialJOIPositioning } from './controllers/useInitialJOIPositioning'
 import { useIdleAnimationPoseControl } from './controllers/useIdleAnimationPoseControl'
 import { useHeadAnimation } from './controllers/useHeadAnimation'
+import { useEyesRotationAnimation } from './controllers/useEyesRotationAnimation'
 
 const JOI = () => {
   const { scene, camera } = useThree()
@@ -20,6 +21,7 @@ const JOI = () => {
 
   const setInitialPositioning = useInitialJOIPositioning()
   const startEyeEmissionAnimation = useEyeEmissionAnimation()
+  useEyesRotationAnimation(model, camera)
   useHeadAnimation(nodes)
 
   useEffect(() => {
@@ -37,33 +39,6 @@ const JOI = () => {
         object.receiveShadow = true
       }
     })
-
-    /// Eye animation
-
-    let rightEye: Mesh<any, any> | null = null
-    let leftEye: Mesh<any, any> | null = null
-
-    model.traverse(object => {
-      if (object instanceof Mesh) {
-        if (object.name === 'JOI-Eye-Right') {
-          rightEye = object
-        } else if (object.name === 'JOI-Eye-Left') {
-          leftEye = object
-        }
-      }
-    })
-
-    /// Update the eyes to face the camera in the animation loop
-    const animate = () => {
-      if (rightEye && leftEye) {
-        // Make the eyes look at the camera
-        rightEye.lookAt(camera.position)
-        leftEye.lookAt(camera.position)
-      }
-      requestAnimationFrame(animate)
-    }
-    animate()
-    ///
 
     return () => {
       scene.remove(model)
