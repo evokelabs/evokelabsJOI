@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { Mesh, Object3D, Euler } from 'three'
 
+const TIME_BETWEEN_EYE_MOVEMENTS = 500
+
 export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) => {
   const requestRef = useRef<number | null>(null)
   const rightEye = useRef<{ mesh: Mesh | null; initialRotation: Euler | null }>({ mesh: null, initialRotation: null })
@@ -37,11 +39,11 @@ export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) 
   useEffect(() => {
     animate()
     const intervalId = setInterval(() => {
-      // Every 5 seconds, there's a 50% chance the eyes will stop looking at the camera
+      // Every TIME_BETWEEN_EYE_MOVEMENTS milliseconds, there's a 50% chance the eyes will stop looking at the camera
       if (Math.random() < 0.5) {
         lookAtCamera.current = !lookAtCamera.current
       }
-    }, 5000)
+    }, TIME_BETWEEN_EYE_MOVEMENTS)
     return () => {
       if (requestRef.current !== null) {
         cancelAnimationFrame(requestRef.current)
