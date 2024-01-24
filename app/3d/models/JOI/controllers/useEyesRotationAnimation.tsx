@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { Mesh, Object3D, Euler } from 'three'
 
-const TIME_BETWEEN_EYE_MOVEMENTS = 500
+const TIME_BETWEEN_EYE_MOVEMENTS = 7500
 
 export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) => {
   const requestRef = useRef<number | null>(null)
