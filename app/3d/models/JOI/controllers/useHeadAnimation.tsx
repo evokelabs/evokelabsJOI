@@ -55,8 +55,7 @@ export const useHeadAnimation = (nodes: Nodes) => {
       v1.applyMatrix4(m1)
       q1.copy(head.quaternion) // Save the original orientation
       head.quaternion.setFromRotationMatrix(m1.lookAt(v1, v3, head.up))
-      // head.quaternion.slerp(q1, weightRef.current)
-      head.quaternion.slerp(q1, 1)
+      head.quaternion.slerp(q1, weightRef.current)
 
       // Limit the rotation of the head to 180 degrees
       const euler = new Euler().setFromQuaternion(head.quaternion, 'YXZ')
