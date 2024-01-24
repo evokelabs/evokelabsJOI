@@ -44,7 +44,6 @@ export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) 
       // Every TIME_BETWEEN_EYE_MOVEMENTS milliseconds, there's a 50% chance the eyes will stop looking at the camera
       if (Math.random() < 0.5) {
         lookAtCamera.current = !lookAtCamera.current
-        console.log('blink') // log a message every time the blink is supposed to be triggered
         triggerBlink() // trigger the blink without offset
       }
     }, TIME_BETWEEN_EYE_MOVEMENTS)

@@ -85,7 +85,7 @@ export const useIdleAnimationPoseControl = (
       })
 
       nextAction.play()
-      console.log('looping triggered, playing', nextAction.getClip().name)
+      // console.log('looping triggered, playing', nextAction.getClip().name)
     },
     [animationBlendTime]
   )

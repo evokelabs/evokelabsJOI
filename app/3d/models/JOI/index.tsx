@@ -10,7 +10,6 @@ import { useIdleAnimationPoseControl } from './controllers/useIdleAnimationPoseC
 import { useHeadAnimation } from './controllers/useHeadAnimation'
 import { useEyesRotationAnimation } from './controllers/useEyesRotationAnimation'
 
-import { gsap } from 'gsap'
 import { useEyesBlinkingAnimation } from './controllers/useEyesBlinkingAnimation'
 
 const JOI = () => {
@@ -32,8 +31,6 @@ const JOI = () => {
     if (!model) return
 
     scene.add(model)
-
-    console.log('JOI model loaded', model)
 
     setInitialPositioning(gltf as GLTF)
     startEyeEmissionAnimation(gltf as GLTF)
