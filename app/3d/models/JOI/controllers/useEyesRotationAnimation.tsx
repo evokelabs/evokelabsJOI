@@ -1,25 +1,34 @@
 import { useCallback, useEffect, useRef } from 'react'
-import { Mesh, Object3D } from 'three'
+import { Mesh, Object3D, Euler } from 'three'
 
 export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) => {
   const requestRef = useRef<number | null>(null)
-  const rightEye = useRef<Mesh | null>(null)
-  const leftEye = useRef<Mesh | null>(null)
+  const rightEye = useRef<{ mesh: Mesh | null; initialRotation: Euler | null }>({ mesh: null, initialRotation: null })
+  const leftEye = useRef<{ mesh: Mesh | null; initialRotation: Euler | null }>({ mesh: null, initialRotation: null })
+  const lookAtCamera = useRef<boolean>(true)
 
   model.traverse(object => {
     if (object instanceof Mesh) {
       if (object.name === 'JOI-Eye-Right') {
-        rightEye.current = object
+        rightEye.current = { mesh: object, initialRotation: object.rotation.clone() }
       } else if (object.name === 'JOI-Eye-Left') {
-        leftEye.current = object
+        leftEye.current = { mesh: object, initialRotation: object.rotation.clone() }
       }
     }
   })
 
   const animate = useCallback(() => {
-    if (rightEye.current && leftEye.current) {
-      rightEye.current.lookAt(camera.position)
-      leftEye.current.lookAt(camera.position)
+    if (rightEye.current.mesh && leftEye.current.mesh) {
+      if (lookAtCamera.current) {
+        rightEye.current.mesh.lookAt(camera.position)
+        leftEye.current.mesh.lookAt(camera.position)
+      } else {
+        // Reset the eyes to their initial rotation
+        if (rightEye.current.initialRotation && leftEye.current.initialRotation) {
+          rightEye.current.mesh.rotation.copy(rightEye.current.initialRotation)
+          leftEye.current.mesh.rotation.copy(leftEye.current.initialRotation)
+        }
+      }
     }
     requestRef.current = requestAnimationFrame(animate)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -27,10 +36,17 @@ export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) 
 
   useEffect(() => {
     animate()
+    const intervalId = setInterval(() => {
+      // Every 5 seconds, there's a 50% chance the eyes will stop looking at the camera
+      if (Math.random() < 0.5) {
+        lookAtCamera.current = !lookAtCamera.current
+      }
+    }, 5000)
     return () => {
       if (requestRef.current !== null) {
         cancelAnimationFrame(requestRef.current)
       }
+      clearInterval(intervalId)
     }
   }, [animate])
 }
