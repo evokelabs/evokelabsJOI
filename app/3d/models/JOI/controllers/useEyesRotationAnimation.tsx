@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { Mesh, Object3D, Euler } from 'three'
+import { useEyesBlinkingAnimation } from './useEyesBlinkingAnimation'
 
-const TIME_BETWEEN_EYE_MOVEMENTS = 7500
+const TIME_BETWEEN_EYE_MOVEMENTS = 2000
 
 export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) => {
   const requestRef = useRef<number | null>(null)
   const rightEye = useRef<{ mesh: Mesh | null; initialRotation: Euler | null }>({ mesh: null, initialRotation: null })
   const leftEye = useRef<{ mesh: Mesh | null; initialRotation: Euler | null }>({ mesh: null, initialRotation: null })
   const lookAtCamera = useRef<boolean>(true)
+  const { triggerBlink } = useEyesBlinkingAnimation(model)
 
   model.traverse(object => {
     if (object instanceof Mesh) {
@@ -42,6 +44,8 @@ export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) 
       // Every TIME_BETWEEN_EYE_MOVEMENTS milliseconds, there's a 50% chance the eyes will stop looking at the camera
       if (Math.random() < 0.5) {
         lookAtCamera.current = !lookAtCamera.current
+        console.log('blink') // log a message every time the blink is supposed to be triggered
+        triggerBlink() // trigger the blink without offset
       }
     }, TIME_BETWEEN_EYE_MOVEMENTS)
     return () => {
@@ -50,5 +54,5 @@ export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) 
       }
       clearInterval(intervalId)
     }
-  }, [animate])
+  }, [animate, triggerBlink])
 }
