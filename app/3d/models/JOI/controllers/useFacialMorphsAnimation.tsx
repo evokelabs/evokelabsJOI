@@ -3,8 +3,8 @@ import { Mesh } from 'three'
 import { gsap } from 'gsap'
 
 const DURATION = 0.55
-const MIN_DELAY = 0.15
-const MAX_DELAY = 1.85
+const MIN_DELAY = 0.85
+const MAX_DELAY = 2.85
 
 export const useMorphAnimation = (model: THREE.Object3D | null) => {
   const lastSmileValueRef = useRef(0)
