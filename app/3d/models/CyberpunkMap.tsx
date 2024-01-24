@@ -26,7 +26,7 @@ const CyberpunkMap = () => {
                 gsap.to(object.position, {
                   y: 2.7,
                   duration: 5,
-                  delay: 2,
+                  delay: 3,
                   ease: 'Power1.easeOut',
                   onStart: () => {
                     setAmbientLightPlay(true)
