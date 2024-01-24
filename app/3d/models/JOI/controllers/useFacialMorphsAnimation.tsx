@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react'
 import { Mesh } from 'three'
 import { gsap } from 'gsap'
 
-const DURATION = 0.25
-const MIN_DELAY = 0.5
-const MAX_DELAY = 1.5
+const DURATION = 0.55
+const MIN_DELAY = 0.75
+const MAX_DELAY = 2
 
 export const useMorphAnimation = (model: THREE.Object3D | null) => {
   const lastSmileValueRef = useRef(0)
@@ -23,36 +23,44 @@ export const useMorphAnimation = (model: THREE.Object3D | null) => {
     const smileIndex = meshes[0]?.morphTargetDictionary?.Smile
     const eyebrowsIndex = meshes[0]?.morphTargetDictionary?.Eyebrows
 
-    if (smileIndex !== undefined) {
-      const animate = (index: number, lastValueRef: React.MutableRefObject<number>) => {
-        const delay = Math.random() * (MAX_DELAY - MIN_DELAY) + MIN_DELAY
-        const timeline = gsap.timeline()
+    const animate = (smileIndex: number, eyebrowsIndex: number) => {
+      const delay = Math.random() * (MAX_DELAY - MIN_DELAY) + MIN_DELAY
 
-        timeline.to(
-          meshes.map(mesh => mesh.morphTargetInfluences),
-          {
-            delay,
-            duration: DURATION,
-            [index]: Math.random(),
-            ease: 'power1.inOut',
-            onComplete: () => {
-              if (meshes[0] && meshes[0].morphTargetInfluences) {
-                lastValueRef.current = meshes[0].morphTargetInfluences[index]
-              }
-              timeline.clear()
-              animate(index, lastValueRef)
+      return gsap.to(
+        meshes.map(mesh => mesh.morphTargetInfluences),
+        {
+          delay,
+          duration: DURATION,
+          [smileIndex]: Math.random(),
+          [eyebrowsIndex]: Math.random(),
+          ease: 'power1.inOut',
+          onComplete: () => {
+            console.log('Animation played') // This line is added
+            if (meshes[0] && meshes[0].morphTargetInfluences) {
+              lastSmileValueRef.current = meshes[0].morphTargetInfluences[smileIndex]
+              lastEyebrowsValueRef.current = meshes[0].morphTargetInfluences[eyebrowsIndex]
             }
           }
-        )
-      }
+        }
+      )
+    }
 
-      if (smileIndex !== undefined) {
-        animate(smileIndex, lastSmileValueRef)
-      }
+    if (smileIndex !== undefined && eyebrowsIndex !== undefined) {
+      animate(smileIndex, eyebrowsIndex)
+    }
 
-      if (eyebrowsIndex !== undefined) {
-        animate(eyebrowsIndex, lastEyebrowsValueRef)
+    const startAnimation = () => {
+      if (smileIndex !== undefined && eyebrowsIndex !== undefined) {
+        const delay = Math.random() * (MAX_DELAY - MIN_DELAY) + MIN_DELAY
+        const masterTimeline = gsap.timeline({
+          onComplete: startAnimation,
+          delay
+        })
+
+        masterTimeline.add(animate(smileIndex, eyebrowsIndex))
       }
     }
+
+    startAnimation()
   }, [model])
 }
