@@ -3,8 +3,8 @@ import { Mesh } from 'three'
 import { gsap } from 'gsap'
 
 const DURATION = 0.55
-const MIN_DELAY = 0.75
-const MAX_DELAY = 2
+const MIN_DELAY = 0.15
+const MAX_DELAY = 1.85
 
 export const useMorphAnimation = (model: THREE.Object3D | null) => {
   const lastSmileValueRef = useRef(0)
@@ -35,7 +35,6 @@ export const useMorphAnimation = (model: THREE.Object3D | null) => {
           [eyebrowsIndex]: Math.random(),
           ease: 'power1.inOut',
           onComplete: () => {
-            console.log('Animation played') // This line is added
             if (meshes[0] && meshes[0].morphTargetInfluences) {
               lastSmileValueRef.current = meshes[0].morphTargetInfluences[smileIndex]
               lastEyebrowsValueRef.current = meshes[0].morphTargetInfluences[eyebrowsIndex]
@@ -52,6 +51,7 @@ export const useMorphAnimation = (model: THREE.Object3D | null) => {
     const startAnimation = () => {
       if (smileIndex !== undefined && eyebrowsIndex !== undefined) {
         const delay = Math.random() * (MAX_DELAY - MIN_DELAY) + MIN_DELAY
+        console.log('delay', delay)
         const masterTimeline = gsap.timeline({
           onComplete: startAnimation,
           delay
