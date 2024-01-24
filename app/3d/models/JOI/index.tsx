@@ -10,6 +10,8 @@ import { useIdleAnimationPoseControl } from './controllers/useIdleAnimationPoseC
 import { useHeadAnimation } from './controllers/useHeadAnimation'
 import { useEyesRotationAnimation } from './controllers/useEyesRotationAnimation'
 
+import { gsap } from 'gsap'
+
 const JOI = () => {
   const { scene, camera } = useThree()
 
@@ -35,8 +37,26 @@ const JOI = () => {
     startEyeEmissionAnimation(gltf as GLTF)
 
     model.traverse(object => {
-      if (object instanceof Mesh) {
+      if (object instanceof Mesh && object.morphTargetDictionary && object.morphTargetInfluences) {
         object.receiveShadow = true
+        console.log(object.name, 'morph targets:', object.morphTargetDictionary)
+
+        if (object.morphTargetDictionary.Blink !== undefined) {
+          console.log('Blinking')
+          const tl = gsap.timeline({ repeat: -1, repeatDelay: 5 })
+          tl.to(object.morphTargetInfluences, {
+            duration: 0.15,
+            [object.morphTargetDictionary.Blink]: 1
+          })
+            .to(object.morphTargetInfluences, {
+              duration: 0.05,
+              [object.morphTargetDictionary.Blink]: 1
+            })
+            .to(object.morphTargetInfluences, {
+              duration: 0.15,
+              [object.morphTargetDictionary.Blink]: 0
+            })
+        }
       }
     })
 
