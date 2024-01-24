@@ -32,7 +32,7 @@ export const useEyesBlinkingAnimation = (model: Object3D | undefined) => {
           meshes.map(mesh => mesh.morphTargetInfluences),
           {
             duration: BLINK_DURATION,
-            [blinkIndex]: 0
+            [blinkIndex]: Math.random() * 0.275
           }
         )
     }
