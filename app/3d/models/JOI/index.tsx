@@ -9,8 +9,8 @@ import { useInitialJOIPositioning } from './controllers/useInitialJOIPositioning
 import { useIdleAnimationPoseControl } from './controllers/useIdleAnimationPoseControl'
 import { useHeadAnimation } from './controllers/useHeadAnimation'
 import { useEyesRotationAnimation } from './controllers/useEyesRotationAnimation'
-
 import { useEyesBlinkingAnimation } from './controllers/useEyesBlinkingAnimation'
+import { useMorphAnimation } from './controllers/useFacialMorphsAnimation'
 
 const JOI = () => {
   const { scene, camera } = useThree()
@@ -26,6 +26,7 @@ const JOI = () => {
   useEyesRotationAnimation(model, camera)
   useHeadAnimation(nodes)
   useEyesBlinkingAnimation(model as Mesh)
+  useMorphAnimation(model)
 
   useEffect(() => {
     if (!model) return
@@ -35,9 +36,12 @@ const JOI = () => {
     setInitialPositioning(gltf as GLTF)
     startEyeEmissionAnimation(gltf as GLTF)
 
-    model.traverse(object => {
-      if (object instanceof Mesh && object.morphTargetDictionary && object.morphTargetInfluences) {
-        object.receiveShadow = true
+    model.traverse((object: THREE.Object3D) => {
+      if (object instanceof Mesh) {
+        const mesh = object as Mesh
+        if (mesh.morphTargetDictionary && mesh.morphTargetInfluences) {
+          mesh.receiveShadow = true
+        }
       }
     })
 
