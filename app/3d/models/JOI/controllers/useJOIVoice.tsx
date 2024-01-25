@@ -2,12 +2,14 @@ import { AnimationContext } from '@/app/libs/AnimationContext'
 import { useEffect, useState, useContext } from 'react'
 import { SkinnedMesh } from 'three'
 
-const MAX_VOLUME = 160
 const JOI_VOICE_PATH = './sounds/JOI-Voice/'
 const INTRO_01 = 'Intro-01.mp3'
 const INTRO_02 = 'Intro-02.mp3'
 const INTRO_03 = 'Intro-03.mp3'
 const INTRO_04 = 'Intro-04.mp3'
+
+const MAX_VOLUME = 220
+const MAX_INFLUENCE = 0.2
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
@@ -42,7 +44,14 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       const bins = [data.slice(0, binSize), data.slice(binSize, binSize * 2), data.slice(binSize * 2, binSize * 3), data.slice(binSize * 3)]
 
       const volumes = bins.map(bin => bin.reduce((a, b) => a + b) / bin.length)
-      const influences = volumes.map(volume => Math.min(Math.max(volume / MAX_VOLUME, 0), 1))
+      const influences = volumes.map((volume, index) => {
+        let influence = Math.min(Math.max(volume / MAX_VOLUME, 0), 1)
+        // Apply MAX_INFLUENCE only for influences[1] and influences[2]
+        if (index === 1 || index === 2) {
+          influence = Math.min(influence, MAX_INFLUENCE)
+        }
+        return influence
+      })
 
       const skinnedMeshes: THREE.SkinnedMesh[] = []
       model.traverse(object => {
