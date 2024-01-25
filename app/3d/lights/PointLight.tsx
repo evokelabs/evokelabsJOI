@@ -29,7 +29,12 @@ const PointLight = ({ positionOffset = [0, 0, 0] }) => {
       gsap.fromTo(
         pointLightRef.current,
         { intensity: 0 },
-        { intensity: LIGHT_INTENSITY, duration: LIGHT_ANIMATION_DURATION, delay: LIGHT_ANIMATION_DELAY, ease: LIGHT_ANIMATION_EASE }
+        {
+          intensity: LIGHT_INTENSITY,
+          duration: LIGHT_ANIMATION_DURATION,
+          delay: LIGHT_ANIMATION_DELAY,
+          ease: LIGHT_ANIMATION_EASE
+        }
       )
     }
   }, [shouldPointLightPlay])

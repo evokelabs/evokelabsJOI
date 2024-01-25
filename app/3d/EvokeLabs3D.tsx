@@ -25,6 +25,7 @@ const Evokelabs3D = () => {
   // State
   const [shouldAmbientLightPlay, setAmbientLightPlay] = useState(false)
   const [shouldPointLightPlay, setPointLightPlay] = useState(false)
+  const [shouldJOISpeak, setShouldJOISpeak] = useState(false)
 
   // Camera settings
   const { cameraTarget, fov } = useCameraSettings()
@@ -35,7 +36,16 @@ const Evokelabs3D = () => {
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : <CameraRig fov={fov} debug={debug} />}
         <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
-        <AnimationContext.Provider value={{ shouldAmbientLightPlay, shouldPointLightPlay, setAmbientLightPlay, setPointLightPlay }}>
+        <AnimationContext.Provider
+          value={{
+            shouldAmbientLightPlay,
+            shouldPointLightPlay,
+            shouldJOISpeak,
+            setAmbientLightPlay,
+            setPointLightPlay,
+            setShouldJOISpeak
+          }}
+        >
           <Suspense fallback={null}>
             <Lights />
             <CyberpunkMap />

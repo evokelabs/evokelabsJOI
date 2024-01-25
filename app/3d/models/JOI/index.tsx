@@ -11,6 +11,7 @@ import { useHeadAnimation } from './controllers/useHeadAnimation'
 import { useEyesRotationAnimation } from './controllers/useEyesRotationAnimation'
 import { useEyesBlinkingAnimation } from './controllers/useEyesBlinkingAnimation'
 import { useMorphAnimation } from './controllers/useFacialMorphsAnimation'
+import { useJOIVoice } from './controllers/useJOIVoice'
 
 const JOI = () => {
   const { scene, camera } = useThree()
@@ -27,6 +28,7 @@ const JOI = () => {
   useHeadAnimation(nodes)
   useEyesBlinkingAnimation(model as Mesh)
   useMorphAnimation(model)
+  useJOIVoice(model)
 
   useEffect(() => {
     if (!model) return

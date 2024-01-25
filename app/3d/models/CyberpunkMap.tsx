@@ -8,7 +8,7 @@ import { AnimationContext } from './../../libs/AnimationContext'
 const CyberpunkMap = () => {
   const { scene } = useThree()
   const gltfLoader = useRef(useDracoLoader()).current
-  const { setPointLightPlay, setAmbientLightPlay } = useContext(AnimationContext)
+  const { setPointLightPlay, setAmbientLightPlay, setShouldJOISpeak } = useContext(AnimationContext)
 
   useEffect(() => {
     gltfLoader.load(
@@ -30,9 +30,13 @@ const CyberpunkMap = () => {
                   ease: 'Power1.easeOut',
                   onStart: () => {
                     setAmbientLightPlay(true)
+
                     gsap.delayedCall(3, () => {
                       setPointLightPlay(true)
                     })
+                  },
+                  onComplete: () => {
+                    setShouldJOISpeak(true)
                   }
                 })
                 break
@@ -58,7 +62,7 @@ const CyberpunkMap = () => {
         if (child instanceof Scene) scene.remove(child)
       })
     }
-  }, [scene, gltfLoader, setPointLightPlay, setAmbientLightPlay])
+  }, [scene, gltfLoader, setPointLightPlay, setAmbientLightPlay, setShouldJOISpeak])
 
   return null
 }

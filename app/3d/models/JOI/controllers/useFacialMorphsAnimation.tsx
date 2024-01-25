@@ -51,7 +51,6 @@ export const useMorphAnimation = (model: THREE.Object3D | null) => {
     const startAnimation = () => {
       if (smileIndex !== undefined && eyebrowsIndex !== undefined) {
         const delay = Math.random() * (MAX_DELAY - MIN_DELAY) + MIN_DELAY
-        console.log('delay', delay)
         const masterTimeline = gsap.timeline({
           onComplete: startAnimation,
           delay
