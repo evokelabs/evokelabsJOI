@@ -1,15 +1,15 @@
 import { AnimationContext } from '@/app/libs/AnimationContext'
 import { useEffect, useState, useContext } from 'react'
-import { SkinnedMesh } from 'three'
+import { SkinnedMesh, PositionalAudio, AudioListener, AudioLoader } from 'three'
 
-const MAX_VOLUME = 100
+const MAX_VOLUME = 90
 const JOI_VOICE_PATH = './sounds/JOI-Voice/'
 const INTRO_01 = 'Intro-01.mp3'
 const INTRO_02 = 'Intro-02.mp3'
 const INTRO_03 = 'Intro-03.mp3'
 const INTRO_04 = 'Intro-04.mp3'
 
-export const useJOIVoice = (model: THREE.Object3D | null) => {
+export const useJOIVoice = (model: THREE.Object3D | null, camera: THREE.Camera) => {
   const [hasPlayed, setHasPlayed] = useState(false)
   const { shouldJOISpeak } = useContext(AnimationContext)
 
@@ -25,18 +25,25 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       audioFile = JOI_VOICE_PATH + randomFile
     }
 
-    const audio = new Audio(audioFile)
-    const audioContext = new AudioContext()
-    const source = audioContext.createMediaElementSource(audio)
+    const listener = new AudioListener()
+    camera.add(listener)
+
+    const sound = new PositionalAudio(listener)
+    model.add(sound)
+
+    const audioLoader = new AudioLoader()
+    audioLoader.load(audioFile, function (buffer) {
+      sound.setBuffer(buffer)
+      sound.setRefDistance(20)
+      sound.play()
+      updateMorphTarget()
+    })
+
+    const audioContext = sound.context
     const analyser = audioContext.createAnalyser()
-    source.connect(analyser)
-    analyser.connect(audioContext.destination)
+    sound.getOutput().connect(analyser)
 
-    audio.play().catch(error => console.error('Audio play failed due to', error))
-
-    if (audioContext.state === 'suspended') {
-      audioContext.resume()
-    }
+    let animationFrameId: number | null = null
 
     const updateMorphTarget = () => {
       const data = new Uint8Array(analyser.frequencyBinCount)
@@ -61,22 +68,23 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         })
       }
 
-      if (!audio.paused) {
-        requestAnimationFrame(updateMorphTarget)
+      if (sound.isPlaying) {
+        animationFrameId = requestAnimationFrame(updateMorphTarget)
       }
-    }
-
-    if (!audio.paused) {
-      requestAnimationFrame(updateMorphTarget)
     }
 
     updateMorphTarget()
 
-    audio.onended = () => {
+    sound.onEnded = () => {
       if (!visited) {
         document.cookie = 'evokelabs-visited=true'
       }
       setHasPlayed(true)
     }
-  }, [hasPlayed, shouldJOISpeak, model])
+    return () => {
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId)
+      }
+    }
+  }, [hasPlayed, shouldJOISpeak, model, camera])
 }
