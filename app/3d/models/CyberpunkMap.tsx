@@ -34,9 +34,9 @@ const CyberpunkMap = () => {
                     gsap.delayedCall(3, () => {
                       setPointLightPlay(true)
                     })
-                    gsap.delayedCall(4, () => {
-                      setShouldJOISpeak(true)
-                    })
+                  },
+                  onComplete: () => {
+                    setShouldJOISpeak(true)
                   }
                 })
                 break
