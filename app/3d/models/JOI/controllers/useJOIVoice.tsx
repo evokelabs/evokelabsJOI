@@ -8,8 +8,8 @@ const INTRO_02 = 'Intro-02.mp3'
 const INTRO_03 = 'Intro-03.mp3'
 const INTRO_04 = 'Intro-04.mp3'
 
-const MAX_VOLUME = 220
-const MAX_INFLUENCE = 0.2
+const MAX_VOLUME = 255
+const MAX_INFLUENCE = 0.25
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
