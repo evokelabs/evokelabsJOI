@@ -4,10 +4,10 @@ export const getFov = (width: number): number => {
   switch (true) {
     case width <= 480:
       return 55 // Mobile devices
-    case width <= 1024:
-      return 40 // Desktop Min
+    case width <= 1200:
+      return 48 // Desktop Min
     case width <= 2024:
-      return 36 // Desktop Med
+      return 40 // Desktop Med
     case width <= 3024:
       return 28 // Desktop Max
     default:
