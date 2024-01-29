@@ -41,7 +41,7 @@ const DirectionLight = () => {
       shadow-normalBias={SHADOW_NORMAL_BIAS}
       shadow-mapSize-width={2048} // Increase shadow map width
       shadow-mapSize-height={2048} // Increase shadow map height
-      shadow-bias={-0.0001} // Adjust shadow bias
+      shadow-bias={-0.00002} // Adjust shadow bias
     />
   )
 }
