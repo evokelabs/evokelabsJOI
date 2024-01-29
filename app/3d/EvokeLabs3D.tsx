@@ -49,7 +49,7 @@ const Evokelabs3D = () => {
           <Suspense fallback={null}>
             <Lights />
             <CyberpunkMap />
-            {/* <CyberpunkCar /> */}
+            <CyberpunkCar />
           </Suspense>
           <JOI />
           <Rain />

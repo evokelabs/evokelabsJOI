@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
-import { Mesh, Scene } from 'three'
+import { Mesh, MeshBasicMaterial, MeshStandardMaterial, Scene, VideoTexture } from 'three'
 import { gsap } from 'gsap'
 import { useDracoLoader } from './../../libs/useDracoLoader'
 import { AnimationContext } from './../../libs/AnimationContext'
@@ -11,9 +11,35 @@ const CyberpunkMap = () => {
   const { setPointLightPlay, setAmbientLightPlay, setShouldJOISpeak } = useContext(AnimationContext)
 
   useEffect(() => {
+    // Create video elements
+    const videoMonitor = document.createElement('video')
+    videoMonitor.src = '/videos/monitor.mp4'
+    videoMonitor.loop = true
+    videoMonitor.muted = true
+    videoMonitor.play()
+
+    const videoTablet = document.createElement('video')
+    videoTablet.src = '/videos/tablet.mp4'
+    videoTablet.loop = true
+    videoTablet.muted = true
+    videoTablet.play()
+
+    // Create video textures
+    const videoTextureMonitor = new VideoTexture(videoMonitor)
+    const videoTextureTablet = new VideoTexture(videoTablet)
+
+    // Create materials with emissive map
+    const videoMaterialMonitor = new MeshBasicMaterial({
+      map: videoTextureMonitor
+    })
+    const videoMaterialTablet = new MeshBasicMaterial({
+      map: videoTextureTablet
+    })
+
     gltfLoader.load(
       '/glb/EvokelabsRoom.glb',
       gltf => {
+        console.log(gltf.scene)
         scene.add(gltf.scene)
         gltf.scene.traverse(object => {
           if (object instanceof Mesh) {
@@ -42,6 +68,13 @@ const CyberpunkMap = () => {
                 break
               case 'Wall_Curved_VendingMachine_Outdoor':
                 object.castShadow = true
+                break
+
+              case 'VideoTexture-Widescreen':
+                object.material = videoMaterialMonitor
+                break
+              case 'VideoTexture-Tablet':
+                object.material = videoMaterialTablet
                 break
               default:
                 object.castShadow = true
