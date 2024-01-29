@@ -4,7 +4,7 @@ import { GLTF } from 'three/examples/jsm/Addons.js'
 import { GUI } from 'dat.gui'
 
 // Constants
-const POSITION = { x: 0.7, y: 0.095, z: 2.1 }
+const POSITION = { x: 0.8, y: 0.095, z: 2.1 }
 const ROTATION = { pitch: (-90 * Math.PI) / 180, yaw: 0, roll: (-180 * Math.PI) / 180 }
 const EYE_NAMES = ['JOI-Eye-Left', 'JOI-Eye-Right']
 
