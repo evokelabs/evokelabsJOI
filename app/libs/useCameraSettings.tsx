@@ -20,6 +20,9 @@ export const useCameraSettings = () => {
   const initialFov = typeof window !== 'undefined' ? getFov(window.innerWidth) : DEFAULT_FOV
   const [fov, setFov] = useState(initialFov)
 
+  // Add focusDistance state
+  const [focusDistance, setFocusDistance] = useState(1)
+
   // Handle window resize events
   const handleResize = useCallback(() => {
     const isMobile = window.innerWidth <= MOBILE_WIDTH_THRESHOLD
@@ -37,5 +40,5 @@ export const useCameraSettings = () => {
     }
   }, [handleResize])
 
-  return { cameraTarget, fov }
+  return { cameraTarget, fov, focusDistance }
 }
