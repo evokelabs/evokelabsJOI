@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
@@ -42,7 +42,7 @@ const Evokelabs3D = () => {
         }}
       >
         <VideoSkybox />
-        {/* {debug ? <Perf position='top-left' /> : null} */}
+        {debug ? <Perf position='top-left' /> : null}
         <Perf position='top-left' />
         <CameraRig fov={fov} debug={debug} />
         <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
@@ -63,12 +63,12 @@ const Evokelabs3D = () => {
           <Rain />
         </AnimationContext.Provider>
         <EffectComposer disableNormalPass>
-          {/* <Noise opacity={0.045} /> */}
-          <DepthOfField focusDistance={0.012} focusRange={0.005} bokehScale={10} />
-          {/* <Bloom mipmapBlur radius={0.4} luminanceThreshold={0.9} intensity={0.75} luminanceSmoothing={0.65} levels={6} /> */}
-          {/* <ChromaticAberration offset={new Vector2(0.03, 0.03)} radialModulation={true} modulationOffset={1.1} /> */}
-          {/* <Vignette eskil={false} offset={0.0} darkness={1} /> */}
+          <DepthOfField focusDistance={0.0115} focusRange={0.0095} bokehScale={4} />
+          <Bloom mipmapBlur radius={0.4} luminanceThreshold={0.9} intensity={0.75} luminanceSmoothing={0.65} levels={6} />
+          <ChromaticAberration offset={new Vector2(0.03, 0.03)} radialModulation={true} modulationOffset={1.1} />
+          <Noise opacity={0.035} />
           <ToneMapping />
+          <Vignette eskil={false} offset={0.0} darkness={1} />
         </EffectComposer>
       </Canvas>
 

@@ -28,7 +28,7 @@ const PointLight = ({ positionOffset = [0, 0, 0] }) => {
     if (shouldPointLightPlay && pointLightRef.current) {
       gsap.fromTo(
         pointLightRef.current,
-        { intensity: LIGHT_INTENSITY },
+        { intensity: 0 },
         {
           intensity: LIGHT_INTENSITY,
           duration: LIGHT_ANIMATION_DURATION,
@@ -44,7 +44,7 @@ const PointLight = ({ positionOffset = [0, 0, 0] }) => {
       ref={pointLightRef}
       color={LIGHT_COLOR}
       position={position}
-      intensity={LIGHT_INTENSITY}
+      intensity={0}
       castShadow
       shadow-normalBias={SHADOW_NORMAL_BIAS}
       decay={DECAY}
