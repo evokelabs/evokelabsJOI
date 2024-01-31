@@ -65,11 +65,11 @@ const Evokelabs3D = () => {
         </AnimationContext.Provider>
         <EffectComposer disableNormalPass>
           <ChromaticAberration offset={new Vector2(0.025, 0.025)} radialModulation={true} modulationOffset={1.1} />
+          <Vignette eskil={false} offset={0.0} darkness={1} />
           {/* <DepthOfField focusDistance={0.02} focalLength={0.5} bokehScale={2} height={480} /> */}
 
           {/* <Bloom luminanceThreshold={0.5} mipmapBlur luminanceSmoothing={0} intensity={1.5} /> */}
           {/* <Noise opacity={0.1} /> */}
-          {/* <Vignette eskil={false} offset={0.1} darkness={1.1} /> */}
           {/* <ToneMapping /> */}
         </EffectComposer>
       </Canvas>
