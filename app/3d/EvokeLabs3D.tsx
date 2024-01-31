@@ -17,10 +17,11 @@ import { useCameraSettings } from '../libs/useCameraSettings'
 
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, ToneMapping } from '@react-three/postprocessing'
 import { Vector2 } from 'three'
+import { GUI } from 'dat.gui'
 
 // Constants
-const debug = true
-// const debug = false
+// const debug = true
+const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 
 const Evokelabs3D = () => {
@@ -32,10 +33,24 @@ const Evokelabs3D = () => {
   // Camera settings
   const { cameraTarget, fov } = useCameraSettings()
 
+  const [dofParams, setDofParams] = useState({
+    focusDistance: 0.4,
+    focusRange: 0.2,
+    bokehScale: 2.5
+  })
+
+  useEffect(() => {
+    const gui = new GUI()
+    const folder = gui.addFolder('DepthOfField')
+    folder.add(dofParams, 'focusDistance', 0, 1).onChange(value => setDofParams(prev => ({ ...prev, focusDistance: value, step: 0.0001 })))
+    folder.add(dofParams, 'bokehScale', 0, 150).onChange(value => setDofParams(prev => ({ ...prev, bokehScale: value })))
+    folder.add(dofParams, 'focusRange', 0, 1).onChange(value => setDofParams(prev => ({ ...prev, focusRange: value, step: 0.0001 })))
+  }, [])
+
   return (
     <>
       <Canvas
-        camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.1, far: 2000 }}
+        camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.1, far: 5 }}
         shadows
         gl={{
           powerPreference: 'high-performance'
@@ -61,12 +76,12 @@ const Evokelabs3D = () => {
           <Rain />
         </AnimationContext.Provider>
         <EffectComposer disableNormalPass>
-          <ChromaticAberration offset={new Vector2(0.025, 0.025)} radialModulation={true} modulationOffset={1.1} />
-          <Bloom mipmapBlur radius={0.6} luminanceThreshold={0.95} intensity={0.45} luminanceSmoothing={0.65} levels={5} />
-          <Noise opacity={0.04} />
-          <Vignette eskil={false} offset={0.0} darkness={1} />
+          <Noise opacity={0.045} />
 
-          {/* <DepthOfField focusDistance={0.02} focalLength={0.5} bokehScale={2} height={480} /> */}
+          <Bloom mipmapBlur radius={0.4} luminanceThreshold={0.9} intensity={0.45} luminanceSmoothing={0.65} levels={6} />
+          <DepthOfField focusDistance={dofParams.focusDistance} focusRange={dofParams.focusRange} bokehScale={dofParams.bokehScale} />
+          <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
+          <Vignette eskil={false} offset={0.0} darkness={1} />
 
           {/* <ToneMapping /> */}
         </EffectComposer>
