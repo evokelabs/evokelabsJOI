@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { AnimationAction, AnimationClip, AnimationMixer, Clock, Object3D } from 'three'
-import { useControls } from 'leva' // Import useControls from leva
 import { shuffleArray } from '@/app/libs/helpers'
 import { useFrame } from '@react-three/fiber'
 import { gsap } from 'gsap'
@@ -15,17 +14,8 @@ export const useIdleAnimationPoseControl = (
   const mixer = useRef<AnimationMixer | null>(null)
   const actionsRef = useRef<{ [name: string]: AnimationAction }>({})
   const shuffledAnimationNamesRef = useRef<string[]>([])
-  const isFirstRender = useRef(true)
-  const animationNames = animations.map(animation => animation.name)
   const currentActionIndex = useRef(0)
   const clock = useRef(new Clock())
-
-  const { selectedAnimation } = useControls({
-    selectedAnimation: {
-      options: animationNames,
-      value: animationNames[0]
-    }
-  })
 
   shuffledAnimationNamesRef.current = useMemo(() => {
     const animationNames = animations.map(animation => animation.name)
@@ -79,39 +69,6 @@ export const useIdleAnimationPoseControl = (
     },
     [animationBlendTime]
   )
-
-  useEffect(() => {
-    // If it's the first render, do nothing
-    if (isFirstRender.current) {
-      isFirstRender.current = false
-      return
-    }
-
-    // If an animation is selected, stop the current animation and play the selected one
-    if (selectedAnimation) {
-      // Remove the loop event listener
-      mixer.current?.removeEventListener('loop', onLoop)
-
-      // Stop all actions
-      Object.values(actionsRef.current).forEach(action => action.stop())
-
-      // Play the selected animation
-      const selectedAction = actionsRef.current[selectedAnimation]
-      selectedAction?.play()
-    } else {
-      // If no animation is selected, add the loop event listener back
-      mixer.current?.addEventListener('loop', onLoop)
-
-      // Play the first animation in the shuffled list
-      const firstAction = actionsRef.current[shuffledAnimationNamesRef.current[0]]
-      firstAction?.play()
-    }
-
-    // Return the cleanup function
-    return () => {
-      cleanup(null)
-    }
-  }, [selectedAnimation, onLoop, cleanup])
 
   useEffect(() => {
     if (animations && animations.length > 0) {
