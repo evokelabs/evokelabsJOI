@@ -79,7 +79,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
     const onAudioEnd = () => {
       if (!visited) {
-        document.cookie = 'evokelabs-visited=true'
+        const date = new Date()
+        date.setDate(date.getDate() + 7)
+        document.cookie = `evokelabs-visited=true; expires=${date.toUTCString()}`
       }
       setHasPlayed(true)
     }
