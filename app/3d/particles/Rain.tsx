@@ -7,9 +7,9 @@ const MIN_FALL_HEIGHT = 0
 const MIN_FALL_HEIGHT_OFFSET = 6
 const RAIN_COUNT = 5000
 const SPEED = -0.15
-const SCALE = 0.35
-const SIZE = 0.005
-const ROTATION = 0.05
+const SCALE = 0.5
+const SIZE = 0.0005
+const ROTATION = 0.75
 const SLANT = 0.05
 
 const Rain = () => {
@@ -17,9 +17,9 @@ const Rain = () => {
 
   const rainRef = useMemo(() => {
     const rainMaterial = new THREE.MeshBasicMaterial({
-      color: 0x96e7ff,
+      color: 0xbbefff,
       transparent: true,
-      opacity: 0.375,
+      opacity: 0.8,
       side: THREE.DoubleSide
     })
 
@@ -60,6 +60,8 @@ const Rain = () => {
     const matrix = new THREE.Matrix4()
     const position = new THREE.Vector3()
 
+    const rotationMatrix = new THREE.Matrix4().makeRotationZ(ROTATION)
+
     for (let i = 0; i < RAIN_COUNT; i++) {
       positions[i * 3] = Math.random() * 23 - 12
       positions[i * 3 + 1] = Math.random() * (MAX_FALL_HEIGHT - (MIN_FALL_HEIGHT - MIN_FALL_HEIGHT_OFFSET))
@@ -67,6 +69,8 @@ const Rain = () => {
       velocities[i] = 0
 
       position.set(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2])
+      matrix.makeRotationZ(ROTATION) // Apply rotation to matrix
+      matrix.multiply(rotationMatrix)
       matrix.setPosition(position)
       rain.setMatrixAt(i, matrix)
     }

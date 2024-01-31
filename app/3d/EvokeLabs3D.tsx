@@ -58,7 +58,7 @@ const Evokelabs3D = () => {
         >
           <Lights />
           <CyberpunkMap />
-          <CyberpunkCar />
+          {/* <CyberpunkCar /> */}
           <JOI />
           <Rain />
         </AnimationContext.Provider>
