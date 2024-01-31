@@ -17,7 +17,6 @@ import { useCameraSettings } from '../libs/useCameraSettings'
 
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, ToneMapping } from '@react-three/postprocessing'
 import { Vector2 } from 'three'
-import { GUI } from 'dat.gui'
 
 // Constants
 // const debug = true
@@ -36,7 +35,7 @@ const Evokelabs3D = () => {
   return (
     <>
       <Canvas
-        camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.1, far: 5 }}
+        camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
         shadows
         gl={{
           powerPreference: 'high-performance'
@@ -64,12 +63,11 @@ const Evokelabs3D = () => {
           <Rain />
         </AnimationContext.Provider>
         <EffectComposer disableNormalPass>
-          <Noise opacity={0.045} />
-          <Bloom mipmapBlur radius={0.4} luminanceThreshold={0.9} intensity={0.45} luminanceSmoothing={0.65} levels={6} />
-          <DepthOfField focusDistance={0.42} focusRange={0.425} bokehScale={4} />
-          <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
-          <Vignette eskil={false} offset={0.0} darkness={1} />
-
+          {/* <Noise opacity={0.045} /> */}
+          <DepthOfField focusDistance={0.012} focusRange={0.005} bokehScale={10} />
+          {/* <Bloom mipmapBlur radius={0.4} luminanceThreshold={0.9} intensity={0.75} luminanceSmoothing={0.65} levels={6} /> */}
+          {/* <ChromaticAberration offset={new Vector2(0.03, 0.03)} radialModulation={true} modulationOffset={1.1} /> */}
+          {/* <Vignette eskil={false} offset={0.0} darkness={1} /> */}
           <ToneMapping />
         </EffectComposer>
       </Canvas>

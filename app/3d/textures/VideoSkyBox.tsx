@@ -52,7 +52,7 @@ const VideoSkybox = () => {
 
   return (
     <mesh ref={meshRef} scale={[-1, 0.55, 0.8]}>
-      <boxGeometry attach='geometry' args={[2000, 2000, 2000]} />
+      <boxGeometry attach='geometry' args={[200, 200, 200]} />
       <meshBasicMaterial side={BackSide} map={texture} />
     </mesh>
   )
