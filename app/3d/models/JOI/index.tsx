@@ -28,7 +28,7 @@ const JOI = () => {
   useHeadAnimation(nodes)
   useEyesBlinkingAnimation(model as Mesh)
   useMorphAnimation(model)
-  // useJOIVoice(model)
+  useJOIVoice(model)
 
   useEffect(() => {
     if (!model) return
