@@ -26,8 +26,39 @@ const Rain = () => {
     const positions = new Float32Array(RAIN_COUNT * 3)
     const velocities = new Float32Array(RAIN_COUNT)
 
-    const plane = new THREE.PlaneGeometry(SCALE, SIZE)
-    const rain = new THREE.InstancedMesh(plane, rainMaterial, RAIN_COUNT)
+    // Create a single plane using BufferGeometry
+    const planeGeometry = new THREE.BufferGeometry()
+    const vertices = new Float32Array([
+      -0.5 * SCALE,
+      -0.5 * SIZE,
+      0,
+      0.5 * SCALE,
+      -0.5 * SIZE,
+      0,
+      0.5 * SCALE,
+      0.5 * SIZE,
+      0,
+
+      -0.5 * SCALE,
+      -0.5 * SIZE,
+      0,
+      0.5 * SCALE,
+      0.5 * SIZE,
+      0,
+      -0.5 * SCALE,
+      0.5 * SIZE,
+      0
+    ])
+    planeGeometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
+
+    // Use InstancedBufferGeometry to create instances of the plane
+    const rainGeometry = new THREE.InstancedBufferGeometry()
+    rainGeometry.setAttribute('position', planeGeometry.getAttribute('position'))
+
+    const rain = new THREE.InstancedMesh(rainGeometry, rainMaterial, RAIN_COUNT)
+
+    const matrix = new THREE.Matrix4()
+    const position = new THREE.Vector3()
 
     for (let i = 0; i < RAIN_COUNT; i++) {
       positions[i * 3] = Math.random() * 23 - 12
@@ -35,19 +66,19 @@ const Rain = () => {
       positions[i * 3 + 2] = Math.random() * -16 + 20
       velocities[i] = 0
 
-      const matrix = new THREE.Matrix4()
-      matrix.setPosition(new THREE.Vector3(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2]))
+      position.set(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2])
+      matrix.setPosition(position)
       rain.setMatrixAt(i, matrix)
     }
 
     setIsReady(true)
 
-    return { rain, positions, velocities }
+    return { rain, positions, velocities, matrix, position }
   }, [])
 
   useEffect(() => {
     const animate = () => {
-      const { rain, positions, velocities } = rainRef
+      const { rain, positions, velocities, matrix, position } = rainRef
 
       for (let i = 0; i < RAIN_COUNT; i++) {
         velocities[i] = SPEED
@@ -60,8 +91,8 @@ const Rain = () => {
           velocities[i] = 0
         }
 
-        const matrix = new THREE.Matrix4()
-        matrix.setPosition(new THREE.Vector3(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2]))
+        position.set(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2])
+        matrix.setPosition(position)
         rain.setMatrixAt(i, matrix)
       }
 
