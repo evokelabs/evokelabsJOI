@@ -63,9 +63,9 @@ const Evokelabs3D = () => {
           <Rain />
         </AnimationContext.Provider>
         <EffectComposer disableNormalPass>
-          <DepthOfField focusDistance={0.0115} focusRange={0.0095} bokehScale={4} />
+          <DepthOfField focusDistance={0.0115} focusRange={0.007} bokehScale={2} />
           <Bloom mipmapBlur radius={0.4} luminanceThreshold={0.9} intensity={0.75} luminanceSmoothing={0.65} levels={6} />
-          <ChromaticAberration offset={new Vector2(0.03, 0.03)} radialModulation={true} modulationOffset={1.1} />
+          <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
           <Noise opacity={0.035} />
           <ToneMapping />
           <Vignette eskil={false} offset={0.0} darkness={1} />
