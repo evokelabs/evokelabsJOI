@@ -19,8 +19,8 @@ import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberrati
 import { Vector2 } from 'three'
 
 // Constants
-const debug = true
-// const debug = false
+// const debug = true
+const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 
 const Evokelabs3D = () => {
@@ -67,7 +67,7 @@ const Evokelabs3D = () => {
           <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.003} bokehScale={3} />
           <Bloom mipmapBlur radius={0.65} luminanceThreshold={0.9} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
           <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
-          <Noise opacity={0.85} premultiply blendFunction={28} />
+          <Noise opacity={0.7} premultiply blendFunction={28} />
           <BrightnessContrast brightness={0.02} contrast={0.275} />
           <Vignette offset={0.0} darkness={1} />
         </EffectComposer>
