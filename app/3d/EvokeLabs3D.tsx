@@ -15,8 +15,9 @@ import Music from './audio/Music'
 import { AnimationContext } from '../libs/AnimationContext'
 import { useCameraSettings } from '../libs/useCameraSettings'
 
-import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, ToneMapping } from '@react-three/postprocessing'
+import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, ToneMapping, FXAA } from '@react-three/postprocessing'
 import { Vector2 } from 'three'
+import { FXAAEffect } from 'postprocessing'
 
 // Constants
 // const debug = true
@@ -38,7 +39,8 @@ const Evokelabs3D = () => {
         camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
         shadows
         gl={{
-          powerPreference: 'high-performance'
+          powerPreference: 'high-performance',
+          antialias: true
         }}
       >
         <VideoSkybox />
@@ -63,7 +65,7 @@ const Evokelabs3D = () => {
           <Rain />
         </AnimationContext.Provider>
         <EffectComposer disableNormalPass>
-          <DepthOfField focusDistance={0.0115} focusRange={0.0065} bokehScale={2.5} />
+          <DepthOfField focusDistance={0.0115} focusRange={0.0085} bokehScale={3} />
           <Bloom mipmapBlur radius={0.65} luminanceThreshold={0.9} intensity={0.325} luminanceSmoothing={0.65} levels={5} />
           <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
           <Noise opacity={0.035} />
