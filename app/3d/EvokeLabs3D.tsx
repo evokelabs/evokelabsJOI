@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { Canvas, useThree } from '@react-three/fiber'
+import { useState } from 'react'
+import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 
@@ -15,19 +15,8 @@ import Music from './audio/Music'
 import { AnimationContext } from '../libs/AnimationContext'
 import { useCameraSettings } from '../libs/useCameraSettings'
 
-import {
-  EffectComposer,
-  DepthOfField,
-  Bloom,
-  Noise,
-  Vignette,
-  ChromaticAberration,
-  ToneMapping,
-  SSR,
-  BrightnessContrast
-} from '@react-three/postprocessing'
-import { Vector2 } from 'three'
-import { GUI } from 'dat.gui'
+import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, BrightnessContrast } from '@react-three/postprocessing'
+import { Vector2, Vector3 } from 'three'
 
 // Constants
 // const debug = true
@@ -49,8 +38,7 @@ const Evokelabs3D = () => {
         camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
         shadows
         gl={{
-          powerPreference: 'high-performance',
-          antialias: true
+          powerPreference: 'high-performance'
         }}
       >
         <VideoSkybox />
@@ -58,6 +46,7 @@ const Evokelabs3D = () => {
         <Perf position='top-left' />
         <CameraRig fov={fov} debug={debug} />
         <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
+
         <AnimationContext.Provider
           value={{
             shouldAmbientLightPlay,
@@ -70,13 +59,13 @@ const Evokelabs3D = () => {
         >
           <Lights />
           <CyberpunkMap />
-          {/* <CyberpunkCar /> */}
+          <CyberpunkCar />
           <JOI />
           <Rain />
         </AnimationContext.Provider>
         <EffectComposer disableNormalPass>
-          <DepthOfField focusDistance={0.0115} focusRange={0.0085} bokehScale={3} />
-          <Bloom mipmapBlur radius={0.65} luminanceThreshold={0.9} intensity={0.325} luminanceSmoothing={0.65} levels={5} />
+          <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.003} bokehScale={3} />
+          <Bloom mipmapBlur radius={0.65} luminanceThreshold={0.9} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
           <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
           <Noise opacity={0.85} premultiply blendFunction={28} />
           <BrightnessContrast brightness={0.02} contrast={0.275} />
