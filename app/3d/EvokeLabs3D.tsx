@@ -39,8 +39,6 @@ const Evokelabs3D = () => {
         shadows
         gl={{
           powerPreference: 'high-performance',
-          antialias: false,
-          stencil: false,
           depth: false
         }}
       >
@@ -59,13 +57,14 @@ const Evokelabs3D = () => {
         >
           <Lights />
           <CyberpunkMap />
-          <CyberpunkCar />
+          {/* <CyberpunkCar /> */}
           <JOI />
           <Rain />
         </AnimationContext.Provider>
         <EffectComposer disableNormalPass>
           <ChromaticAberration offset={new Vector2(0.025, 0.025)} radialModulation={true} modulationOffset={1.1} />
-          <Vignette eskil={false} offset={0.0} darkness={1} />
+          <Vignette eskil={false} offset={0.0} darkness={0.9} />
+
           {/* <DepthOfField focusDistance={0.02} focalLength={0.5} bokehScale={2} height={480} /> */}
 
           {/* <Bloom luminanceThreshold={0.5} mipmapBlur luminanceSmoothing={0} intensity={1.5} /> */}
