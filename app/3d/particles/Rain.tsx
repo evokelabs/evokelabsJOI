@@ -16,16 +16,18 @@ const Rain = () => {
   const [isReady, setIsReady] = useState(false)
 
   const rainRef = useMemo(() => {
-    const rainMaterial = new THREE.SpriteMaterial({
+    const rainMaterial = new THREE.MeshBasicMaterial({
       color: 0x96e7ff,
       transparent: true,
-      opacity: 0.375
+      opacity: 0.375,
+      side: THREE.DoubleSide
     })
 
     const positions = new Float32Array(RAIN_COUNT * 3)
     const velocities = new Float32Array(RAIN_COUNT)
 
-    const rain = new THREE.Group()
+    const plane = new THREE.PlaneGeometry(SCALE, SIZE)
+    const rain = new THREE.InstancedMesh(plane, rainMaterial, RAIN_COUNT)
 
     for (let i = 0; i < RAIN_COUNT; i++) {
       positions[i * 3] = Math.random() * 23 - 12
@@ -33,10 +35,9 @@ const Rain = () => {
       positions[i * 3 + 2] = Math.random() * -16 + 20
       velocities[i] = 0
 
-      const sprite = new THREE.Sprite(rainMaterial)
-      sprite.position.set(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2])
-      sprite.scale.set(SIZE, SCALE, 1)
-      rain.add(sprite)
+      const matrix = new THREE.Matrix4()
+      matrix.setPosition(new THREE.Vector3(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2]))
+      rain.setMatrixAt(i, matrix)
     }
 
     setIsReady(true)
@@ -59,12 +60,12 @@ const Rain = () => {
           velocities[i] = 0
         }
 
-        const sprite = rain.children[i] as THREE.Sprite
-        sprite.position.y = positions[i * 3 + 1]
-        sprite.position.x = positions[i * 3]
-        sprite.scale.set(SIZE, SCALE, 1)
-        sprite.material.rotation = ROTATION
+        const matrix = new THREE.Matrix4()
+        matrix.setPosition(new THREE.Vector3(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2]))
+        rain.setMatrixAt(i, matrix)
       }
+
+      rain.instanceMatrix.needsUpdate = true
 
       requestAnimationFrame(animate)
     }

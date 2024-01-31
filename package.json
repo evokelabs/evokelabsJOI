@@ -22,7 +22,7 @@
     "r3f-perf": "^7.1.2",
     "react": "^18",
     "react-dom": "^18",
-    "three": "^0.160.0",
+    "three": "^0.161.0",
     "three-stdlib": "^2.29.1"
   },
   "devDependencies": {
