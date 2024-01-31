@@ -16,11 +16,11 @@ import { AnimationContext } from '../libs/AnimationContext'
 import { useCameraSettings } from '../libs/useCameraSettings'
 
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, BrightnessContrast } from '@react-three/postprocessing'
-import { Vector2, Vector3 } from 'three'
+import { Vector2 } from 'three'
 
 // Constants
-// const debug = true
-const debug = false
+const debug = true
+// const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 
 const Evokelabs3D = () => {
