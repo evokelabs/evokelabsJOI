@@ -15,9 +15,8 @@ import Music from './audio/Music'
 import { AnimationContext } from '../libs/AnimationContext'
 import { useCameraSettings } from '../libs/useCameraSettings'
 
-import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, ToneMapping, FXAA } from '@react-three/postprocessing'
+import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, ToneMapping } from '@react-three/postprocessing'
 import { Vector2 } from 'three'
-import { FXAAEffect } from 'postprocessing'
 
 // Constants
 // const debug = true
@@ -68,7 +67,7 @@ const Evokelabs3D = () => {
           <DepthOfField focusDistance={0.0115} focusRange={0.0085} bokehScale={3} />
           <Bloom mipmapBlur radius={0.65} luminanceThreshold={0.9} intensity={0.325} luminanceSmoothing={0.65} levels={5} />
           <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
-          <Noise opacity={0.035} />
+          <Noise opacity={1} premultiply blendFunction={28} />
           <Vignette eskil={false} offset={0.0} darkness={1} />
         </EffectComposer>
         {/* <ToneMapping /> */}
