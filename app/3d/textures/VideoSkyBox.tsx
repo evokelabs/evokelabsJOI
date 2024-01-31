@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-const VIDEO_IMAGE = './videos/CyberpunkCityBG.png'
+const VIDEO_IMAGE = './videos/CyberpunkCityBG.webp'
 const VIDEO_NORMAL = './videos/CyberpunkCityBG.mp4'
 const VIDEO_4K = './videos/CyberpunkCityBG-4K.mp4'
 
