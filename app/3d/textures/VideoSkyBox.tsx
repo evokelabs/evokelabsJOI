@@ -26,10 +26,10 @@ const VideoSkybox = () => {
     setTexture(imageTexture)
 
     const isHighRes = window.screen.width > 1920 || window.screen.height > 1080
-    const isUltrawide = window.matchMedia('(aspect-ratio: 21/9)').matches
-    const isFastNetwork = navigator.connection ? navigator.connection.downlink > 5 : true
 
-    video.src = (isHighRes || isUltrawide) && isFastNetwork ? VIDEO_4K : VIDEO_NORMAL
+    const videoToLoad = isHighRes ? VIDEO_4K : VIDEO_NORMAL
+
+    video.src = videoToLoad
     video.loop = true
     video.muted = true
     video.addEventListener('loadeddata', () => {
