@@ -31,7 +31,7 @@ const Evokelabs3D = () => {
   const [shouldJOISpeak, setShouldJOISpeak] = useState(false)
 
   // Camera settings
-  const { cameraTarget, fov, focusDistance } = useCameraSettings()
+  const { cameraTarget, fov } = useCameraSettings()
 
   return (
     <>
@@ -66,7 +66,7 @@ const Evokelabs3D = () => {
         <EffectComposer disableNormalPass>
           <Noise opacity={0.045} />
           <Bloom mipmapBlur radius={0.4} luminanceThreshold={0.9} intensity={0.45} luminanceSmoothing={0.65} levels={6} />
-          <DepthOfField focusDistance={focusDistance} focusRange={0.2} bokehScale={2.5} />
+          <DepthOfField focusDistance={0.42} focusRange={0.425} bokehScale={4} />
           <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
           <Vignette eskil={false} offset={0.0} darkness={1} />
 
