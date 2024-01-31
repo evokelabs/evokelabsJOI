@@ -40,10 +40,7 @@ const JOI = () => {
 
     model.traverse((object: THREE.Object3D) => {
       if (object instanceof Mesh) {
-        const mesh = object as Mesh
-        if (mesh.morphTargetDictionary && mesh.morphTargetInfluences) {
-          mesh.receiveShadow = true
-        }
+        object.receiveShadow = true
       }
     })
 
