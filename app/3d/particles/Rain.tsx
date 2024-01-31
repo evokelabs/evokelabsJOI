@@ -8,7 +8,7 @@ const MIN_FALL_HEIGHT_OFFSET = 6
 const RAIN_COUNT = 5000
 const SPEED = -0.15
 const SCALE = 0.5
-const SIZE = 0.0005
+const SIZE = 0.003
 const ROTATION = 0.75
 const SLANT = 0.05
 
@@ -17,9 +17,9 @@ const Rain = () => {
 
   const rainRef = useMemo(() => {
     const rainMaterial = new THREE.MeshBasicMaterial({
-      color: 0xbbefff,
+      color: 0xe1f8ff,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.375,
       side: THREE.DoubleSide
     })
 
