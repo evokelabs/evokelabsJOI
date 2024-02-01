@@ -25,17 +25,6 @@ export const useIdleAnimationPoseControl = (
   // Store a reference to the GSAP animation
   const gsapAnimation = useRef<gsap.core.Tween | null>(null)
 
-  // Cleanup function
-  const cleanup = useCallback((action: AnimationAction | null) => {
-    if (gsapAnimation.current) {
-      gsapAnimation.current.kill()
-      gsapAnimation.current = null
-      if (action) {
-        action.stop()
-      }
-    }
-  }, [])
-
   const onLoop = useCallback(
     (event: { action: AnimationAction; loopDelta: number }) => {
       // If the GSAP animation is still active when onLoop is called again, return early
