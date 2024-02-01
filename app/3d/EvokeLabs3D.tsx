@@ -19,8 +19,8 @@ import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberrati
 import { Vector2 } from 'three'
 
 // Constants
-// const debug = true
-const debug = false
+const debug = true
+// const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 
 const Evokelabs3D = () => {

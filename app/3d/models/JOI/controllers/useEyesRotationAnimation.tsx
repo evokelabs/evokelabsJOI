@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
-import { Mesh, Object3D, Euler } from 'three'
+import { Mesh, Object3D, Euler, Vector3, Matrix4 } from 'three'
 import { useEyesBlinkingAnimation } from './useEyesBlinkingAnimation'
 
 const TIME_BETWEEN_EYE_MOVEMENTS = 2000
@@ -24,8 +24,23 @@ export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) 
   const animate = useCallback(() => {
     if (rightEye.current.mesh && leftEye.current.mesh) {
       if (lookAtCamera.current) {
-        rightEye.current.mesh.lookAt(camera.position)
-        leftEye.current.mesh.lookAt(camera.position)
+        const direction = new Vector3().subVectors(camera.position, rightEye.current.mesh.position).normalize()
+        const distance = 10 // Change this to the desired distance
+        let target = new Vector3().addVectors(rightEye.current.mesh.position, direction.multiplyScalar(distance))
+
+        // Limit the rotation of the eyes
+        const eyeToCamera = new Vector3().subVectors(camera.position, rightEye.current.mesh.position).normalize()
+        const eyeForward = new Vector3(0, 0, -1).applyQuaternion(rightEye.current.mesh.quaternion)
+        const angle = eyeToCamera.angleTo(eyeForward)
+        const maxAngle = Math.PI / 8 // Change this to the maximum allowed rotation angle
+        if (angle > maxAngle) {
+          // Adjust the target point to limit the rotation
+          const rotationMatrix = new Matrix4().makeRotationAxis(eyeForward.cross(eyeToCamera), maxAngle)
+          target = eyeForward.applyMatrix4(rotationMatrix).add(rightEye.current.mesh.position)
+        }
+
+        rightEye.current.mesh.lookAt(target)
+        leftEye.current.mesh.lookAt(target)
       } else {
         // Reset the eyes to their initial rotation
         if (rightEye.current.initialRotation && leftEye.current.initialRotation) {
@@ -37,7 +52,6 @@ export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) 
     requestRef.current = requestAnimationFrame(animate)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
   useEffect(() => {
     animate()
     const intervalId = setInterval(() => {
