@@ -5,6 +5,7 @@ import './../app/globals.css'
 import Head from 'next/head'
 
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'EVOKE LABS | Creative Technologist',
@@ -31,21 +32,17 @@ export default function RootLayout() {
         <meta name='description' content={String(metadata.description)} />
       </Head>
       <Evokelabs3D />
-      {router.pathname === '/history' && (
+      <div className='red absolute top-0 left-0 px-4 space-x-4 text-red-500'>
+        <Link href='/services'>CORPO GUIDE</Link>
+        <Link href='/portfolio'>PAST GIGS</Link>
+        <Link href='/history'>BACKSTORY</Link>
+        <Link href='/resume'>DOSSIER</Link>
+        <Link href='/joi'>JOI SPECIAL</Link>
+        <Link href='/availabilities'>FIX A BOOKING</Link>
+      </div>
+      {router.pathname === '/services' && (
         <>
-          <h1>history</h1>
-          <style jsx>{h1Styles}</style>
-        </>
-      )}
-      {router.pathname === '/availabilities' && (
-        <>
-          <h1>availabilities</h1>
-          <style jsx>{h1Styles}</style>
-        </>
-      )}
-      {router.pathname === '/joi' && (
-        <>
-          <h1>joi</h1>
+          <h1>services</h1>
           <style jsx>{h1Styles}</style>
         </>
       )}
@@ -55,15 +52,27 @@ export default function RootLayout() {
           <style jsx>{h1Styles}</style>
         </>
       )}
+      {router.pathname === '/history' && (
+        <>
+          <h1>history</h1>
+          <style jsx>{h1Styles}</style>
+        </>
+      )}
       {router.pathname === '/resume' && (
         <>
           <h1>resume</h1>
           <style jsx>{h1Styles}</style>
         </>
       )}
-      {router.pathname === '/services' && (
+      {router.pathname === '/joi' && (
         <>
-          <h1>services</h1>
+          <h1>joi</h1>
+          <style jsx>{h1Styles}</style>
+        </>
+      )}
+      {router.pathname === '/availabilities' && (
+        <>
+          <h1>availabilities</h1>
           <style jsx>{h1Styles}</style>
         </>
       )}
