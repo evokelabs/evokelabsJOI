@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { Html, OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 
 import CameraRig from './cameras/CameraRig'
@@ -16,7 +16,7 @@ import { AnimationContext } from '../libs/AnimationContext'
 import { useCameraSettings } from '../libs/useCameraSettings'
 
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, BrightnessContrast } from '@react-three/postprocessing'
-import { Vector2 } from 'three'
+import { Vector2, Vector3 } from 'three'
 
 // Constants
 // const debug = true
@@ -41,12 +41,22 @@ const Evokelabs3D = () => {
           powerPreference: 'high-performance'
         }}
       >
+        <Html
+          scale={0.1}
+          prepend
+          distanceFactor={10}
+          sprite
+          transform
+          className='absolute top-0 left-0 px-4 space-x-4 text-red-500 w-full h-full flex items-center justify-center pointer-events-none'
+          position={[0.5, 1.5, 2.1]}
+        >
+          <p>EVOKELABS DOES DIGITAL LIKE JEDI USE THE FORCE</p>
+        </Html>
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : null}
-        {/* <Perf position='top-left' /> */}
+        <Perf position='top-left' />
         <CameraRig fov={fov} debug={debug} />
         <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
-
         <AnimationContext.Provider
           value={{
             shouldAmbientLightPlay,
