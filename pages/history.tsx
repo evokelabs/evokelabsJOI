@@ -1,5 +1,3 @@
-const History = () => {
+export default function history() {
   return null
 }
-
-export default History
