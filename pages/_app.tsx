@@ -40,6 +40,12 @@ export default function RootLayout() {
         <Link href='/joi'>JOI SPECIAL</Link>
         <Link href='/availabilities'>FIX A BOOKING</Link>
       </div>
+      {router.pathname === '/' && (
+        <>
+          <h1>home</h1>
+          <style jsx>{h1Styles}</style>
+        </>
+      )}
       {router.pathname === '/services' && (
         <>
           <h1>services</h1>
