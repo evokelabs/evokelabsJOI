@@ -43,7 +43,7 @@ const Evokelabs3D = () => {
       >
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : null}
-        <Perf position='top-left' />
+        {/* <Perf position='top-left' /> */}
         <CameraRig fov={fov} debug={debug} />
         <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
 
@@ -59,7 +59,7 @@ const Evokelabs3D = () => {
         >
           <Lights />
           <CyberpunkMap />
-          <CyberpunkCar />
+          {/* <CyberpunkCar /> */}
           <JOI />
           <Rain />
         </AnimationContext.Provider>
