@@ -1,5 +1,5 @@
-import RedBlur from './SVG/refine/RedBlur'
-import { TileFill } from './SVG/refine/TileFill'
+import RedBlur from './libs/RedBlur'
+import { TileFill } from './libs/TileFill'
 
 const IconSocial = () => {
   return (

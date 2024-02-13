@@ -20,6 +20,7 @@ import { Vector2, Vector3 } from 'three'
 import IconDefault from '../ui/IconDefault'
 import IconSmall from '../ui/IconSmall'
 import IconSocial from '../ui/IconSocial'
+import ButtonMainMenu from '../ui/ButtonMainMenu'
 
 // Constants
 // const debug = true
@@ -48,6 +49,13 @@ const Evokelabs3D = () => {
           <IconDefault />
           <IconSmall />
           <IconSocial />
+          <ButtonMainMenu />
+          <ButtonMainMenu />
+          <ButtonMainMenu />
+          <ButtonMainMenu />
+          <ButtonMainMenu />
+          <ButtonMainMenu />
+          <ButtonMainMenu />
         </Html>
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : null}
