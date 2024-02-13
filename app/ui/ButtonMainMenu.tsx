@@ -11,7 +11,11 @@ const ButtonMainMenu = () => {
   const corpoGuideRef = useRef<HTMLDivElement>(null)
   const leftFrameRef = useRef<HTMLDivElement>(null)
   const mainFrameRef = useRef<HTMLDivElement>(null)
-  
+  const isActiveRef = useRef(isActive)
+
+  useEffect(() => {
+    isActiveRef.current = isActive
+  }, [isActive])
 
   useEffect(() => {
     const corpoGuide = corpoGuideRef.current
@@ -30,10 +34,12 @@ const ButtonMainMenu = () => {
 
       corpoGuide.addEventListener('mouseleave', () => {
         setIsHovered(false)
-        gsap.to(corpoGuide, { color: '#F75049', duration: 0.225, ease: 'power1.out' }),
-          gsap.to(corpoGuide, { css: { '--shadow-color': 'rgba(222, 84, 86, 0.2)' }, duration: 0.225, ease: 'power1.out' }),
-          gsap.to(leftFrame, { x: '0', duration: 0.225, ease: 'power1.out' })
-        gsap.to(mainFrame, { x: '0', duration: 0.225, ease: 'power1.out' })
+        if (!isActiveRef.current) {
+          gsap.to(corpoGuide, { color: '#F75049', duration: 0.225, ease: 'power1.out' }),
+            gsap.to(corpoGuide, { css: { '--shadow-color': 'rgba(222, 84, 86, 0.2)' }, duration: 0.225, ease: 'power1.out' }),
+            gsap.to(leftFrame, { x: '0', duration: 0.225, ease: 'power1.out' })
+          gsap.to(mainFrame, { x: '0', duration: 0.225, ease: 'power1.out' })
+        }
       })
 
       corpoGuide.addEventListener('mousedown', () => {
@@ -45,10 +51,14 @@ const ButtonMainMenu = () => {
       })
 
       corpoGuide.addEventListener('click', () => {
+        console.log('isActive is being called', isActive)
+        gsap.to(corpoGuide, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: 0.225, ease: 'power1.out' })
+        gsap.to(corpoGuide, { color: '#53F6FF', duration: 0.225, ease: 'power1.out' })
         setIsActive(!isActive)
+        console.log('isActive is being set', isActive)
       })
     }
-  }, [])
+  }, [isActive])
 
   return (
     <div className='relative' ref={mainFrameRef}>
@@ -63,9 +73,15 @@ const ButtonMainMenu = () => {
       <div
         className='absolute flex items-center flex-row top-3.5 font-orbitron place-content-between w-full pl-5 pr-7 cursor-pointer'
         ref={corpoGuideRef}
+        style={{ pointerEvents: isActive ? 'none' : 'all' }}
       >
         <IconSmall />
-        <div className='top-1.5 relative' style={{ textShadow: '4px 0px 0px var(--shadow-color), 8px 0px 0px var(--shadow-color)' }}>
+        <div
+          className='top-1.5 relative'
+          style={{
+            textShadow: '4px 0px 0px var(--shadow-color), 8px 0px 0px var(--shadow-color)'
+          }}
+        >
           CORPO GUIDE
         </div>
       </div>
