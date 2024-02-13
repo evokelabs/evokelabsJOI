@@ -30,7 +30,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     source.connect(analyser)
     analyser.connect(audioContext.destination)
 
-    audio.play().catch(error => console.error('Audio play failed due to', error))
+    // audio.play().catch(error => console.error('Audio play failed due to', error))
 
     if (audioContext.state === 'suspended') {
       audioContext.resume()

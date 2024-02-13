@@ -17,6 +17,8 @@ import { useCameraSettings } from '../libs/useCameraSettings'
 
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, BrightnessContrast } from '@react-three/postprocessing'
 import { Vector2, Vector3 } from 'three'
+import IconDefault from '../ui/IconDefault'
+import IconSmall from '../ui/IconSmall'
 
 // Constants
 // const debug = true
@@ -41,17 +43,9 @@ const Evokelabs3D = () => {
           powerPreference: 'high-performance'
         }}
       >
-        <Html
-          scale={0.1}
-          prepend
-          distanceFactor={10}
-          transform
-          // className='flex items-center justify-center pointer-events-none'
-          position={[0.5, 1.5, 2.1]}
-        >
-          <svg width='120' height='120'>
-            <polygon points='0,100 100,100 100, 30 70,0 0,0' fill='#1e90ff' stroke='red' strokeWidth='2' strokeLinejoin='round' />
-          </svg>
+        <Html scale={0.0375} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
+          <IconDefault />
+          <IconSmall />
         </Html>
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : null}
