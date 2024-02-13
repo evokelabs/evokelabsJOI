@@ -45,12 +45,13 @@ const Evokelabs3D = () => {
           scale={0.1}
           prepend
           distanceFactor={10}
-          sprite
           transform
-          className='absolute top-0 left-0 px-4 space-x-4 text-red-500 w-full h-full flex items-center justify-center pointer-events-none'
+          // className='flex items-center justify-center pointer-events-none'
           position={[0.5, 1.5, 2.1]}
         >
-          <p>EVOKELABS DOES DIGITAL LIKE JEDI USE THE FORCE</p>
+          <svg width='120' height='120'>
+            <polygon points='0,100 100,100 100, 30 70,0 0,0' fill='#1e90ff' stroke='red' strokeWidth='2' strokeLinejoin='round' />
+          </svg>
         </Html>
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : null}
