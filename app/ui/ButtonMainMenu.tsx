@@ -15,14 +15,16 @@ const ButtonMainMenu = () => {
     const mainFrame = mainFrameRef.current
 
     if (corpoGuide && leftFrame && mainFrame) {
+      corpoGuide.style.setProperty('--shadow-color', 'rgba(222, 84, 86, 0.2)')
+
       corpoGuide.addEventListener('mouseenter', () => {
-        gsap.to(corpoGuide, { color: '#53F6FF', duration: 0.225, ease: 'power1.out' })
+        gsap.to(corpoGuide, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: 0.225, ease: 'power1.out' })
         gsap.to(leftFrame, { x: '+5', duration: 0.225, ease: 'power1.out' })
         gsap.to(mainFrame, { x: '+14', duration: 0.225, ease: 'power1.out' })
       })
 
       corpoGuide.addEventListener('mouseleave', () => {
-        gsap.to(corpoGuide, { color: '#F75049', duration: 0.225, ease: 'power1.out' }),
+        gsap.to(corpoGuide, { css: { '--shadow-color': 'rgba(222, 84, 86, 0.2)' }, duration: 0.225, ease: 'power1.out' }),
           gsap.to(leftFrame, { x: '0', duration: 0.225, ease: 'power1.out' })
         gsap.to(mainFrame, { x: '0', duration: 0.225, ease: 'power1.out' })
       })
@@ -44,7 +46,7 @@ const ButtonMainMenu = () => {
         ref={corpoGuideRef}
       >
         <IconSmall />
-        <div className='top-1.5 relative' style={{ textShadow: '4px 0px 0px rgba(222, 84, 86, 0.2), 8px 0px 0px rgba(222, 84, 86, 0.1)' }}>
+        <div className='top-1.5 relative' style={{ textShadow: '4px 0px 0px var(--shadow-color), 8px 0px 0px var(--shadow-color)' }}>
           CORPO GUIDE
         </div>
       </div>
