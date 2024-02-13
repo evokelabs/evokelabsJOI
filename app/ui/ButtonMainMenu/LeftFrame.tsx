@@ -41,7 +41,7 @@ const LeftFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; i
 
   return (
     <svg width='16' height='68' viewBox='0 0 16 68' fill='none' ref={svgRef}>
-      <g opacity='0.9'>
+      <g>
         <path
           d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z'
           fill='url(#pattern-leftframe)'
