@@ -28,6 +28,7 @@ const MidFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; is
         gsap.to(pathFGFill, { attr: { 'fill-opacity': '0.5' }, duration: 0, ease: 'power1.out' })
       } else {
         gsap.to(pathFGFill, { attr: { 'fill-opacity': '0.1' }, duration: 0, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': '1' }, duration: 0.225, ease: 'power1.out' })
       }
 
       if (isActive) {
@@ -36,6 +37,7 @@ const MidFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; is
       } else if (!isHovered) {
         gsap.to(pathFGFill, { attr: { 'fill-opacity': '0.1' }, duration: 0.225, ease: 'power1.out' })
         gsap.to(pathBGFill, { attr: { fill: '#0E0E17 ', 'fill-opacity': '0.85' }, duration: 0.225, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': '0.6' }, duration: 0.225, ease: 'power1.out' })
       }
     }
   }, [isHovered, isActive, isMouseDown])
