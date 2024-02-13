@@ -53,7 +53,7 @@ const ButtonMainMenu = () => {
     <div className='relative' ref={mainFrameRef}>
       <div className='flex items-center flex-row'>
         <div ref={leftFrameRef} className='z-1'>
-          <LeftFrame />
+          <LeftFrame isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
         </div>
         <div className='z-0'>
           <MidFrame isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />

@@ -44,7 +44,6 @@ const MidFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; is
           d='M2.00098 98V4H81.001L97.001 20H344.001V85.1398L331.001 98H2.00098Z'
           fill='#0E0E17'
           fillOpacity='0.85'
-          shapeRendering='crispEdges'
         />
         <path
           ref={pathBGStrokeRef}

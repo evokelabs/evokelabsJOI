@@ -1,20 +1,54 @@
+import { useEffect, useRef } from 'react'
 import { TileFill } from '../libs/TileFill'
+import gsap from 'gsap'
 
-const LeftFrame = () => {
+const LeftFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {
+  const svgRef = useRef(null)
+  const pathBGFillRef = useRef(null)
+  const pathBGStrokeRef = useRef(null)
+
+  useEffect(() => {
+    const svg = svgRef.current
+    const pathBGFill = pathBGFillRef.current
+    const pathBGStroke = pathBGStrokeRef.current
+    if (svg) {
+      if (isHovered) {
+        console.log('isHovered', isHovered)
+        gsap.to(pathBGFill, { attr: { fill: '#502124' }, duration: 0.225, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': '1' }, duration: 0.225, ease: 'power1.out' })
+      } else {
+        gsap.to(pathBGFill, { attr: { fill: '#0E0E17' }, duration: 0.225, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': '0.6', strokeColor: '#F75049' }, duration: 0.225, ease: 'power1.out' })
+      }
+
+      if (isActive) {
+        console.log('isActive', isActive)
+      }
+
+      if (isMouseDown) {
+        console.log('isMouseDown', isMouseDown)
+        // animate SVG for mouse down state
+      }
+    }
+  }, [isHovered, isActive, isMouseDown])
+
   return (
-    <svg width='16' height='68' viewBox='0 0 16 68' fill='none'>
+    <svg width='16' height='68' viewBox='0 0 16 68' fill='none' ref={svgRef}>
       <g opacity='0.9'>
-        <path
-          d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z'
-          fill='#0E0E17'
-          fill-opacity='0.85'
-        />
         <path
           d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z'
           fill='#DE5456'
           fill-opacity='0.1'
         />
         <path
+          ref={pathBGFillRef}
+          d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z'
+          fill='#0E0E17'
+          fill-opacity='0.85'
+        />
+
+        <path
+          ref={pathBGStrokeRef}
           d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z'
           fill='url(#pattern-leftframe)'
           fill-opacity='0.1'
