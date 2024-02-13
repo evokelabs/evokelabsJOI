@@ -1,35 +1,57 @@
+import { useEffect, useRef } from 'react'
 import RedBlur from '../libs/RedBlur'
 import { TileFill } from '../libs/TileFill'
+import gsap from 'gsap'
 
-const MidFrame = () => {
+const MidFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {
+  const svgRef = useRef(null)
+  const pathBGFillRef = useRef(null)
+  const pathBGStrokeRef = useRef(null)
+
+  useEffect(() => {
+    const svg = svgRef.current
+    const pathBGFill = pathBGFillRef.current
+    const pathBGStroke = pathBGStrokeRef.current
+    if (svg) {
+      if (isHovered) {
+        console.log('isHovered', isHovered)
+        gsap.to(pathBGFill, { attr: { fill: '#502124' }, duration: 0.225, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': '1' }, duration: 0.225, ease: 'power1.out' })
+      } else {
+        gsap.to(pathBGFill, { attr: { fill: '#0E0E17' }, duration: 0.225, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': '0.6', strokeColor: '#F75049' }, duration: 0.225, ease: 'power1.out' })
+      }
+
+      if (isActive) {
+        console.log('isActive', isActive)
+      }
+
+      if (isMouseDown) {
+        console.log('isMouseDown', isMouseDown)
+        // animate SVG for mouse down state
+      }
+    }
+  }, [isHovered, isActive, isMouseDown])
+
   return (
-    <svg width='354' height='106' viewBox='0 0 354 106' fill='none'>
+    <svg width='354' height='106' viewBox='0 0 354 106' fill='none' ref={svgRef}>
       <RedBlur />
       <g filter='url(#filter0_d_817_1881) url(#dropshadow1) url(#dropshadow2)'>
+        <path d='M2.00098 98V4H81.001L97.001 20H344.001V85.1398L331.001 98H2.00098Z' fill='url(#pattern-midframe)' fillOpacity='0.1' />
+        <path d='M2.00098 98V4H81.001L97.001 20H344.001V85.1398L331.001 98H2.00098Z' fill='#DE5456' fillOpacity='0.1' />
         <path
+          ref={pathBGFillRef}
           d='M2.00098 98V4H81.001L97.001 20H344.001V85.1398L331.001 98H2.00098Z'
           fill='#0E0E17'
-          fill-opacity='0.85'
-          shape-rendering='crispEdges'
+          fillOpacity='0.85'
+          shapeRendering='crispEdges'
         />
         <path
-          d='M2.00098 98V4H81.001L97.001 20H344.001V85.1398L331.001 98H2.00098Z'
-          fill='#DE5456'
-          fill-opacity='0.1'
-          shape-rendering='crispEdges'
-        />
-        <path
-          d='M2.00098 98V4H81.001L97.001 20H344.001V85.1398L331.001 98H2.00098Z'
-          fill='url(#pattern-midframe)'
-          fill-opacity='0.1'
-          shape-rendering='crispEdges'
-        />
-        <path
+          ref={pathBGStrokeRef}
           d='M2.00098 3H1.00098V4V98V99H2.00098H331.001H331.412L331.704 98.7109L344.704 85.8507L345.001 85.5572V85.1398V20V19H344.001H97.4152L81.7081 3.29289L81.4152 3H81.001H2.00098Z'
           stroke='#F75049'
-          stroke-opacity='0.6'
-          stroke-width='2'
-          shape-rendering='crispEdges'
+          strokeOpacity='0.6'
+          strokeWidth='2'
         />
       </g>
       <defs>
