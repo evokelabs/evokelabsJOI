@@ -19,6 +19,7 @@ import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberrati
 import { Vector2, Vector3 } from 'three'
 import IconDefault from '../ui/IconDefault'
 import IconSmall from '../ui/IconSmall'
+import IconSocial from '../ui/IconSocial'
 
 // Constants
 // const debug = true
@@ -46,6 +47,7 @@ const Evokelabs3D = () => {
         <Html scale={0.0375} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
           <IconDefault />
           <IconSmall />
+          <IconSocial />
         </Html>
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : null}
