@@ -13,9 +13,9 @@ const ButtonMainMenu = () => {
         <MidFrame />
         {/* </div> */}
       </div>
-      <div className='absolute flex items-center flex-row gap-32 top-3.5 left-5'>
+      <div className='absolute flex items-center flex-row top-3.5  font-orbitron place-content-between w-full pl-5 pr-7'>
         <IconSmall />
-        CORPO GUIDE
+        <div className='top-1.5 relative'>CORPO GUIDE</div>
       </div>
     </div>
   )

@@ -45,7 +45,7 @@ const Evokelabs3D = () => {
           powerPreference: 'high-performance'
         }}
       >
-        <Html scale={0.0375} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
+        <Html scale={0.038} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
           <IconDefault />
           <IconSmall />
           <IconSocial />
