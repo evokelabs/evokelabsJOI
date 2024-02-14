@@ -15,7 +15,6 @@ const LeftFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; i
     const pathFGFill = pathFGFillRef.current
     if (svg) {
       if (isHovered) {
-        console.log('isHovered', isHovered)
         gsap.to(pathBGFill, { attr: { fill: '#502124' }, duration: 0.225, ease: 'power1.out' })
         gsap.to(pathBGStroke, { attr: { 'stroke-opacity': '1' }, duration: 0.225, ease: 'power1.out' })
       } else {
@@ -53,15 +52,15 @@ const LeftFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; i
     <svg width='16' height='68' viewBox='0 0 16 68' fill='none' ref={svgRef}>
       <g>
         <path
-          d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z'
-          fill='url(#pattern-leftframe)'
-          fill-opacity='0.1'
-        />
-        <path
           ref={pathBGFillRef}
           d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z'
           fill='#0E0E17'
           fill-opacity='0.85'
+        />
+        <path
+          d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z'
+          fill='url(#LeftFramePattern)'
+          fill-opacity='0.3'
         />
         <path
           ref={pathFGFillRef}
@@ -79,7 +78,7 @@ const LeftFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; i
         />
       </g>
       <defs>
-        <pattern id='pattern-leftframe' patternContentUnits='objectBoundingBox' width='0.266667' height='0.05'>
+        <pattern id='LeftFramePattern' patternContentUnits='objectBoundingBox' width='0.266667' height='0.05'>
           <use xlinkHref='#image0_817_1880' transform='scale(0.0666667 0.0125)' />
         </pattern>
         <image id='image0_817_1880' width='4' height='4' xlinkHref={TileFill} />
