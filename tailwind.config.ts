@@ -23,7 +23,10 @@ const config: Config = {
         rajdhani: ['Rajdhani', 'sans-serif']
       },
       colors: {
-        teal: '#53F6FF'
+        teal: '#53F6FF',
+        red: {
+          DEFAULT: '#F75049'
+        }
       }
     }
   },

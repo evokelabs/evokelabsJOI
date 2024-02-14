@@ -51,7 +51,8 @@ const SVGLarge = ({
       </svg>
       <div className='absolute bottom-0.5 flex flex-row items-center justify-between w-full h-full pl-5 pr-10 pointer-events-none'>
         <IconButtonDefault isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
-        <p className={`font-rajdhani text-[2rem] text-[${TEAL}] font-semibold`}>{title}</p>
+
+        <p className={'font-rajdhani text-[2rem] font-semibold text-teal'}>{title}</p>
       </div>
     </div>
   )
@@ -102,7 +103,7 @@ const SVGDefault = ({
       </svg>
       <div className='absolute bottom-0.5 flex flex-row items-center justify-between w-full h-full pl-5 pr-10 pointer-events-none'>
         <IconButtonDefault isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
-        <p className={`font-rajdhani text-[2rem] text-[${TEAL}] font-semibold`}>{title}</p>
+        <p className={'font-rajdhani text-[2rem] font-semibold text-teal'}>{title}</p>
       </div>
     </div>
   )
