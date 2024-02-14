@@ -23,6 +23,7 @@ import ButtonSocial from '../ui/ButtonSocial'
 import ButtonDefault from '../ui/ButtonDefault'
 import TitleHighlight from '../ui/TitleHighlight'
 import { RED, TEAL } from '../libs/UIConstants'
+import ParagraphHighlight from '../ui/ParagraphHighlight'
 
 // Constants
 // const debug = true
@@ -61,7 +62,11 @@ const Evokelabs3D = () => {
           <ButtonMainMenu />
           <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER' BGCOLOR={TEAL} />
           <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER' BGCOLOR={RED} />
-          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER' BGCOLOR={RED} />
+          <ParagraphHighlight
+            text='Creative Technologists combine <b>creative</b>, <b>development</b>, and <b>technology</b> to address digital challenges and deliver online projects of exceptional quality.'
+            BGCOLOR={TEAL}
+          />
+          <ParagraphHighlight text='“You are amazing Adrian! Seriously – you always impress me by going above and beyond!”' BGCOLOR={RED} />
         </Html>
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : null}
