@@ -3,6 +3,7 @@ import RedCRTBlur from './libs/RedCRTBlur'
 import { BLACK, RED } from '../libs/UIConstants'
 import { useEffect, useRef, useState } from 'react'
 import useButtonInteractionController from './libs/useButtonInteractionController'
+import useButtonEventsController from './libs/useButtonEventsController'
 
 const ButtonSocial = () => {
   const svgRef = useRef<SVGSVGElement | null>(null)
@@ -33,7 +34,6 @@ const ButtonSocial = () => {
       })
     }
   }, [])
-
   useButtonInteractionController({
     isHovered,
     isActive,

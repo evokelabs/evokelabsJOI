@@ -34,7 +34,6 @@ const useButtonInteractionController = ({
     const pathBGStroke = pathBGStrokeRef.current
     const pathFGFill = pathFGFillRef.current
     if (svg) {
-      console.log('is hovered', isHovered)
       if (isHovered) {
         gsap.to(pathBGFill, { attr: { fill: RED_DARK }, duration: UI_DURATION_TIME, ease: 'power1.out' })
         gsap.to(pathBGStroke, { attr: { 'stroke-opacity': 1 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
