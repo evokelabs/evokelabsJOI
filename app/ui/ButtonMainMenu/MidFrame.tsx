@@ -32,8 +32,16 @@ const MidFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; is
       }
 
       if (isActive) {
-        gsap.to(pathFGFill, { attr: { 'fill-opacity': '0.2' }, duration: 0.225, ease: 'power1.out' })
-        gsap.to(pathBGFill, { attr: { fill: '#AE3A36 ', 'fill-opacity': '1' }, duration: 0.225, ease: 'power1.out' })
+        gsap.fromTo(
+          pathFGFill,
+          { attr: { fill: '#DE5456', 'fill-opacity': '0.5' } },
+          { attr: { fill: '#AE3A36', 'fill-opacity': '0.2' }, duration: 0.225, ease: 'power1.out' }
+        )
+        gsap.fromTo(
+          pathBGFill,
+          { attr: { fill: '#502124', 'fill-opacity': '0.85' } },
+          { attr: { fill: '#AE3A36 ', 'fill-opacity': '1' }, duration: 0.225, ease: 'power1.out' }
+        )
       } else if (!isHovered) {
         gsap.to(pathFGFill, { attr: { 'fill-opacity': '0.1' }, duration: 0.225, ease: 'power1.out' })
         gsap.to(pathBGFill, { attr: { fill: '#0E0E17 ', 'fill-opacity': '0.85' }, duration: 0.225, ease: 'power1.out' })
