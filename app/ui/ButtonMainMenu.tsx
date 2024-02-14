@@ -29,7 +29,7 @@ const ButtonMainMenu = () => {
         gsap.to(corpoGuide, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: 0.225, ease: 'power1.out' })
         gsap.to(corpoGuide, { color: '#53F6FF', duration: 0.225, ease: 'power1.out' })
         gsap.to(leftFrame, { x: '+5', duration: 0.225, ease: 'power1.out' })
-        gsap.to(mainFrame, { x: '+14', duration: 0.225, ease: 'power1.out' })
+        gsap.to(mainFrame, { x: '+10', duration: 0.225, ease: 'power1.out' })
       })
 
       corpoGuide.addEventListener('mouseleave', () => {
@@ -38,7 +38,7 @@ const ButtonMainMenu = () => {
           gsap.to(corpoGuide, { color: '#F75049', duration: 0.225, ease: 'power1.out' }),
             gsap.to(corpoGuide, { css: { '--shadow-color': 'rgba(222, 84, 86, 0.2)' }, duration: 0.225, ease: 'power1.out' }),
             gsap.to(leftFrame, { x: '0', duration: 0.225, ease: 'power1.out' })
-          gsap.to(mainFrame, { x: '0', duration: 0.225, ease: 'power1.out' })
+          gsap.to(mainFrame, { x: '-2', duration: 0.225, ease: 'power1.out' })
         }
       })
 
@@ -51,11 +51,11 @@ const ButtonMainMenu = () => {
       })
 
       corpoGuide.addEventListener('click', () => {
-        console.log('isActive is being called', isActive)
         gsap.to(corpoGuide, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: 0.225, ease: 'power1.out' })
         gsap.to(corpoGuide, { color: '#53F6FF', duration: 0.225, ease: 'power1.out' })
         setIsActive(!isActive)
-        console.log('isActive is being set', isActive)
+        gsap.to(leftFrame, { x: '+13', duration: 0.225, ease: 'power1.out' })
+        gsap.to(mainFrame, { x: '-2', duration: 0.225, ease: 'power1.out' })
       })
     }
   }, [isActive])
