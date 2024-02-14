@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { TileFill } from '../libs/TileFill'
 import gsap from 'gsap'
+import RedCRTBlur from '../libs/RedCRTBlur'
 
 const LeftFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {
   const svgRef = useRef(null)
@@ -50,7 +51,8 @@ const LeftFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; i
 
   return (
     <svg width='16' height='68' viewBox='0 0 16 68' fill='none' ref={svgRef}>
-      <g>
+      <RedCRTBlur />
+      <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
         <path
           ref={pathBGFillRef}
           d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z'
