@@ -75,7 +75,7 @@ const ButtonMainMenu = () => {
         ref={corpoGuideRef}
         style={{ pointerEvents: isActive ? 'none' : 'all' }}
       >
-        <IconSmall />
+        <IconSmall isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
         <div
           className='top-1.5 relative'
           style={{
