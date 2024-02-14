@@ -87,7 +87,7 @@ const ButtonMainMenu = () => {
         >
           <IconSmallMainMenu isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
           <div
-            className='top-1.5 relative'
+            className='top-2 relative'
             style={{
               textShadow: '4px 0px 0px var(--shadow-color), 8px 0px 0px var(--shadow-color)'
             }}
