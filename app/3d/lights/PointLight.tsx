@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { gsap } from 'gsap'
 
-import { AnimationContext } from './../../libs/AnimationContext'
+import { AnimationContext } from '@/app/libs/AnimationContext'
 
 // Constants
 const BASE_POSITION: [number, number, number] = [-0.6, 2.5, 0.7]

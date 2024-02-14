@@ -1,7 +1,6 @@
-import { useCallback, useRef } from 'react'
+import { useCallback } from 'react'
 import { Mesh, Object3D } from 'three'
 import { GLTF } from 'three/examples/jsm/Addons.js'
-import { GUI } from 'dat.gui'
 
 // Constants
 const POSITION = { x: 0.8, y: 0.095, z: 2.1 }

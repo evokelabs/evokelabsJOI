@@ -1,8 +1,8 @@
+import Head from 'next/head'
 import type { Metadata } from 'next'
 import Evokelabs3D from '@/app/3d/EvokeLabs3D'
 
-import './../app/globals.css'
-import Head from 'next/head'
+import '@/app/globals.css'
 
 import { useRouter } from 'next/router'
 import Link from 'next/link'

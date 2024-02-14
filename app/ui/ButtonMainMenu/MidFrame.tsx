@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { TileFill } from '../libs/TileFill'
 import gsap from 'gsap'
+import { TileFill } from '../libs/TileFill'
 import RedCRTBlur from '../libs/RedCRTBlur'
 
 const MidFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {

@@ -1,9 +1,9 @@
 import { useContext, useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
-import { Mesh, MeshBasicMaterial, MeshStandardMaterial, Scene, VideoTexture } from 'three'
+import { Mesh, MeshBasicMaterial, Scene, VideoTexture } from 'three'
 import { gsap } from 'gsap'
-import { useDracoLoader } from './../../libs/useDracoLoader'
-import { AnimationContext } from './../../libs/AnimationContext'
+import { useDracoLoader } from '@/app/libs/useDracoLoader'
+import { AnimationContext } from '@/app/libs/AnimationContext'
 
 const CyberpunkMap = () => {
   const { scene } = useThree()
