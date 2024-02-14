@@ -37,16 +37,16 @@ const ButtonDefault = () => {
       <svg ref={svgRef} width='340' height='80' viewBox='-8 0 340 80' fill='none'>
         <RedCRTBlur />
         <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
-          <path ref={pathBGFillRef} d='M322 47V4H2V71H298L322 47Z' fill={BLACK} fill-opacity='0.85' />
-          <path ref={pathFGFillRef} d='M322 47V4H2V71H298L322 47Z' fill={RED} fill-opacity='0.1' />
-          <path d='M322 47V4H2V71H298L322 47Z' fill='url(#ButtonDefaultPattern)' fill-opacity='0.1' />
+          <path ref={pathBGFillRef} d='M322 47V4H2V71H298L322 47Z' fill={BLACK} fillOpacity='0.85' />
+          <path ref={pathFGFillRef} d='M322 47V4H2V71H298L322 47Z' fill={RED} fillOpacity='0.1' />
+          <path d='M322 47V4H2V71H298L322 47Z' fill='url(#ButtonDefaultPattern)' fillOpacity='0.1' />
 
           <path
             ref={pathBGStrokeRef}
             d='M322 3H323V4V47V47.4142L322.707 47.7071L298.707 71.7071L298.414 72H298H2H1V71V4V3H2H322Z'
             stroke={RED}
-            stroke-opacity='0.6'
-            stroke-width='2'
+            strokeOpacity='0.6'
+            strokeWidth='2'
           />
         </g>
         <defs>

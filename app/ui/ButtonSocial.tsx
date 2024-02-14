@@ -34,17 +34,17 @@ const ButtonSocial = () => {
   return (
     <div className={'cursor-pointer w-fit'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
       <svg width='66' height='47' viewBox='-8 0 66 47' fill='none' ref={svgRef}>
-        <path ref={pathBGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={BLUE_DARK} fill-opacity='0.85' />
+        <path ref={pathBGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={BLUE_DARK} fillOpacity='0.85' />
         <path ref={pathFGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={RED} fillOpacity='0.1' />
-        <path d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill='url(#ButtonSocialPattern)' fill-opacity='0.1' />
+        <path d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill='url(#ButtonSocialPattern)' fillOpacity='0.1' />
         <RedCRTBlur />
         <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
           <path
             ref={pathBGStrokeRef}
             d='M2 46H1V45V2V1H2H45H46V2V34.08V34.4876L45.7151 34.7791L35.0393 45.6991L34.7451 46H34.3242H2Z'
             stroke={RED}
-            stroke-opacity='0.6'
-            stroke-width='2'
+            strokeOpacity='0.6'
+            strokeWidth='2'
           />
         </g>
 
