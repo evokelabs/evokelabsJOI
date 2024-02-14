@@ -4,7 +4,7 @@ import { TileFill } from './libs/TileFill'
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLUE_DARK, RED, UI_DURATION_TIME } from '../libs/UIConstants'
 
-const IconSmall = ({ isHovered, isActive, isMouseDown }: { isHovered?: boolean; isActive?: boolean; isMouseDown?: boolean }) => {
+const IconSmallMainMenu = ({ isHovered, isActive, isMouseDown }: { isHovered?: boolean; isActive?: boolean; isMouseDown?: boolean }) => {
   const svgRef = useRef(null)
   const pathBGFillRef = useRef(null)
   const pathBGStrokeRef = useRef(null)
@@ -69,4 +69,4 @@ const IconSmall = ({ isHovered, isActive, isMouseDown }: { isHovered?: boolean; 
   )
 }
 
-export default IconSmall
+export default IconSmallMainMenu

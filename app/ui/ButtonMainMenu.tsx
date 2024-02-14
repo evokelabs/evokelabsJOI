@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import LeftFrame from './ButtonMainMenu/LeftFrame'
 import MidFrame from './ButtonMainMenu/MidFrame'
-import IconSmall from './IconSmall'
+import IconSmallMainMenu from './IconSmallMainMenu'
 import { RED, TEAL, UI_DURATION_TIME } from '../libs/UIConstants'
 
 const ButtonMainMenu = () => {
@@ -79,7 +79,7 @@ const ButtonMainMenu = () => {
           ref={buttonTextRef}
           style={{ pointerEvents: isActive ? 'none' : 'all' }}
         >
-          <IconSmall isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
+          <IconSmallMainMenu isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
           <div
             className='top-1.5 relative'
             style={{
