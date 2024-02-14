@@ -12,6 +12,7 @@ const ButtonMainMenu = () => {
   const buttonTextRef = useRef<HTMLDivElement>(null)
   const leftFrameRef = useRef<HTMLDivElement>(null)
   const mainFrameRef = useRef<HTMLDivElement>(null)
+  const hoverAreaRef = useRef<HTMLDivElement>(null)
   const isActiveRef = useRef(isActive)
 
   useEffect(() => {
@@ -22,10 +23,11 @@ const ButtonMainMenu = () => {
     const buttonText = buttonTextRef.current
     const leftFrame = leftFrameRef.current
     const mainFrame = mainFrameRef.current
+    const hoverArea = hoverAreaRef.current
 
-    if (buttonText && leftFrame && mainFrame) {
+    if (buttonText && leftFrame && mainFrame && hoverArea) {
       buttonText.style.setProperty('--shadow-color', 'rgba(222, 84, 86, 0.2)')
-      buttonText.addEventListener('mouseenter', () => {
+      hoverArea.addEventListener('mouseenter', () => {
         setIsHovered(true)
         gsap.to(buttonText, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
         gsap.to(buttonText, { color: TEAL, duration: UI_DURATION_TIME, ease: 'power1.out' })
@@ -33,7 +35,7 @@ const ButtonMainMenu = () => {
         gsap.to(mainFrame, { x: '+10', duration: UI_DURATION_TIME, ease: 'power1.out' })
       })
 
-      buttonText.addEventListener('mouseleave', () => {
+      hoverArea.addEventListener('mouseleave', () => {
         setIsHovered(false)
         if (!isActiveRef.current) {
           gsap.to(buttonText, { color: RED, duration: UI_DURATION_TIME, ease: 'power1.out' }),
@@ -43,15 +45,15 @@ const ButtonMainMenu = () => {
         }
       })
 
-      buttonText.addEventListener('mousedown', () => {
+      hoverArea.addEventListener('mousedown', () => {
         setIsMouseDown(true)
       })
 
-      buttonText.addEventListener('mouseup', () => {
+      hoverArea.addEventListener('mouseup', () => {
         setIsMouseDown(false)
       })
 
-      buttonText.addEventListener('click', () => {
+      hoverArea.addEventListener('click', () => {
         gsap.to(buttonText, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
         gsap.to(buttonText, { color: TEAL, duration: UI_DURATION_TIME, ease: 'power1.out' })
         setIsActive(!isActive)
@@ -62,28 +64,30 @@ const ButtonMainMenu = () => {
   }, [isActive])
 
   return (
-    <div className='relative' ref={mainFrameRef}>
-      <div className='flex items-center flex-row'>
-        <div ref={leftFrameRef} className='z-1'>
-          <LeftFrame isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
+    <div className='cursor-pointer' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} ref={hoverAreaRef}>
+      <div className='relative ' ref={mainFrameRef}>
+        <div className='flex items-center flex-row'>
+          <div ref={leftFrameRef} className='z-1'>
+            <LeftFrame isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
+          </div>
+          <div className='z-0'>
+            <MidFrame isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
+          </div>
         </div>
-        <div className='z-0'>
-          <MidFrame isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
-        </div>
-      </div>
-      <div
-        className='absolute flex items-center flex-row top-3.5 font-orbitron place-content-between w-full pl-5 pr-7 cursor-pointer'
-        ref={buttonTextRef}
-        style={{ pointerEvents: isActive ? 'none' : 'all' }}
-      >
-        <IconSmall isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
         <div
-          className='top-1.5 relative'
-          style={{
-            textShadow: '4px 0px 0px var(--shadow-color), 8px 0px 0px var(--shadow-color)'
-          }}
+          className='absolute flex items-center flex-row top-3.5 font-orbitron place-content-between w-full pl-5 pr-7 '
+          ref={buttonTextRef}
+          style={{ pointerEvents: isActive ? 'none' : 'all' }}
         >
-          CORPO GUIDE
+          <IconSmall isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
+          <div
+            className='top-1.5 relative'
+            style={{
+              textShadow: '4px 0px 0px var(--shadow-color), 8px 0px 0px var(--shadow-color)'
+            }}
+          >
+            CORPO GUIDE
+          </div>
         </div>
       </div>
     </div>
