@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { MutableRefObject, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { BLACK, RED, RED_DARK, RED_DULL, TEAL, UI_DURATION_TIME } from '@/app/libs/UIConstants'
+import { BLACK, RED, RED_DARK, RED_DULL, UI_DURATION_TIME } from '@/app/libs/UIConstants'
 
 const useButtonMainMenuController = ({
   isHovered,
@@ -14,10 +14,10 @@ const useButtonMainMenuController = ({
   isHovered: boolean
   isActive: boolean
   isMouseDown: boolean
-  svgRef: React.MutableRefObject<null>
-  pathBGFillRef: React.MutableRefObject<null>
-  pathBGStrokeRef: React.MutableRefObject<null>
-  pathFGFillRef: React.MutableRefObject<null>
+  svgRef: MutableRefObject<SVGSVGElement | null>
+  pathBGFillRef: MutableRefObject<SVGPathElement | null>
+  pathBGStrokeRef: MutableRefObject<SVGPathElement | null>
+  pathFGFillRef: MutableRefObject<SVGPathElement | null>
 }) => {
   const buttonTextRef = useRef<HTMLDivElement>(null)
   const leftFrameRef = useRef<HTMLDivElement>(null)
@@ -34,6 +34,7 @@ const useButtonMainMenuController = ({
     const pathBGStroke = pathBGStrokeRef.current
     const pathFGFill = pathFGFillRef.current
     if (svg) {
+      console.log('is hovered', isHovered)
       if (isHovered) {
         gsap.to(pathBGFill, { attr: { fill: RED_DARK }, duration: UI_DURATION_TIME, ease: 'power1.out' })
         gsap.to(pathBGStroke, { attr: { 'stroke-opacity': 1 }, duration: UI_DURATION_TIME, ease: 'power1.out' })

@@ -2,7 +2,7 @@ import { TileFill } from './libs/TileFill'
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLACK, RED } from '../libs/UIConstants'
 
-const IconSocial = () => {
+const ButtonIcon = () => {
   return (
     <svg width='66' height='47' viewBox='-8 0 66 47' fill='none'>
       <RedCRTBlur />
@@ -28,4 +28,4 @@ const IconSocial = () => {
   )
 }
 
-export default IconSocial
+export default ButtonIcon
