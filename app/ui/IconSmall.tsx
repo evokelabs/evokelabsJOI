@@ -37,18 +37,20 @@ const IconSmall = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; i
   return (
     <svg width='90' height='74' viewBox='-8 0 90 74' fill='none' ref={svgRef}>
       <RedCRTBlur />
+
+      <path
+        ref={pathBGFillRef}
+        d='M1 72L1 73L2 73L72 73L73 73L73 72L73 15.8028L73 15.3886L72.7071 15.0957L58.9043 1.29289L58.6114 1L58.1972 1L2 1L1 1L1 2L1 72Z'
+        fill={BLUE_DARK}
+      />
+
+      <path
+        ref={pathFGFillRef}
+        d='M1 72L1 73L2 73L72 73L73 73L73 72L73 15.8028L73 15.3886L72.7071 15.0957L58.9043 1.29289L58.6114 1L58.1972 1L2 1L1 1L1 2L1 72Z'
+        fill='url(#IconSmallPattern)'
+        fill-opacity='0.3'
+      />
       <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
-        <path
-          ref={pathBGFillRef}
-          d='M1 72L1 73L2 73L72 73L73 73L73 72L73 15.8028L73 15.3886L72.7071 15.0957L58.9043 1.29289L58.6114 1L58.1972 1L2 1L1 1L1 2L1 72Z'
-          fill={BLUE_DARK}
-        />
-        <path
-          ref={pathFGFillRef}
-          d='M1 72L1 73L2 73L72 73L73 73L73 72L73 15.8028L73 15.3886L72.7071 15.0957L58.9043 1.29289L58.6114 1L58.1972 1L2 1L1 1L1 2L1 72Z'
-          fill='url(#IconSmallPattern)'
-          fill-opacity='0.3'
-        />
         <path
           ref={pathBGStrokeRef}
           d='M1 72L1 73L2 73L72 73L73 73L73 72L73 15.8028L73 15.3886L72.7071 15.0957L58.9043 1.29289L58.6114 1L58.1972 1L2 1L1 1L1 2L1 72Z'
