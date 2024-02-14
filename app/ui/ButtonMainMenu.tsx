@@ -64,7 +64,13 @@ const ButtonMainMenu = () => {
   }, [isActive])
 
   return (
-    <div className='cursor-pointer' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} ref={hoverAreaRef}>
+    <div
+      className='cursor-pointer'
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      ref={hoverAreaRef}
+      style={{ pointerEvents: isActive ? 'none' : 'all' }}
+    >
       <div className='relative ' ref={mainFrameRef}>
         <div className='flex items-center flex-row'>
           <div ref={leftFrameRef} className='z-1'>

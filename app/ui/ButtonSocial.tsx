@@ -1,6 +1,6 @@
 import { TileFill } from './libs/TileFill'
 import RedCRTBlur from './libs/RedCRTBlur'
-import { BLACK, RED } from '../libs/UIConstants'
+import { BLACK, BLUE_DARK, RED } from '../libs/UIConstants'
 import { useEffect, useRef, useState } from 'react'
 import useButtonInteractionController from './libs/useButtonInteractionController'
 import useButtonEventsController from './libs/useButtonEventsController'
@@ -47,11 +47,10 @@ const ButtonSocial = () => {
   return (
     <div className={'cursor-pointer w-fit'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
       <svg width='66' height='47' viewBox='-8 0 66 47' fill='none' ref={svgRef}>
+        <path ref={pathBGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={BLUE_DARK} fill-opacity='0.85' />
+        <path ref={pathBGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={RED} fillOpacity='0.1' />
+        <path d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill='url(#ButtonSocialPattern)' fill-opacity='0.3' />
         <RedCRTBlur />
-        <path d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill='url(#ButtonSocialPattern)' fill-opacity='0.1' />
-        <path d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={RED} fill-opacity='0.1' ref={pathFGFillRef} />
-        <path ref={pathBGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={BLACK} fill-opacity='0.85' />
-
         <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
           <path
             ref={pathBGStrokeRef}
@@ -61,6 +60,7 @@ const ButtonSocial = () => {
             stroke-width='2'
           />
         </g>
+
         <defs>
           <pattern id='ButtonSocialPattern' patternContentUnits='objectBoundingBox' width='0.0744186' height='0.0744186'>
             <use xlinkHref='#gridOverlay' transform='scale(0.0186047)' />
