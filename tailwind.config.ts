@@ -5,7 +5,8 @@ const config: Config = {
   theme: {
     extend: {
       CRTBlur: {
-        red: '4px 0px 0px rgba(222, 84, 86, 0.2), 8px 0px 0px rgba(222, 84, 86, 0.1)'
+        red: '4px 0px 0px rgba(222, 84, 86, 0.2), 8px 0px 0px rgba(222, 84, 86, 0.1)',
+        teal: '4px 0px 0px rgba(83, 246, 255, 0.2), 8px 0px 0px rgba(83, 246, 255, 0.1)'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -18,7 +19,11 @@ const config: Config = {
         '120px': '120px'
       },
       fontFamily: {
-        orbitron: ['Orbitron', 'sans-serif']
+        orbitron: ['Orbitron', 'sans-serif'],
+        rajdhani: ['Rajdhani', 'sans-serif']
+      },
+      colors: {
+        teal: '#53F6FF'
       }
     }
   },
@@ -27,10 +32,16 @@ const config: Config = {
       const newUtilities = {
         '.font-orbitron': {
           fontFamily: 'Orbitron, sans-serif',
-          fontSize: '20px',
+          fontSize: '1.25em',
           fontWeight: 'bold',
           color: '#F75049',
           textShadow: theme('CRTBlur.red')
+        },
+        '.font-rajdhani': {
+          fontFamily: 'Rajdhani, sans-serif',
+          fontWeight: '500',
+          color: '#53F6FF',
+          textShadow: theme('CRTBlur.teal')
         }
       }
       addUtilities(newUtilities)

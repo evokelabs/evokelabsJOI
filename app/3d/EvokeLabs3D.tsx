@@ -21,6 +21,7 @@ import IconDefault from '../ui/IconDefault'
 import IconSmallMainMenu from '../ui/IconSmallMainMenu'
 import ButtonMainMenu from '../ui/ButtonMainMenu'
 import ButtonSocial from '../ui/ButtonSocial'
+import ButtonDefault from '../ui/ButtonDefault'
 
 // Constants
 // const debug = true
@@ -49,10 +50,7 @@ const Evokelabs3D = () => {
           <IconDefault />
           <IconSmallMainMenu />
           <ButtonSocial />
-          <ButtonMainMenu />
-          <ButtonMainMenu />
-          <ButtonMainMenu />
-          <ButtonMainMenu />
+          <ButtonDefault />
           <ButtonMainMenu />
           <ButtonMainMenu />
           <ButtonMainMenu />

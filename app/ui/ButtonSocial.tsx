@@ -1,9 +1,8 @@
 import { TileFill } from './libs/TileFill'
 import RedCRTBlur from './libs/RedCRTBlur'
-import { BLACK, BLUE_DARK, RED } from '../libs/UIConstants'
+import { BLUE_DARK, RED } from '../libs/UIConstants'
 import { useEffect, useRef, useState } from 'react'
 import useButtonInteractionController from './libs/useButtonInteractionController'
-import useButtonEventsController from './libs/useButtonEventsController'
 
 const ButtonSocial = () => {
   const svgRef = useRef<SVGSVGElement | null>(null)
@@ -48,8 +47,8 @@ const ButtonSocial = () => {
     <div className={'cursor-pointer w-fit'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
       <svg width='66' height='47' viewBox='-8 0 66 47' fill='none' ref={svgRef}>
         <path ref={pathBGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={BLUE_DARK} fill-opacity='0.85' />
-        <path ref={pathBGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={RED} fillOpacity='0.1' />
-        <path d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill='url(#ButtonSocialPattern)' fill-opacity='0.3' />
+        <path ref={pathFGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={RED} fillOpacity='0.1' />
+        <path d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill='url(#ButtonSocialPattern)' fill-opacity='0.1' />
         <RedCRTBlur />
         <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
           <path
