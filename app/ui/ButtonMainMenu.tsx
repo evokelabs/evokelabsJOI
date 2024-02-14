@@ -3,12 +3,13 @@ import { gsap } from 'gsap'
 import LeftFrame from './ButtonMainMenu/LeftFrame'
 import MidFrame from './ButtonMainMenu/MidFrame'
 import IconSmall from './IconSmall'
+import { RED, TEAL, UI_DURATION_TIME } from '../libs/UIConstants'
 
 const ButtonMainMenu = () => {
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
   const [isMouseDown, setIsMouseDown] = useState(false)
-  const corpoGuideRef = useRef<HTMLDivElement>(null)
+  const buttonTextRef = useRef<HTMLDivElement>(null)
   const leftFrameRef = useRef<HTMLDivElement>(null)
   const mainFrameRef = useRef<HTMLDivElement>(null)
   const isActiveRef = useRef(isActive)
@@ -18,44 +19,44 @@ const ButtonMainMenu = () => {
   }, [isActive])
 
   useEffect(() => {
-    const corpoGuide = corpoGuideRef.current
+    const buttonText = buttonTextRef.current
     const leftFrame = leftFrameRef.current
     const mainFrame = mainFrameRef.current
 
-    if (corpoGuide && leftFrame && mainFrame) {
-      corpoGuide.style.setProperty('--shadow-color', 'rgba(222, 84, 86, 0.2)')
-      corpoGuide.addEventListener('mouseenter', () => {
+    if (buttonText && leftFrame && mainFrame) {
+      buttonText.style.setProperty('--shadow-color', 'rgba(222, 84, 86, 0.2)')
+      buttonText.addEventListener('mouseenter', () => {
         setIsHovered(true)
-        gsap.to(corpoGuide, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: 0.225, ease: 'power1.out' })
-        gsap.to(corpoGuide, { color: '#53F6FF', duration: 0.225, ease: 'power1.out' })
-        gsap.to(leftFrame, { x: '+5', duration: 0.225, ease: 'power1.out' })
-        gsap.to(mainFrame, { x: '+10', duration: 0.225, ease: 'power1.out' })
+        gsap.to(buttonText, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(buttonText, { color: TEAL, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(leftFrame, { x: '+5', duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(mainFrame, { x: '+10', duration: UI_DURATION_TIME, ease: 'power1.out' })
       })
 
-      corpoGuide.addEventListener('mouseleave', () => {
+      buttonText.addEventListener('mouseleave', () => {
         setIsHovered(false)
         if (!isActiveRef.current) {
-          gsap.to(corpoGuide, { color: '#F75049', duration: 0.225, ease: 'power1.out' }),
-            gsap.to(corpoGuide, { css: { '--shadow-color': 'rgba(222, 84, 86, 0.2)' }, duration: 0.225, ease: 'power1.out' }),
-            gsap.to(leftFrame, { x: '0', duration: 0.225, ease: 'power1.out' })
-          gsap.to(mainFrame, { x: '-2', duration: 0.225, ease: 'power1.out' })
+          gsap.to(buttonText, { color: RED, duration: UI_DURATION_TIME, ease: 'power1.out' }),
+            gsap.to(buttonText, { css: { '--shadow-color': 'rgba(222, 84, 86, 0.2)' }, duration: UI_DURATION_TIME, ease: 'power1.out' }),
+            gsap.to(leftFrame, { x: '0', duration: UI_DURATION_TIME, ease: 'power1.out' })
+          gsap.to(mainFrame, { x: '-2', duration: UI_DURATION_TIME, ease: 'power1.out' })
         }
       })
 
-      corpoGuide.addEventListener('mousedown', () => {
+      buttonText.addEventListener('mousedown', () => {
         setIsMouseDown(true)
       })
 
-      corpoGuide.addEventListener('mouseup', () => {
+      buttonText.addEventListener('mouseup', () => {
         setIsMouseDown(false)
       })
 
-      corpoGuide.addEventListener('click', () => {
-        gsap.to(corpoGuide, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: 0.225, ease: 'power1.out' })
-        gsap.to(corpoGuide, { color: '#53F6FF', duration: 0.225, ease: 'power1.out' })
+      buttonText.addEventListener('click', () => {
+        gsap.to(buttonText, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(buttonText, { color: TEAL, duration: UI_DURATION_TIME, ease: 'power1.out' })
         setIsActive(!isActive)
-        gsap.to(leftFrame, { x: '+13', duration: 0.225, ease: 'power1.out' })
-        gsap.to(mainFrame, { x: '-2', duration: 0.225, ease: 'power1.out' })
+        gsap.to(leftFrame, { x: '+13', duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(mainFrame, { x: '-2', duration: UI_DURATION_TIME, ease: 'power1.out' })
       })
     }
   }, [isActive])
@@ -72,7 +73,7 @@ const ButtonMainMenu = () => {
       </div>
       <div
         className='absolute flex items-center flex-row top-3.5 font-orbitron place-content-between w-full pl-5 pr-7 cursor-pointer'
-        ref={corpoGuideRef}
+        ref={buttonTextRef}
         style={{ pointerEvents: isActive ? 'none' : 'all' }}
       >
         <IconSmall isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />

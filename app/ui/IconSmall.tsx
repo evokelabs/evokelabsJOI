@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { TileFill } from './libs/TileFill'
 import RedCRTBlur from './libs/RedCRTBlur'
+import { BLUE_DARK, RED, UI_DURATION_TIME } from '../libs/UIConstants'
 
 const IconSmall = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {
   const svgRef = useRef(null)
@@ -16,18 +17,18 @@ const IconSmall = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; i
 
     if (svg) {
       if (isHovered) {
-        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': '1' }, duration: 0.225, ease: 'power1.out' })
-        gsap.to(pathBGFill, { attr: { 'fill-opacity': '0.5' }, duration: 0.225, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': '1' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(pathBGFill, { attr: { 'fill-opacity': '0.5' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
       } else {
-        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': '0.6', strokeColor: '#F75049' }, duration: 0.225, ease: 'power1.out' })
-        gsap.to(pathBGFill, { attr: { 'fill-opacity': '1' }, duration: 0.225, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': '0.6', strokeColor: RED }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(pathBGFill, { attr: { 'fill-opacity': '1' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
       }
 
       if (isActive) {
         gsap.fromTo(
           pathBGFill,
           { attr: { 'fill-opacity': '0.5' } },
-          { attr: { 'fill-opacity': '0.4' }, duration: 0.225, ease: 'power1.out' }
+          { attr: { 'fill-opacity': '0.4' }, duration: UI_DURATION_TIME, ease: 'power1.out' }
         )
       }
     }
@@ -40,7 +41,7 @@ const IconSmall = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; i
         <path
           ref={pathBGFillRef}
           d='M1 72L1 73L2 73L72 73L73 73L73 72L73 15.8028L73 15.3886L72.7071 15.0957L58.9043 1.29289L58.6114 1L58.1972 1L2 1L1 1L1 2L1 72Z'
-          fill='#151A2B'
+          fill={BLUE_DARK}
         />
         <path
           ref={pathFGFillRef}
@@ -51,7 +52,7 @@ const IconSmall = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; i
         <path
           ref={pathBGStrokeRef}
           d='M1 72L1 73L2 73L72 73L73 73L73 72L73 15.8028L73 15.3886L72.7071 15.0957L58.9043 1.29289L58.6114 1L58.1972 1L2 1L1 1L1 2L1 72Z'
-          stroke='#F75049'
+          stroke={RED}
           stroke-opacity='0.6'
           stroke-width='2'
         />
