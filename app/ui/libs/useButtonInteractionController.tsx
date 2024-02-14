@@ -57,7 +57,7 @@ const useButtonInteractionController = ({
         )
         gsap.fromTo(
           pathBGFill,
-          { attr: { fill: RED_DARK, 'fill-opacity': 0.85 } },
+          { attr: { fill: RED_DARK } },
           { attr: { fill: RED_DULL, 'fill-opacity': 1 }, duration: UI_DURATION_TIME, ease: 'power1.out' }
         )
       } else if (!isHovered) {
