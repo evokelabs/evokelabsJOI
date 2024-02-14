@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { TileFill } from '../libs/TileFill'
 import RedCRTBlur from '../libs/RedCRTBlur'
 import { BLACK, RED } from '@/app/libs/UIConstants'
-import useButtonMainMenuController from './useButtonMainMenuController'
+import useButtonInteractionController from '../libs/useButtonInteractionController'
 
 const MidFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {
   const svgRef = useRef(null)
@@ -10,7 +10,7 @@ const MidFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; is
   const pathBGStrokeRef = useRef(null)
   const pathFGFillRef = useRef(null)
 
-  useButtonMainMenuController({
+  useButtonInteractionController({
     isHovered,
     isActive,
     isMouseDown,

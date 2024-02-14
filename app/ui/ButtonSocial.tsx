@@ -1,9 +1,8 @@
 import { TileFill } from './libs/TileFill'
-import { gsap } from 'gsap'
 import RedCRTBlur from './libs/RedCRTBlur'
-import { BLACK, RED, RED_DARK, RED_DULL, UI_DURATION_TIME } from '../libs/UIConstants'
+import { BLACK, RED } from '../libs/UIConstants'
 import { useEffect, useRef, useState } from 'react'
-import useButtonMainMenuController from './ButtonMainMenu/useButtonMainMenuController'
+import useButtonInteractionController from './libs/useButtonInteractionController'
 
 const ButtonSocial = () => {
   const svgRef = useRef<SVGSVGElement | null>(null)
@@ -35,7 +34,7 @@ const ButtonSocial = () => {
     }
   }, [])
 
-  useButtonMainMenuController({
+  useButtonInteractionController({
     isHovered,
     isActive,
     isMouseDown,

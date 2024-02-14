@@ -2,7 +2,7 @@ import { MutableRefObject, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { BLACK, RED, RED_DARK, RED_DULL, UI_DURATION_TIME } from '@/app/libs/UIConstants'
 
-const useButtonMainMenuController = ({
+const useButtonInteractionController = ({
   isHovered,
   isActive,
   isMouseDown,
@@ -72,4 +72,4 @@ const useButtonMainMenuController = ({
   return { buttonTextRef, leftFrameRef, mainFrameRef }
 }
 
-export default useButtonMainMenuController
+export default useButtonInteractionController
