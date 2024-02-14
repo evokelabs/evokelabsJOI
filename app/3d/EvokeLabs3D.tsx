@@ -16,9 +16,8 @@ import { AnimationContext } from '../libs/AnimationContext'
 import { useCameraSettings } from '../libs/useCameraSettings'
 
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, BrightnessContrast } from '@react-three/postprocessing'
-import { Vector2, Vector3 } from 'three'
+import { Vector2 } from 'three'
 import IconDefault from '../ui/IconDefault'
-import IconSmallMainMenu from '../ui/IconSmallMainMenu'
 import ButtonMainMenu from '../ui/ButtonMainMenu'
 import ButtonSocial from '../ui/ButtonSocial'
 import ButtonDefault from '../ui/ButtonDefault'
@@ -48,8 +47,12 @@ const Evokelabs3D = () => {
       >
         <Html scale={0.038} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
           <IconDefault />
-          <IconSmallMainMenu />
           <ButtonSocial />
+          <ButtonDefault />
+          <ButtonDefault title='FIX A BOOKING' />
+          <ButtonDefault title='SEND AN EMAIL' />
+          <ButtonDefault title='BACK' />
+          <ButtonDefault title='LAUNCH' />
           <ButtonDefault />
           <ButtonMainMenu />
           <ButtonMainMenu />

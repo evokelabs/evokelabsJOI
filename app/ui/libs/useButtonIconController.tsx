@@ -47,7 +47,7 @@ const useButtonIconController = ({
         )
       }
     }
-  }, [isHovered, isActive, isMouseDown, svgRef, pathBGStrokeRef, pathBGFillRef])
+  }, [isActive, isHovered, pathBGFillRef, pathBGStrokeRef, svgRef])
 
   return { buttonTextRef, leftFrameRef, mainFrameRef }
 }

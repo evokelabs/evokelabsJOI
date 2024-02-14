@@ -1,8 +1,7 @@
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
+import { useRef } from 'react'
 import { TileFill } from './libs/TileFill'
 import RedCRTBlur from './libs/RedCRTBlur'
-import { BLUE_DARK, RED, UI_DURATION_TIME } from '../libs/UIConstants'
+import { BLUE_DARK, RED } from '../libs/UIConstants'
 import useButtonIconController from './libs/useButtonIconController'
 
 const IconSmallMainMenu = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {
