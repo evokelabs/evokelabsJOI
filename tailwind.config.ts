@@ -38,10 +38,7 @@ const config: Config = {
           textShadow: theme('CRTBlur.red')
         },
         '.font-rajdhani': {
-          fontFamily: 'Rajdhani, sans-serif',
-          fontWeight: '500',
-          color: '#53F6FF',
-          textShadow: theme('CRTBlur.teal')
+          fontFamily: 'Rajdhani, sans-serif'
         }
       }
       addUtilities(newUtilities)

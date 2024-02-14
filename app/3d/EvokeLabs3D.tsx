@@ -21,6 +21,8 @@ import IconDefault from '../ui/IconDefault'
 import ButtonMainMenu from '../ui/ButtonMainMenu'
 import ButtonSocial from '../ui/ButtonSocial'
 import ButtonDefault from '../ui/ButtonDefault'
+import TitleHighlight from '../ui/TitleHighlight'
+import { RED, TEAL } from '../libs/UIConstants'
 
 // Constants
 // const debug = true
@@ -57,6 +59,9 @@ const Evokelabs3D = () => {
           <ButtonMainMenu />
           <ButtonMainMenu />
           <ButtonMainMenu />
+          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER' BGCOLOR={TEAL} />
+          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER' BGCOLOR={RED} />
+          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER' BGCOLOR={RED} />
         </Html>
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : null}

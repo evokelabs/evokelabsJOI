@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import LeftFrame from './ButtonMainMenu/LeftFrame'
-import MidFrame from './ButtonMainMenu/MidFrame'
-import IconSmallMainMenu from './IconSmallMainMenu'
-import { RED, TEAL, UI_DURATION_TIME } from '../libs/UIConstants'
+import LeftFrame from './LeftFrame'
+import MidFrame from './MidFrame'
+import IconSmallMainMenu from '../IconSmallMainMenu'
+import { RED, TEAL, UI_DURATION_TIME } from '../../libs/UIConstants'
 
 const ButtonMainMenu = () => {
   const [isHovered, setIsHovered] = useState(false)
@@ -65,14 +65,14 @@ const ButtonMainMenu = () => {
 
   return (
     <div
-      className='cursor-pointer'
+      className='cursor-pointer w-fit'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       ref={hoverAreaRef}
       style={{ pointerEvents: isActive ? 'none' : 'all' }}
     >
       <div className='relative ' ref={mainFrameRef}>
-        <div className='flex items-center flex-row'>
+        <div className='flex items-center flex-row w-full'>
           <div ref={leftFrameRef} className='z-1'>
             <LeftFrame isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
           </div>
@@ -81,7 +81,7 @@ const ButtonMainMenu = () => {
           </div>
         </div>
         <div
-          className='absolute flex items-center flex-row top-3.5 font-orbitron place-content-between w-full pl-5 pr-7 '
+          className='absolute flex items-center flex-row top-3.5 font-orbitron place-content-between pl-5 pr-7 w-full'
           ref={buttonTextRef}
           style={{ pointerEvents: isActive ? 'none' : 'all' }}
         >
