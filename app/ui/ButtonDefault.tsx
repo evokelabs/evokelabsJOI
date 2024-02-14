@@ -4,6 +4,7 @@ import { BLACK, RED, TEAL } from '../libs/UIConstants'
 import useButtonInteractionController from './libs/useButtonInteractionController'
 import RedCRTBlur from './libs/RedCRTBlur'
 import IconButtonDefault from './IconButtonDefault'
+import useButtonEventsController from './libs/useButtonEventsController'
 
 const ButtonDefault = () => {
   const svgRef = useRef<SVGSVGElement | null>(null)
@@ -14,27 +15,13 @@ const ButtonDefault = () => {
   const [isMouseDown, setIsMouseDown] = useState(false)
   const [isActive, setIsActive] = useState(false)
 
-  useEffect(() => {
-    const svg = svgRef.current
-    if (svg) {
-      svg.addEventListener('mouseenter', () => {
-        console.log('mouse enter')
-        setIsHovered(true)
-      })
-      svg.addEventListener('mouseleave', () => {
-        setIsHovered(false)
-      })
-      svg.addEventListener('mousedown', () => {
-        setIsMouseDown(true)
-      })
-      svg.addEventListener('mouseup', () => {
-        setIsMouseDown(false)
-      })
-      svg.addEventListener('click', () => {
-        setIsActive(true)
-      })
-    }
-  }, [])
+  useButtonEventsController({
+    svg: svgRef.current,
+    setIsHovered,
+    setIsMouseDown,
+    setIsActive
+  })
+
   useButtonInteractionController({
     isHovered,
     isActive,

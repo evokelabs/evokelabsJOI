@@ -1,37 +1,15 @@
-import React, { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { TileFill } from './libs/TileFill'
-import { gsap } from 'gsap'
-import { BLACK, RED, UI_DURATION_TIME } from '../libs/UIConstants'
+import { BLACK, RED } from '../libs/UIConstants'
+import useButtonIconController from './libs/useButtonIconController'
 
-const IconButtonDefault = ({ isHovered, isActive, isMouseDown }: { isHovered?: boolean; isActive?: boolean; isMouseDown?: boolean }) => {
+const IconButtonDefault = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {
   const svgRef = useRef(null)
   const pathBGFillRef = useRef(null)
   const pathBGStrokeRef = useRef(null)
   const pathFGFillRef = useRef(null)
 
-  useEffect(() => {
-    const svg = svgRef.current
-    const pathBGStroke = pathBGStrokeRef.current
-    const pathBGFill = pathBGFillRef.current
-
-    if (svg) {
-      if (isHovered) {
-        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': '1' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
-        gsap.to(pathBGFill, { attr: { 'fill-opacity': '0.5' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
-      } else {
-        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': '0.6', strokeColor: RED }, duration: UI_DURATION_TIME, ease: 'power1.out' })
-        gsap.to(pathBGFill, { attr: { 'fill-opacity': '1' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
-      }
-
-      if (isActive) {
-        gsap.fromTo(
-          pathBGFill,
-          { attr: { 'fill-opacity': '0.5' } },
-          { attr: { 'fill-opacity': '0.4' }, duration: UI_DURATION_TIME, ease: 'power1.out' }
-        )
-      }
-    }
-  }, [isHovered, isActive, isMouseDown])
+  useButtonIconController({ isHovered, isActive, isMouseDown, svgRef, pathBGFillRef, pathBGStrokeRef, pathFGFillRef })
 
   return (
     <svg width='50' height='50' viewBox='0 0 50 50' fill='none' ref={svgRef}>
