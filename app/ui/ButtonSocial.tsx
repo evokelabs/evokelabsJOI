@@ -1,7 +1,8 @@
 import { TileFill } from './libs/TileFill'
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLUE_DARK, RED } from '../libs/UIConstants'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import useButtonEventsController from './libs/useButtonEventsController'
 import useButtonInteractionController from './libs/useButtonInteractionController'
 
 const ButtonSocial = () => {
@@ -13,26 +14,13 @@ const ButtonSocial = () => {
   const [isMouseDown, setIsMouseDown] = useState(false)
   const [isActive, setIsActive] = useState(false)
 
-  useEffect(() => {
-    const svg = svgRef.current
-    if (svg) {
-      svg.addEventListener('mouseenter', () => {
-        setIsHovered(true)
-      })
-      svg.addEventListener('mouseleave', () => {
-        setIsHovered(false)
-      })
-      svg.addEventListener('mousedown', () => {
-        setIsMouseDown(true)
-      })
-      svg.addEventListener('mouseup', () => {
-        setIsMouseDown(false)
-      })
-      svg.addEventListener('click', () => {
-        setIsActive(true)
-      })
-    }
-  }, [])
+  useButtonEventsController({
+    svg: svgRef.current,
+    setIsHovered,
+    setIsMouseDown,
+    setIsActive
+  })
+
   useButtonInteractionController({
     isHovered,
     isActive,
