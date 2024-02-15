@@ -54,7 +54,7 @@ const Evokelabs3D = () => {
         }}
       >
         <Html scale={0.05} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
-          {/*  */}
+          {/* */}
           <IconDefault />
           <ButtonSocial />
           <ButtonDefault />
@@ -76,19 +76,21 @@ const Evokelabs3D = () => {
             BGColor={TEAL}
           />
           <ParagraphHighlight text='“You are amazing Adrian! Seriously – you always impress me by going above and beyond!”' BGColor={RED} />
+
           <RowFull
             title='FRONT END DEVELOPMENT'
             subTitle='HO HOH HO'
-            paragraph='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single page applications, multi page applications with API / GraphQL.'
+            paragraph='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single page applications, multi page applications with API / GraphQL. Coding UI/UX designs into working builds using the latest JS libraries. Land'
           />
           <RowHalf
             title='FRONT END DEVELOPMENT'
-            text='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single page applications, multi page applications with API / GraphQL.'
+            text='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, '
           />
           <RowThird
-            title='FRONT END DEVELOPMENT'
-            text='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single page applications, multi page applications with API / GraphQL.'
+            title='THE VERSATILITY FACTOR'
+            text='Why settle for one expertise when you can have it all? Visionary, developer, designer - my versatile skill set is your secret weapon. Unleash the boundless innovation that comes from a true Renaissance professional.'
           />
+
           <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
           <PanelBackground />
         </Html>

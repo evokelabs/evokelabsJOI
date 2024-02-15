@@ -3,6 +3,7 @@ import { TileFill } from './libs/TileFill'
 import { BLACK, RED } from '../libs/UIConstants'
 import useButtonIconController from './libs/useButtonIconController'
 import RedCRTBlur from './libs/RedCRTBlur'
+import { RED_TILE_PATTERN } from './libs/SVGTileFills'
 
 const IconButtonDefault = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {
   const svgRef = useRef(null)
@@ -15,7 +16,7 @@ const IconButtonDefault = ({ isHovered, isActive, isMouseDown }: { isHovered: bo
   return (
     <svg width='60' height='50' viewBox='0 0 60 50' fill='none' ref={svgRef}>
       <path ref={pathBGFillRef} d='M2 2L2 48L48 48L48 11.0704L38.9296 2L2 2Z' fill={BLACK} fillOpacity='0.35' />
-      <path ref={pathFGFillRef} d='M2 2L2 48L48 48L48 11.0704L38.9296 2L2 2Z' fill='url(#IconButtonDefaultPattern)' fillOpacity='0.1' />
+      <path ref={pathFGFillRef} d='M2 2L2 48L48 48L48 11.0704L38.9296 2L2 2Z' fill='url(#redTile)' />
       <RedCRTBlur />
       <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
         <path
@@ -26,12 +27,7 @@ const IconButtonDefault = ({ isHovered, isActive, isMouseDown }: { isHovered: bo
           strokeWidth='2'
         />
       </g>
-      <defs>
-        <pattern id='IconButtonDefaultPattern' patternContentUnits='objectBoundingBox' width='0.0695652' height='0.0695652'>
-          <use xlinkHref='#IconButtonDefaultImage' transform='scale(0.0173913)' />
-        </pattern>
-        <image id='IconButtonDefaultImage' width='4' height='4' xlinkHref={TileFill} />
-      </defs>
+      {RED_TILE_PATTERN}
     </svg>
   )
 }

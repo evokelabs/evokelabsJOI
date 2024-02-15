@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 import { BLACK, BLUE_DARK, RED, RED_DARK, RED_DULL, TEAL } from './app/libs/UIConstants'
-import { TileFill } from './app/ui/libs/TileFill'
+import { TileFill, TileFill30 } from './app/ui/libs/TileFill'
 
 const config: Config = {
   content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
@@ -49,10 +49,14 @@ const config: Config = {
           color: theme('colors.teal'),
           textShadow: '4px 0px 0px rgba(83, 246, 255, 0.2), 8px 0px 0px rgba(83, 246, 255, 0.1)'
         },
-        '.bg-grid': {
-          backgroundImage: `linear-gradient(rgba(21, 26, 43, 0.7), rgba(21, 26, 43, 0.7)), url(${TileFill})`,
+        '.bg-grid-blue': {
+          backgroundImage: `url(${TileFill30}), linear-gradient(rgba(21, 26, 43, 1), rgba(21, 26, 43, 1))`,
           backgroundRepeat: 'repeat',
           backgroundColor: theme('colors.blue-dark')
+        },
+        '.bg-grid-red': {
+          backgroundImage: `url(${TileFill}), linear-gradient(rgba(222,84, 86, 0.1), rgba(222,84, 86, 0.1)), linear-gradient(rgba(80, 33, 36, 0.85), rgba(80, 33, 36, 0.85))`,
+          backgroundRepeat: 'repeat'
         }
       }
       addUtilities(newUtilities)

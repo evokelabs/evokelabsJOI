@@ -1,12 +1,12 @@
-import { TileFill } from './libs/TileFill'
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLUE_DARK, RED } from '../libs/UIConstants'
+import { BLUE_TILE_PATTERN } from './libs/SVGTileFills'
 
 const IconDefault = () => {
   return (
-    <svg width='160' height='144' viewBox='-8 0 160 144' fill='none'>
+    <svg width='160' height='144' viewBox='0 0 160 144' fill='none'>
       <path d='M2 2H142V128L128 142H2V2Z' fill={BLUE_DARK} />
-      <path d='M2 2H142V128L128 142H2V2Z' fill='url(#IconDefaultPattern)' fillOpacity='0.3' />
+      <path d='M2 2H142V128L128 142H2V2Z' fill='url(#blueTile)' />
       <RedCRTBlur />
       <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
         <path
@@ -16,12 +16,7 @@ const IconDefault = () => {
           strokeWidth='2'
         />
       </g>
-      <defs>
-        <pattern id='IconDefaultPattern' patternContentUnits='objectBoundingBox' width='0.0228571' height='0.0228571'>
-          <use xlinkHref='#gridOverlay' transform='scale(0.006)' />
-        </pattern>
-        <image id='gridOverlay' width='4' height='4' xlinkHref={TileFill} />
-      </defs>
+      {BLUE_TILE_PATTERN}
     </svg>
   )
 }

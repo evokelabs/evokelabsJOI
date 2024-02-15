@@ -3,6 +3,7 @@ import { TileFill } from '../libs/TileFill'
 import RedCRTBlur from '../libs/RedCRTBlur'
 import { BLACK, RED } from '@/app/libs/UIConstants'
 import useButtonInteractionController from '../libs/useButtonInteractionController'
+import { RED_TILE_PATTERN } from '../libs/SVGTileFills'
 
 const MidFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {
   const svgRef = useRef(null)
@@ -24,8 +25,8 @@ const MidFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; is
     <svg width='354' height='106' viewBox='0 0 354 106' fill='none' ref={svgRef}>
       <path ref={pathBGFillRef} d='M2.00098 98V4H81.001L97.001 20H344.001V85.1398L331.001 98H2.00098Z' fill={BLACK} fillOpacity='0.85' />
 
-      <path d='M2.00098 98V4H81.001L97.001 20H344.001V85.1398L331.001 98H2.00098Z' fill='url(#IconMidFrame)' fillOpacity='0.3' />
       <path ref={pathFGFillRef} d='M2.00098 98V4H81.001L97.001 20H344.001V85.1398L331.001 98H2.00098Z' fill={RED} fillOpacity='0.1' />
+      <path d='M2.00098 98V4H81.001L97.001 20H344.001V85.1398L331.001 98H2.00098Z' fill='url(#redTile)' />
       <RedCRTBlur />
       <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
         <path
@@ -36,12 +37,7 @@ const MidFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; is
           strokeWidth='2'
         />
       </g>
-      <defs>
-        <pattern id='IconMidFrame' patternContentUnits='objectBoundingBox' width='0.00935673' height='0.0340426'>
-          <use xlinkHref='#gridOverlay' transform='scale(0.00233918 0.00851064)' />
-        </pattern>
-        <image id='gridOverlay' width='4' height='4' xlinkHref={TileFill} />
-      </defs>
+      {RED_TILE_PATTERN}
     </svg>
   )
 }

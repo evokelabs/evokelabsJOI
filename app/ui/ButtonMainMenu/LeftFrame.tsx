@@ -3,6 +3,7 @@ import { TileFill } from '../libs/TileFill'
 import RedCRTBlur from '../libs/RedCRTBlur'
 import { BLACK, RED } from '@/app/libs/UIConstants'
 import useButtonInteractionController from '../libs/useButtonInteractionController'
+import { RED_TILE_PATTERN } from '../libs/SVGTileFills'
 
 const LeftFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {
   const svgRef = useRef(null)
@@ -32,16 +33,12 @@ const LeftFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; i
       />
 
       <path
-        d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z'
-        fill='url(#LeftFramePattern)'
-        fillOpacity='0.3'
-      />
-      <path
         ref={pathFGFillRef}
         d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z'
         fill={RED}
         fillOpacity='0.1'
       />
+      <path d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z' fill='url(#redTile)' />
       <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
         <path
           ref={pathBGStrokeRef}
@@ -51,12 +48,7 @@ const LeftFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; i
           strokeWidth='2'
         />
       </g>
-      <defs>
-        <pattern id='LeftFramePattern' patternContentUnits='objectBoundingBox' width='0.266667' height='0.05'>
-          <use xlinkHref='#IconLeftFrame' transform='scale(0.0666667 0.0125)' />
-        </pattern>
-        <image id='IconLeftFrame' width='4' height='4' xlinkHref={TileFill} />
-      </defs>
+      {RED_TILE_PATTERN}
     </svg>
   )
 }

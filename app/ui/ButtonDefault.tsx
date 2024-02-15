@@ -5,6 +5,7 @@ import useButtonInteractionController from './libs/useButtonInteractionControlle
 import RedCRTBlur from './libs/RedCRTBlur'
 import IconButtonDefault from './IconButtonDefault'
 import useButtonEventsController from './libs/useButtonEventsController'
+import { RED_TILE_PATTERN } from './libs/SVGTileFills'
 
 type SVGButtonProps = {
   svgRef: React.RefObject<SVGSVGElement>
@@ -88,21 +89,16 @@ const SVGButton: React.FC<SVGButtonProps> = ({
   buttonProps: { width, viewBox, d1, d2 }
 }) => {
   return (
-    <div className={'relative cursor-pointer w-fit left-3.5'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
+    <div className={'relative cursor-pointer w-fit'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
       <svg ref={svgRef} width={width} height='71' viewBox={viewBox}>
         <path d={d1} fill={BLACK} ref={pathBGFillRef} />
         <path d={d1} fill={RED} ref={pathFGFillRef} />
-        <path d={d1} fill='url(#ButtonDefaultPattern)' fillOpacity='0.1' />
+        <path d={d1} fill='url(#redTile)' />
         <RedCRTBlur />
         <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
           <path fillRule='evenodd' clipRule='evenodd' ref={pathBGStrokeRef} d={d2} fill={RED} fillOpacity='0.6' />
         </g>
-        <defs>
-          <pattern id='ButtonDefaultPattern' patternContentUnits='objectBoundingBox' width='0.01' height='0.0477612'>
-            <use xlinkHref='#ButtonDefaultOverlay' transform='scale(0.0025 0.0119403)' />
-          </pattern>
-          <image id='ButtonDefaultOverlay' width='4' height='4' xlinkHref={TileFill} />
-        </defs>
+        {RED_TILE_PATTERN}
       </svg>
       <div className='absolute bottom-0 flex flex-row items-center justify-between w-full h-full pl-2.5 pr-12 pointer-events-none'>
         <IconButtonDefault isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />

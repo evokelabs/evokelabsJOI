@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import RedCRTBlur from '../libs/RedCRTBlur'
 import { BLUE_DARK, RED } from '@/app/libs/UIConstants'
 import { TileFill } from '../libs/TileFill'
+import { BLUE_TILE_PATTERN } from '../libs/SVGTileFills'
 
 const SVG = ({
   svgRef,
@@ -26,8 +27,7 @@ const SVG = ({
       <path
         ref={pathFGFillRef || dummyRef}
         d='M1 72L1 73L2 73L72 73L73 73L73 72L73 15.8028L73 15.3886L72.7071 15.0957L58.9043 1.29289L58.6114 1L58.1972 1L2 1L1 1L1 2L1 72Z'
-        fill='url(#IconSmallPattern)'
-        fillOpacity='0.3'
+        fill='url(#blueTile)'
       />
       <RedCRTBlur />
       <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
@@ -39,12 +39,7 @@ const SVG = ({
           strokeWidth='2'
         />
       </g>
-      <defs>
-        <pattern id='IconSmallPattern' patternContentUnits='objectBoundingBox' width='0.0457143' height='0.0457143'>
-          <use xlinkHref='#gridOverlay' transform='scale(0.0114286)' />
-        </pattern>
-        <image id='gridOverlay' width='4' height='4' xlinkHref={TileFill} />
-      </defs>
+      {BLUE_TILE_PATTERN}
     </svg>
   )
 }

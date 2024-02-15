@@ -4,6 +4,7 @@ import { BLUE_DARK, RED } from '../libs/UIConstants'
 import { useRef, useState } from 'react'
 import useButtonEventsController from './libs/useButtonEventsController'
 import useButtonInteractionController from './libs/useButtonInteractionController'
+import { RED_TILE_PATTERN } from './libs/SVGTileFills'
 
 const ButtonSocial = () => {
   const svgRef = useRef<SVGSVGElement | null>(null)
@@ -33,10 +34,10 @@ const ButtonSocial = () => {
 
   return (
     <div className={'cursor-pointer w-fit'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
-      <svg width='66' height='47' viewBox='-8 0 66 47' fill='none' ref={svgRef}>
+      <svg width='66' height='47' viewBox='0 0 66 47' fill='none' ref={svgRef}>
         <path ref={pathBGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={BLUE_DARK} fillOpacity='0.85' />
         <path ref={pathFGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={RED} fillOpacity='0.1' />
-        <path d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill='url(#ButtonSocialPattern)' fillOpacity='0.1' />
+        <path d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill='url(#redTile)' />
         <RedCRTBlur />
         <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
           <path
@@ -47,13 +48,7 @@ const ButtonSocial = () => {
             strokeWidth='2'
           />
         </g>
-
-        <defs>
-          <pattern id='ButtonSocialPattern' patternContentUnits='objectBoundingBox' width='0.0744186' height='0.0744186'>
-            <use xlinkHref='#gridOverlay' transform='scale(0.0186047)' />
-          </pattern>
-          <image id='gridOverlay' width='4' height='4' xlinkHref={TileFill} />
-        </defs>
+        {RED_TILE_PATTERN}
       </svg>
     </div>
   )
