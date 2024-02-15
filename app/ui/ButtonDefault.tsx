@@ -26,20 +26,20 @@ const SVGLarge = ({
   pathBGStrokeRef: React.RefObject<SVGPathElement>
 }) => {
   return (
-    <div className={'relative cursor-pointer w-fit '} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
-      <svg ref={svgRef} width='340' height='80' viewBox='-8 0 340 80' fill='none'>
+    <div className={'relative cursor-pointer w-fit left-4'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
+      <svg ref={svgRef} width='342' height='71' viewBox='0 0 342 71'>
+        <path d='M322 45V2H2V69H298L322 45Z' fill={BLACK} ref={pathBGFillRef} />
+        <path d='M322 45V2H2V69H298L322 45Z' fill={RED} ref={pathFGFillRef} />
+        <path d='M322 45V2H2V69H298L322 45Z' fill='url(#ButtonDefaultPattern)' fillOpacity='0.1' />
         <RedCRTBlur />
         <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
-          <path ref={pathBGFillRef} d='M322 47V4H2V71H298L322 47Z' fill={BLACK} fillOpacity='0.85' />
-          <path ref={pathFGFillRef} d='M322 47V4H2V71H298L322 47Z' fill={RED} fillOpacity='0.1' />
-          <path d='M322 47V4H2V71H298L322 47Z' fill='url(#ButtonDefaultPattern)' fillOpacity='0.1' />
-
           <path
+            fillRule='evenodd'
+            clipRule='evenodd'
             ref={pathBGStrokeRef}
-            d='M322 3H323V4V47V47.4142L322.707 47.7071L298.707 71.7071L298.414 72H298H2H1V71V4V3H2H322Z'
-            stroke={RED}
-            strokeOpacity='0.6'
-            strokeWidth='2'
+            d='M324 0H0V71H298.828L324 45.8284V0ZM298 69L322 45V2H2V69H298Z'
+            fill={RED}
+            fillOpacity='0.6'
           />
         </g>
         <defs>
@@ -49,7 +49,7 @@ const SVGLarge = ({
           <image id='ButtonDefaultOverlay' width='4' height='4' xlinkHref={TileFill} />
         </defs>
       </svg>
-      <div className='absolute bottom-0.5 flex flex-row items-center justify-between w-full h-full pl-5 pr-10 pointer-events-none'>
+      <div className='absolute bottom-0 flex flex-row items-center justify-between w-full h-full pl-2.5 pr-12 pointer-events-none'>
         <IconButtonDefault isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
 
         <p className={'font-rajdhani text-[2rem] font-semibold text-teal-blur'}>{title}</p>
@@ -78,20 +78,20 @@ const SVGDefault = ({
   pathBGStrokeRef: React.RefObject<SVGPathElement>
 }) => {
   return (
-    <div className={'relative cursor-pointer w-fit'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
-      <svg ref={svgRef} width='264' height='71' viewBox='0 0 264 71' fill='none'>
+    <div className={'relative cursor-pointer w-fit left-3'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
+      <svg ref={svgRef} width='278' height='71' viewBox='0 0 278 71'>
+        <path d='M262 45V2H2V69H238L262 45Z' fill={BLACK} ref={pathBGFillRef} />
+        <path d='M262 45V2H2V69H238L262 45Z' fill={RED} ref={pathFGFillRef} />
+        <path d='M262 45V2H2V69H238L262 45Z' fill='url(#ButtonDefaultPattern)' fillOpacity='0.1' />
         <RedCRTBlur />
         <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
-          <path ref={pathBGFillRef} d='M262 45V2H2V69H238L262 45Z' fill={BLACK} fillOpacity='0.85' />
-          <path ref={pathFGFillRef} d='M262 45V2H2V69H238L262 45Z' fill={RED} fillOpacity='0.1' />
-          <path d='M262 45V2H2V69H238L262 45Z' fill='url(#ButtonDefaultPattern)' fillOpacity='0.1' />
-
           <path
+            fillRule='evenodd'
+            clipRule='evenodd'
             ref={pathBGStrokeRef}
-            d='M262 1H263V2V45V45.4142L262.707 45.7071L238.707 69.7071L238.414 70H238H2H1V69V2V1H2H262Z'
-            stroke={RED}
-            strokeOpacity='0.6'
-            strokeWidth='2'
+            d='M264 0H0V71H238.828L264 45.8284V0ZM238 69L262 45V2H2V69H238Z'
+            fill={RED}
+            fillOpacity='0.6'
           />
         </g>
         <defs>
@@ -101,7 +101,7 @@ const SVGDefault = ({
           <image id='ButtonDefaultOverlay' width='4' height='4' xlinkHref={TileFill} />
         </defs>
       </svg>
-      <div className='absolute bottom-0 flex flex-row items-center justify-between w-full h-full pl-2 pr-10 pointer-events-none'>
+      <div className='absolute bottom-0 flex flex-row items-center justify-between w-full h-full pl-2.5 pr-12 pointer-events-none'>
         <IconButtonDefault isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
         <p className={'font-rajdhani text-[2rem] font-semibold text-teal-blur'}>{title}</p>
       </div>
