@@ -76,7 +76,7 @@ const PanelBackground = () => {
               <IconSmall />
               <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none '>RESUME</h2>
               <div className='relative ml-auto'>
-                <ButtonDefault title={'adhjkea'} />
+                <ButtonDefault />
               </div>
             </div>
             <HR />

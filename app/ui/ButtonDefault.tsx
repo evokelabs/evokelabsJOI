@@ -21,7 +21,6 @@ type SVGButtonProps = {
 type ButtonProps = {
   width: string
   viewBox: string
-  leftClass: string
   d1: string
   d2: string
 }
@@ -29,7 +28,6 @@ type ButtonProps = {
 const BUTTON_LARGE: ButtonProps = {
   width: '342',
   viewBox: '0 0 342 71',
-  leftClass: 'left-4',
   d1: 'M322 45V2H2V69H298L322 45Z',
   d2: 'M324 0H0V71H298.828L324 45.8284V0ZM298 69L322 45V2H2V69H298Z'
 }
@@ -37,7 +35,6 @@ const BUTTON_LARGE: ButtonProps = {
 const BUTTON_DEFAULT: ButtonProps = {
   width: '278',
   viewBox: '0 0 278 71',
-  leftClass: 'left-3',
   d1: 'M262 45V2H2V69H238L262 45Z',
   d2: 'M264 0H0V71H238.828L264 45.8284V0ZM238 69L262 45V2H2V69H238Z'
 }
@@ -88,10 +85,10 @@ const SVGButton: React.FC<SVGButtonProps> = ({
   pathBGFillRef,
   pathFGFillRef,
   pathBGStrokeRef,
-  buttonProps: { width, viewBox, leftClass, d1, d2 }
+  buttonProps: { width, viewBox, d1, d2 }
 }) => {
   return (
-    <div className={`relative cursor-pointer w-fit ${leftClass}`} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
+    <div className={'relative cursor-pointer w-fit left-3.5'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
       <svg ref={svgRef} width={width} height='71' viewBox={viewBox}>
         <path d={d1} fill={BLACK} ref={pathBGFillRef} />
         <path d={d1} fill={RED} ref={pathFGFillRef} />
