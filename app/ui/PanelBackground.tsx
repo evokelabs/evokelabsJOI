@@ -4,6 +4,7 @@ import IconSmall from './IconSmall'
 import ButtonDefault from './ButtonDefault'
 import HR from './HR'
 import TitleHighlight from './TitleHighlight'
+import { TileFill } from './libs/TileFill'
 
 const TopHeader = () => {
   return (
@@ -22,8 +23,15 @@ const TopHeader = () => {
 const TopHeaderSVG = () => {
   return (
     <svg width='349' height='63' viewBox='0 0 349 63'>
-      <path d='M349 13L336 0H9L0 9V63H349' fill={RED_DARK} />
+      <path d='M349 13L336 0H9L0 9V63H349' fill='url(#tile)' fillOpacity={0.1} />
+      <path d='M349 13L336 0H9L0 9V63H349' fill={RED} fillOpacity={0.1} />
+      <path d='M349 13L336 0H9L0 9V63H349' fill={RED_DARK} fillOpacity={0.85} />
       <path d='M335.828 0L350.414 14.5858L349 16L335 2H10L2 10V64H349V66H0V9.17157L9.17157 0H335.828Z' fill={RED} fillOpacity={0.6} />
+      <defs>
+        <pattern id='tile' patternUnits='userSpaceOnUse' width='4' height='4'>
+          <image xlinkHref={TileFill} width='4' height='4' />
+        </pattern>
+      </defs>
     </svg>
   )
 }
@@ -31,8 +39,15 @@ const TopHeaderSVG = () => {
 const TopLeftCornerSVG = () => {
   return (
     <svg width='16' height='71' viewBox='0 0 16 71'>
-      <path d='M16 71V0H7L0 7V66.5L4 71' fill={RED_DARK} />
+      <path d='M16 71V0H7L0 7V66.5L4 71' fill='url(#tile)' fillOpacity={0.1} />
+      <path d='M16 71V0H7L0 7V66.5L4 71' fill={RED} fillOpacity={0.1} />
+      <path d='M16 71V0H7L0 7V66.5L4 71' fill={RED_DARK} fillOpacity={0.85} />
       <path d='M16 0V71V2H8L2 8V66L7 71L5.58579 72.4142L0 66.8284V7.17157L7.17157 0H16Z' fill={RED} fillOpacity={0.6} />
+      <defs>
+        <pattern id='tile' patternUnits='userSpaceOnUse' width='4' height='4'>
+          <image xlinkHref={TileFill} width='4' height='4' />
+        </pattern>
+      </defs>
     </svg>
   )
 }
@@ -40,8 +55,15 @@ const TopLeftCornerSVG = () => {
 const BottomLeftCornerSVG = () => {
   return (
     <svg width='16' height='24' viewBox='0 0 16 24'>
-      <path d='M8 -3L0 5V24H18V-3' fill={RED_DARK} />
+      <path d='M8 -3L0 5V24H18V-3' fill='url(#tile)' fillOpacity={0.1} />
+      <path d='M8 -3L0 5V24H18V-3' fill={RED} fillOpacity={0.1} />
+      <path d='M8 -3L0 5V24H18V-3' fill={RED_DARK} fillOpacity={0.85} />
       <path d='M5 -3V0L0 5V24H18V-4H16V22H2V5.82843L7 1V-3H5Z' fill={RED} fillOpacity={0.6} />
+      <defs>
+        <pattern id='tile' patternUnits='userSpaceOnUse' width='4' height='4'>
+          <image xlinkHref={TileFill} width='4' height='4' />
+        </pattern>
+      </defs>
     </svg>
   )
 }
@@ -51,6 +73,11 @@ const BottomRightCornerSVG = () => {
     <svg width='13' height='24' viewBox='0 0 13 24'>
       <path d='M13 -4V12L1 24H-9V-4H13Z' fill={BLUE_DARK} />
       <path d='M1 24L13 12V-4H11V11L0 22H-9V24H1Z' fill={RED} fillOpacity={0.6} />
+      <defs>
+        <pattern id='tile' patternUnits='userSpaceOnUse' width='4' height='4'>
+          <image xlinkHref={TileFill} width='4' height='4' />
+        </pattern>
+      </defs>
     </svg>
   )
 }
@@ -71,7 +98,7 @@ const PanelBackground = () => {
 
         <div className='w-full'>
           <TopHeader />
-          <div className='bg-blue-dark pl-5 pr-7 pt-4 border-red border-t-2 border-x-2 border-opacity-60 pb-3'>
+          <div className='bg-grid pl-5 pr-7 pt-4 border-red border-t-2 border-x-2 border-opacity-60 pb-3'>
             <div className='flex flex-row items-center gap-1 '>
               <IconSmall />
               <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none '>RESUME</h2>
@@ -94,7 +121,7 @@ const PanelBackground = () => {
             </p>
           </div>
           <div className='flex flex-row w-full h-6'>
-            <div className='bg-blue-dark w-full  border-red border-b-2 border-l-2 border-opacity-60'></div>
+            <div className='bg-grid w-full  border-red border-b-2 border-l-2 border-opacity-60'></div>
             <div className='ml-auto h-fit'>
               <BottomRightCornerSVG />
             </div>

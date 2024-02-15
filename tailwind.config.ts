@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 import { BLACK, BLUE_DARK, RED, RED_DARK, RED_DULL, TEAL } from './app/libs/UIConstants'
+import { TileFill } from './app/ui/libs/TileFill'
 
 const config: Config = {
   content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
@@ -8,7 +9,8 @@ const config: Config = {
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'custom-pattern': `url(${TileFill})`
       },
       width: {
         '120px': '120px'
@@ -46,6 +48,11 @@ const config: Config = {
         '.text-teal-blur': {
           color: theme('colors.teal'),
           textShadow: '4px 0px 0px rgba(83, 246, 255, 0.2), 8px 0px 0px rgba(83, 246, 255, 0.1)'
+        },
+        '.bg-grid': {
+          backgroundImage: `linear-gradient(rgba(21, 26, 43, 0.7), rgba(21, 26, 43, 0.7)), url(${TileFill})`,
+          backgroundRepeat: 'repeat',
+          backgroundColor: theme('colors.blue-dark')
         }
       }
       addUtilities(newUtilities)
