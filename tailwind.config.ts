@@ -1,5 +1,7 @@
 import type { Config } from 'tailwindcss'
 
+import { RED, TEAL } from './app/libs/UIConstants'
+
 const config: Config = {
   content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
@@ -19,10 +21,8 @@ const config: Config = {
         rajdhani: ['Rajdhani', 'sans-serif']
       },
       colors: {
-        teal: '#53F6FF',
-        red: {
-          DEFAULT: '#F75049'
-        }
+        teal: TEAL,
+        red: RED
       }
     }
   },
@@ -35,11 +35,13 @@ const config: Config = {
         '.font-rajdhani': {
           fontFamily: 'Rajdhani, sans-serif'
         },
-        '.text-shadow-CRTteal': {
-          textShadow: '4px 0px 0px rgba(83, 246, 255, 0.2), 8px 0px 0px rgba(83, 246, 255, 0.1)'
-        },
-        '.text-shadow-CRTred': {
+        '.text-red-blur': {
+          color: theme('colors.red'),
           textShadow: '4px 0px 0px rgba(222, 84, 86, 0.2), 8px 0px 0px rgba(222, 84, 86, 0.1)'
+        },
+        '.text-teal-blur': {
+          color: theme('colors.teal'),
+          textShadow: '4px 0px 0px rgba(83, 246, 255, 0.2), 8px 0px 0px rgba(83, 246, 255, 0.1)'
         }
       }
       addUtilities(newUtilities)

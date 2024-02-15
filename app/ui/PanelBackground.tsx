@@ -44,10 +44,10 @@ const PanelBackground = () => {
       <TopLeftCornerSVG />
       <BottomLeftCornerSVG />
       <BottomRightCornerSVG />
-      <h1 className='font-orbitron font-medium text-red text-[2rem] leading-none text-shadow-CRTred'>BACKSTORY</h1>
+      <h1 className='font-orbitron font-medium text-red-blur text-[2rem] leading-none '>BACKSTORY</h1>
       <div className='bg-black px-4 pt-4'>
         <IconSmall />
-        <h2 className='font-rajdhani font-semibold text-teal text-[2.25rem] leading-none text-shadow-CRTteal'> RESUME</h2>
+        <h2 className='font-rajdhani font-semibold text-teal-blur text-[2.25rem] leading-none t'> RESUME</h2>
         <ButtonDefault />
         <HR />
         <TitleHighlight title={'BIO'} fullWidth={true} BGColor={RED} />

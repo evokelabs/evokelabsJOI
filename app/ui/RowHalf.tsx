@@ -34,9 +34,9 @@ const RowHalf = ({ title, text }: { title: string; text: string }) => {
         <div className={'w-auto px-1.5'}>
           <h2
             dangerouslySetInnerHTML={{ __html: title }}
-            className='text-teal font-rajdhani font-semibold text-3xl leading-none mb-1.5 mt-1'
+            className='text-teal-blur font-rajdhani font-semibold text-3xl leading-none mb-1.5 mt-1'
           ></h2>
-          <p className='text-red font-rajdhani text-[1.1875rem] leading-6  font-medium'>{text}</p>
+          <p className='text-red-blur font-rajdhani text-[1.1875rem] leading-6  font-medium'>{text}</p>
         </div>
       </div>
       <SVG />

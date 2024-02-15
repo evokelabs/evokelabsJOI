@@ -32,9 +32,9 @@ const RowFull = ({ title, subTitle, paragraph }: { title: string; subTitle: stri
           <IconDefault />
         </div>
         <div className={'w-auto px-1.5'}>
-          <h1 className='font-rajdhani font-semibold text-teal text-[1.75rem] leading-none'>{title}</h1>
-          <h2 className='font-rajdhani font-semibold text-red text-[1.25rem] leading-none'>{subTitle}</h2>
-          <p className='font-rajdhani font-medium text-red text-[1.125rem] leading-5 mt-1'>{paragraph}</p>
+          <h1 className='font-rajdhani font-semibold text-teal-blur text-[1.75rem] leading-none text-shadow-CRTteal'>{title}</h1>
+          <h2 className='font-rajdhani font-semibold text-red-blur text-[1.25rem] leading-none '>{subTitle}</h2>
+          <p className='font-rajdhani font-medium text-red-blur text-[1.125rem] leading-5 mt-1'>{paragraph}</p>
         </div>
       </div>
       <SVG />

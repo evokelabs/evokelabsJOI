@@ -22,7 +22,7 @@ export default function RootLayout() {
         <meta name='description' content={String(metadata.description)} />
       </Head>
       <Evokelabs3D />
-      <div className='red absolute top-0 left-0 px-4 space-x-4 text-red-500'>
+      <div className='absolute top-0 left-0 px-4 space-x-4 text-red-blur'>
         <Link href='/services'>CORPO GUIDE</Link>
         <Link href='/portfolio'>PAST GIGS</Link>
         <Link href='/history'>BACKSTORY</Link>

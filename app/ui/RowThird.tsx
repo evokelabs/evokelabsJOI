@@ -27,8 +27,8 @@ const RowThird = ({ title, text }: { title: string; text: string }) => {
   return (
     <div className='relative flex w-1/3'>
       <div className='absolute flex flex-col py-3 px-4'>
-        <h2 className='text-teal font-rajdhani font-semibold text-3xl leading-none mb-1.5 mt-1'>{title}</h2>
-        <p className='text-red font-rajdhani text-xl leading-6 font-medium'>{text}</p>
+        <h2 className='text-teal-blur font-rajdhani font-semibold text-3xl leading-none mb-1.5 mt-1'>{title}</h2>
+        <p className='text-red-blur font-rajdhani text-xl leading-6 font-medium'>{text}</p>
       </div>
       <SVG />
     </div>
