@@ -9,7 +9,7 @@ const TopHeader = () => {
   return (
     <div className='flex items-end'>
       <div className='absolute'>
-        <h1 className='font-orbitron font-medium text-teal-blur text-[2rem] leading-none px-4 py-4'>BACKSTORY</h1>
+        <h1 className='font-orbitron font-medium text-teal-blur text-[2rem] leading-none px-5 py-4'>BACKSTORY</h1>
       </div>
       <div className='inline-block'>
         <TopHeaderSVG />
@@ -71,8 +71,8 @@ const PanelBackground = () => {
 
         <div className='w-full'>
           <TopHeader />
-          <div className='bg-blue-dark pl-3 pr-6 pt-2 border-red border-t-2 border-x-2 border-opacity-60 pb-3'>
-            <div className='flex flex-row items-center gap-1'>
+          <div className='bg-blue-dark pl-5 pr-7 pt-4 border-red border-t-2 border-x-2 border-opacity-60 pb-3'>
+            <div className='flex flex-row items-center gap-1 '>
               <IconSmall />
               <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none '>RESUME</h2>
               <div className='ml-auto'>
