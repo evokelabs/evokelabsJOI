@@ -49,8 +49,8 @@ const Evokelabs3D = () => {
           powerPreference: 'high-performance'
         }}
       >
-        <Html scale={0.038} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
-          {/* <IconDefault />
+        <Html scale={0.03} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
+          <IconDefault />
           <ButtonSocial />
           <ButtonDefault />
           <ButtonDefault title='FIX A BOOKING' />
@@ -61,23 +61,26 @@ const Evokelabs3D = () => {
           <ButtonMainMenu />
           <ButtonMainMenu />
           <ButtonMainMenu />
-          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER' BGCOLOR={TEAL} />
-          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER' BGCOLOR={RED} />
+
+          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
+          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER' fullWidth={false} BGColor={RED} />
+          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
+          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER' fullWidth={false} BGColor={RED} />
           <ParagraphHighlight
             text='Creative Technologists combine <b>creative</b>, <b>development</b>, and <b>technology</b> to address digital challenges and deliver online projects of exceptional quality.'
-            BGCOLOR={TEAL}
+            BGColor={TEAL}
           />
-          <ParagraphHighlight text='“You are amazing Adrian! Seriously – you always impress me by going above and beyond!”' BGCOLOR={RED} /> */}
+          <ParagraphHighlight text='“You are amazing Adrian! Seriously – you always impress me by going above and beyond!”' BGColor={RED} />
           <RowThird
             title='FRONT END DEVELOPMENT'
             text='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single page applications, multi page applications with API / GraphQL.'
           />
           <RowThird
-            title='THREE JS/REACT THREE FIBRE'
+            title='THREE JS/<br />REACT THREE FIBRE'
             text='WebGL and GPU powered canvas elements rendered from within the browser. GLB/GLTF, custom shaders, physics and post processing.'
           />
         </Html>
-        {/* <VideoSkybox /> */}
+        <VideoSkybox />
         {debug ? <Perf position='top-left' /> : null}
         <Perf position='top-left' />
         <CameraRig fov={fov} debug={debug} />
@@ -92,11 +95,11 @@ const Evokelabs3D = () => {
             setShouldJOISpeak
           }}
         >
-          {/* <Lights /> */}
-          {/* <CyberpunkMap /> */}
-          {/* <CyberpunkCar /> */}
-          {/* <JOI /> */}
-          {/* <Rain /> */}
+          <Lights />
+          <CyberpunkMap />
+          <CyberpunkCar />
+          <JOI />
+          <Rain />
         </AnimationContext.Provider>
         <EffectComposer disableNormalPass>
           <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
