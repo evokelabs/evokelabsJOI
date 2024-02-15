@@ -1,5 +1,5 @@
 import React from 'react'
-import { RED, RED_DARK } from '../libs/UIConstants'
+import { BLUE_DARK, RED, RED_DARK } from '../libs/UIConstants'
 import IconSmall from './IconSmall'
 import ButtonDefault from './ButtonDefault'
 import HR from './HR'
@@ -39,16 +39,18 @@ const TopLeftCornerSVG = () => {
 
 const BottomLeftCornerSVG = () => {
   return (
-    <svg width='17' height='22' viewBox='-2 0 17 22'>
-      <path d='M5 0L0 4V20H14V0' fill={RED_DARK} stroke={RED} strokeWidth='2' strokeOpacity='0.6' />
+    <svg width='16' height='24' viewBox='0 0 16 24'>
+      <path d='M8 -3L0 5V24H18V-3' fill={RED_DARK} />
+      <path d='M5 -3V0L0 5V24H18V-4H16V22H2V5.82843L7 1V-3H5Z' fill={RED} fillOpacity={0.6} />
     </svg>
   )
 }
 
 const BottomRightCornerSVG = () => {
   return (
-    <svg width='13' height='24' viewBox='0 1 13 24'>
-      <path d='M0.0200195 24L12.02 12V0H0.0200195' fill='#151A2B' stroke={RED} strokeWidth='2' strokeOpacity='0.6' />
+    <svg width='13' height='24' viewBox='0 0 13 24'>
+      <path d='M13 -4V12L1 24H-9V-4H13Z' fill={BLUE_DARK} />
+      <path d='M1 24L13 12V-4H11V11L0 22H-9V24H1Z' fill={RED} fillOpacity={0.6} />
     </svg>
   )
 }
@@ -57,11 +59,14 @@ const PanelBackground = () => {
   return (
     <div className='relative min-w-[40rem] max-w-[70rem]'>
       <div className='relative flex flex-row h-full'>
-        <div className='w-auto h-auto grid grid-rows-[min-content,auto]'>
-          <div className='pt-4 h-fit'>
+        <div className='w-auto h-auto grid grid-rows-[min-content,auto,min-content]'>
+          <div className='pt-4'>
             <TopLeftCornerSVG />
           </div>
-          <div className='w-[11px] bg-red-dark border-red border-2 border-r-0 border-opacity-60 justify-self-end border-t-0'></div>
+          <div className='w-[11px] bg-red-dark border-red border-2 border-r-0 border-opacity-60 justify-self-end border-t-0 border-b-0'></div>
+          <div className='justify-self-end '>
+            <BottomLeftCornerSVG />
+          </div>
         </div>
 
         <div className='w-full'>
@@ -81,22 +86,21 @@ const PanelBackground = () => {
               strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies,
               creative strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
               agencies, creative years of experience in digital strategy, design, UI/UX, web development, motion, and 3D. Proven track
-              record collaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Proven
-              track record collaborating with advertising agencies, creative
+              record collaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D.
+              Provencollaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Proven track
+              record collaborating with advertising agencies, creative years of expecollaborating with advertising agencies, creative
+              strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies,
+              creative years of expe track record collaborating with advertising agencies, creative
             </p>
           </div>
+          <div className='flex flex-row w-full h-6'>
+            <div className='bg-blue-dark w-full  border-red border-b-2 border-l-2 border-opacity-60'></div>
+            <div className='ml-auto h-fit'>
+              <BottomRightCornerSVG />
+            </div>
+          </div>
         </div>
-        {/* <div className='absolute -left-[0.95rem]'>
-            <BottomLeftCornerSVG />
-          </div> */}
-        {/* <div className='absolute right-0'>
-            <BottomRightCornerSVG />
-          </div> */}
       </div>
-
-      {/* <div className='absolute top-4 -left-1.5'>
-        <TopLeftCornerSVG />
-      </div> */}
     </div>
   )
 }
