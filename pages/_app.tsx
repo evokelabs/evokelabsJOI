@@ -15,16 +15,6 @@ export const metadata: Metadata = {
 export default function RootLayout() {
   const router = useRouter()
 
-  const h1Styles = `
-  h1 {
-    color: red;
-    font-size: 2em;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-  }
-`
-
   return (
     <>
       <Head>
@@ -43,43 +33,36 @@ export default function RootLayout() {
       {router.pathname === '/' && (
         <>
           <h1>home</h1>
-          <style jsx>{h1Styles}</style>
         </>
       )}
       {router.pathname === '/services' && (
         <>
           <h1>services</h1>
-          <style jsx>{h1Styles}</style>
         </>
       )}
       {router.pathname === '/portfolio' && (
         <>
           <h1>portfolio</h1>
-          <style jsx>{h1Styles}</style>
         </>
       )}
       {router.pathname === '/history' && (
         <>
           <h1>history</h1>
-          <style jsx>{h1Styles}</style>
         </>
       )}
       {router.pathname === '/resume' && (
         <>
           <h1>resume</h1>
-          <style jsx>{h1Styles}</style>
         </>
       )}
       {router.pathname === '/joi' && (
         <>
           <h1>joi</h1>
-          <style jsx>{h1Styles}</style>
         </>
       )}
       {router.pathname === '/availabilities' && (
         <>
           <h1>availabilities</h1>
-          <style jsx>{h1Styles}</style>
         </>
       )}
     </>

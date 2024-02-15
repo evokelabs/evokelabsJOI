@@ -25,6 +25,7 @@ import TitleHighlight from '../ui/TitleHighlight'
 import { RED, TEAL } from '../libs/UIConstants'
 import ParagraphHighlight from '../ui/ParagraphHighlight'
 import RowThird from '../ui/RowThird'
+import RowFull from '../ui/RowFull'
 
 // Constants
 // const debug = true
@@ -50,7 +51,7 @@ const Evokelabs3D = () => {
         }}
       >
         <Html scale={0.03} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
-          <IconDefault />
+          {/* <IconDefault />
           <ButtonSocial />
           <ButtonDefault />
           <ButtonDefault title='FIX A BOOKING' />
@@ -74,10 +75,15 @@ const Evokelabs3D = () => {
           <RowThird
             title='FRONT END DEVELOPMENT'
             text='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single page applications, multi page applications with API / GraphQL.'
-          />
+          /> */}
           <RowThird
             title='THREE JS/<br />REACT THREE FIBRE'
             text='WebGL and GPU powered canvas elements rendered from within the browser. GLB/GLTF, custom shaders, physics and post processing.'
+          />
+          <RowFull
+            title='TECTONIC DIGITAL'
+            subTitle='DIGITAL DESIGNER / DEVELOPER | JUL 2012 - NOV 2013'
+            paragraph='Daily responsibilities include responsive HTML builds, flash builds, motion builds, WordPress template builds and CSS/HTML frontend development. Most notable works include the art direction and flash builds across official Google products and services. '
           />
         </Html>
         <VideoSkybox />
