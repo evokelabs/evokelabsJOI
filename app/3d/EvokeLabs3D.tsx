@@ -28,6 +28,7 @@ import RowThird from '../ui/RowThird'
 import RowFull from '../ui/RowFull'
 import HR from '../ui/HR'
 import RowHalf from '../ui/RowHalf'
+import PanelBackground from '../ui/PanelBackground'
 
 // Constants
 // const debug = true
@@ -94,6 +95,7 @@ const Evokelabs3D = () => {
             subTitle='DIGITAL DESIGNER / DEVELOPER | JUL 2012 - NOV 2013'
             paragraph='Daily responsibilities include responsive HTML builds, flash builds, motion builds, WordPress template builds and CSS/HTML frontend development. Most notable works include the art direction and flash builds across official Google products and services. '
           />
+          <PanelBackground />
         </Html>
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : null}

@@ -1,6 +1,5 @@
 import React from 'react'
 import { TileFill } from './libs/TileFill'
-import IconDefault from './IconDefault'
 
 const SVG = () => {
   return (
