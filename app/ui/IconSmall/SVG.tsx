@@ -16,7 +16,7 @@ const SVG = ({
 }) => {
   const dummyRef = useRef(null)
   return (
-    <svg width='90' height='74' viewBox='-8 0 90 74' fill='none' ref={svgRef || dummyRef}>
+    <svg width='90' height='74' viewBox='0 0 90 74' fill='none' ref={svgRef || dummyRef}>
       <path
         ref={pathBGFillRef || dummyRef}
         d='M1 72L1 73L2 73L72 73L73 73L73 72L73 15.8028L73 15.3886L72.7071 15.0957L58.9043 1.29289L58.6114 1L58.1972 1L2 1L1 1L1 2L1 72Z'

@@ -1,6 +1,9 @@
 import React from 'react'
 import { RED, RED_DARK } from '../libs/UIConstants'
 import IconSmall from './IconSmall'
+import ButtonDefault from './ButtonDefault'
+import HR from './HR'
+import TitleHighlight from './TitleHighlight'
 
 const TopHeaderSVG = () => {
   return (
@@ -36,17 +39,22 @@ const BottomRightCornerSVG = () => {
 
 const PanelBackground = () => {
   return (
-    <div>
+    <div className='relative'>
       <TopHeaderSVG />
       <TopLeftCornerSVG />
       <BottomLeftCornerSVG />
       <BottomRightCornerSVG />
-      <div className='bg-black'>
-        <h1 className='font-rajdhani font-semibold text-teal text-[1.75rem] leading-none'>BACKSTORY</h1>
+      <h1 className='font-orbitron font-medium text-red text-[2rem] leading-none text-shadow-CRTred'>BACKSTORY</h1>
+      <div className='bg-black px-4 pt-4'>
         <IconSmall />
+        <h2 className='font-rajdhani font-semibold text-teal text-[2.25rem] leading-none text-shadow-CRTteal'> RESUME</h2>
+        <ButtonDefault />
+        <HR />
+        <TitleHighlight title={'BIO'} fullWidth={true} BGColor={RED} />
         <p>
-          Australian citizen with full work rights. Crypto accepted. ABN / GST compliant for contract and freelance roles. Open to onsite
-          and/or remote gigs.
+          Creative Technologist with over 20+ years of experience in digital strategy, design, UI/UX, web development, motion, and 3D.
+          Proven track record collaborating with advertising agencies, creative studios, corporations, and start-ups to deliver hundreds of
+          successful digital projects. Specialising in front-end technologies and fostering positive team relations.
         </p>
       </div>
     </div>

@@ -79,7 +79,7 @@ const SVGDefault = ({
 }) => {
   return (
     <div className={'relative cursor-pointer w-fit'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
-      <svg ref={svgRef} width='280' height='80' viewBox='-8 0 280 80' fill='none'>
+      <svg ref={svgRef} width='280' height='80' viewBox='0 0 280 80' fill='none'>
         <RedCRTBlur />
         <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
           <path ref={pathBGFillRef} d='M262 47V4H2V71H238L262 47Z' fill={BLACK} fillOpacity='0.85' />
@@ -101,7 +101,7 @@ const SVGDefault = ({
           <image id='ButtonDefaultOverlay' width='4' height='4' xlinkHref={TileFill} />
         </defs>
       </svg>
-      <div className='absolute bottom-0.5 flex flex-row items-center justify-between w-full h-full pl-5 pr-10 pointer-events-none'>
+      <div className='absolute bottom-0.5 flex flex-row items-center justify-between w-full h-full pl-2 pr-10 pointer-events-none'>
         <IconButtonDefault isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
         <p className={'font-rajdhani text-[2rem] font-semibold text-teal'}>{title}</p>
       </div>

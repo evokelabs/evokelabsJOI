@@ -13,7 +13,7 @@ const IconButtonDefault = ({ isHovered, isActive, isMouseDown }: { isHovered: bo
   useButtonIconController({ isHovered, isActive, isMouseDown, svgRef, pathBGFillRef, pathBGStrokeRef, pathFGFillRef })
 
   return (
-    <svg width='60' height='50' viewBox='5 0 50 50' fill='none' ref={svgRef}>
+    <svg width='60' height='50' viewBox='0 0 60 50' fill='none' ref={svgRef}>
       <path ref={pathBGFillRef} d='M2 2L2 48L48 48L48 11.0704L38.9296 2L2 2Z' fill={BLACK} fillOpacity='0.35' />
       <path ref={pathFGFillRef} d='M2 2L2 48L48 48L48 11.0704L38.9296 2L2 2Z' fill='url(#IconButtonDefaultPattern)' fillOpacity='0.3' />
       <RedCRTBlur />
