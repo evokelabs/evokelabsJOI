@@ -79,16 +79,16 @@ const SVGDefault = ({
 }) => {
   return (
     <div className={'relative cursor-pointer w-fit'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
-      <svg ref={svgRef} width='280' height='80' viewBox='0 0 280 80' fill='none'>
+      <svg ref={svgRef} width='264' height='71' viewBox='0 0 264 71' fill='none'>
         <RedCRTBlur />
         <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
-          <path ref={pathBGFillRef} d='M262 47V4H2V71H238L262 47Z' fill={BLACK} fillOpacity='0.85' />
-          <path ref={pathFGFillRef} d='M262 47V4H2V71H238L262 47Z' fill={RED} fillOpacity='0.1' />
-          <path d='M262 47V4H2V71H238L262 47Z' fill='url(#ButtonDefaultPattern)' fillOpacity='0.1' />
+          <path ref={pathBGFillRef} d='M262 45V2H2V69H238L262 45Z' fill={BLACK} fillOpacity='0.85' />
+          <path ref={pathFGFillRef} d='M262 45V2H2V69H238L262 45Z' fill={RED} fillOpacity='0.1' />
+          <path d='M262 45V2H2V69H238L262 45Z' fill='url(#ButtonDefaultPattern)' fillOpacity='0.1' />
 
           <path
             ref={pathBGStrokeRef}
-            d='M262 3H263V4V47V47.4142L262.707 47.7071L238.707 71.7071L238.414 72H238H2H1V71V4V3H2H262Z'
+            d='M262 1H263V2V45V45.4142L262.707 45.7071L238.707 69.7071L238.414 70H238H2H1V69V2V1H2H262Z'
             stroke={RED}
             strokeOpacity='0.6'
             strokeWidth='2'
@@ -101,7 +101,7 @@ const SVGDefault = ({
           <image id='ButtonDefaultOverlay' width='4' height='4' xlinkHref={TileFill} />
         </defs>
       </svg>
-      <div className='absolute bottom-0.5 flex flex-row items-center justify-between w-full h-full pl-2 pr-10 pointer-events-none'>
+      <div className='absolute bottom-0 flex flex-row items-center justify-between w-full h-full pl-2 pr-10 pointer-events-none'>
         <IconButtonDefault isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
         <p className={'font-rajdhani text-[2rem] font-semibold text-teal-blur'}>{title}</p>
       </div>

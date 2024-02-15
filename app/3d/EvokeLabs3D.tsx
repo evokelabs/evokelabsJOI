@@ -31,8 +31,8 @@ import RowHalf from '../ui/RowHalf'
 import PanelBackground from '../ui/PanelBackground'
 
 // Constants
-// const debug = true
-const debug = false
+const debug = true
+// const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 
 const Evokelabs3D = () => {
@@ -53,7 +53,7 @@ const Evokelabs3D = () => {
           powerPreference: 'high-performance'
         }}
       >
-        <Html scale={0.03} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
+        <Html scale={0.05} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
           {/* <IconDefault />
           <ButtonSocial />
           <ButtonDefault />
@@ -79,6 +79,7 @@ const Evokelabs3D = () => {
             title='FRONT END DEVELOPMENT'
             text='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single page applications, multi page applications with API / GraphQL.'
           /> */}
+          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
           <PanelBackground />
         </Html>
         <VideoSkybox />
@@ -98,7 +99,7 @@ const Evokelabs3D = () => {
         >
           <Lights />
           <CyberpunkMap />
-          <CyberpunkCar />
+          {/* <CyberpunkCar /> */}
           <JOI />
           <Rain />
         </AnimationContext.Provider>
