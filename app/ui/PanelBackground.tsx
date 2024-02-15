@@ -22,7 +22,7 @@ const TopHeader = () => {
 const TopHeaderSVG = () => {
   return (
     <svg width='349' height='63' viewBox='0 0 349 63'>
-      <path d='M349 16L335 2H10L2 10V64H349' fill={RED_DARK} />
+      <path d='M349 13L336 0H9L0 9V63H349' fill={RED_DARK} />
       <path d='M335.828 0L350.414 14.5858L349 16L335 2H10L2 10V64H349V66H0V9.17157L9.17157 0H335.828Z' fill={RED} fillOpacity={0.6} />
     </svg>
   )
@@ -30,15 +30,15 @@ const TopHeaderSVG = () => {
 
 const TopLeftCornerSVG = () => {
   return (
-    <svg width='16' height='82' viewBox='-1 -1 16 82'>
-      <path d='M14 81V0H5.5L0 6V76L5 81' fill={RED_DARK} stroke={RED} strokeWidth='2' strokeOpacity='0.6' />
+    <svg width='16' height='71' viewBox='0 0 16 71'>
+      <path d='M16 71V0H7L0 7V66.5L4 71' fill={RED_DARK} />
+      <path d='M16 0V71V2H8L2 8V66L7 71L5.58579 72.4142L0 66.8284V7.17157L7.17157 0H16Z' fill={RED} fillOpacity={0.6} />
     </svg>
   )
 }
 
 const BottomLeftCornerSVG = () => {
   return (
-    // <svg width='14' height='20' viewBox='0 0 14 20'>
     <svg width='17' height='22' viewBox='-2 0 17 22'>
       <path d='M5 0L0 4V20H14V0' fill={RED_DARK} stroke={RED} strokeWidth='2' strokeOpacity='0.6' />
     </svg>
@@ -55,11 +55,13 @@ const BottomRightCornerSVG = () => {
 
 const PanelBackground = () => {
   return (
-    <div className='relative  min-w-[40rem] max-w-[70rem]'>
+    <div className='relative min-w-[40rem] max-w-[70rem]'>
       <div className='relative flex flex-row h-full'>
-        <div className='w-auto h-auto grid grid-rows-[63px,auto]'>
-          <div className='h-[63px]'></div>
-          <div className='w-[13px] bg-red-dark border-red border-2 border-r-0 border-opacity-60'></div>
+        <div className='w-auto h-auto grid grid-rows-[min-content,auto]'>
+          <div className='pt-4 h-fit'>
+            <TopLeftCornerSVG />
+          </div>
+          <div className='w-[11px] bg-red-dark border-red border-2 border-r-0 border-opacity-60 justify-self-end border-t-0'></div>
         </div>
 
         <div className='w-full'>
@@ -67,7 +69,7 @@ const PanelBackground = () => {
           <div className='bg-blue-dark pl-3 pr-6 pt-2 border-red border-t-2 border-x-2 border-opacity-60 pb-3'>
             <div className='flex flex-row items-center gap-1'>
               <IconSmall />
-              <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none t'>RESUME</h2>
+              <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none '>RESUME</h2>
               <div className='ml-auto'>
                 <ButtonDefault />
               </div>
