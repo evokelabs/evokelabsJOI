@@ -16,18 +16,18 @@ const TopHeader = () => {
       <div className='inline-block'>
         <TopHeaderSVG />
       </div>
-      <div className='bg-grid-red w-full h-[49px] bottom-0 border-red border-2 border-b-0  border-l-0 border-opacity-60'></div>
+      <div className='relative bg-grid-red w-full h-[49px] border-red border-2 border-b-0  border-l-0 border-opacity-60 -ml-[1px]'></div>
     </div>
   )
 }
 
 const TopHeaderSVG = () => {
   return (
-    <svg width='349' height='63' viewBox='0 0 349 63'>
-      <path d='M349 13L336 0H9L0 9V63H349' fill={RED_DARK} fillOpacity={0.85} />
-      <path d='M349 13L336 0H9L0 9V63H349' fill={RED} fillOpacity={0.1} />
-      <path d='M349 13L336 0H9L0 9V63H349' fill='url(#redTile)' />
-      <path d='M335.828 0L350.414 14.5858L349 16L335 2H10L2 10V64H349V66H0V9.17157L9.17157 0H335.828Z' fill={RED} fillOpacity={0.6} />
+    <svg width='352' height='63' viewBox='0 0 352 63'>
+      <path d='M350 14L336 0H9L0 9V63H352V14' fill={RED_DARK} fillOpacity={0.85} />
+      <path d='M350 14L336 0H9L0 9V63H352V14' fill={RED} fillOpacity={0.1} />
+      <path d='M350 14L336 0H9L0 9V63H352V14' fill='url(#redTile)' />
+      <path d='M336 0L350 14H352V16H349L335 2H10L2 10V64H349V66H0V9.17157L9.17157 0H336Z' fill={RED} fillOpacity={0.6} />
       {RED_TILE_PATTERN}
     </svg>
   )
@@ -59,11 +59,10 @@ const BottomLeftCornerSVG = () => {
 
 const BottomRightCornerSVG = () => {
   return (
-    <svg width='13' height='24' viewBox='0 0 13 24'>
-      <path d='M13 -4V12L1 24H-9V-4H13Z' fill={BLUE_DARK} fillOpacity={0.85} />
-      <path d='M13 -4V12L1 24H-9V-4H13Z' fill={RED} fillOpacity={0.1} />
-      <path d='M13 -4V12L1 24H-9V-4H13Z' fill='url(#redTile)' />
-      <path d='M1 24L13 12V-4H11V11L0 22H-9V24H1Z' fill={RED} fillOpacity={0.6} />
+    <svg width='14' height='24' viewBox='0 0 14 24'>
+      <path d='M14 -4V12L2 24H-8V-4H14Z' fill={BLUE_DARK} />
+      <path d='M14 -4V12L2 24H-8V-4H14Z' fill='url(#blueTile)' />
+      <path d='M2 24L14 12V-4H12V11L1 22H-8V24H2Z' fill={RED} fillOpacity={0.6} />
       {RED_TILE_PATTERN}
     </svg>
   )
