@@ -1,6 +1,6 @@
 import type { Config } from 'tailwindcss'
 
-import { RED, TEAL } from './app/libs/UIConstants'
+import { BLACK, BLUE_DARK, RED, RED_DARK, RED_DULL, TEAL } from './app/libs/UIConstants'
 
 const config: Config = {
   content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
@@ -22,7 +22,11 @@ const config: Config = {
       },
       colors: {
         teal: TEAL,
-        red: RED
+        red: RED,
+        black: BLACK,
+        'red-dark': RED_DARK,
+        'red-dull': RED_DULL,
+        'blue-dark': BLUE_DARK
       }
     }
   },

@@ -79,22 +79,6 @@ const Evokelabs3D = () => {
             title='FRONT END DEVELOPMENT'
             text='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single page applications, multi page applications with API / GraphQL.'
           /> */}
-          <RowHalf
-            title='THREE JS/<br />REACT THREE FIBRE'
-            text='WebGL and GPU powered canvas elements rendered from within the browser. GLB/GLTF, custom shaders, physics and post processing.'
-          />
-          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
-          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER' fullWidth={false} BGColor={RED} />
-          <RowThird
-            title='THE PEOPLE FACTOR'
-            text='Above all, Evoke Labs is dedicated to delivering a positive experience for end users, team members and stakeholders alike. Your happiness is our ultimate goal, driven by commitment, honest communication and proven results.'
-          />
-          <HR />
-          <RowFull
-            title='TECTONIC DIGITAL'
-            subTitle='DIGITAL DESIGNER / DEVELOPER | JUL 2012 - NOV 2013'
-            paragraph='Daily responsibilities include responsive HTML builds, flash builds, motion builds, WordPress template builds and CSS/HTML frontend development. Most notable works include the art direction and flash builds across official Google products and services. '
-          />
           <PanelBackground />
         </Html>
         <VideoSkybox />
