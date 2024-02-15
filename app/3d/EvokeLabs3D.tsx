@@ -26,6 +26,7 @@ import { RED, TEAL } from '../libs/UIConstants'
 import ParagraphHighlight from '../ui/ParagraphHighlight'
 import RowThird from '../ui/RowThird'
 import RowFull from '../ui/RowFull'
+import HR from '../ui/HR'
 
 // Constants
 // const debug = true
@@ -80,6 +81,7 @@ const Evokelabs3D = () => {
             title='THREE JS/<br />REACT THREE FIBRE'
             text='WebGL and GPU powered canvas elements rendered from within the browser. GLB/GLTF, custom shaders, physics and post processing.'
           />
+          <HR />
           <RowFull
             title='TECTONIC DIGITAL'
             subTitle='DIGITAL DESIGNER / DEVELOPER | JUL 2012 - NOV 2013'
