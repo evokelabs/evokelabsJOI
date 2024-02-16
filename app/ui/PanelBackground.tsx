@@ -6,6 +6,7 @@ import HR from './HR'
 import TitleHighlight from './TitleHighlight'
 import { TileFill } from './libs/TileFill'
 import { RED_TILE_PATTERN } from './libs/SVGTileFills'
+import IconClose from './IconClose'
 
 const TopHeader = () => {
   return (
@@ -16,7 +17,9 @@ const TopHeader = () => {
       <div className='inline-block'>
         <TopHeaderSVG />
       </div>
-      <div className='relative bg-grid-red w-full h-[49px] border-red border-2 border-b-0  border-l-0 border-opacity-60 -ml-[1px]'></div>
+      <div className='flex items-center relative bg-grid-red w-full h-[49px] border-red border-2 border-b-0  border-l-0 border-opacity-60 -ml-[1px] justify-end pr-1.5'>
+        <IconClose />
+      </div>
     </div>
   )
 }

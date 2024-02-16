@@ -34,7 +34,7 @@ const ButtonSocial = () => {
 
   return (
     <div className={'cursor-pointer w-fit'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
-      <svg width='66' height='47' viewBox='0 0 66 47' fill='none' ref={svgRef}>
+      <svg width='66' height='47' viewBox='0 0 66 47' ref={svgRef}>
         <path ref={pathBGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={BLUE_DARK} fillOpacity='0.85' />
         <path ref={pathFGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={RED} fillOpacity='0.1' />
         <path d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill='url(#redTile)' />
