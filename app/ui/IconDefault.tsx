@@ -1,6 +1,6 @@
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLUE_DARK, RED } from '../libs/UIConstants'
-import { BLUE_TILE_PATTERN } from './libs/SVGTileFills'
+import { BLUE_TILE_PATTERN } from './libs/TitleFillsPatterns'
 
 const IconDefault = () => {
   return (

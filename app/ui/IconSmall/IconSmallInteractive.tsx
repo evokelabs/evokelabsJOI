@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import useButtonIconController from '../libs/useButtonIconController'
-import SVG from './SVG'
+import IconSmall from '.'
 
 const IconSmallInteractive = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {
   const svgRef = useRef(null)
@@ -10,7 +10,7 @@ const IconSmallInteractive = ({ isHovered, isActive, isMouseDown }: { isHovered:
 
   useButtonIconController({ isHovered, isActive, isMouseDown, svgRef, pathBGFillRef, pathBGStrokeRef, pathFGFillRef })
 
-  return <SVG svgRef={svgRef} pathBGFillRef={pathBGFillRef} pathBGStrokeRef={pathBGStrokeRef} pathFGFillRef={pathFGFillRef} />
+  return <IconSmall svgRef={svgRef} pathBGFillRef={pathBGFillRef} pathBGStrokeRef={pathBGStrokeRef} pathFGFillRef={pathFGFillRef} />
 }
 
 export default IconSmallInteractive

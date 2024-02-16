@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 import { BLACK, BLUE_DARK, RED, RED_DARK, RED_DULL, TEAL } from './app/libs/UIConstants'
-import { TileFill, TileFill30 } from './app/ui/libs/TileFill'
+import { TileFill, TileFill30 } from './app/ui/libs/TitleFillsPNGData'
 
 const config: Config = {
   content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],

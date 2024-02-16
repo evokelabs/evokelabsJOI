@@ -1,17 +1,16 @@
 import React, { useRef, useState } from 'react'
-import { TileFill } from './libs/TileFill'
 import { BLACK, RED } from '../libs/UIConstants'
 import useButtonInteractionController from './libs/useButtonInteractionController'
 import RedCRTBlur from './libs/RedCRTBlur'
 import IconButtonDefault from './IconButtonDefault'
 import useButtonEventsController from './libs/useButtonEventsController'
-import { RED_TILE_PATTERN } from './libs/SVGTileFills'
+import { RED_TILE_PATTERN } from './libs/TitleFillsPatterns'
 
 type SVGButtonProps = {
   svgRef: React.RefObject<SVGSVGElement>
   isActive: boolean
   isHovered: boolean
-  title: string
+  label: string
   isMouseDown: boolean
   pathBGFillRef: React.RefObject<SVGPathElement>
   pathFGFillRef: React.RefObject<SVGPathElement>
@@ -81,7 +80,7 @@ const SVGButton: React.FC<SVGButtonProps> = ({
   svgRef,
   isActive,
   isHovered,
-  title,
+  label,
   isMouseDown,
   pathBGFillRef,
   pathFGFillRef,
@@ -103,19 +102,19 @@ const SVGButton: React.FC<SVGButtonProps> = ({
       <div className='absolute bottom-0 flex flex-row items-center justify-between w-full h-full pl-2.5 pr-12 pointer-events-none'>
         <IconButtonDefault isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
 
-        <p className={'font-rajdhani text-[2rem] font-semibold text-teal-blur'}>{title}</p>
+        <p className={'font-rajdhani text-[2rem] font-semibold text-teal-blur'}>{label}</p>
       </div>
     </div>
   )
 }
 
-const ButtonDefault = ({ title = 'CLOSE' }: { title?: string }) => {
+const ButtonDefault = ({ label = 'CLOSE' }: { label?: string }) => {
   const buttonControllers = useButtonControllers()
 
-  return title.length > 8 ? (
-    <SVGButton {...buttonControllers} title={title} buttonProps={BUTTON_LARGE} />
+  return label.length > 8 ? (
+    <SVGButton {...buttonControllers} label={label} buttonProps={BUTTON_LARGE} />
   ) : (
-    <SVGButton {...buttonControllers} title={title} buttonProps={BUTTON_DEFAULT} />
+    <SVGButton {...buttonControllers} label={label} buttonProps={BUTTON_DEFAULT} />
   )
 }
 

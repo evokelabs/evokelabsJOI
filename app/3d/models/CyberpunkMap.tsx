@@ -39,7 +39,6 @@ const CyberpunkMap = () => {
     gltfLoader.load(
       '/glb/EvokelabsRoom.glb',
       gltf => {
-        console.log(gltf.scene)
         scene.add(gltf.scene)
         gltf.scene.traverse(object => {
           if (object instanceof Mesh) {

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
-import { RED_TILE_PATTERN } from './libs/SVGTileFills'
-import { BLACK, BLUE_DARK, RED } from '../libs/UIConstants'
+import { RED_TILE_PATTERN } from './libs/TitleFillsPatterns'
+import { BLUE_DARK, RED } from '../libs/UIConstants'
 import RedCRTBlur from './libs/RedCRTBlur'
 import useButtonEventsController from './libs/useButtonEventsController'
 import useButtonInteractionController from './libs/useButtonInteractionController'

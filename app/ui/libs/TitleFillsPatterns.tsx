@@ -1,4 +1,4 @@
-import { TileFill, TileFill30 } from './TileFill'
+import { TileFill, TileFill30 } from './TitleFillsPNGData'
 
 export const BLUE_TILE_PATTERN = (
   <defs>

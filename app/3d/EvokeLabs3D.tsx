@@ -21,7 +21,7 @@ import IconDefault from '../ui/IconDefault'
 import ButtonMainMenu from '../ui/ButtonMainMenu'
 import ButtonSocial from '../ui/ButtonSocial'
 import ButtonDefault from '../ui/ButtonDefault'
-import TitleHighlight from '../ui/TitleHighlight'
+import HeadingHighlight from '../ui/HeadingHighlight'
 import { RED, TEAL } from '../libs/UIConstants'
 import ParagraphHighlight from '../ui/ParagraphHighlight'
 import RowThird from '../ui/RowThird'
@@ -31,8 +31,8 @@ import RowHalf from '../ui/RowHalf'
 import PanelBackground from '../ui/PanelBackground'
 
 // Constants
-const debug = true
-// const debug = false
+// const debug = true
+const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 
 const Evokelabs3D = () => {
@@ -58,40 +58,43 @@ const Evokelabs3D = () => {
           <IconDefault />
           <ButtonSocial />
           <ButtonDefault />
-          <ButtonDefault title='FIX A BOOKING' />
-          <ButtonDefault title='SEND AN EMAIL' />
-          <ButtonDefault title='BACK' />
-          <ButtonDefault title='LAUNCH' />
+          <ButtonDefault label='FIX A BOOKING' />
+          <ButtonDefault label='SEND AN EMAIL' />
+          <ButtonDefault label='BACK' />
+          <ButtonDefault label='LAUNCH' />
           <ButtonDefault />
           <ButtonMainMenu />
           <ButtonMainMenu />
           <ButtonMainMenu />
 
-          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
-          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER' fullWidth={false} BGColor={RED} />
-          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
-          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER' fullWidth={false} BGColor={RED} />
+          <HeadingHighlight heading='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
+          <HeadingHighlight heading='YOUR CREATIVE TECHNOLOGIST PARTNER' fullWidth={false} BGColor={RED} />
+          <HeadingHighlight heading='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
+          <HeadingHighlight heading='YOUR CREATIVE TECHNOLOGIST PARTNER' fullWidth={false} BGColor={RED} />
           <ParagraphHighlight
-            text='Creative Technologists combine <b>creative</b>, <b>development</b>, and <b>technology</b> to address digital challenges and deliver online projects of exceptional quality.'
+            paragraph='Creative Technologists combine <b>creative</b>, <b>development</b>, and <b>technology</b> to address digital challenges and deliver online projects of exceptional quality.'
             BGColor={TEAL}
           />
-          <ParagraphHighlight text='“You are amazing Adrian! Seriously – you always impress me by going above and beyond!”' BGColor={RED} />
+          <ParagraphHighlight
+            paragraph='“You are amazing Adrian! Seriously – you always impress me by going above and beyond!”'
+            BGColor={RED}
+          />
 
           <RowFull
-            title='FRONT END DEVELOPMENT'
-            subTitle='HO HOH HO'
+            heading='FRONT END DEVELOPMENT'
+            subHeading='HO HOH HO'
             paragraph='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single page applications, multi page applications with API / GraphQL. Coding UI/UX designs into working builds using the latest JS libraries. Land'
           />
           <RowHalf
-            title='FRONT END DEVELOPMENT'
-            text='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, '
+            heading='FRONT END DEVELOPMENT'
+            paragraph='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, '
           />
           <RowThird
-            title='THE VERSATILITY FACTOR'
-            text='Why settle for one expertise when you can have it all? Visionary, developer, designer - my versatile skill set is your secret weapon. Unleash the boundless innovation that comes from a true Renaissance professional.'
+            heading='THE VERSATILITY FACTOR'
+            paragraph='Why settle for one expertise when you can have it all? Visionary, developer, designer - my versatile skill set is your secret weapon. Unleash the boundless innovation that comes from a true Renaissance professional.'
           />
 
-          <TitleHighlight title='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
+          <HeadingHighlight heading='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
           <PanelBackground />
         </Html>
         <VideoSkybox />

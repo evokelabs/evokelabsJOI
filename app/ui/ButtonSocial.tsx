@@ -1,10 +1,9 @@
-import { TileFill } from './libs/TileFill'
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLUE_DARK, RED } from '../libs/UIConstants'
 import { useRef, useState } from 'react'
 import useButtonEventsController from './libs/useButtonEventsController'
 import useButtonInteractionController from './libs/useButtonInteractionController'
-import { RED_TILE_PATTERN } from './libs/SVGTileFills'
+import { RED_TILE_PATTERN } from './libs/TitleFillsPatterns'
 
 const ButtonSocial = () => {
   const svgRef = useRef<SVGSVGElement | null>(null)

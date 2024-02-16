@@ -1,9 +1,8 @@
 import { useRef } from 'react'
-import { TileFill } from './libs/TileFill'
 import { BLACK, RED } from '../libs/UIConstants'
 import useButtonIconController from './libs/useButtonIconController'
 import RedCRTBlur from './libs/RedCRTBlur'
-import { RED_TILE_PATTERN } from './libs/SVGTileFills'
+import { RED_TILE_PATTERN } from './libs/TitleFillsPatterns'
 
 const IconButtonDefault = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {
   const svgRef = useRef(null)
