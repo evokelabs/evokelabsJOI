@@ -28,17 +28,16 @@ body {
 }
 
 .red-scrollbar::-webkit-scrollbar {
-  width: 7px;
-}
-
-.red-scrollbar::-webkit-scrollbar-thumb {
-  background: #ae3a36;
-  width: 3px;
+  width: 12px;
 }
 
 .red-scrollbar::-webkit-scrollbar-track {
   background: #502124;
-  width: 3px;
+  width: 6px;
+}
+
+.red-scrollbar::-webkit-scrollbar-thumb {
+  background: #ae3a36;
 }
 
 .red-scrollbar::-webkit-scrollbar-thumb:hover {

@@ -4,13 +4,12 @@ import IconSmall from './IconSmall'
 import ButtonDefault from './ButtonDefault'
 import HR from './HR'
 import TitleHighlight from './TitleHighlight'
-import { TileFill } from './libs/TileFill'
 import { RED_TILE_PATTERN } from './libs/SVGTileFills'
 import IconClose from './IconClose'
 
 const TopHeader = () => {
   return (
-    <div className='flex items-end'>
+    <div className='flex items-end border-red border-b-2 border-opacity-60'>
       <div className='absolute'>
         <h1 className='font-orbitron font-medium text-teal-blur text-[2rem] leading-none px-5 py-4'>BACKSTORY</h1>
       </div>
@@ -96,10 +95,10 @@ const PanelBackground = () => {
           </div>
         </div>
 
-        <div className='w-full'>
+        <div className='w-full  '>
           <TopHeader />
-          <div className={'max-h-[900px] overflow-auto red-scrollbar'}>
-            <div className='bg-grid-blue pl-5 pr-7 pt-4 border-red border-t-2 border-x-2 border-opacity-60 pb-3'>
+          <div className={'max-h-[900px] overflow-y-auto red-scrollbar'}>
+            <div className='bg-grid-blue pl-5 pr-7 pt-4 pb-3 border-red border-x-2 border-opacity-60 '>
               <div className='flex flex-row items-center gap-1 '>
                 <IconSmall />
                 <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none '>RESUME</h2>
