@@ -24,6 +24,17 @@ const TopHeader = () => {
   )
 }
 
+const BottomFooter = () => {
+  return (
+    <div className='flex flex-row w-full h-6'>
+      <div className='bg-grid-blue w-full  border-red border-b-2 border-l-2 border-opacity-60'></div>
+      <div className='ml-auto h-fit'>
+        <BottomRightCornerSVG />
+      </div>
+    </div>
+  )
+}
+
 const TopHeaderSVG = () => {
   return (
     <svg width='352' height='63' viewBox='0 0 352 63'>
@@ -87,34 +98,68 @@ const PanelBackground = () => {
 
         <div className='w-full'>
           <TopHeader />
-          <div className='bg-grid-blue pl-5 pr-7 pt-4 border-red border-t-2 border-x-2 border-opacity-60 pb-3'>
-            <div className='flex flex-row items-center gap-1 '>
-              <IconSmall />
-              <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none '>RESUME</h2>
-              <div className='relative ml-auto left-4'>
-                <ButtonDefault />
+          <div className={'max-h-[900px] overflow-auto red-scrollbar'}>
+            <div className='bg-grid-blue pl-5 pr-7 pt-4 border-red border-t-2 border-x-2 border-opacity-60 pb-3'>
+              <div className='flex flex-row items-center gap-1 '>
+                <IconSmall />
+                <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none '>RESUME</h2>
+                <div className='relative ml-auto left-4'>
+                  <ButtonDefault />
+                </div>
               </div>
+              <HR />
+              <TitleHighlight title={'BIO'} fullWidth={true} BGColor={RED} />
+              <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-6'>
+                <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital
+                strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies,
+                creative strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
+                agencies, creative years of experience in digital strategy, design, UI/UX, web development, motion, and 3D. Proven track
+                record collaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D.
+                Provencollaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Proven
+                track record collaborating with advertising agencies, creative years of expecollaborating with advertising agencies,
+                creative strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
+                agencies, creative years of expe track record collaborating with advertising agencies, creative
+              </p>
+              <TitleHighlight title={'BIO'} fullWidth={true} BGColor={RED} />
+              <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-6'>
+                <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital
+                strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies,
+                creative strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
+                agencies, creative years of experience in digital strategy, design, UI/UX, web development, motion, and 3D. Proven track
+                record collaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D.
+                Provencollaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Proven
+                track record collaborating with advertising agencies, creative years of expecollaborating with advertising agencies,
+                creative strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
+                agencies, creative years of expe track record collaborating with advertising agencies, creative
+              </p>
+              <HR />
+              <TitleHighlight title={'BIO'} fullWidth={true} BGColor={RED} />
+              <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-6'>
+                <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital
+                strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies,
+                creative strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
+                agencies, creative years of experience in digital strategy, design, UI/UX, web development, motion, and 3D. Proven track
+                record collaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D.
+                Provencollaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Proven
+                track record collaborating with advertising agencies, creative years of expecollaborating with advertising agencies,
+                creative strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
+                agencies, creative years of expe track record collaborating with advertising agencies, creative
+              </p>
+              <TitleHighlight title={'BIO'} fullWidth={true} BGColor={RED} />
+              <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-6'>
+                <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital
+                strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies,
+                creative strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
+                agencies, creative years of experience in digital strategy, design, UI/UX, web development, motion, and 3D. Proven track
+                record collaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D.
+                Provencollaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Proven
+                track record collaborating with advertising agencies, creative years of expecollaborating with advertising agencies,
+                creative strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
+                agencies, creative years of expe track record collaborating with advertising agencies, creative
+              </p>
             </div>
-            <HR />
-            <TitleHighlight title={'BIO'} fullWidth={true} BGColor={RED} />
-            <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-6'>
-              <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital
-              strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies,
-              creative strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
-              agencies, creative years of experience in digital strategy, design, UI/UX, web development, motion, and 3D. Proven track
-              record collaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D.
-              Provencollaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Proven track
-              record collaborating with advertising agencies, creative years of expecollaborating with advertising agencies, creative
-              strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies,
-              creative years of expe track record collaborating with advertising agencies, creative
-            </p>
           </div>
-          <div className='flex flex-row w-full h-6'>
-            <div className='bg-grid-blue w-full  border-red border-b-2 border-l-2 border-opacity-60'></div>
-            <div className='ml-auto h-fit'>
-              <BottomRightCornerSVG />
-            </div>
-          </div>
+          <BottomFooter />
         </div>
       </div>
     </div>

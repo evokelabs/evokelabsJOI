@@ -26,3 +26,21 @@ body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
+
+.red-scrollbar::-webkit-scrollbar {
+  width: 7px;
+}
+
+.red-scrollbar::-webkit-scrollbar-thumb {
+  background: #ae3a36;
+  width: 3px;
+}
+
+.red-scrollbar::-webkit-scrollbar-track {
+  background: #502124;
+  width: 3px;
+}
+
+.red-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #f75049;
+}
