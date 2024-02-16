@@ -9,7 +9,7 @@ import IconClose from './IconClose'
 
 const TopHeader = () => {
   return (
-    <div className='flex items-end border-red border-b-2 border-opacity-60'>
+    <div className='flex items-end border-red border-b-2 border-opacity-60 relative top-0.5'>
       <div className='absolute'>
         <h1 className='font-orbitron font-medium text-teal-blur text-[2rem] leading-none px-5 py-4'>BACKSTORY</h1>
       </div>
@@ -95,18 +95,18 @@ const PanelBackground = () => {
           </div>
         </div>
 
-        <div className='w-full  '>
+        <div className='w-full'>
           <TopHeader />
-          <div className={'max-h-[900px] overflow-y-auto red-scrollbar'}>
-            <div className='bg-grid-blue pl-5 pr-7 pt-4 pb-3 border-red border-x-2 border-opacity-60 '>
-              <div className='flex flex-row items-center gap-1 '>
-                <IconSmall />
-                <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none '>RESUME</h2>
-                <div className='relative ml-auto left-4'>
-                  <ButtonDefault />
-                </div>
+          <div className='bg-grid-blue pl-5 pr-3 pt-4 pb-3 border-red border-x-2 border-opacity-60 '>
+            <div className='flex flex-row items-center gap-1 '>
+              <IconSmall />
+              <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none '>RESUME</h2>
+              <div className='relative ml-auto left-4'>
+                <ButtonDefault />
               </div>
-              <HR />
+            </div>
+            <HR />
+            <div className={'max-h-[900px] pr-3 overflow-y-auto red-scrollbar -my-2'}>
               <TitleHighlight title={'BIO'} fullWidth={true} BGColor={RED} />
               <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-6'>
                 <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital
