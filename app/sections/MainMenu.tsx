@@ -12,12 +12,23 @@ const ROUTE_CONFIG = [
 
 const MainMenu = () => {
   const [currentSelection, setCurrentSelection] = React.useState<null | number>(null)
+
+  const resetAllButtons = (index: number) => {
+    console.log('resetAllButtons', index)
+    setCurrentSelection(index)
+  }
   return (
-    <>
+    <div className='grid grid-cols-3 gap-x-8'>
       {ROUTE_CONFIG.map((config, index) => (
-        <ButtonMainMenu key={index} label={config.labels[0]} hoverLabel={config.labels[1]} />
+        <ButtonMainMenu
+          key={index}
+          label={config.labels[0]}
+          hoverLabel={config.labels[1]}
+          isActive={currentSelection === index}
+          onClick={() => resetAllButtons(index)}
+        />
       ))}
-    </>
+    </div>
   )
 }
 

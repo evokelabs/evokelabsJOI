@@ -1,5 +1,4 @@
 import { useRef } from 'react'
-import { TileFill } from '../libs/TileFillData'
 import RedCRTBlur from '../libs/RedCRTBlur'
 import { BLACK, RED } from '@/app/libs/UIConstants'
 import useButtonInteractionController from '../libs/useButtonInteractionController'

@@ -5,20 +5,25 @@ import MidFrame from './MidFrame'
 import { RED, TEAL, UI_DURATION_TIME } from '../../libs/UIConstants'
 import IconSmallInteractive from '../IconSmall/IconSmallInteractive'
 
-const ButtonMainMenu = ({ label, hoverLabel }: { label: string; hoverLabel: string }) => {
+const ButtonMainMenu = ({
+  key,
+  label,
+  hoverLabel,
+  isActive,
+  onClick
+}: {
+  key: number
+  label: string
+  hoverLabel: string
+  isActive: boolean
+  onClick: (index: number) => void
+}) => {
   const [isHovered, setIsHovered] = useState(false)
-  const [isActive, setIsActive] = useState(false)
   const [isMouseDown, setIsMouseDown] = useState(false)
   const buttonTextRef = useRef<HTMLDivElement>(null)
   const leftFrameRef = useRef<HTMLDivElement>(null)
   const mainFrameRef = useRef<HTMLDivElement>(null)
   const hoverAreaRef = useRef<HTMLDivElement>(null)
-  const isActiveRef = useRef(isActive)
-
-  useEffect(() => {
-    isActiveRef.current = isActive
-  }, [isActive])
-
   useEffect(() => {
     const buttonText = buttonTextRef.current
     const leftFrame = leftFrameRef.current
@@ -37,7 +42,7 @@ const ButtonMainMenu = ({ label, hoverLabel }: { label: string; hoverLabel: stri
 
       hoverArea.addEventListener('mouseleave', () => {
         setIsHovered(false)
-        if (!isActiveRef.current) {
+        if (!isActive) {
           gsap.to(buttonText, { color: RED, duration: UI_DURATION_TIME, ease: 'power1.out' }),
             gsap.to(buttonText, { css: { '--shadow-color': 'rgba(222, 84, 86, 0.2)' }, duration: UI_DURATION_TIME, ease: 'power1.out' }),
             gsap.to(leftFrame, { x: '0', duration: UI_DURATION_TIME, ease: 'power1.out' })
@@ -56,12 +61,11 @@ const ButtonMainMenu = ({ label, hoverLabel }: { label: string; hoverLabel: stri
       hoverArea.addEventListener('click', () => {
         gsap.to(buttonText, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
         gsap.to(buttonText, { color: TEAL, duration: UI_DURATION_TIME, ease: 'power1.out' })
-        setIsActive(!isActive)
         gsap.to(leftFrame, { x: '+13', duration: UI_DURATION_TIME, ease: 'power1.out' })
         gsap.to(mainFrame, { x: '-2', duration: UI_DURATION_TIME, ease: 'power1.out' })
       })
     }
-  }, [isActive])
+  }, [isActive, isHovered, key, onClick])
 
   return (
     <div
@@ -87,7 +91,7 @@ const ButtonMainMenu = ({ label, hoverLabel }: { label: string; hoverLabel: stri
         >
           <IconSmallInteractive isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
           <div
-            className='top-2 relative'
+            className={`top-2 relative ${isHovered || isActive ? 'text-teal-blur' : 'text-red-blur'}`}
             style={{
               textShadow: '4px 0px 0px var(--shadow-color), 8px 0px 0px var(--shadow-color)'
             }}
