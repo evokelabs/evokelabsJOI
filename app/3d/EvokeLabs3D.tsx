@@ -29,6 +29,7 @@ import RowFull from '../ui/RowFull'
 import HR from '../ui/HR'
 import RowHalf from '../ui/RowHalf'
 import PanelBackground from '../ui/PanelBackground'
+import MainMenu from '../sections/MainMenu'
 
 // Constants
 // const debug = true
@@ -53,8 +54,9 @@ const Evokelabs3D = () => {
           powerPreference: 'high-performance'
         }}
       >
-        <Html scale={0.05} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
-          {/* */}
+        <Html scale={0.03} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
+          <MainMenu />
+          {/* 
           <IconDefault />
           <ButtonSocial />
           <ButtonDefault />
@@ -96,6 +98,7 @@ const Evokelabs3D = () => {
 
           <HeadingHighlight heading='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
           <PanelBackground />
+          */}
         </Html>
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : null}

@@ -5,7 +5,7 @@ import MidFrame from './MidFrame'
 import { RED, TEAL, UI_DURATION_TIME } from '../../libs/UIConstants'
 import IconSmallInteractive from '../IconSmall/IconSmallInteractive'
 
-const ButtonMainMenu = () => {
+const ButtonMainMenu = ({ label, hoverLabel }: { label: string; hoverLabel: string }) => {
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
   const [isMouseDown, setIsMouseDown] = useState(false)
@@ -92,7 +92,7 @@ const ButtonMainMenu = () => {
               textShadow: '4px 0px 0px var(--shadow-color), 8px 0px 0px var(--shadow-color)'
             }}
           >
-            CORPO GUIDE
+            {isActive || isHovered ? hoverLabel : label}
           </div>
         </div>
       </div>
