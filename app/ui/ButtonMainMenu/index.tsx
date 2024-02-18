@@ -20,15 +20,28 @@ const ButtonMainMenu = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false)
   const [isMouseDown, setIsMouseDown] = useState(false)
+  const [IsLocalActive, setIsLocalActive] = useState(isActive)
   const buttonTextRef = useRef<HTMLDivElement>(null)
   const leftFrameRef = useRef<HTMLDivElement>(null)
   const mainFrameRef = useRef<HTMLDivElement>(null)
   const hoverAreaRef = useRef<HTMLDivElement>(null)
+  const isActiveRef = useRef(IsLocalActive)
+
+  useEffect(() => {
+    isActiveRef.current = IsLocalActive
+  }, [IsLocalActive])
+
   useEffect(() => {
     const buttonText = buttonTextRef.current
     const leftFrame = leftFrameRef.current
     const mainFrame = mainFrameRef.current
     const hoverArea = hoverAreaRef.current
+
+    const triggerOnClick = () => {
+      setIsLocalActive(true)
+      setIsHovered(false)
+      onClick(key)
+    }
 
     if (buttonText && leftFrame && mainFrame && hoverArea) {
       buttonText.style.setProperty('--shadow-color', 'rgba(222, 84, 86, 0.2)')
@@ -42,7 +55,7 @@ const ButtonMainMenu = ({
 
       hoverArea.addEventListener('mouseleave', () => {
         setIsHovered(false)
-        if (!isActive) {
+        if (!isActiveRef.current) {
           gsap.to(buttonText, { color: RED, duration: UI_DURATION_TIME, ease: 'power1.out' }),
             gsap.to(buttonText, { css: { '--shadow-color': 'rgba(222, 84, 86, 0.2)' }, duration: UI_DURATION_TIME, ease: 'power1.out' }),
             gsap.to(leftFrame, { x: '0', duration: UI_DURATION_TIME, ease: 'power1.out' })
@@ -59,13 +72,18 @@ const ButtonMainMenu = ({
       })
 
       hoverArea.addEventListener('click', () => {
+        triggerOnClick()
+      })
+
+      if (IsLocalActive) {
+        console.log('triggered isActiveRef.current', isActiveRef.current)
         gsap.to(buttonText, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
         gsap.to(buttonText, { color: TEAL, duration: UI_DURATION_TIME, ease: 'power1.out' })
         gsap.to(leftFrame, { x: '+13', duration: UI_DURATION_TIME, ease: 'power1.out' })
         gsap.to(mainFrame, { x: '-2', duration: UI_DURATION_TIME, ease: 'power1.out' })
-      })
+      }
     }
-  }, [isActive, isHovered, key, onClick])
+  }, [IsLocalActive, isActive, isHovered, key, onClick])
 
   return (
     <div

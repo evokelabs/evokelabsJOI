@@ -14,7 +14,6 @@ const MainMenu = () => {
   const [currentSelection, setCurrentSelection] = React.useState<null | number>(null)
 
   const resetAllButtons = (index: number) => {
-    console.log('resetAllButtons', index)
     setCurrentSelection(index)
   }
   return (
