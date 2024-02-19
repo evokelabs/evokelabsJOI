@@ -27,7 +27,7 @@ const MainMenu = ({ router }: { router: NextRouter }) => {
           mainMenuNumber={index}
           label={config.labels[0]}
           hoverLabel={config.labels[1]}
-          isLocalActive={currentSelection === index}
+          isLocalActive={router.pathname === ROUTE_CONFIG[index].route}
           onClick={() => resetAllButtons(index)}
         />
       ))}
