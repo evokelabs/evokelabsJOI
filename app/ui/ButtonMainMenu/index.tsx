@@ -28,20 +28,12 @@ const ButtonMainMenu = ({
   const isActiveRef = useRef(isActive)
 
   useEffect(() => {
-    const buttonText = buttonTextRef.current
-    const leftFrame = leftFrameRef.current
-    const mainFrame = mainFrameRef.current
-
-    if (buttonText && leftFrame && mainFrame) {
-      if (!isLocalActive && isActiveRef.current) {
-        setIsActive(false)
-      }
-      isActiveRef.current = isLocalActive
-    }
+    setIsActive(isLocalActive)
+    isActiveRef.current = isLocalActive
   }, [isLocalActive])
 
-  const toDefaultAnimation = (buttonText: HTMLDivElement, leftFrame: HTMLDivElement, mainFrame: HTMLDivElement) => {
-    console.log('toDefaultAnimation tween triggered')
+  const toDefaultAnimation = (buttonText: HTMLDivElement | null, leftFrame: HTMLDivElement | null, mainFrame: HTMLDivElement | null) => {
+    if (isActiveRef.current) return
     gsap.killTweensOf([buttonText, leftFrame, mainFrame])
     gsap.to(buttonText, { css: { '--shadow-color': 'rgba(222, 84, 86, 0.2)' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
     gsap.to(buttonText, { color: RED, duration: UI_DURATION_TIME, ease: 'power1.out' })
@@ -49,7 +41,8 @@ const ButtonMainMenu = ({
     gsap.to(mainFrame, { x: '-2', duration: UI_DURATION_TIME, ease: 'power1.out' })
   }
 
-  const toHoverAnimation = (buttonText: HTMLDivElement, leftFrame: HTMLDivElement, mainFrame: HTMLDivElement) => {
+  const toHoverAnimation = (buttonText: HTMLDivElement | null, leftFrame: HTMLDivElement | null, mainFrame: HTMLDivElement | null) => {
+    if (isActiveRef.current) return
     gsap.killTweensOf([buttonText, leftFrame, mainFrame])
     gsap.to(buttonText, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
     gsap.to(buttonText, { color: TEAL, duration: UI_DURATION_TIME, ease: 'power1.out' })
@@ -57,7 +50,7 @@ const ButtonMainMenu = ({
     gsap.to(mainFrame, { x: '+10', duration: UI_DURATION_TIME, ease: 'power1.out' })
   }
 
-  const toActiveAnimation = (buttonText: HTMLDivElement, leftFrame: HTMLDivElement, mainFrame: HTMLDivElement) => {
+  const toActiveAnimation = (buttonText: HTMLDivElement | null, leftFrame: HTMLDivElement | null, mainFrame: HTMLDivElement | null) => {
     gsap.killTweensOf([buttonText, leftFrame, mainFrame])
     gsap.to(buttonText, { css: { '--shadow-color': 'rgba(83, 246, 255, 0.2)' }, duration: UI_DURATION_TIME, ease: 'power1.out' })
     gsap.to(buttonText, { color: TEAL, duration: UI_DURATION_TIME, ease: 'power1.out' })
@@ -71,41 +64,60 @@ const ButtonMainMenu = ({
     const mainFrame = mainFrameRef.current
     const hoverArea = hoverAreaRef.current
 
-    const triggerOnClick = () => {
+    const handleMouseEnter = () => {
+      setIsHovered(true)
+      toHoverAnimation(buttonText, leftFrame, mainFrame)
+    }
+
+    const handleMouseLeave = () => {
+      toDefaultAnimation(buttonText, leftFrame, mainFrame)
+      setIsHovered(false)
+    }
+
+    const handleMouseDown = () => {
+      setIsMouseDown(true)
+    }
+
+    const handleMouseUp = () => {
+      setIsMouseDown(false)
+    }
+
+    const handleClick = () => {
       setIsActive(true)
+      toActiveAnimation(buttonText, leftFrame, mainFrame)
       onClick(mainMenuNumber)
     }
 
-    if (buttonText && leftFrame && mainFrame && hoverArea) {
-      hoverArea.addEventListener('mouseenter', () => {
-        setIsHovered(true)
-        toHoverAnimation(buttonText, leftFrame, mainFrame)
-      })
+    if (hoverArea) {
+      hoverArea.addEventListener('mouseenter', handleMouseEnter)
+      hoverArea.addEventListener('mouseleave', handleMouseLeave)
+      hoverArea.addEventListener('mousedown', handleMouseDown)
+      hoverArea.addEventListener('mouseup', handleMouseUp)
+      hoverArea.addEventListener('click', handleClick)
+    }
 
-      hoverArea.addEventListener('mouseleave', () => {
-        setIsHovered(false)
-        toDefaultAnimation(buttonText, leftFrame, mainFrame)
-      })
-
-      hoverArea.addEventListener('mousedown', () => {
-        setIsMouseDown(true)
-      })
-
-      hoverArea.addEventListener('mouseup', () => {
-        setIsMouseDown(false)
-      })
-
-      hoverArea.addEventListener('click', () => {
-        triggerOnClick()
-      })
-
-      if (isActive) {
-        toActiveAnimation(buttonText, leftFrame, mainFrame)
-      } else if (!isActive && !isHovered) {
-        toDefaultAnimation(buttonText, leftFrame, mainFrame)
+    return () => {
+      if (hoverArea) {
+        hoverArea.removeEventListener('mouseenter', handleMouseEnter)
+        hoverArea.removeEventListener('mouseleave', handleMouseLeave)
+        hoverArea.removeEventListener('mousedown', handleMouseDown)
+        hoverArea.removeEventListener('mouseup', handleMouseUp)
+        hoverArea.removeEventListener('click', handleClick)
       }
     }
-  }, [isActive, isHovered, mainMenuNumber, onClick])
+  }, [mainMenuNumber, onClick])
+
+  useEffect(() => {
+    const buttonText = buttonTextRef.current
+    const leftFrame = leftFrameRef.current
+    const mainFrame = mainFrameRef.current
+
+    if (isActive) {
+      toActiveAnimation(buttonText, leftFrame, mainFrame)
+    } else if (!isActive && !isHovered) {
+      toDefaultAnimation(buttonText, leftFrame, mainFrame)
+    }
+  }, [isActive, isHovered])
 
   return (
     <div
