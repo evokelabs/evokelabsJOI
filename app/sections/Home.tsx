@@ -52,8 +52,8 @@ const Home = () => {
       onMouseUp={() => setIsActive(!isActive)}
     >
       <div
-        className={`pt-6 p-4 pb-3 border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
-          isActive ? 'bg-red' : 'bg-grid-blue'
+        className={`pt-6 p-4  border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
+          isActive ? 'bg-red pb-6' : 'bg-grid-blue pb-3'
         }`}
       >
         <h1
@@ -67,8 +67,9 @@ const Home = () => {
           LIKE JEDI USE THE FORCE.
         </h1>
       </div>
-      <div ref={divRef} className='p-5 pb-2 bg-grid-blue border-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden'>
-        <p className='mt-5 mb-10 text-teal-blur'>
+
+      <div ref={divRef} className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden'>
+        <p className='mt-6 mb-10 text-teal-blur'>
           Evoke labs is home to Adrian Pikios, <span className='text-red-blur'>an animator</span> who uses the powers of{' '}
           <span className='text-red-blur'>JSX</span> to design, develop & create <span className='text-red-blur'>cheesy</span> digital
           experiences.
