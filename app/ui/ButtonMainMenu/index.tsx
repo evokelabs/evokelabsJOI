@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import LeftFrame from './LeftFrame'
 import MidFrame from './MidFrame'
-import { RED, TEAL, UI_DURATION_TIME } from '../../libs/UIConstants'
+import { ORANGE, RED, TEAL, UI_DURATION_TIME } from '../../libs/UIConstants'
 import IconSmallInteractive from '../IconSmall/IconSmallInteractive'
 
 const ButtonMainMenu = ({
@@ -10,14 +10,19 @@ const ButtonMainMenu = ({
   label,
   hoverLabel,
   isLocalActive,
-  onClick
+  onClick,
+  callToAction = false
 }: {
   mainMenuNumber: number
   label: string
   hoverLabel: string
   isLocalActive: boolean
   onClick: (mainMenuNumber: number) => void
+  callToAction?: boolean
 }) => {
+  const primaryColor = callToAction ? 'text-orange-blur' : 'text-red-blur'
+  const primaryColorBlur = callToAction ? 'text-teal-blur' : 'text-orange-blur'
+
   const [isHovered, setIsHovered] = useState(false)
   const [isMouseDown, setIsMouseDown] = useState(false)
   const [isActive, setIsActive] = useState(isLocalActive)
@@ -130,20 +135,20 @@ const ButtonMainMenu = ({
       <div className='relative ' ref={mainFrameRef}>
         <div className='flex items-center flex-row w-full'>
           <div ref={leftFrameRef} className='z-1'>
-            <LeftFrame isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
+            <LeftFrame isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} callToAction={callToAction} />
           </div>
           <div className='z-0'>
-            <MidFrame isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
+            <MidFrame isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} callToAction={callToAction} />
           </div>
         </div>
 
         <div
-          className='absolute flex items-center flex-row top-3.5 font-orbitron font-bold place-content-between pl-7 pr-7 w-full text-red-blur text-[1.25rem]'
+          className={`absolute flex items-center flex-row top-3.5 font-orbitron font-bold place-content-between pl-7 pr-7 w-full text-[1.25rem] ${primaryColorBlur}`}
           ref={buttonTextRef}
           style={{ pointerEvents: isActive ? 'none' : 'all' }}
         >
-          <IconSmallInteractive isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
-          <div className={`top-2 relative ${isHovered || isActive ? 'text-teal-blur' : 'text-red-blur'}`}>
+          <IconSmallInteractive isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} callToAction={callToAction} />
+          <div className={`top-2 relative ${isHovered || isActive ? 'text-teal-blur' : primaryColor}`}>
             {isActive || isHovered ? hoverLabel : label}
           </div>
         </div>

@@ -8,7 +8,7 @@ const ROUTE_CONFIG = [
   { labels: ['BACKSTORY', 'HISTORY'], route: '/history' },
   { labels: ['DOSSIER', 'RESUME'], route: '/resume' },
   { labels: ['JOI SPECIAL', 'INTRODUCING JOI'], route: '/joi' },
-  { labels: ['FIX A BOOKING', 'AVAILABILITIES'], route: '/availabilities' }
+  { labels: ['FIX A BOOKING', 'AVAILABILITIES'], route: '/availabilities', callToAction: true }
 ]
 
 const MainMenu = ({ router }: { router: NextRouter }) => {
@@ -29,6 +29,7 @@ const MainMenu = ({ router }: { router: NextRouter }) => {
           hoverLabel={config.labels[1]}
           isLocalActive={router.pathname === ROUTE_CONFIG[index].route}
           onClick={() => resetAllButtons(index)}
+          callToAction={config.callToAction}
         />
       ))}
     </div>

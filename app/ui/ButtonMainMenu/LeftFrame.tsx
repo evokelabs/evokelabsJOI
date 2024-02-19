@@ -1,10 +1,21 @@
 import { useRef } from 'react'
 import RedCRTBlur from '../libs/RedCRTBlur'
-import { BLACK, RED } from '@/app/libs/UIConstants'
+import OrangeCRTBlur from '../libs/OrangeCRTBlur'
+import { BLACK, ORANGE, RED } from '@/app/libs/UIConstants'
 import useButtonInteractionController from '../libs/useButtonInteractionController'
 import { RED_TILE_PATTERN } from '../libs/TitleFillsPatterns'
 
-const LeftFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; isActive: boolean; isMouseDown: boolean }) => {
+const LeftFrame = ({
+  isHovered,
+  isActive,
+  isMouseDown,
+  callToAction = false
+}: {
+  isHovered: boolean
+  isActive: boolean
+  isMouseDown: boolean
+  callToAction?: boolean
+}) => {
   const svgRef = useRef(null)
   const pathBGFillRef = useRef(null)
   const pathBGStrokeRef = useRef(null)
@@ -17,33 +28,38 @@ const LeftFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; i
     svgRef,
     pathBGFillRef,
     pathBGStrokeRef,
-    pathFGFillRef
+    pathFGFillRef,
+    callToAction
   })
+
+  const primaryColor = callToAction ? ORANGE : RED
+  const secondaryColor = BLACK
+  const filterBlur = callToAction ? 'url(#OrangeCRTBlur1) url(#OrangeCRTBlur2)' : 'url(#RedCRTBlur1) url(#RedCRTBlur2)'
 
   return (
     <svg width='16' height='68' viewBox='0 0 16 68' fill='none' ref={svgRef}>
-      <RedCRTBlur />
-
       <path
         ref={pathBGFillRef}
         d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z'
-        fill={BLACK}
+        fill={secondaryColor}
         fillOpacity='0.85'
       />
 
       <path
         ref={pathFGFillRef}
         d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z'
-        fill={RED}
+        fill={primaryColor}
         fillOpacity='0.1'
       />
 
       <path d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z' fill='url(#redTile)' />
-      <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
+      <RedCRTBlur />
+      <OrangeCRTBlur />
+      <g filter={filterBlur}>
         <path
           ref={pathBGStrokeRef}
           d='M14.002 67L15.002 67L15.002 66L15.0019 2L15.0019 1L14.0019 1L9 1L8.5857 1L8.29279 1.29299L1.29475 8.29299L1.00195 8.58586L1.00195 8.99999L1.00195 20L1.00195 20.4141L1.29471 20.707L6 25.4141L6 43.5859L1.29471 48.293L1.00195 48.5859L1.00195 49L1.00195 59L1.00195 59.4141L1.29475 59.707L8.29279 66.707L8.58571 67L9 67L14.002 67Z'
-          stroke={RED}
+          stroke={primaryColor}
           strokeOpacity='0.6'
           strokeWidth='2'
         />
