@@ -62,6 +62,10 @@ const config: Config = {
         '.bg-grid-red': {
           backgroundImage: `url(${TileFill}), linear-gradient(rgba(222,84, 86, 0.1), rgba(222,84, 86, 0.1)), linear-gradient(rgba(80, 33, 36, 0.85), rgba(80, 33, 36, 0.85))`,
           backgroundRepeat: 'repeat'
+        },
+        '.border-2-red': {
+          borderColor: 'rgba(222, 84, 86, 0.6)',
+          borderWidth: '2px'
         }
       }
       addUtilities(newUtilities)

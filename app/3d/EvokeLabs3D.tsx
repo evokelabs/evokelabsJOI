@@ -31,6 +31,7 @@ import RowHalf from '../ui/RowHalf'
 import PanelBackground from '../ui/PanelBackground'
 import MainMenu from '../sections/MainMenu'
 import { NextRouter } from 'next/router'
+import Home from '../sections/Home'
 
 // Constants
 const debug = true
@@ -56,6 +57,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         }}
       >
         <Html scale={0.03} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
+          {router.pathname === '/' && <Home />}
           <MainMenu router={router} />
           {/* 
           <IconDefault />

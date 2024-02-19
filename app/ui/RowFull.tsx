@@ -29,7 +29,7 @@ const RowFull = ({ heading, subHeading, paragraph }: { heading: string; subHeadi
           <IconDefault />
         </div>
         <div className={'w-auto pl-1.5 pr-3.5'}>
-          <h1 className='font-rajdhani font-semibold text-teal-blur text-[1.75rem] leading-none text-shadow-CRTteal'>{heading}</h1>
+          <h1 className='font-rajdhani font-semibold text-teal-blur text-[1.75rem] leading-none'>{heading}</h1>
           <h2 className='font-rajdhani font-semibold text-red-blur text-[1.25rem] leading-none '>{subHeading}</h2>
           <p className='font-rajdhani font-medium text-red-blur text-[1.125rem] leading-5 mt-1'>{paragraph}</p>
         </div>
