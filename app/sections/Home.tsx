@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
+import gsap from 'gsap'
 
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
@@ -16,8 +17,23 @@ const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) 
 }
 
 const ExpandedPanel = () => {
+  const divRef = useRef(null)
+
+  useEffect(() => {
+    gsap.from(divRef.current, {
+      height: 0,
+      onComplete: () => {
+        gsap.set(divRef.current, { height: 'auto' })
+      },
+      duration: 0.25
+    })
+  }, [])
+
   return (
-    <div className='p-5 pb-2 bg-grid-blue border-2 border-red border-opacity-60 border-b-0 shadow-red-blur'>
+    <div
+      ref={divRef}
+      className='p-5 pb-2 bg-grid-blue border-2 border-red border-opacity-60 border-b-0 shadow-red-blur h-auto overflow-hidden'
+    >
       <p className='mt-5 mb-10 text-teal-blur'>
         Evoke labs is home to Adrian Pikios, <span className='text-red-blur'>an animator</span> who uses the powers of{' '}
         <span className='text-red-blur'>JSX</span> to design, develop & create <span className='text-red-blur'>cheesy</span> digital
