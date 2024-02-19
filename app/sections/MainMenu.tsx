@@ -16,14 +16,16 @@ const MainMenu = () => {
   const resetAllButtons = (index: number) => {
     setCurrentSelection(index)
   }
+
   return (
     <div className='grid grid-cols-3 gap-x-8'>
       {ROUTE_CONFIG.map((config, index) => (
         <ButtonMainMenu
           key={index}
+          mainMenuNumber={index}
           label={config.labels[0]}
           hoverLabel={config.labels[1]}
-          isActive={currentSelection === index}
+          isLocalActive={currentSelection === index}
           onClick={() => resetAllButtons(index)}
         />
       ))}
