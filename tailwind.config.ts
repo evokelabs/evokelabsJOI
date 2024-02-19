@@ -43,9 +43,9 @@ const config: Config = {
         'blue-dark': BLUE_DARK
       },
       boxShadow: {
-        'red-blur': '4px 0 0 0 rgba(222, 84, 86,0.2),8px 0 0 0 rgba(222, 84, 86,0.1)',
-        'teal-blur': '4px 0 0 0 rgba(83, 246, 255,0.2),8px 0 0 0 rgba(83, 246, 255,0.1)',
-        'orange-blur': '4px 0 0 0 rgba(255, 150, 26,0.2),8px 0 0 0 rgba(255, 150, 26,0.1)'
+        'red-blur': '4px 0 0 0 rgba(222, 84, 86, 0.2),8px 0 0 0 rgba(222, 84, 86, 0.1)',
+        'teal-blur': '4px 0 0 0 rgba(83, 246, 255, 0.2),8px 0 0 0 rgba(83, 246, 255, 0.1)',
+        'orange-blur': '4px 0 0 0 rgba(255, 150, 26, 0.2),8px 0 0 0 rgba(255, 150, 26, 0.1)'
       }
     }
   },
@@ -66,6 +66,10 @@ const config: Config = {
           color: theme('colors.teal'),
           textShadow: '4px 0px 0px rgba(83, 246, 255, 0.2), 8px 0px 0px rgba(83, 246, 255, 0.1)'
         },
+        '.text-black-blur': {
+          color: theme('colors.black'),
+          textShadow: '4px 0px 0px rgba(0, 0, 0, 0.0), 8px 0px 0px rgba(0, 0, 0, 0.0)'
+        },
         '.text-orange-blur': {
           color: theme('colors.orange'),
           textShadow: '4px 0px 0px rgba(255, 150, 26, 0.2), 8px 0px 0px rgba(255, 150, 26, 0.1)'
@@ -77,6 +81,10 @@ const config: Config = {
         },
         '.bg-grid-red': {
           backgroundImage: `url(${TileFill}), linear-gradient(rgba(222,84, 86, 0.1), rgba(222,84, 86, 0.1)), linear-gradient(rgba(80, 33, 36, 0.85), rgba(80, 33, 36, 0.85))`,
+          backgroundRepeat: 'repeat'
+        },
+        '.bg-grid-brightRed': {
+          backgroundImage: `url(${TileFill}), linear-gradient(rgba(222,84, 86, 0.2), rgba(222,84, 86, 0.1)), linear-gradient(rgba(174, 58, 54, 100), rgba(174, 58, 54, 100))`,
           backgroundRepeat: 'repeat'
         },
         '.border-2-red': {
