@@ -37,6 +37,7 @@ const LeftFrame = ({ isHovered, isActive, isMouseDown }: { isHovered: boolean; i
         fill={RED}
         fillOpacity='0.1'
       />
+
       <path d='M14.0019 2L14.002 66L9 66L2.00195 59L2.00195 49L7 44L7 25L2.00195 20L2.00195 8.99999L9 2L14.0019 2Z' fill='url(#redTile)' />
       <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
         <path
