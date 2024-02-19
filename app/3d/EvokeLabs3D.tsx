@@ -57,9 +57,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         }}
       >
         <Html scale={0.03} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
-          {router.pathname === '/' && <Home />}
-          <MainMenu router={router} />
-          {/* 
+          <div className='max-w-[1170px]'>
+            {router.pathname === '/' && <Home />}
+            <MainMenu router={router} />
+            {/* 
           <IconDefault />
           <ButtonSocial />
           <ButtonDefault />
@@ -102,6 +103,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           <HeadingHighlight heading='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
           <PanelBackground />
           */}
+          </div>
         </Html>
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : null}

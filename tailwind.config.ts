@@ -19,10 +19,21 @@ const config: Config = {
         '120px': '120px'
       },
       fontFamily: {
+        default: ['Rajdhani', 'sans-serif'],
         orbitron: ['Orbitron', 'sans-serif'],
         rajdhani: ['Rajdhani', 'sans-serif']
       },
+      fontSize: {
+        default: '30px'
+      },
+      fontWeight: {
+        default: '600'
+      },
+      lineHeight: {
+        default: '1'
+      },
       colors: {
+        default: TEAL,
         teal: TEAL,
         red: RED,
         black: BLACK,
@@ -30,6 +41,11 @@ const config: Config = {
         'red-dark': RED_DARK,
         'red-dull': RED_DULL,
         'blue-dark': BLUE_DARK
+      },
+      boxShadow: {
+        'red-blur': '4px 0 0 0 rgba(222, 84, 86,0.2),8px 0 0 0 rgba(222, 84, 86,0.1)',
+        'teal-blur': '4px 0 0 0 rgba(83, 246, 255,0.2),8px 0 0 0 rgba(83, 246, 255,0.1)',
+        'orange-blur': '4px 0 0 0 rgba(255, 150, 26,0.2),8px 0 0 0 rgba(255, 150, 26,0.1)'
       }
     }
   },

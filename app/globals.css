@@ -45,3 +45,7 @@ body {
 .red-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #53f6ff;
 }
+
+p {
+  @apply font-default text-default leading-default;
+}

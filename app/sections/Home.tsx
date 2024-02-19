@@ -18,7 +18,7 @@ const BottomRightCornerSVG = () => {
 const BottomFooter = () => {
   return (
     <div className='flex flex-row w-full h-3.5 relative '>
-      <div className='bg-grid-blue w-full  border-red border-b-2 border-l-2 border-opacity-60 mr-3'></div>
+      <div className='bg-grid-blue w-full border-red border-b-2 border-l-2 border-opacity-60 mr-3'></div>
       <div className='ml-auto h-fit absolute -right-[8px]'>
         <BottomRightCornerSVG />
       </div>
@@ -28,13 +28,20 @@ const BottomFooter = () => {
 
 const Home = () => {
   return (
-    <div className={`mb-4 mx-3.5 mr-2`}>
-      <div
-        className={`pt-5 p-4 pb-2 bg-grid-blue border-2 border-red border-opacity-60 border-b-0`}
-        style={{ boxShadow: '4px 0 0 0 rgba(247, 80, 73,0.2),8px 0 0 0 rgba(247, 80, 73,0.1) ' }}
-      >
-        <h1 className='font-rajdhani font-bold text-red-blur text-[100px] leading-[0.6] pt-1.5 '>EVOKE LABS DOES DIGITAL</h1>
-        <h1 className='font-rajdhani font-bold text-teal-blur text-[100px] leading-[0.6] pt-1.5  mt-2'>LIKE JEDI USE THE FORCE.</h1>
+    <div className={`mb-4 mx-3.5 mr-2 cursor-pointer`}>
+      <div className={`pt-5 p-4 pb-5 bg-grid-blue border-2 border-red border-opacity-60 border-b-0 shadow-red-blur`}>
+        <h1 className='font-rajdhani font-bold text-red-blur text-[100px] leading-[0.6] pt-2.5'>EVOKE LABS DOES DIGITAL</h1>
+        <h1 className='font-rajdhani font-bold text-teal-blur text-[100px] leading-[0.6] pt-2.5  mt-2'>LIKE JEDI USE THE FORCE.</h1>
+      </div>
+      <div className='p-5 pb-2 bg-grid-blue border-2 border-red border-opacity-60 border-b-0 shadow-red-blur'>
+        <p className='mt-5 mb-10 text-teal-blur'>
+          Evoke labs is home to Adrian Pikios, <span className='text-red-blur'>an animator</span> who uses the powers of{' '}
+          <span className='text-red-blur'>JSX</span> to design, develop & create <span className='text-red-blur'>cheesy</span> digital
+          experiences.
+        </p>
+        <p className='mb-5 text-teal-blur'>
+          When not working on personal projects, I partner with clients, brands and agencies to help produce their digital campaigns.
+        </p>
       </div>
       <BottomFooter />
     </div>
