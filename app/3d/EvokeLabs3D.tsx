@@ -30,13 +30,14 @@ import HR from '../ui/HR'
 import RowHalf from '../ui/RowHalf'
 import PanelBackground from '../ui/PanelBackground'
 import MainMenu from '../sections/MainMenu'
+import { NextRouter } from 'next/router'
 
 // Constants
 const debug = true
 // const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 
-const Evokelabs3D = () => {
+const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // State
   const [shouldAmbientLightPlay, setAmbientLightPlay] = useState(false)
   const [shouldPointLightPlay, setPointLightPlay] = useState(false)
@@ -55,7 +56,7 @@ const Evokelabs3D = () => {
         }}
       >
         <Html scale={0.03} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
-          <MainMenu />
+          <MainMenu router={router} />
           {/* 
           <IconDefault />
           <ButtonSocial />

@@ -1,5 +1,6 @@
 import React from 'react'
 import ButtonMainMenu from '../ui/ButtonMainMenu'
+import { NextRouter } from 'next/router'
 
 const ROUTE_CONFIG = [
   { labels: ['CORPO GUIDE', 'SERVICES'], route: '/services' },
@@ -10,11 +11,12 @@ const ROUTE_CONFIG = [
   { labels: ['FIX A BOOKING', 'AVAILABILITIES'], route: '/availabilities' }
 ]
 
-const MainMenu = () => {
+const MainMenu = ({ router }: { router: NextRouter }) => {
   const [currentSelection, setCurrentSelection] = React.useState<null | number>(null)
 
   const resetAllButtons = (index: number) => {
     setCurrentSelection(index)
+    router.push(ROUTE_CONFIG[index].route)
   }
 
   return (

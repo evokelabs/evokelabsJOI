@@ -22,16 +22,16 @@ export default function RootLayout() {
         <title>{String(metadata.title)}</title>
         <meta name='description' content={String(metadata.description)} />
       </Head>
-      <Evokelabs3D />
-      {/* <div className='absolute top-0 left-0 px-4 space-x-4 text-red-blur'>
+      <Evokelabs3D router={router} />
+      <div className='absolute top-0 left-0 px-4 space-x-4 text-red-blur'>
         <Link href='/services'>CORPO GUIDE</Link>
         <Link href='/portfolio'>PAST GIGS</Link>
         <Link href='/history'>BACKSTORY</Link>
         <Link href='/resume'>DOSSIER</Link>
         <Link href='/joi'>JOI SPECIAL</Link>
         <Link href='/availabilities'>FIX A BOOKING</Link>
-      </div> */}
-      {/* {router.pathname === '/' && (
+      </div>
+      {router.pathname === '/' && (
         <>
           <h1>home</h1>
         </>
@@ -65,7 +65,7 @@ export default function RootLayout() {
         <>
           <h1>availabilities</h1>
         </>
-      )} */}
+      )}
     </>
   )
 }
