@@ -16,36 +16,6 @@ const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) 
   )
 }
 
-const ExpandedPanel = () => {
-  const divRef = useRef(null)
-
-  useEffect(() => {
-    gsap.from(divRef.current, {
-      height: 0,
-      onComplete: () => {
-        gsap.set(divRef.current, { height: 'auto' })
-      },
-      duration: 0.25
-    })
-  }, [])
-
-  return (
-    <div
-      ref={divRef}
-      className='p-5 pb-2 bg-grid-blue border-2 border-red border-opacity-60 border-b-0 shadow-red-blur h-auto overflow-hidden'
-    >
-      <p className='mt-5 mb-10 text-teal-blur'>
-        Evoke labs is home to Adrian Pikios, <span className='text-red-blur'>an animator</span> who uses the powers of{' '}
-        <span className='text-red-blur'>JSX</span> to design, develop & create <span className='text-red-blur'>cheesy</span> digital
-        experiences.
-      </p>
-      <p className='mb-5 text-teal-blur'>
-        When not working on personal projects, I partner with clients, brands and agencies to help produce their digital campaigns.
-      </p>
-    </div>
-  )
-}
-
 const Home = () => {
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
@@ -53,6 +23,26 @@ const Home = () => {
   const hoverColor = isHovered ? 'text-black-blur' : 'text-red-blur'
   const hoverBGColor = isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
   const bottomBarBGColor = !isActive && isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
+
+  const divRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (divRef.current) {
+      if (isActive) {
+        gsap.to(divRef.current, {
+          height: 'auto',
+          duration: 0.25,
+          ease: 'Power1.out'
+        })
+      } else {
+        gsap.to(divRef.current, {
+          height: '0px',
+          duration: 0.25,
+          ease: 'Power1.out'
+        })
+      }
+    }
+  }, [isActive])
 
   return (
     <div
@@ -77,7 +67,17 @@ const Home = () => {
           LIKE JEDI USE THE FORCE.
         </h1>
       </div>
-      {isActive ? <ExpandedPanel /> : null}
+      <div ref={divRef} className='p-5 pb-2 bg-grid-blue border-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden'>
+        <p className='mt-5 mb-10 text-teal-blur'>
+          Evoke labs is home to Adrian Pikios, <span className='text-red-blur'>an animator</span> who uses the powers of{' '}
+          <span className='text-red-blur'>JSX</span> to design, develop & create <span className='text-red-blur'>cheesy</span> digital
+          experiences.
+        </p>
+        <p className='mb-5 text-teal-blur'>
+          When not working on personal projects, I partner with clients, brands and agencies to help produce their digital campaigns.
+        </p>
+      </div>
+
       <div className='flex flex-row w-full h-3.5 relative '>
         <div
           className={`bg-grid-blue w-full border-red border-b-2 border-l-2 border-opacity-60 mr-3 transition-colors duration-150 ${bottomBarBGColor}`}
