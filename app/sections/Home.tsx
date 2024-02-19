@@ -15,17 +15,6 @@ const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) 
   )
 }
 
-const BottomFooter = ({ isHovered }: { isHovered: boolean }) => {
-  return (
-    <div className='flex flex-row w-full h-3.5 relative '>
-      <div className='bg-grid-blue w-full border-red border-b-2 border-l-2 border-opacity-60 mr-3 group-hover:bg-grid-brightRed transition-colors duration-150'></div>
-      <div className='ml-auto h-fit absolute -right-[8px]'>
-        {isHovered ? <BottomRightCornerSVG color={RED_DULL} tile='redTile' /> : <BottomRightCornerSVG color={BLUE_DARK} tile='blueTile' />}
-      </div>
-    </div>
-  )
-}
-
 const ExpandedPanel = () => {
   return (
     <div className='p-5 pb-2 bg-grid-blue border-2 border-red border-opacity-60 border-b-0 shadow-red-blur'>
@@ -43,23 +32,48 @@ const ExpandedPanel = () => {
 
 const Home = () => {
   const [isHovered, setIsHovered] = useState(false)
+  const [isActive, setIsActive] = useState(false)
+
+  const hoverColor = isHovered ? 'text-black-blur' : 'text-red-blur'
+  const hoverBGColor = isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
+  const bottomBarBGColor = !isActive && isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
+
   return (
     <div
       className={`mb-4 mx-3.5 mr-2 cursor-pointer group`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => !isActive && setIsHovered(true)}
+      onMouseLeave={() => !isActive && setIsHovered(false)}
+      onMouseUp={() => setIsActive(!isActive)}
     >
       <div
-        className={`pt-6 p-4 pb-3 bg-grid-blue border-2 border-red border-opacity-60 border-b-0 shadow-red-blur group-hover:bg-grid-brightRed transition-colors duration-150`}
+        className={`pt-6 p-4 pb-3 border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
+          isActive ? 'bg-red' : 'bg-grid-blue'
+        }`}
       >
-        <h1 className='font-rajdhani font-bold text-red-blur text-[100px] leading-[0.6] pt-2.5 group-hover:text-black-blur transition-colors duration-150'>
+        <h1
+          className={`font-rajdhani font-bold text-red-blur text-[100px] leading-[0.6] pt-2.5 transition-colors duration-150 ${hoverColor}`}
+        >
           EVOKE LABS DOES DIGITAL
         </h1>
-        <h1 className='font-rajdhani font-bold text-teal-blur text-[100px] leading-[0.6] pt-2.5 mt-2 group-hover:text-black-blur transition-colors duration-150'>
+        <h1
+          className={`font-rajdhani font-bold text-teal-blur text-[100px] leading-[0.6] pt-2.5 mt-2 transition-colors duration-150 ${hoverColor}`}
+        >
           LIKE JEDI USE THE FORCE.
         </h1>
       </div>
-      <BottomFooter isHovered={isHovered} />
+      {isActive ? <ExpandedPanel /> : null}
+      <div className='flex flex-row w-full h-3.5 relative '>
+        <div
+          className={`bg-grid-blue w-full border-red border-b-2 border-l-2 border-opacity-60 mr-3 transition-colors duration-150 ${bottomBarBGColor}`}
+        ></div>
+        <div className='ml-auto h-fit absolute -right-[8px]'>
+          {!isActive && isHovered ? (
+            <BottomRightCornerSVG color={RED_DULL} tile='redTile' />
+          ) : (
+            <BottomRightCornerSVG color={BLUE_DARK} tile='blueTile' />
+          )}
+        </div>
+      </div>
     </div>
   )
 }
