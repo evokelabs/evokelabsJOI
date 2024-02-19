@@ -2,37 +2,26 @@ import React, { useState } from 'react'
 import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
 
-const BottomRightCornerRedSVG = () => {
+const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
     <svg width='22' height='14' viewBox='0 0 22 14' fill='none'>
       <RedCRTBlur />
       <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
-        <path d='M14 0H0V14H0.828125L14 0.828125V0Z' fill={RED_DULL} />
-        <path d='M14 0H0V14H0.828125L14 0.828125V0Z' fill='url(#redTile)' />
+        <path d='M14 0H0V14H0.828125L14 0.828125V0Z' fill={color} />
+        <path d='M14 0H0V14H0.828125L14 0.828125V0Z' fill={`url(#${tile})`} />
         <path d='M14 0.82843L0.828369 14H-4.04688V12H0L12 0H14V0.82843Z' fill={RED} fillOpacity={0.6} />
       </g>
     </svg>
   )
 }
 
-const BottomRightCornerBlueSVG = () => {
-  return (
-    <svg width='22' height='14' viewBox='0 0 22 14' fill='none'>
-      <RedCRTBlur />
-      <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
-        <path d='M14 0H0V14H0.828125L14 0.828125V0Z' fill={BLUE_DARK} />
-        <path d='M14 0H0V14H0.828125L14 0.828125V0Z' fill='url(#blueTile)' />
-        <path d='M14 0.82843L0.828369 14H-4.04688V12H0L12 0H14V0.82843Z' fill={RED} fillOpacity={0.6} />
-      </g>
-    </svg>
-  )
-}
-
-const BottomFooter = ({ isHovered }: { isHovered: Boolean }) => {
+const BottomFooter = ({ isHovered }: { isHovered: boolean }) => {
   return (
     <div className='flex flex-row w-full h-3.5 relative '>
       <div className='bg-grid-blue w-full border-red border-b-2 border-l-2 border-opacity-60 mr-3 group-hover:bg-grid-brightRed transition-colors duration-150'></div>
-      <div className='ml-auto h-fit absolute -right-[8px]'>{isHovered ? <BottomRightCornerRedSVG /> : <BottomRightCornerBlueSVG />}</div>
+      <div className='ml-auto h-fit absolute -right-[8px]'>
+        {isHovered ? <BottomRightCornerSVG color={RED_DULL} tile='redTile' /> : <BottomRightCornerSVG color={BLUE_DARK} tile='blueTile' />}
+      </div>
     </div>
   )
 }
