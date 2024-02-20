@@ -38,7 +38,7 @@ const IconClose = () => {
         <rect x='0' y='0' width='34' height='34' fill='url(#redTile)' />
         <RedCRTBlur />
         <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
-          <rect x='0' y='0' width='34' height='34' stroke={RED} strokeWidth='2' fillOpacity='0' />
+          <rect x='0' y='1' width='34' height='32' stroke={RED} strokeWidth='2' fillOpacity='0' />
           <path
             ref={pathBGStrokeRef}
             d='M23.338 8H25.9746L18.3183 17L26 26H23.338L17 18.575L10.6366 26H8L15.6563 17L8 8H10.6366L17 15.425L23.338 8Z'

@@ -32,6 +32,7 @@ import PanelBackground from '../ui/PanelBackground'
 import MainMenu from '../sections/MainMenu'
 import { NextRouter } from 'next/router'
 import Home from '../sections/Home'
+import JOISpecial from '../sections/JOISpecial'
 
 // Constants
 const debug = true
@@ -59,6 +60,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         <Html scale={0.03} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
           <div className='max-w-[1170px]'>
             {router.pathname === '/' && <Home />}
+            {router.pathname === '/joi' && <JOISpecial />}
             <MainMenu router={router} />
             {/* 
           <IconDefault />
