@@ -1,16 +1,18 @@
-import ButtonDefault from '../ButtonDefault'
 import HR from '../HR'
-import IconSmall from '../IconSmall'
 
-const ContentHead = () => {
+interface ContentHeadProps {
+  icon?: React.ReactNode
+  heading?: string
+  button?: React.ReactNode
+}
+
+const ContentHead = ({ icon, heading, button }: ContentHeadProps) => {
   return (
     <>
       <div className='flex flex-row items-center gap-1 '>
-        <IconSmall />
-        <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none '>RESUME</h2>
-        <div className='relative ml-auto left-4'>
-          <ButtonDefault />
-        </div>
+        {icon ? icon : null}
+        {heading ? <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none '>{heading}</h2> : null}
+        {button ? <div className='relative ml-auto left-4'>{button}</div> : null}
       </div>
       <HR />
     </>
