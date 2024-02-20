@@ -72,7 +72,10 @@ const Home = () => {
         </h1>
       </div>
 
-      <div ref={divRef} className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden'>
+      <div
+        ref={divRef}
+        className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0'
+      >
         <p className='mt-6 mb-10 text-teal-blur font-semibold text-[1.9rem] leading-tight'>
           Evoke labs is home to Adrian Pikios, <span className='text-red-blur'>an animator</span> who uses the powers of{' '}
           <span className='text-red-blur'>JSX</span> to design, develop & create <span className='text-red-blur'>cheesy</span> digital
