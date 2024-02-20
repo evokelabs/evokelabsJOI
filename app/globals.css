@@ -47,5 +47,10 @@ body {
 }
 
 p {
+  @apply font-default text-default leading-default;
+}
+
+h1,
+h2 {
   @apply font-default;
 }
