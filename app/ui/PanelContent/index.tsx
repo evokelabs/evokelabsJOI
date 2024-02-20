@@ -9,7 +9,7 @@ interface PanelContentProps {
 
 const index = ({ headerTitle, children, contentHead }: PanelContentProps) => {
   return (
-    <div className='relative min-w-[40rem] mb-2 '>
+    <div className='relative max-w-[72.75rem] mb-2 '>
       <div className='relative flex flex-row h-full'>
         <div className='w-auto h-auto grid grid-rows-[min-content,auto,min-content]'>
           <div className='pt-4'>
