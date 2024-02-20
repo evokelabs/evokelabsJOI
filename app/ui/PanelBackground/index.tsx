@@ -23,7 +23,7 @@ const index = ({ heading, children, contentHead }: PanelBackgroundProps) => {
 
         <div className='w-full'>
           <Header heading={heading} />
-          <div className='bg-grid-blue pl-3 pr-3 pt-2.5 pb-3.5 border-red border-x-2 border-opacity-60 uppercase shadow-red-blur '>
+          <div className='bg-grid-blue pl-3 pr-3 pt-2.5 pb-3.5 border-red border-x-2 border-opacity-60  shadow-red-blur '>
             {contentHead ? contentHead : null}
             <div className={'max-h-[900px] pr-3 overflow-y-auto red-scrollbar '}>{children}</div>
           </div>
