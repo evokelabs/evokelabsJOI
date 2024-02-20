@@ -1,5 +1,3 @@
-import React from 'react'
-
 const ParagraphHighlight = ({ paragraph, BGColor }: { paragraph: string; BGColor: string }) => {
   return (
     <div className={'block my-2 leading-none'}>

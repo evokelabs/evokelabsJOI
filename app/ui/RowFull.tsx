@@ -1,4 +1,3 @@
-import React from 'react'
 import IconDefault from './IconDefault'
 import { RED_TILE_PATTERN } from './libs/TitleFillsPatterns'
 
@@ -23,7 +22,7 @@ const SVG = () => {
 
 const RowFull = ({ heading, subHeading, paragraph }: { heading: string; subHeading: string; paragraph: string }) => {
   return (
-    <div className='relative flex items-center my-3' style={{ maxWidth: MAX_WIDTH }}>
+    <div className='relative flex items-center ' style={{ maxWidth: MAX_WIDTH }}>
       <div className='absolute flex flex-row items-center px-1 w-auto'>
         <div className='w-fit pl-3'>
           <IconDefault />

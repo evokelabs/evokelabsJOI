@@ -1,4 +1,3 @@
-import React from 'react'
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLACK, RED, RED_BLACK } from '../libs/UIConstants'
 

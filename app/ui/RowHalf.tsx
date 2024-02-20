@@ -1,4 +1,3 @@
-import React from 'react'
 import IconDefault from './IconDefault'
 import { RED_TILE_PATTERN } from './libs/TitleFillsPatterns'
 

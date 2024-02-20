@@ -31,7 +31,7 @@ const Services = () => {
       <HeadingHighlight BGColor='TEAL' fullWidth={false} heading='YOUR CREATIVE TECHNOLOGIST PARTNER' />
       <ParagraphHighlight
         BGColor={TEAL}
-        paragraph="<span className='font-medium'>Creative Technologists combine creative, development, and technology to address digital challenges and deliver online projects of exceptional quality.</span>"
+        paragraph='Creative Technologists combine creative, development, and technology to address digital challenges and deliver online projects of exceptional quality.'
       />
     </PanelContent>
   )

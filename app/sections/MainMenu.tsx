@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import ButtonMainMenu from '../ui/ButtonMainMenu'
 import { NextRouter } from 'next/router'
 
@@ -12,7 +12,7 @@ const ROUTE_CONFIG = [
 ]
 
 const MainMenu = ({ router }: { router: NextRouter }) => {
-  const [currentSelection, setCurrentSelection] = React.useState<null | number>(null)
+  const [currentSelection, setCurrentSelection] = useState<null | number>(null)
 
   const resetAllButtons = (index: number) => {
     setCurrentSelection(index)

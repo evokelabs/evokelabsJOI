@@ -1,5 +1,3 @@
-import React from 'react'
-
 const HeadingFullWidth = ({ heading, BGColor }: { heading: string; BGColor: string }) => {
   return (
     <div

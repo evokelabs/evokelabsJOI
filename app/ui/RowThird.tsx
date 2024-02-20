@@ -1,4 +1,3 @@
-import React from 'react'
 import { RED_TILE_PATTERN } from './libs/TitleFillsPatterns'
 
 const MAX_WIDTH = 360
