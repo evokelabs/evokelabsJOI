@@ -24,27 +24,26 @@ const IconSmall = ({
   const filterBlur = callToAction ? 'url(#OrangeCRTBlur1) url(#OrangeCRTBlur2)' : 'url(#RedCRTBlur1) url(#RedCRTBlur2)'
 
   return (
-    <svg width='90' height='74' viewBox='0 0 90 74' fill='none' ref={svgRef || dummyRef}>
-      <path
-        ref={pathBGFillRef || dummyRef}
-        d='M1 72L1 73L2 73L72 73L73 73L73 72L73 15.8028L73 15.3886L72.7071 15.0957L58.9043 1.29289L58.6114 1L58.1972 1L2 1L1 1L1 2L1 72Z'
-        fill={secondaryColor}
-      />
+    <svg width='82' height='74' viewBox='0 0 82 74' fill='none' ref={svgRef || dummyRef}>
+      <path ref={pathBGFillRef || dummyRef} d='"M2 2L2 72L72 72L72 15.8028L58.1972 2L2 2Z' fill={secondaryColor} />
+
+      <path ref={pathFGFillRef || dummyRef} d='"M2 2L2 72L72 72L72 15.8028L58.1972 2L2 2Z' fill='url(#blueTile)' />
 
       <path
-        ref={pathFGFillRef || dummyRef}
-        d='M1 72L1 73L2 73L72 73L73 73L73 72L73 15.8028L73 15.3886L72.7071 15.0957L58.9043 1.29289L58.6114 1L58.1972 1L2 1L1 1L1 2L1 72Z'
-        fill='url(#blueTile)'
+        ref={pathBGStrokeRef || dummyRef}
+        d='M0 74L8.82441e-07 0L59.0256 7.03873e-07L74 14.9744L74 74L0 74ZM72 15.8028L72 72L2 72L2 2L58.1972 2L72 15.8028Z'
+        fill={secondaryColor}
+        fillOpacity={0.6}
       />
       <RedCRTBlur />
       <OrangeCRTBlur />
       <g filter={filterBlur}>
         <path
           ref={pathBGStrokeRef || dummyRef}
-          d='M1 72L1 73L2 73L72 73L73 73L73 72L73 15.8028L73 15.3886L72.7071 15.0957L58.9043 1.29289L58.6114 1L58.1972 1L2 1L1 1L1 2L1 72Z'
-          stroke={primaryColor}
-          strokeOpacity='0.6'
-          strokeWidth='2'
+          d='M0 74L8.82441e-07 0L59.0256 7.03873e-07L74 14.9744L74 74L0 74ZM72 15.8028L72 72L2 72L2 2L58.1972 2L72 15.8028Z'
+          fill={primaryColor}
+          fillRule='evenodd'
+          fillOpacity={0.6}
         />
       </g>
       {BLUE_TILE_PATTERN}
