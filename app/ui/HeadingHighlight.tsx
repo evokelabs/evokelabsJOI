@@ -20,7 +20,7 @@ const HeadingSpan = ({ heading, BGColor }: { heading: string; BGColor: string })
 
 const HeadingHighlight = ({ heading, fullWidth = true, BGColor }: { heading: string; fullWidth: boolean; BGColor: string }) => {
   return (
-    <div className={' my-3 leading-none'}>
+    <div className={'my-3 leading-none'}>
       {fullWidth ? <HeadingFullWidth heading={heading} BGColor={BGColor} /> : <HeadingSpan heading={heading} BGColor={BGColor} />}
     </div>
   )

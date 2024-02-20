@@ -51,6 +51,7 @@ const useButtonInteractionController = ({
       if (isMouseDown) {
         gsap.to(pathFGFill, { attr: { 'fill-opacity': 0.5 }, duration: 0, ease: 'power1.out' })
       } else {
+        gsap.killTweensOf([pathFGFill, pathBGStroke])
         gsap.to(pathFGFill, { attr: { 'fill-opacity': 0.1 }, duration: 0, ease: 'power1.out' })
         gsap.to(pathBGStroke, { attr: { 'stroke-opacity': 1 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
       }
@@ -61,6 +62,7 @@ const useButtonInteractionController = ({
           { attr: { fill: RED_PRIMARY, 'fill-opacity': 0.5 } },
           { attr: { fill: RED_DULL_PRIMARY, 'fill-opacity': 0.2 }, duration: UI_DURATION_TIME, ease: 'power1.out' }
         )
+
         gsap.fromTo(
           pathBGFill,
           { attr: { fill: RED_DARK_PRIMARY } },

@@ -23,12 +23,6 @@ const config: Config = {
         orbitron: ['Orbitron', 'sans-serif'],
         rajdhani: ['Rajdhani', 'sans-serif']
       },
-      fontSize: {
-        default: '30px'
-      },
-      fontWeight: {
-        default: '600'
-      },
       lineHeight: {
         default: '1'
       },

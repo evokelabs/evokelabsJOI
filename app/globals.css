@@ -47,5 +47,5 @@ body {
 }
 
 p {
-  @apply font-default text-default leading-default;
+  @apply font-default;
 }
