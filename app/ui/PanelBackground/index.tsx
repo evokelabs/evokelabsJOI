@@ -9,7 +9,7 @@ interface PanelBackgroundProps {
 
 const index = ({ heading, children, contentHead }: PanelBackgroundProps) => {
   return (
-    <div className='relative min-w-[40rem] max-w-[72.5rem] mb-2 '>
+    <div className='relative min-w-[40rem] mb-2 '>
       <div className='relative flex flex-row h-full'>
         <div className='w-auto h-auto grid grid-rows-[min-content,auto,min-content]'>
           <div className='pt-4'>
@@ -23,9 +23,9 @@ const index = ({ heading, children, contentHead }: PanelBackgroundProps) => {
 
         <div className='w-full'>
           <Header heading={heading} />
-          <div className='bg-grid-blue pl-3 pr-3 pt-2.5  border-red border-x-2 border-opacity-60  shadow-red-blur '>
+          <div className='bg-grid-blue pl-3 pr-0 pt-2.5  border-red border-x-2 border-opacity-60  shadow-red-blur '>
             {contentHead ? contentHead : null}
-            <div className={'max-h-[630px] pr-3 overflow-y-auto red-scrollbar '}>{children}</div>
+            <div className={'max-h-[660px] pr-3 overflow-y-auto red-scrollbar '}>{children}</div>
           </div>
           <BottomFooter />
         </div>
