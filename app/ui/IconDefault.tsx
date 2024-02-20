@@ -4,16 +4,17 @@ import { BLUE_TILE_PATTERN } from './libs/TitleFillsPatterns'
 
 const IconDefault = () => {
   return (
-    <svg width='160' height='144' viewBox='0 0 160 144' fill='none'>
-      <path d='M2 2H142V128L128 142H2V2Z' fill={BLUE_DARK} />
-      <path d='M2 2H142V128L128 142H2V2Z' fill='url(#blueTile)' />
+    <svg width='153' height='144' viewBox='0 0 160 144' fill='none'>
+      <path d='M0 0H144V129L129 144H0V0Z' fill={BLUE_DARK} />
+      <path d='M0 0H144V129L129 144H0V0Z' fill='url(#blueTile)' />
       <RedCRTBlur />
       <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
         <path
-          d='M2 1H1V2V142V143H2H128H128.414L128.707 142.707L142.707 128.707L143 128.414V128V2V1H142H2Z'
-          stroke={RED}
-          strokeOpacity='0.6'
-          strokeWidth='2'
+          fillRule='evenodd'
+          clipRule='evenodd'
+          d='M0 0H144V129L129 144H0V0ZM128 142H2V2H142V128L128 142Z'
+          fill={RED}
+          fillOpacity='0.6'
         />
       </g>
       {BLUE_TILE_PATTERN}

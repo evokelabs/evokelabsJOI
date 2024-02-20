@@ -73,7 +73,7 @@ const Resume = () => {
         paragraph='Responsible for minisites, designs, flash builds, actionscript development and edm development for clients such as such Telstra, Microsoft and Career One.'
       />
       <HeadingHighlight heading={'Skill set'} fullWidth={true} BGColor={RED} />
-      <div className='text-[18px] text-red-blur font-medium pb-1'>
+      <div className='text-[18px] text-red-blur font-medium pb-2'>
         <p>
           <span className='text-teal-blur font-semibold'>Project Management:</span> Google Suite, Trello, GitHub
         </p>
