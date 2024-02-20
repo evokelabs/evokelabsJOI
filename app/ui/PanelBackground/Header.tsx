@@ -14,11 +14,11 @@ const TopHeaderSVG = () => {
   )
 }
 
-const Header = () => {
+const Header = ({ heading }: { heading: string }) => {
   return (
     <div className='flex items-end border-red border-b-2 border-opacity-60 relative top-0.5'>
       <div className='absolute'>
-        <h1 className='font-orbitron font-medium text-teal-blur text-[2rem] leading-none px-5 py-4'>BACKSTORY</h1>
+        <h1 className='font-orbitron font-medium text-teal-blur text-[2rem] leading-none px-5 py-4 uppercase'>{heading}</h1>
       </div>
       <div className='inline-block'>
         <TopHeaderSVG />

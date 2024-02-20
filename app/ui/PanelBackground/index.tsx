@@ -1,12 +1,8 @@
 import Header from './Header'
 import ContentHead from './ContentHead'
-import ContentBody from './ContentBody'
 import { BottomFooter, BottomLeftCornerSVG, TopLeftCornerSVG } from './UIElements'
-import HeadingHighlight from '../HeadingHighlight'
-import HR from '../HR'
-import { RED } from '@/app/libs/UIConstants'
 
-const index = () => {
+const index = ({ heading, children }: { heading: string; children: React.ReactNode }) => {
   return (
     <div className='relative min-w-[40rem] max-w-[70rem]'>
       <div className='relative flex flex-row h-full'>
@@ -21,12 +17,10 @@ const index = () => {
         </div>
 
         <div className='w-full'>
-          <Header />
+          <Header heading={heading} />
           <div className='bg-grid-blue pl-5 pr-3 pt-4 pb-3 border-red border-x-2 border-opacity-60 '>
             <ContentHead />
-            <div className={'max-h-[900px] pr-3 overflow-y-auto red-scrollbar -my-2'}>
-              <ContentBody />
-            </div>
+            <div className={'max-h-[900px] pr-3 overflow-y-auto red-scrollbar -my-2'}>{children}</div>
           </div>
           <BottomFooter />
         </div>
