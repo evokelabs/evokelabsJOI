@@ -27,7 +27,6 @@ const config: Config = {
         default: '1'
       },
       colors: {
-        default: TEAL,
         teal: TEAL,
         red: RED,
         black: BLACK,
