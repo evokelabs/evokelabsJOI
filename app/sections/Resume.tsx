@@ -13,7 +13,7 @@ const Resume = () => {
       contentHead={<ContentHead icon={<IconSmall />} heading='Resume' button={<ButtonDefault label='hardcopy' />} />}
     >
       <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
-      <div className='mb-3'>
+      <div className='mt-2 mb-3'>
         <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-[26px]'>
           <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,
           design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative studios,
@@ -73,25 +73,25 @@ const Resume = () => {
         paragraph='Responsible for minisites, designs, flash builds, actionscript development and edm development for clients such as such Telstra, Microsoft and Career One.'
       />
       <HeadingHighlight heading={'Skill set'} fullWidth={true} BGColor={RED} />
-      <div className='text-[18px] text-red-blur font-medium pb-2'>
-        <p>
+      <div className='text-[18px] text-red-blur font-medium pb-2 mt-2'>
+        <p className='my-0.5'>
           <span className='text-teal-blur font-semibold'>Project Management:</span> Google Suite, Trello, GitHub
         </p>
-        <p>
+        <p className='my-0.5'>
           <span className='text-teal-blur font-semibold'>Design/UX:</span> Figma, Adobe XD, Photoshop, Illustrator, InDesign, Powerpoint
         </p>
-        <p>
+        <p className='my-0.5'>
           <span className='text-teal-blur font-semibold'>Front End:</span> HTML5, CSS, Javascript ES6/ES8, GSAP, npm, Typescript, API
           integration (REST/GraphQL), JQuery, SASS
         </p>
-        <p>
+        <p className='my-0.5'>
           <span className='text-teal-blur font-semibold'>Frameworks/Libraries:</span> React.js, Tailwind CSS, Bootstrap, Material Design,
           Foundation For Email, Gulp, Lodash, Pug, Handlebars
         </p>
-        <p>
+        <p className='my-0.5'>
           <span className='text-teal-blur font-semibold'>Motion:</span> After Effects, Premiere, 3dsmax, Zbrush
         </p>
-        <p>
+        <p className='my-0.5'>
           <span className='text-teal-blur font-semibold'>Supplementary:</span> Google Web Designer, Animate, Audition, Cubase, Sizmek,
           Google Doubleclick/Ad Manager, Unreal Engine, Oculus SDK
         </p>
