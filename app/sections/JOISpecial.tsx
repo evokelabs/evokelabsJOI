@@ -17,8 +17,8 @@ const JOISpecial = () => {
           </p>
         </div>
       </div>
-      <div className='w-full bg-red-dark h-full border-2-red mt-3 p-2'>
-        <video className='w-full h-full' autoPlay controls src='./videos/JOI-Introduction.mp4' />
+      <div className='w-full bg-grid-darkRed h-full border-red border-2 border-opacity-60 mt-3 p-2 shadow-red-blur'>
+        <video className='w-full h-full' controls src='./videos/JOI-Introduction.mp4' />
       </div>
     </PanelBackground>
   )

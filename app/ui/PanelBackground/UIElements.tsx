@@ -1,10 +1,11 @@
 import { BLUE_DARK, RED, RED_DARK } from '@/app/libs/UIConstants'
 import { RED_TILE_PATTERN } from '../libs/TitleFillsPatterns'
+import RedCRTBlur from '../libs/RedCRTBlur'
 
 export const BottomFooter = () => {
   return (
-    <div className='flex flex-row w-full h-6'>
-      <div className='bg-grid-blue w-full  border-red border-b-2 border-l-2 border-opacity-60'></div>
+    <div className='flex flex-row -mr-3'>
+      <div className='bg-grid-blue w-full  border-red border-b-2 border-l-2 border-opacity-60 '></div>
       <div className='ml-auto h-fit'>
         <BottomRightCornerSVG />
       </div>
@@ -38,10 +39,13 @@ export const BottomLeftCornerSVG = () => {
 
 export const BottomRightCornerSVG = () => {
   return (
-    <svg width='14' height='24' viewBox='0 0 14 24'>
-      <path d='M14 -4V12L2 24H-8V-4H14Z' fill={BLUE_DARK} />
-      <path d='M14 -4V12L2 24H-8V-4H14Z' fill='url(#blueTile)' />
-      <path d='M2 24L14 12V-4H12V11L1 22H-8V24H2Z' fill={RED} fillOpacity={0.6} />
+    <svg width='26' height='13' viewBox='0 0 26 13'>
+      <RedCRTBlur />
+      <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
+        <path d='M14 -15V1L2 13H-8V-15H14Z' fill={BLUE_DARK} />
+        <path d='M14 -15V1L2 13H-8V-15H14Z' fill='url(#blueTile)' />
+        <path d='M2 13L14 1V-15H12V0L1 11H-8V13H2Z' fill={RED} fillOpacity={0.6} />
+      </g>
       {RED_TILE_PATTERN}
     </svg>
   )

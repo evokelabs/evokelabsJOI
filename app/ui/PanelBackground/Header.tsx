@@ -23,7 +23,7 @@ const Header = ({ heading }: { heading: string }) => {
       <div className='inline-block'>
         <TopHeaderSVG />
       </div>
-      <div className='flex items-center relative bg-grid-red w-full h-[49px] border-red border-2 border-b-0  border-l-0 border-opacity-60  justify-end pr-1.5'>
+      <div className='flex items-center relative bg-grid-red w-full h-[49px] border-red border-2 border-b-0  border-l-0 border-opacity-60  justify-end pr-1.5 shadow-red-blur'>
         <IconClose />
       </div>
     </div>
