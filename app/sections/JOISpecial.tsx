@@ -1,5 +1,4 @@
-import { BLACK, RED, RED_BLACK, RED_DARK } from '../libs/UIConstants'
-import ButtonDefault from '../ui/ButtonDefault'
+import { BLACK, RED, RED_BLACK } from '../libs/UIConstants'
 import IconSmall from '../ui/IconSmall'
 import PanelBackground from '../ui/PanelBackground'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
