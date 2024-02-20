@@ -1,13 +1,13 @@
-import ContentHead from './ContentHead'
-import Header from './Header'
+import PanelHeader from './PanelHeader'
 import { BottomFooter, BottomLeftCornerSVG, TopLeftCornerSVG } from './UIElements'
 
-interface PanelBackgroundProps {
-  heading: string
+interface PanelContentProps {
+  headerTitle: string
   children: React.ReactNode
+  contentHead: React.ReactNode
 }
 
-const index = ({ heading, children }: PanelBackgroundProps) => {
+const index = ({ headerTitle, children, contentHead }: PanelContentProps) => {
   return (
     <div className='relative min-w-[40rem] mb-2 '>
       <div className='relative flex flex-row h-full'>
@@ -22,8 +22,9 @@ const index = ({ heading, children }: PanelBackgroundProps) => {
         </div>
 
         <div className='w-full'>
-          <Header heading={heading} />
+          <PanelHeader headerTitle={headerTitle} />
           <div className='bg-grid-blue pl-3 pr-0 pt-2.5  border-red border-x-2 border-opacity-60  shadow-red-blur '>
+            {contentHead}
             <div className={'max-h-[660px] pr-3 overflow-y-auto red-scrollbar '}>{children}</div>
           </div>
           <BottomFooter />

@@ -14,11 +14,11 @@ const TopHeaderSVG = () => {
   )
 }
 
-const Header = ({ heading }: { heading: string }) => {
+const PanelHeader = ({ headerTitle }: { headerTitle: string }) => {
   return (
     <div className='flex items-end border-red border-b-2 border-opacity-60 relative top-0.5'>
       <div className='absolute'>
-        <h1 className='font-orbitron font-medium text-teal-blur text-[2rem] leading-none px-5 py-3.5 uppercase'>{heading}</h1>
+        <h1 className='font-orbitron font-medium text-teal-blur text-[2rem] leading-none px-5 py-3.5 uppercase'>{headerTitle}</h1>
       </div>
       <div className='inline-block'>
         <TopHeaderSVG />
@@ -30,4 +30,4 @@ const Header = ({ heading }: { heading: string }) => {
   )
 }
 
-export default Header
+export default PanelHeader

@@ -2,12 +2,15 @@ import { RED } from '../libs/UIConstants'
 import ButtonDefault from '../ui/ButtonDefault'
 import HeadingHighlight from '../ui/HeadingHighlight'
 import IconSmall from '../ui/IconSmall'
-import PanelBackground from '../ui/PanelBackground'
-import ContentHead from '../ui/PanelBackground/ContentHead'
+import PanelBackground from '../ui/PanelContent'
+import ContentHead from '../ui/PanelContent/ContentHead'
 
 const Portfolio = () => {
   return (
-    <PanelBackground heading='Past Gigs' contentHead={<ContentHead icon={<IconSmall />} heading='Portfolio' button={<ButtonDefault />} />}>
+    <PanelBackground
+      headerTitle='Past Gigs'
+      contentHead={<ContentHead icon={<IconSmall />} heading='Portfolio' button={<ButtonDefault />} />}
+    >
       <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
       <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-6'>
         <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,

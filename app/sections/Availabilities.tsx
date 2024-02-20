@@ -2,13 +2,13 @@ import { RED } from '../libs/UIConstants'
 import ButtonDefault from '../ui/ButtonDefault'
 import HeadingHighlight from '../ui/HeadingHighlight'
 import IconSmall from '../ui/IconSmall'
-import PanelBackground from '../ui/PanelBackground'
-import ContentHead from '../ui/PanelBackground/ContentHead'
+import PanelBackground from '../ui/PanelContent'
+import ContentHead from '../ui/PanelContent/ContentHead'
 
 const Availabilities = () => {
   return (
     <PanelBackground
-      heading='Fix a booking'
+      headerTitle='Fix a booking'
       contentHead={<ContentHead icon={<IconSmall />} heading='Availabilities' button={<ButtonDefault />} />}
     >
       <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />

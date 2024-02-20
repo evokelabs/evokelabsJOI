@@ -2,14 +2,13 @@ import { RED } from '../libs/UIConstants'
 import ButtonDefault from '../ui/ButtonDefault'
 import HeadingHighlight from '../ui/HeadingHighlight'
 import IconSmall from '../ui/IconSmall'
-import PanelBackground from '../ui/PanelBackground'
-import ContentHead from '../ui/PanelBackground/ContentHead'
+import PanelBackground from '../ui/PanelContent'
+import ContentHead from '../ui/PanelContent/ContentHead'
 import RowFull from '../ui/RowFull'
 
 const Resume = () => {
   return (
-    <PanelBackground heading='Dossier'>
-      <ContentHead icon={<IconSmall />} heading='Resume' button={<ButtonDefault label='hardcopy' />} />
+    <PanelBackground headerTitle='Dossier' contentHead={<ContentHead icon={<IconSmall />} heading='Resume' />}>
       <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
       <div className='mb-3'>
         <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-[26px]'>
