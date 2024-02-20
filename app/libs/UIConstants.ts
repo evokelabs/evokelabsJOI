@@ -1,6 +1,7 @@
 export const TEAL = '#53F6FF'
 export const RED = '#F75049'
 export const ORANGE = '#FF961A'
+export const RED_BLACK = '#DE5456'
 export const RED_DARK = '#502124'
 export const RED_DULL = '#AE3A36'
 export const ORANGE_DARK = '#504021'
