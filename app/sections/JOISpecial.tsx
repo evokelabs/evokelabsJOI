@@ -11,8 +11,8 @@ const JOISpecial = () => {
           <IconSmall />
         </div>
         <div className='flex flex-col '>
-          <h2 className='text-teal-blur font-semibold leading-tight text-[1.375rem]'>INTRODUCING JOI: A DIGITAL LOVE STORY</h2>
-          <p className='text-[1.375rem] text-red-blur font-medium'>
+          <h2 className='text-teal-blur font-semibold leading-tight text-[1.55rem] '>INTRODUCING JOI: A DIGITAL LOVE STORY</h2>
+          <p className='text-[1.4rem] text-red-blur leading-5 font-medium'>
             AN EVOKE LABS ORIGINAL SHORT USING THE LATEST IN 3D ANIMATION, 2D MOTION, TRADITIONAL FILM TECHNIQUES, ARTIFICIAL INTELLIGENCE,
             VR / AR AND MACHINIMA TO BRING JOI TO LIFE
           </p>
