@@ -5,9 +5,20 @@ interface ContentHeadProps {
   heading?: string
   button?: React.ReactNode
   hr?: boolean
+  children?: React.ReactNode
 }
 
-const ContentHead = ({ icon, heading, button, hr = true }: ContentHeadProps) => {
+const DefaultHeaderContent = ({
+  heading,
+  button,
+  icon,
+  hr
+}: {
+  heading?: string
+  button: React.ReactNode
+  icon?: React.ReactNode
+  hr?: boolean
+}) => {
   return (
     <>
       <div className='mt-1 flex flex-row items-center gap-3 '>
@@ -18,6 +29,10 @@ const ContentHead = ({ icon, heading, button, hr = true }: ContentHeadProps) => 
       {hr ? <HR /> : <div className='my-2'></div>}
     </>
   )
+}
+
+const ContentHead = ({ icon, heading, button, hr = true, children }: ContentHeadProps) => {
+  return <>{children ? children : <DefaultHeaderContent heading={heading} button={button} icon={icon} hr={hr} />}</>
 }
 
 export default ContentHead

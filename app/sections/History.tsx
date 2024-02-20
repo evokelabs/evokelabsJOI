@@ -6,7 +6,8 @@ import VideoFrame from '../ui/VideoFrame'
 
 const History = () => {
   return (
-    <PanelBackground heading='Backstory' contentHead={<ContentHead icon={<IconSmall />} heading='Evoke Labs History' />}>
+    <PanelBackground heading='Backstory'>
+      <ContentHead icon={<IconSmall />} heading='Evokelabs History' />
       <VideoFrame videoURL='./videos/Evokelabs-History.mp4' />
     </PanelBackground>
   )
