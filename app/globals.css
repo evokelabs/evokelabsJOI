@@ -33,7 +33,6 @@ body {
 
 .red-scrollbar::-webkit-scrollbar-track {
   background: #502124;
-  margin-block-start: 12px;
   border: 2px solid #151a2b;
   width: 6px;
 }

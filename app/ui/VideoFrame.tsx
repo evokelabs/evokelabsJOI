@@ -5,7 +5,7 @@ import { BLACK, RED, RED_BLACK } from '../libs/UIConstants'
 const VideoFrame = ({ videoURL }: { videoURL: string }) => {
   return (
     <div>
-      <div className='w-full bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60 mt-3 p-2 pb-0 border-b-0 shadow-red-blur'>
+      <div className='w-full bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60 p-2 pb-0 border-b-0 shadow-red-blur'>
         <video className='w-full h-full min-h-[610px]' controls src={videoURL} />
       </div>
       <div className='h-2 border-b-2 bg-grid-darkRed border-l-2 border-red border-opacity-60 mr-2 relative pb-2 '>
