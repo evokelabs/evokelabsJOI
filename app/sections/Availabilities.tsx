@@ -5,9 +5,12 @@ import IconSmall from '../ui/IconSmall'
 import PanelBackground from '../ui/PanelBackground'
 import ContentHead from '../ui/PanelBackground/ContentHead'
 
-const JOISpecial = () => {
+const Availabilities = () => {
   return (
-    <PanelBackground heading='JOI Special' contentHead={<ContentHead icon={<IconSmall />} />}>
+    <PanelBackground
+      heading='Fix a booking'
+      contentHead={<ContentHead icon={<IconSmall />} heading='Availabilities' button={<ButtonDefault />} />}
+    >
       <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
       <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-6'>
         <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,
@@ -71,4 +74,4 @@ const JOISpecial = () => {
   )
 }
 
-export default JOISpecial
+export default Availabilities

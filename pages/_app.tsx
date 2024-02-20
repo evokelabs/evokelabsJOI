@@ -23,49 +23,6 @@ export default function RootLayout() {
         <meta name='description' content={String(metadata.description)} />
       </Head>
       <Evokelabs3D router={router} />
-      <div className='absolute top-0 left-0 px-4 space-x-4 text-red-blur'>
-        <Link href='/services'>CORPO GUIDE</Link>
-        <Link href='/portfolio'>PAST GIGS</Link>
-        <Link href='/history'>BACKSTORY</Link>
-        <Link href='/resume'>DOSSIER</Link>
-        <Link href='/joi'>JOI SPECIAL</Link>
-        <Link href='/availabilities'>FIX A BOOKING</Link>
-      </div>
-      {router.pathname === '/' && (
-        <>
-          <h1>home</h1>
-        </>
-      )}
-      {router.pathname === '/services' && (
-        <>
-          <h1>services</h1>
-        </>
-      )}
-      {router.pathname === '/portfolio' && (
-        <>
-          <h1>portfolio</h1>
-        </>
-      )}
-      {router.pathname === '/history' && (
-        <>
-          <h1>history</h1>
-        </>
-      )}
-      {router.pathname === '/resume' && (
-        <>
-          <h1>resume</h1>
-        </>
-      )}
-      {router.pathname === '/joi' && (
-        <>
-          <h1>joi</h1>
-        </>
-      )}
-      {router.pathname === '/availabilities' && (
-        <>
-          <h1>availabilities</h1>
-        </>
-      )}
     </>
   )
 }

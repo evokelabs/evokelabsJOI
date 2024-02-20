@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import LeftFrame from './LeftFrame'
 import MidFrame from './MidFrame'
-import { ORANGE, RED, TEAL, UI_DURATION_TIME } from '../../libs/UIConstants'
+import { RED, TEAL, UI_DURATION_TIME } from '../../libs/UIConstants'
 import IconSmallInteractive from '../IconSmall/IconSmallInteractive'
 
 const ButtonMainMenu = ({
