@@ -8,7 +8,10 @@ import RowFull from '../ui/RowFull'
 
 const Resume = () => {
   return (
-    <PanelBackground headerTitle='Dossier' contentHead={<ContentHead icon={<IconSmall />} heading='Resume' />}>
+    <PanelBackground
+      headerTitle='Dossier'
+      contentHead={<ContentHead icon={<IconSmall />} heading='Resume' button={<ButtonDefault label='hardcopy' />} />}
+    >
       <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
       <div className='mb-3'>
         <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-[26px]'>
