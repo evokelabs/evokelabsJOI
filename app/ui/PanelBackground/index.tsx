@@ -9,7 +9,7 @@ interface PanelBackgroundProps {
 
 const index = ({ heading, children, contentHead }: PanelBackgroundProps) => {
   return (
-    <div className='relative min-w-[40rem] max-w-[73rem] mb-2 '>
+    <div className='relative min-w-[40rem] max-w-[72.5rem] mb-2 '>
       <div className='relative flex flex-row h-full'>
         <div className='w-auto h-auto grid grid-rows-[min-content,auto,min-content]'>
           <div className='pt-4'>
