@@ -13,17 +13,18 @@ const IconButtonDefault = ({ isHovered, isActive, isMouseDown }: { isHovered: bo
   useButtonIconController({ isHovered, isActive, isMouseDown, svgRef, pathBGFillRef, pathBGStrokeRef, pathFGFillRef })
 
   return (
-    <svg width='60' height='50' viewBox='0 0 60 50' fill='none' ref={svgRef}>
-      <path ref={pathBGFillRef} d='M2 2L2 48L48 48L48 11.0704L38.9296 2L2 2Z' fill={BLACK} fillOpacity='0.35' />
-      <path ref={pathFGFillRef} d='M2 2L2 48L48 48L48 11.0704L38.9296 2L2 2Z' fill='url(#redTile)' />
+    <svg width='60' height='52' viewBox='0 0 60 52' fill='none' ref={svgRef}>
+      <path ref={pathBGFillRef} d='M2 2L2 50L50 50L50 11.4648L40.5352 2L2 2Z' fill={BLACK} />
+      <path ref={pathFGFillRef} d='M2 2L2 50L50 50L50 11.4648L40.5352 2L2 2Z' fill='url(#redTile)' />
       <RedCRTBlur />
       <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
         <path
           ref={pathBGStrokeRef}
-          d='M1 48L1 49L2 49L48 49L49 49L49 48L49 11.0704L49 10.6562L48.7071 10.3633L39.6367 1.29289L39.3438 1L38.9296 1L2 1L1 1L1 2L1 48Z'
-          stroke={RED}
-          strokeOpacity='0.6'
-          strokeWidth='2'
+          fillRule='evenodd'
+          clipRule='evenodd'
+          d='M0 52L6.20094e-07 0L41.3636 4.93256e-07L52 10.6364L52 52L0 52ZM50 11.4648L50 50L2 50L2 2L40.5352 2L50 11.4648Z'
+          fill={RED}
+          fillOpacity={0.6}
         />
       </g>
       {RED_TILE_PATTERN}
