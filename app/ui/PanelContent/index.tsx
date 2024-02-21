@@ -25,7 +25,7 @@ const index = ({ headerTitle, children, contentHead }: PanelContentProps) => {
           <PanelHeader headerTitle={headerTitle} />
           <div className='bg-grid-blue pl-3 pr-0 pt-2.5  border-red border-x-2 border-opacity-60  shadow-red-blur '>
             {contentHead}
-            <div className={'max-h-[644px] overflow-y-auto red-scrollbar mr-2 pr-2'}>{children}</div>
+            <div className={'max-h-[644px] overflow-y-auto red-scrollbar mr-2 pr-2 '}>{children}</div>
           </div>
           <BottomFooter />
         </div>

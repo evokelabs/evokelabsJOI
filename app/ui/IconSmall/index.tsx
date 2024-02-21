@@ -25,9 +25,9 @@ const IconSmall = ({
 
   return (
     <svg width='82' height='74' viewBox='0 0 82 74' fill='none' ref={svgRef || dummyRef}>
-      <path ref={pathBGFillRef || dummyRef} d='"M2 2L2 72L72 72L72 15.8028L58.1972 2L2 2Z' fill={secondaryColor} />
+      <path ref={pathBGFillRef || dummyRef} d='M2 2L2 72L72 72L72 15.8028L58.1972 2L2 2Z' fill={secondaryColor} />
 
-      <path ref={pathFGFillRef || dummyRef} d='"M2 2L2 72L72 72L72 15.8028L58.1972 2L2 2Z' fill='url(#blueTile)' />
+      <path ref={pathFGFillRef || dummyRef} d='M2 2L2 72L72 72L72 15.8028L58.1972 2L2 2Z' fill='url(#blueTile)' />
 
       <path
         ref={pathBGStrokeRef || dummyRef}

@@ -1,9 +1,9 @@
-const ParagraphHighlight = ({ paragraph, BGColor }: { paragraph: string; BGColor: string }) => {
+const ParagraphHighlight = ({ paragraph, BGColor, fontSize = '24px' }: { paragraph: string; BGColor: string; fontSize?: string }) => {
   return (
-    <div className={'block my-2 leading-none'}>
+    <div className={'block leading-none '}>
       <div
-        className={`font-medium font-rajdhani text-[24px] text-black  w-auto inline-block px-3 py-2 ${
-          BGColor === '#F75049' ? 'bg-red' : 'bg-teal'
+        className={`font-medium font-rajdhani text-[${fontSize}] text-black w-auto inline-block px-2 py-1 ${
+          BGColor === 'RED' ? 'bg-red shadow-red-blur' : 'bg-teal shadow-teal-blur'
         }`}
       >
         <span dangerouslySetInnerHTML={{ __html: paragraph }} />

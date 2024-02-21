@@ -10,7 +10,7 @@ const ContentHead = () => {
         <div className='w-[70px]'>
           <IconSmall />
         </div>
-        <div className='flex flex-col '>
+        <div className='flex flex-col pr-4'>
           <h2 className='text-teal-blur font-semibold leading-tight text-[1.55rem] '>INTRODUCING JOI: A DIGITAL LOVE STORY</h2>
           <p className='text-[1.4rem] text-red-blur leading-5 font-medium'>
             AN EVOKE LABS ORIGINAL SHORT USING THE LATEST IN 3D ANIMATION, 2D MOTION, TRADITIONAL FILM TECHNIQUES, ARTIFICIAL INTELLIGENCE,
