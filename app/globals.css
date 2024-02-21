@@ -53,3 +53,19 @@ h1,
 h2 {
   @apply font-default;
 }
+
+abbr:where([title]) {
+  text-decoration: none;
+}
+
+.react-calendar {
+  @apply text-red-blur;
+  pointer-events: none;
+  .react-calendar__navigation__label {
+    @apply text-red-blur;
+  }
+  button {
+    padding: 6px;
+    @apply text-teal-blur;
+  }
+}

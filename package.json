@@ -21,6 +21,7 @@
     "next": "14.0.4",
     "r3f-perf": "^7.1.2",
     "react": "^18",
+    "react-calendar": "^4.8.0",
     "react-dom": "^18",
     "three": "^0.161.0",
     "three-stdlib": "^2.29.1"

@@ -1,6 +1,6 @@
 import type { Config } from 'tailwindcss'
 
-import { BLACK, ORANGE, BLUE_DARK, RED, RED_DARK, RED_DULL, TEAL } from './app/libs/UIConstants'
+import { BLACK, ORANGE, BLUE_DARK, RED, RED_DARK, RED_DULL, TEAL, WHITE } from './app/libs/UIConstants'
 import { TileFill, TileFill30 } from './app/ui/libs/TitleFillsPNGData'
 
 const config: Config = {
@@ -31,6 +31,7 @@ const config: Config = {
         red: RED,
         black: BLACK,
         orange: ORANGE,
+        white: WHITE,
         'red-dark': RED_DARK,
         'red-dull': RED_DULL,
         'blue-dark': BLUE_DARK
@@ -58,6 +59,10 @@ const config: Config = {
         '.text-teal-blur': {
           color: theme('colors.teal'),
           textShadow: '4px 0px 0px rgba(83, 246, 255, 0.2), 8px 0px 0px rgba(83, 246, 255, 0.1)'
+        },
+        '.text-white-blur': {
+          color: theme('colors.white'),
+          textShadow: '4px 0px 0px rgba(255, 255,255, 0.2), 8px 0px 0px rgba(255, 255, 255, 0.1)'
         },
         '.text-black-blur': {
           color: theme('colors.black'),
