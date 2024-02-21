@@ -19,7 +19,7 @@ const PortfolioTile = () => {
           </h3>
         </div>
       </div>
-      <div className='w-fit pt-0.5'>
+      <div className='w-fit pt-0.5 pointer-events-none'>
         <ul className=' flex gap-3 text-black uppercase font-semibold text-[16px] mt-4 -ml-2.5 '>
           <li className='bg-red shadow-red-blur px-2'>Motion</li>
           <li className='bg-red shadow-red-blur px-2'>Development</li>
