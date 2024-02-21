@@ -6,6 +6,16 @@ import ContentHead from '../ui/PanelContent/ContentHead'
 import Calendar from 'react-calendar'
 import availabilities from './availabilities.json'
 
+interface Period {
+  start: string
+  end: string
+}
+
+interface Availabilities {
+  status: string
+  dates: Period[]
+}
+
 const Pulse = () => {
   return (
     <span className='relative flex h-4 w-4 justify-center items-center'>
@@ -23,9 +33,14 @@ const Availabilities = () => {
     }
   }
 
+  const availabilities: Availabilities = require('./availabilities.json')
+
   const isUnavailable = (date: Date) => {
     // Check if the date is within any of the unavailable periods
-    return availabilities.dates.some(period => date >= new Date(period.start) && date <= new Date(period.end))
+    if (availabilities.dates.length === 0) {
+      return false
+    }
+    return availabilities.dates.some((period: Period) => date >= new Date(period.start) && date <= new Date(period.end))
   }
 
   const CustomCalendar = ({ value }: { value: Date }) => (
@@ -70,7 +85,7 @@ const Availabilities = () => {
             <Pulse />
           </div>
         </div>
-        <div className='flex space'>
+        <div className='flex justify-between'>
           <ButtonDefault label='Send an email' />
           <ButtonDefault />
         </div>
