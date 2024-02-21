@@ -82,11 +82,11 @@ const Availabilities = () => {
           <CustomCalendar value={monthAfterNext} />
         </div>
         <div className={`flex flex-row items-center gap-4 w-fit  p-3 ${availabilityStatusColor}`}>
-          <div className='inline text-black uppercase font-rajdhani font-semibold text-[36px]  leading-[0.7]'>
-            currently {availabilities.status}
-          </div>
           <div className='inline'>
             <Pulse />
+          </div>
+          <div className='inline text-black uppercase font-rajdhani font-semibold text-[36px]  leading-[0.7]'>
+            currently {availabilities.status}
           </div>
         </div>
         <div className='flex justify-between'>

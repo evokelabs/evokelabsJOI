@@ -39,6 +39,7 @@ body {
 
 .red-scrollbar::-webkit-scrollbar-thumb {
   background: #f75049;
+  cursor: pointer;
 }
 
 .red-scrollbar::-webkit-scrollbar-thumb:hover {
