@@ -81,6 +81,10 @@ const config: Config = {
           backgroundImage: `url(${TileFill}), linear-gradient(rgba(222,84, 86, 0.1), rgba(222,84, 86, 0.1)), linear-gradient(rgba(80, 33, 36, 0.85), rgba(80, 33, 36, 0.85))`,
           backgroundRepeat: 'repeat'
         },
+        '.bg-grid-teal': {
+          backgroundImage: `url(${TileFill}), linear-gradient(rgba(84,197,222, 0.1), rgba(84,197,222, 0.1)), linear-gradient(rgba(33,63, 80, 0.85), rgba(33,63, 80, 0.85))`,
+          backgroundRepeat: 'repeat'
+        },
         '.bg-grid-darkRed': {
           backgroundImage: `url(${TileFill}), linear-gradient(rgba(222,84, 86, 0.1), rgba(222,84, 86, 0.1)), linear-gradient(rgba(14, 14, 23, 0.85), rgba(14, 14, 23, 0.85))`,
           backgroundRepeat: 'repeat'
