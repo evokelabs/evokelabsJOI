@@ -58,7 +58,7 @@ abbr:where([title]) {
   text-decoration: none;
 }
 
-/* .react-calendar {
+.react-calendar {
   @apply text-teal-blur;
   .react-calendar__navigation__label {
     @apply text-teal-blur;
@@ -78,4 +78,4 @@ abbr:where([title]) {
   .react-calendar__month-view__days__day--weekend {
     @apply text-red-blur;
   }
-} */
+}
