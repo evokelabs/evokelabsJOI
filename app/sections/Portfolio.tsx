@@ -1,75 +1,63 @@
-import { RED } from '../libs/UIConstants'
-import ButtonDefault from '../ui/ButtonDefault'
-import HeadingHighlight from '../ui/HeadingHighlight'
 import IconSmall from '../ui/IconSmall'
 import PanelBackground from '../ui/PanelContent'
 import ContentHead from '../ui/PanelContent/ContentHead'
+import PortfolioFrame from '../ui/PortfolioFrame'
+
+const PortfolioTile = () => {
+  return (
+    <>
+      <div className={' bg-black h-full relative flex items-end'}>
+        <div className='absolute top-0 w-full h-full'>
+          <video className='w-full h-full' loop autoPlay muted poster='' src={'videos/portfolio/front/tiktok.mp4'} />
+        </div>
+        <div className='relative bottom-0 pb-0 pl-2'>
+          <h2 className='uppercase text-teal-blur text-[29px] font-semibold leading-7 px-2 pt-0.5 block bg-opacity-85 bg-black'>
+            TikTok Collection
+          </h2>
+          <h3 className='uppercase text-red-blur text-[19px] font-medium leading-tight  px-2 pt-0.5  inline-block bg-opacity-85 bg-black mt-0.5'>
+            Front end lead
+          </h3>
+        </div>
+      </div>
+      <div className='w-fit pt-0.5'>
+        <ul className=' flex gap-3 text-black uppercase font-semibold text-[16px] mt-4 -ml-2.5 '>
+          <li className='bg-red shadow-red-blur px-2'>Motion</li>
+          <li className='bg-red shadow-red-blur px-2'>Development</li>
+        </ul>
+      </div>
+    </>
+  )
+}
 
 const Portfolio = () => {
   return (
-    <PanelBackground
-      headerTitle='Past Gigs'
-      contentHead={<ContentHead icon={<IconSmall />} heading='Portfolio' button={<ButtonDefault />} />}
-    >
-      <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
-      <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-6'>
-        <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,
-        design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative strategy,
-        design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative years of
-        experience in digital strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
-        agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Provencollaborating with advertising agencies, creative
-        strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative
-        years of expecollaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Proven
-        track record collaborating with advertising agencies, creative years of expe track record collaborating with advertising agencies,
-        creative
-      </p>
-      <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
-      <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-6'>
-        <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,
-        design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative strategy,
-        design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative years of
-        experience in digital strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
-        agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Provencollaborating with advertising agencies, creative
-        strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative
-        years of expecollaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Proven
-        track record collaborating with advertising agencies, creative years of expe track record collaborating with advertising agencies,
-        creative
-      </p>
-      <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
-      <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-6'>
-        <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,
-        design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative strategy,
-        design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative years of
-        experience in digital strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
-        agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Provencollaborating with advertising agencies, creative
-        strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative
-        years of expecollaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Proven
-        track record collaborating with advertising agencies, creative years of expe track record collaborating with advertising agencies,
-        creative
-      </p>
-      <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
-      <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-6'>
-        <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,
-        design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative strategy,
-        design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative years of
-        experience in digital strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
-        agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Provencollaborating with advertising agencies, creative
-        strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative
-        years of expecollaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Proven
-        track record collaborating with advertising agencies, creative years of expe track record collaborating with advertising agencies,
-        creative
-      </p>
-      <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-6'>
-        <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,
-        design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative strategy,
-        design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative years of
-        experience in digital strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising
-        agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Provencollaborating with advertising agencies, creative
-        strategy, design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative
-        years of expecollaborating with advertising agencies, creative strategy, design, UI/UX, web development, motion, and 3D. Proven
-        track record collaborating with advertising agencies, creative years of expe track record collaborating with advertising agencies,
-        creative
-      </p>
+    <PanelBackground headerTitle='Past Gigs' contentHead={<ContentHead icon={<IconSmall />} heading='Portfolio' />}>
+      <div className='grid grid-cols-2 gap-5 mb-2 mr-1'>
+        <PortfolioFrame>
+          <PortfolioTile />
+        </PortfolioFrame>
+        <PortfolioFrame>
+          <PortfolioTile />
+        </PortfolioFrame>
+        <PortfolioFrame>
+          <PortfolioTile />
+        </PortfolioFrame>
+        <PortfolioFrame>
+          <PortfolioTile />
+        </PortfolioFrame>
+        <PortfolioFrame>
+          <PortfolioTile />
+        </PortfolioFrame>
+        <PortfolioFrame>
+          <PortfolioTile />
+        </PortfolioFrame>
+        <PortfolioFrame>
+          <PortfolioTile />
+        </PortfolioFrame>
+        <PortfolioFrame>
+          <PortfolioTile />
+        </PortfolioFrame>
+      </div>
     </PanelBackground>
   )
 }
