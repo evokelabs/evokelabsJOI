@@ -4,7 +4,8 @@ const ParagraphHighlight = ({ paragraph, BGColor, fontSize = '24px' }: { paragra
   return (
     <div className={'block leading-none '}>
       <div
-        className={`font-medium font-rajdhani text-[${fontSize}] text-black w-auto inline-block px-2 py-1 ${
+        style={{ fontSize }}
+        className={`font-medium font-rajdhani text-black w-auto inline-block px-2 py-1 ${
           BGColor === RED ? 'bg-red shadow-red-blur' : BGColor === TEAL ? 'bg-teal shadow-teal-blur' : 'bg-orange shadow-orange-blur'
         }`}
       >
