@@ -60,12 +60,19 @@ abbr:where([title]) {
 
 .react-calendar {
   @apply text-red-blur;
-  pointer-events: none;
   .react-calendar__navigation__label {
     @apply text-red-blur;
+    font-size: 1.2rem;
+  }
+  .unavailable {
+    @apply text-red-blur;
+    @apply bg-grid-red;
+    pointer-events: all;
+    cursor: not-allowed;
   }
   button {
     padding: 6px;
     @apply text-teal-blur;
+    pointer-events: none;
   }
 }

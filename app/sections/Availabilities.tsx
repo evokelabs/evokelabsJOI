@@ -9,15 +9,15 @@ import Calendar from 'react-calendar'
 import availabilities from './availabilities.json'
 
 const Availabilities = () => {
-  const tileClassName = ({ date, view }: { date: any; view: any }) => {
-    // Check if the date is unavailable
+  const tileClassName = ({ date, view }: { date: Date; view: string }) => {
+    // Add 'unavailable' class to dates within unavailable periods
     if (view === 'month' && isUnavailable(date)) {
-      // Add a class to the date
       return 'unavailable'
     }
   }
 
-  const isUnavailable = (date: any) => {
+  const isUnavailable = (date: Date) => {
+    // Check if the date is within any of the unavailable periods
     return availabilities.some(period => date >= new Date(period.start) && date <= new Date(period.end))
   }
 
@@ -37,6 +37,7 @@ const Availabilities = () => {
             prev2Label={null}
             nextLabel={null}
             prevLabel={null}
+            tileClassName={tileClassName}
           />
           <Calendar
             className={`bg-grid-darkRed font-rajdhani text-white-blur font-semibold border-2-red p-2 text-center`}
@@ -45,6 +46,7 @@ const Availabilities = () => {
             prev2Label={null}
             nextLabel={null}
             prevLabel={null}
+            tileClassName={tileClassName}
           />
           <Calendar
             className={`bg-grid-darkRed font-rajdhani text-white-blur font-semibold border-2-red p-2 text-center`}
@@ -53,6 +55,7 @@ const Availabilities = () => {
             prev2Label={null}
             nextLabel={null}
             prevLabel={null}
+            tileClassName={tileClassName}
           />
         </div>
         <HeadingHighlight BGColor={RED} fullWidth={false} heading='currently available' />
