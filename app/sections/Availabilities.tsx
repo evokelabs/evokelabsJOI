@@ -1,6 +1,4 @@
-import { RED, TEAL, ORANGE } from '../libs/UIConstants'
 import ButtonDefault from '../ui/ButtonDefault'
-import HeadingHighlight from '../ui/HeadingHighlight'
 import IconSmall from '../ui/IconSmall'
 import PanelBackground from '../ui/PanelContent'
 import ContentHead from '../ui/PanelContent/ContentHead'
@@ -65,7 +63,7 @@ const Availabilities = () => {
           <CustomCalendar value={monthAfterNext} />
         </div>
         <div className={`flex flex-row items-center gap-4 w-fit  p-3 ${bgColorClass}`}>
-          <div className='inline text-black uppercase font-rajdhani font-semibold text-[36px] h-[23px] leading-[0.7]'>
+          <div className='inline text-black uppercase font-rajdhani font-semibold text-[36px]  leading-[0.7]'>
             currently {availabilities.status}
           </div>
           <div className='inline'>
