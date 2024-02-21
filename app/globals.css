@@ -83,3 +83,9 @@ abbr:where([title]) {
 .react-calendar .react-calendar__month-view__days__day--weekend {
   @apply text-red-blur;
 }
+
+.react-calendar .react-calendar__navigation {
+  @apply bg-grid-red;
+  padding-top: 4px;
+  margin-bottom: 6px;
+}
