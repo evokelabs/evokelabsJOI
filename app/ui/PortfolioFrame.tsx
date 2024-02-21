@@ -4,12 +4,12 @@ import { ReactNode } from 'react'
 
 const PortfolioFrame = ({ children }: { children: ReactNode }) => {
   return (
-    <div className='w-full h-60 mb-9 relative'>
-      <div className='bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60  p-2 pb-0 border-b-0 shadow-red-blur '>
+    <div className='group w-full h-60 mb-9 relative'>
+      <div className='bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60  p-2 pb-0 border-b-0 shadow-red-blur group-hover:border-opacity-100 group-hover:bg-grid-red transition-all duration-150'>
         {children}
       </div>
 
-      <div className='h-2 border-b-2 bg-grid-darkRed border-l-2 border-red border-opacity-60 pr-4 relative pb-2  mr-2'>
+      <div className='h-2 border-b-2 bg-grid-darkRed border-l-2 border-red border-opacity-60 pr-4 relative pb-2  mr-2 group-hover:border-opacity-100 group-hover:bg-grid-red'>
         <div className='absolute -right-3 '>
           <svg width='16' height='10' viewBox='0 0 16 10'>
             <RedCRTBlur />
