@@ -59,9 +59,9 @@ abbr:where([title]) {
 }
 
 .react-calendar {
-  @apply text-red-blur;
+  @apply text-teal-blur;
   .react-calendar__navigation__label {
-    @apply text-red-blur;
+    @apply text-teal-blur;
     font-size: 1.2rem;
   }
   .unavailable {
@@ -74,5 +74,8 @@ abbr:where([title]) {
     padding: 6px;
     @apply text-teal-blur;
     pointer-events: none;
+  }
+  .react-calendar__month-view__days__day--weekend {
+    @apply text-red-blur;
   }
 }

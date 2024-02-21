@@ -1,4 +1,4 @@
-import { RED } from '../libs/UIConstants'
+import { RED, TEAL, ORANGE } from '../libs/UIConstants'
 import ButtonDefault from '../ui/ButtonDefault'
 import HeadingHighlight from '../ui/HeadingHighlight'
 import IconSmall from '../ui/IconSmall'
@@ -18,8 +18,21 @@ const Availabilities = () => {
 
   const isUnavailable = (date: Date) => {
     // Check if the date is within any of the unavailable periods
-    return availabilities.some(period => date >= new Date(period.start) && date <= new Date(period.end))
+    return availabilities.dates.some(period => date >= new Date(period.start) && date <= new Date(period.end))
   }
+
+  const CustomCalendar = ({ value }: { value: Date }) => (
+    <Calendar
+      className={`bg-grid-darkRed font-rajdhani text-white-blur font-semibold border-2-red p-2 text-center`}
+      value={value}
+      activeStartDate={value}
+      next2Label={null}
+      prev2Label={null}
+      nextLabel={null}
+      prevLabel={null}
+      tileClassName={tileClassName}
+    />
+  )
 
   const today = new Date()
   const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1)
@@ -29,36 +42,15 @@ const Availabilities = () => {
     <PanelBackground headerTitle='Fix a booking' contentHead={<ContentHead icon={<IconSmall />} heading='Availabilities' />}>
       <div className='space-y-10 my-4'>
         <div className='flex flew-row gap-4 justify-between'>
-          <Calendar
-            className={`bg-grid-darkRed font-rajdhani text-white-blur font-semibold border-2-red p-2 text-center`}
-            value={today}
-            activeStartDate={today}
-            next2Label={null}
-            prev2Label={null}
-            nextLabel={null}
-            prevLabel={null}
-            tileClassName={tileClassName}
-          />
-          <Calendar
-            className={`bg-grid-darkRed font-rajdhani text-white-blur font-semibold border-2-red p-2 text-center`}
-            value={nextMonth}
-            next2Label={null}
-            prev2Label={null}
-            nextLabel={null}
-            prevLabel={null}
-            tileClassName={tileClassName}
-          />
-          <Calendar
-            className={`bg-grid-darkRed font-rajdhani text-white-blur font-semibold border-2-red p-2 text-center`}
-            value={monthAfterNext}
-            next2Label={null}
-            prev2Label={null}
-            nextLabel={null}
-            prevLabel={null}
-            tileClassName={tileClassName}
-          />
+          <CustomCalendar value={today} />
+          <CustomCalendar value={nextMonth} />
+          <CustomCalendar value={monthAfterNext} />
         </div>
-        <HeadingHighlight BGColor={RED} fullWidth={false} heading='currently available' />
+        <HeadingHighlight
+          BGColor={availabilities.status === 'unavailable' ? RED : availabilities.status === 'available' ? TEAL : ORANGE}
+          fullWidth={false}
+          heading={`currently ${availabilities.status}`}
+        />
         <ButtonDefault label='Send an email' />
       </div>
     </PanelBackground>

@@ -24,8 +24,8 @@ const ContentHead = () => {
             </ul>
           </div>
           <div className='flex flex-col text-right justify-center space-y-1'>
-            <ParagraphHighlight BGColor='RED' fontSize='23px' paragraph='<strong>Current location:</strong> Sydney, Australia' />
-            <ParagraphHighlight BGColor='RED' fontSize='23px' paragraph='<strong>ABN:</strong> 53 470 501 232' />
+            <ParagraphHighlight BGColor={RED} fontSize='23px' paragraph='<strong>Current location:</strong> Sydney, Australia' />
+            <ParagraphHighlight BGColor={RED} fontSize='23px' paragraph='<strong>ABN:</strong> 53 470 501 232' />
           </div>
         </div>
       </div>
@@ -38,14 +38,14 @@ const Services = () => {
   return (
     <PanelContent headerTitle='Corpo Guide' contentHead={<ContentHead />}>
       <div className='mb-5 space-y-2'>
-        <HeadingHighlight BGColor='TEAL' fullWidth={false} heading='YOUR CREATIVE TECHNOLOGIST PARTNER' />
+        <HeadingHighlight BGColor={TEAL} fullWidth={false} heading='YOUR CREATIVE TECHNOLOGIST PARTNER' />
         <ParagraphHighlight
           BGColor={TEAL}
           paragraph='Creative Technologists combine <strong>creative</strong>, <strong>development</strong>, and <strong>technology</strong> to address digital challenges and deliver online projects of exceptional quality.'
         />
       </div>
       <HR />
-      <HeadingHighlight BGColor='RED' fullWidth={false} heading='Creative Services' />
+      <HeadingHighlight BGColor={RED} fullWidth={false} heading='Creative Services' />
       <div className='flex flex-wrap gap-3 my-4'>
         <RowHalf
           heading='Digital Design'
@@ -64,7 +64,7 @@ const Services = () => {
           paragraph='Adding a new dimension to asset creation. Modelling, shading, UV editing, texturing, rigging, animation, lighting, motion capture and optimised exports for various platforms.'
         />
       </div>
-      <HeadingHighlight BGColor='RED' fullWidth={false} heading='Development Services' />
+      <HeadingHighlight BGColor={RED} fullWidth={false} heading='Development Services' />
       <div className='flex flex-wrap gap-3 my-4'>
         <RowHalf
           heading='Front End Development'
@@ -83,7 +83,7 @@ const Services = () => {
           paragraph='WebGL and GPU powered canvas elements rendered from within the browser. GLB/GLTF, custom shaders, physics and post processing.'
         />
       </div>
-      <HeadingHighlight BGColor='RED' fullWidth={false} heading='Technologist Services' />
+      <HeadingHighlight BGColor={RED} fullWidth={false} heading='Technologist Services' />
       <div className='flex flex-wrap gap-3 my-4'>
         <RowHalf
           heading='VR/AR Technologies'
@@ -103,7 +103,7 @@ const Services = () => {
         />
       </div>
       <div>
-        <HeadingHighlight BGColor='TEAL' fullWidth={false} heading='THE EVOKE LABS DIFFERENCE' />
+        <HeadingHighlight BGColor={TEAL} fullWidth={false} heading='THE EVOKE LABS DIFFERENCE' />
       </div>
       <div className='flex gap-3 mt-4'>
         <RowThird
@@ -121,11 +121,11 @@ const Services = () => {
       </div>
       <div className='my-6 space-y-1'>
         <ParagraphHighlight
-          BGColor='RED'
+          BGColor={RED}
           fontSize='22px'
           paragraph='“You are amazing Adrian! Seriously – you always impress me by going above and beyond!”'
         />
-        <ParagraphHighlight BGColor='RED' fontSize='22px' paragraph='-Akcelo Senior Project Manager' />
+        <ParagraphHighlight BGColor={RED} fontSize='22px' paragraph='-Akcelo Senior Project Manager' />
       </div>
       <HR />
       <div className='my-4 uppercase text-teal-blur font-semibold text-[28px]'>
