@@ -4,8 +4,8 @@ import PanelBackground from '../ui/PanelContent'
 import ContentHead from '../ui/PanelContent/ContentHead'
 
 import Calendar from 'react-calendar'
-import availabilities from './availabilities.json'
 
+import availabilities from '@/availabilities.json'
 interface Period {
   start: string
   end: string
@@ -15,6 +15,14 @@ interface Availabilities {
   status: string
   dates: Period[]
 }
+
+enum Status {
+  BUSY = 'busy',
+  AVAILABLE = 'available',
+  UNAVAILABLE = 'unavailable'
+}
+
+const VIEW_MODE = 'month'
 
 const Pulse = () => {
   return (
@@ -27,16 +35,12 @@ const Pulse = () => {
 
 const Availabilities = () => {
   const tileClassName = ({ date, view }: { date: Date; view: string }) => {
-    // Add 'unavailable' class to dates within unavailable periods
-    if (view === 'month' && isUnavailable(date)) {
-      return 'unavailable'
+    if (view === VIEW_MODE && isUnavailable(date)) {
+      return Status.UNAVAILABLE
     }
   }
 
-  const availabilities: Availabilities = require('./availabilities.json')
-
   const isUnavailable = (date: Date) => {
-    // Check if the date is within any of the unavailable periods
     if (availabilities.dates.length === 0) {
       return false
     }
@@ -60,13 +64,13 @@ const Availabilities = () => {
   const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1)
   const monthAfterNext = new Date(today.getFullYear(), today.getMonth() + 2, 1)
 
-  let bgColorClass
-  if (availabilities.status === 'busy') {
-    bgColorClass = 'bg-orange'
-  } else if (availabilities.status === 'available') {
-    bgColorClass = 'bg-teal'
-  } else if (availabilities.status === 'unavailable') {
-    bgColorClass = 'bg-red'
+  let availabilityStatusColor
+  if (availabilities.status === Status.BUSY) {
+    availabilityStatusColor = 'bg-orange'
+  } else if (availabilities.status === Status.AVAILABLE) {
+    availabilityStatusColor = 'bg-teal'
+  } else if (availabilities.status === Status.UNAVAILABLE) {
+    availabilityStatusColor = 'bg-red'
   }
 
   return (
@@ -77,7 +81,7 @@ const Availabilities = () => {
           <CustomCalendar value={nextMonth} />
           <CustomCalendar value={monthAfterNext} />
         </div>
-        <div className={`flex flex-row items-center gap-4 w-fit  p-3 ${bgColorClass}`}>
+        <div className={`flex flex-row items-center gap-4 w-fit  p-3 ${availabilityStatusColor}`}>
           <div className='inline text-black uppercase font-rajdhani font-semibold text-[36px]  leading-[0.7]'>
             currently {availabilities.status}
           </div>
