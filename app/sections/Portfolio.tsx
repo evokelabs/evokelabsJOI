@@ -189,7 +189,7 @@ const ContentHeadPortfolio = () => {
   )
 }
 
-const Portfolio = () => {
+const PortfolioHome = () => {
   const portfolioData: PortfolioItem[] = portfolio
   return (
     <PanelBackground headerTitle='Past Gigs' contentHead={<ContentHeadPortfolio />}>
@@ -211,6 +211,10 @@ const Portfolio = () => {
       </div>
     </PanelBackground>
   )
+}
+
+const Portfolio = () => {
+  return <PortfolioHome />
 }
 
 export default Portfolio
