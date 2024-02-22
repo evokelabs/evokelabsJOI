@@ -18,16 +18,20 @@ interface PortfolioTileProps {
   heading: string
   subHeading: string
   technology: string[]
+  desc: string
+  mainVideo: string
   thumb: string
-  video: string
+  link: string
 }
 
 interface PortfolioItem {
   heading: string
   subHeading: string
   technology: string[]
+  desc: string
+  mainVideo: string
   thumb: string
-  video: string
+  link: string
 }
 
 const PullDownIcon = () => {
@@ -109,12 +113,12 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onS
   )
 }
 
-const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, technology, thumb, video }) => {
+const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, technology, thumb, mainVideo }) => {
   return (
     <>
       <div className={'h-full relative flex items-end overflow-hidden'}>
         <div className='absolute top-0 w-full h-full'>
-          <video className='w-full h-full object-cover' loop autoPlay muted poster={thumb} src={video} />
+          <video className='w-full h-full object-cover' loop autoPlay muted poster={thumb} src={mainVideo} />
         </div>
         <div className='relative pl-1 pb-1 '>
           <div>
@@ -189,19 +193,46 @@ const ContentHeadPortfolio = () => {
   )
 }
 
+const PortfolioItem: React.FC<PortfolioItem> = ({ heading, subHeading, technology, desc, mainVideo, thumb, link }) => {
+  return (
+    <PortfolioItem
+      heading={heading}
+      subHeading={subHeading}
+      technology={technology}
+      desc={desc}
+      thumb={thumb}
+      mainVideo={mainVideo}
+      link={link}
+    />
+    // Render your portfolio item here using the props
+  )
+}
+
 const PortfolioHome = () => {
   const portfolioData: PortfolioItem[] = portfolio
+  const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null)
+
+  const handleItemClick = (item: PortfolioItem) => {
+    setSelectedItem(item)
+  }
+
+  if (selectedItem) {
+    return <PortfolioItem {...selectedItem} />
+  }
+
   return (
     <PanelBackground headerTitle='Past Gigs' contentHead={<ContentHeadPortfolio />}>
       <div className='grid grid-cols-2 gap-5 mr-1'>
         {portfolioData.map((item, index) => (
-          <PortfolioFrame key={index}>
+          <PortfolioFrame key={index} onClick={() => handleItemClick(item)}>
             <PortfolioTile
               heading={item.heading}
               subHeading={item.subHeading}
               technology={item.technology}
+              desc={item.desc}
               thumb={item.thumb}
-              video={item.video}
+              mainVideo={item.mainVideo}
+              link={item.link}
             />
           </PortfolioFrame>
         ))}
