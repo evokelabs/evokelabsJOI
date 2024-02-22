@@ -116,13 +116,17 @@ const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, tech
         <div className='absolute top-0 w-full h-full'>
           <video className='w-full h-full object-cover' loop autoPlay muted poster={thumb} src={video} />
         </div>
-        <div className='relative bottom-0'>
-          <h2 className='uppercase text-teal-blur text-[29px] font-semibold leading-7 px-2 pt-0.5 block bg-opacity-85 bg-black'>
-            {heading}
-          </h2>
-          <h3 className='uppercase text-red-blur text-[19px] font-medium leading-tight  px-2 pt-0.5  inline-block bg-opacity-85 bg-black mt-0.5'>
-            {subHeading}
-          </h3>
+        <div className='relative pl-1 pb-1 '>
+          <div>
+            <h2 className='uppercase text-teal-blur text-[32px] font-semibold leading-7 px-2 pt-0.5 inline-block bg-opacity-85 bg-black'>
+              {heading}
+            </h2>
+          </div>
+          <div>
+            <h3 className='uppercase text-red-blur text-[19px] font-medium leading-tight  px-2 pt-0.5 inline-block bg-opacity-85 bg-black '>
+              {subHeading}
+            </h3>
+          </div>
         </div>
       </div>
       <div className='w-fit pt-0.5 pointer-events-none'>
