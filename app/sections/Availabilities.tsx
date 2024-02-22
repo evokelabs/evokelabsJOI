@@ -5,7 +5,7 @@ import ContentHead from '../ui/PanelContent/ContentHead'
 
 import Calendar from 'react-calendar'
 
-import availabilities from '@/availabilities.json'
+import availabilities from './data/availabilities.json'
 interface Period {
   start: string
   end: string

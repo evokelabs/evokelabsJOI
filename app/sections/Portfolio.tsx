@@ -6,6 +6,8 @@ import PanelBackground from '../ui/PanelContent'
 import PortfolioFrame from '../ui/PortfolioFrame'
 import { BLACK, RED } from '../libs/UIConstants'
 
+import portfolioData from './data/portfolio.json'
+
 interface DropdownMenuProps {
   options: string[]
   defaultOption: string
@@ -19,7 +21,7 @@ const PullDownIcon = () => {
         <path d='M0 0H26V26H0V0Z' fill={BLACK} fillOpacity='0.85' />
         <path d='M0 0H26V26H0V0Z' fill={RED} fillOpacity='0.1' />
         <path d='M0 0H26V26H0V0Z' fill='url(#redTile)' fillOpacity='0.1' />
-        <path fill-rule='evenodd' clip-rule='evenodd' d='M0 0H26V26H0V0ZM1 1V25H25V1H1Z' fill={RED} fill-opacity='0.6' />
+        <path fillRule='evenodd' clipRule='evenodd' d='M0 0H26V26H0V0ZM1 1V25H25V1H1Z' fill={RED} fillOpacity='0.6' />
         <path d='M8 10L18 10L13 16L8 10Z' fill={RED} />
       </svg>
     </div>
@@ -60,7 +62,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onS
         <button
           ref={buttonRef}
           type='button'
-          className='flex items-center pl-3 pb-1 pt-1.5 pr-2 uppercase text-teal-blur text-[21px] bg-grid-red shadow-red-blur justify-between gap-5 border-2-red font-rajdhani font-semibold'
+          className='flex items-center pl-3 pt-0.5 pr-1 uppercase text-teal-blur text-[21px] bg-grid-red shadow-red-blur justify-between gap-5 border-2-red font-rajdhani font-semibold'
           id='options-menu'
           aria-haspopup='true'
           aria-expanded='true'

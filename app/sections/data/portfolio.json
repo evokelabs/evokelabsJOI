@@ -1,0 +1,15 @@
+{
+  "caseStudy": {
+    "caseStudyItem": {
+      "heading": "Unlearn Campaign Banner Suite",
+      "subHeading": "University of New South Wales",
+      "date": "2022-03-01",
+      "technology": "Photoshop CC, Animate CC, HTML, JS, Doubleclick",
+      "desc": "The basis of UNSW’s “Unlearn” campaign was to showcase the university’s innovative discoveries to the world. While the print and TV deliverables were in production, I was responsible for the digital execution of the campaign - converting their rich media creatives into light-weight HTML5 banners. These banners were hosted on the DoubleClick platform for mobile and desktop ad spaces.",
+      "thumb": "img/casestudies/university1.jpg",
+      "video": "img/casestudies/14-University.mp4",
+      "main-video": "https://d19s7v0o35zltc.cloudfront.net/university.mp4",
+      "link": ""
+    }
+  }
+}
