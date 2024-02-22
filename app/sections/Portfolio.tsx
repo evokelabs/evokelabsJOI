@@ -6,11 +6,11 @@ import PortfolioFrame from '../ui/PortfolioFrame'
 const PortfolioTile = () => {
   return (
     <>
-      <div className={' h-full relative flex items-end overflow-hidden'}>
+      <div className={'h-full relative flex items-end overflow-hidden'}>
         <div className='absolute top-0 w-full h-full'>
           <video className='w-full h-full object-cover' loop autoPlay muted poster='' src={'videos/portfolio/front/tiktok.mp4'} />
         </div>
-        <div className='relative bottom-0 pb-0 pl-2'>
+        <div className='relative bottom-0'>
           <h2 className='uppercase text-teal-blur text-[29px] font-semibold leading-7 px-2 pt-0.5 block bg-opacity-85 bg-black'>
             TikTok Collection
           </h2>

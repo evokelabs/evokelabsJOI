@@ -75,28 +75,35 @@ const Resume = () => {
         />
       </div>
       <HeadingHighlight heading={'Skill set'} fullWidth={true} BGColor={RED} />
-      <div className='text-[18px] text-red-blur font-medium pb-2 mt-2'>
-        <p className='my-0.5'>
-          <span className='text-teal-blur font-semibold'>Project Management:</span> Google Suite, Trello, GitHub
-        </p>
-        <p className='my-0.5'>
-          <span className='text-teal-blur font-semibold'>Design/UX:</span> Figma, Adobe XD, Photoshop, Illustrator, InDesign, Powerpoint
-        </p>
-        <p className='my-0.5'>
-          <span className='text-teal-blur font-semibold'>Front End:</span> HTML5, CSS, Javascript ES6/ES8, GSAP, npm, Typescript, API
-          integration (REST/GraphQL), JQuery, SASS
-        </p>
-        <p className='my-0.5'>
-          <span className='text-teal-blur font-semibold'>Frameworks/Libraries:</span> React.js, Tailwind CSS, Bootstrap, Material Design,
-          Foundation For Email, Gulp, Lodash, Pug, Handlebars
-        </p>
-        <p className='my-0.5'>
-          <span className='text-teal-blur font-semibold'>Motion:</span> After Effects, Premiere, 3dsmax, Zbrush
-        </p>
-        <p className='my-0.5'>
-          <span className='text-teal-blur font-semibold'>Supplementary:</span> Google Web Designer, Animate, Audition, Cubase, Sizmek,
-          Google Doubleclick/Ad Manager, Unreal Engine, Oculus SDK
-        </p>
+      <div className='flex flex-row gap-6'>
+        <div className='w-2/3'>
+          <div className='text-[18px] text-red-blur font-medium mt-2'>
+            <p className='my-0.5'>
+              <span className='text-teal-blur font-semibold'>Project Management:</span> Google Suite, Trello, GitHub
+            </p>
+            <p className='my-0.5'>
+              <span className='text-teal-blur font-semibold'>Design/UX:</span> Figma, Adobe XD, Photoshop, Illustrator, InDesign, Powerpoint
+            </p>
+            <p className='my-0.5'>
+              <span className='text-teal-blur font-semibold'>Front End:</span> HTML5, CSS, Javascript ES6/ES8, GSAP, npm, Typescript, API
+              integration (REST/GraphQL), JQuery, SASS
+            </p>
+            <p className='my-0.5'>
+              <span className='text-teal-blur font-semibold'>Frameworks/Libraries:</span> React.js, Tailwind CSS, Bootstrap, Material
+              Design, Foundation For Email, Gulp, Lodash, Pug, Handlebars
+            </p>
+            <p className='my-0.5'>
+              <span className='text-teal-blur font-semibold'>Motion:</span> After Effects, Premiere, 3dsmax, Zbrush
+            </p>
+            <p className='my-0.5'>
+              <span className='text-teal-blur font-semibold'>Supplementary:</span> Google Web Designer, Animate, Audition, Cubase, Sizmek,
+              Google Doubleclick/Ad Manager, Unreal Engine, Oculus SDK
+            </p>
+          </div>
+        </div>
+        <div className='w-1/3 flex flex-col justify-end items-end'>
+          <ButtonDefault />
+        </div>
       </div>
     </PanelBackground>
   )

@@ -38,6 +38,7 @@ import Resume from '../sections/Resume'
 import Availabilities from '../sections/Availabilities'
 import Services from '../sections/Services'
 import Portfolio from '../sections/Portfolio'
+import PortfolioItem from '../sections/PortfolioItem'
 
 // Constants
 const debug = true
@@ -66,7 +67,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           <div className='max-w-[1170px]'>
             {router.pathname === '/' && <Home />}
             {router.pathname === '/services' && <Services />}
-            {router.pathname === '/portfolio' && <Portfolio />}
+            {router.pathname === '/portfolio' && <PortfolioItem />}
             {router.pathname === '/history' && <History />}
             {router.pathname === '/resume' && <Resume />}
             {router.pathname === '/joi' && <JOISpecial />}

@@ -2,6 +2,7 @@ import HR from '../ui/HR'
 import PanelContent from '../ui/PanelContent'
 import IconSmall from '../ui/IconSmall'
 import VideoFrame from '../ui/VideoFrame'
+import ButtonDefault from '../ui/ButtonDefault'
 
 const ContentHead = () => {
   return (
@@ -27,6 +28,9 @@ const JOISpecial = () => {
   return (
     <PanelContent headerTitle='JOI Special' contentHead={<ContentHead />}>
       <VideoFrame videoURL='./videos/JOI-Introduction.mp4' />
+      <div className='flex flex-row mt-2 justify-end -mr-3'>
+        <ButtonDefault />
+      </div>
     </PanelContent>
   )
 }

@@ -10,6 +10,9 @@ const History = () => {
     <>
       <PanelContent headerTitle='Backstory' contentHead={<ContentHead icon={<IconSmall />} heading='Evokelabs History' />}>
         <VideoFrame videoURL='./videos/Evokelabs-History.mp4' />
+        <div className='flex flex-row mt-2 justify-end -mr-3'>
+          <ButtonDefault />
+        </div>
       </PanelContent>
     </>
   )
