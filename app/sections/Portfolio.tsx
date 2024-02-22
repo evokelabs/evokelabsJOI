@@ -129,21 +129,28 @@ const ContentHeadPortfolio = () => {
           <IconSmall />
         </div>
 
-        <div className='flex-row flex items-center gap-5'>
-          <p>SHOW ONLY:</p>
-          <DropdownMenu
-            options={['All', '3D', 'Development', 'Creative', 'Technologist', 'Motion']}
-            defaultOption='All'
-            onSelect={handleSelectShowOnly}
-          />
-        </div>
-        <div className='flex-row flex items-center gap-5'>
-          <p>SORT BY:</p>
-          <DropdownMenu
-            options={['Date (Descending)', 'Date (Ascending)', 'Recommended']}
-            defaultOption='Date (Descending)'
-            onSelect={handleSelectSortBy}
-          />
+        <div className='flex justify-between w-full mr-3'>
+          <div className='flex flex-row pr-4 items-center w-full justify-between'>
+            <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none uppercase '>Portfolio</h2>
+            <div className='flex gap-10 text-red-blur font-semibold text-[21px] items-center'>
+              <div className='flex-row flex items-center gap-5'>
+                <p>SHOW ONLY:</p>
+                <DropdownMenu
+                  options={['All', '3D', 'Development', 'Creative', 'Technologist', 'Motion']}
+                  defaultOption='All'
+                  onSelect={handleSelectShowOnly}
+                />
+              </div>
+              <div className='flex-row flex items-center gap-5'>
+                <p>SORT BY:</p>
+                <DropdownMenu
+                  options={['Date (Descending)', 'Date (Ascending)', 'Recommended']}
+                  defaultOption='Date (Descending)'
+                  onSelect={handleSelectSortBy}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <HR />
