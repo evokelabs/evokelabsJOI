@@ -6,7 +6,6 @@ import PanelBackground from '../ui/PanelContent'
 import PortfolioFrame from '../ui/PortfolioFrame'
 import { BLACK, RED } from '../libs/UIConstants'
 
-import portfolioData from './data/portfolio.json'
 
 interface DropdownMenuProps {
   options: string[]

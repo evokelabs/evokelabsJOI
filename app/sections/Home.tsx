@@ -46,7 +46,7 @@ const Home = () => {
 
   return (
     <div
-      className={`mb-4 mx-3.5 mr-2 cursor-pointer group`}
+      className={`mb-4 mx-3.5 mr-2 group ${!isActive ? 'cursor-zoom-in' : 'cursor-zoom-out'}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onMouseUp={() => setIsActive(!isActive)}
@@ -74,14 +74,14 @@ const Home = () => {
 
       <div
         ref={divRef}
-        className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0'
+        className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0 text-[2.2rem] '
       >
-        <p className='mt-6 mb-10 text-teal-blur font-semibold text-[1.9rem] leading-tight'>
-          Evoke labs is home to Adrian Pikios, <span className='text-red-blur'>an animator</span> who uses the powers of{' '}
-          <span className='text-red-blur'>JSX</span> to design, develop & create <span className='text-red-blur'>cheesy</span> digital
-          experiences.
+        <p className='mt-6 mb-10 text-teal-blur font-semibold leading-tight'>
+          Evoke labs is home to Adrian Pikios, <span className='text-red-blur bg-grid-red px-2'>an animator</span> who uses the powers of{' '}
+          <span className='text-red-blur bg-grid-red px-2'>JSX</span> to design, develop & create{' '}
+          <span className='text-red-blur bg-grid-red px-2'>cheesy</span> digital experiences.
         </p>
-        <p className='mb-5 text-teal-blur font-semibold text-[1.9rem] leading-tight'>
+        <p className='mb-5 text-teal-blur font-semibold leading-tight'>
           When not working on personal projects, I partner with clients, brands and agencies to help produce their digital campaigns.
         </p>
       </div>

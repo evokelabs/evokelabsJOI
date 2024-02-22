@@ -2,8 +2,6 @@ import ButtonDefault from '../ui/ButtonDefault'
 import PanelBackground from '../ui/PanelContent'
 import VideoFrame from '../ui/VideoFrame'
 
-
-
 const PortfolioItem = () => {
   return (
     <PanelBackground headerTitle='Past Gigs'>

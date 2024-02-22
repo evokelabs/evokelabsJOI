@@ -41,8 +41,8 @@ import Portfolio from '../sections/Portfolio'
 import PortfolioItem from '../sections/PortfolioItem'
 
 // Constants
-const debug = true
-// const debug = false
+// const debug = true
+const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
@@ -63,7 +63,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           powerPreference: 'high-performance'
         }}
       >
-        <Html scale={0.03} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0.5, 1.5, 2.1]}>
+        <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.39, 2.1]}>
           <div className='max-w-[1170px]'>
             {router.pathname === '/' && <Home />}
             {router.pathname === '/services' && <Services />}
@@ -120,7 +120,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         </Html>
         <VideoSkybox />
         {debug ? <Perf position='top-left' /> : null}
-        <Perf position='top-left' />
+        {/* <Perf position='top-left' /> */}
         <CameraRig fov={fov} debug={debug} />
         <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
         <AnimationContext.Provider
@@ -135,7 +135,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         >
           <Lights />
           <CyberpunkMap />
-          {/* <CyberpunkCar /> */}
+          <CyberpunkCar />
           <JOI />
           <Rain />
         </AnimationContext.Provider>
