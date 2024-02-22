@@ -4,11 +4,26 @@ import HR from '../ui/HR'
 import IconSmall from '../ui/IconSmall'
 import PanelBackground from '../ui/PanelContent'
 import PortfolioFrame from '../ui/PortfolioFrame'
+import { BLACK, RED } from '../libs/UIConstants'
 
 interface DropdownMenuProps {
   options: string[]
   defaultOption: string
   onSelect: (option: string) => void
+}
+
+const PullDownIcon = () => {
+  return (
+    <div className='relative -mt-0.5'>
+      <svg width='26' height='26' viewBox='0 0 26 26' fill='none'>
+        <path d='M0 0H26V26H0V0Z' fill={BLACK} fillOpacity='0.85' />
+        <path d='M0 0H26V26H0V0Z' fill={RED} fillOpacity='0.1' />
+        <path d='M0 0H26V26H0V0Z' fill='url(#redTile)' fillOpacity='0.1' />
+        <path fill-rule='evenodd' clip-rule='evenodd' d='M0 0H26V26H0V0ZM1 1V25H25V1H1Z' fill={RED} fill-opacity='0.6' />
+        <path d='M8 10L18 10L13 16L8 10Z' fill={RED} />
+      </svg>
+    </div>
+  )
 }
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onSelect }) => {
@@ -45,20 +60,14 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onS
         <button
           ref={buttonRef}
           type='button'
-          className='flex items-center  border-2-red px-3 pt-0.5 pb-1 font-medium uppercase text-teal-blur text-[16px] bg-grid-red shadow-red-blur min-w-[180px] justify-end'
+          className='flex items-center pl-2.5 pb-1 pt-1.5 pr-2 uppercase text-teal-blur text-[21px] bg-grid-red shadow-red-blur justify-between gap-5 border-1-red font-rajdhani font-semibold'
           id='options-menu'
           aria-haspopup='true'
           aria-expanded='true'
           onClick={() => setIsOpen(!isOpen)}
         >
           {selectedOption}
-          <svg className='-mr-1 ml-2 h-5 w-5' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
-            <path
-              fillRule='evenodd'
-              d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
-              clipRule='evenodd'
-            />
-          </svg>
+          <PullDownIcon />
         </button>
       </div>
 
@@ -67,12 +76,12 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onS
           ref={dropdownRef}
           className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5'
         >
-          <div className='py-1 ' role='menu' aria-orientation='vertical' aria-labelledby='options-menu'>
+          <div className='py-1' role='menu' aria-orientation='vertical' aria-labelledby='options-menu'>
             {options.map(option => (
               <button
                 key={option}
                 onClick={handleSelect(option)}
-                className='block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 uppercase'
+                className='block w-full text-left text-[21px] px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 font-rajdhani uppercase'
                 role='menuitem'
               >
                 {option}
@@ -132,16 +141,16 @@ const ContentHeadPortfolio = () => {
         <div className='flex justify-between w-full mr-3'>
           <div className='flex flex-row pr-4 items-center w-full justify-between'>
             <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none uppercase '>Portfolio</h2>
-            <div className='flex gap-10 text-red-blur font-semibold text-[21px] items-center'>
-              <div className='flex-row flex items-center gap-5'>
+            <div className='flex gap-10 text-red-blur font-semibold  items-center'>
+              <div className='flex-row flex items-center gap-5 text-[21px]'>
                 <p>SHOW ONLY:</p>
                 <DropdownMenu
-                  options={['All', '3D', 'Development', 'Creative', 'Technologist', 'Motion']}
+                  options={['All', '3D', 'Development', 'Creative', 'Technology', 'Motion']}
                   defaultOption='All'
                   onSelect={handleSelectShowOnly}
                 />
               </div>
-              <div className='flex-row flex items-center gap-5'>
+              <div className='flex-row flex items-center gap-5 text-[21px]'>
                 <p>SORT BY:</p>
                 <DropdownMenu
                   options={['Date (Newest)', 'Date (Oldest)', 'Recommended', 'Technology']}

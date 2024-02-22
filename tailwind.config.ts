@@ -97,6 +97,10 @@ const config: Config = {
           backgroundImage: `linear-gradient(rgba(247,80, 73, 1), rgba(247,80, 73, 1))`,
           backgroundRepeat: 'repeat'
         },
+        '.border-1-red': {
+          borderColor: 'rgba(222, 84, 86, 0.6)',
+          borderWidth: '1px'
+        },
         '.border-2-red': {
           borderColor: 'rgba(222, 84, 86, 0.6)',
           borderWidth: '2px'
