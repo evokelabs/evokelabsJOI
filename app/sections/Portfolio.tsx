@@ -19,7 +19,7 @@ interface PortfolioTileProps {
   subHeading: string
   technology: string[]
   desc: string
-  mainVideo: string
+  video: string
   thumb: string
   link: string
 }
@@ -29,9 +29,14 @@ interface PortfolioItem {
   subHeading: string
   technology: string[]
   desc: string
-  mainVideo: string
+  video: string
   thumb: string
   link: string
+}
+
+interface PortfolioFrameProps {
+  children: React.ReactNode
+  onClick: () => void
 }
 
 const PullDownIcon = () => {
@@ -113,13 +118,14 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onS
   )
 }
 
-const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, technology, thumb, mainVideo }) => {
+const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, technology, thumb, video }) => {
   return (
     <>
       <div className={'h-full relative flex items-end overflow-hidden'}>
         <div className='absolute top-0 w-full h-full'>
-          <video className='w-full h-full object-cover' loop autoPlay muted poster={thumb} src={mainVideo} />
+          <video className='w-full h-full object-cover' loop autoPlay muted poster={thumb} src={video} />
         </div>
+        video
         <div className='relative pl-1 pb-1 '>
           <div>
             <h2 className='uppercase text-teal-blur text-[32px] font-semibold leading-7 px-2 pt-0.5 inline-block bg-opacity-85 bg-black'>
@@ -193,17 +199,9 @@ const ContentHeadPortfolio = () => {
   )
 }
 
-const PortfolioItem: React.FC<PortfolioItem> = ({ heading, subHeading, technology, desc, mainVideo, thumb, link }) => {
+const PortfolioItem: React.FC<PortfolioItem> = ({ heading, subHeading, technology, desc, video, thumb, link }) => {
   return (
-    <PortfolioItem
-      heading={heading}
-      subHeading={subHeading}
-      technology={technology}
-      desc={desc}
-      thumb={thumb}
-      mainVideo={mainVideo}
-      link={link}
-    />
+    <PortfolioItem heading={heading} subHeading={subHeading} technology={technology} desc={desc} thumb={thumb} video={video} link={link} />
     // Render your portfolio item here using the props
   )
 }
@@ -231,7 +229,7 @@ const PortfolioHome = () => {
               technology={item.technology}
               desc={item.desc}
               thumb={item.thumb}
-              mainVideo={item.mainVideo}
+              video={item.video}
               link={item.link}
             />
           </PortfolioFrame>
