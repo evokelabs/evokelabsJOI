@@ -60,7 +60,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onS
         <button
           ref={buttonRef}
           type='button'
-          className='flex items-center pl-2.5 pb-1 pt-1.5 pr-2 uppercase text-teal-blur text-[21px] bg-grid-red shadow-red-blur justify-between gap-5 border-1-red font-rajdhani font-semibold'
+          className='flex items-center pl-3 pb-1 pt-1.5 pr-2 uppercase text-teal-blur text-[21px] bg-grid-red shadow-red-blur justify-between gap-5 border-2-red font-rajdhani font-semibold'
           id='options-menu'
           aria-haspopup='true'
           aria-expanded='true'
@@ -72,16 +72,13 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onS
       </div>
 
       {isOpen && (
-        <div
-          ref={dropdownRef}
-          className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5'
-        >
-          <div className='py-1' role='menu' aria-orientation='vertical' aria-labelledby='options-menu'>
+        <div ref={dropdownRef} className='absolute left-0 mt-2 bg-grid-red border-2-red'>
+          <div role='menu' aria-orientation='vertical' aria-labelledby='options-menu'>
             {options.map(option => (
               <button
                 key={option}
                 onClick={handleSelect(option)}
-                className='block w-full text-left text-[21px] px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 font-rajdhani uppercase'
+                className='block text-left text-[21px] pl-3 pr-8 py-2 font-rajdhani uppercase text-teal-blur hover:bg-grid-blue hover:text-red-blur w-full'
                 role='menuitem'
               >
                 {option}
