@@ -1,33 +1,41 @@
-import { useEffect, useRef, useState } from 'react'
-import { RED } from '../libs/UIConstants'
+import { useCallback, useEffect, useRef, useState, MouseEvent } from 'react'
 import ButtonDefault from '../ui/ButtonDefault'
 import HR from '../ui/HR'
 import IconSmall from '../ui/IconSmall'
 import PanelBackground from '../ui/PanelContent'
 import PortfolioFrame from '../ui/PortfolioFrame'
 
-const PullDownMenuShowOnly = () => {
-  const [isOpenShowOnly, setIsOpenShowOnly] = useState(false)
-  const [selectedOption, setSelectedOption] = useState('All')
-  const dropdownRef = useRef<HTMLDivElement | null>(null)
+interface DropdownMenuProps {
+  options: string[]
+  defaultOption: string
+  onSelect: (option: string) => void
+}
 
-  const handleSelect = (option: any) => (event: React.MouseEvent) => {
-    event.stopPropagation()
-    console.log(option)
-    setSelectedOption(option)
-    setIsOpenShowOnly(false)
-  }
+const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onSelect }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [selectedOption, setSelectedOption] = useState(defaultOption)
+  const dropdownRef = useRef<HTMLDivElement | null>(null)
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
+
+  const handleSelect = useCallback(
+    (option: string) => () => {
+      setSelectedOption(option)
+      setIsOpen(false)
+      onSelect(option)
+    },
+    [onSelect]
+  )
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current instanceof Node && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpenShowOnly(false)
+    const handleClickOutside = (event: globalThis.MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node) && event.target !== buttonRef.current) {
+        setIsOpen(false)
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('mouseup', handleClickOutside)
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('mouseup', handleClickOutside)
     }
   }, [])
 
@@ -35,12 +43,13 @@ const PullDownMenuShowOnly = () => {
     <div className='relative inline-block text-left z-10' tabIndex={0}>
       <div>
         <button
+          ref={buttonRef}
           type='button'
           className='inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500 uppercase'
           id='options-menu'
           aria-haspopup='true'
           aria-expanded='true'
-          onClick={() => setIsOpenShowOnly(!isOpenShowOnly)}
+          onClick={() => setIsOpen(!isOpen)}
         >
           {selectedOption}
           <svg className='-mr-1 ml-2 h-5 w-5' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
@@ -53,135 +62,22 @@ const PullDownMenuShowOnly = () => {
         </button>
       </div>
 
-      {isOpenShowOnly && (
+      {isOpen && (
         <div
           ref={dropdownRef}
           className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5'
         >
           <div className='py-1 ' role='menu' aria-orientation='vertical' aria-labelledby='options-menu'>
-            <button
-              onClick={handleSelect('All')}
-              className='block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 uppercase'
-              role='menuitem'
-            >
-              All
-            </button>
-            <button
-              onClick={handleSelect('3D')}
-              className='block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 uppercase'
-              role='menuitem'
-            >
-              3D
-            </button>
-            <button
-              onClick={handleSelect('Development')}
-              className='block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 uppercase'
-              role='menuitem'
-            >
-              Development
-            </button>
-            <button
-              onClick={handleSelect('Creative')}
-              className='block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 uppercase'
-              role='menuitem'
-            >
-              Creative
-            </button>
-            <button
-              onClick={handleSelect('Technologist')}
-              className='block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 uppercase'
-              role='menuitem'
-            >
-              Technologist
-            </button>
-            <button
-              onClick={handleSelect('Motion')}
-              className='block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 uppercase'
-              role='menuitem'
-            >
-              Motion
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
-
-const PullDownMenuSortBy = () => {
-  const [isOpenSortBy, setIsOpenSortBy] = useState(false)
-  const [selectedOption, setSelectedOption] = useState('Date (Descending)')
-  const dropdownRef = useRef<HTMLDivElement | null>(null)
-
-  const handleSelect = (option: any) => (event: React.MouseEvent) => {
-    event.stopPropagation()
-    console.log(option)
-    setSelectedOption(option)
-    setIsOpenSortBy(false)
-  }
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current instanceof Node && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpenSortBy(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
-
-  return (
-    <div className='relative inline-block text-left z-10' tabIndex={0}>
-      <div>
-        <button
-          type='button'
-          className='inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500 uppercase'
-          id='options-menu'
-          aria-haspopup='true'
-          aria-expanded='true'
-          onClick={() => setIsOpenSortBy(!isOpenSortBy)}
-        >
-          {selectedOption}
-          <svg className='-mr-1 ml-2 h-5 w-5' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
-            <path
-              fillRule='evenodd'
-              d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
-              clipRule='evenodd'
-            />
-          </svg>
-        </button>
-      </div>
-
-      {isOpenSortBy && (
-        <div
-          ref={dropdownRef}
-          className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5'
-        >
-          <div className='py-1 uppercase' role='menu' aria-orientation='vertical' aria-labelledby='options-menu'>
-            <button
-              onClick={handleSelect('All')}
-              className='block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 uppercase'
-              role='menuitem'
-            >
-              Date (Descending)
-            </button>
-            <button
-              onClick={handleSelect('3D')}
-              className='block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 uppercase'
-              role='menuitem'
-            >
-              Date (Ascending)
-            </button>
-            <button
-              onClick={handleSelect('Development')}
-              className='block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 uppercase'
-              role='menuitem'
-            >
-              Recommended
-            </button>
+            {options.map(option => (
+              <button
+                key={option}
+                onClick={handleSelect(option)}
+                className='block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 uppercase'
+                role='menuitem'
+              >
+                {option}
+              </button>
+            ))}
           </div>
         </div>
       )}
@@ -216,6 +112,16 @@ const PortfolioTile = () => {
 }
 
 const ContentHeadPortfolio = () => {
+  const handleSelectShowOnly = (option: string) => {
+    console.log(`Show only: ${option}`)
+    // Implement the logic to filter the portfolio based on the selected option
+  }
+
+  const handleSelectSortBy = (option: string) => {
+    console.log(`Sort by: ${option}`)
+    // Implement the logic to sort the portfolio based on the selected option
+  }
+
   return (
     <>
       <div className='flex flex-row my-1 gap-6'>
@@ -223,18 +129,21 @@ const ContentHeadPortfolio = () => {
           <IconSmall />
         </div>
 
-        <div className='flex justify-between w-full mr-10'>
-          <div className='flex flex-row pr-4 items-center w-full justify-between'>
-            <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none uppercase '>Portfolio</h2>
-            <div className='flex gap-10 text-red-blur font-semibold text-[21px] items-center'>
-              <div className='flex-row flex items-center gap-5'>
-                <p>SHOW ONLY:</p> <PullDownMenuShowOnly />
-              </div>
-              <div className='flex-row flex items-center gap-5'>
-                <p>SORT BY:</p> <PullDownMenuSortBy />
-              </div>
-            </div>
-          </div>
+        <div className='flex-row flex items-center gap-5'>
+          <p>SHOW ONLY:</p>
+          <DropdownMenu
+            options={['All', '3D', 'Development', 'Creative', 'Technologist', 'Motion']}
+            defaultOption='All'
+            onSelect={handleSelectShowOnly}
+          />
+        </div>
+        <div className='flex-row flex items-center gap-5'>
+          <p>SORT BY:</p>
+          <DropdownMenu
+            options={['Date (Descending)', 'Date (Ascending)', 'Recommended']}
+            defaultOption='Date (Descending)'
+            onSelect={handleSelectSortBy}
+          />
         </div>
       </div>
       <HR />
