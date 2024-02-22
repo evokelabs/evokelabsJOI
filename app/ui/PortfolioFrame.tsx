@@ -1,8 +1,9 @@
-import { ReactNode, MouseEventHandler } from 'react'
+// PortfolioFrame.tsx
+import { ReactNode } from 'react'
 
 interface PortfolioFrameProps {
   children: ReactNode
-  onClick: MouseEventHandler<HTMLDivElement>
+  onClick: () => void
 }
 
 const PortfolioFrame: React.FC<PortfolioFrameProps> = ({ children, onClick }) => {

@@ -7,6 +7,7 @@ import PortfolioFrame from '../ui/PortfolioFrame'
 import { BLACK, RED } from '../libs/UIConstants'
 
 import portfolio from './data/portfolio.json'
+import VideoFrame from '../ui/VideoFrame'
 
 interface DropdownMenuProps {
   options: string[]
@@ -22,6 +23,7 @@ interface PortfolioTileProps {
   video: string
   thumb: string
   link: string
+  mainVideo: string
 }
 
 interface PortfolioItem {
@@ -32,11 +34,7 @@ interface PortfolioItem {
   video: string
   thumb: string
   link: string
-}
-
-interface PortfolioFrameProps {
-  children: React.ReactNode
-  onClick: () => void
+  mainVideo: string
 }
 
 const PullDownIcon = () => {
@@ -125,7 +123,6 @@ const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, tech
         <div className='absolute top-0 w-full h-full'>
           <video className='w-full h-full object-cover' loop autoPlay muted poster={thumb} src={video} />
         </div>
-        video
         <div className='relative pl-1 pb-1 '>
           <div>
             <h2 className='uppercase text-teal-blur text-[32px] font-semibold leading-7 px-2 pt-0.5 inline-block bg-opacity-85 bg-black'>
@@ -199,10 +196,58 @@ const ContentHeadPortfolio = () => {
   )
 }
 
-const PortfolioItem: React.FC<PortfolioItem> = ({ heading, subHeading, technology, desc, video, thumb, link }) => {
+const PortfolioItem: React.FC<PortfolioItem> = ({ heading, subHeading, technology, desc, video, thumb, link, mainVideo }) => {
   return (
-    <PortfolioItem heading={heading} subHeading={subHeading} technology={technology} desc={desc} thumb={thumb} video={video} link={link} />
-    // Render your portfolio item here using the props
+    <PanelBackground headerTitle='Past Gigs'>
+      <div className='m-2 relative'>
+        <div className='flex flex-row w-full justify-between'>
+          <div className={'h-full relative flex items-end overflow-hidden'}>
+            <div className='w-full h-full'>
+              <div className='relative'>
+                <div>
+                  <h2 className='uppercase text-teal-blur text-[32px] font-semibold leading-7 pt-0.5 inline-block bg-opacity-85 bg-black'>
+                    {heading}
+                  </h2>
+                </div>
+                <div>
+                  <h3 className='uppercase text-red-blur text-[19px] font-medium leading-tight   pt-0.5 inline-block bg-opacity-85 bg-black '>
+                    {subHeading}
+                  </h3>
+                </div>
+                <div className='relative w-fit pointer-events-none'>
+                  <ul className='flex gap-3 text-black uppercase font-semibold text-[16px] mt-1'>
+                    {technology.map((tech, index) => (
+                      <li key={index} className='bg-red shadow-red-blur px-2'>
+                        {tech}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ButtonDefault label='Back' />
+        </div>
+
+        <div className='mt-3'>
+          <VideoFrame videoURL={mainVideo} />
+        </div>
+        {desc && (
+          <>
+            <div dangerouslySetInnerHTML={{ __html: desc }} className='mt-3 text-teal-blur text-[20px] space-y-6'></div>
+            <HR />
+          </>
+        )}
+        <div className='flex flex-row justify-between my-4'>
+          <ButtonDefault label='Launch' />
+
+          <div className='flex flex-row -mr-3.5'>
+            <ButtonDefault label='Back' />
+            <ButtonDefault />
+          </div>
+        </div>
+      </div>
+    </PanelBackground>
   )
 }
 
@@ -212,6 +257,7 @@ const PortfolioHome = () => {
 
   const handleItemClick = (item: PortfolioItem) => {
     setSelectedItem(item)
+    console.log('Item clicked:', item)
   }
 
   if (selectedItem) {
@@ -229,6 +275,7 @@ const PortfolioHome = () => {
               technology={item.technology}
               desc={item.desc}
               thumb={item.thumb}
+              mainVideo={item.mainVideo}
               video={item.video}
               link={item.link}
             />

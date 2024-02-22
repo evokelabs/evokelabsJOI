@@ -88,7 +88,10 @@ const SVGButton: React.FC<SVGButtonProps> = ({
   buttonProps: { width, viewBox, d1, d2 }
 }) => {
   return (
-    <div className={'relative cursor-pointer uppercase w-fit'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
+    <div
+      className={'relative cursor-pointer uppercase w-fit flex flex-row items-center'}
+      style={{ pointerEvents: isActive ? 'none' : 'all' }}
+    >
       <svg ref={svgRef} width={width} height='71' viewBox={viewBox}>
         <path d={d1} fill={BLACK} ref={pathBGFillRef} />
         <path d={d1} fill={RED} ref={pathFGFillRef} />
