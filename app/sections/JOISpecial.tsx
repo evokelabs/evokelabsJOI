@@ -30,8 +30,7 @@ const JOISpecial = () => {
       <VideoFrame videoURL='./videos/JOI-Introduction.mp4' />
       <div className='flex flex-row  justify-between'>
         <div className='flex flex-row mt-3 justify-end -mr-3'>
-          <ButtonDefault label='Figma Designs' />
-          <ButtonDefault label='Source Code' />
+          <ButtonDefault label='4k version' />
         </div>
         <div className='flex flex-row mt-3 justify-end -mr-3'>
           <ButtonDefault />

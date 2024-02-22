@@ -63,11 +63,12 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           powerPreference: 'high-performance'
         }}
       >
-        <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.39, 2.1]}>
+        <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
           <div className='max-w-[1170px]'>
             {router.pathname === '/' && <Home />}
             {router.pathname === '/services' && <Services />}
             {router.pathname === '/portfolio' && <Portfolio />}
+            {router.pathname === '/portfolio/item' && <PortfolioItem />}
             {router.pathname === '/history' && <History />}
             {router.pathname === '/resume' && <Resume />}
             {router.pathname === '/joi' && <JOISpecial />}
@@ -135,7 +136,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         >
           <Lights />
           <CyberpunkMap />
-          <CyberpunkCar />
+          {/* <CyberpunkCar /> */}
           <JOI />
           <Rain />
         </AnimationContext.Provider>

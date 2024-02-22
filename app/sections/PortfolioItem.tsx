@@ -18,12 +18,7 @@ const PortfolioItem = () => {
             <li className='bg-red shadow-red-blur px-2'>Development</li>
           </ul>
         </div>
-        <div className='my-3 text-red-blur text-[22px]'>
-          <p>
-            Evoke labs is home to Adrian Pikios, an animator who uses the powers of JSX to design, develop & create cheesy digital
-            experiences. When not working on personal projects, I partner with brands and agencies to help produce their digital campaigns.
-          </p>
-        </div>
+        <div className='my-3 text-red-blur text-[22px]'></div>
         <VideoFrame videoURL={'videos/portfolio/front/tiktok.mp4'} />
         <div className='flex flex-row justify-between my-4'>
           <ButtonDefault label='Launch' />

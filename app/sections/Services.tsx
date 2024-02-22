@@ -112,7 +112,7 @@ const Services = () => {
         />
         <RowThird
           heading='The experience factor'
-          paragraph='Feel the difference that two decades of experience makes. From the early days of Flash pioneering, to today’s cutting-edge advancements, I bring a wealth of knowledge and experience to your digital projects.'
+          paragraph='Feel the difference that two decades of experience makes. From the early days of Flash pioneering, to today’s cutting-edge advancements, Iing a wealth of knowledge and experience to your digital projects.'
         />
         <RowThird
           heading='The people factor'
