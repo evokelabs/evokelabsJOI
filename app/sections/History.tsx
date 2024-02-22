@@ -2,7 +2,6 @@ import ButtonDefault from '../ui/ButtonDefault'
 import IconSmall from '../ui/IconSmall'
 import PanelContent from '../ui/PanelContent'
 import ContentHead from '../ui/PanelContent/ContentHead'
-import PanelHeader from '../ui/PanelContent/PanelHeader'
 import VideoFrame from '../ui/VideoFrame'
 
 const History = () => {

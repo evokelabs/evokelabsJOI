@@ -1,8 +1,19 @@
+import { RED } from '../libs/UIConstants'
 import ButtonDefault from '../ui/ButtonDefault'
+import HR from '../ui/HR'
 import IconSmall from '../ui/IconSmall'
 import PanelBackground from '../ui/PanelContent'
 import ContentHead from '../ui/PanelContent/ContentHead'
+import ParagraphHighlight from '../ui/ParagraphHighlight'
 import PortfolioFrame from '../ui/PortfolioFrame'
+
+const PullDownMenus = () => {
+  return (
+    <div>
+      <p>Pull Down Menu</p>
+    </div>
+  )
+}
 
 const PortfolioTile = () => {
   return (
@@ -30,9 +41,32 @@ const PortfolioTile = () => {
   )
 }
 
+const ContentHeadPortfolio = () => {
+  return (
+    <>
+      <div className='flex flex-row my-1 gap-6'>
+        <div className='w-[70px]'>
+          <IconSmall />
+        </div>
+
+        <div className='flex justify-between w-full mr-10'>
+          <div className='flex flex-row pr-4 items-center w-full justify-between'>
+            <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none uppercase '>Portfolio</h2>
+            <div className='flex flex-row gap-10 text-red-blur font-semibold text-[21px]'>
+              <p>SHOW ONLY:</p>
+              <p>SORT BY:</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <HR />
+    </>
+  )
+}
+
 const Portfolio = () => {
   return (
-    <PanelBackground headerTitle='Past Gigs' contentHead={<ContentHead icon={<IconSmall />} heading='Portfolio' />}>
+    <PanelBackground headerTitle='Past Gigs' contentHead={<ContentHeadPortfolio />}>
       <div className='grid grid-cols-2 gap-5 mr-1'>
         <PortfolioFrame>
           <PortfolioTile />
