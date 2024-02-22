@@ -238,9 +238,8 @@ const PortfolioItem: React.FC<PortfolioItem> = ({ heading, subHeading, technolog
             <HR />
           </>
         )}
-        <div className='flex flex-row justify-between my-4'>
-          <ButtonDefault label='Launch' />
-
+        <div className='flex flex-row  my-4 justify-between'>
+          <div>{link && <ButtonDefault label='Launch' />}</div>
           <div className='flex flex-row -mr-3.5'>
             <ButtonDefault label='Back' />
             <ButtonDefault />
