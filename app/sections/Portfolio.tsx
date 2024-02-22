@@ -1,3 +1,4 @@
+import ButtonDefault from '../ui/ButtonDefault'
 import IconSmall from '../ui/IconSmall'
 import PanelBackground from '../ui/PanelContent'
 import ContentHead from '../ui/PanelContent/ContentHead'
@@ -32,7 +33,7 @@ const PortfolioTile = () => {
 const Portfolio = () => {
   return (
     <PanelBackground headerTitle='Past Gigs' contentHead={<ContentHead icon={<IconSmall />} heading='Portfolio' />}>
-      <div className='grid grid-cols-2 gap-5 mb-2 mr-1'>
+      <div className='grid grid-cols-2 gap-5 mr-1'>
         <PortfolioFrame>
           <PortfolioTile />
         </PortfolioFrame>
@@ -57,6 +58,9 @@ const Portfolio = () => {
         <PortfolioFrame>
           <PortfolioTile />
         </PortfolioFrame>
+      </div>
+      <div className='flex flex-row -mr-3.5 justify-end mb-3'>
+        <ButtonDefault />
       </div>
     </PanelBackground>
   )

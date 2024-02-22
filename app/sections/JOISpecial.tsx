@@ -28,8 +28,14 @@ const JOISpecial = () => {
   return (
     <PanelContent headerTitle='JOI Special' contentHead={<ContentHead />}>
       <VideoFrame videoURL='./videos/JOI-Introduction.mp4' />
-      <div className='flex flex-row mt-2 justify-end -mr-3'>
-        <ButtonDefault />
+      <div className='flex flex-row  justify-between'>
+        <div className='flex flex-row mt-3 justify-end -mr-3'>
+          <ButtonDefault label='Figma Designs' />
+          <ButtonDefault label='Source Code' />
+        </div>
+        <div className='flex flex-row mt-3 justify-end -mr-3'>
+          <ButtonDefault />
+        </div>
       </div>
     </PanelContent>
   )

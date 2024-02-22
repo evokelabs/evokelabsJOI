@@ -67,7 +67,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           <div className='max-w-[1170px]'>
             {router.pathname === '/' && <Home />}
             {router.pathname === '/services' && <Services />}
-            {router.pathname === '/portfolio' && <PortfolioItem />}
+            {router.pathname === '/portfolio' && <Portfolio />}
             {router.pathname === '/history' && <History />}
             {router.pathname === '/resume' && <Resume />}
             {router.pathname === '/joi' && <JOISpecial />}

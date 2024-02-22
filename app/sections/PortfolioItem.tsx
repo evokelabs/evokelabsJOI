@@ -1,6 +1,5 @@
 import ButtonDefault from '../ui/ButtonDefault'
 import PanelBackground from '../ui/PanelContent'
-import PortfolioFrame from '../ui/PortfolioFrame'
 import VideoFrame from '../ui/VideoFrame'
 
 const PortfolioItem = () => {

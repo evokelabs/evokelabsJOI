@@ -1,6 +1,5 @@
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLACK, RED, RED_BLACK } from '../libs/UIConstants'
-import ButtonDefault from './ButtonDefault'
 
 const VideoFrame = ({ videoURL }: { videoURL: string }) => {
   return (
