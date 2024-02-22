@@ -6,11 +6,28 @@ import PanelBackground from '../ui/PanelContent'
 import PortfolioFrame from '../ui/PortfolioFrame'
 import { BLACK, RED } from '../libs/UIConstants'
 
+import portfolio from './data/portfolio.json'
 
 interface DropdownMenuProps {
   options: string[]
   defaultOption: string
   onSelect: (option: string) => void
+}
+
+interface PortfolioTileProps {
+  heading: string
+  subHeading: string
+  technology: string[]
+  thumb: string
+  video: string
+}
+
+interface PortfolioItem {
+  heading: string
+  subHeading: string
+  technology: string[]
+  thumb: string
+  video: string
 }
 
 const PullDownIcon = () => {
@@ -92,26 +109,29 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onS
   )
 }
 
-const PortfolioTile = () => {
+const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, technology, thumb, video }) => {
   return (
     <>
       <div className={'h-full relative flex items-end overflow-hidden'}>
         <div className='absolute top-0 w-full h-full'>
-          <video className='w-full h-full object-cover' loop autoPlay muted poster='' src={'videos/portfolio/front/tiktok.mp4'} />
+          <video className='w-full h-full object-cover' loop autoPlay muted poster={thumb} src={video} />
         </div>
         <div className='relative bottom-0'>
           <h2 className='uppercase text-teal-blur text-[29px] font-semibold leading-7 px-2 pt-0.5 block bg-opacity-85 bg-black'>
-            TikTok Collection
+            {heading}
           </h2>
           <h3 className='uppercase text-red-blur text-[19px] font-medium leading-tight  px-2 pt-0.5  inline-block bg-opacity-85 bg-black mt-0.5'>
-            Front end lead
+            {subHeading}
           </h3>
         </div>
       </div>
       <div className='w-fit pt-0.5 pointer-events-none'>
         <ul className=' flex gap-3 text-black uppercase font-semibold text-[16px] mt-4 -ml-2.5 '>
-          <li className='bg-red shadow-red-blur px-2'>Motion</li>
-          <li className='bg-red shadow-red-blur px-2'>Development</li>
+          {technology.map((tech, index) => (
+            <li key={index} className='bg-red shadow-red-blur px-2'>
+              {tech}
+            </li>
+          ))}
         </ul>
       </div>
     </>
@@ -166,33 +186,21 @@ const ContentHeadPortfolio = () => {
 }
 
 const Portfolio = () => {
+  const portfolioData: PortfolioItem[] = portfolio
   return (
     <PanelBackground headerTitle='Past Gigs' contentHead={<ContentHeadPortfolio />}>
       <div className='grid grid-cols-2 gap-5 mr-1'>
-        <PortfolioFrame>
-          <PortfolioTile />
-        </PortfolioFrame>
-        <PortfolioFrame>
-          <PortfolioTile />
-        </PortfolioFrame>
-        <PortfolioFrame>
-          <PortfolioTile />
-        </PortfolioFrame>
-        <PortfolioFrame>
-          <PortfolioTile />
-        </PortfolioFrame>
-        <PortfolioFrame>
-          <PortfolioTile />
-        </PortfolioFrame>
-        <PortfolioFrame>
-          <PortfolioTile />
-        </PortfolioFrame>
-        <PortfolioFrame>
-          <PortfolioTile />
-        </PortfolioFrame>
-        <PortfolioFrame>
-          <PortfolioTile />
-        </PortfolioFrame>
+        {portfolioData.map((item, index) => (
+          <PortfolioFrame key={index}>
+            <PortfolioTile
+              heading={item.heading}
+              subHeading={item.subHeading}
+              technology={item.technology}
+              thumb={item.thumb}
+              video={item.video}
+            />
+          </PortfolioFrame>
+        ))}
       </div>
       <div className='flex flex-row -mr-3.5 justify-end mb-3'>
         <ButtonDefault />
