@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, MouseEvent } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import ButtonDefault from '../ui/ButtonDefault'
 import HR from '../ui/HR'
 import IconSmall from '../ui/IconSmall'
@@ -45,7 +45,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onS
         <button
           ref={buttonRef}
           type='button'
-          className='flex items-center  border-2-red px-3 pt-0.5 pb-1 font-medium uppercase text-teal-blur text-[16px] bg-grid-red shadow-red-blur'
+          className='flex items-center  border-2-red px-3 pt-0.5 pb-1 font-medium uppercase text-teal-blur text-[16px] bg-grid-red shadow-red-blur min-w-[180px] justify-end'
           id='options-menu'
           aria-haspopup='true'
           aria-expanded='true'
@@ -144,8 +144,8 @@ const ContentHeadPortfolio = () => {
               <div className='flex-row flex items-center gap-5'>
                 <p>SORT BY:</p>
                 <DropdownMenu
-                  options={['Date (Descending)', 'Date (Ascending)', 'Recommended']}
-                  defaultOption='Date (Descending)'
+                  options={['Date (Newest)', 'Date (Oldest)', 'Recommended', 'Technology']}
+                  defaultOption='Date (Newest)'
                   onSelect={handleSelectSortBy}
                 />
               </div>
