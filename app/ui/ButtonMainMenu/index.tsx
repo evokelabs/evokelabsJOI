@@ -11,12 +11,14 @@ const ButtonMainMenu = ({
   hoverLabel,
   isLocalActive,
   onClick,
+  svgIcon,
   callToAction = false
 }: {
   mainMenuNumber: number
   label: string
   hoverLabel: string
   isLocalActive: boolean
+  svgIcon: JSX.Element
   onClick: (mainMenuNumber: number) => void
   callToAction?: boolean
 }) => {
@@ -147,7 +149,14 @@ const ButtonMainMenu = ({
           ref={buttonTextRef}
           style={{ pointerEvents: isActive ? 'none' : 'all' }}
         >
-          <IconSmallInteractive isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} callToAction={callToAction} />
+          <IconSmallInteractive
+            isHovered={isHovered}
+            isActive={isActive}
+            isMouseDown={isMouseDown}
+            callToAction={callToAction}
+            svgIcon={svgIcon}
+          />
+
           <div className={`top-2 relative ${isHovered || isActive ? 'text-teal-blur' : primaryColor}`}>
             {isActive || isHovered ? hoverLabel : label}
           </div>
