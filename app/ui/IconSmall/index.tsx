@@ -27,7 +27,7 @@ const IconSmall = ({
 
   return (
     <>
-      <svg width='75' height='75' viewBox='0 0 75 75' fill='none' ref={svgRef || dummyRef}>
+      <svg width='84' height='75' viewBox='0 0 84 75' fill='none' ref={svgRef || dummyRef}>
         <path ref={pathBGFillRef || dummyRef} d='M2 2L2 72L72 72L72 15.8028L58.1972 2L2 2Z' fill={secondaryColor} />
 
         <path ref={pathFGFillRef || dummyRef} d='M2 2L2 72L72 72L72 15.8028L58.1972 2L2 2Z' fill='url(#blueTile)' />
@@ -46,6 +46,7 @@ const IconSmall = ({
             d='M0 74L8.82441e-07 0L59.0256 7.03873e-07L74 14.9744L74 74L0 74ZM72 15.8028L72 72L2 72L2 2L58.1972 2L72 15.8028Z'
             fill={primaryColor}
             fillRule='evenodd'
+            fillOpacity={0.6}
           />
           {svgIcon}
         </g>

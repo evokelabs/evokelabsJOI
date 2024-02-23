@@ -2,14 +2,19 @@ import { useState } from 'react'
 import ButtonMainMenu from '../ui/ButtonMainMenu'
 import { NextRouter } from 'next/router'
 import JOISVG from '../ui/svg/mainmenu/JOISVG'
+import AvailabilitiesSVG from '../ui/svg/mainmenu/AvailabilitiesSVG'
+import ResumeSVG from '../ui/svg/mainmenu/ResumeSVG'
+import HistorySVG from '../ui/svg/mainmenu/HistorySVG'
+import PortfolioSVG from '../ui/svg/mainmenu/PortfolioSVG'
+import ServicesSVG from '../ui/svg/mainmenu/ServicesSVG'
 
 const ROUTE_CONFIG = [
-  { labels: ['CORPO GUIDE', 'SERVICES'], svgIcon: <JOISVG />, route: '/services' },
-  { labels: ['PAST GIGS', 'PORTFOLIO'], svgIcon: <JOISVG />, route: '/portfolio' },
-  { labels: ['BACKSTORY', 'HISTORY'], svgIcon: <JOISVG />, route: '/history' },
-  { labels: ['DOSSIER', 'RESUME'], svgIcon: <JOISVG />, route: '/resume' },
+  { labels: ['CORPO GUIDE', 'SERVICES'], svgIcon: <ServicesSVG />, route: '/services' },
+  { labels: ['PAST GIGS', 'PORTFOLIO'], svgIcon: <PortfolioSVG />, route: '/portfolio' },
+  { labels: ['BACKSTORY', 'HISTORY'], svgIcon: <HistorySVG />, route: '/history' },
+  { labels: ['DOSSIER', 'RESUME'], svgIcon: <ResumeSVG />, route: '/resume' },
   { labels: ['JOI SPECIAL', 'INTRODUCING JOI'], svgIcon: <JOISVG />, route: '/joi' },
-  { labels: ['FIX A BOOKING', 'AVAILABILITIES'], svgIcon: <JOISVG />, route: '/availabilities', callToAction: true }
+  { labels: ['FIX A BOOKING', 'AVAILABILITIES'], svgIcon: <AvailabilitiesSVG />, route: '/availabilities', callToAction: true }
 ]
 
 const MainMenu = ({ router }: { router: NextRouter }) => {
