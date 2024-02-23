@@ -43,24 +43,25 @@ const MidFrame = ({
       <g filter={filterBlur}>
         <path
           ref={pathBGFillRef}
-          d='M2.00098 98V4H81.001L97.001 20H344.001V85.1398L331.001 98H2.00098Z'
+          d='M1.99902 98V4H80.999L96.999 20H343.999V85.1398L330.999 98H1.99902Z'
           fill={secondaryColor}
           fillOpacity='0.85'
         />
 
         <path
           ref={pathFGFillRef}
-          d='M2.00098 98V4H81.001L97.001 20H344.001V85.1398L331.001 98H2.00098Z'
+          d='M1.99902 98V4H80.999L96.999 20H343.999V85.1398L330.999 98H1.99902Z'
           fill={primaryColor}
           fillOpacity='0.1'
         />
-        <path d='M2.00098 98V4H81.001L97.001 20H344.001V85.1398L331.001 98H2.00098Z' fill='url(#redTile)' />
+        <path d='M1.99902 98V4H80.999L96.999 20H343.999V85.1398L330.999 98H1.99902Z' fill='url(#redTile)' />
         <path
           ref={pathBGStrokeRef}
-          d='M2.00098 3H1.00098V4V98V99H2.00098H331.001H331.412L331.704 98.7109L344.704 85.8507L345.001 85.5572V85.1398V20V19H344.001H97.4152L81.7081 3.29289L81.4152 3H81.001H2.00098Z'
-          stroke={primaryColor}
-          strokeOpacity='0.6'
-          strokeWidth='2'
+          fillRule='evenodd'
+          clipRule='evenodd'
+          d='M-0.000976562 2H81.8275L97.8275 18H345.999V85.9746L331.821 100H-0.000976562V2ZM96.999 20L80.999 4H1.99902V98H330.999L343.999 85.1398V20H96.999Z'
+          fill={primaryColor}
+          fillOpacity='0.6'
         />
       </g>
       {RED_TILE_PATTERN}
