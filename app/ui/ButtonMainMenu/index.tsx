@@ -5,12 +5,12 @@ import MidFrame from './MidFrame'
 import { ORANGE, RED, TEAL, UI_DURATION_TIME } from '../../libs/UIConstants'
 import IconSmallInteractive from '../IconSmall/IconSmallInteractive'
 
-import AvailabilitiesSVG from '../svg/mainmenu/AvailabilitiesSVG'
-import HistorySVG from '../svg/mainmenu/HistorySVG'
-import JOISVG from '../svg/mainmenu/JOISVG'
-import PortfolioSVG from '../svg/mainmenu/PortfolioSVG'
-import ResumeSVG from '../svg/mainmenu/ResumeSVG'
-import ServicesSVG from '../svg/mainmenu/ServicesSVG'
+import AvailabilitiesSVG from '../svg/mainMenu/AvailabilitiesSVG'
+import HistorySVG from '../svg/mainMenu/HistorySVG'
+import JOISVG from '../svg/mainMenu/JOISVG'
+import PortfolioSVG from '../svg/mainMenu/PortfolioSVG'
+import ResumeSVG from '../svg/mainMenu/ResumeSVG'
+import ServicesSVG from '../svg/mainMenu/ServicesSVG'
 
 const MainMenuSVG = ({ label, isHovered, isActive }: { label: string; isHovered: boolean; isActive: boolean }) => {
   let svg = <></>
@@ -36,7 +36,7 @@ const MainMenuSVG = ({ label, isHovered, isActive }: { label: string; isHovered:
     default:
       null
   }
-  return <div className='absolute '>{svg}</div>
+  return <>{svg}</>
 }
 
 const ButtonMainMenu = ({

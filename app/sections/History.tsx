@@ -1,8 +1,10 @@
+import { RED } from '../libs/UIConstants'
 import ButtonDefault from '../ui/ButtonDefault'
 import IconSmall from '../ui/IconSmall'
 import PanelContent from '../ui/PanelContent'
 import ContentHead from '../ui/PanelContent/ContentHead'
 import VideoFrame from '../ui/VideoFrame'
+import HistorySVG from '../ui/svg/mainMenu/HistorySVG'
 
 const History = () => {
   return (
@@ -11,7 +13,17 @@ const History = () => {
         headerTitle='Backstory'
         contentHead={
           <>
-            <ContentHead icon={<IconSmall />} heading='Evokelabs History' button={<ButtonDefault />} />
+            <ContentHead
+              icon={
+                <>
+                  {' '}
+                  <HistorySVG primaryColor={RED} />
+                  <IconSmall />
+                </>
+              }
+              heading='Evokelabs History'
+              button={<ButtonDefault />}
+            />
           </>
         }
       >

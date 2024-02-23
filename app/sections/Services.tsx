@@ -7,12 +7,14 @@ import PanelContent from '../ui/PanelContent'
 import ParagraphHighlight from '../ui/ParagraphHighlight'
 import RowHalf from '../ui/RowHalf'
 import RowThird from '../ui/RowThird'
+import ServicesSVG from '../ui/svg/mainMenu/ServicesSVG'
 
 const ContentHead = () => {
   return (
     <>
       <div className='flex flex-row my-1 gap-6'>
         <div className='w-[70px]'>
+          <ServicesSVG primaryColor={RED} />
           <IconSmall />
         </div>
         <div className='flex justify-between w-full mr-10'>

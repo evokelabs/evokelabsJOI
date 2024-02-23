@@ -6,6 +6,9 @@ import ContentHead from '../ui/PanelContent/ContentHead'
 import Calendar from 'react-calendar'
 
 import availabilities from './data/availabilities.json'
+import { RED } from '../libs/UIConstants'
+import JOISVG from '../ui/svg/mainMenu/JOISVG'
+import AvailabilitiesSVG from '../ui/svg/mainMenu/AvailabilitiesSVG'
 interface Period {
   start: string
   end: string
@@ -74,7 +77,20 @@ const Availabilities = () => {
   }
 
   return (
-    <PanelBackground headerTitle='Fix a booking' contentHead={<ContentHead icon={<IconSmall />} heading='Availabilities' />}>
+    <PanelBackground
+      headerTitle='Fix a booking'
+      contentHead={
+        <ContentHead
+          icon={
+            <>
+              <AvailabilitiesSVG primaryColor={RED} />
+              <IconSmall />
+            </>
+          }
+          heading='Availabilities'
+        />
+      }
+    >
       <div className='space-y-10 my-4'>
         <div className='flex flew-row gap-4 justify-between'>
           <CustomCalendar value={today} />

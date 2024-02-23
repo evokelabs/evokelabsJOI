@@ -5,12 +5,24 @@ import IconSmall from '../ui/IconSmall'
 import PanelBackground from '../ui/PanelContent'
 import ContentHead from '../ui/PanelContent/ContentHead'
 import RowFull from '../ui/RowFull'
+import ResumeSVG from '../ui/svg/mainMenu/ResumeSVG'
 
 const Resume = () => {
   return (
     <PanelBackground
       headerTitle='Dossier'
-      contentHead={<ContentHead icon={<IconSmall />} heading='Resume' button={<ButtonDefault label='hardcopy' />} />}
+      contentHead={
+        <ContentHead
+          icon={
+            <>
+              <ResumeSVG primaryColor={RED} />
+              <IconSmall />
+            </>
+          }
+          heading='Resume'
+          button={<ButtonDefault label='hardcopy' />}
+        />
+      }
     >
       <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
       <div className='mt-2 mb-3'>

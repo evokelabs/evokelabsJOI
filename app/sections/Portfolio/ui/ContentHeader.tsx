@@ -5,6 +5,8 @@ import HR from '@/app/ui/HR'
 import PortfolioItem from '../PortfolioItem'
 
 import portfolio from '../../data/portfolio.json'
+import PortfolioSVG from '@/app/ui/svg/mainMenu/PortfolioSVG'
+import { RED } from '@/app/libs/UIConstants'
 
 type ContentHeadPortfolioProps = {
   setPortfolioData: React.Dispatch<React.SetStateAction<PortfolioItem[]>>
@@ -62,6 +64,7 @@ const ContentHeader: React.FC<ContentHeadPortfolioProps> = ({ setPortfolioData, 
     <>
       <div className='flex flex-row my-1 gap-6'>
         <div className='w-[70px]'>
+          <PortfolioSVG primaryColor={RED} />
           <IconSmall />
         </div>
 

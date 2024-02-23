@@ -3,12 +3,15 @@ import PanelContent from '../ui/PanelContent'
 import IconSmall from '../ui/IconSmall'
 import VideoFrame from '../ui/VideoFrame'
 import ButtonDefault from '../ui/ButtonDefault'
+import { RED } from '../libs/UIConstants'
+import JOISVG from '../ui/svg/mainMenu/JOISVG'
 
 const ContentHead = () => {
   return (
     <>
       <div className='flex flex-row my-1 gap-6'>
         <div className='w-[70px]'>
+          <JOISVG primaryColor={RED} />
           <IconSmall />
         </div>
         <div className='flex flex-col pr-4'>
