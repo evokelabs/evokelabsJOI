@@ -17,18 +17,6 @@ import { useCameraSettings } from '../libs/useCameraSettings'
 
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, BrightnessContrast } from '@react-three/postprocessing'
 import { Vector2 } from 'three'
-import IconDefault from '../ui/IconDefault'
-import ButtonMainMenu from '../ui/ButtonMainMenu'
-import ButtonSocial from '../ui/ButtonSocial'
-import ButtonDefault from '../ui/ButtonDefault'
-import HeadingHighlight from '../ui/HeadingHighlight'
-import { RED, TEAL } from '../libs/UIConstants'
-import ParagraphHighlight from '../ui/ParagraphHighlight'
-import RowThird from '../ui/RowThird'
-import RowFull from '../ui/RowFull'
-import HR from '../ui/HR'
-import RowHalf from '../ui/RowHalf'
-import PanelBackground from '../ui/PanelContent'
 import MainMenu from '../sections/MainMenu'
 import { NextRouter } from 'next/router'
 import Home from '../sections/Home'
@@ -38,7 +26,6 @@ import Resume from '../sections/Resume'
 import Availabilities from '../sections/Availabilities'
 import Services from '../sections/Services'
 import Portfolio from '../sections/Portfolio'
-import PortfolioItem from '../sections/PortfolioItem'
 
 // Constants
 // const debug = true
@@ -68,7 +55,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
             {router.pathname === '/' && <Home />}
             {router.pathname === '/services' && <Services />}
             {router.pathname === '/portfolio' && <Portfolio />}
-            {router.pathname === '/portfolio/item' && <PortfolioItem />}
             {router.pathname === '/history' && <History />}
             {router.pathname === '/resume' && <Resume />}
             {router.pathname === '/joi' && <JOISpecial />}
