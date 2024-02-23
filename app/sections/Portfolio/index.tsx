@@ -87,12 +87,31 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onS
 }
 
 const ContentHeadPortfolio: React.FC<ContentHeadPortfolioProps> = ({ setPortfolioData, portfolioData }) => {
-  const SHOW_ONLY_OPTIONS = ['All', 'Creative', 'Development', 'Motion', 'Technology', 'Motion', '3d', 'edm']
+  const SHOW_ONLY_OPTIONS = ['All', 'Creative', 'Development', 'EDM', 'ui/ux', 'Strategy', 'Motion', 'Technology']
   const SORT_BY_OPTIONS = ['Date (Newest)', 'Date (Oldest)', 'Title (A-Z)', 'Title (Z-A)', 'Recommended', 'Technology']
 
+  const technologyMapping: { [key: string]: string[] } = {
+    All: [],
+    Creative: ['Figma', 'Adobe CC', 'Photoshop', 'Animate', 'Illustrator', 'Steam Workshop', 'Art Direction'],
+    Development: ['Foundation for Email', 'HTML5', 'CSS', 'PHP', 'Javascript', 'Wordpress', 'GSAP'],
+    EDM: ['Foundation for Email'],
+    'ui/ux': ['Figma', 'Art Direction', 'UX/UI'],
+    Strategy: ['Social Media', 'Strategy', 'Doubleclick'],
+    Motion: ['After Effects', '3d', 'Premiere'],
+    Technology: ['audio', 'VR', 'vr/ar']
+  }
+
   const handleSelectShowOnly = (option: string) => {
-    console.log(`Show only: ${option}`)
-    // Implement the logic to filter the portfolio based on the selected option
+    const technologies = technologyMapping[option]
+    let filteredData: PortfolioItem[] = []
+
+    if (option === 'All') {
+      filteredData = portfolio
+    } else {
+      filteredData = portfolio.filter(item => item.technology.some(tech => technologies.includes(tech)))
+    }
+
+    setPortfolioData(filteredData)
   }
 
   const handleSelectSortBy = (option: string) => {
@@ -160,7 +179,7 @@ const PortfolioHome = () => {
       headerTitle='Past Gigs'
       contentHead={<ContentHeadPortfolio setPortfolioData={setPortfolioData} portfolioData={portfolioData} />}
     >
-      <div className='grid grid-cols-2 gap-5 mr-1'>
+      <div className='grid grid-cols-2 gap-5 mr-1 mb-3'>
         {portfolioData.map((item, index) => (
           <PortfolioPanelContent key={index} onClick={() => handleItemClick(item)}>
             <PortfolioTile
