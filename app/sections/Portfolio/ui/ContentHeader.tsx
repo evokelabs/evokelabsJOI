@@ -11,21 +11,21 @@ type ContentHeadPortfolioProps = {
   portfolioData: PortfolioItem[]
 }
 
+const SHOW_ONLY_OPTIONS = ['All', 'Creative', 'Development', 'EDM/CRM', 'Motion', 'Strategy', 'Technology', 'ui/ux']
+const SORT_BY_OPTIONS = ['Date (Newest)', 'Date (Oldest)', 'Title (A-Z)', 'Title (Z-A)', 'Recommended', 'Technology']
+
+const technologyMapping: { [key: string]: string[] } = {
+  All: [],
+  Creative: ['Figma', 'Adobe CC', 'Photoshop', 'Animate', 'Illustrator', 'Steam Workshop', 'Art Direction'],
+  Development: ['Foundation for Email', 'HTML5', 'CSS', 'PHP', 'Javascript', 'Wordpress', 'GSAP', 'react', 'next.js', 'aws', 'threejs'],
+  'EDM/CRM': ['Foundation for Email', 'mailchimp', 'hubspot', 'klaviyo', 'marketo', 'salesforce', 'adobe campaign'],
+  'ui/ux': ['Figma', 'Art Direction', 'UX/UI'],
+  Strategy: ['Social Media', 'Strategy', 'Doubleclick'],
+  Motion: ['After Effects', '3d', 'Premiere'],
+  Technology: ['audio', 'VR/AR', 'unreal engine', 'artificial intelligence']
+}
+
 const ContentHeader: React.FC<ContentHeadPortfolioProps> = ({ setPortfolioData, portfolioData }) => {
-  const SHOW_ONLY_OPTIONS = ['All', 'Creative', 'Development', 'EDM', 'ui/ux', 'Strategy', 'Motion', 'Technology']
-  const SORT_BY_OPTIONS = ['Date (Newest)', 'Date (Oldest)', 'Title (A-Z)', 'Title (Z-A)', 'Recommended', 'Technology']
-
-  const technologyMapping: { [key: string]: string[] } = {
-    All: [],
-    Creative: ['Figma', 'Adobe CC', 'Photoshop', 'Animate', 'Illustrator', 'Steam Workshop', 'Art Direction'],
-    Development: ['Foundation for Email', 'HTML5', 'CSS', 'PHP', 'Javascript', 'Wordpress', 'GSAP'],
-    EDM: ['Foundation for Email'],
-    'ui/ux': ['Figma', 'Art Direction', 'UX/UI'],
-    Strategy: ['Social Media', 'Strategy', 'Doubleclick'],
-    Motion: ['After Effects', '3d', 'Premiere'],
-    Technology: ['audio', 'VR', 'vr/ar']
-  }
-
   const handleSelectShowOnly = (option: string) => {
     const technologies = technologyMapping[option]
     let filteredData: PortfolioItem[] = []

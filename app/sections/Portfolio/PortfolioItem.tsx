@@ -4,6 +4,7 @@ import PanelBackground from '../../ui/PanelContent'
 import VideoFrame from '../../ui/VideoFrame'
 
 interface PortfolioItem {
+  id: number
   heading: string
   subHeading: string
   technology: string[]
@@ -16,7 +17,7 @@ interface PortfolioItem {
   recommended: number
 }
 
-const PortfolioItem: React.FC<PortfolioItem> = ({ heading, subHeading, technology, desc, video, thumb, link, mainVideo }) => {
+const PortfolioItem: React.FC<PortfolioItem> = ({ id, heading, subHeading, technology, desc, video, thumb, link, mainVideo }) => {
   return (
     <PanelBackground headerTitle='Past Gigs'>
       <div className='m-2 relative'>

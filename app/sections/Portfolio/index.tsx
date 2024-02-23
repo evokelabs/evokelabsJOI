@@ -14,7 +14,6 @@ const PortfolioHome = () => {
 
   const handleItemClick = (item: PortfolioItem) => {
     setSelectedItem(item)
-    console.log('Item clicked:', item)
   }
 
   if (selectedItem) {
@@ -24,8 +23,8 @@ const PortfolioHome = () => {
   return (
     <PanelContent headerTitle='Past Gigs' contentHead={<ContentHeader setPortfolioData={setPortfolioData} portfolioData={portfolioData} />}>
       <div className='grid grid-cols-2 gap-5 mr-1 mb-3'>
-        {portfolioData.map((item, index) => (
-          <PortfolioPanelContent key={index} onClick={() => handleItemClick(item)}>
+        {portfolioData.map(item => (
+          <PortfolioPanelContent key={item.id} onClick={() => handleItemClick(item)}>
             <PortfolioTile
               heading={item.heading}
               subHeading={item.subHeading}
@@ -46,8 +45,4 @@ const PortfolioHome = () => {
   )
 }
 
-const Portfolio = () => {
-  return <PortfolioHome />
-}
-
-export default Portfolio
+export default PortfolioHome
