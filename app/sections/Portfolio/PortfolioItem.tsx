@@ -13,6 +13,7 @@ interface PortfolioItem {
   link: string
   mainVideo: string
   date: string
+  recommended: number
 }
 
 const PortfolioItem: React.FC<PortfolioItem> = ({ heading, subHeading, technology, desc, video, thumb, link, mainVideo }) => {

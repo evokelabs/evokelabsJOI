@@ -8,7 +8,8 @@
     "thumb": "portfolio/front/tiktok.jpg",
     "video": "portfolio/front/tiktok.mp4",
     "mainVideo": "portfolio/items/tiktok.mp4",
-    "link": ""
+    "link": "",
+    "recommended": 1
   },
   {
     "heading": "Petculture",
@@ -19,7 +20,8 @@
     "thumb": "portfolio/front/petculture.jpg",
     "video": "portfolio/front/petculture.mp4",
     "mainVideo": "portfolio/items/petculture.mp4",
-    "link": ""
+    "link": "",
+    "recommended": 2
   },
   {
     "heading": "Wisemans Surf Lodge",
@@ -30,7 +32,8 @@
     "thumb": "portfolio/front/wiseman.jpg",
     "video": "portfolio/front/wiseman.mp4",
     "mainVideo": "portfolio/items/wiseman.mp4",
-    "link": ""
+    "link": "",
+    "recommended": 2
   },
   {
     "heading": "hummgroup",
@@ -41,7 +44,8 @@
     "thumb": "portfolio/front/hummgroup.jpg",
     "video": "portfolio/front/hummgroup.mp4",
     "mainVideo": "portfolio/items/hummgroup.mp4",
-    "link": ""
+    "link": "",
+    "recommended": 3
   },
   {
     "heading": "Hyland Communication Agency",
@@ -52,7 +56,8 @@
     "thumb": "portfolio/front/hyland.jpg",
     "video": "portfolio/front/hyland.mp4",
     "mainVideo": "portfolio/items/hyland.mp4",
-    "link": "http:///www.siecap.com.au"
+    "link": "http:///www.siecap.com.au",
+    "recommended": 4
   },
   {
     "heading": "University of Sydney",
@@ -63,7 +68,8 @@
     "thumb": "portfolio/front/university.jpg",
     "video": "portfolio/front/university.mp4",
     "mainVideo": "portfolio/items/university.mp4",
-    "link": ""
+    "link": "",
+    "recommended": 5
   },
   {
     "heading": "Richards Rose",
@@ -74,7 +80,8 @@
     "thumb": "portfolio/front/richardrose.jpg",
     "video": "portfolio/front/richardrose.mp4",
     "mainVideo": "portfolio/items/richardrose.mp4",
-    "link": "http://www.richardsrose.com.au/"
+    "link": "http://www.richardsrose.com.au/",
+    "recommended": 4
   },
   {
     "heading": "Stan",
@@ -85,7 +92,8 @@
     "thumb": "portfolio/front/stanBanners.jpg",
     "video": "portfolio/front/stanBanners.mp4",
     "mainVideo": "portfolio/items/stanBanners.mp4",
-    "link": ""
+    "link": "",
+    "recommended": 4
   },
   {
     "heading": "Richards Rose",
@@ -96,7 +104,8 @@
     "thumb": "portfolio/front/RicharRoseHtml5BannerBuilds.jpg",
     "video": "portfolio/front/RicharRoseHtml5BannerBuilds.mp4",
     "mainVideo": "portfolio/items/RicharRoseHtml5BannerBuilds.mp4",
-    "link": ""
+    "link": "",
+    "recommended": 3
   },
   {
     "heading": "Richards Rose",
@@ -107,7 +116,8 @@
     "thumb": "portfolio/front/richardsRoseMotionSuite.jpg",
     "video": "portfolio/front/richardsRoseMotionSuite.mp4",
     "mainVideo": "portfolio/items/richardsRoseMotionSuite.mp4",
-    "link": ""
+    "link": "",
+    "recommended": 3
   },
   {
     "heading": "DJ Ravine",
@@ -118,10 +128,11 @@
     "thumb": "portfolio/front/ravine.jpg",
     "video": "portfolio/front/ravine.mp4",
     "mainVideo": "portfolio/items/ravine.mp4",
-    "link": ""
+    "link": "",
+    "recommended": 4
   },
   {
-    "heading": "“Let It Go” with Crystal Maiden",
+    "heading": "Let It Go with Crystal Maiden",
     "subHeading": "Youtube Video & Steam Workshop Item",
     "date": "2015-06-01",
     "technology": ["3d", "After Effects", "Premiere", "Steam Workshop", "audio"],
@@ -129,7 +140,8 @@
     "thumb": "portfolio/front/letitgo.jpg",
     "video": "portfolio/front/letitgo.mp4",
     "mainVideo": "portfolio/items/letitgo.mp4",
-    "link": "https://www.youtube.com/watch?v=veGbtkyoe_Q"
+    "link": "https://www.youtube.com/watch?v=veGbtkyoe_Q",
+    "recommended": 1
   },
   {
     "heading": "Pudge Creek",
@@ -140,7 +152,8 @@
     "thumb": "portfolio/front/pudgecreek.jpg",
     "video": "portfolio/front/pudgecreek.mp4",
     "mainVideo": "portfolio/items/pudgecreek.mp4",
-    "link": "https://www.youtube.com/watch?v=OGpwAhMmhyk"
+    "link": "https://www.youtube.com/watch?v=OGpwAhMmhyk",
+    "recommended": 2
   },
   {
     "heading": "AJF Partnership",
@@ -151,7 +164,8 @@
     "thumb": "portfolio/front/ajfCollection.jpg",
     "video": "portfolio/front/ajfCollection.mp4",
     "mainVideo": "portfolio/items/ajfCollection.mp4",
-    "link": ""
+    "link": "",
+    "recommended": 2
   },
   {
     "heading": "Optus",
@@ -162,28 +176,31 @@
     "thumb": "portfolio/front/optusMotion.jpg",
     "video": "portfolio/front/optusMotion.mp4",
     "mainVideo": "portfolio/items/optusMotion.mp4",
-    "link": ""
+    "link": "",
+    "recommended": 5
   },
   {
     "heading": "Powerhouse Productions",
     "subHeading": "Digital Promotional Campaigns",
-    "date": "2012-07-01",
+    "date": "2011-07-01",
     "technology": ["Strategy", "Art Direction", "UX/UI", "Animate", "Photoshop"],
     "desc": "<p>Powerhouse Productions was Australia’s largest all-aged dance event producer, and I was responsible for all of their digital marketing campaigns. My client's events are marketed to a youthful and energetic demographic, so I had the opportunity to push my Flash abilities to its creative limits. Most of the flash banners created for these events were built to be eye-catching and unique - using particle effects, layer blending, and AS2 driven effects.</p><p>In additional to these banners, occasionally a Flash minisite would be built for the next dance event. They were all uniquely designed, mixed with music, informative and encouraged users to buy tickets online. Built using AS2, no minisite was ever created the same - advancing the awareness of the parties that went way beyond the typical flyer.<p> <p>Ticket sales usually picked up after these sites were built - leading to their first sell out event at the Acer Arena. It also got my name out there as someone who specialised in doing good work for DJs, promoters and events - earning new clients across Australia and the UK.</p>",
     "thumb": "portfolio/front/php.jpg",
     "video": "portfolio/front/php.mp4",
     "mainVideo": "portfolio/items/php.mp4",
-    "link": ""
+    "link": "",
+    "recommended": 4
   },
   {
     "heading": "VML",
     "subHeading": "Freelance Digital Collection",
-    "date": "2012-07-01",
+    "date": "2010-07-01",
     "technology": ["Art Direction", "Photoshop", "Animate", "HTML", " CSS"],
     "desc": "<p>Y&R was the first big break in my digital career. GPYR's Head of Digital noticed my Flash portfolio in the golden days of SWF, right where the demand for Flash designers and developers was at its highest. He took a gamble on my digital talents, and I was fortunate enough to be offered a freelance role at GPYR. I worked there for around a year, designing eDMs, coding Flash banner minigames, creating minisites, and even solo created an Australia Idol banner campaign from scratch for a national wide audience. A great experience.</p>",
     "thumb": "portfolio/front/vml.jpg",
     "video": "portfolio/front/vml.mp4",
     "mainVideo": "portfolio/items/vml.mp4",
-    "link": ""
+    "link": "",
+    "recommended": 4
   }
 ]

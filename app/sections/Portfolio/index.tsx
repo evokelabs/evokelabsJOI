@@ -106,6 +106,10 @@ const ContentHeadPortfolio: React.FC<ContentHeadPortfolioProps> = ({ setPortfoli
       sortedData = [...portfolioData].sort((a, b) => a.heading.localeCompare(b.heading))
     } else if (option === 'Title (Z-A)') {
       sortedData = [...portfolioData].sort((a, b) => b.heading.localeCompare(a.heading))
+    } else if (option === 'Technology') {
+      sortedData = [...portfolioData].sort((a, b) => a.technology.join(', ').localeCompare(b.technology.join(', ')))
+    } else if (option === 'Recommended') {
+      sortedData = [...portfolioData].sort((a, b) => a.recommended - b.recommended)
     }
     setPortfolioData(sortedData)
   }
