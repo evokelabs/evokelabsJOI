@@ -16,8 +16,7 @@ const History = () => {
             <ContentHead
               icon={
                 <>
-                  {' '}
-                  <HistorySVG primaryColor={RED} />
+                  <HistorySVG />
                   <IconSmall />
                 </>
               }

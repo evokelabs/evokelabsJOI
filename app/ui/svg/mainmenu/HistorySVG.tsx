@@ -1,7 +1,6 @@
 import { RED } from '@/app/libs/UIConstants'
-import React from 'react'
 
-const HistorySVG = ({ primaryColor }: { primaryColor: string }) => {
+const HistorySVG = ({ primaryColor = RED }: { primaryColor?: string }) => {
   return (
     <div className='absolute '>
       <svg width='72' height='70' viewBox='-4 1 70 70' fill='none'>

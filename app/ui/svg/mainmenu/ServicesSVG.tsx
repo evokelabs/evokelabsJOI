@@ -1,7 +1,6 @@
 import { RED } from '@/app/libs/UIConstants'
-import React from 'react'
 
-const ServicesSVG = ({ primaryColor }: { primaryColor: string }) => {
+const ServicesSVG = ({ primaryColor = RED }: { primaryColor?: string }) => {
   return (
     <div className='absolute '>
       <svg width='74' height='74' viewBox='-0.5 1 74 74'>

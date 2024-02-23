@@ -1,6 +1,3 @@
-import { ORANGE, RED, TEAL } from '@/app/libs/UIConstants'
-import React from 'react'
-
 const AvailabilitiesSVG = ({ primaryColor }: { primaryColor: string }) => {
   return (
     <div className='absolute '>

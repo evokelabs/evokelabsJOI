@@ -7,7 +7,6 @@ import Calendar from 'react-calendar'
 
 import availabilities from './data/availabilities.json'
 import { RED } from '../libs/UIConstants'
-import JOISVG from '../ui/svg/mainMenu/JOISVG'
 import AvailabilitiesSVG from '../ui/svg/mainMenu/AvailabilitiesSVG'
 interface Period {
   start: string

@@ -14,7 +14,7 @@ const ContentHead = () => {
     <>
       <div className='flex flex-row my-1 gap-6'>
         <div className='w-[70px]'>
-          <ServicesSVG primaryColor={RED} />
+          <ServicesSVG />
           <IconSmall />
         </div>
         <div className='flex justify-between w-full mr-10'>

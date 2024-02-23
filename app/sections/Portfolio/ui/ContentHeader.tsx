@@ -64,7 +64,7 @@ const ContentHeader: React.FC<ContentHeadPortfolioProps> = ({ setPortfolioData, 
     <>
       <div className='flex flex-row my-1 gap-6'>
         <div className='w-[70px]'>
-          <PortfolioSVG primaryColor={RED} />
+          <PortfolioSVG />
           <IconSmall />
         </div>
 

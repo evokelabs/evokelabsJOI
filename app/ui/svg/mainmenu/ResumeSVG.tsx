@@ -1,7 +1,6 @@
 import { RED } from '@/app/libs/UIConstants'
-import React from 'react'
 
-const ResumeSVG = ({ primaryColor }: { primaryColor: string }) => {
+const ResumeSVG = ({ primaryColor = RED }: { primaryColor?: string }) => {
   return (
     <div className='absolute '>
       <svg width='72' height='69' viewBox='-7 -4 72 70' fill='none'>

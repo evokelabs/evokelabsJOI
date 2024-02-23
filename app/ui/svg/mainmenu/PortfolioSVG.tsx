@@ -1,6 +1,6 @@
 import { RED } from '@/app/libs/UIConstants'
 
-const PortfolioSVG = ({ primaryColor }: { primaryColor: string }) => {
+const PortfolioSVG = ({ primaryColor = RED }: { primaryColor?: string }) => {
   return (
     <div className='absolute '>
       <svg width='70' height='72' fill='none' viewBox='-1 1 70 70'>

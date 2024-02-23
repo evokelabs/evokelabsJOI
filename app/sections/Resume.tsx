@@ -15,7 +15,7 @@ const Resume = () => {
         <ContentHead
           icon={
             <>
-              <ResumeSVG primaryColor={RED} />
+              <ResumeSVG />
               <IconSmall />
             </>
           }

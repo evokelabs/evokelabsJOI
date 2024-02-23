@@ -1,7 +1,6 @@
-import { RED, RED_DULL } from '@/app/libs/UIConstants'
-import React from 'react'
+import { RED } from '@/app/libs/UIConstants'
 
-const JOISVG = ({ primaryColor }: { primaryColor: string }) => {
+const JOISVG = ({ primaryColor = RED }: { primaryColor?: string }) => {
   return (
     <div className='absolute '>
       <svg width='70' height='72' fill='none' viewBox='-2 0 70 70'>
