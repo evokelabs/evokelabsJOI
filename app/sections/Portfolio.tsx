@@ -150,6 +150,9 @@ const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, tech
 }
 
 const ContentHeadPortfolio = () => {
+  const SHOW_ONLY_OPTIONS = ['All', 'Creative', 'Development', 'Motion', 'Technology', 'Motion', '3d', 'edm']
+  const SORT_BY_OPTIONS = ['Date (Newest)', 'Date (Oldest)', 'Title (A-Z)', 'Title (Z-A)', 'Recommended', 'Technology']
+
   const handleSelectShowOnly = (option: string) => {
     console.log(`Show only: ${option}`)
     // Implement the logic to filter the portfolio based on the selected option
@@ -173,19 +176,11 @@ const ContentHeadPortfolio = () => {
             <div className='flex gap-10 text-red-blur font-semibold  items-center'>
               <div className='flex-row flex items-center gap-5 text-[21px]'>
                 <p>SHOW ONLY:</p>
-                <DropdownMenu
-                  options={['All', '3D', 'Development', 'Creative', 'Technology', 'Motion']}
-                  defaultOption='All'
-                  onSelect={handleSelectShowOnly}
-                />
+                <DropdownMenu options={SHOW_ONLY_OPTIONS} defaultOption='All' onSelect={handleSelectShowOnly} />
               </div>
               <div className='flex-row flex items-center gap-5 text-[21px]'>
                 <p>SORT BY:</p>
-                <DropdownMenu
-                  options={['Date (Newest)', 'Date (Oldest)', 'Recommended', 'Technology']}
-                  defaultOption='Date (Newest)'
-                  onSelect={handleSelectSortBy}
-                />
+                <DropdownMenu options={SORT_BY_OPTIONS} defaultOption='Date (Newest)' onSelect={handleSelectSortBy} />
               </div>
             </div>
           </div>
