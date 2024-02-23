@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { BLACK, BLUE_DARK, RED, RED_DARK, RED_DULL, UI_DURATION_TIME } from '@/app/libs/UIConstants'
+import { BLACK, BLUE_DARK, RED, RED_DARK, RED_DULL, TEAL, UI_DURATION_TIME } from '@/app/libs/UIConstants'
 
 const useButtonIconController = ({
   isHovered,
@@ -35,8 +35,10 @@ const useButtonIconController = ({
       if (isHovered) {
         gsap.to(pathBGStroke, { attr: { 'stroke-opacity': 1 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
         gsap.to(pathBGFill, { attr: { fill: BLACK, 'fill-opacity': 0.5 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        // gsap.to(pathBGStrokeRef.current, { attr: { fill: TEAL }, duration: UI_DURATION_TIME, ease: 'power1.out' })
       } else {
         gsap.to(pathBGStroke, { attr: { 'stroke-opacity': 0.6, strokeColor: RED }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        // gsap.to(pathBGStrokeRef.current, { attr: { fill: RED }, duration: UI_DURATION_TIME, ease: 'power1.out' })
       }
 
       if (isActive) {

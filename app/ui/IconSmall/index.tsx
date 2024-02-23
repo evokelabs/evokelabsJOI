@@ -9,15 +9,13 @@ const IconSmall = ({
   pathBGFillRef,
   pathBGStrokeRef,
   pathFGFillRef,
-  callToAction = false,
-  svgIcon
+  callToAction = false
 }: {
   svgRef?: React.RefObject<SVGSVGElement>
   pathBGFillRef?: React.RefObject<SVGPathElement>
   pathBGStrokeRef?: React.RefObject<SVGPathElement>
   pathFGFillRef?: React.RefObject<SVGPathElement>
   callToAction?: boolean
-  svgIcon: JSX.Element
 }) => {
   const dummyRef = useRef(null)
 
@@ -48,7 +46,6 @@ const IconSmall = ({
             fillRule='evenodd'
             fillOpacity={0.6}
           />
-          {svgIcon}
         </g>
         {BLUE_TILE_PATTERN}
       </svg>

@@ -2,8 +2,42 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import LeftFrame from './LeftFrame'
 import MidFrame from './MidFrame'
-import { RED, TEAL, UI_DURATION_TIME } from '../../libs/UIConstants'
+import { ORANGE, RED, TEAL, UI_DURATION_TIME } from '../../libs/UIConstants'
 import IconSmallInteractive from '../IconSmall/IconSmallInteractive'
+
+import AvailabilitiesSVG from '../svg/mainmenu/AvailabilitiesSVG'
+import HistorySVG from '../svg/mainmenu/HistorySVG'
+import JOISVG from '../svg/mainmenu/JOISVG'
+import PortfolioSVG from '../svg/mainmenu/PortfolioSVG'
+import ResumeSVG from '../svg/mainmenu/ResumeSVG'
+import ServicesSVG from '../svg/mainmenu/ServicesSVG'
+
+const MainMenuSVG = ({ label, isHovered, isActive }: { label: string; isHovered: boolean; isActive: boolean }) => {
+  let svg = <></>
+  switch (label) {
+    case 'CORPO GUIDE':
+      svg = <ServicesSVG primaryColor={isHovered || isActive ? TEAL : RED} />
+      break
+    case 'PAST GIGS':
+      svg = <PortfolioSVG primaryColor={isHovered || isActive ? TEAL : RED} />
+      break
+    case 'BACKSTORY':
+      svg = <HistorySVG primaryColor={isHovered || isActive ? TEAL : RED} />
+      break
+    case 'DOSSIER':
+      svg = <ResumeSVG primaryColor={isHovered || isActive ? TEAL : RED} />
+      break
+    case 'JOI SPECIAL':
+      svg = <JOISVG primaryColor={isHovered || isActive ? TEAL : RED} />
+      break
+    case 'FIX A BOOKING':
+      svg = <AvailabilitiesSVG primaryColor={isHovered || isActive ? TEAL : ORANGE} />
+      break
+    default:
+      null
+  }
+  return <div className='absolute '>{svg}</div>
+}
 
 const ButtonMainMenu = ({
   mainMenuNumber,
@@ -11,14 +45,12 @@ const ButtonMainMenu = ({
   hoverLabel,
   isLocalActive,
   onClick,
-  svgIcon,
   callToAction = false
 }: {
   mainMenuNumber: number
   label: string
   hoverLabel: string
   isLocalActive: boolean
-  svgIcon: JSX.Element
   onClick: (mainMenuNumber: number) => void
   callToAction?: boolean
 }) => {
@@ -149,13 +181,8 @@ const ButtonMainMenu = ({
           ref={buttonTextRef}
           style={{ pointerEvents: isActive ? 'none' : 'all' }}
         >
-          <IconSmallInteractive
-            isHovered={isHovered}
-            isActive={isActive}
-            isMouseDown={isMouseDown}
-            callToAction={callToAction}
-            svgIcon={svgIcon}
-          />
+          <IconSmallInteractive isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} callToAction={callToAction} />
+          <MainMenuSVG label={label} isHovered={isHovered} isActive={isActive} />
 
           <div className={`top-2 relative ${isHovered || isActive ? 'text-teal-blur' : primaryColor}`}>
             {isActive || isHovered ? hoverLabel : label}

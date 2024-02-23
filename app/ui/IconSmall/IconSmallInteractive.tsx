@@ -6,14 +6,12 @@ const IconSmallInteractive = ({
   isHovered,
   isActive,
   isMouseDown,
-  callToAction = false,
-  svgIcon
+  callToAction = false
 }: {
   isHovered: boolean
   isActive: boolean
   isMouseDown: boolean
   callToAction?: boolean
-  svgIcon: JSX.Element
 }) => {
   const svgRef = useRef(null)
   const pathBGFillRef = useRef(null)
@@ -29,7 +27,6 @@ const IconSmallInteractive = ({
       pathBGStrokeRef={pathBGStrokeRef}
       pathFGFillRef={pathFGFillRef}
       callToAction={callToAction}
-      svgIcon={svgIcon}
     />
   )
 }
