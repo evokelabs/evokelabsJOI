@@ -16,6 +16,11 @@ interface DropdownMenuProps {
   onSelect: (option: string) => void
 }
 
+type ContentHeadPortfolioProps = {
+  setPortfolioData: React.Dispatch<React.SetStateAction<PortfolioItem[]>>
+  portfolioData: PortfolioItem[]
+}
+
 const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState(defaultOption)
@@ -81,8 +86,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, defaultOption, onS
   )
 }
 
-const ContentHeadPortfolio = () => {
-  const portfolioData: PortfolioItem[] = portfolio
+const ContentHeadPortfolio: React.FC<ContentHeadPortfolioProps> = ({ setPortfolioData, portfolioData }) => {
   const SHOW_ONLY_OPTIONS = ['All', 'Creative', 'Development', 'Motion', 'Technology', 'Motion', '3d', 'edm']
   const SORT_BY_OPTIONS = ['Date (Newest)', 'Date (Oldest)', 'Title (A-Z)', 'Title (Z-A)', 'Recommended', 'Technology']
 
@@ -103,6 +107,7 @@ const ContentHeadPortfolio = () => {
     } else if (option === 'Title (Z-A)') {
       sortedData = [...portfolioData].sort((a, b) => b.heading.localeCompare(a.heading))
     }
+    setPortfolioData(sortedData)
   }
 
   return (
@@ -147,7 +152,10 @@ const PortfolioHome = () => {
   }
 
   return (
-    <PanelContent headerTitle='Past Gigs' contentHead={<ContentHeadPortfolio />}>
+    <PanelContent
+      headerTitle='Past Gigs'
+      contentHead={<ContentHeadPortfolio setPortfolioData={setPortfolioData} portfolioData={portfolioData} />}
+    >
       <div className='grid grid-cols-2 gap-5 mr-1'>
         {portfolioData.map((item, index) => (
           <PortfolioPanelContent key={index} onClick={() => handleItemClick(item)}>
