@@ -42,10 +42,10 @@ const useButtonInteractionController = ({
     if (svg) {
       if (isHovered) {
         gsap.to(pathBGFill, { attr: { fill: RED_DARK_PRIMARY }, duration: UI_DURATION_TIME, ease: 'power1.out' })
-        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': 1 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'fill-opacity': 1 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
       } else {
         gsap.to(pathBGFill, { attr: { fill: BLACK }, duration: UI_DURATION_TIME, ease: 'power1.out' })
-        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': 0.6, strokeColor: RED_PRIMARY }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'fill-opacity': 0.6, strokeColor: RED_PRIMARY }, duration: UI_DURATION_TIME, ease: 'power1.out' })
       }
 
       if (isMouseDown) {
@@ -53,7 +53,7 @@ const useButtonInteractionController = ({
       } else {
         gsap.killTweensOf([pathFGFill, pathBGStroke])
         gsap.to(pathFGFill, { attr: { 'fill-opacity': 0.1 }, duration: 0, ease: 'power1.out' })
-        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': 1 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'fill-opacity': 1 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
       }
 
       if (isActive) {
@@ -71,7 +71,7 @@ const useButtonInteractionController = ({
       } else if (!isHovered) {
         gsap.to(pathFGFill, { attr: { 'fill-opacity': 0.1 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
         gsap.to(pathBGFill, { attr: { fill: BLACK, 'fill-opacity': 0.85 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
-        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': 0.6 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'fill-opacity': 0.6 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
       }
     }
   }, [

@@ -33,12 +33,12 @@ const useButtonIconController = ({
     const pathBGFill = pathBGFillRef.current
     if (svg) {
       if (isHovered) {
-        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': 1 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'fill-opacity': 1 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
         gsap.to(pathBGFill, { attr: { fill: BLACK, 'fill-opacity': 0.5 }, duration: UI_DURATION_TIME, ease: 'power1.out' })
-        // gsap.to(pathBGStrokeRef.current, { attr: { fill: TEAL }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { fill: TEAL }, duration: UI_DURATION_TIME, ease: 'power1.out' })
       } else {
-        gsap.to(pathBGStroke, { attr: { 'stroke-opacity': 0.6, strokeColor: RED }, duration: UI_DURATION_TIME, ease: 'power1.out' })
-        // gsap.to(pathBGStrokeRef.current, { attr: { fill: RED }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { 'fill-opacity': 0.6, strokeColor: RED }, duration: UI_DURATION_TIME, ease: 'power1.out' })
+        gsap.to(pathBGStroke, { attr: { fill: RED }, duration: UI_DURATION_TIME, ease: 'power1.out' })
       }
 
       if (isActive) {
@@ -47,6 +47,7 @@ const useButtonIconController = ({
           { attr: { fill: BLACK, 'fill-opacity': 0.5 } },
           { attr: { fill: BLACK, 'fill-opacity': 0.4 }, duration: 0.5, ease: 'power1.out' }
         )
+        gsap.to(pathBGStroke, { attr: { fill: TEAL, 'fill-opacity': 1 }, duration: 0.5, ease: 'power1.out' })
       }
     }
   }, [isActive, isHovered, pathBGFillRef, pathBGStrokeRef, svgRef])
