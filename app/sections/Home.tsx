@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import home from './data/home.json'
 import homeExpanded from './data/homeExpanded.json'
-import { ReactTyped, Typed } from 'react-typed'
 import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
 
@@ -60,14 +59,6 @@ const Home = () => {
   const hoverBGColor = isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
   const bottomBarBGColor = !isActive && isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
 
-  const [typed, setTyped] = useState<Typed | undefined>()
-
-  useEffect(() => {
-    if (typed) {
-      typed.toggle()
-    }
-  }, [isActive, typed])
-
   useEffect(() => {
     if (divRef.current) {
       gsap.to(divRef.current, {
@@ -93,20 +84,6 @@ const Home = () => {
 
     return () => clearInterval(interval)
   }, [isActive, shuffledSolo, shuffledPower, shuffledDescribe, shuffledPhrases, index])
-
-  const typedRef = useRef<Typed | null>(null)
-
-  const setTypedRef = useCallback((instance: Typed | null) => {
-    typedRef.current = instance
-  }, [])
-
-  useEffect(() => {
-    if (isActive) {
-      typedRef.current?.stop()
-    } else {
-      typedRef.current?.start()
-    }
-  }, [isActive])
 
   return (
     <>
@@ -134,18 +111,7 @@ const Home = () => {
               isActive ? 'text-black-blur' : null
             }`}
           >
-            <>
-              <ReactTyped
-                typedRef={setTypedRef}
-                strings={shuffledPhrases}
-                backDelay={TIMER}
-                typeSpeed={50}
-                backSpeed={20}
-                loop
-                showCursor={false}
-                className='type'
-              />
-            </>
+            {phrase}
           </h1>
         </div>
 
@@ -155,44 +121,9 @@ const Home = () => {
         >
           <div className='flex flex-col justify-between min-h-[280px]'>
             <p className='mt-6 mb-4 text-teal-blur font-semibold leading-tight '>
-              Evoke labs is home to Adrian Pikios,
-              <span className='text-red-blur bg-grid-red px-2 '>
-                {/* <ReactTyped
-                strings={[...shuffledSolo.map((solo, index) => [solo, index !== shuffledSolo.length - 1 ? TIMER : 0])].flat()}
-                speed={60}
-                repeat={Infinity}
-                preRenderFirstString={true}
-                cursor={false}
-                omitDeletionAnimation={true}
-              /> */}
-              </span>
-              who uses the powers of{' '}
-              <span className='text-red-blur bg-grid-red px-2 '>
-                {' '}
-                {/* <ReactTyped
-                strings={[...shuffledPower.map((power, index) => [power, index !== shuffledPower.length - 1 ? TIMER : 0])].flat()}
-                speed={60}
-                repeat={Infinity}
-                preRenderFirstString={true}
-                cursor={false}
-                omitDeletionAnimation={true}
-              /> */}
-              </span>{' '}
-              to design, develop & create{' '}
-              <span className='text-red-blur bg-grid-red px-2 '>
-                {' '}
-                {/* <ReactTyped
-                strings={[
-                  ...shuffledDescribe.map((describe, index) => [describe, index !== shuffledDescribe.length - 1 ? TIMER : 0])
-                ].flat()}
-                speed={60}
-                repeat={Infinity}
-                preRenderFirstString={true}
-                cursor={false}
-                omitDeletionAnimation={true}
-              /> */}
-              </span>{' '}
-              digital experiences.
+              Evoke labs is home to Adrian Pikios, <span className='text-red-blur bg-grid-red px-2 '>{solo}</span> who uses the powers of{' '}
+              <span className='text-red-blur bg-grid-red px-2 '>{power}</span> to design, develop & create{' '}
+              <span className='text-red-blur bg-grid-red px-2 '>{describe}</span> digital experiences.
             </p>
             <p className='mb-5 text-teal-blur font-semibold leading-tight'>
               When not working on personal projects, I partner with clients, brands and agencies to help produce their digital campaigns.
