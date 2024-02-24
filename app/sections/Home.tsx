@@ -91,10 +91,22 @@ const Home = () => {
 
   useEffect(() => {
     const animatePhrase = async () => {
-      setAnimatedPhrase('') // Reset the animated phrase
-      for (const char of phrase) {
-        await new Promise(resolve => setTimeout(resolve, TYPE_ON_SPEED)) // Use TYPE_ON_SPEED to control the speed of the animation
-        setAnimatedPhrase(prev => prev + char)
+      let currentPhrase = animatedPhrase
+
+      // Find the index of "like" in the currentPhrase
+      const likeIndex = currentPhrase.indexOf('like')
+
+      // Set the minimum length to keep (e.g., 4 characters)
+      const minLength = 4
+
+      // Calculate the final index considering "like" and the minimum length
+      const finalIndex = likeIndex !== -1 ? Math.min(likeIndex + 4, currentPhrase.length) : Math.max(minLength, currentPhrase.length)
+
+      // Deletion animation
+      while (currentPhrase.length > finalIndex) {
+        await new Promise(resolve => setTimeout(resolve, TYPE_ON_SPEED))
+        currentPhrase = currentPhrase.slice(0, -1)
+        setAnimatedPhrase(currentPhrase)
       }
     }
 
@@ -104,8 +116,7 @@ const Home = () => {
 
     // Update the ref to the current phrase after animating
     prevPhraseRef.current = phrase
-  }, [phrase])
-
+  }, [phrase, animatedPhrase, TYPE_ON_SPEED])
   return (
     <>
       <div
