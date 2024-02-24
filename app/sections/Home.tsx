@@ -94,7 +94,7 @@ const Home = () => {
         onMouseUp={() => setIsActive(!isActive)}
       >
         <div
-          className={`pt-6 px-5  border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
+          className={`pt-6 px-5 border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
             isActive && !isHovered ? 'bg-red' : 'bg-grid-blue'
           } ${!isActive ? 'pb-0' : 'pb-4'}
         }`}
