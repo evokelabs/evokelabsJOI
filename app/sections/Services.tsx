@@ -22,6 +22,8 @@ import SoftwareEngineer from '@/app/ui/png/services/SoftwareEngineer.png'
 import ThreeJS from '@/app/ui/png/services/ThreeJS.png'
 import Unreal from '@/app/ui/png/services/Unreal.png'
 import VR from '@/app/ui/png/services/VR.png'
+import AvailabilitiesSVG from '../ui/svg/mainMenu/AvailabilitiesSVG'
+import FixABookingSVG from '../ui/svg/button/FixABookingSVG'
 
 const ContentHead = () => {
   return (
@@ -161,7 +163,7 @@ const Services = () => {
         <p>Your digital transformation is just a click away.</p>
       </div>
       <div className='flex flex-row justify-between mb-4 pt-1'>
-        <ButtonDefault label='Fix a booking' />
+        <ButtonDefault label='Fix a booking' svgIcon={<FixABookingSVG />} />
         <ButtonDefault />
       </div>
     </PanelContent>

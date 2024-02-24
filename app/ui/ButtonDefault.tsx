@@ -5,6 +5,7 @@ import RedCRTBlur from './libs/RedCRTBlur'
 import IconButtonDefault from './IconButtonDefault'
 import useButtonEventsController from './libs/useButtonEventsController'
 import { RED_TILE_PATTERN } from './libs/TitleFillsPatterns'
+import CloseSVG from './svg/button/CloseSVG'
 
 type SVGButtonProps = {
   svgRef: React.RefObject<SVGSVGElement>
@@ -16,6 +17,7 @@ type SVGButtonProps = {
   pathFGFillRef: React.RefObject<SVGPathElement>
   pathBGStrokeRef: React.RefObject<SVGPathElement>
   buttonProps: ButtonProps
+  svgIcon: JSX.Element
 }
 
 type ButtonProps = {
@@ -85,7 +87,8 @@ const SVGButton: React.FC<SVGButtonProps> = ({
   pathBGFillRef,
   pathFGFillRef,
   pathBGStrokeRef,
-  buttonProps: { width, viewBox, d1, d2 }
+  buttonProps: { width, viewBox, d1, d2 },
+  svgIcon
 }) => {
   return (
     <div
@@ -104,20 +107,20 @@ const SVGButton: React.FC<SVGButtonProps> = ({
       </svg>
       <div className='absolute bottom-0 flex flex-row items-center justify-between w-full h-full pl-2.5 pr-12 pointer-events-none'>
         <IconButtonDefault isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
-
+        <div className='absolute ml-0.5 w-[46px] h-[46px]'>{svgIcon}</div>
         <p className={'font-rajdhani text-[2rem] font-semibold text-teal-blur'}>{label}</p>
       </div>
     </div>
   )
 }
 
-const ButtonDefault = ({ label = 'CLOSE' }: { label?: string }) => {
+const ButtonDefault = ({ label = 'CLOSE', svgIcon = <CloseSVG /> }: { label?: string; svgIcon?: JSX.Element }) => {
   const buttonControllers = useButtonControllers()
 
   return label.length > 8 ? (
-    <SVGButton {...buttonControllers} label={label} buttonProps={BUTTON_LARGE} />
+    <SVGButton {...buttonControllers} label={label} buttonProps={BUTTON_LARGE} svgIcon={svgIcon} />
   ) : (
-    <SVGButton {...buttonControllers} label={label} buttonProps={BUTTON_DEFAULT} />
+    <SVGButton {...buttonControllers} label={label} buttonProps={BUTTON_DEFAULT} svgIcon={svgIcon} />
   )
 }
 

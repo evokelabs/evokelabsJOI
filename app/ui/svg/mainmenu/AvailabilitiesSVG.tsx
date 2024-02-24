@@ -1,6 +1,7 @@
+import { RED } from '@/app/libs/UIConstants'
 import RedCRTBlur from '../../libs/RedCRTBlur'
 
-const AvailabilitiesSVG = ({ primaryColor }: { primaryColor: string }) => {
+const AvailabilitiesSVG = ({ primaryColor = RED }: { primaryColor?: string }) => {
   return (
     <div className='absolute '>
       <svg width='70' height='72' viewBox='-1 0 70 70' fill='none'>

@@ -5,6 +5,7 @@ import IconSmall from '../ui/IconSmall'
 import PanelBackground from '../ui/PanelContent'
 import ContentHead from '../ui/PanelContent/ContentHead'
 import RowFull from '../ui/RowFull'
+import HardcopySVG from '../ui/svg/button/HardcopySVG'
 import ResumeSVG from '../ui/svg/mainMenu/ResumeSVG'
 import AJFPartnershipSVG from '../ui/svg/resume/AJFPartnershipSVG'
 import AkceloSVG from '../ui/svg/resume/AkceloSVG'
@@ -30,7 +31,7 @@ const Resume = () => {
             </>
           }
           heading='Resume'
-          button={<ButtonDefault label='hardcopy' />}
+          button={<ButtonDefault label='hardcopy' svgIcon={<HardcopySVG />} />}
         />
       }
     >

@@ -4,6 +4,7 @@ import IconSmall from '../ui/IconSmall'
 import VideoFrame from '../ui/VideoFrame'
 import ButtonDefault from '../ui/ButtonDefault'
 import JOISVG from '../ui/svg/mainMenu/JOISVG'
+import YouTubeSVG from '../ui/svg/button/YouTubeSVG'
 
 const ContentHead = () => {
   return (
@@ -32,7 +33,7 @@ const JOISpecial = () => {
       <VideoFrame videoURL='./videos/JOI-Introduction.mp4' />
       <div className='flex flex-row  justify-between'>
         <div className='flex flex-row mt-3 justify-end -mr-3'>
-          <ButtonDefault label='4k version' />
+          <ButtonDefault label='4k version' svgIcon={<YouTubeSVG />} />
         </div>
         <div className='flex flex-row mt-3 justify-end -mr-3'>
           <ButtonDefault />

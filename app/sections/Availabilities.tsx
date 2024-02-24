@@ -8,6 +8,7 @@ import Calendar from 'react-calendar'
 import availabilities from './data/availabilities.json'
 import { RED } from '../libs/UIConstants'
 import AvailabilitiesSVG from '../ui/svg/mainMenu/AvailabilitiesSVG'
+import EmailSVG from '../ui/svg/button/EmailSVG'
 interface Period {
   start: string
   end: string
@@ -105,7 +106,7 @@ const Availabilities = () => {
           </div>
         </div>
         <div className='flex justify-between'>
-          <ButtonDefault label='Send an email' />
+          <ButtonDefault label='Send an email' svgIcon={<EmailSVG />} />
           <ButtonDefault />
         </div>
       </div>

@@ -2,6 +2,10 @@ import HR from '@/app/ui/HR'
 import ButtonDefault from '../../ui/ButtonDefault'
 import PanelBackground from '../../ui/PanelContent'
 import VideoFrame from '../../ui/VideoFrame'
+import YouTubeSVG from '@/app/ui/svg/button/YouTubeSVG'
+import FigmaSVG from '@/app/ui/svg/button/FigmaSVG'
+import LaunchSVG from '@/app/ui/svg/button/LaunchSVG'
+import BackSVG from '@/app/ui/svg/button/BackSVG'
 
 interface PortfolioItem {
   id: number
@@ -60,10 +64,11 @@ const PortfolioItem: React.FC<PortfolioItem> = ({ id, heading, subHeading, techn
           </>
         )}
         <div className='flex flex-row  my-4 justify-between'>
-          <div>{link && <ButtonDefault label='Launch' />}</div>
+          <div>{link && <ButtonDefault label='Launch' svgIcon={<LaunchSVG />} />}</div>
           <div className='flex flex-row -mr-3.5'>
-            <ButtonDefault label='Back' />
-            <ButtonDefault />
+            <ButtonDefault label='Figma' svgIcon={<FigmaSVG />} />
+            <ButtonDefault label='YouTube' svgIcon={<YouTubeSVG />} />
+            <ButtonDefault label='Back' svgIcon={<BackSVG />} />
           </div>
         </div>
       </div>
