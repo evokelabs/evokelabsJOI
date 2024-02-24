@@ -5,6 +5,8 @@ import gsap from 'gsap'
 import home from './data/home.json'
 import homeExpanded from './data/homeExpanded.json'
 
+import { TypeAnimation } from 'react-type-animation'
+
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
     <svg width='22' height='14' viewBox='0 0 22 14' fill='none'>
@@ -19,7 +21,7 @@ const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) 
 }
 
 const Home = () => {
-  const TIMER = 500
+  const TIMER = 3500
 
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
@@ -148,7 +150,16 @@ const Home = () => {
             isActive ? 'text-black-blur' : null
           }`}
         >
-          {phrase}
+          <TypeAnimation
+            sequence={[...shuffledPhrases.map((phrase, index) => [phrase, index !== shuffledPhrases.length - 1 ? TIMER : 0])].flat()}
+            wrapper='span'
+            speed={55}
+            repeat={Infinity}
+            deletionSpeed={75}
+            preRenderFirstString={true}
+            cursor={false}
+            className={'type'}
+          />
         </h1>
       </div>
 
