@@ -4,7 +4,7 @@ import RedCRTBlur from '../../libs/RedCRTBlur'
 const JOISVG = ({ primaryColor = RED }: { primaryColor?: string }) => {
   return (
     <div className='absolute '>
-      <svg width='70' height='74' fill='none' viewBox='-2 0 70 70'>
+      <svg width='70' height='72' fill='none' viewBox='-2 0 70 70'>
         <g clipPath='url(#a)'>
           <mask id='b' width='70' height='70' x='0' y='0' maskUnits='userSpaceOnUse'>
             <path fill='#fff' d='M.03-.08v70h70v-56.2L56.23-.09H.03Z' />
