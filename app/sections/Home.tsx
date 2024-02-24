@@ -36,7 +36,8 @@ const shuffle = (array: string[]) => {
 }
 
 const Home = () => {
-  const TIMER = 4000
+  const TIMER = 4500
+  const TYPE_ON_SPEED = 25
 
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
@@ -85,6 +86,20 @@ const Home = () => {
     return () => clearInterval(interval)
   }, [isActive, shuffledSolo, shuffledPower, shuffledDescribe, shuffledPhrases, index])
 
+  const [animatedPhrase, setAnimatedPhrase] = useState('')
+
+  useEffect(() => {
+    const animatePhrase = async () => {
+      setAnimatedPhrase('') // Reset the animated phrase
+      for (const char of phrase) {
+        await new Promise(resolve => setTimeout(resolve, TYPE_ON_SPEED)) // Change this value to adjust the speed of the animation
+        setAnimatedPhrase(prev => prev + char)
+      }
+    }
+
+    animatePhrase()
+  }, [phrase])
+
   return (
     <>
       <div
@@ -111,7 +126,7 @@ const Home = () => {
               isActive ? 'text-black-blur' : null
             }`}
           >
-            {phrase}
+            {animatedPhrase}
           </h1>
         </div>
 
