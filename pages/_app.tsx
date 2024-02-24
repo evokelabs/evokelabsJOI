@@ -7,6 +7,7 @@ import '@/app/globals.css'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import MainMenu from '@/app/sections/MainMenu'
+import SocialIcons from '@/app/ui/SocialIcons'
 
 export const metadata: Metadata = {
   title: 'EVOKE LABS | Creative Technologist',

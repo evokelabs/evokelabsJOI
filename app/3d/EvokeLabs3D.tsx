@@ -26,6 +26,7 @@ import Resume from '../sections/Resume'
 import Availabilities from '../sections/Availabilities'
 import Services from '../sections/Services'
 import Portfolio from '../sections/Portfolio'
+import SocialIcons from '../ui/SocialIcons'
 
 // Constants
 const debug = true
@@ -135,6 +136,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           <Vignette offset={0.0} darkness={1} />
         </EffectComposer>
       </Canvas>
+      <div className='absolute top-0 right-0 pt-2 pr-4 z-20'>
+        <SocialIcons />
+      </div>
 
       <Music />
     </>
