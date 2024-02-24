@@ -36,8 +36,9 @@ const shuffle = (array: string[]) => {
 }
 
 const Home = () => {
-  const TIMER = 4500
-  const TYPE_ON_SPEED = 25
+  const TIMER = 6000
+  const TYPE_ON_SPEED = 80
+  const TYPE_OFF_SPEED = 35
 
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
@@ -71,15 +72,13 @@ const Home = () => {
 
     const interval = setInterval(() => {
       const newIndex = (index + 1) % Math.max(shuffledSolo.length, shuffledPower.length, shuffledDescribe.length, shuffledPhrases.length)
-      if (newIndex !== index) {
-        setIndex(newIndex)
-        if (isActive) {
-          setSolo(shuffledSolo[newIndex % shuffledSolo.length])
-          setPower(shuffledPower[newIndex % shuffledPower.length])
-          setDescribe(shuffledDescribe[newIndex % shuffledDescribe.length])
-        } else {
-          setPhrase(shuffledPhrases[newIndex % shuffledPhrases.length])
-        }
+      setIndex(newIndex)
+      if (isActive) {
+        setSolo(shuffledSolo[newIndex % shuffledSolo.length])
+        setPower(shuffledPower[newIndex % shuffledPower.length])
+        setDescribe(shuffledDescribe[newIndex % shuffledDescribe.length])
+      } else {
+        setPhrase(shuffledPhrases[newIndex % shuffledPhrases.length])
       }
     }, TIMER)
 
@@ -94,18 +93,26 @@ const Home = () => {
       let currentPhrase = animatedPhrase
 
       // Find the index of "like" in the currentPhrase
-      const likeIndex = currentPhrase.indexOf('like')
+      const likeIndex = currentPhrase.indexOf('like ')
 
       // Set the minimum length to keep (e.g., 4 characters)
-      const minLength = 4
+      const minLength = 5
 
       // Calculate the final index considering "like" and the minimum length
-      const finalIndex = likeIndex !== -1 ? Math.min(likeIndex + 4, currentPhrase.length) : Math.max(minLength, currentPhrase.length)
+      const finalIndex =
+        likeIndex !== -1 ? Math.min(likeIndex + minLength, currentPhrase.length) : Math.max(minLength, currentPhrase.length)
 
       // Deletion animation
       while (currentPhrase.length > finalIndex) {
-        await new Promise(resolve => setTimeout(resolve, TYPE_ON_SPEED))
+        await new Promise(resolve => setTimeout(resolve, TYPE_OFF_SPEED))
         currentPhrase = currentPhrase.slice(0, -1)
+        setAnimatedPhrase(currentPhrase)
+      }
+
+      // Typing animation
+      for (let i = finalIndex; i < phrase.length; i++) {
+        await new Promise(resolve => setTimeout(resolve, TYPE_ON_SPEED))
+        currentPhrase += phrase[i]
         setAnimatedPhrase(currentPhrase)
       }
     }
