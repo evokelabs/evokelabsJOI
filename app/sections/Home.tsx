@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
-import RedCRTBlur from '../ui/libs/RedCRTBlur'
 import gsap from 'gsap'
 import home from './data/home.json'
 import homeExpanded from './data/homeExpanded.json'
-
 import { TypeAnimation } from 'react-type-animation'
+import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
+import RedCRTBlur from '../ui/libs/RedCRTBlur'
 
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
@@ -20,99 +19,71 @@ const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) 
   )
 }
 
+// Helper function to shuffle an array
+const shuffle = (array: string[]) => {
+  let currentIndex = array.length
+  let temporaryValue
+  let randomIndex
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
+    temporaryValue = array[currentIndex]
+    array[currentIndex] = array[randomIndex]
+    array[randomIndex] = temporaryValue
+  }
+
+  return array
+}
+
 const Home = () => {
   const TIMER = 3500
 
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
-  const [index, setIndex] = useState(0)
 
-  const shuffle = (array: string[]) => {
-    let currentIndex = array.length,
-      temporaryValue,
-      randomIndex
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex)
-      currentIndex -= 1
-
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex]
-      array[currentIndex] = array[randomIndex]
-      array[randomIndex] = temporaryValue
-    }
-
-    return array
-  }
-
-  // Shuffle the arrays from homeExpanded.json
+  // Shuffle the arrays from homeExpanded.json and home.json
   const shuffledSolo = shuffle(homeExpanded.solo)
   const shuffledPower = shuffle(homeExpanded.power)
   const shuffledDescribe = shuffle(homeExpanded.describe)
-
-  // Shuffle the phrases array
   const shuffledPhrases = shuffle(home.phrases)
 
-  // Create state variables for each field
+  // Create state variables for each field and their indices
   const [solo, setSolo] = useState(shuffledSolo[0])
   const [power, setPower] = useState(shuffledPower[0])
   const [describe, setDescribe] = useState(shuffledDescribe[0])
+  const [phrase, setPhrase] = useState(shuffledPhrases[0])
+  const [index, setIndex] = useState(0)
 
-  // Create separate indices for each field
-  const [soloIndex, setSoloIndex] = useState(0)
-  const [powerIndex, setPowerIndex] = useState(0)
-  const [describeIndex, setDescribeIndex] = useState(0)
-
+  const divRef = useRef<HTMLDivElement | null>(null)
   const hoverColor = !isActive && isHovered ? 'text-black-blur' : 'text-red-blur'
   const hoverBGColor = isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
   const bottomBarBGColor = !isActive && isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
 
-  const divRef = useRef<HTMLDivElement | null>(null)
-
   useEffect(() => {
     if (divRef.current) {
-      if (isActive) {
-        gsap.to(divRef.current, {
-          height: 'auto',
-          duration: 0.25,
-          ease: 'Power1.out'
-        })
-      } else {
-        gsap.to(divRef.current, {
-          height: '0px',
-          duration: 0.25,
-          ease: 'Power1.out'
-        })
-      }
+      gsap.to(divRef.current, {
+        height: isActive ? 'auto' : '0px',
+        duration: 0.25,
+        ease: 'Power1.out'
+      })
     }
-  }, [isActive])
 
-  useEffect(() => {
     const interval = setInterval(() => {
       if (isActive) {
-        setSolo(shuffledSolo[soloIndex])
-        setPower(shuffledPower[powerIndex])
-        setDescribe(shuffledDescribe[describeIndex])
-
-        // Update each index independently
-        setSoloIndex((soloIndex + 1) % shuffledSolo.length)
-        setPowerIndex((powerIndex + 1) % shuffledPower.length)
-        setDescribeIndex((describeIndex + 1) % shuffledDescribe.length)
+        setSolo(shuffledSolo[index % shuffledSolo.length])
+        setPower(shuffledPower[index % shuffledPower.length])
+        setDescribe(shuffledDescribe[index % shuffledDescribe.length])
+      } else {
+        setPhrase(shuffledPhrases[index % shuffledPhrases.length])
       }
-      if (!isActive) {
-        setPhrase(shuffledPhrases[index])
-      }
-      setIndex((index + 1) % shuffledPhrases.length) // Loop back to the start of the array when we reach the end
+      setIndex(index => (index + 1) % Math.max(shuffledSolo.length, shuffledPower.length, shuffledDescribe.length, shuffledPhrases.length))
     }, TIMER)
 
     return () => clearInterval(interval)
-  }, [index, shuffledPhrases, isActive, shuffledSolo, shuffledPower, shuffledDescribe, soloIndex, powerIndex, describeIndex])
+  }, [isActive, index, shuffledSolo, shuffledPower, shuffledDescribe, shuffledPhrases])
 
   // Shuffle the phrases array
-
-  const [phrase, setPhrase] = useState(shuffledPhrases[0])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -124,6 +95,18 @@ const Home = () => {
 
     return () => clearInterval(interval)
   }, [index, shuffledPhrases, isActive])
+
+  const [currentPhrase, setCurrentPhrase] = useState('')
+
+  useEffect(() => {
+    let i = 0
+    const intervalId = setInterval(() => {
+      setCurrentPhrase(shuffledPhrases[i])
+      i = (i + 1) % shuffledPhrases.length
+    }, TIMER)
+
+    return () => clearInterval(intervalId)
+  }, [shuffledPhrases])
 
   return (
     <div
