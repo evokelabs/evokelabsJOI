@@ -21,11 +21,22 @@ const SVG = () => {
   )
 }
 
-const RowFull = ({ heading, subHeading, paragraph }: { heading: string; subHeading: string; paragraph: string }) => {
+const RowFull = ({
+  heading,
+  subHeading,
+  paragraph,
+  svgIcon
+}: {
+  heading: string
+  subHeading: string
+  paragraph: string
+  svgIcon: JSX.Element
+}) => {
   return (
     <div className='relative flex items-center ' style={{ maxWidth: MAX_WIDTH }}>
       <div className='absolute flex flex-row items-center px-1 w-auto'>
         <div className='w-fit pl-3'>
+          <div className='absolute -ml-0.5'>{svgIcon}</div>
           <IconDefault />
         </div>
         <div className={'w-auto pl-1.5 pr-3.5'}>
