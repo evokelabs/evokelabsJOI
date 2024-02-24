@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import home from './data/home.json'
 import homeExpanded from './data/homeExpanded.json'
-import { TypeAnimation } from 'react-type-animation'
+import { ReactTyped, Typed } from 'react-typed'
 import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
 
@@ -60,6 +60,14 @@ const Home = () => {
   const hoverBGColor = isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
   const bottomBarBGColor = !isActive && isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
 
+  const [typed, setTyped] = useState<Typed | undefined>()
+
+  useEffect(() => {
+    if (typed) {
+      typed.toggle()
+    }
+  }, [isActive, typed])
+
   useEffect(() => {
     if (divRef.current) {
       gsap.to(divRef.current, {
@@ -70,115 +78,111 @@ const Home = () => {
     }
 
     const interval = setInterval(() => {
-      if (isActive) {
-        setSolo(shuffledSolo[index % shuffledSolo.length])
-        setPower(shuffledPower[index % shuffledPower.length])
-        setDescribe(shuffledDescribe[index % shuffledDescribe.length])
-      } else {
-        setPhrase(shuffledPhrases[index % shuffledPhrases.length])
-      }
-      setIndex(index => (index + 1) % Math.max(shuffledSolo.length, shuffledPower.length, shuffledDescribe.length, shuffledPhrases.length))
-    }, TIMER)
-
-    return () => clearInterval(interval)
-  }, [isActive, index, shuffledSolo, shuffledPower, shuffledDescribe, shuffledPhrases])
-
-  // Shuffle the phrases array
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isActive) {
-        setPhrase(shuffledPhrases[index])
-        setIndex((index + 1) % shuffledPhrases.length) // Loop back to the start of the array when we reach the end
+      const newIndex = (index + 1) % Math.max(shuffledSolo.length, shuffledPower.length, shuffledDescribe.length, shuffledPhrases.length)
+      if (newIndex !== index) {
+        setIndex(newIndex)
+        if (isActive) {
+          setSolo(shuffledSolo[newIndex % shuffledSolo.length])
+          setPower(shuffledPower[newIndex % shuffledPower.length])
+          setDescribe(shuffledDescribe[newIndex % shuffledDescribe.length])
+        } else {
+          setPhrase(shuffledPhrases[newIndex % shuffledPhrases.length])
+        }
       }
     }, TIMER)
 
     return () => clearInterval(interval)
-  }, [index, shuffledPhrases, isActive])
+  }, [isActive, shuffledSolo, shuffledPower, shuffledDescribe, shuffledPhrases, index])
 
-  const [currentPhrase, setCurrentPhrase] = useState('')
+  const typedRef = useRef<Typed | null>(null)
+
+  const setTypedRef = useCallback((instance: Typed | null) => {
+    typedRef.current = instance
+  }, [])
 
   useEffect(() => {
-    let i = 0
-    const intervalId = setInterval(() => {
-      setCurrentPhrase(shuffledPhrases[i])
-      i = (i + 1) % shuffledPhrases.length
-    }, TIMER)
-
-    return () => clearInterval(intervalId)
-  }, [shuffledPhrases])
+    if (isActive) {
+      typedRef.current?.stop()
+    } else {
+      typedRef.current?.start()
+    }
+  }, [isActive])
 
   return (
-    <div
-      className={`mb-4 mx-3.5 mr-2 group ${!isActive ? 'cursor-zoom-in' : 'cursor-zoom-out'}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onMouseUp={() => setIsActive(!isActive)}
-    >
+    <>
       <div
-        className={`pt-6 px-5  border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
-          isActive && !isHovered ? 'bg-red' : 'bg-grid-blue'
-        } ${!isActive ? 'pb-0' : 'pb-4'}
+        className={`mb-4 mx-3.5 mr-2 group ${!isActive ? 'cursor-zoom-in' : 'cursor-zoom-out'}`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onMouseUp={() => setIsActive(!isActive)}
+      >
+        <div
+          className={`pt-6 px-5  border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
+            isActive && !isHovered ? 'bg-red' : 'bg-grid-blue'
+          } ${!isActive ? 'pb-0' : 'pb-4'}
         }`}
-      >
-        <h1
-          className={`font-rajdhani font-bold text-red-blur text-[100px]  leading-[0.75em] transition-colors duration-150 ${hoverColor} ${
-            isActive ? 'text-black-blur' : null
-          }`}
         >
-          EVOKE LABS DOES DIGITAL
-        </h1>
-        <h1
-          className={`font-rajdhani font-bold text-teal-blur text-[100px] leading-[0.75em] transition-colors duration-150 uppercase ${hoverColor} ${
-            isActive ? 'text-black-blur' : null
-          }`}
-        >
-          <TypeAnimation
-            sequence={[...shuffledPhrases.map((phrase, index) => [phrase, index !== shuffledPhrases.length - 1 ? TIMER : 0])].flat()}
-            speed={25}
-            repeat={Infinity}
-            deletionSpeed={65}
-            preRenderFirstString={true}
-            cursor={false}
-            className={'type'}
-          />
-        </h1>
-      </div>
+          <h1
+            className={`font-rajdhani font-bold text-red-blur text-[100px]  leading-[0.75em] transition-colors duration-150 ${hoverColor} ${
+              isActive ? 'text-black-blur' : null
+            }`}
+          >
+            EVOKE LABS DOES DIGITAL
+          </h1>
+          <h1
+            className={`font-rajdhani font-bold text-teal-blur text-[100px] leading-[0.75em] transition-colors duration-150 uppercase ${hoverColor} ${
+              isActive ? 'text-black-blur' : null
+            }`}
+          >
+            <>
+              <ReactTyped
+                typedRef={setTypedRef}
+                strings={shuffledPhrases}
+                backDelay={TIMER}
+                typeSpeed={50}
+                backSpeed={20}
+                loop
+                showCursor={false}
+                className='type'
+              />
+            </>
+          </h1>
+        </div>
 
-      <div
-        ref={divRef}
-        className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0 text-[2.2rem] '
-      >
-        <div className='flex flex-col justify-between min-h-[280px]'>
-          <p className='mt-6 mb-4 text-teal-blur font-semibold leading-tight '>
-            Evoke labs is home to Adrian Pikios,
-            <span className='text-red-blur bg-grid-red px-2 '>
-              <TypeAnimation
-                sequence={[...shuffledSolo.map((solo, index) => [solo, index !== shuffledSolo.length - 1 ? TIMER : 0])].flat()}
+        <div
+          ref={divRef}
+          className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0 text-[2.2rem] '
+        >
+          <div className='flex flex-col justify-between min-h-[280px]'>
+            <p className='mt-6 mb-4 text-teal-blur font-semibold leading-tight '>
+              Evoke labs is home to Adrian Pikios,
+              <span className='text-red-blur bg-grid-red px-2 '>
+                {/* <ReactTyped
+                strings={[...shuffledSolo.map((solo, index) => [solo, index !== shuffledSolo.length - 1 ? TIMER : 0])].flat()}
                 speed={60}
                 repeat={Infinity}
                 preRenderFirstString={true}
                 cursor={false}
                 omitDeletionAnimation={true}
-              />
-            </span>
-            who uses the powers of{' '}
-            <span className='text-red-blur bg-grid-red px-2 '>
-              {' '}
-              <TypeAnimation
-                sequence={[...shuffledPower.map((power, index) => [power, index !== shuffledPower.length - 1 ? TIMER : 0])].flat()}
+              /> */}
+              </span>
+              who uses the powers of{' '}
+              <span className='text-red-blur bg-grid-red px-2 '>
+                {' '}
+                {/* <ReactTyped
+                strings={[...shuffledPower.map((power, index) => [power, index !== shuffledPower.length - 1 ? TIMER : 0])].flat()}
                 speed={60}
                 repeat={Infinity}
                 preRenderFirstString={true}
                 cursor={false}
                 omitDeletionAnimation={true}
-              />
-            </span>{' '}
-            to design, develop & create{' '}
-            <span className='text-red-blur bg-grid-red px-2 '>
-              {' '}
-              <TypeAnimation
-                sequence={[
+              /> */}
+              </span>{' '}
+              to design, develop & create{' '}
+              <span className='text-red-blur bg-grid-red px-2 '>
+                {' '}
+                {/* <ReactTyped
+                strings={[
                   ...shuffledDescribe.map((describe, index) => [describe, index !== shuffledDescribe.length - 1 ? TIMER : 0])
                 ].flat()}
                 speed={60}
@@ -186,29 +190,30 @@ const Home = () => {
                 preRenderFirstString={true}
                 cursor={false}
                 omitDeletionAnimation={true}
-              />
-            </span>{' '}
-            digital experiences.
-          </p>
-          <p className='mb-5 text-teal-blur font-semibold leading-tight'>
-            When not working on personal projects, I partner with clients, brands and agencies to help produce their digital campaigns.
-          </p>
+              /> */}
+              </span>{' '}
+              digital experiences.
+            </p>
+            <p className='mb-5 text-teal-blur font-semibold leading-tight'>
+              When not working on personal projects, I partner with clients, brands and agencies to help produce their digital campaigns.
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className='flex flex-row w-full h-3.5 relative '>
-        <div
-          className={`bg-grid-blue w-full border-red border-b-2 border-l-2 border-opacity-60 mr-3 transition-colors duration-150 ${bottomBarBGColor}`}
-        ></div>
-        <div className='ml-auto h-fit absolute -right-[8px]'>
-          {!isActive && isHovered ? (
-            <BottomRightCornerSVG color={RED_DULL} tile='redTile' />
-          ) : (
-            <BottomRightCornerSVG color={BLUE_DARK} tile='blueTile' />
-          )}
+        <div className='flex flex-row w-full h-3.5 relative '>
+          <div
+            className={`bg-grid-blue w-full border-red border-b-2 border-l-2 border-opacity-60 mr-3 transition-colors duration-150 ${bottomBarBGColor}`}
+          ></div>
+          <div className='ml-auto h-fit absolute -right-[8px]'>
+            {!isActive && isHovered ? (
+              <BottomRightCornerSVG color={RED_DULL} tile='redTile' />
+            ) : (
+              <BottomRightCornerSVG color={BLUE_DARK} tile='blueTile' />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
