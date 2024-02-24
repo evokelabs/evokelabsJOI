@@ -61,49 +61,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
             {router.pathname === '/joi' && <JOISpecial />}
             {router.pathname === '/availabilities' && <Availabilities />}
             <MainMenu router={router} />
-            {/* 
-          <IconDefault />
-          <ButtonSocial />
-          <ButtonDefault />
-          <ButtonDefault label='FIX A BOOKING' />
-          <ButtonDefault label='SEND AN EMAIL' />
-          <ButtonDefault label='BACK' />
-          <ButtonDefault label='LAUNCH' />
-          <ButtonDefault />
-          <ButtonMainMenu />
-          <ButtonMainMenu />
-          <ButtonMainMenu />
-
-          <HeadingHighlight heading='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
-          <HeadingHighlight heading='YOUR CREATIVE TECHNOLOGIST PARTNER' fullWidth={false} BGColor={RED} />
-          <HeadingHighlight heading='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
-          <HeadingHighlight heading='YOUR CREATIVE TECHNOLOGIST PARTNER' fullWidth={false} BGColor={RED} />
-          <ParagraphHighlight
-            paragraph='Creative Technologists combine <b>creative</b>, <b>development</b>, and <b>technology</b> to address digital challenges and deliver online projects of exceptional quality.'
-            BGColor={TEAL}
-          />
-          <ParagraphHighlight
-            paragraph='“You are amazing Adrian! Seriously – you always impress me by going above and beyond!”'
-            BGColor={RED}
-          />
-
-          <RowFull
-            heading='FRONT END DEVELOPMENT'
-            subHeading='HO HOH HO'
-            paragraph='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single page applications, multi page applications with API / GraphQL. Coding UI/UX designs into working builds using the latest JS libraries. Land'
-          />
-          <RowHalf
-            heading='FRONT END DEVELOPMENT'
-            paragraph='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, '
-          />
-          <RowThird
-            heading='THE VERSATILITY FACTOR'
-            paragraph='Why settle for one expertise when you can have it all? Visionary, developer, designer - my versatile skill set is your secret weapon. Unleash the boundless innovation that comes from a true Renaissance professional.'
-          />
-
-          <HeadingHighlight heading='YOUR CREATIVE TECHNOLOGIST PARTNER FULL WIDTH' fullWidth={true} BGColor={TEAL} />
-          <PanelBackground />
-          */}
           </div>
         </Html>
         <VideoSkybox />
@@ -136,9 +93,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           <Vignette offset={0.0} darkness={1} />
         </EffectComposer>
       </Canvas>
-
       <SocialIcons />
-
       <Music />
     </>
   )
