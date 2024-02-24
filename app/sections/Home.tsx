@@ -135,7 +135,6 @@ const Home = () => {
         >
           <TypeAnimation
             sequence={[...shuffledPhrases.map((phrase, index) => [phrase, index !== shuffledPhrases.length - 1 ? TIMER : 0])].flat()}
-            wrapper='span'
             speed={25}
             repeat={Infinity}
             deletionSpeed={65}
@@ -152,9 +151,44 @@ const Home = () => {
       >
         <div className='flex flex-col justify-between min-h-[280px]'>
           <p className='mt-6 mb-4 text-teal-blur font-semibold leading-tight '>
-            Evoke labs is home to Adrian Pikios, <span className='text-red-blur bg-grid-red px-2 '>{solo}</span> who uses the powers of{' '}
-            <span className='text-red-blur bg-grid-red px-2 '>{power}</span> to design, develop & create{' '}
-            <span className='text-red-blur bg-grid-red px-2 '>{describe}</span> digital experiences.
+            Evoke labs is home to Adrian Pikios,
+            <span className='text-red-blur bg-grid-red px-2 '>
+              <TypeAnimation
+                sequence={[...shuffledSolo.map((solo, index) => [solo, index !== shuffledSolo.length - 1 ? TIMER : 0])].flat()}
+                speed={60}
+                repeat={Infinity}
+                preRenderFirstString={true}
+                cursor={false}
+                omitDeletionAnimation={true}
+              />
+            </span>
+            who uses the powers of{' '}
+            <span className='text-red-blur bg-grid-red px-2 '>
+              {' '}
+              <TypeAnimation
+                sequence={[...shuffledPower.map((power, index) => [power, index !== shuffledPower.length - 1 ? TIMER : 0])].flat()}
+                speed={60}
+                repeat={Infinity}
+                preRenderFirstString={true}
+                cursor={false}
+                omitDeletionAnimation={true}
+              />
+            </span>{' '}
+            to design, develop & create{' '}
+            <span className='text-red-blur bg-grid-red px-2 '>
+              {' '}
+              <TypeAnimation
+                sequence={[
+                  ...shuffledDescribe.map((describe, index) => [describe, index !== shuffledDescribe.length - 1 ? TIMER : 0])
+                ].flat()}
+                speed={60}
+                repeat={Infinity}
+                preRenderFirstString={true}
+                cursor={false}
+                omitDeletionAnimation={true}
+              />
+            </span>{' '}
+            digital experiences.
           </p>
           <p className='mb-5 text-teal-blur font-semibold leading-tight'>
             When not working on personal projects, I partner with clients, brands and agencies to help produce their digital campaigns.
