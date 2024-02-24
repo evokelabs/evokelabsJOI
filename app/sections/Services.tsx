@@ -7,7 +7,21 @@ import PanelContent from '../ui/PanelContent'
 import ParagraphHighlight from '../ui/ParagraphHighlight'
 import RowHalf from '../ui/RowHalf'
 import RowThird from '../ui/RowThird'
+
 import ServicesSVG from '../ui/svg/mainMenu/ServicesSVG'
+
+import ThreeD from '@/app/ui/png/services/3d.png'
+import AI from '@/app/ui/png/services/ai.png'
+import Audio from '@/app/ui/png/services/audio.png'
+import DigitalDesign from '@/app/ui/png/services/DigitalDesign.png'
+import eDM from '@/app/ui/png/services/eDM.png'
+import Frontend from '@/app/ui/png/services/Frontend.png'
+import Interactive from '@/app/ui/png/services/Interactive.png'
+import Motion from '@/app/ui/png/services/Motion.png'
+import SoftwareEngineer from '@/app/ui/png/services/SoftwareEngineer.png'
+import ThreeJS from '@/app/ui/png/services/ThreeJS.png'
+import Unreal from '@/app/ui/png/services/Unreal.png'
+import VR from '@/app/ui/png/services/VR.png'
 
 const ContentHead = () => {
   return (
@@ -52,56 +66,68 @@ const Services = () => {
         <RowHalf
           heading='Digital Design'
           paragraph='Digital asset creation for websites, landing pages, social media posts, digital banners, email templates, mobile/web apps, motion design, animation GIFs, SVG and social tiles.'
+          PNG={DigitalDesign}
         />
         <RowHalf
           heading='Interactive UX/UI'
-          paragraph='Converting ideas into interfaces and interactions that satisfy. Storyboarding, wireframes, site maps, UI design, iconography, responsiveness and prototyping. '
+          paragraph='Converting ideas into interfaces and interactions that satisfy. Storyboarding, wireframes, site maps, UI design, iconography, responsiveness and prototyping.'
+          PNG={Interactive}
         />
         <RowHalf
           heading='Motion Design/Video Editing'
           paragraph='Bringing digital assets and video footage to life inside the timeline. Expert Adobe After Effects and Premiere talent. Transcode, upscale and compress videos for online use.'
+          PNG={Motion}
         />
         <RowHalf
           heading='3D artist/generalist'
           paragraph='Adding a new dimension to asset creation. Modelling, shading, UV editing, texturing, rigging, animation, lighting, motion capture and optimised exports for various platforms.'
+          PNG={ThreeD}
         />
       </div>
       <HeadingHighlight BGColor={RED} fullWidth={false} heading='Development Services' />
       <div className='flex flex-wrap gap-3 my-4'>
         <RowHalf
           heading='Front End Development'
-          paragraph='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single/multi page apps and  PWAs with APIs/GraphQL support. '
+          paragraph='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single/multi page apps and  PWAs with APIs/GraphQL support.'
+          PNG={Frontend}
         />
         <RowHalf
           heading='Software Engineer'
           paragraph='Advanced development experience within software teams. Typescript, AWS, Redux, SSL, Next.js, git branches, continual CI/CD deployments, testing and code reviews.'
+          PNG={SoftwareEngineer}
         />
         <RowHalf
           heading='EDM &amp; CRM Integration'
           paragraph='Responsive and accessible email HTML5/CSS custom builds with customer relationship management integration such as Mailchimp and Salesforces.'
+          PNG={eDM}
         />
         <RowHalf
           heading='THREE JS/<br/>REACT THREE FIBRE'
           paragraph='WebGL and GPU powered canvas elements rendered from within the browser. GLB/GLTF, custom shaders, physics and post processing.'
+          PNG={ThreeD}
         />
       </div>
       <HeadingHighlight BGColor={RED} fullWidth={false} heading='Technologist Services' />
       <div className='flex flex-wrap gap-3 my-4'>
         <RowHalf
           heading='VR/AR Technologies'
-          paragraph='Creating immersive environments and interactive experiences by combining 3D assets, real world space and game logic. A new frontier in the digital realm. '
+          paragraph='Creating immersive environments and interactive experiences by combining 3D assets, real world space and game logic. A new frontier in the digital realm.'
+          PNG={VR}
         />
         <RowHalf
           heading='AI Integration'
           paragraph='Integrating the latest in Artificial Intelligence  across our projects and yours. Supplementing copy, optimising code, generating images and motion with Stable Diffusion.'
+          PNG={AI}
         />
         <RowHalf
           heading='Unreal Engine'
           paragraph='Invested in Unreal Engine, an open source game engine that is capable of rendering realistic visuals in real time, including VR experiences and cinematics.'
+          PNG={Unreal}
         />
         <RowHalf
           heading='MUSIC PRODUCTION/<br />SOUND DESIGN'
           paragraph='Supplementing our projects with original music and sound design. Music theory combined with VSTs, instruments and synths.'
+          PNG={Audio}
         />
       </div>
       <div>
@@ -114,11 +140,11 @@ const Services = () => {
         />
         <RowThird
           heading='The experience factor'
-          paragraph='Feel the difference that two decades of experience makes. From the early days of Flash pioneering, to today’s cutting-edge advancements, Iing a wealth of knowledge and experience to your digital projects.'
+          paragraph='Feel the difference that two decades of experience makes. From the early days of Flash pioneering, to today’s cutting-edge advancements, I bring a wealth of knowledge and experience to your digital projects.'
         />
         <RowThird
           heading='The people factor'
-          paragraph='Above all, Evoke Labs is dedicated to delivering a positive experience for end users, team members and stakeholders alike. Your happiness is our ultimate goal, driven by commitment, honest communications and proven results.'
+          paragraph='Above all, Evoke Labs is dedicated to delivering a positive experience for end users, team members and stakeholders alike. Your happiness is our ultimate goal, driven by commitment, open communications and proven results.'
         />
       </div>
       <div className='my-6 space-y-1'>
