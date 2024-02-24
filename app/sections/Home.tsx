@@ -146,8 +146,8 @@ const Home = () => {
             EVOKE LABS DOES DIGITAL
           </h1>
           <h1
-            className={`font-rajdhani font-bold text-teal-blur text-[100px] leading-[0.75em] transition-colors duration-150 uppercase type ${hoverColor} ${
-              isActive ? 'text-black-blur' : null
+            className={`font-rajdhani font-bold text-teal-blur text-[100px] leading-[0.75em] transition-colors duration-150 uppercase  ${hoverColor} ${
+              isActive ? 'text-black-blur ' : 'type'
             }`}
           >
             {animatedPhrase}
