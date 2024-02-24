@@ -153,9 +153,9 @@ const Home = () => {
           <TypeAnimation
             sequence={[...shuffledPhrases.map((phrase, index) => [phrase, index !== shuffledPhrases.length - 1 ? TIMER : 0])].flat()}
             wrapper='span'
-            speed={55}
+            speed={25}
             repeat={Infinity}
-            deletionSpeed={75}
+            deletionSpeed={65}
             preRenderFirstString={true}
             cursor={false}
             className={'type'}
