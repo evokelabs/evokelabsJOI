@@ -182,6 +182,7 @@ const ButtonMainMenu = ({
           style={{ pointerEvents: isActive ? 'none' : 'all' }}
         >
           <IconSmallInteractive isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} callToAction={callToAction} />
+
           <MainMenuSVG label={label} isHovered={isHovered} isActive={isActive} />
 
           <div className={`top-2 relative ${isHovered || isActive ? 'text-teal-blur' : primaryColor}`}>
