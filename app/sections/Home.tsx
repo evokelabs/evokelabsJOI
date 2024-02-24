@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
 import gsap from 'gsap'
+import home from './data/home.json'
 
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
@@ -17,8 +18,11 @@ const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) 
 }
 
 const Home = () => {
+  const TIMER = 500
+
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
+  const [index, setIndex] = useState(0)
 
   const hoverColor = !isActive && isHovered ? 'text-black-blur' : 'text-red-blur'
   const hoverBGColor = isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
@@ -44,6 +48,43 @@ const Home = () => {
     }
   }, [isActive])
 
+  // Function to shuffle an array
+  const shuffle = (array: string[]) => {
+    let currentIndex = array.length,
+      temporaryValue,
+      randomIndex
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex)
+      currentIndex -= 1
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex]
+      array[currentIndex] = array[randomIndex]
+      array[randomIndex] = temporaryValue
+    }
+
+    return array
+  }
+
+  // Shuffle the phrases array
+  const shuffledPhrases = shuffle(home.phrases)
+
+  const [phrase, setPhrase] = useState(shuffledPhrases[0])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!isActive) {
+        setPhrase(shuffledPhrases[index])
+        setIndex((index + 1) % shuffledPhrases.length) // Loop back to the start of the array when we reach the end
+      }
+    }, TIMER)
+
+    return () => clearInterval(interval)
+  }, [index, shuffledPhrases, isActive])
+
   return (
     <div
       className={`mb-4 mx-3.5 mr-2 group ${!isActive ? 'cursor-zoom-in' : 'cursor-zoom-out'}`}
@@ -52,23 +93,23 @@ const Home = () => {
       onMouseUp={() => setIsActive(!isActive)}
     >
       <div
-        className={`pt-6 p-4  border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
+        className={`pt-6 px-5  border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
           isActive && !isHovered ? 'bg-red ' : 'bg-grid-blue '
         }`}
       >
         <h1
-          className={`font-rajdhani font-bold text-red-blur text-[100px] leading-[0.6] pt-2.5 transition-colors duration-150 ${hoverColor} ${
+          className={`font-rajdhani font-bold text-red-blur text-[100px]  leading-[0.75em] transition-colors duration-150 ${hoverColor} ${
             isActive ? 'text-black-blur' : null
           }`}
         >
           EVOKE LABS DOES DIGITAL
         </h1>
         <h1
-          className={`font-rajdhani font-bold text-teal-blur text-[100px] leading-[0.6] pt-2.5 mt-2 transition-colors duration-150 ${hoverColor} ${
+          className={`font-rajdhani font-bold text-teal-blur text-[100px] leading-[0.75em] transition-colors duration-150 uppercase ${hoverColor} ${
             isActive ? 'text-black-blur' : null
           }`}
         >
-          LIKE JEDI USE THE FORCE.
+          {phrase}
         </h1>
       </div>
 
