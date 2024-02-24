@@ -86,18 +86,24 @@ const Home = () => {
     return () => clearInterval(interval)
   }, [isActive, shuffledSolo, shuffledPower, shuffledDescribe, shuffledPhrases, index])
 
-  const [animatedPhrase, setAnimatedPhrase] = useState('')
+  const [animatedPhrase, setAnimatedPhrase] = useState(phrase)
+  const prevPhraseRef = useRef(phrase)
 
   useEffect(() => {
     const animatePhrase = async () => {
       setAnimatedPhrase('') // Reset the animated phrase
       for (const char of phrase) {
-        await new Promise(resolve => setTimeout(resolve, TYPE_ON_SPEED)) // Change this value to adjust the speed of the animation
+        await new Promise(resolve => setTimeout(resolve, TYPE_ON_SPEED)) // Use TYPE_ON_SPEED to control the speed of the animation
         setAnimatedPhrase(prev => prev + char)
       }
     }
 
-    animatePhrase()
+    if (prevPhraseRef.current !== phrase) {
+      animatePhrase()
+    }
+
+    // Update the ref to the current phrase after animating
+    prevPhraseRef.current = phrase
   }, [phrase])
 
   return (
