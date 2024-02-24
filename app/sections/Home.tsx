@@ -3,6 +3,7 @@ import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
 import gsap from 'gsap'
 import home from './data/home.json'
+import homeExpanded from './data/homeExpanded.json'
 
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
@@ -23,6 +24,44 @@ const Home = () => {
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
   const [index, setIndex] = useState(0)
+
+  const shuffle = (array: string[]) => {
+    let currentIndex = array.length,
+      temporaryValue,
+      randomIndex
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex)
+      currentIndex -= 1
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex]
+      array[currentIndex] = array[randomIndex]
+      array[randomIndex] = temporaryValue
+    }
+
+    return array
+  }
+
+  // Shuffle the arrays from homeExpanded.json
+  const shuffledSolo = shuffle(homeExpanded.solo)
+  const shuffledPower = shuffle(homeExpanded.power)
+  const shuffledDescribe = shuffle(homeExpanded.describe)
+
+  // Shuffle the phrases array
+  const shuffledPhrases = shuffle(home.phrases)
+
+  // Create state variables for each field
+  const [solo, setSolo] = useState(shuffledSolo[0])
+  const [power, setPower] = useState(shuffledPower[0])
+  const [describe, setDescribe] = useState(shuffledDescribe[0])
+
+  // Create separate indices for each field
+  const [soloIndex, setSoloIndex] = useState(0)
+  const [powerIndex, setPowerIndex] = useState(0)
+  const [describeIndex, setDescribeIndex] = useState(0)
 
   const hoverColor = !isActive && isHovered ? 'text-black-blur' : 'text-red-blur'
   const hoverBGColor = isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
@@ -48,29 +87,28 @@ const Home = () => {
     }
   }, [isActive])
 
-  // Function to shuffle an array
-  const shuffle = (array: string[]) => {
-    let currentIndex = array.length,
-      temporaryValue,
-      randomIndex
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (isActive) {
+        setSolo(shuffledSolo[soloIndex])
+        setPower(shuffledPower[powerIndex])
+        setDescribe(shuffledDescribe[describeIndex])
 
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex)
-      currentIndex -= 1
+        // Update each index independently
+        setSoloIndex((soloIndex + 1) % shuffledSolo.length)
+        setPowerIndex((powerIndex + 1) % shuffledPower.length)
+        setDescribeIndex((describeIndex + 1) % shuffledDescribe.length)
+      }
+      if (!isActive) {
+        setPhrase(shuffledPhrases[index])
+      }
+      setIndex((index + 1) % shuffledPhrases.length) // Loop back to the start of the array when we reach the end
+    }, TIMER)
 
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex]
-      array[currentIndex] = array[randomIndex]
-      array[randomIndex] = temporaryValue
-    }
-
-    return array
-  }
+    return () => clearInterval(interval)
+  }, [index, shuffledPhrases, isActive, shuffledSolo, shuffledPower, shuffledDescribe, soloIndex, powerIndex, describeIndex])
 
   // Shuffle the phrases array
-  const shuffledPhrases = shuffle(home.phrases)
 
   const [phrase, setPhrase] = useState(shuffledPhrases[0])
 
@@ -94,7 +132,8 @@ const Home = () => {
     >
       <div
         className={`pt-6 px-5  border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
-          isActive && !isHovered ? 'bg-red ' : 'bg-grid-blue '
+          isActive && !isHovered ? 'bg-red' : 'bg-grid-blue'
+        } ${!isActive ? 'pb-0' : 'pb-4'}
         }`}
       >
         <h1
@@ -117,14 +156,16 @@ const Home = () => {
         ref={divRef}
         className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0 text-[2.2rem] '
       >
-        <p className='mt-6 mb-10 text-teal-blur font-semibold leading-tight'>
-          Evoke labs is home to Adrian Pikios, <span className='text-red-blur bg-grid-red px-2'>an animator</span> who uses the powers of{' '}
-          <span className='text-red-blur bg-grid-red px-2'>JSX</span> to design, develop & create{' '}
-          <span className='text-red-blur bg-grid-red px-2'>cheesy</span> digital experiences.
-        </p>
-        <p className='mb-5 text-teal-blur font-semibold leading-tight'>
-          When not working on personal projects, I partner with clients, brands and agencies to help produce their digital campaigns.
-        </p>
+        <div className='flex flex-col justify-between min-h-[280px]'>
+          <p className='mt-6 mb-4 text-teal-blur font-semibold leading-tight '>
+            Evoke labs is home to Adrian Pikios, <span className='text-red-blur bg-grid-red px-2 '>{solo}</span> who uses the powers of{' '}
+            <span className='text-red-blur bg-grid-red px-2 '>{power}</span> to design, develop & create{' '}
+            <span className='text-red-blur bg-grid-red px-2 '>{describe}</span> digital experiences.
+          </p>
+          <p className='mb-5 text-teal-blur font-semibold leading-tight'>
+            When not working on personal projects, I partner with clients, brands and agencies to help produce their digital campaigns.
+          </p>
+        </div>
       </div>
 
       <div className='flex flex-row w-full h-3.5 relative '>
