@@ -38,9 +38,9 @@ const ButtonSocial = ({ SVGIcon }: { SVGIcon: JSX.Element }) => {
   return (
     <div className={'cursor-pointer w-fit'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
       <svg width='66' height='47' viewBox='0 0 66 47' fill='none' ref={svgRef}>
+        <path ref={pathBGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={secondaryColor} fillOpacity='0.85' />
         <RedCRTBlur />
         <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
-          <path ref={pathBGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={secondaryColor} fillOpacity='0.85' />
           <path ref={pathFGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={primaryColor} fillOpacity='0.1' />
           <path d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill='url(#redTile)' />
           <path
