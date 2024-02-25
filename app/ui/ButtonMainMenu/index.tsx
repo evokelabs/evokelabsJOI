@@ -11,6 +11,7 @@ import JOISVG from '../svg/mainMenu/JOISVG'
 import PortfolioSVG from '../svg/mainMenu/PortfolioSVG'
 import ResumeSVG from '../svg/mainMenu/ResumeSVG'
 import ServicesSVG from '../svg/mainMenu/ServicesSVG'
+import Typewriter from '../libs/Typewriter'
 
 const MainMenuSVG = ({ label, isHovered, isActive }: { label: string; isHovered: boolean; isActive: boolean }) => {
   let svg = <></>
@@ -186,7 +187,7 @@ const ButtonMainMenu = ({
           <MainMenuSVG label={label} isHovered={isHovered} isActive={isActive} />
 
           <div className={`top-2 relative ${isHovered || isActive ? 'text-teal-blur' : primaryColor}`}>
-            {isActive || isHovered ? hoverLabel : label}
+            {isActive || isHovered ? <Typewriter text={hoverLabel} delay={50} /> : label}
           </div>
         </div>
       </div>
