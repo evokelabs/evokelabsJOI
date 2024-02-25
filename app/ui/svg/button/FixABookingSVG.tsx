@@ -5,7 +5,7 @@ import RedCRTBlur from '../../libs/RedCRTBlur'
 const FixABookingSVG = () => {
   return (
     <svg width='46' height='48' viewBox='-1 0 46 46' fill='none'>
-      <g clip-path='url(#a)'>
+      <g clipPath='url(#a)'>
         <RedCRTBlur />
         <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
           <path
