@@ -10,16 +10,16 @@ const SocialIcons = () => {
   return (
     <div className='absolute top-0 right-0 pt-5 flex flex-row z-[10000000000000000]'>
       <Link href='https://github.com/evokelabs' target='_blank'>
-        <ButtonSocial SVGIcon={<GithubSVG />} />
+        <ButtonSocial SVGIcon={props => <GithubSVG {...props} />} />
       </Link>
       <Link href='https://www.youtube.com/evokelabs' target='_blank'>
-        <ButtonSocial SVGIcon={<YouTubeSVG />} />
+        <ButtonSocial SVGIcon={props => <YouTubeSVG {...props} />} />
       </Link>
       <Link href='https://twitter.com/evokelabs' target='_blank'>
-        <ButtonSocial SVGIcon={<TwitterSVG />} />
+        <ButtonSocial SVGIcon={props => <TwitterSVG {...props} />} />
       </Link>
       <Link href='https://www.linkedin.com/in/adrianpikios' target='_blank'>
-        <ButtonSocial SVGIcon={<LinkedInSVG />} />
+        <ButtonSocial SVGIcon={props => <LinkedInSVG {...props} />} />
       </Link>
     </div>
   )

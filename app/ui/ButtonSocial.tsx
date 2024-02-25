@@ -5,7 +5,7 @@ import useButtonEventsController from './libs/useButtonEventsController'
 import useButtonInteractionController from './libs/useButtonInteractionController'
 import { RED_TILE_PATTERN } from './libs/TitleFillsPatterns'
 
-const ButtonSocial = ({ SVGIcon }: { SVGIcon: JSX.Element }) => {
+const ButtonSocial = ({ SVGIcon }: { SVGIcon: (props: { isHovered: boolean }) => JSX.Element }) => {
   const svgRef = useRef<SVGSVGElement | null>(null)
   const pathBGFillRef = useRef<SVGPathElement | null>(null)
   const pathFGFillRef = useRef<SVGPathElement | null>(null)
@@ -51,7 +51,7 @@ const ButtonSocial = ({ SVGIcon }: { SVGIcon: JSX.Element }) => {
             fill={primaryColor}
             fillOpacity='0.6'
           />
-          {SVGIcon}
+          {SVGIcon({ isHovered })}
         </g>
         {RED_TILE_PATTERN}
       </svg>
