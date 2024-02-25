@@ -21,7 +21,7 @@ const SVG = ({ heading, PNG }: { heading: string; PNG: StaticImport }) => {
         />
         {RED_TILE_PATTERN}
       </svg>
-      <div className='absolute w-[132px] ml-4 left-1 opacity-80'>
+      <div className='absolute w-[142px] ml-4  opacity-80'>
         <Image src={PNG} alt={heading} className='text-teal font-rajdhani font-semibold text-center ' />
       </div>
     </>

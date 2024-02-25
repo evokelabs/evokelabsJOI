@@ -4,7 +4,7 @@ import { BLUE_TILE_PATTERN } from './libs/TitleFillsPatterns'
 
 const IconDefault = () => {
   return (
-    <svg width='153' height='144' viewBox='0 0 160 144' fill='none'>
+    <svg width='160' height='144' viewBox='0 0 160 144' fill='none'>
       <path d='M0 0H144V129L129 144H0V0Z' fill={BLUE_DARK} />
       <path d='M0 0H144V129L129 144H0V0Z' fill='url(#blueTile)' />
       <RedCRTBlur />
