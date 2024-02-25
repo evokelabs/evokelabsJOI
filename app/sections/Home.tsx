@@ -40,7 +40,7 @@ const Home = () => {
   const TYPE_ON_SPEED = 70
   const TYPE_OFF_SPEED = 35
 
-  const SCRAMBLED_REVEAL_SPEED = 30
+  const SCRAMBLED_REVEAL_SPEED = 60
 
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
@@ -130,6 +130,8 @@ const Home = () => {
   }, [phrase, animatedPhrase, TYPE_ON_SPEED])
 
   const [scrambledSolo, setScrambledSolo] = useState(solo)
+  const [scrambledPower, setScrambledPower] = useState(power)
+  const [scrambledDescribe, setScrambledDescribe] = useState(describe)
 
   const scrambleText = (text: string | any[]) => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
@@ -145,19 +147,21 @@ const Home = () => {
   }
 
   useEffect(() => {
-    const scramble = async () => {
-      let scrambled = scrambleText(solo)
-      setScrambledSolo(scrambled)
+    const scramble = async (text: string, setScrambled: (value: string) => void) => {
+      let scrambled = scrambleText(text)
+      setScrambled(scrambled)
 
-      for (let i = 0; i < solo.length; i++) {
+      for (let i = 0; i < text.length; i++) {
         await new Promise(resolve => setTimeout(resolve, SCRAMBLED_REVEAL_SPEED))
-        scrambled = scrambled.slice(0, i) + solo[i] + scrambled.slice(i + 1)
-        setScrambledSolo(scrambled)
+        scrambled = scrambled.slice(0, i) + text[i] + scrambled.slice(i + 1)
+        setScrambled(scrambled)
       }
     }
 
     if (isActive) {
-      scramble()
+      scramble(solo, setScrambledSolo)
+      scramble(power, setScrambledPower)
+      scramble(describe, setScrambledDescribe)
     }
 
     const interval = setInterval(() => {
@@ -173,7 +177,7 @@ const Home = () => {
     }, TIMER)
 
     return () => clearInterval(interval)
-  }, [isActive, shuffledSolo, shuffledPower, shuffledDescribe, shuffledPhrases, index, solo])
+  }, [isActive, shuffledSolo, shuffledPower, shuffledDescribe, shuffledPhrases, index, solo, power, describe])
 
   return (
     <>
@@ -212,8 +216,8 @@ const Home = () => {
           <div className='flex flex-col justify-between min-h-[280px]'>
             <p className='mt-6 mb-4 text-teal-blur font-semibold leading-tight '>
               Evoke labs is home to Adrian Pikios, <span className='text-red-blur bg-grid-red px-2 '>{scrambledSolo}</span> who uses the
-              powers of <span className='text-red-blur bg-grid-red px-2 '>{power}</span> to design, develop & create{' '}
-              <span className='text-red-blur bg-grid-red px-2 '>{describe}</span> digital experiences.
+              powers of <span className='text-red-blur bg-grid-red px-2 '>{scrambledPower}</span> to design, develop & create{' '}
+              <span className='text-red-blur bg-grid-red px-2 '>{scrambledDescribe}</span> digital experiences.
             </p>
             <p className='mb-5 text-teal-blur font-semibold leading-tight'>
               When not working on personal projects, I partner with clients, brands and agencies to help produce their digital campaigns.
