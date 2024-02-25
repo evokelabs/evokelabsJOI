@@ -36,9 +36,11 @@ const shuffle = (array: string[]) => {
 }
 
 const Home = () => {
-  const TIMER = 6000
-  const TYPE_ON_SPEED = 80
+  const TIMER = 5000
+  const TYPE_ON_SPEED = 70
   const TYPE_OFF_SPEED = 35
+
+  const SCRAMBLED_REVEAL_SPEED = 30
 
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
@@ -85,6 +87,8 @@ const Home = () => {
     return () => clearInterval(interval)
   }, [isActive, shuffledSolo, shuffledPower, shuffledDescribe, shuffledPhrases, index])
 
+  //Main Home page panel text
+
   const [animatedPhrase, setAnimatedPhrase] = useState(phrase)
   const prevPhraseRef = useRef(phrase)
 
@@ -124,6 +128,53 @@ const Home = () => {
     // Update the ref to the current phrase after animating
     prevPhraseRef.current = phrase
   }, [phrase, animatedPhrase, TYPE_ON_SPEED])
+
+  const [scrambledSolo, setScrambledSolo] = useState(solo)
+
+  const scrambleText = (text: string | any[]) => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+    let scrambled = ''
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === ' ') {
+        scrambled += ' '
+      } else {
+        scrambled += characters.charAt(Math.floor(Math.random() * characters.length))
+      }
+    }
+    return scrambled
+  }
+
+  useEffect(() => {
+    const scramble = async () => {
+      let scrambled = scrambleText(solo)
+      setScrambledSolo(scrambled)
+
+      for (let i = 0; i < solo.length; i++) {
+        await new Promise(resolve => setTimeout(resolve, SCRAMBLED_REVEAL_SPEED))
+        scrambled = scrambled.slice(0, i) + solo[i] + scrambled.slice(i + 1)
+        setScrambledSolo(scrambled)
+      }
+    }
+
+    if (isActive) {
+      scramble()
+    }
+
+    const interval = setInterval(() => {
+      const newIndex = (index + 1) % Math.max(shuffledSolo.length, shuffledPower.length, shuffledDescribe.length, shuffledPhrases.length)
+      setIndex(newIndex)
+      if (isActive) {
+        setSolo(shuffledSolo[newIndex % shuffledSolo.length])
+        setPower(shuffledPower[newIndex % shuffledPower.length])
+        setDescribe(shuffledDescribe[newIndex % shuffledDescribe.length])
+      } else {
+        setPhrase(shuffledPhrases[newIndex % shuffledPhrases.length])
+      }
+    }, TIMER)
+
+    return () => clearInterval(interval)
+  }, [isActive, shuffledSolo, shuffledPower, shuffledDescribe, shuffledPhrases, index, solo])
+
   return (
     <>
       <div
@@ -160,8 +211,8 @@ const Home = () => {
         >
           <div className='flex flex-col justify-between min-h-[280px]'>
             <p className='mt-6 mb-4 text-teal-blur font-semibold leading-tight '>
-              Evoke labs is home to Adrian Pikios, <span className='text-red-blur bg-grid-red px-2 '>{solo}</span> who uses the powers of{' '}
-              <span className='text-red-blur bg-grid-red px-2 '>{power}</span> to design, develop & create{' '}
+              Evoke labs is home to Adrian Pikios, <span className='text-red-blur bg-grid-red px-2 '>{scrambledSolo}</span> who uses the
+              powers of <span className='text-red-blur bg-grid-red px-2 '>{power}</span> to design, develop & create{' '}
               <span className='text-red-blur bg-grid-red px-2 '>{describe}</span> digital experiences.
             </p>
             <p className='mb-5 text-teal-blur font-semibold leading-tight'>
