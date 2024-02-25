@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 
-import { CyberpunkRefType } from '../index'
+import { CyberpunkRefType } from '../../3d/models/CyberpunkCar/index'
 
 const SOUND_PATH = '/sounds/engineLoop.ogg'
 const MAX_VOLUME = 0.75
