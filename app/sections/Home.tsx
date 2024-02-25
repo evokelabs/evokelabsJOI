@@ -167,22 +167,24 @@ const Home = () => {
       setSolo(shuffledSolo[newIndex % shuffledSolo.length])
       setPower(shuffledPower[newIndex % shuffledPower.length])
       setDescribe(shuffledDescribe[newIndex % shuffledDescribe.length])
+
+      // Call scramble for each new value
+      scramble(solo, setScrambledSolo)
+      scramble(power, setScrambledPower)
+      scramble(describe, setScrambledDescribe)
     }
 
     if (isActiveRef.current !== isActive) {
       isActiveRef.current = isActive
       if (isActive) {
         updateValues()
-        scramble(solo, setScrambledSolo)
-        scramble(power, setScrambledPower)
-        scramble(describe, setScrambledDescribe)
       }
     }
 
     const interval = setInterval(updateValues, TIMER)
 
     return () => clearInterval(interval)
-  }, [isActive, shuffledSolo, shuffledPower, shuffledDescribe, index])
+  }, [isActive, shuffledSolo, shuffledPower, shuffledDescribe, index, solo, power, describe])
 
   // Second useEffect for phrase
   useEffect(() => {
