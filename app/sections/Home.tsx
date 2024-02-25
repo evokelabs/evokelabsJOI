@@ -186,18 +186,37 @@ const Home = () => {
     return () => clearInterval(interval)
   }, [isActive, shuffledSolo, shuffledPower, shuffledDescribe, index, solo, power, describe])
 
-  // Second useEffect for phrase
-  useEffect(() => {
-    if (!isActive) {
-      const interval = setInterval(() => {
-        const newIndex = (index + 1) % shuffledPhrases.length
-        setIndex(newIndex)
-        setPhrase(shuffledPhrases[newIndex % shuffledPhrases.length])
-      }, TIMER)
+  // Phrase useEffect
+  const shouldUpdate = useRef(false)
+  const updatePhraseRef = useRef(() => {})
 
-      return () => clearInterval(interval)
+  // Phrase useEffect
+  useEffect(() => {
+    updatePhraseRef.current = () => {
+      const newIndex = (index + 1) % shuffledPhrases.length
+      setIndex(newIndex)
+      setPhrase(shuffledPhrases[newIndex % shuffledPhrases.length])
     }
-  }, [isActive, shuffledPhrases, index])
+
+    const interval = setInterval(() => {
+      if (isActive) {
+        shouldUpdate.current = true
+      } else if (shouldUpdate.current) {
+        updatePhraseRef.current()
+        shouldUpdate.current = false
+      }
+    }, TIMER)
+
+    return () => clearInterval(interval)
+  }, [isActive, shuffledPhrases, index, setIndex, setPhrase])
+
+  // Separate useEffect to handle immediate update when isActive becomes false
+  useEffect(() => {
+    if (!isActive && shouldUpdate.current) {
+      updatePhraseRef.current()
+      shouldUpdate.current = false
+    }
+  }, [isActive, shouldUpdate, updatePhraseRef])
 
   return (
     <>
