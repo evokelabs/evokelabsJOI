@@ -188,9 +188,9 @@ const Home = () => {
         onMouseUp={() => setIsActive(!isActive)}
       >
         <div
-          className={`pt-6 px-5 border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
+          className={`pt-6  px-5 border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
             isActive && !isHovered ? 'bg-red' : 'bg-grid-blue'
-          } ${!isActive ? 'pb-0' : 'pb-4'}
+          } ${!isActive ? 'pb-[2px]' : 'pb-4'}
         }`}
         >
           <h1
@@ -213,7 +213,7 @@ const Home = () => {
           ref={divRef}
           className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0 text-[2.2rem] '
         >
-          <div className='flex flex-col justify-between min-h-[280px]'>
+          <div className='flex flex-col justify-between min-h-[280px]  '>
             <p className='mt-6 mb-4 text-teal-blur font-semibold leading-tight '>
               Evoke labs is home to Adrian Pikios, <span className='text-red-blur bg-grid-red px-2 '>{scrambledSolo}</span> who uses the
               powers of <span className='text-red-blur bg-grid-red px-2 '>{scrambledPower}</span> to design, develop & create{' '}
@@ -227,9 +227,9 @@ const Home = () => {
 
         <div className='flex flex-row w-full h-3.5 relative '>
           <div
-            className={`bg-grid-blue w-full border-red border-b-2 border-l-2 border-opacity-60 mr-3 transition-colors duration-150 ${bottomBarBGColor}`}
+            className={`bg-grid-blue w-full border-red border-b-2 border-l-2 border-opacity-60 mr-3 transition-colors duration-150  ${bottomBarBGColor}`}
           ></div>
-          <div className='ml-auto h-fit absolute -right-[8px]'>
+          <div className='ml-auto h-fit absolute -right-[8px] '>
             {!isActive && isHovered ? (
               <BottomRightCornerSVG color={RED_DULL} tile='redTile' />
             ) : (
