@@ -22,7 +22,6 @@ import SoftwareEngineer from '@/app/ui/png/services/SoftwareEngineer.png'
 import ThreeJS from '@/app/ui/png/services/ThreeJS.png'
 import Unreal from '@/app/ui/png/services/Unreal.png'
 import VR from '@/app/ui/png/services/VR.png'
-import AvailabilitiesSVG from '../ui/svg/mainMenu/AvailabilitiesSVG'
 import FixABookingSVG from '../ui/svg/button/FixABookingSVG'
 
 import quotes from './data/quotes.json'
@@ -61,29 +60,31 @@ interface Quote {
 }
 
 const Services = () => {
-  const TIMER = 1000
-
-  const [currentQuote, setCurrentQuote] = useState({ quote: '', source: '' })
-  const [index, setIndex] = useState(0)
-  const [shuffledQuotes, setShuffledQuotes] = useState<Quote[]>([])
+  const TIMER = 5000
+  const TYPE_DELAY = 5
 
   // Function to shuffle an array
-  function shuffle(array: Quote[]): Quote[] {
-    let currentIndex = array.length,
-      randomIndex
-
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex)
-      currentIndex--
-      ;[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
+  const shuffleArray = (array: Quote[]): Quote[] => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[array[i], array[j]] = [array[j], array[i]]
     }
-
     return array
   }
 
+  // Shuffle the quotes array
+  const shuffledQuotes = shuffleArray(quotes)
+
+  // Initialize currentQuote with the first quote from the quotes array
+
+  const [index, setIndex] = useState(0)
+  const [currentQuote, setCurrentQuote] = useState(shuffledQuotes[0] || { quote: '', source: '' })
+  const [typing, setTyping] = useState({ quote: '', source: '' })
+
   useEffect(() => {
     // Shuffle the quotes array only once when the component mounts
-    setShuffledQuotes(shuffle(quotes))
+    const shuffledQuotes = shuffleArray(quotes)
+    setCurrentQuote(shuffledQuotes[0] || { quote: '', source: '' })
   }, [])
 
   useEffect(() => {
@@ -97,6 +98,26 @@ const Services = () => {
 
     return () => clearInterval(interval)
   }, [index, shuffledQuotes])
+
+  useEffect(() => {
+    // Reset the typing state when the current quote changes
+    setTyping({ quote: '', source: '' })
+
+    // Type the current quote and its source character by character
+    let i = 0
+    const typingInterval = setInterval(() => {
+      if (i < currentQuote.quote.length) {
+        setTyping(typing => ({ ...typing, quote: typing.quote + currentQuote.quote[i - 1] }))
+      } else if (i - currentQuote.quote.length < currentQuote.source.length) {
+        setTyping(typing => ({ ...typing, source: typing.source + currentQuote.source[i - currentQuote.quote.length - 1] }))
+      } else {
+        clearInterval(typingInterval)
+      }
+      i++
+    }, TYPE_DELAY)
+
+    return () => clearInterval(typingInterval)
+  }, [currentQuote])
   return (
     <PanelContent headerTitle='Corpo Guide' contentHead={<ContentHead />}>
       <div className='mb-5 space-y-2'>
@@ -150,7 +171,7 @@ const Services = () => {
         <RowHalf
           heading='THREE JS/<br/>REACT THREE FIBRE'
           paragraph='WebGL and GPU powered canvas elements rendered from within the browser. GLB/GLTF, custom shaders, physics and post processing.'
-          PNG={ThreeD}
+          PNG={ThreeJS}
         />
       </div>
       <HeadingHighlight BGColor={RED} fullWidth={false} heading='Technologist Services' />
@@ -194,8 +215,8 @@ const Services = () => {
         />
       </div>
       <div className='my-6 space-y-1 pr-2'>
-        <ParagraphHighlight BGColor={RED} fontSize='22px' paragraph={currentQuote.quote} />
-        <ParagraphHighlight BGColor={RED} fontSize='22px' paragraph={currentQuote.source} />
+        <ParagraphHighlight BGColor={RED} fontSize='22px' paragraph={typing.quote} />
+        {typing.source ? <ParagraphHighlight BGColor={RED} fontSize='22px' paragraph={typing.source} /> : null}
       </div>
       <HR />
       <div className='my-4 uppercase text-teal-blur font-semibold text-[28px]'>
