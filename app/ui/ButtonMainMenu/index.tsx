@@ -55,6 +55,7 @@ const ButtonMainMenu = ({
   onClick: (mainMenuNumber: number) => void
   callToAction?: boolean
 }) => {
+  const TYPE_ON_SPEED = 40
   const primaryColor = callToAction ? 'text-orange-blur' : 'text-red-blur'
   const primaryColorBlur = callToAction ? 'text-teal-blur' : 'text-orange-blur'
 
@@ -187,7 +188,7 @@ const ButtonMainMenu = ({
           <MainMenuSVG label={label} isHovered={isHovered} isActive={isActive} />
 
           <div className={`top-2 relative ${isHovered || isActive ? 'text-teal-blur' : primaryColor}`}>
-            {isActive || isHovered ? <Typewriter text={hoverLabel} delay={50} /> : label}
+            {isActive || isHovered ? <Typewriter text={hoverLabel} delay={TYPE_ON_SPEED} /> : label}
           </div>
         </div>
       </div>
