@@ -146,6 +146,9 @@ const Home = () => {
     return scrambled
   }
 
+  const isActiveRef = useRef(isActive)
+
+  // First useEffect for active state
   useEffect(() => {
     const scramble = async (text: string, setScrambled: (value: string) => void) => {
       let scrambled = scrambleText(text)
@@ -158,26 +161,41 @@ const Home = () => {
       }
     }
 
-    if (isActive) {
-      scramble(solo, setScrambledSolo)
-      scramble(power, setScrambledPower)
-      scramble(describe, setScrambledDescribe)
+    const updateValues = () => {
+      const newIndex = (index + 1) % Math.max(shuffledSolo.length, shuffledPower.length, shuffledDescribe.length)
+      setIndex(newIndex)
+      setSolo(shuffledSolo[newIndex % shuffledSolo.length])
+      setPower(shuffledPower[newIndex % shuffledPower.length])
+      setDescribe(shuffledDescribe[newIndex % shuffledDescribe.length])
     }
 
-    const interval = setInterval(() => {
-      const newIndex = (index + 1) % Math.max(shuffledSolo.length, shuffledPower.length, shuffledDescribe.length, shuffledPhrases.length)
-      setIndex(newIndex)
+    if (isActiveRef.current !== isActive) {
+      isActiveRef.current = isActive
       if (isActive) {
-        setSolo(shuffledSolo[newIndex % shuffledSolo.length])
-        setPower(shuffledPower[newIndex % shuffledPower.length])
-        setDescribe(shuffledDescribe[newIndex % shuffledDescribe.length])
-      } else {
-        setPhrase(shuffledPhrases[newIndex % shuffledPhrases.length])
+        updateValues()
+        scramble(solo, setScrambledSolo)
+        scramble(power, setScrambledPower)
+        scramble(describe, setScrambledDescribe)
       }
-    }, TIMER)
+    }
+
+    const interval = setInterval(updateValues, TIMER)
 
     return () => clearInterval(interval)
-  }, [isActive, shuffledSolo, shuffledPower, shuffledDescribe, shuffledPhrases, index, solo, power, describe])
+  }, [isActive, shuffledSolo, shuffledPower, shuffledDescribe, index])
+
+  // Second useEffect for phrase
+  useEffect(() => {
+    if (!isActive) {
+      const interval = setInterval(() => {
+        const newIndex = (index + 1) % shuffledPhrases.length
+        setIndex(newIndex)
+        setPhrase(shuffledPhrases[newIndex % shuffledPhrases.length])
+      }, TIMER)
+
+      return () => clearInterval(interval)
+    }
+  }, [isActive, shuffledPhrases, index])
 
   return (
     <>
