@@ -25,6 +25,9 @@ import VR from '@/app/ui/png/services/VR.png'
 import AvailabilitiesSVG from '../ui/svg/mainMenu/AvailabilitiesSVG'
 import FixABookingSVG from '../ui/svg/button/FixABookingSVG'
 
+import quotes from './data/quotes.json'
+import { useEffect, useState } from 'react'
+
 const ContentHead = () => {
   return (
     <>
@@ -52,7 +55,48 @@ const ContentHead = () => {
   )
 }
 
+interface Quote {
+  quote: string
+  source: string
+}
+
 const Services = () => {
+  const TIMER = 1000
+
+  const [currentQuote, setCurrentQuote] = useState({ quote: '', source: '' })
+  const [index, setIndex] = useState(0)
+  const [shuffledQuotes, setShuffledQuotes] = useState<Quote[]>([])
+
+  // Function to shuffle an array
+  function shuffle(array: Quote[]): Quote[] {
+    let currentIndex = array.length,
+      randomIndex
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex)
+      currentIndex--
+      ;[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
+    }
+
+    return array
+  }
+
+  useEffect(() => {
+    // Shuffle the quotes array only once when the component mounts
+    setShuffledQuotes(shuffle(quotes))
+  }, [])
+
+  useEffect(() => {
+    // Update the current quote and its index every TIMER milliseconds
+    const interval = setInterval(() => {
+      if (shuffledQuotes.length > 0) {
+        setCurrentQuote(shuffledQuotes[index])
+        setIndex((index + 1) % shuffledQuotes.length)
+      }
+    }, TIMER)
+
+    return () => clearInterval(interval)
+  }, [index, shuffledQuotes])
   return (
     <PanelContent headerTitle='Corpo Guide' contentHead={<ContentHead />}>
       <div className='mb-5 space-y-2'>
@@ -149,13 +193,9 @@ const Services = () => {
           paragraph='Above all, Evoke Labs is dedicated to delivering a positive experience for end users, team members and stakeholders alike. Your happiness is our ultimate goal, driven by commitment, open communications and proven results.'
         />
       </div>
-      <div className='my-6 space-y-1'>
-        <ParagraphHighlight
-          BGColor={RED}
-          fontSize='22px'
-          paragraph='“You are amazing Adrian! Seriously – you always impress me by going above and beyond!”'
-        />
-        <ParagraphHighlight BGColor={RED} fontSize='22px' paragraph='-Akcelo Senior Project Manager' />
+      <div className='my-6 space-y-1 pr-2'>
+        <ParagraphHighlight BGColor={RED} fontSize='22px' paragraph={currentQuote.quote} />
+        <ParagraphHighlight BGColor={RED} fontSize='22px' paragraph={currentQuote.source} />
       </div>
       <HR />
       <div className='my-4 uppercase text-teal-blur font-semibold text-[28px]'>
