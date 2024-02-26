@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from 'react'
 import { SkinnedMesh } from 'three'
 
 import { SoundsContext } from '@/app/libs/SoundsContext'
+import { DEFAULT_MUSIC_LOOP_VOLUME, LOW_MUSIC_LOOP_VOLUME } from '@/app/audio/ELAudioStartSoundControl'
 
 const JOI_VOICE_PATH = './sounds/JOI-Voice/intro/'
 const INTRO_01 = 'Intro-01.mp3'
@@ -33,14 +34,16 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     source.connect(analyser)
     analyser.connect(audioContext.destination)
 
+    audio.volume = 1
+
     audio.play().catch(error => console.error('Audio play failed due to', error))
 
     audio.onplay = () => {
-      setMusicVolume(0) // lower the music volume when the audio starts playing
+      // setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume when the audio starts playing
     }
 
     audio.onended = () => {
-      setMusicVolume(1) // revert the music volume back to the original value when the audio finishes
+      // setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
     }
 
     if (audioContext.state === 'suspended') {

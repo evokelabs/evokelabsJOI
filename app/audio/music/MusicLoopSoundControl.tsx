@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const AUDIO_SOURCE = '/sounds/musicLoop.ogg'
 const MusicLoopSoundControl = ({
@@ -52,13 +52,17 @@ const MusicLoopSoundControl = ({
   }, [delay, loop, transitionDuration, volume])
 
   useEffect(() => {
-    // Adjust the gain value when the volume changes
+    // Cancel any ongoing transitions
+    gainNode.current.gain.cancelScheduledValues(audioContext.current.currentTime)
+
+    // Start a new transition to the new volume
+    gainNode.current.gain.setValueAtTime(gainNode.current.gain.value, audioContext.current.currentTime)
     if (volume > 0) {
       gainNode.current.gain.exponentialRampToValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
     } else {
-      gainNode.current.gain.setValueAtTime(0, audioContext.current.currentTime + transitionDuration / 1000)
+      gainNode.current.gain.setValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
     }
-  }, [volume, transitionDuration])
+  }, [transitionDuration, volume])
 
   return null
 }

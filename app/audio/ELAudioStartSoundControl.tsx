@@ -6,6 +6,9 @@ import CyberpunkAmbienceSoundControl from './environment/CyberpunkAmbienceSoundC
 import JOIPreloaderSpeechControl from './JOI/JOIPreloaderSpeechControl'
 import { SoundsContext } from '../libs/SoundsContext'
 
+export const DEFAULT_MUSIC_LOOP_VOLUME = 0.45
+export const LOW_MUSIC_LOOP_VOLUME = 0.2
+
 const ELAudioStartSoundControl = () => {
   const [play, setPlay] = useState(false)
   const hasStarted = useRef(false)
@@ -35,8 +38,7 @@ const ELAudioStartSoundControl = () => {
     <>
       {play && <JOIPreloaderSpeechControl volume={1.275} delay={2500} transitionDuration={150} loop={false} />}
       {play && <MusicStartSoundControl volume={0.6} delay={0} transitionDuration={150} loop={false} />}
-      {/* {play && <MusicLoopSoundControl volume={musicVolume} delay={2500} transitionDuration={8000} />} */}
-      {play && <MusicLoopSoundControl volume={musicVolume} delay={0} transitionDuration={0} />}
+      {play && <MusicLoopSoundControl volume={musicVolume} delay={2500} transitionDuration={8000} />}
       {play && <RainSoundControl volume={0.25} delay={0} transitionDuration={5500} />}
       {play && <CyberpunkAmbienceSoundControl volume={0.375} delay={25000} transitionDuration={2000} />}
     </>

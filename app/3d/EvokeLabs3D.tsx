@@ -26,7 +26,7 @@ import Availabilities from '../sections/Availabilities'
 import Services from '../sections/Services'
 import Portfolio from '../sections/Portfolio'
 import SocialIcons from '../ui/SocialIcons'
-import ELAudioStartSoundControl from '../audio/ELAudioStartSoundControl'
+import ELAudioStartSoundControl, { DEFAULT_MUSIC_LOOP_VOLUME } from '../audio/ELAudioStartSoundControl'
 import { SoundsContext } from '../libs/SoundsContext'
 
 // Constants
@@ -39,7 +39,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [shouldAmbientLightPlay, setAmbientLightPlay] = useState(false)
   const [shouldPointLightPlay, setPointLightPlay] = useState(false)
   const [shouldJOISpeak, setShouldJOISpeak] = useState(false)
-  const [musicVolume, setMusicVolume] = useState(0.5)
+  const [musicVolume, setMusicVolume] = useState(DEFAULT_MUSIC_LOOP_VOLUME)
 
   // Camera settings
   const { cameraTarget, fov } = useCameraSettings()
