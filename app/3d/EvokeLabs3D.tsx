@@ -10,7 +10,7 @@ import CyberpunkCar from './models/CyberpunkCar/index'
 import VideoSkybox from './textures/VideoSkyBox'
 import Rain from './particles/Rain'
 import JOI from './models/JOI/index'
-import Music from '../audio/MusicLoopSoundControl'
+import Music from '../audio/music/MusicLoopSoundControl'
 
 import { AnimationContext } from '../libs/AnimationContext'
 import { useCameraSettings } from '../libs/useCameraSettings'

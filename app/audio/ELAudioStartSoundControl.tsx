@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import MusicLoop from './MusicLoopSoundControl'
+import MusicLoop from './music/MusicLoopSoundControl'
 import RainSoundControl from './environment/RainSoundControl'
 import CyberpunkAmbienceSoundControl from './environment/CyberpunkAmbienceSoundControl'
 
