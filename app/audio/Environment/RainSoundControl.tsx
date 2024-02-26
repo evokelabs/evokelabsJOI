@@ -53,7 +53,7 @@ const RainSoundControl = ({
     return () => {
       audioElement.current?.removeEventListener('canplaythrough', playAudio)
     }
-  }, [delay, transitionDuration, volume])
+  }, [delay, loop, transitionDuration, volume])
 
   return null
 }

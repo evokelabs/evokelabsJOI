@@ -1,7 +1,15 @@
 import { useEffect, useRef } from 'react'
 
-const AUDIO_SOURCE = '/sounds/musicLoop.ogg'
-const MusicLoopSoundControl = ({
+const AUDIO_SOURCES = [
+  '/sounds/JOI-voice/preLoader/preLoader-1.mp3',
+  '/sounds/JOI-voice/preLoader/preLoader-2.mp3',
+  '/sounds/JOI-voice/preLoader/preLoader-3.mp3',
+  '/sounds/JOI-voice/preLoader/preLoader-4.mp3',
+  '/sounds/JOI-voice/preLoader/preLoader-5.mp3',
+  '/sounds/JOI-voice/preLoader/preLoader-6.mp3'
+]
+
+const JOIPreloaderSpeechControl = ({
   volume = 0,
   delay = 0,
   transitionDuration = 1000,
@@ -19,7 +27,10 @@ const MusicLoopSoundControl = ({
     // Create a new AudioContext and an audio element
     const audioContext = new AudioContext()
     audioElement.current = new Audio()
-    audioElement.current.src = AUDIO_SOURCE
+
+    // Select a random audio source
+    const randomIndex = Math.floor(Math.random() * AUDIO_SOURCES.length)
+    audioElement.current.src = AUDIO_SOURCES[randomIndex]
 
     // Create a GainNode to control the volume
     gainNode.current = audioContext.createGain()
@@ -58,4 +69,4 @@ const MusicLoopSoundControl = ({
   return null
 }
 
-export default MusicLoopSoundControl
+export default JOIPreloaderSpeechControl
