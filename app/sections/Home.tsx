@@ -4,6 +4,7 @@ import home from './data/home.json'
 import homeExpanded from './data/homeExpanded.json'
 import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
+import TypeOnSoundControl from '../audio/ui/TypeOnSoundControl'
 
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
@@ -62,6 +63,16 @@ const Home = () => {
   const hoverColor = !isActive && isHovered ? 'text-black-blur' : 'text-red-blur'
   const hoverBGColor = isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
   const bottomBarBGColor = !isActive && isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
+
+  const [isTyping, setIsTyping] = useState(false)
+
+  const handleEndSound = useCallback(() => {
+    setIsTyping(false)
+  }, [])
+
+  const toggleIsTyping = () => {
+    setIsTyping(prevIsTyping => !prevIsTyping)
+  }
 
   useEffect(() => {
     if (divRef.current) {
@@ -277,6 +288,10 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <TypeOnSoundControl volume={1} delay={0} transitionDuration={1000} loop={true} isTyping={isTyping} onEndSound={handleEndSound} />
+      <button className={'m-4'} onClick={toggleIsTyping}>
+        Toggle isTyping
+      </button>
     </>
   )
 }

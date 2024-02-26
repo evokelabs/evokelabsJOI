@@ -1,60 +1,66 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 const AUDIO_SOURCE_LOOP = '/sounds/TypeOnLoop.ogg'
-const AUDIO_SOURCE_END = '/sounds/TypeOnEnd.mp3'
+const AUDIO_SOURCE_END = '/sounds/TypeOnEnd.ogg'
 
-const TypeOnSoundControl = () => {
-  const audioElement = useRef<HTMLAudioElement | null>(null)
-  const audioEndElement = useRef<HTMLAudioElement | null>(null)
+type TypeOnSoundControlProps = {
+  volume?: number
+  delay?: number
+  transitionDuration?: number
+  loop?: boolean
+  isTyping: boolean
+  onEndSound: () => void
+}
+
+const TypeOnSoundControl: React.FC<TypeOnSoundControlProps> = ({
+  volume = 0,
+  delay = 0,
+  transitionDuration = 1000,
+  loop = true,
+  isTyping,
+  onEndSound
+}) => {
+  const audioElement = useRef(new Audio(AUDIO_SOURCE_LOOP))
+  const audioEndElement = useRef(new Audio(AUDIO_SOURCE_END))
+  const audioContext = useRef(new AudioContext())
+  const gainNode = useRef(audioContext.current.createGain())
+
+  // Define a function to play the audio
+  const playAudio = useCallback(() => {
+    audioContext.current.resume().then(() => {
+      audioElement.current.play()
+      audioElement.current.loop = loop
+    })
+  }, [loop])
+
+  // Define a function to stop the audio and play the end sound
+  const stopAudio = useCallback(() => {
+    audioElement.current.pause()
+    audioElement.current.currentTime = 0
+    audioEndElement.current.play()
+    audioEndElement.current.loop = false
+    audioEndElement.current.onended = onEndSound
+  }, [onEndSound])
 
   useEffect(() => {
-    // Create a new AudioContext and audio elements
-    const audioContext = new AudioContext()
-    audioElement.current = new Audio()
-    audioEndElement.current = new Audio()
-    if (audioElement.current && audioEndElement.current) {
-      audioElement.current.src = AUDIO_SOURCE_LOOP
-      audioEndElement.current.src = AUDIO_SOURCE_END
-      audioElement.current.volume = 0.0
-      audioEndElement.current.volume = 0.0
+    audioElement.current.volume = volume
+    audioEndElement.current.volume = volume
 
-      // Connect the audio elements to the AudioContext
-      const track = audioContext.createMediaElementSource(audioElement.current)
-      const endTrack = audioContext.createMediaElementSource(audioEndElement.current)
-      track.connect(audioContext.destination)
-      endTrack.connect(audioContext.destination)
+    // Connect the audio elements to the AudioContext
+    const track = audioContext.current.createMediaElementSource(audioElement.current)
+    const endTrack = audioContext.current.createMediaElementSource(audioEndElement.current)
+    track.connect(audioContext.current.destination)
+    endTrack.connect(audioContext.current.destination)
+  }, [volume])
 
-      // Define a function to play the audio
-      const playAudio = () => {
-        audioContext.resume().then(() => {
-          audioElement.current?.play()
-        })
-      }
-
-      // Define a function to stop the audio and play the end sound
-      const stopAudio = () => {
-        if (audioElement.current) {
-          audioElement.current.pause()
-          audioElement.current.currentTime = 0
-        }
-        audioEndElement.current?.play()
-      }
-
-      // Play the audio when the component is called
+  useEffect(() => {
+    // Play or stop the audio based on isTyping
+    if (isTyping) {
       playAudio()
-
-      // Stop the audio when the canvas or window is clicked
-      const canvas = document.querySelector('canvas')
-      canvas?.addEventListener('click', stopAudio)
-      window.addEventListener('load', stopAudio)
-
-      // Clean up event listeners when the component unmounts
-      return () => {
-        canvas?.removeEventListener('click', stopAudio)
-        window.removeEventListener('load', stopAudio)
-      }
+    } else {
+      stopAudio()
     }
-  }, [])
+  }, [isTyping, loop, onEndSound, playAudio, stopAudio])
 
   return null
 }
