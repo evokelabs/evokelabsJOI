@@ -292,6 +292,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       <TypeOnSoundControl
         volume={0.65}
         delay={0.1}
