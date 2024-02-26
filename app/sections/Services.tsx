@@ -61,7 +61,7 @@ interface Quote {
 
 const Services = () => {
   const TIMER = 5000
-  const TYPE_DELAY = 5
+  const TYPE_DELAY = 10
 
   // Function to shuffle an array
   const shuffleArray = (array: Quote[]): Quote[] => {

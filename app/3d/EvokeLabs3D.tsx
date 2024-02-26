@@ -29,8 +29,8 @@ import Portfolio from '../sections/Portfolio'
 import SocialIcons from '../ui/SocialIcons'
 
 // Constants
-const debug = true
-// const debug = false
+// const debug = true
+const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
@@ -80,7 +80,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         >
           <Lights />
           <CyberpunkMap />
-          {/* <CyberpunkCar /> */}
+          <CyberpunkCar />
           <JOI />
           <Rain />
         </AnimationContext.Provider>
