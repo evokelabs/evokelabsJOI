@@ -12,38 +12,34 @@ const MusicLoopSoundControl = ({
   transitionDuration: number
   loop?: boolean
 }) => {
-  const audioElement = useRef<HTMLAudioElement | null>(null)
-  const gainNode = useRef<GainNode | null>(null)
+  const audioElement = useRef(new Audio(AUDIO_SOURCE))
+  const audioContext = useRef(new AudioContext())
+  const gainNode = useRef(audioContext.current.createGain())
+  const source = useRef<MediaElementAudioSourceNode | null>(null)
 
   useEffect(() => {
-    // Create a new AudioContext and an audio element
-    const audioContext = new AudioContext()
-    audioElement.current = new Audio()
-    audioElement.current.src = AUDIO_SOURCE
-
-    // Create a GainNode to control the volume
-    gainNode.current = audioContext.createGain()
+    const currentAudioElement = audioElement.current
 
     // Create a MediaElementAudioSourceNode from the audio element
-    const source = audioContext.createMediaElementSource(audioElement.current)
-    source.connect(gainNode.current)
-    gainNode.current.connect(audioContext.destination)
+    if (!source.current) {
+      source.current = audioContext.current.createMediaElementSource(currentAudioElement)
+      source.current.connect(gainNode.current)
+      gainNode.current.connect(audioContext.current.destination)
+    }
 
     // Define a function to play the audio
     const playAudio = () => {
-      if (audioElement.current && gainNode.current) {
-        audioElement.current.play()
-        audioElement.current.loop = loop
+      currentAudioElement.play()
+      currentAudioElement.loop = loop
 
-        // Start the volume at a small positive value
-        gainNode.current.gain.setValueAtTime(0.001, audioContext.currentTime)
+      // Start the volume at a small positive value
+      gainNode.current.gain.setValueAtTime(0.001, audioContext.current.currentTime)
 
-        // Gradually increase the volume to the desired level over the transition duration
-        if (volume > 0) {
-          gainNode.current.gain.exponentialRampToValueAtTime(volume, audioContext.currentTime + transitionDuration / 1000)
-        } else {
-          gainNode.current.gain.setValueAtTime(0, audioContext.currentTime + transitionDuration / 1000)
-        }
+      // Gradually increase the volume to the desired level over the transition duration
+      if (volume > 0) {
+        gainNode.current.gain.exponentialRampToValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
+      } else {
+        gainNode.current.gain.setValueAtTime(0, audioContext.current.currentTime + transitionDuration / 1000)
       }
     }
 
@@ -51,9 +47,18 @@ const MusicLoopSoundControl = ({
 
     // Clean up event listeners when the component unmounts
     return () => {
-      audioElement.current?.removeEventListener('canplaythrough', playAudio)
+      currentAudioElement.removeEventListener('canplaythrough', playAudio)
     }
   }, [delay, loop, transitionDuration, volume])
+
+  useEffect(() => {
+    // Adjust the gain value when the volume changes
+    if (volume > 0) {
+      gainNode.current.gain.exponentialRampToValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
+    } else {
+      gainNode.current.gain.setValueAtTime(0, audioContext.current.currentTime + transitionDuration / 1000)
+    }
+  }, [volume, transitionDuration])
 
   return null
 }

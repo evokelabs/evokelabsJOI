@@ -64,8 +64,8 @@ const CyberpunkMap = () => {
                     })
                   },
                   onComplete: () => {
-                    setPlay(false)
                     setShouldJOISpeak(true)
+                    setPlay(false)
                   }
                 })
                 break

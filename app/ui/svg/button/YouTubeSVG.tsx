@@ -2,7 +2,7 @@ import { RED, TEAL } from '@/app/libs/UIConstants'
 import React from 'react'
 import RedCRTBlur from '../../libs/RedCRTBlur'
 
-const YouTubeSVG = ({ isHovered }: { isHovered: boolean }) => {
+const YouTubeSVG = ({ isHovered }: { isHovered?: boolean }) => {
   return (
     <svg width='46' height='46' viewBox='0 0 46 46' fill='none'>
       <RedCRTBlur />

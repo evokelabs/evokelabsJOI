@@ -2,6 +2,8 @@ import { AnimationContext } from '@/app/libs/AnimationContext'
 import { useEffect, useState, useContext } from 'react'
 import { SkinnedMesh } from 'three'
 
+import { SoundsContext } from '@/app/libs/SoundsContext'
+
 const JOI_VOICE_PATH = './sounds/JOI-Voice/intro/'
 const INTRO_01 = 'Intro-01.mp3'
 const INTRO_02 = 'Intro-02.mp3'
@@ -14,6 +16,7 @@ const MAX_INFLUENCE = 0.15
 export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
   const { shouldJOISpeak } = useContext(AnimationContext)
+  const { setMusicVolume } = useContext(SoundsContext)
 
   useEffect(() => {
     if (hasPlayed || !shouldJOISpeak || !model) return
@@ -30,7 +33,15 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     source.connect(analyser)
     analyser.connect(audioContext.destination)
 
-    // audio.play().catch(error => console.error('Audio play failed due to', error))
+    audio.play().catch(error => console.error('Audio play failed due to', error))
+
+    audio.onplay = () => {
+      setMusicVolume(0) // lower the music volume when the audio starts playing
+    }
+
+    audio.onended = () => {
+      setMusicVolume(1) // revert the music volume back to the original value when the audio finishes
+    }
 
     if (audioContext.state === 'suspended') {
       audioContext.resume()
@@ -91,5 +102,5 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     return () => {
       audio.removeEventListener('ended', onAudioEnd)
     }
-  }, [hasPlayed, shouldJOISpeak, model])
+  }, [hasPlayed, shouldJOISpeak, model, setMusicVolume])
 }

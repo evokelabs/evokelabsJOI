@@ -10,7 +10,6 @@ import CyberpunkCar from './models/CyberpunkCar/index'
 import VideoSkybox from './textures/VideoSkyBox'
 import Rain from './particles/Rain'
 import JOI from './models/JOI/index'
-import Music from '../audio/music/MusicLoopSoundControl'
 
 import { AnimationContext } from '../libs/AnimationContext'
 import { useCameraSettings } from '../libs/useCameraSettings'
@@ -28,6 +27,7 @@ import Services from '../sections/Services'
 import Portfolio from '../sections/Portfolio'
 import SocialIcons from '../ui/SocialIcons'
 import ELAudioStartSoundControl from '../audio/ELAudioStartSoundControl'
+import { SoundsContext } from '../libs/SoundsContext'
 
 // Constants
 // const debug = true
@@ -39,63 +39,66 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [shouldAmbientLightPlay, setAmbientLightPlay] = useState(false)
   const [shouldPointLightPlay, setPointLightPlay] = useState(false)
   const [shouldJOISpeak, setShouldJOISpeak] = useState(false)
+  const [musicVolume, setMusicVolume] = useState(0.5)
 
   // Camera settings
   const { cameraTarget, fov } = useCameraSettings()
 
   return (
     <>
-      <Canvas
-        camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
-        shadows
-        gl={{
-          powerPreference: 'high-performance'
-        }}
-      >
-        <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
-          <div className='max-w-[1170px]'>
-            {router.pathname === '/' && <Home />}
-            {router.pathname === '/services' && <Services />}
-            {router.pathname === '/portfolio' && <Portfolio />}
-            {router.pathname === '/history' && <History />}
-            {router.pathname === '/resume' && <Resume />}
-            {router.pathname === '/joi' && <JOISpecial />}
-            {router.pathname === '/availabilities' && <Availabilities />}
-            <MainMenu router={router} />
-          </div>
-        </Html>
-        <VideoSkybox />
-        {debug ? <Perf position='top-left' /> : null}
-        {/* <Perf position='top-left' /> */}
-        <CameraRig fov={fov} debug={debug} />
-        <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
-        <AnimationContext.Provider
-          value={{
-            shouldAmbientLightPlay,
-            shouldPointLightPlay,
-            shouldJOISpeak,
-            setAmbientLightPlay,
-            setPointLightPlay,
-            setShouldJOISpeak
+      <SoundsContext.Provider value={{ musicVolume, setMusicVolume }}>
+        <Canvas
+          camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
+          shadows
+          gl={{
+            powerPreference: 'high-performance'
           }}
         >
-          <Lights />
-          <CyberpunkMap />
-          <CyberpunkCar />
-          <JOI />
-          <Rain />
-        </AnimationContext.Provider>
-        <EffectComposer disableNormalPass>
-          <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
-          <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
-          <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
-          <Noise opacity={0.7} premultiply blendFunction={28} />
-          <BrightnessContrast brightness={0.02} contrast={0.275} />
-          <Vignette offset={0.0} darkness={1} />
-        </EffectComposer>
-      </Canvas>
-      <SocialIcons />
-      <ELAudioStartSoundControl />
+          {/* <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
+            <div className='max-w-[1170px]'>
+              {router.pathname === '/' && <Home />}
+              {router.pathname === '/services' && <Services />}
+              {router.pathname === '/portfolio' && <Portfolio />}
+              {router.pathname === '/history' && <History />}
+              {router.pathname === '/resume' && <Resume />}
+              {router.pathname === '/joi' && <JOISpecial />}
+              {router.pathname === '/availabilities' && <Availabilities />}
+              <MainMenu router={router} />
+            </div>
+          </Html> */}
+          <VideoSkybox />
+          {debug ? <Perf position='top-left' /> : null}
+          {/* <Perf position='top-left' /> */}
+          <CameraRig fov={fov} debug={debug} />
+          <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
+          <AnimationContext.Provider
+            value={{
+              shouldAmbientLightPlay,
+              shouldPointLightPlay,
+              shouldJOISpeak,
+              setAmbientLightPlay,
+              setPointLightPlay,
+              setShouldJOISpeak
+            }}
+          >
+            <Lights />
+            <CyberpunkMap />
+            <CyberpunkCar />
+            <JOI />
+            <Rain />
+          </AnimationContext.Provider>
+          <EffectComposer disableNormalPass>
+            <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
+            <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
+            <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
+            <Noise opacity={0.7} premultiply blendFunction={28} />
+            <BrightnessContrast brightness={0.02} contrast={0.275} />
+            <Vignette offset={0.0} darkness={1} />
+          </EffectComposer>
+        </Canvas>
+        <SocialIcons />
+        <ELAudioStartSoundControl />
+      </SoundsContext.Provider>
     </>
   )
 }
