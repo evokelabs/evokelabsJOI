@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 const AUDIO_SOURCE = '/sounds/musicLoop.ogg'
-const MusicLoopSoundControl = () => {
+const MusicLoopSoundControl = ({ volume = 0, delay = 0 }: { volume: number; delay: number }) => {
   const audioElement = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
@@ -9,7 +9,7 @@ const MusicLoopSoundControl = () => {
     const audioContext = new AudioContext()
     audioElement.current = new Audio()
     audioElement.current.src = AUDIO_SOURCE
-    audioElement.current.volume = 1.0
+    audioElement.current.volume = volume
 
     // Connect the audio element to the AudioContext
     const track = audioContext.createMediaElementSource(audioElement.current)
@@ -19,12 +19,11 @@ const MusicLoopSoundControl = () => {
     const playAudio = () => {
       if (audioElement.current) {
         audioElement.current.play()
-        audioElement.current.loop = true // Enable looping
+        audioElement.current.loop = true
       }
     }
 
-    // Play the audio when the component is called
-    playAudio()
+    setTimeout(playAudio, delay)
 
     // Clean up event listeners when the component unmounts
     return () => {

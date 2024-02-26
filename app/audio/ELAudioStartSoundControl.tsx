@@ -5,18 +5,15 @@ import CyberpunkAmbienceSoundControl from './environment/CyberpunkAmbienceSoundC
 
 const ELAudioStartSoundControl = () => {
   const [play, setPlay] = useState(false)
-  const hasStarted = useRef(false) // Ref to track whether the sounds have started
+  const hasStarted = useRef(false)
 
   useEffect(() => {
-    // Add an event listener for a user interaction event
     const handleUserInteraction = () => {
       if (!hasStarted.current) {
-        // If the sounds haven't started yet
         setPlay(true)
-        hasStarted.current = true // Set hasStarted to true
+        hasStarted.current = true
       }
 
-      // Remove the event listeners once the audio has started playing
       window.removeEventListener('click', handleUserInteraction)
       window.removeEventListener('keydown', handleUserInteraction)
     }
@@ -32,9 +29,9 @@ const ELAudioStartSoundControl = () => {
 
   return (
     <>
-      {play && <MusicLoop />}
-      {play && <RainSoundControl />}
-      {play && <CyberpunkAmbienceSoundControl />}
+      {play && <MusicLoop volume={0.5} delay={4000} />}
+      {play && <RainSoundControl volume={0.2} delay={0} />}
+      {play && <CyberpunkAmbienceSoundControl volume={0.275} delay={25000} />}
     </>
   )
 }

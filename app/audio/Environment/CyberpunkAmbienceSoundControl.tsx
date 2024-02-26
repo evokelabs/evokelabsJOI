@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 const AUDIO_SOURCE = '/sounds/CyberpunkAmbienceLoop.ogg'
 
-const CyberpunkAmbienceSoundControl = () => {
+const CyberpunkAmbienceSoundControl = ({ volume = 0, delay = 0 }: { volume: number; delay: number }) => {
   const audioElement = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
@@ -10,7 +10,7 @@ const CyberpunkAmbienceSoundControl = () => {
     const audioContext = new AudioContext()
     audioElement.current = new Audio()
     audioElement.current.src = AUDIO_SOURCE
-    audioElement.current.volume = 1.0
+    audioElement.current.volume = volume
 
     // Connect the audio element to the AudioContext
     const track = audioContext.createMediaElementSource(audioElement.current)
@@ -20,12 +20,11 @@ const CyberpunkAmbienceSoundControl = () => {
     const playAudio = () => {
       if (audioElement.current) {
         audioElement.current.play()
-        audioElement.current.loop = true // Enable looping
+        audioElement.current.loop = true
       }
     }
 
-    // Play the audio when the component is called
-    playAudio()
+    setTimeout(playAudio, delay)
 
     // Clean up event listeners when the component unmounts
     return () => {
