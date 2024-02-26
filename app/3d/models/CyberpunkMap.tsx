@@ -102,7 +102,7 @@ const CyberpunkMap = () => {
     }
   }, [scene, gltfLoader, setPointLightPlay, setAmbientLightPlay, setShouldJOISpeak])
 
-  return playShutterAudio ? <ShutterSoundControl volume={0.3} delay={0} transitionDuration={0} loop={false} /> : null
+  return playShutterAudio ? <ShutterSoundControl volume={0.45} delay={0} transitionDuration={0} loop={false} /> : null
 }
 
 export default CyberpunkMap

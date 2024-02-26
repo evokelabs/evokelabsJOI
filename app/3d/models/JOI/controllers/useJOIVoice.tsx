@@ -13,6 +13,7 @@ const INTRO_04 = 'Intro-04.mp3'
 
 const MAX_VOLUME = 255
 const MAX_INFLUENCE = 0.15
+const GAIN_NODE_VOLUME = 0.5
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
@@ -40,7 +41,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     source.connect(gainNode) // Connect the source to the GainNode
     gainNode.connect(audioContext.destination) // Connect the GainNode to the destination
 
-    gainNode.gain.value = 0.3
+    gainNode.gain.value = GAIN_NODE_VOLUME
 
     audio.play().catch(error => console.error('Audio play failed due to', error))
 
