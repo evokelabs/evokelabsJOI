@@ -5,6 +5,7 @@ import homeExpanded from './data/homeExpanded.json'
 import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
 import TypeOnSoundControl from '../audio/ui/TypeOnSoundControl'
+import ScrabbleOnSoundControl from '../audio/ui/ScrabbleSoundControl'
 
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
@@ -41,7 +42,7 @@ const Home = () => {
   const TYPE_ON_SPEED = 70
   const TYPE_OFF_SPEED = 35
 
-  const SCRAMBLED_REVEAL_SPEED = 60
+  const SCRAMBLED_REVEAL_SPEED = 80
 
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
@@ -65,6 +66,7 @@ const Home = () => {
   const bottomBarBGColor = !isActive && isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
 
   const [isTypingSound, setIsTypingSound] = useState(false)
+  const [isScrabbleSound, setIsScrabbleSound] = useState(false)
 
   const handleEndSound = useCallback(() => {
     setIsTypingSound(false)
@@ -164,6 +166,9 @@ const Home = () => {
     const scramble = async (text: string, setScrambled: (value: string) => void) => {
       let scrambled = scrambleText(text)
       setScrambled(scrambled)
+      if (isActive) {
+        setIsScrabbleSound(true)
+      }
 
       for (let i = 0; i < text.length; i++) {
         await new Promise(resolve => setTimeout(resolve, SCRAMBLED_REVEAL_SPEED))
@@ -172,7 +177,7 @@ const Home = () => {
       }
     }
 
-    const updateValues = () => {
+    const updateValues = async () => {
       const newIndex = (index + 1) % Math.max(shuffledSolo.length, shuffledPower.length, shuffledDescribe.length)
       setIndex(newIndex)
       setSolo(shuffledSolo[newIndex % shuffledSolo.length])
@@ -180,11 +185,10 @@ const Home = () => {
       setDescribe(shuffledDescribe[newIndex % shuffledDescribe.length])
 
       // Call scramble for each new value
-      scramble(solo, setScrambledSolo)
-      scramble(power, setScrambledPower)
-      scramble(describe, setScrambledDescribe)
-    }
+      await Promise.all([scramble(solo, setScrambledSolo), scramble(power, setScrambledPower), scramble(describe, setScrambledDescribe)])
 
+      setIsScrabbleSound(false)
+    }
     if (isActiveRef.current !== isActive) {
       isActiveRef.current = isActive
       if (isActive) {
@@ -290,12 +294,13 @@ const Home = () => {
       </div>
       <TypeOnSoundControl
         volume={0.65}
-        delay={0}
-        transitionDuration={1000}
+        delay={0.1}
+        transitionDuration={10}
         loop={true}
         isTyping={isTypingSound}
         onEndSound={handleEndSound}
       />
+      <ScrabbleOnSoundControl volume={0.65} delay={0.1} transitionDuration={10} loop={true} isScrabble={isScrabbleSound} />
     </>
   )
 }
