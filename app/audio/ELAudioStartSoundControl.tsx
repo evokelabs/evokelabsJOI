@@ -29,9 +29,9 @@ const ELAudioStartSoundControl = () => {
 
   return (
     <>
-      {play && <MusicLoop volume={0.5} delay={4000} />}
-      {play && <RainSoundControl volume={0.2} delay={0} />}
-      {play && <CyberpunkAmbienceSoundControl volume={0.275} delay={25000} />}
+      {play && <MusicLoop volume={0.4} delay={4000} transitionDuration={7500} />}
+      {play && <RainSoundControl volume={0.2} delay={0} transitionDuration={5500} />}
+      {play && <CyberpunkAmbienceSoundControl volume={0.375} delay={25000} transitionDuration={2500} />}
     </>
   )
 }
