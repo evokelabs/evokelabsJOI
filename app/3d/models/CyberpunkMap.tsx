@@ -1,14 +1,17 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Mesh, MeshBasicMaterial, Scene, VideoTexture } from 'three'
 import { gsap } from 'gsap'
 import { useDracoLoader } from '@/app/libs/useDracoLoader'
 import { AnimationContext } from '@/app/libs/AnimationContext'
+import ShutterSoundControl from '@/app/audio/environment/ShuttersSoundControl'
 
 const CyberpunkMap = () => {
   const { scene } = useThree()
   const gltfLoader = useRef(useDracoLoader()).current
   const { setPointLightPlay, setAmbientLightPlay, setShouldJOISpeak } = useContext(AnimationContext)
+  // Controls shutter audio
+  const [play, setPlay] = useState(false)
 
   useEffect(() => {
     // Create video elements
@@ -50,17 +53,18 @@ const CyberpunkMap = () => {
                 object.castShadow = true
                 gsap.to(object.position, {
                   y: 2.7,
-                  duration: 5,
+                  duration: 3.25,
                   delay: 3,
-                  ease: 'Power1.easeOut',
+                  ease: 'linear',
                   onStart: () => {
+                    setPlay(true)
                     setAmbientLightPlay(true)
-
                     gsap.delayedCall(3, () => {
                       setPointLightPlay(true)
                     })
                   },
                   onComplete: () => {
+                    setPlay(false)
                     setShouldJOISpeak(true)
                   }
                 })
@@ -96,7 +100,7 @@ const CyberpunkMap = () => {
     }
   }, [scene, gltfLoader, setPointLightPlay, setAmbientLightPlay, setShouldJOISpeak])
 
-  return null
+  return play ? <ShutterSoundControl volume={0.3} delay={0} transitionDuration={0} loop={false} /> : null
 }
 
 export default CyberpunkMap

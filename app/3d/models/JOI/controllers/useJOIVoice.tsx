@@ -2,7 +2,7 @@ import { AnimationContext } from '@/app/libs/AnimationContext'
 import { useEffect, useState, useContext } from 'react'
 import { SkinnedMesh } from 'three'
 
-const JOI_VOICE_PATH = './sounds/JOI-Voice/'
+const JOI_VOICE_PATH = './sounds/JOI-Voice/intro/'
 const INTRO_01 = 'Intro-01.mp3'
 const INTRO_02 = 'Intro-02.mp3'
 const INTRO_03 = 'Intro-03.mp3'

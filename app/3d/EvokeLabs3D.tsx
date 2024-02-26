@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import { Html, OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 
@@ -95,7 +95,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         </EffectComposer>
       </Canvas>
       <SocialIcons />
-      <Music />
       <ELAudioStartSoundControl />
     </>
   )
