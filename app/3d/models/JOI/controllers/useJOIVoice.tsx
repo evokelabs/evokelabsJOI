@@ -32,10 +32,15 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     const audioContext = new AudioContext()
     const source = audioContext.createMediaElementSource(audio)
     const analyser = audioContext.createAnalyser()
+
     source.connect(analyser)
     analyser.connect(audioContext.destination)
 
-    audio.volume = 1
+    const gainNode = audioContext.createGain() // Create a GainNode
+    source.connect(gainNode) // Connect the source to the GainNode
+    gainNode.connect(audioContext.destination) // Connect the GainNode to the destination
+
+    gainNode.gain.value = 0.3
 
     audio.play().catch(error => console.error('Audio play failed due to', error))
 

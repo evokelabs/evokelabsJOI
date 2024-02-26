@@ -7,9 +7,9 @@ import JOIPreloaderSpeechControl from './JOI/JOIPreloaderSpeechControl'
 import { SoundsContext } from '../libs/SoundsContext'
 
 export const DEFAULT_MUSIC_LOOP_VOLUME = 0.55
-export const LOW_MUSIC_LOOP_VOLUME = 0.15
+export const LOW_MUSIC_LOOP_VOLUME = 0.25
 export const DEFAULT_MUSIC_LOOP_TRANSITION_DURATION = 8000
-export const JOI_MUSIC_LOOP_TRANSITION_DURATION = 750
+export const JOI_MUSIC_LOOP_TRANSITION_DURATION = 1000
 
 const ELAudioStartSoundControl = () => {
   const [play, setPlay] = useState(false)
