@@ -5,11 +5,13 @@ const AUDIO_SOURCE = '/sounds/CyberpunkAmbienceLoop.ogg'
 const CyberpunkAmbienceSoundControl = ({
   volume = 0,
   delay = 0,
-  transitionDuration = 1000
+  transitionDuration = 1000,
+  loop = true
 }: {
   volume: number
   delay: number
   transitionDuration: number
+  loop?: boolean
 }) => {
   const audioElement = useRef<HTMLAudioElement | null>(null)
   const gainNode = useRef<GainNode | null>(null)
@@ -32,7 +34,7 @@ const CyberpunkAmbienceSoundControl = ({
     const playAudio = () => {
       if (audioElement.current && gainNode.current) {
         audioElement.current.play()
-        audioElement.current.loop = true
+        audioElement.current.loop = loop
 
         // Start the volume at a small positive value
         gainNode.current.gain.setValueAtTime(0.001, audioContext.currentTime)
@@ -52,7 +54,7 @@ const CyberpunkAmbienceSoundControl = ({
     return () => {
       audioElement.current?.removeEventListener('canplaythrough', playAudio)
     }
-  }, [])
+  }, [delay, transitionDuration, volume])
 
   return null
 }

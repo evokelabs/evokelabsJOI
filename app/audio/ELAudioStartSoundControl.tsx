@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import MusicLoop from './music/MusicLoopSoundControl'
+import MusicStartSoundControl from './music/MusicStartSoundControl'
+import MusicLoopSoundControl from './music/MusicLoopSoundControl'
 import RainSoundControl from './environment/RainSoundControl'
 import CyberpunkAmbienceSoundControl from './environment/CyberpunkAmbienceSoundControl'
 
@@ -29,7 +30,8 @@ const ELAudioStartSoundControl = () => {
 
   return (
     <>
-      {play && <MusicLoop volume={0.4} delay={4000} transitionDuration={7500} />}
+      {play && <MusicStartSoundControl volume={0.55} delay={0} transitionDuration={150} loop={false} />}
+      {play && <MusicLoopSoundControl volume={0.4} delay={3500} transitionDuration={8500} />}
       {play && <RainSoundControl volume={0.2} delay={0} transitionDuration={5500} />}
       {play && <CyberpunkAmbienceSoundControl volume={0.375} delay={25000} transitionDuration={2500} />}
     </>
