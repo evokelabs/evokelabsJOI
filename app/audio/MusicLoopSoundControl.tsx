@@ -1,16 +1,15 @@
 import { useEffect, useRef } from 'react'
 
-const AUDIO_SOURCE = '/sounds/joi-mix.mp3'
-
-const Music = () => {
+const AUDIO_SOURCE = '/sounds/musicLoop.ogg'
+const MusicLoopSoundControl = () => {
   const audioElement = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
     // Create a new AudioContext and an audio element
     const audioContext = new AudioContext()
-    audioElement.current = document.createElement('audio')
+    audioElement.current = new Audio()
     audioElement.current.src = AUDIO_SOURCE
-    audioElement.current.volume = 0.0
+    audioElement.current.volume = 1.0
 
     // Connect the audio element to the AudioContext
     const track = audioContext.createMediaElementSource(audioElement.current)
@@ -18,25 +17,22 @@ const Music = () => {
 
     // Define a function to play the audio
     const playAudio = () => {
-      audioContext.resume().then(() => {
-        audioElement.current?.play()
-      })
+      if (audioElement.current) {
+        audioElement.current.play()
+        audioElement.current.loop = true // Enable looping
+      }
     }
 
-    // Play the audio when it's ready and when the canvas or window is clicked
-    audioElement.current.oncanplaythrough = playAudio
-    const canvas = document.querySelector('canvas')
-    canvas?.addEventListener('click', playAudio)
-    window.addEventListener('load', playAudio)
+    // Play the audio when the component is called
+    playAudio()
 
     // Clean up event listeners when the component unmounts
     return () => {
-      canvas?.removeEventListener('click', playAudio)
-      window.removeEventListener('load', playAudio)
+      audioElement.current?.removeEventListener('canplaythrough', playAudio)
     }
   }, [])
 
   return null
 }
 
-export default Music
+export default MusicLoopSoundControl

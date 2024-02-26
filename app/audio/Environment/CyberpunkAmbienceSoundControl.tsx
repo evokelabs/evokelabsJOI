@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
 
-const AUDIO_SOURCE = '/sounds/rainLoop.ogg'
-const RainSoundControl = () => {
+const AUDIO_SOURCE = '/sounds/CyberpunkAmbienceLoop.ogg'
+
+const CyberpunkAmbienceSoundControl = () => {
   const audioElement = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
@@ -35,4 +36,4 @@ const RainSoundControl = () => {
   return null
 }
 
-export default RainSoundControl
+export default CyberpunkAmbienceSoundControl

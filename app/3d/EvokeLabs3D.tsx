@@ -27,6 +27,7 @@ import Availabilities from '../sections/Availabilities'
 import Services from '../sections/Services'
 import Portfolio from '../sections/Portfolio'
 import SocialIcons from '../ui/SocialIcons'
+import ELAudioStartSoundControl from '../audio/ELAudioStartSoundControl'
 
 // Constants
 // const debug = true
@@ -95,6 +96,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       </Canvas>
       <SocialIcons />
       <Music />
+      <ELAudioStartSoundControl />
     </>
   )
 }
