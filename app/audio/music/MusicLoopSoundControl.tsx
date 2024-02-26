@@ -16,6 +16,7 @@ const MusicLoopSoundControl = ({
   const audioContext = useRef(new AudioContext())
   const gainNode = useRef(audioContext.current.createGain())
   const source = useRef<MediaElementAudioSourceNode | null>(null)
+  const hasMounted = useRef(false)
 
   useEffect(() => {
     const currentAudioElement = audioElement.current
@@ -32,20 +33,24 @@ const MusicLoopSoundControl = ({
       currentAudioElement.play()
       currentAudioElement.loop = loop
 
-      // Start the volume at a small positive value
-      gainNode.current.gain.setValueAtTime(0.001, audioContext.current.currentTime)
+      // Start the volume transition from zero if it's the first playthrough, otherwise start from the current volume
+      const startVolume = hasMounted.current ? gainNode.current.gain.value : 0
+      gainNode.current.gain.setValueAtTime(startVolume, audioContext.current.currentTime)
 
       // Gradually increase the volume to the desired level over the transition duration
-      if (volume > 0) {
-        gainNode.current.gain.exponentialRampToValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
-      } else {
-        gainNode.current.gain.setValueAtTime(0, audioContext.current.currentTime + transitionDuration / 1000)
-      }
+      gainNode.current.gain.linearRampToValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
+
+      // Set hasMounted to true after the audio has started playing
+      hasMounted.current = true
     }
 
-    setTimeout(playAudio, delay)
-
-    console.log('transitionDuration', transitionDuration)
+    // If the component has not mounted, play the audio after the delay
+    if (!hasMounted.current) {
+      setTimeout(playAudio, delay)
+    } else {
+      // If the component has already mounted, play the audio immediately
+      playAudio()
+    }
 
     // Clean up event listeners when the component unmounts
     return () => {
