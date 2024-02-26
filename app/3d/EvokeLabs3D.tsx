@@ -26,7 +26,10 @@ import Availabilities from '../sections/Availabilities'
 import Services from '../sections/Services'
 import Portfolio from '../sections/Portfolio'
 import SocialIcons from '../ui/SocialIcons'
-import ELAudioStartSoundControl, { DEFAULT_MUSIC_LOOP_VOLUME } from '../audio/ELAudioStartSoundControl'
+import ELAudioStartSoundControl, {
+  DEFAULT_MUSIC_LOOP_TRANSITION_DURATION,
+  DEFAULT_MUSIC_LOOP_VOLUME
+} from '../audio/ELAudioStartSoundControl'
 import { SoundsContext } from '../libs/SoundsContext'
 
 // Constants
@@ -40,13 +43,13 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [shouldPointLightPlay, setPointLightPlay] = useState(false)
   const [shouldJOISpeak, setShouldJOISpeak] = useState(false)
   const [musicVolume, setMusicVolume] = useState(DEFAULT_MUSIC_LOOP_VOLUME)
-
+  const [musicLoopTransitionDuration, setMusicLoopTransitionDuration] = useState(DEFAULT_MUSIC_LOOP_TRANSITION_DURATION)
   // Camera settings
   const { cameraTarget, fov } = useCameraSettings()
 
   return (
     <>
-      <SoundsContext.Provider value={{ musicVolume, setMusicVolume }}>
+      <SoundsContext.Provider value={{ musicVolume, setMusicVolume, musicLoopTransitionDuration, setMusicLoopTransitionDuration }}>
         <Canvas
           camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
           shadows

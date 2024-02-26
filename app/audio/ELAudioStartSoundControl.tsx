@@ -8,11 +8,14 @@ import { SoundsContext } from '../libs/SoundsContext'
 
 export const DEFAULT_MUSIC_LOOP_VOLUME = 0.45
 export const LOW_MUSIC_LOOP_VOLUME = 0.2
+export const DEFAULT_MUSIC_LOOP_TRANSITION_DURATION = 8000
+export const JOI_MUSIC_LOOP_TRANSITION_DURATION = 750
 
 const ELAudioStartSoundControl = () => {
   const [play, setPlay] = useState(false)
   const hasStarted = useRef(false)
-  const { musicVolume, setMusicVolume } = useContext(SoundsContext)
+  const { musicVolume } = useContext(SoundsContext)
+  const { musicLoopTransitionDuration } = useContext(SoundsContext)
 
   useEffect(() => {
     const handleUserInteraction = () => {
@@ -38,7 +41,7 @@ const ELAudioStartSoundControl = () => {
     <>
       {play && <JOIPreloaderSpeechControl volume={1.275} delay={2500} transitionDuration={150} loop={false} />}
       {play && <MusicStartSoundControl volume={0.6} delay={0} transitionDuration={150} loop={false} />}
-      {play && <MusicLoopSoundControl volume={musicVolume} delay={2500} transitionDuration={8000} />}
+      {play && <MusicLoopSoundControl volume={musicVolume} delay={2500} transitionDuration={musicLoopTransitionDuration} />}
       {play && <RainSoundControl volume={0.25} delay={0} transitionDuration={5500} />}
       {play && <CyberpunkAmbienceSoundControl volume={0.375} delay={25000} transitionDuration={2000} />}
     </>

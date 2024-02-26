@@ -11,7 +11,7 @@ const CyberpunkMap = () => {
   const gltfLoader = useRef(useDracoLoader()).current
   const { setPointLightPlay, setAmbientLightPlay, setShouldJOISpeak } = useContext(AnimationContext)
   // Controls shutter audio
-  const [play, setPlay] = useState(false)
+  const [playShutterAudio, setPlayShutterAudio] = useState(false)
 
   useEffect(() => {
     // Create video elements
@@ -54,18 +54,20 @@ const CyberpunkMap = () => {
                 gsap.to(object.position, {
                   y: 2.7,
                   duration: 3.25,
-                  delay: 3,
+                  delay: 8,
                   ease: 'linear',
                   onStart: () => {
-                    setPlay(true)
+                    setPlayShutterAudio(true)
                     setAmbientLightPlay(true)
                     gsap.delayedCall(3, () => {
                       setPointLightPlay(true)
                     })
                   },
                   onComplete: () => {
-                    setShouldJOISpeak(true)
-                    setPlay(false)
+                    setPlayShutterAudio(false)
+                    gsap.delayedCall(3, () => {
+                      setShouldJOISpeak(true)
+                    })
                   }
                 })
                 break
@@ -100,7 +102,7 @@ const CyberpunkMap = () => {
     }
   }, [scene, gltfLoader, setPointLightPlay, setAmbientLightPlay, setShouldJOISpeak])
 
-  return play ? <ShutterSoundControl volume={0.3} delay={0} transitionDuration={0} loop={false} /> : null
+  return playShutterAudio ? <ShutterSoundControl volume={0.3} delay={0} transitionDuration={0} loop={false} /> : null
 }
 
 export default CyberpunkMap

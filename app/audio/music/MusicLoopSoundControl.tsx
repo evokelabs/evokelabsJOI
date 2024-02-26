@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 const AUDIO_SOURCE = '/sounds/musicLoop.ogg'
 const MusicLoopSoundControl = ({
@@ -45,24 +45,13 @@ const MusicLoopSoundControl = ({
 
     setTimeout(playAudio, delay)
 
+    console.log('transitionDuration', transitionDuration)
+
     // Clean up event listeners when the component unmounts
     return () => {
       currentAudioElement.removeEventListener('canplaythrough', playAudio)
     }
   }, [delay, loop, transitionDuration, volume])
-
-  useEffect(() => {
-    // Cancel any ongoing transitions
-    gainNode.current.gain.cancelScheduledValues(audioContext.current.currentTime)
-
-    // Start a new transition to the new volume
-    gainNode.current.gain.setValueAtTime(gainNode.current.gain.value, audioContext.current.currentTime)
-    if (volume > 0) {
-      gainNode.current.gain.exponentialRampToValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
-    } else {
-      gainNode.current.gain.setValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
-    }
-  }, [transitionDuration, volume])
 
   return null
 }

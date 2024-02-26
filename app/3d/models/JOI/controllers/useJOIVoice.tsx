@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from 'react'
 import { SkinnedMesh } from 'three'
 
 import { SoundsContext } from '@/app/libs/SoundsContext'
-import { DEFAULT_MUSIC_LOOP_VOLUME, LOW_MUSIC_LOOP_VOLUME } from '@/app/audio/ELAudioStartSoundControl'
+import { DEFAULT_MUSIC_LOOP_VOLUME, JOI_MUSIC_LOOP_TRANSITION_DURATION, LOW_MUSIC_LOOP_VOLUME } from '@/app/audio/ELAudioStartSoundControl'
 
 const JOI_VOICE_PATH = './sounds/JOI-Voice/intro/'
 const INTRO_01 = 'Intro-01.mp3'
@@ -18,6 +18,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
   const { shouldJOISpeak } = useContext(AnimationContext)
   const { setMusicVolume } = useContext(SoundsContext)
+  const { setMusicLoopTransitionDuration } = useContext(SoundsContext)
 
   useEffect(() => {
     if (hasPlayed || !shouldJOISpeak || !model) return
@@ -39,11 +40,12 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     audio.play().catch(error => console.error('Audio play failed due to', error))
 
     audio.onplay = () => {
-      // setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume when the audio starts playing
+      setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume when the audio starts playing
+      setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
     }
 
     audio.onended = () => {
-      // setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
+      setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
     }
 
     if (audioContext.state === 'suspended') {
@@ -105,5 +107,5 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     return () => {
       audio.removeEventListener('ended', onAudioEnd)
     }
-  }, [hasPlayed, shouldJOISpeak, model, setMusicVolume])
+  }, [hasPlayed, shouldJOISpeak, model, setMusicVolume, setMusicLoopTransitionDuration])
 }
