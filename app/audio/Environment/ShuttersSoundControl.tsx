@@ -31,9 +31,7 @@ const ShutterSoundControl = ({
 
     // Define a function to play the audio
     const playAudio = () => {
-      console.log('playAudio')
       if (audioElement.current && gainNode.current) {
-        console.log('playing Audio')
         audioElement.current.play()
         audioElement.current.loop = loop
 

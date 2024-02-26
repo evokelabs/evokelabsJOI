@@ -42,7 +42,6 @@ const ContentHeader: React.FC<ContentHeadPortfolioProps> = ({ setPortfolioData, 
   }
 
   const handleSelectSortBy = (option: string) => {
-    console.log(`Sort by: ${option}`)
     let sortedData: PortfolioItem[] = []
     if (option === 'Date (Newest)') {
       sortedData = [...portfolioData].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())

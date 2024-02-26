@@ -64,15 +64,11 @@ const Home = () => {
   const hoverBGColor = isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
   const bottomBarBGColor = !isActive && isHovered ? 'bg-grid-brightRed' : 'bg-grid-blue'
 
-  const [isTyping, setIsTyping] = useState(false)
+  const [isTypingSound, setIsTypingSound] = useState(false)
 
   const handleEndSound = useCallback(() => {
-    setIsTyping(false)
+    setIsTypingSound(false)
   }, [])
-
-  const toggleIsTyping = () => {
-    setIsTyping(prevIsTyping => !prevIsTyping)
-  }
 
   useEffect(() => {
     if (divRef.current) {
@@ -123,6 +119,7 @@ const Home = () => {
         currentPhrase = currentPhrase.slice(0, -1)
         setAnimatedPhrase(currentPhrase)
       }
+      setIsTypingSound(true)
 
       // Typing animation
       for (let i = finalIndex; i < phrase.length; i++) {
@@ -130,6 +127,9 @@ const Home = () => {
         currentPhrase += phrase[i]
         setAnimatedPhrase(currentPhrase)
       }
+
+      // Set isTyping to true at the beginning typing animation
+      setIsTypingSound(false)
     }
 
     if (prevPhraseRef.current !== phrase) {
@@ -288,10 +288,14 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <TypeOnSoundControl volume={1} delay={0} transitionDuration={1000} loop={true} isTyping={isTyping} onEndSound={handleEndSound} />
-      <button className={'m-4'} onClick={toggleIsTyping}>
-        Toggle isTyping
-      </button>
+      <TypeOnSoundControl
+        volume={0.65}
+        delay={0}
+        transitionDuration={1000}
+        loop={true}
+        isTyping={isTypingSound}
+        onEndSound={handleEndSound}
+      />
     </>
   )
 }
