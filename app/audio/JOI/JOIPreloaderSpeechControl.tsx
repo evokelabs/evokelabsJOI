@@ -9,17 +9,12 @@ const AUDIO_SOURCES = [
   '/sounds/JOI-voice/preLoader/preLoader-6.mp3'
 ]
 
-const JOIPreloaderSpeechControl = ({
-  volume = 0,
-  delay = 0,
-  transitionDuration = 1000,
-  loop = true
-}: {
-  volume: number
-  delay: number
-  transitionDuration: number
-  loop?: boolean
-}) => {
+const VOLUME = 1.275
+const DELAY = 2500
+const TRANSITION_DURATION = 150
+const LOOP = false
+
+const JOIPreloaderSpeechControl = () => {
   const audioElement = useRef<HTMLAudioElement | null>(null)
   const gainNode = useRef<GainNode | null>(null)
 
@@ -44,27 +39,27 @@ const JOIPreloaderSpeechControl = ({
     const playAudio = () => {
       if (audioElement.current && gainNode.current) {
         audioElement.current.play()
-        audioElement.current.loop = loop
+        audioElement.current.loop = LOOP
 
         // Start the volume at a small positive value
         gainNode.current.gain.setValueAtTime(0.001, audioContext.currentTime)
 
         // Gradually increase the volume to the desired level over the transition duration
-        if (volume > 0) {
-          gainNode.current.gain.exponentialRampToValueAtTime(volume, audioContext.currentTime + transitionDuration / 1000)
+        if (VOLUME > 0) {
+          gainNode.current.gain.exponentialRampToValueAtTime(VOLUME, audioContext.currentTime + TRANSITION_DURATION / 1000)
         } else {
-          gainNode.current.gain.setValueAtTime(0, audioContext.currentTime + transitionDuration / 1000)
+          gainNode.current.gain.setValueAtTime(0, audioContext.currentTime + TRANSITION_DURATION / 1000)
         }
       }
     }
 
-    setTimeout(playAudio, delay)
+    setTimeout(playAudio, DELAY)
 
     // Clean up event listeners when the component unmounts
     return () => {
       audioElement.current?.removeEventListener('canplaythrough', playAudio)
     }
-  }, [delay, loop, transitionDuration, volume])
+  }, [])
 
   return null
 }

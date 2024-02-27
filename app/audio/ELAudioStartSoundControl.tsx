@@ -14,8 +14,7 @@ export const JOI_MUSIC_LOOP_TRANSITION_DURATION = 1250
 const ELAudioStartSoundControl = () => {
   const [play, setPlay] = useState(false)
   const hasStarted = useRef(false)
-  const { musicVolume } = useContext(SoundsContext)
-  const { musicLoopTransitionDuration } = useContext(SoundsContext)
+
 
   useEffect(() => {
     const handleUserInteraction = () => {
@@ -39,9 +38,9 @@ const ELAudioStartSoundControl = () => {
 
   return (
     <>
-      {play && <JOIPreloaderSpeechControl volume={1.275} delay={2500} transitionDuration={150} loop={false} />}
+      {play && <JOIPreloaderSpeechControl />}
       {play && <MusicStartSoundControl />}
-      {play && <MusicLoopSoundControl volume={musicVolume} delay={3600} transitionDuration={musicLoopTransitionDuration} />}
+      {play && <MusicLoopSoundControl />}
       {play && <RainSoundControl />}
       {play && <CyberpunkAmbienceSoundControl />}
     </>

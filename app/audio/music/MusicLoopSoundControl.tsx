@@ -1,22 +1,19 @@
-import { useEffect, useRef } from 'react'
+import { SoundsContext } from '@/app/libs/SoundsContext'
+import { useContext, useEffect, useRef } from 'react'
 
 const AUDIO_SOURCE = '/sounds/musicLoop.ogg'
-const MusicLoopSoundControl = ({
-  volume = 0,
-  delay = 0,
-  transitionDuration = 1000,
-  loop = true
-}: {
-  volume: number
-  delay: number
-  transitionDuration: number
-  loop?: boolean
-}) => {
+
+const MusicLoopSoundControl = () => {
+  const { musicVolume } = useContext(SoundsContext)
+  const { musicLoopTransitionDuration } = useContext(SoundsContext)
+
   const audioElement = useRef(new Audio(AUDIO_SOURCE))
   const audioContext = useRef(new AudioContext())
   const gainNode = useRef(audioContext.current.createGain())
   const source = useRef<MediaElementAudioSourceNode | null>(null)
   const hasMounted = useRef(false)
+  const DELAY = 3400
+  const LOOP = true
 
   useEffect(() => {
     const currentAudioElement = audioElement.current
@@ -31,14 +28,14 @@ const MusicLoopSoundControl = ({
     // Define a function to play the audio
     const playAudio = () => {
       currentAudioElement.play()
-      currentAudioElement.loop = loop
+      currentAudioElement.loop = LOOP
 
       // Start the volume transition from zero if it's the first playthrough, otherwise start from the current volume
       const startVolume = hasMounted.current ? gainNode.current.gain.value : 0
       gainNode.current.gain.setValueAtTime(startVolume, audioContext.current.currentTime)
 
       // Gradually increase the volume to the desired level over the transition duration
-      gainNode.current.gain.linearRampToValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
+      gainNode.current.gain.linearRampToValueAtTime(musicVolume, audioContext.current.currentTime + musicLoopTransitionDuration / 1000)
 
       // Set hasMounted to true after the audio has started playing
       hasMounted.current = true
@@ -46,7 +43,7 @@ const MusicLoopSoundControl = ({
 
     // If the component has not mounted, play the audio after the delay
     if (!hasMounted.current) {
-      setTimeout(playAudio, delay)
+      setTimeout(playAudio, DELAY)
     } else {
       // If the component has already mounted, play the audio immediately
       playAudio()
@@ -56,7 +53,7 @@ const MusicLoopSoundControl = ({
     return () => {
       currentAudioElement.removeEventListener('canplaythrough', playAudio)
     }
-  }, [delay, loop, transitionDuration, volume])
+  }, [LOOP, musicLoopTransitionDuration, musicVolume])
 
   return null
 }
