@@ -33,7 +33,6 @@ const CyberpunkMap = () => {
         scene.add(gltf.scene)
         gltf.scene.traverse(object => {
           if (object instanceof Mesh) {
-            console.log('object.name:', object.name)
             switch (object.name) {
               case 'Window_Glass_Main':
                 object.castShadow = false

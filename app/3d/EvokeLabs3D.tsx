@@ -15,7 +15,7 @@ import { AnimationContext } from '../libs/AnimationContext'
 import { useCameraSettings } from '../libs/useCameraSettings'
 
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, BrightnessContrast } from '@react-three/postprocessing'
-import { Vector2 } from 'three'
+import { Vector2, WebGLRenderer } from 'three'
 import MainMenu from '../sections/MainMenu'
 import { NextRouter } from 'next/router'
 import Home from '../sections/Home'
@@ -34,6 +34,8 @@ import { SoundsContext } from '../libs/SoundsContext'
 import WideMonitor from './models/WideMonitor'
 import DeskItems from './models/DeskItems'
 import CyberpunkMapLowPoly from './models/CyberpunkMapLowPoly'
+
+import { getGPUTier } from 'detect-gpu'
 
 // Constants
 // const debug = true
@@ -68,6 +70,32 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       clearTimeout(menuTimer)
       clearTimeout(carTimer)
     }
+  }, [])
+
+  const [gpuTier, setGpuTier] = useState<number | null>(0)
+  useEffect(() => {
+    const fetchGpuTier = async () => {
+      if (debug) {
+        setGpuTier(0) // Set to low GPU tier when in debug mode
+        return
+      }
+
+      const canvasContext = document.createElement('canvas').getContext('webgl2')
+      if (!canvasContext) {
+        console.error('WebGL 2 not supported')
+        return
+      }
+
+      const gpuInfo = await getGPUTier({ glContext: canvasContext })
+      if (!gpuInfo || gpuInfo.tier === undefined) {
+        console.error('Could not determine GPU tier')
+        return
+      }
+
+      setGpuTier(gpuInfo.tier)
+    }
+
+    fetchGpuTier()
   }, [])
 
   return (
@@ -111,8 +139,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
             {isCarReady && <CyberpunkCar />}
             <WideMonitor />
             <DeskItems />
-            {/* <CyberpunkMap /> */}
-            <CyberpunkMapLowPoly />
+            {gpuTier !== null && gpuTier >= 2 ? <CyberpunkMap /> : <CyberpunkMapLowPoly />}
             <JOI />
             <Rain />
           </AnimationContext.Provider>

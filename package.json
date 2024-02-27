@@ -15,6 +15,7 @@
     "@types/dat.gui": "^0.7.12",
     "@types/three": "^0.160.0",
     "dat.gui": "^0.7.9",
+    "detect-gpu": "^5.0.38",
     "gsap": "^3.12.4",
     "leva": "^0.9.35",
     "maath": "^0.10.7",
