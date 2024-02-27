@@ -32,6 +32,7 @@ import ELAudioStartSoundControl, {
 } from '../audio/ELAudioStartSoundControl'
 import { SoundsContext } from '../libs/SoundsContext'
 import WideMonitor from './models/WideMonitor'
+import DeskItems from './models/DeskItems'
 
 // Constants
 // const debug = true
@@ -109,6 +110,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
             <CyberpunkMap />
             {isCarReady && <CyberpunkCar />}
             <WideMonitor />
+            <DeskItems />
             <JOI />
             <Rain />
           </AnimationContext.Provider>
