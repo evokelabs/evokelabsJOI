@@ -49,14 +49,22 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const { cameraTarget, fov } = useCameraSettings()
 
   const [isPreLoaderFinished, setIsPreLoaderFinished] = useState(false)
+  const [isCarReady, setIsCarReady] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const menuTimer = setTimeout(() => {
       setIsPreLoaderFinished(true)
-    }, MENU_HOME_WAIT_TIMER) // 5 seconds
+    }, MENU_HOME_WAIT_TIMER)
 
-    // Cleanup function to clear the timeout if the component unmounts before the timeout finishes
-    return () => clearTimeout(timer)
+    const carTimer = setTimeout(() => {
+      setIsCarReady(true)
+    }, MENU_HOME_WAIT_TIMER / 2)
+
+    // Cleanup function to clear the timeouts if the component unmounts before the timeouts finish
+    return () => {
+      clearTimeout(menuTimer)
+      clearTimeout(carTimer)
+    }
   }, [])
 
   return (
@@ -98,7 +106,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           >
             <Lights />
             <CyberpunkMap />
-            <CyberpunkCar />
+            {isCarReady && <CyberpunkCar />}
             <JOI />
             <Rain />
           </AnimationContext.Provider>
