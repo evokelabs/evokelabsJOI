@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
-import { Mesh, Scene } from 'three'
+import { Mesh, MeshBasicMaterial, Scene, VideoTexture } from 'three'
 import { useDracoLoader } from '@/app/libs/useDracoLoader'
 
 const WideMonitor = () => {
@@ -8,6 +8,18 @@ const WideMonitor = () => {
   const gltfLoader = useRef(useDracoLoader()).current
 
   useEffect(() => {
+    // Create video elements
+    const videoMonitor = document.createElement('video')
+    videoMonitor.src = '/videos/monitor.mp4'
+    videoMonitor.loop = true
+    videoMonitor.muted = true
+    videoMonitor.play()
+    // Create video textures
+    const videoTextureMonitor = new VideoTexture(videoMonitor)
+    // Create materials with emissive map
+    const videoMaterialMonitor = new MeshBasicMaterial({
+      map: videoTextureMonitor
+    })
     gltfLoader.load(
       '/glb/WideMonitor.glb',
       gltf => {
@@ -15,6 +27,9 @@ const WideMonitor = () => {
         gltf.scene.traverse(object => {
           if (object instanceof Mesh) {
             switch (object.name) {
+              case 'VideoTexture-Widescreen':
+                object.material = videoMaterialMonitor
+                break
               default:
                 object.castShadow = true
                 object.receiveShadow = true
