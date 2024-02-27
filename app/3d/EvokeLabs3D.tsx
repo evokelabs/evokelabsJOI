@@ -107,10 +107,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
             }}
           >
             <Lights />
-            <CyberpunkMap />
             {isCarReady && <CyberpunkCar />}
             <WideMonitor />
             <DeskItems />
+            <CyberpunkMap />
             <JOI />
             <Rain />
           </AnimationContext.Provider>

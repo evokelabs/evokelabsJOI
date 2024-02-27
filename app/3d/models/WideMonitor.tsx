@@ -1,45 +1,40 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
-import { Object3D } from 'three'
+import { Mesh, Scene } from 'three'
 import { useDracoLoader } from '@/app/libs/useDracoLoader'
 
 const WideMonitor = () => {
   const { scene } = useThree()
   const gltfLoader = useRef(useDracoLoader()).current
-  const addedMeshesRef = useRef<Object3D[]>([])
-
-  const handleModelError = useCallback((error: unknown) => {
-    console.error('An error occurred while loading the model:', error)
-  }, [])
-
-  const handleModelLoad = useCallback(
-    (gltf: { scene: Object3D }) => {
-      gltf.scene.traverse(child => {
-        if (child instanceof Object3D) {
-          child.castShadow = true
-          child.receiveShadow = true
-          scene.add(child)
-          addedMeshesRef.current.push(child)
-        }
-      })
-    },
-    [scene]
-  )
-
-  const loadModel = useCallback(() => {
-    gltfLoader.load('/glb/WideMonitor.glb', handleModelLoad, undefined, handleModelError)
-  }, [gltfLoader, handleModelLoad, handleModelError])
 
   useEffect(() => {
-    loadModel()
+    gltfLoader.load(
+      '/glb/WideMonitor.glb',
+      gltf => {
+        scene.add(gltf.scene)
+        gltf.scene.traverse(object => {
+          if (object instanceof Mesh) {
+            switch (object.name) {
+              default:
+                object.castShadow = true
+                object.receiveShadow = true
+                break
+            }
+          }
+        })
+      },
+      undefined,
+      error => {
+        console.error('An error occurred while loading the model:', error)
+      }
+    )
 
     return () => {
-      addedMeshesRef.current.forEach(mesh => {
-        scene.remove(mesh)
+      scene.children.forEach(child => {
+        if (child instanceof Scene) scene.remove(child)
       })
-      addedMeshesRef.current = []
     }
-  }, [scene, loadModel])
+  }, [scene, gltfLoader])
 
   return null
 }

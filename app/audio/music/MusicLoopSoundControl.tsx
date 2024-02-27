@@ -12,7 +12,7 @@ const MusicLoopSoundControl = () => {
   const gainNode = useRef(audioContext.current.createGain())
   const source = useRef<MediaElementAudioSourceNode | null>(null)
   const hasMounted = useRef(false)
-  const DELAY = 3400
+  const DELAY = 3800
   const LOOP = true
 
   useEffect(() => {
