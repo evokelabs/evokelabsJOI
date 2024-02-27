@@ -43,12 +43,12 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
     gainNode.gain.value = GAIN_NODE_VOLUME
 
-    audio.play().catch(error => console.error('Audio play failed due to', error))
+    setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume before the audio starts playing
+    setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
 
-    audio.onplay = () => {
-      setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume when the audio starts playing
-      setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
-    }
+    setTimeout(() => {
+      audio.play().catch(error => console.error('Audio play failed due to', error))
+    }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2)
 
     audio.onended = () => {
       setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
@@ -84,17 +84,13 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       const { JawOpen: jawOpenIndex, OOO: oooIndex, EEE: eeeIndex } = skinnedMeshes[0]?.morphTargetDictionary || {}
 
-      if (jawOpenIndex !== undefined && oooIndex !== undefined && eeeIndex !== undefined) {
-        skinnedMeshes.forEach(mesh => {
-          mesh.morphTargetInfluences?.splice(jawOpenIndex, 1, influences[0])
-          mesh.morphTargetInfluences?.splice(oooIndex, 1, influences[1])
-          mesh.morphTargetInfluences?.splice(eeeIndex, 1, influences[2])
-        })
-      }
+      skinnedMeshes.forEach(mesh => {
+        mesh.morphTargetInfluences?.splice(jawOpenIndex, 1, influences[0])
+        mesh.morphTargetInfluences?.splice(oooIndex, 1, influences[1])
+        mesh.morphTargetInfluences?.splice(eeeIndex, 1, influences[2])
+      })
 
-      if (!audio.paused) {
-        requestAnimationFrame(updateMorphTarget)
-      }
+      requestAnimationFrame(updateMorphTarget)
     }
 
     updateMorphTarget()

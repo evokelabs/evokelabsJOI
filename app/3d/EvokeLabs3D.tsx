@@ -36,7 +36,7 @@ import { SoundsContext } from '../libs/SoundsContext'
 // const debug = true
 const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
-const MENU_HOME_WAIT_TIMER = 23000
+const MENU_HOME_WAIT_TIMER = 20000
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // State
