@@ -13,6 +13,15 @@ const CyberpunkMapLowPoly = () => {
   // Controls shutter audio
   const [playShutterAudio, setPlayShutterAudio] = useState(false)
 
+  const animateObject = (object: THREE.Object3D, y: number) => {
+    gsap.to(object.position, {
+      y: y,
+      duration: 1,
+      delay: 0.2,
+      ease: 'power4.out'
+    })
+  }
+
   useEffect(() => {
     gltfLoader.load(
       '/glb/EvokelabsRoomLowPoly.glb',
@@ -22,10 +31,10 @@ const CyberpunkMapLowPoly = () => {
           if (object instanceof Mesh) {
             console.log('object.name:', object.name)
             switch (object.name) {
-              case 'Window_Shutters_Closed':
+              case 'Window_Shutters_Closed_1':
                 object.castShadow = true
                 gsap.to(object.position, {
-                  y: 2.7,
+                  y: 50,
                   duration: 3.25,
                   delay: 6.5,
                   ease: 'linear',
@@ -42,6 +51,15 @@ const CyberpunkMapLowPoly = () => {
                       setShouldJOISpeak(true)
                     })
                   }
+                })
+                break
+              case 'Window_Shutters_Closed_2':
+                object.castShadow = true
+                gsap.to(object.position, {
+                  y: 50,
+                  duration: 3.25,
+                  delay: 6.5,
+                  ease: 'linear'
                 })
                 break
 
