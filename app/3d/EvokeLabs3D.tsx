@@ -31,6 +31,7 @@ import ELAudioStartSoundControl, {
   DEFAULT_MUSIC_LOOP_VOLUME
 } from '../audio/ELAudioStartSoundControl'
 import { SoundsContext } from '../libs/SoundsContext'
+import WideMonitor from './models/WideMonitor'
 
 // Constants
 // const debug = true
@@ -107,6 +108,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
             <Lights />
             <CyberpunkMap />
             {isCarReady && <CyberpunkCar />}
+            <WideMonitor />
             <JOI />
             <Rain />
           </AnimationContext.Provider>
