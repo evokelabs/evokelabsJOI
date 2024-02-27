@@ -53,7 +53,7 @@ const CyberpunkMap = () => {
                   },
                   onComplete: () => {
                     setPlayShutterAudio(false)
-                    gsap.delayedCall(2, () => {
+                    gsap.delayedCall(1, () => {
                       setShouldJOISpeak(true)
                     })
                   }
