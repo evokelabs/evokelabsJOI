@@ -17,6 +17,7 @@ const WideMonitor = () => {
       gltf.scene.traverse(child => {
         if (child instanceof Object3D) {
           child.castShadow = true
+          child.receiveShadow = true
           scene.add(child)
           addedMeshesRef.current.push(child)
         }
