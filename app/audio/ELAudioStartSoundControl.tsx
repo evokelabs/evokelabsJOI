@@ -8,7 +8,7 @@ import { SoundsContext } from '../libs/SoundsContext'
 
 export const DEFAULT_MUSIC_LOOP_VOLUME = 0.55
 export const LOW_MUSIC_LOOP_VOLUME = 0.2
-export const DEFAULT_MUSIC_LOOP_TRANSITION_DURATION = 8000
+export const DEFAULT_MUSIC_LOOP_TRANSITION_DURATION = 8500
 export const JOI_MUSIC_LOOP_TRANSITION_DURATION = 1250
 
 const ELAudioStartSoundControl = () => {
@@ -40,10 +40,10 @@ const ELAudioStartSoundControl = () => {
   return (
     <>
       {play && <JOIPreloaderSpeechControl volume={1.275} delay={2500} transitionDuration={150} loop={false} />}
-      {play && <MusicStartSoundControl volume={0.6} delay={0} transitionDuration={150} loop={false} />}
-      {play && <MusicLoopSoundControl volume={musicVolume} delay={3400} transitionDuration={musicLoopTransitionDuration} />}
-      {play && <RainSoundControl volume={0.25} delay={0} transitionDuration={5500} />}
-      {play && <CyberpunkAmbienceSoundControl volume={0.375} delay={25000} transitionDuration={2000} />}
+      {play && <MusicStartSoundControl />}
+      {play && <MusicLoopSoundControl volume={musicVolume} delay={3600} transitionDuration={musicLoopTransitionDuration} />}
+      {play && <RainSoundControl />}
+      {play && <CyberpunkAmbienceSoundControl />}
     </>
   )
 }
