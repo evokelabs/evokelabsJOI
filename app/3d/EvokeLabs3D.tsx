@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Html, OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
@@ -36,6 +36,7 @@ import { SoundsContext } from '../libs/SoundsContext'
 // const debug = true
 const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
+const MENU_HOME_WAIT_TIMER = 23000
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // State
@@ -47,6 +48,17 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // Camera settings
   const { cameraTarget, fov } = useCameraSettings()
 
+  const [isPreLoaderFinished, setIsPreLoaderFinished] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsPreLoaderFinished(true)
+    }, MENU_HOME_WAIT_TIMER) // 5 seconds
+
+    // Cleanup function to clear the timeout if the component unmounts before the timeout finishes
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <>
       <SoundsContext.Provider value={{ musicVolume, setMusicVolume, musicLoopTransitionDuration, setMusicLoopTransitionDuration }}>
@@ -57,18 +69,18 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
             powerPreference: 'high-performance'
           }}
         >
-          {/* <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
+          <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
             <div className='max-w-[1170px]'>
-              {router.pathname === '/' && <Home />}
+              {isPreLoaderFinished && router.pathname === '/' && <Home />}
               {router.pathname === '/services' && <Services />}
               {router.pathname === '/portfolio' && <Portfolio />}
               {router.pathname === '/history' && <History />}
               {router.pathname === '/resume' && <Resume />}
               {router.pathname === '/joi' && <JOISpecial />}
               {router.pathname === '/availabilities' && <Availabilities />}
-              <MainMenu router={router} />
+              {isPreLoaderFinished && <MainMenu router={router} />}
             </div>
-          </Html> */}
+          </Html>
           <VideoSkybox />
           {debug ? <Perf position='top-left' /> : null}
           {/* <Perf position='top-left' /> */}

@@ -294,14 +294,15 @@ const Home = () => {
       </div>
 
       <TypeOnSoundControl
-        volume={0.65}
+        volume={0.45}
         delay={0.1}
         transitionDuration={10}
         loop={true}
         isTyping={isTypingSound}
         onEndSound={handleEndSound}
       />
-      <ScrabbleOnSoundControl volume={0.65} delay={0.1} transitionDuration={10} loop={true} isScrabble={isScrabbleSound} />
+
+      <ScrabbleOnSoundControl volume={0.3} delay={0.1} transitionDuration={10} loop={true} isScrabble={isScrabbleSound} />
     </>
   )
 }
