@@ -43,14 +43,24 @@ const TypeOnSoundControl: React.FC<TypeOnSoundControlProps> = ({
   }, [onEndSound])
 
   useEffect(() => {
-    audioElement.current.volume = volume
-    audioEndElement.current.volume = volume
+    const audioElementCurrent = audioElement.current
+    const audioEndElementCurrent = audioEndElement.current
+
+    audioElementCurrent.volume = volume
+    audioEndElementCurrent.volume = volume
 
     // Connect the audio elements to the AudioContext
-    const track = audioContext.current.createMediaElementSource(audioElement.current)
-    const endTrack = audioContext.current.createMediaElementSource(audioEndElement.current)
+    const track = audioContext.current.createMediaElementSource(audioElementCurrent)
+    const endTrack = audioContext.current.createMediaElementSource(audioEndElementCurrent)
     track.connect(audioContext.current.destination)
     endTrack.connect(audioContext.current.destination)
+
+    return () => {
+      audioElementCurrent.pause()
+      audioElementCurrent.currentTime = 0
+      audioEndElementCurrent.pause()
+      audioEndElementCurrent.currentTime = 0
+    }
   }, [volume])
 
   useEffect(() => {

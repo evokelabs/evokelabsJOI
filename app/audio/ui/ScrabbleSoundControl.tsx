@@ -35,11 +35,18 @@ const ScrabbleOnSoundControl: React.FC<ScrabbleOnSoundControlProps> = ({
   }, [])
 
   useEffect(() => {
-    audioElement.current.volume = volume
+    const audioElementCurrent = audioElement.current
+
+    audioElementCurrent.volume = volume
 
     // Connect the audio elements to the AudioContext
-    const track = audioContext.current.createMediaElementSource(audioElement.current)
+    const track = audioContext.current.createMediaElementSource(audioElementCurrent)
     track.connect(audioContext.current.destination)
+
+    return () => {
+      audioElementCurrent.pause()
+      audioElementCurrent.currentTime = 0
+    }
   }, [volume])
 
   useEffect(() => {
