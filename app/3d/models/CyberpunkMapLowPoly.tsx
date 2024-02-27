@@ -6,7 +6,7 @@ import { useDracoLoader } from '@/app/libs/useDracoLoader'
 import { AnimationContext } from '@/app/libs/AnimationContext'
 import ShutterSoundControl from '@/app/audio/environment/ShuttersSoundControl'
 
-const CyberpunkMap = () => {
+const CyberpunkMapLowPoly = () => {
   const { scene } = useThree()
   const gltfLoader = useRef(useDracoLoader()).current
   const { setPointLightPlay, setAmbientLightPlay, setShouldJOISpeak } = useContext(AnimationContext)
@@ -14,30 +14,14 @@ const CyberpunkMap = () => {
   const [playShutterAudio, setPlayShutterAudio] = useState(false)
 
   useEffect(() => {
-    const videoTablet = document.createElement('video')
-    videoTablet.src = '/videos/tablet.mp4'
-    videoTablet.loop = true
-    videoTablet.muted = true
-    videoTablet.play()
-
-    // Create video textures
-    const videoTextureTablet = new VideoTexture(videoTablet)
-
-    const videoMaterialTablet = new MeshBasicMaterial({
-      map: videoTextureTablet
-    })
-
     gltfLoader.load(
-      '/glb/EvokelabsRoom.glb',
+      '/glb/EvokelabsRoomLowPoly.glb',
       gltf => {
         scene.add(gltf.scene)
         gltf.scene.traverse(object => {
           if (object instanceof Mesh) {
             console.log('object.name:', object.name)
             switch (object.name) {
-              case 'Window_Glass_Main':
-                object.castShadow = false
-                break
               case 'Window_Shutters_Closed':
                 object.castShadow = true
                 gsap.to(object.position, {
@@ -60,16 +44,10 @@ const CyberpunkMap = () => {
                   }
                 })
                 break
-              case 'Wall_Curved_VendingMachine_Outdoor':
-                object.castShadow = true
-                break
 
-              case 'VideoTexture-Tablet':
-                object.material = videoMaterialTablet
-                break
               default:
-                object.castShadow = true
-                object.receiveShadow = true
+                object.castShadow = false
+                object.receiveShadow = false
                 break
             }
           }
@@ -91,4 +69,4 @@ const CyberpunkMap = () => {
   return playShutterAudio ? <ShutterSoundControl volume={0.45} delay={0} transitionDuration={0} loop={false} /> : null
 }
 
-export default CyberpunkMap
+export default CyberpunkMapLowPoly

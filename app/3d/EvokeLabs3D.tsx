@@ -33,12 +33,13 @@ import ELAudioStartSoundControl, {
 import { SoundsContext } from '../libs/SoundsContext'
 import WideMonitor from './models/WideMonitor'
 import DeskItems from './models/DeskItems'
+import CyberpunkMapLowPoly from './models/CyberpunkMapLowPoly'
 
 // Constants
 // const debug = true
 const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
-const MENU_HOME_WAIT_TIMER = 20000
+const MENU_HOME_WAIT_TIMER = 18000
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // State
@@ -110,7 +111,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
             {isCarReady && <CyberpunkCar />}
             <WideMonitor />
             <DeskItems />
-            <CyberpunkMap />
+            {/* <CyberpunkMap /> */}
+            <CyberpunkMapLowPoly />
             <JOI />
             <Rain />
           </AnimationContext.Provider>
