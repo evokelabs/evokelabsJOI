@@ -51,16 +51,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }, [JOILineSpeak, hasPlayed, shouldJOISpeak, model, setMusicVolume, setMusicLoopTransitionDuration, JOISpeechData])
 
   useEffect(() => {
-    console.log('2nd useEffect', randomFile)
-    console.log('2nd useEffect', randomFile)
-    console.log('hasPlayed', hasPlayed)
-    console.log('shouldJOISpeak', shouldJOISpeak)
-    console.log('model', model)
-    console.log('randomFile', randomFile)
-
     if (hasPlayed || !shouldJOISpeak || !model || !randomFile) return
-
-    console.log('JOI Voice triggered 2nd useEffect', randomFile)
 
     const audio = new Audio(randomFile)
     const audioContext = new AudioContext()
