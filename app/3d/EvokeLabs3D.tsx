@@ -42,7 +42,8 @@ import { RoutesContext } from '../libs/RoutesContext'
 // const debug = true
 const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
-const MENU_HOME_WAIT_TIMER = 18000
+// const MENU_HOME_WAIT_TIMER = 18000
+const MENU_HOME_WAIT_TIMER = 0
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // State
