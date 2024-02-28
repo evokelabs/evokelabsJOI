@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { RED_TILE_PATTERN } from './libs/TitleFillsPatterns'
 import { BLUE_DARK, RED } from '../libs/UIConstants'
 import RedCRTBlur from './libs/RedCRTBlur'
 import useButtonEventsController from './libs/useButtonEventsController'
 import useButtonInteractionController from './libs/useButtonInteractionController'
+import { RoutesContext } from '../libs/RoutesContext'
 
 const IconClose = () => {
   const svgRef = useRef<SVGSVGElement | null>(null)
@@ -30,8 +31,16 @@ const IconClose = () => {
     pathBGStrokeRef,
     pathFGFillRef
   })
+
+  const { currentRouteSelection, setCurrentRouteSelection } = useContext(RoutesContext)
+
+  const returnToHome = () => {
+    console.log('returnToHome')
+    setCurrentRouteSelection(null)
+  }
+
   return (
-    <div className='cursor-pointer relative -left-0.5' style={{ pointerEvents: isActive ? 'none' : 'all' }}>
+    <div className='cursor-pointer relative -left-0.5' style={{ pointerEvents: isActive ? 'none' : 'all' }} onClick={() => returnToHome()}>
       <svg width='34' height='34' viewBox='0 0 34 34' ref={svgRef}>
         <rect ref={pathBGFillRef} x='0' y='0' width='34' height='34' fill={BLUE_DARK} fillOpacity='0.85' />
         <rect ref={pathFGFillRef} x='0' y='0' width='34' height='34' fill={RED} fillOpacity='0.1' />

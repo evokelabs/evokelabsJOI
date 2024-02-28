@@ -36,7 +36,7 @@ import DeskItems from './models/DeskItems'
 import CyberpunkMapLowPoly from './models/CyberpunkMapLowPoly'
 
 import { getGPUTier } from 'detect-gpu'
-import { RoutesContext } from '../libs/routesContext'
+import { RoutesContext } from '../libs/RoutesContext'
 
 // Constants
 // const debug = true
@@ -120,6 +120,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       if (selectedRoute) {
         router.push(selectedRoute.route)
       }
+    } else {
+      router.push('/')
     }
   }, [currentRouteSelection, router, ROUTE_CONFIG])
 
@@ -143,8 +145,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 {router.pathname === '/resume' && <Resume />}
                 {router.pathname === '/joi' && <JOISpecial />}
                 {router.pathname === '/availabilities' && <Availabilities />}
-                {/* {isPreLoaderFinished && <MainMenu router={router} />} */}
-                <MainMenu router={router} routeConfig={ROUTE_CONFIG} />
+                {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+
                 <ELAudioStartSoundControl />
               </div>
             </RoutesContext.Provider>
