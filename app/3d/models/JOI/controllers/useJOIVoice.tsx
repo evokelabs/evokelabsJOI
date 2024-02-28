@@ -12,6 +12,7 @@ const INTRO_FILES = JOISpeech.intro.map(item => item.filepath)
 const MAX_VOLUME = 255
 const MAX_INFLUENCE = 0.15
 const GAIN_NODE_VOLUME = 2
+const TIMEOUT_FAIL_SAFE = 7500
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
@@ -21,7 +22,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [initialAudioFile, setInitialAudioFile] = useState<string | null>(null)
   const randomFile = useRef<string | null>(null)
   const [visited, setVisited] = useState<boolean>(false)
-  const [isPlaying, setIsPlaying] = useState(false)
+  const isPlaying = useRef(false)
 
   const currentAudio = useRef<HTMLAudioElement | null>(null)
 
@@ -77,10 +78,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     console.log('second useEffect passes')
     if (!randomFile.current) return
     console.log('third useEffect passes')
-    if (currentAudio.current && !currentAudio.current.ended) {
-      return
-    }
-    if (isPlaying) {
+    console.log('currentAudio.current', currentAudio.current, 'isPlaying.current', isPlaying.current)
+    if (isPlaying.current) {
       return
     }
     console.log('fourth useEffect passes')
@@ -89,6 +88,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     const audioContext = new AudioContext()
     const source = audioContext.createMediaElementSource(audio)
     const analyser = audioContext.createAnalyser()
+
+    let timeoutId: NodeJS.Timeout | null = setTimeout(() => {
+      isPlaying.current = false
+      setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
+    }, TIMEOUT_FAIL_SAFE) // Fail safe reset incase audio messed up
 
     source.connect(analyser)
     analyser.connect(audioContext.destination)
@@ -102,20 +106,29 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume before the audio starts playing
     setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
 
-    console.log('function before set timeoput', randomFile)
+    console.log('function before set timeout', randomFile)
 
     setTimeout(() => {
       console.log('Audio play', randomFile)
       audio.play().catch(error => console.error('Audio play failed due to', error))
-      setIsPlaying(true)
+      isPlaying.current = true
     }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2)
 
     audio.onended = () => {
-      setIsPlaying(false)
+      console.log('Audio onEnded')
+      isPlaying.current = false
       setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+
+    audio.onerror = () => {
+      console.error('Audio playback failed')
+      isPlaying.current = false
+      if (timeoutId) clearTimeout(timeoutId)
     }
 
     if (audioContext.state === 'suspended') {
+      console.log('Audio context state is suspended')
       audioContext.resume()
     }
 
@@ -168,6 +181,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     audio.addEventListener('ended', onAudioEnd)
 
     return () => {
+      if (timeoutId) clearTimeout(timeoutId)
       audio.removeEventListener('ended', onAudioEnd)
     }
   }, [hasPlayed, shouldJOISpeak, model, setMusicVolume, setMusicLoopTransitionDuration, randomFile, visited, JOILineSpeak])
