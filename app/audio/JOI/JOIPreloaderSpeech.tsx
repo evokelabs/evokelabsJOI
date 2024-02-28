@@ -1,13 +1,8 @@
 import { useEffect, useRef } from 'react'
 
-const AUDIO_SOURCES = [
-  '/sounds/JOI-voice/00-Intro/preLoader/01-preloader.mp3',
-  '/sounds/JOI-voice/00-Intro/preLoader/02-preloader.mp3',
-  '/sounds/JOI-voice/00-Intro/preLoader/03-preloader.mp3',
-  '/sounds/JOI-voice/00-Intro/preLoader/04-preloader.mp3',
-  '/sounds/JOI-voice/00-Intro/preLoader/05-preloader.mp3',
-  '/sounds/JOI-voice/00-Intro/preLoader/06-preloader.mp3'
-]
+import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
+
+const AUDIO_SOURCES = JOISpeech.preloader.map(item => item.filepath)
 
 const VOLUME = 1.275
 const DELAY = 2500

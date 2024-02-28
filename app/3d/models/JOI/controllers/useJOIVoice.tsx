@@ -5,11 +5,9 @@ import { SkinnedMesh } from 'three'
 import { SoundsContext } from '@/app/libs/SoundsContext'
 import { DEFAULT_MUSIC_LOOP_VOLUME, JOI_MUSIC_LOOP_TRANSITION_DURATION, LOW_MUSIC_LOOP_VOLUME } from '@/app/audio/ELAudioStartSoundControl'
 
-const JOI_VOICE_PATH = './sounds/JOI-Voice/00-intro/Intro/'
-const INTRO_01 = '01-intro.mp3'
-const INTRO_02 = '02-intro.mp3'
-const INTRO_03 = '03-intro.mp3'
-const INTRO_04 = '04-intro.mp3'
+import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
+
+const INTRO_FILES = JOISpeech.intro.map(item => item.filepath)
 
 const MAX_VOLUME = 255
 const MAX_INFLUENCE = 0.15
@@ -25,9 +23,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     if (hasPlayed || !shouldJOISpeak || !model) return
 
     const visited = document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited='))
-    const files = [INTRO_02, INTRO_03, INTRO_04]
+    const files = INTRO_FILES.slice(1) // exclude the first file
     const randomFile = files[Math.floor(Math.random() * files.length)]
-    const audioFile = `${JOI_VOICE_PATH}${visited ? randomFile : INTRO_01}`
+    const audioFile = visited ? randomFile : INTRO_FILES[0]
 
     const audio = new Audio(audioFile)
     const audioContext = new AudioContext()
