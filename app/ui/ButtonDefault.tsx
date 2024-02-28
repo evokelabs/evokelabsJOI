@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { BLACK, RED } from '../libs/UIConstants'
 import useButtonInteractionController from './libs/useButtonInteractionController'
 import RedCRTBlur from './libs/RedCRTBlur'
@@ -6,6 +6,7 @@ import IconButtonDefault from './IconButtonDefault'
 import useButtonEventsController from './libs/useButtonEventsController'
 import { RED_TILE_PATTERN } from './libs/TitleFillsPatterns'
 import CloseSVG from './svg/button/CloseSVG'
+import { RoutesContext } from '../libs/RoutesContext'
 
 type SVGButtonProps = {
   svgRef: React.RefObject<SVGSVGElement>
@@ -90,10 +91,26 @@ const SVGButton: React.FC<SVGButtonProps> = ({
   buttonProps: { width, viewBox, d1, d2 },
   svgIcon
 }) => {
+  const { setCurrentRouteSelection } = useContext(RoutesContext)
+
+  const handleClick = () => {
+    switch (label) {
+      case 'CLOSE':
+        setCurrentRouteSelection(null)
+        break
+      // Add more cases as needed
+      // case 'OTHER_LABEL':
+      //   // Do something else
+      //   break
+      default:
+        console.log(`Unhandled label: ${label}`)
+    }
+  }
   return (
     <div
       className={'relative cursor-pointer uppercase w-fit flex flex-row items-center'}
       style={{ pointerEvents: isActive ? 'none' : 'all' }}
+      onClick={handleClick}
     >
       <svg ref={svgRef} width={width} height='71' viewBox={viewBox}>
         <path d={d1} fill={BLACK} ref={pathBGFillRef} />

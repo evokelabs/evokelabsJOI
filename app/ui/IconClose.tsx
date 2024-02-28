@@ -32,10 +32,9 @@ const IconClose = () => {
     pathFGFillRef
   })
 
-  const { currentRouteSelection, setCurrentRouteSelection } = useContext(RoutesContext)
+  const { setCurrentRouteSelection } = useContext(RoutesContext)
 
   const returnToHome = () => {
-    console.log('returnToHome')
     setCurrentRouteSelection(null)
   }
 
