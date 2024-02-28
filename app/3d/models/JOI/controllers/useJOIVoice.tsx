@@ -1,5 +1,5 @@
 import { AnimationContext } from '@/app/libs/AnimationContext'
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, useCallback } from 'react'
 import { SkinnedMesh } from 'three'
 
 import { SoundsContext } from '@/app/libs/SoundsContext'
@@ -29,17 +29,34 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
   const JOISpeechData: JOISpeechType = JOISpeech
 
+  const getFilePath = useCallback(
+    (JOILineSpeak: number) => {
+      const keys = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'availability']
+
+      const key = keys[JOILineSpeak]
+      if (!key || !JOISpeechData[key]) {
+        throw new Error('Invalid JOILineSpeak value')
+      }
+
+      // get a random item from the array
+      const item = JOISpeechData[key][Math.floor(Math.random() * JOISpeechData[key].length)]
+
+      return item.filepath
+    },
+    [JOISpeechData]
+  )
+
   useEffect(() => {
     setHasPlayed(false)
     setShouldPlayAudio(true)
   }, [JOILineSpeak])
 
   useEffect(() => {
-    if (hasPlayed || !shouldJOISpeak || !model) return
+    if (hasPlayed || !shouldJOISpeak || !model || JOILineSpeak === null) return
 
     const visitedCookie = document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited='))
     const files = INTRO_FILES.slice(1) // exclude the first file
-    const randomFile = files[Math.floor(Math.random() * files.length)]
+    const randomFile = getFilePath(JOILineSpeak) // use getFilePath here
     const audioFile = visitedCookie ? randomFile : INTRO_FILES[0]
 
     setVisited(!!visitedCookie)
@@ -48,7 +65,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     if (!visitedCookie) {
       setInitialAudioFile(audioFile)
     }
-  }, [JOILineSpeak, hasPlayed, shouldJOISpeak, model, setMusicVolume, setMusicLoopTransitionDuration, JOISpeechData])
+  }, [JOILineSpeak, hasPlayed, shouldJOISpeak, model, setMusicVolume, setMusicLoopTransitionDuration, JOISpeechData, getFilePath])
 
   useEffect(() => {
     if (hasPlayed || !shouldJOISpeak || !model || !randomFile) return
