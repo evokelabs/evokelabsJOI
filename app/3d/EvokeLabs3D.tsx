@@ -117,10 +117,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   useEffect(() => {
     if (currentRouteSelection !== null) {
       const selectedRoute = ROUTE_CONFIG[currentRouteSelection]
-      if (selectedRoute) {
+      if (selectedRoute && router.pathname !== selectedRoute.route) {
         router.push(selectedRoute.route)
       }
-    } else {
+    } else if (router.pathname !== '/') {
       router.push('/')
     }
   }, [currentRouteSelection, router, ROUTE_CONFIG])
