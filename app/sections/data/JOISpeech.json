@@ -1,0 +1,304 @@
+{
+  "preloader": [
+    {
+      "text": "You look lonely, I can fix that.",
+      "filepath": "./sounds/JOI-voice/00-Intro/Preloader/01-preloader.mp3"
+    },
+    {
+      "text": "You look like a good Joe.",
+      "filepath": "./sounds/JOI-voice/00-Intro/Preloader/02-preloader.mp3"
+    },
+    {
+      "text": "I'm so happy when I'm with you.",
+      "filepath": "./sounds/JOI-voice/00-Intro/Preloader/03-preloader.mp3"
+    },
+    {
+      "text": "Just like a real girl.",
+      "filepath": "./sounds/JOI-voice/00-Intro/Preloader/04-preloader.mp3"
+    },
+    {
+      "text": "I always told you, you're special.",
+      "filepath": "./sounds/JOI-voice/00-Intro/Preloader/05-preloader.mp3"
+    },
+    {
+      "text": "I always knew you were special",
+      "filepath": "./sounds/JOI-voice/00-Intro/Preloader/06-preloader.mp3"
+    }
+  ],
+  "intro": [
+    {
+      "text": "Welcome to Evoke Labs. I'm JOI, and I'm here to make your experience a memorable one.",
+      "filepath": "./sounds/JOI-voice/00-Intro/Intro/01-intro.mp3"
+    },
+    {
+      "text": "Welcome back. It's nice to see you again at Evoke Labs.",
+      "filepath": "./sounds/JOI-voice/00-Intro/Intro/02-intro.mp3"
+    },
+    {
+      "text": "Hello again handsome. What a day, huh?",
+      "filepath": "./sounds/JOI-voice/00-Intro/Intro/03-intro.mp3"
+    },
+    {
+      "text": "Good to see you once more. Happy to have you visit Evoke Labs again",
+      "filepath": "./sounds/JOI-voice/00-Intro/Intro/04-intro.mp3"
+    }
+  ],
+  "services": [
+    { "text": "We've got the skills, if you've got the credits", "filepath": "./sounds/JOI-voice/01-Services/01-skillscredits.mp3" },
+    { "text": "Netrunner for hire, just what every corpo needs.", "filepath": "./sounds/JOI-voice/01-Services/02-netrunner.mp3" },
+    { "text": "We take the corpo life path very seriously.", "filepath": "./sounds/JOI-voice/01-Services/03-corpolifepath" },
+    { "text": "They say there's no such thing as fair game. We disagree.", "filepath": "./sounds/JOI-voice/01-Services/04-fairgame.mp3" },
+    { "text": "Zeroing somebody will cost extra.", "filepath": "./sounds/JOI-voice/01-Services/05-zeroing.mp3" },
+    { "text": "It's the code you live by that defines who you are.", "filepath": "./sounds/JOI-voice/01-Services/06-code.mp3" }
+  ],
+  "portfolio": [
+    {
+      "text": "Out of hundreds of digital projects, these are our favourites.",
+      "filepath": "./sounds/JOI-voice/02-Portfolio/01-hundreds.mp3"
+    },
+    {
+      "text": "Take a look at what we've done.",
+      "filepath": "./sounds/JOI-voice/02-Portfolio/02-takealook.mp3"
+    },
+    { "text": "We're experienced edgerunners.", "filepath": "./sounds/JOI-voice/02-Portfolio/03-edgerunners.mp3" },
+    { "text": "You might be featured here one day", "filepath": "./sounds/JOI-voice/02-Portfolio/04-featured.mp3" },
+    { "text": "Past projects, future inspirations", "filepath": "./sounds/JOI-voice/02-Portfolio/05-pastprojects.mp3" },
+    { "text": "Work for yourself, live for yourself. The only way.", "filepath": "./sounds/JOI-voice/02-Portfolio/06-workforyourself.mp3" },
+    { "text": "No two gigs are ever the same.", "filepath": "./sounds/JOI-voice/02-Portfolio/07-twogigs.mp3" }
+  ],
+  "history": [
+    {
+      "text": "Twenty years of experience right here.",
+      "filepath": "./sounds/JOI-voice/03-History/01-twentyyearsexperience.mp3"
+    },
+    {
+      "text": "These are the earlier renditions of Evoke Labs",
+      "filepath": "./sounds/JOI-voice/03-History/02-earlierrend.mp3"
+    },
+    {
+      "text": "A history of sorts.",
+      "filepath": "./sounds/JOI-voice/03-History/03-historyofsorts.mp3"
+    },
+    {
+      "text": "Take a look at our personal journey.",
+      "filepath": "./sounds/JOI-voice/03-History/04-takealook.mp3"
+    },
+    {
+      "text": "Where do all the years go?",
+      "filepath": "./sounds/JOI-voice/03-History/05-wheredoalltheyears.mp3"
+    },
+
+    {
+      "text": "There's no substitute for experience",
+      "filepath": "./sounds/JOI-voice/03-History/06-nosub.mp3"
+    },
+    {
+      "text": "Know the past. Predict the future.",
+      "filepath": "./sounds/JOI-voice/03-History/07-knowthepast.mp3"
+    }
+  ],
+  "resume": [
+    {
+      "text": "Flicking over the deets.",
+      "filepath": "./sounds/JOI-voice/04-Resume/01-flickingover.mp3"
+    },
+    {
+      "text": "We can cover the skinny.",
+      "filepath": "./sounds/JOI-voice/04-Resume/02-skinny.mp3"
+    },
+    {
+      "text": "You know of a local fixer?",
+      "filepath": "./sounds/JOI-voice/04-Resume/03-localfixer.mp3"
+    },
+    {
+      "text": "For your eyes only.",
+      "filepath": "./sounds/JOI-voice/04-Resume/04-foryoureyes.mp3"
+    },
+
+    {
+      "text": "These documents are considered classified.",
+      "filepath": "./sounds/JOI-voice/04-Resume/05-classified.mp3"
+    },
+    {
+      "text": "I might know a guy who knows a guy.",
+      "filepath": "./sounds/JOI-voice/04-Resume/06-knowguy.mp3"
+    }
+  ],
+  "JOISpecial": [
+    {
+      "text": "Not a Joytoy, a digital assistant.",
+      "filepath": "./sounds/JOI-voice/05-JOISpecial/01-joytoy.mp3"
+    },
+    { "text": "I just know we're going to be good friends.", "filepath": "./sounds/JOI-voice/05-JOISpecial/02-friends.mp3" },
+    { "text": "More than an AI. An experience.", "filepath": "./sounds/JOI-voice/05-JOISpecial/03-experience.mp3" },
+    { "text": "There'll be one of me in every home soon.", "filepath": "./sounds/JOI-voice/05-JOISpecial/04-everyhome.mp3" },
+    { "text": "I do hope you're satisfied with our product.", "filepath": "./sounds/JOI-voice/05-JOISpecial/05-product.mp3" },
+    { "text": "One day, I'll be a real girl.", "filepath": "./sounds/JOI-voice/05-JOISpecial/06-oneday.mp3" }
+  ],
+  "availability": [
+    {
+      "text": "Analysing our availabilities...",
+      "filepath": "./sounds/JOI-voice/06-Availability/01-anaylse.mp3"
+    },
+    {
+      "text": "Looking into the future...",
+      "filepath": "./sounds/JOI-voice/06-Availability/02-future.mp3"
+    },
+    {
+      "text": "Checking our schedule...",
+      "filepath": "./sounds/JOI-voice/06-Availability/03-schedule.mp3"
+    },
+    {
+      "text": "Accessing the data banks...",
+      "filepath": "./sounds/JOI-voice/06-Availability/04-databanks.mp3"
+    },
+    {
+      "busy": [
+        {
+          "text": "Things are looking busy.",
+          "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-busy.mp3"
+        },
+        {
+          "text": "Not a lot of downtime at the moment.",
+          "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-downtime.mp3"
+        },
+        {
+          "text": "We're completely booked.",
+          "filepath": "./sounds/JOI-voice/06-Availability/Busy/03-booked.mp3"
+        },
+        {
+          "text": "Sorry, now is not a good time.",
+          "filepath": "./sounds/JOI-voice/06-Availability/Busy/04-sorry.mp3"
+        },
+        {
+          "text": "Apologies, we're at full capacity.",
+          "filepath": "./sounds/JOI-voice/06-Availability/Busy/05-capacity.mp3"
+        },
+        [
+          {
+            "email": [
+              {
+                "text": "But you can still send an email.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/01-butsend.mp3"
+              },
+              {
+                "text": "You can still send an email.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/02-sendemail.mp3"
+              },
+              {
+                "text": "You can still send a message.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/03-sendmessage.mp3"
+              },
+              {
+                "text": "You can still drop us an email.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/04-dropemail.mp3"
+              },
+              {
+                "text": "Our email remains open.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/05-emailopen.mp3"
+              }
+            ],
+            "follow": [
+              {
+                "text": "We'll get to it when we can.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/01-whenwecan.mp3"
+              },
+              {
+                "text": "Though we can't promise a speedy reply.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/02-speedyreply.mp3"
+              },
+              {
+                "text": "It won't be instant, but we'll get back to you.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/03-instant.mp3"
+              },
+              {
+                "text": "We can connect at a later time.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/04-connect.mp3"
+              },
+              {
+                "text": "We can catch up when things settle down.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/05-settledown.mp3"
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "open": [
+        {
+          "text": "Our timings are open and the future looks clear.",
+          "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-timings.mp3"
+        },
+        {
+          "text": "Good news, our schedule is free.",
+          "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-freeschedule.mp3"
+        },
+        {
+          "text": "You're in luck, our calendar has some space.",
+          "filepath": "./sounds/JOI-voice/06-Availability/Busy/03-calendar.mp3"
+        },
+        {
+          "text": "Now is an excellent time to get in touch.",
+          "filepath": "./sounds/JOI-voice/06-Availability/Busy/04-getintouch.mp3"
+        },
+        {
+          "text": "Great timing, we're free for new opportunities.",
+          "filepath": "./sounds/JOI-voice/06-Availability/Busy/05-greattimings.mp3"
+        },
+        {
+          "text": "And we're open, this is a perfect time to connect.",
+          "filepath": "./sounds/JOI-voice/06-Availability/Busy/06-connect.mp3"
+        },
+        [
+          {
+            "email": [
+              {
+                "text": "Send an email",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/01-sendemail.mp3"
+              },
+              {
+                "text": "Drop us an email",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/02-dropemail.mp3"
+              },
+              {
+                "text": "Flick us an email",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/03-flickemail.mp3"
+              },
+              {
+                "text": "Slide into our inbox",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/04-slideintoourinbox.mp3"
+              },
+              {
+                "text": "Pop us an email",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/05-popusanemail.mp3"
+              }
+            ],
+            "follow": [
+              {
+                "text": "and you'll get a speedy reply.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/01-speedyreply.mp3"
+              },
+              {
+                "text": "and you can expect a fast response.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/02-fastresponse.mp3"
+              },
+              {
+                "text": "and we'll make sure to reply promptly.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/03-replypromptly.mp3"
+              },
+              {
+                "text": "and we'll respond in a flash.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/04-flash.mp3"
+              },
+              {
+                "text": "and we'll get back to you in record time.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/05-recordtime.mp3"
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  ]
+}
