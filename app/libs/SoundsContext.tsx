@@ -5,5 +5,7 @@ export const SoundsContext = createContext({
   musicVolume: DEFAULT_MUSIC_LOOP_VOLUME,
   setMusicVolume: (value: number) => {},
   musicLoopTransitionDuration: DEFAULT_MUSIC_LOOP_TRANSITION_DURATION,
-  setMusicLoopTransitionDuration: (value: number) => {}
+  setMusicLoopTransitionDuration: (value: number) => {},
+  JOILineSpeak: null as null | number,
+  setJOILineSpeak: (value: number | null) => {}
 })

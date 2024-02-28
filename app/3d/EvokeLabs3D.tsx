@@ -111,6 +111,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     []
   )
 
+  //JOi Route Speech function
+  const [JOILineSpeak, setJOILineSpeak] = useState<null | number>(null)
+
   //Routes Function
   const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(null)
 
@@ -126,8 +129,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }, [currentRouteSelection, router, ROUTE_CONFIG])
 
   useEffect(() => {
-    console.log('evokelabs 3d musicVolume', musicVolume)
-  }, [musicVolume])
+    setJOILineSpeak(currentRouteSelection)
+  }, [currentRouteSelection])
 
   return (
     <>
@@ -138,7 +141,16 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           powerPreference: 'high-performance'
         }}
       >
-        <SoundsContext.Provider value={{ musicVolume, setMusicVolume, musicLoopTransitionDuration, setMusicLoopTransitionDuration }}>
+        <SoundsContext.Provider
+          value={{
+            musicVolume,
+            setMusicVolume,
+            musicLoopTransitionDuration,
+            setMusicLoopTransitionDuration,
+            JOILineSpeak,
+            setJOILineSpeak
+          }}
+        >
           <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
             <RoutesContext.Provider value={{ currentRouteSelection, setCurrentRouteSelection }}>
               <div className='max-w-[1170px]'>

@@ -17,7 +17,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
   const { shouldJOISpeak } = useContext(AnimationContext)
   const { setMusicVolume } = useContext(SoundsContext)
-  const { setMusicLoopTransitionDuration } = useContext(SoundsContext)
+  const { setMusicLoopTransitionDuration, JOILineSpeak } = useContext(SoundsContext)
+
+  useEffect(() => {
+    console.log('JOILineSpeak:', JOILineSpeak)
+  }, [JOILineSpeak])
 
   useEffect(() => {
     if (hasPlayed || !shouldJOISpeak || !model) return
