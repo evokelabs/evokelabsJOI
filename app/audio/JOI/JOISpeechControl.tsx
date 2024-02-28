@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react'
 
 const AUDIO_SOURCES = [
-  '/sounds/JOI-voice/preLoader/preLoader-1.mp3',
-  '/sounds/JOI-voice/preLoader/preLoader-2.mp3',
-  '/sounds/JOI-voice/preLoader/preLoader-3.mp3',
-  '/sounds/JOI-voice/preLoader/preLoader-4.mp3',
-  '/sounds/JOI-voice/preLoader/preLoader-5.mp3',
-  '/sounds/JOI-voice/preLoader/preLoader-6.mp3'
+  '/sounds/JOI-voice/00-Intro/preLoader/01-preloader.mp3',
+  '/sounds/JOI-voice/00-Intro/preLoader/02-preloader.mp3',
+  '/sounds/JOI-voice/00-Intro/preLoader/03-preloader.mp3',
+  '/sounds/JOI-voice/00-Intro/preLoader/04-preloader.mp3',
+  '/sounds/JOI-voice/00-Intro/preLoader/05-preloader.mp3',
+  '/sounds/JOI-voice/00-Intro/preLoader/06-preloader.mp3'
 ]
 
 const VOLUME = 1.275
@@ -14,7 +14,7 @@ const DELAY = 2500
 const TRANSITION_DURATION = 150
 const LOOP = false
 
-const JOIPreloaderSpeechControl = () => {
+const JOISpeechControl = () => {
   const audioElement = useRef<HTMLAudioElement | null>(null)
   const gainNode = useRef<GainNode | null>(null)
 
@@ -64,4 +64,4 @@ const JOIPreloaderSpeechControl = () => {
   return null
 }
 
-export default JOIPreloaderSpeechControl
+export default JOISpeechControl

@@ -5,15 +5,15 @@ import { SkinnedMesh } from 'three'
 import { SoundsContext } from '@/app/libs/SoundsContext'
 import { DEFAULT_MUSIC_LOOP_VOLUME, JOI_MUSIC_LOOP_TRANSITION_DURATION, LOW_MUSIC_LOOP_VOLUME } from '@/app/audio/ELAudioStartSoundControl'
 
-const JOI_VOICE_PATH = './sounds/JOI-Voice/intro/'
-const INTRO_01 = 'Intro-01.mp3'
-const INTRO_02 = 'Intro-02.mp3'
-const INTRO_03 = 'Intro-03.mp3'
-const INTRO_04 = 'Intro-04.mp3'
+const JOI_VOICE_PATH = './sounds/JOI-Voice/00-intro/Intro/'
+const INTRO_01 = '01-intro.mp3'
+const INTRO_02 = '02-intro.mp3'
+const INTRO_03 = '03-intro.mp3'
+const INTRO_04 = '04-intro.mp3'
 
 const MAX_VOLUME = 255
 const MAX_INFLUENCE = 0.15
-const GAIN_NODE_VOLUME = 0.5
+const GAIN_NODE_VOLUME = 0.75
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)

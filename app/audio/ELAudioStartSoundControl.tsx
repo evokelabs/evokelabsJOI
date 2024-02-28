@@ -3,7 +3,7 @@ import MusicStartSoundControl from './music/MusicStartSoundControl'
 import MusicLoopSoundControl from './music/MusicLoopSoundControl'
 import RainSoundControl from './environment/RainSoundControl'
 import CyberpunkAmbienceSoundControl from './environment/CyberpunkAmbienceSoundControl'
-import JOIPreloaderSpeechControl from './JOI/JOIPreloaderSpeechControl'
+import JOISpeechControl from './JOI/JOISpeechControl'
 import { SoundsContext } from '../libs/SoundsContext'
 
 export const DEFAULT_MUSIC_LOOP_VOLUME = 0.55
@@ -14,7 +14,6 @@ export const JOI_MUSIC_LOOP_TRANSITION_DURATION = 1250
 const ELAudioStartSoundControl = () => {
   const [play, setPlay] = useState(false)
   const hasStarted = useRef(false)
-
 
   useEffect(() => {
     const handleUserInteraction = () => {
@@ -38,7 +37,7 @@ const ELAudioStartSoundControl = () => {
 
   return (
     <>
-      {play && <JOIPreloaderSpeechControl />}
+      {play && <JOISpeechControl />}
       {play && <MusicStartSoundControl />}
       {play && <MusicLoopSoundControl />}
       {play && <RainSoundControl />}
