@@ -1,5 +1,5 @@
 import { AnimationContext } from '@/app/libs/AnimationContext'
-import { useEffect, useState, useContext, useCallback } from 'react'
+import { useEffect, useState, useContext, useCallback, useRef } from 'react'
 import { SkinnedMesh } from 'three'
 
 import { SoundsContext } from '@/app/libs/SoundsContext'
@@ -19,7 +19,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const { setMusicVolume } = useContext(SoundsContext)
   const { setMusicLoopTransitionDuration, JOILineSpeak } = useContext(SoundsContext)
   const [initialAudioFile, setInitialAudioFile] = useState<string | null>(null)
-  const [randomFile, setRandomFile] = useState<string | null>(null)
+  const randomFile = useRef<string | null>(null)
   const [visited, setVisited] = useState<boolean>(false)
   const [shouldPlayAudio, setShouldPlayAudio] = useState(false)
 
@@ -48,7 +48,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
   useEffect(() => {
     setHasPlayed(false)
-    setShouldPlayAudio(true)
   }, [JOILineSpeak])
 
   useEffect(() => {
@@ -56,21 +55,24 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
     const visitedCookie = document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited='))
     const files = INTRO_FILES.slice(1) // exclude the first file
-    const randomFile = getFilePath(JOILineSpeak) // use getFilePath here
-    const audioFile = visitedCookie ? randomFile : INTRO_FILES[0]
+    const randomFilePath = getFilePath(JOILineSpeak) // use getFilePath here
+    const audioFile = visitedCookie ? randomFilePath : INTRO_FILES[0]
 
     setVisited(!!visitedCookie)
-    setRandomFile(randomFile) // Always set randomFile
+    randomFile.current = randomFilePath
 
     if (!visitedCookie) {
       setInitialAudioFile(audioFile)
     }
+
+    // The rest of the audio playing logic goes here...
   }, [JOILineSpeak, hasPlayed, shouldJOISpeak, model, setMusicVolume, setMusicLoopTransitionDuration, JOISpeechData, getFilePath])
 
   useEffect(() => {
     if (hasPlayed || !shouldJOISpeak || !model || !randomFile) return
 
-    const audio = new Audio(randomFile)
+    if (!randomFile.current) return
+    const audio = new Audio(randomFile.current)
     const audioContext = new AudioContext()
     const source = audioContext.createMediaElementSource(audio)
     const analyser = audioContext.createAnalyser()
