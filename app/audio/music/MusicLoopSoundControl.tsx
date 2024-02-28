@@ -16,6 +16,7 @@ const MusicLoopSoundControl = () => {
   const LOOP = true
 
   useEffect(() => {
+    console.log('MusicLoopSoundControl useEffect', musicVolume)
     const currentAudioElement = audioElement.current
 
     // Create a MediaElementAudioSourceNode from the audio element

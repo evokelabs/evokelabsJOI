@@ -42,8 +42,7 @@ import { RoutesContext } from '../libs/RoutesContext'
 // const debug = true
 const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
-// const MENU_HOME_WAIT_TIMER = 18000
-const MENU_HOME_WAIT_TIMER = 0
+const MENU_HOME_WAIT_TIMER = 18000
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // State
@@ -126,6 +125,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     }
   }, [currentRouteSelection, router, ROUTE_CONFIG])
 
+  useEffect(() => {
+    console.log('evokelabs 3d musicVolume', musicVolume)
+  }, [musicVolume])
+
   return (
     <>
       <Canvas
@@ -135,8 +138,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           powerPreference: 'high-performance'
         }}
       >
-        <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
-          <SoundsContext.Provider value={{ musicVolume, setMusicVolume, musicLoopTransitionDuration, setMusicLoopTransitionDuration }}>
+        <SoundsContext.Provider value={{ musicVolume, setMusicVolume, musicLoopTransitionDuration, setMusicLoopTransitionDuration }}>
+          <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
             <RoutesContext.Provider value={{ currentRouteSelection, setCurrentRouteSelection }}>
               <div className='max-w-[1170px]'>
                 {isPreLoaderFinished && router.pathname === '/' && <Home />}
@@ -147,35 +150,34 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 {router.pathname === '/joi' && <JOISpecial />}
                 {router.pathname === '/availabilities' && <Availabilities />}
                 {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
-
-                <ELAudioStartSoundControl />
               </div>
             </RoutesContext.Provider>
-          </SoundsContext.Provider>
-        </Html>
-        <VideoSkybox />
-        {debug ? <Perf position='top-left' /> : null}
-        {/* <Perf position='top-left' /> */}
-        <CameraRig fov={fov} debug={debug} />
-        <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
-        <AnimationContext.Provider
-          value={{
-            shouldAmbientLightPlay,
-            shouldPointLightPlay,
-            shouldJOISpeak,
-            setAmbientLightPlay,
-            setPointLightPlay,
-            setShouldJOISpeak
-          }}
-        >
-          <Lights />
-          {isCarReady && <CyberpunkCar />}
-          <WideMonitor />
-          <DeskItems />
-          {gpuTier !== null && gpuTier >= 2 ? <CyberpunkMap /> : <CyberpunkMapLowPoly />}
-          <JOI />
-          <Rain />
-        </AnimationContext.Provider>
+          </Html>
+          <VideoSkybox />
+          <ELAudioStartSoundControl />
+          {debug ? <Perf position='top-left' /> : null}
+          {/* <Perf position='top-left' /> */}
+          <CameraRig fov={fov} debug={debug} />
+          <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
+          <AnimationContext.Provider
+            value={{
+              shouldAmbientLightPlay,
+              shouldPointLightPlay,
+              shouldJOISpeak,
+              setAmbientLightPlay,
+              setPointLightPlay,
+              setShouldJOISpeak
+            }}
+          >
+            <Lights />
+            {isCarReady && <CyberpunkCar />}
+            <WideMonitor />
+            <DeskItems />
+            {gpuTier !== null && gpuTier >= 2 ? <CyberpunkMap /> : <CyberpunkMapLowPoly />}
+            <JOI />
+            <Rain />
+          </AnimationContext.Provider>
+        </SoundsContext.Provider>
         <EffectComposer disableNormalPass>
           <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
           <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />

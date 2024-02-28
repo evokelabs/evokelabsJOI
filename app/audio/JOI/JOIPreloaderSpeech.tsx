@@ -9,7 +9,7 @@ const DELAY = 2500
 const TRANSITION_DURATION = 150
 const LOOP = false
 
-const JOISpeechControl = () => {
+const JOIPreloaderSpeech = () => {
   const audioElement = useRef<HTMLAudioElement | null>(null)
   const gainNode = useRef<GainNode | null>(null)
 
@@ -59,4 +59,4 @@ const JOISpeechControl = () => {
   return null
 }
 
-export default JOISpeechControl
+export default JOIPreloaderSpeech
