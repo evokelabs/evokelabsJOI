@@ -56,6 +56,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   useEffect(() => {
     if (hasPlayed || !shouldJOISpeak || !model || JOILineSpeak === null) return
 
+    console.log('speech useEFfect called')
+
     const visitedCookie = document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited='))
     const files = INTRO_FILES.slice(1) // exclude the first file
     const randomFilePath = getFilePath(JOILineSpeak) // use getFilePath here
@@ -72,17 +74,12 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }, [JOILineSpeak, hasPlayed, shouldJOISpeak, model, setMusicVolume, setMusicLoopTransitionDuration, JOISpeechData, getFilePath])
 
   useEffect(() => {
-    console.log('first useEffect passes')
     if (hasPlayed || !shouldJOISpeak || !model || !randomFile) return
-
-    console.log('second useEffect passes')
     if (!randomFile.current) return
-    console.log('third useEffect passes')
-    console.log('currentAudio.current', currentAudio.current, 'isPlaying.current', isPlaying.current)
     if (isPlaying.current) {
       return
     }
-    console.log('fourth useEffect passes')
+
     const audio = new Audio(randomFile.current)
     currentAudio.current = audio
     const audioContext = new AudioContext()
@@ -106,29 +103,23 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume before the audio starts playing
     setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
 
-    console.log('function before set timeout', randomFile)
-
     setTimeout(() => {
-      console.log('Audio play', randomFile)
       audio.play().catch(error => console.error('Audio play failed due to', error))
       isPlaying.current = true
     }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2)
 
     audio.onended = () => {
-      console.log('Audio onEnded')
       isPlaying.current = false
       setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
       if (timeoutId) clearTimeout(timeoutId)
     }
 
     audio.onerror = () => {
-      console.error('Audio playback failed')
       isPlaying.current = false
       if (timeoutId) clearTimeout(timeoutId)
     }
 
     if (audioContext.state === 'suspended') {
-      console.log('Audio context state is suspended')
       audioContext.resume()
     }
 
