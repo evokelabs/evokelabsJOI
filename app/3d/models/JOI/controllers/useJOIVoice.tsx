@@ -21,6 +21,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [initialAudioFile, setInitialAudioFile] = useState<string | null>(null)
   const randomFile = useRef<string | null>(null)
   const [visited, setVisited] = useState<boolean>(false)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   const currentAudio = useRef<HTMLAudioElement | null>(null)
 
@@ -70,14 +71,19 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }, [JOILineSpeak, hasPlayed, shouldJOISpeak, model, setMusicVolume, setMusicLoopTransitionDuration, JOISpeechData, getFilePath])
 
   useEffect(() => {
+    console.log('first useEffect passes')
     if (hasPlayed || !shouldJOISpeak || !model || !randomFile) return
 
+    console.log('second useEffect passes')
     if (!randomFile.current) return
-
+    console.log('third useEffect passes')
     if (currentAudio.current && !currentAudio.current.ended) {
       return
     }
-
+    if (isPlaying) {
+      return
+    }
+    console.log('fourth useEffect passes')
     const audio = new Audio(randomFile.current)
     currentAudio.current = audio
     const audioContext = new AudioContext()
@@ -101,9 +107,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     setTimeout(() => {
       console.log('Audio play', randomFile)
       audio.play().catch(error => console.error('Audio play failed due to', error))
+      setIsPlaying(true)
     }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2)
 
     audio.onended = () => {
+      setIsPlaying(false)
       setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
     }
 
