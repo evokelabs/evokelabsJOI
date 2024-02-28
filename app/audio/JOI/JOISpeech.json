@@ -46,7 +46,7 @@
   "services": [
     { "text": "We've got the skills, if you've got the credits", "filepath": "./sounds/JOI-voice/01-Services/01-skillscredits.mp3" },
     { "text": "Netrunner for hire, just what every corpo needs.", "filepath": "./sounds/JOI-voice/01-Services/02-netrunner.mp3" },
-    { "text": "We take the corpo life path very seriously.", "filepath": "./sounds/JOI-voice/01-Services/03-corpolifepath" },
+    { "text": "We take the corpo life path very seriously.", "filepath": "./sounds/JOI-voice/01-Services/03-corpolifepath.mp3" },
     { "text": "They say there's no such thing as fair game. We disagree.", "filepath": "./sounds/JOI-voice/01-Services/04-fairgame.mp3" },
     { "text": "Zeroing somebody will cost extra.", "filepath": "./sounds/JOI-voice/01-Services/05-zeroing.mp3" },
     { "text": "It's the code you live by that defines who you are.", "filepath": "./sounds/JOI-voice/01-Services/06-code.mp3" }

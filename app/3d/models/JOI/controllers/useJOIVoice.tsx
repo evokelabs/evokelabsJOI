@@ -11,7 +11,7 @@ const INTRO_FILES = JOISpeech.intro.map(item => item.filepath)
 
 const MAX_VOLUME = 255
 const MAX_INFLUENCE = 0.15
-const GAIN_NODE_VOLUME = 0.75
+const GAIN_NODE_VOLUME = 2
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
@@ -21,7 +21,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [initialAudioFile, setInitialAudioFile] = useState<string | null>(null)
   const randomFile = useRef<string | null>(null)
   const [visited, setVisited] = useState<boolean>(false)
-  const [shouldPlayAudio, setShouldPlayAudio] = useState(false)
+
+  const currentAudio = useRef<HTMLAudioElement | null>(null)
 
   interface JOISpeechType {
     [key: string]: any[]
@@ -72,7 +73,13 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     if (hasPlayed || !shouldJOISpeak || !model || !randomFile) return
 
     if (!randomFile.current) return
+
+    if (currentAudio.current && !currentAudio.current.ended) {
+      return
+    }
+
     const audio = new Audio(randomFile.current)
+    currentAudio.current = audio
     const audioContext = new AudioContext()
     const source = audioContext.createMediaElementSource(audio)
     const analyser = audioContext.createAnalyser()
