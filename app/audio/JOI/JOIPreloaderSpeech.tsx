@@ -30,6 +30,15 @@ const JOIPreloaderSpeech = () => {
     source.connect(gainNode.current)
     gainNode.current.connect(audioContext.destination)
 
+    // Define a function to handle the 'ended' event
+    const handleEnded = () => {
+      if (gainNode.current) {
+        gainNode.current.disconnect()
+      }
+      source.disconnect()
+      audioContext.close()
+    }
+
     // Define a function to play the audio
     const playAudio = () => {
       if (audioElement.current && gainNode.current) {
@@ -45,6 +54,9 @@ const JOIPreloaderSpeech = () => {
         } else {
           gainNode.current.gain.setValueAtTime(0, audioContext.currentTime + TRANSITION_DURATION / 1000)
         }
+
+        // Add the 'ended' event listener
+        audioElement.current.addEventListener('ended', handleEnded)
       }
     }
 
@@ -52,7 +64,9 @@ const JOIPreloaderSpeech = () => {
 
     // Clean up event listeners when the component unmounts
     return () => {
-      audioElement.current?.removeEventListener('canplaythrough', playAudio)
+      if (audioElement.current) {
+        audioElement.current.removeEventListener('ended', handleEnded)
+      }
     }
   }, [])
 

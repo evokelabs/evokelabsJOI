@@ -17,6 +17,15 @@ function useAudio(audioSource: string, volume: number, delay: number, transition
     source.connect(gainNode.current)
     gainNode.current.connect(audioContext.destination)
 
+    // Define a function to handle the 'ended' event
+    const handleEnded = () => {
+      if (gainNode.current) {
+        gainNode.current.disconnect()
+      }
+      source.disconnect()
+      audioContext.close()
+    }
+
     // Define a function to play the audio
     const playAudio = () => {
       if (audioElement.current && gainNode.current) {
@@ -32,6 +41,11 @@ function useAudio(audioSource: string, volume: number, delay: number, transition
         } else {
           gainNode.current.gain.setValueAtTime(0, audioContext.currentTime + transitionDuration / 1000)
         }
+
+        // Add the 'ended' event listener if the audio does not loop
+        if (!loop) {
+          audioElement.current.addEventListener('ended', handleEnded)
+        }
       }
     }
 
@@ -39,7 +53,9 @@ function useAudio(audioSource: string, volume: number, delay: number, transition
 
     // Clean up event listeners when the component unmounts
     return () => {
-      audioElement.current?.removeEventListener('canplaythrough', playAudio)
+      if (audioElement.current) {
+        audioElement.current.removeEventListener('ended', handleEnded)
+      }
     }
   }, [audioSource, delay, loop, transitionDuration, volume])
 

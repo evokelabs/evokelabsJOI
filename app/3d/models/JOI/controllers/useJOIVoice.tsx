@@ -91,6 +91,21 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   ])
 
   useEffect(() => {
+    console.log(
+      '2nd useEffect triggered. hasPlayed',
+      hasPlayed,
+      'shouldJOISpeak',
+      shouldJOISpeak,
+      'audioFileRef',
+      audioFileRef,
+      'JOILineSpeak',
+      JOILineSpeak,
+      'hasSiteHomeVisited',
+      hasSiteHomeVisited,
+      'model',
+      model
+    )
+
     if (hasPlayed || !shouldJOISpeak || !model || !audioFileRef || (JOILineSpeak === null && hasSiteHomeVisited)) return
 
     if (!audioFileRef.current) return
