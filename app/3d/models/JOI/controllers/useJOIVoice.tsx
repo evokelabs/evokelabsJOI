@@ -13,6 +13,7 @@ const MAX_VOLUME = 255
 const MAX_INFLUENCE = 0.15
 const GAIN_NODE_VOLUME = 2
 const TIMEOUT_FAIL_SAFE = 7500
+const KEYS = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'availability']
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
@@ -25,6 +26,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasSiteHomeVisited, setHasSiteHomeVisited] = useState(false)
   const currentAudio = useRef<HTMLAudioElement | null>(null)
   const audioFileRef = useRef<string | null>(null)
+  const audioContextRef = useRef<AudioContext | null>(null)
 
   interface JOISpeechType {
     [key: string]: any[]
@@ -32,13 +34,16 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
   const JOISpeechData: JOISpeechType = JOISpeech
 
+  useEffect(() => {
+    audioContextRef.current = new AudioContext()
+  }, [])
+
   const getFilePath = useCallback(
     (JOILineSpeak: number) => {
-      const keys = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'availability']
-
-      const key = keys[JOILineSpeak]
+      const key = KEYS[JOILineSpeak]
       if (!key || !JOISpeechData[key]) {
-        throw new Error('Invalid JOILineSpeak value')
+        console.error('Invalid JOILineSpeak value')
+        return
       }
 
       // get a random item from the array
@@ -91,134 +96,126 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   ])
 
   useEffect(() => {
-    console.log(
-      '2nd useEffect triggered. hasPlayed',
-      hasPlayed,
-      'shouldJOISpeak',
-      shouldJOISpeak,
-      'audioFileRef',
-      audioFileRef,
-      'JOILineSpeak',
-      JOILineSpeak,
-      'hasSiteHomeVisited',
-      hasSiteHomeVisited,
-      'model',
-      model
-    )
+    if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited)) return
 
-    if (hasPlayed || !shouldJOISpeak || !model || !audioFileRef || (JOILineSpeak === null && hasSiteHomeVisited)) return
+    const audioContext = audioContextRef.current
+    if (!audioContext || isPlaying.current) return
 
-    if (!audioFileRef.current) return
-    const audio = new Audio(audioFileRef.current)
+    if (audioFileRef.current) {
+      const audio = new Audio(audioFileRef.current)
 
-    if (isPlaying.current) {
-      return
-    }
+      if (!audio) return
 
-    currentAudio.current = audio
-    const audioContext = new AudioContext()
-    const source = audioContext.createMediaElementSource(audio)
-    const analyser = audioContext.createAnalyser()
+      currentAudio.current = audio
 
-    let timeoutId: NodeJS.Timeout | null = setTimeout(() => {
-      isPlaying.current = false
-      setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
-      console.log('fail safe reset')
-    }, TIMEOUT_FAIL_SAFE) // Fail safe reset incase audio messed up
+      const source = audioContext.createMediaElementSource(audio)
+      const analyser = audioContext.createAnalyser()
 
-    source.connect(analyser)
-    analyser.connect(audioContext.destination)
+      let timeoutId: NodeJS.Timeout | null = setTimeout(() => {
+        isPlaying.current = false
+        setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
+      }, TIMEOUT_FAIL_SAFE)
 
-    const gainNode = audioContext.createGain() // Create a GainNode
-    source.connect(gainNode) // Connect the source to the GainNode
-    gainNode.connect(audioContext.destination) // Connect the GainNode to the destination
+      source.connect(analyser)
+      analyser.connect(audioContext.destination)
 
-    gainNode.gain.value = GAIN_NODE_VOLUME
+      const gainNode = audioContext.createGain() // Create a GainNode
+      source.connect(gainNode) // Connect the source to the GainNode
+      gainNode.connect(audioContext.destination) // Connect the GainNode to the destination
 
-    setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume before the audio starts playing
-    setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
+      gainNode.gain.value = GAIN_NODE_VOLUME
 
-    setTimeout(() => {
-      audio.play().catch(error => console.error('Audio play failed due to', error))
-      isPlaying.current = true
-    }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2) // delay the audio play to match the music loop transition duration
+      setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume before the audio starts playing
+      setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
 
-    audio.onended = () => {
-      isPlaying.current = false
-      setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
-      if (timeoutId) clearTimeout(timeoutId)
-    }
+      setTimeout(() => {
+        audio.play().catch(error => console.error('Audio play failed due to', error))
+        isPlaying.current = true
+      }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2) // delay the audio play to match the music loop transition duration
 
-    audio.onerror = () => {
-      isPlaying.current = false
-      if (timeoutId) clearTimeout(timeoutId)
-    }
-
-    if (audioContext.state === 'suspended') {
-      audioContext.resume()
-    }
-
-    const updateMorphTarget = () => {
-      const data = new Uint8Array(analyser.frequencyBinCount)
-      analyser.getByteFrequencyData(data)
-
-      const binSize = Math.floor(data.length / 4)
-      const bins = [data.slice(0, binSize), data.slice(binSize, binSize * 2), data.slice(binSize * 2, binSize * 3), data.slice(binSize * 3)]
-
-      const volumes = bins.map(bin => bin.reduce((a, b) => a + b) / bin.length)
-      const influences = volumes.map((volume, index) => {
-        let influence = Math.min(Math.max(volume / MAX_VOLUME, 0), 1)
-        // Apply MAX_INFLUENCE only for influences[1] and influences[2]
-        if (index === 1 || index === 2) {
-          influence = Math.min(influence, MAX_INFLUENCE)
-        }
-        return influence
-      })
-
-      const skinnedMeshes: THREE.SkinnedMesh[] = []
-      model.traverse(object => {
-        if (object instanceof SkinnedMesh) {
-          skinnedMeshes.push(object as THREE.SkinnedMesh)
-        }
-      })
-
-      const { JawOpen: jawOpenIndex, OOO: oooIndex, EEE: eeeIndex } = skinnedMeshes[0]?.morphTargetDictionary || {}
-
-      skinnedMeshes.forEach(mesh => {
-        mesh.morphTargetInfluences?.splice(jawOpenIndex, 1, influences[0])
-        mesh.morphTargetInfluences?.splice(oooIndex, 1, influences[1])
-        mesh.morphTargetInfluences?.splice(eeeIndex, 1, influences[2])
-      })
-
-      requestAnimationFrame(updateMorphTarget)
-    }
-
-    updateMorphTarget()
-
-    const onAudioEnd = () => {
-      if (!visited) {
-        const date = new Date()
-        date.setDate(date.getDate() + 7)
-        document.cookie = `evokelabs-visited=true; expires=${date.toUTCString()}`
+      audio.onended = () => {
+        isPlaying.current = false
+        setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
+        if (timeoutId) clearTimeout(timeoutId)
       }
-      setHasPlayed(true)
-    }
 
-    audio.addEventListener('ended', onAudioEnd)
+      audio.onerror = () => {
+        isPlaying.current = false
+        if (timeoutId) clearTimeout(timeoutId)
+      }
 
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId)
-      audio.removeEventListener('ended', onAudioEnd)
+      if (audioContext.state === 'suspended') {
+        audioContext.resume()
+      }
+
+      const updateMorphTarget = () => {
+        const data = new Uint8Array(analyser.frequencyBinCount)
+        analyser.getByteFrequencyData(data)
+
+        const binSize = Math.floor(data.length / 4)
+        const bins = [
+          data.slice(0, binSize),
+          data.slice(binSize, binSize * 2),
+          data.slice(binSize * 2, binSize * 3),
+          data.slice(binSize * 3)
+        ]
+
+        const volumes = bins.map(bin => bin.reduce((a, b) => a + b) / bin.length)
+        const influences = volumes.map((volume, index) => {
+          let influence = Math.min(Math.max(volume / MAX_VOLUME, 0), 1)
+          // Apply MAX_INFLUENCE only for influences[1] and influences[2]
+          if (index === 1 || index === 2) {
+            influence = Math.min(influence, MAX_INFLUENCE)
+          }
+          return influence
+        })
+
+        const skinnedMeshes: THREE.SkinnedMesh[] = []
+        model.traverse(object => {
+          if (object instanceof SkinnedMesh) {
+            skinnedMeshes.push(object as THREE.SkinnedMesh)
+          }
+        })
+
+        const { JawOpen: jawOpenIndex, OOO: oooIndex, EEE: eeeIndex } = skinnedMeshes[0]?.morphTargetDictionary || {}
+
+        skinnedMeshes.forEach(mesh => {
+          mesh.morphTargetInfluences?.splice(jawOpenIndex, 1, influences[0])
+          mesh.morphTargetInfluences?.splice(oooIndex, 1, influences[1])
+          mesh.morphTargetInfluences?.splice(eeeIndex, 1, influences[2])
+        })
+
+        requestAnimationFrame(updateMorphTarget)
+      }
+
+      updateMorphTarget()
+
+      const onAudioEnd = () => {
+        if (!visited) {
+          const date = new Date()
+          date.setDate(date.getDate() + 7)
+          document.cookie = `evokelabs-visited=true; expires=${date.toUTCString()}`
+        }
+        setHasPlayed(true)
+      }
+
+      audio.addEventListener('ended', onAudioEnd)
+
+      return () => {
+        if (timeoutId) clearTimeout(timeoutId)
+        audio.removeEventListener('ended', onAudioEnd)
+      }
     }
   }, [
+    JOILineSpeak,
     hasPlayed,
     shouldJOISpeak,
     model,
     setMusicVolume,
     setMusicLoopTransitionDuration,
-    audioFileRef,
-    visited,
-    JOILineSpeak,
-    hasSiteHomeVisited
+    JOISpeechData,
+    getFilePath,
+    hasSiteHomeVisited,
+    visited
   ])
 }
