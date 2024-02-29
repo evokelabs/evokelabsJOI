@@ -16,9 +16,10 @@ const TIMEOUT_FAIL_SAFE = 7500
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
-  const { shouldJOISpeak } = useContext(AnimationContext)
+  const { shouldJOISpeak, setShouldJOISpeak } = useContext(AnimationContext)
   const { setMusicVolume } = useContext(SoundsContext)
   const { setMusicLoopTransitionDuration, JOILineSpeak } = useContext(SoundsContext)
+  const [initialAudioFile, setInitialAudioFile] = useState<string | null>(null)
   const [visited, setVisited] = useState<boolean>(false)
   const isPlaying = useRef(false)
 
@@ -58,22 +59,16 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     let audioFile
 
     if (JOILineSpeak === null) {
-      const introFiles = JOISpeech.intro // assuming JOISpeech is the parsed JSON data
+      const introFiles = JOISpeech.intro
       const randomFile = introFiles[Math.floor(Math.random() * introFiles.length)]
+      const visitedCookie = document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited='))
       audioFileRef.current = randomFile.filepath
       audioFile = randomFile.filepath
+      audioFileRef.current = visitedCookie ? randomFile.filepath : INTRO_FILES[0]
     } else {
-      const visitedCookie = document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited='))
-      const files = INTRO_FILES.slice(1) // exclude the first file
       const randomFilePath = getFilePath(JOILineSpeak) // use getFilePath here
-      audioFileRef.current = visitedCookie ? randomFilePath : INTRO_FILES[0]
-
-      console.log('INTRO_FILES[0]', INTRO_FILES[0])
-
-      setVisited(!!visitedCookie)
-
+      audioFileRef.current = randomFilePath
       if (!audioFileRef.current) return
-      const audio = new Audio(audioFileRef.current)
     }
 
     // The rest of the audio playing logic goes here...
