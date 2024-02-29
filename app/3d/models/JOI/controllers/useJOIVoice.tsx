@@ -56,20 +56,21 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   useEffect(() => {
     if (!shouldJOISpeak || !model) return
 
-    let audioFile
-
-    console.log('JOILineSpeak', JOILineSpeak)
-    console.log('hasSiteHomeVisited', hasSiteHomeVisited)
-
     if (JOILineSpeak === null) {
       if (hasSiteHomeVisited) return
       const introFiles = JOISpeech.intro
-      const randomFile = introFiles[Math.floor(Math.random() * introFiles.length)]
       const visitedCookie = document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited='))
-      audioFileRef.current = randomFile.filepath
-      audioFile = randomFile.filepath
-      audioFileRef.current = visitedCookie ? randomFile.filepath : INTRO_FILES[0]
       setHasSiteHomeVisited(true)
+
+      if (visitedCookie) {
+        // If the cookie is found, select a random file that is not the first one
+        const nonFirstIntroFiles = introFiles.filter((_, index) => index !== 0)
+        const randomFile = nonFirstIntroFiles[Math.floor(Math.random() * nonFirstIntroFiles.length)]
+        audioFileRef.current = randomFile.filepath
+      } else {
+        // If the cookie is not found, play the first file
+        audioFileRef.current = INTRO_FILES[0]
+      }
     } else if (JOILineSpeak !== null) {
       const randomFilePath = getFilePath(JOILineSpeak) // use getFilePath here
       audioFileRef.current = randomFilePath
@@ -194,5 +195,15 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       if (timeoutId) clearTimeout(timeoutId)
       audio.removeEventListener('ended', onAudioEnd)
     }
-  }, [hasPlayed, shouldJOISpeak, model, setMusicVolume, setMusicLoopTransitionDuration, audioFileRef, visited, JOILineSpeak])
+  }, [
+    hasPlayed,
+    shouldJOISpeak,
+    model,
+    setMusicVolume,
+    setMusicLoopTransitionDuration,
+    audioFileRef,
+    visited,
+    JOILineSpeak,
+    hasSiteHomeVisited
+  ])
 }
