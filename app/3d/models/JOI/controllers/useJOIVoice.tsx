@@ -55,9 +55,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   )
 
   useEffect(() => {
-    if (JOILineSpeak === null) return
     setHasPlayed(false)
-    isPlaying.current = false
   }, [JOILineSpeak])
 
   useEffect(() => {
