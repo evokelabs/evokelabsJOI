@@ -55,7 +55,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   )
 
   useEffect(() => {
+    if (JOILineSpeak === null) return
     setHasPlayed(false)
+    isPlaying.current = false
   }, [JOILineSpeak])
 
   useEffect(() => {
@@ -96,12 +98,30 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   ])
 
   useEffect(() => {
+    console.log('1st check pass')
+    console.log(
+      'useEffect shouldJOISpeak',
+      shouldJOISpeak,
+      'hasPlayed',
+      hasPlayed,
+      'JOILineSpeak',
+      JOILineSpeak,
+      'hasSiteHomeVisited',
+      hasSiteHomeVisited,
+      'model',
+      model
+    )
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited)) return
+    console.log('2nd check pass')
 
     const audioContext = audioContextRef.current
+    console.log('pre 3rd check, audioContext', audioContext, 'isPlaying.current', isPlaying.current)
     if (!audioContext || isPlaying.current) return
-
+    console.log('3rd useEFfectpass')
+    console.log('audioFileRef', audioFileRef)
+    console.log('audioFileRef current', audioFileRef.current)
     if (audioFileRef.current) {
+      console.log('audioFileRef.current pass')
       const audio = new Audio(audioFileRef.current)
 
       if (!audio) return
