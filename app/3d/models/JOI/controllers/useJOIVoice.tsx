@@ -16,13 +16,13 @@ const TIMEOUT_FAIL_SAFE = 7500
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
-  const { shouldJOISpeak, setShouldJOISpeak } = useContext(AnimationContext)
+  const { shouldJOISpeak } = useContext(AnimationContext)
   const { setMusicVolume } = useContext(SoundsContext)
   const { setMusicLoopTransitionDuration, JOILineSpeak } = useContext(SoundsContext)
-  const [initialAudioFile, setInitialAudioFile] = useState<string | null>(null)
-  const [visited, setVisited] = useState<boolean>(false)
+  const [visited] = useState<boolean>(false)
   const isPlaying = useRef(false)
 
+  const [hasSiteHomeVisited, setHasSiteHomeVisited] = useState(false)
   const currentAudio = useRef<HTMLAudioElement | null>(null)
   const audioFileRef = useRef<string | null>(null)
 
@@ -58,24 +58,39 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
     let audioFile
 
+    console.log('JOILineSpeak', JOILineSpeak)
+    console.log('hasSiteHomeVisited', hasSiteHomeVisited)
+
     if (JOILineSpeak === null) {
+      if (hasSiteHomeVisited) return
       const introFiles = JOISpeech.intro
       const randomFile = introFiles[Math.floor(Math.random() * introFiles.length)]
       const visitedCookie = document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited='))
       audioFileRef.current = randomFile.filepath
       audioFile = randomFile.filepath
       audioFileRef.current = visitedCookie ? randomFile.filepath : INTRO_FILES[0]
-    } else {
+      setHasSiteHomeVisited(true)
+    } else if (JOILineSpeak !== null) {
       const randomFilePath = getFilePath(JOILineSpeak) // use getFilePath here
       audioFileRef.current = randomFilePath
       if (!audioFileRef.current) return
     }
 
     // The rest of the audio playing logic goes here...
-  }, [JOILineSpeak, hasPlayed, shouldJOISpeak, model, setMusicVolume, setMusicLoopTransitionDuration, JOISpeechData, getFilePath])
+  }, [
+    JOILineSpeak,
+    hasPlayed,
+    shouldJOISpeak,
+    model,
+    setMusicVolume,
+    setMusicLoopTransitionDuration,
+    JOISpeechData,
+    getFilePath,
+    hasSiteHomeVisited
+  ])
 
   useEffect(() => {
-    if (hasPlayed || !shouldJOISpeak || !model || !audioFileRef) return
+    if (hasPlayed || !shouldJOISpeak || !model || !audioFileRef || (JOILineSpeak === null && hasSiteHomeVisited)) return
 
     if (!audioFileRef.current) return
     const audio = new Audio(audioFileRef.current)
