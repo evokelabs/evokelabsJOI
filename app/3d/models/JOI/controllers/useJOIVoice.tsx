@@ -131,6 +131,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       setTimeout(() => {
         audio.play().catch(error => console.error('Audio play failed due to', error))
         isPlaying.current = true
+      }, 500) // delay the audio play to give the previous audio time to stop
+
+      setTimeout(() => {
+        audio.play().catch(error => console.error('Audio play failed due to', error))
+        isPlaying.current = true
       }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2) // delay the audio play to match the music loop transition duration
 
       audio.onended = () => {
