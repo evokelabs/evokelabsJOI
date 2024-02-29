@@ -16,10 +16,9 @@ const TIMEOUT_FAIL_SAFE = 7500
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
-  const { shouldJOISpeak, setShouldJOISpeak } = useContext(AnimationContext)
+  const { shouldJOISpeak } = useContext(AnimationContext)
   const { setMusicVolume } = useContext(SoundsContext)
   const { setMusicLoopTransitionDuration, JOILineSpeak } = useContext(SoundsContext)
-  const [initialAudioFile, setInitialAudioFile] = useState<string | null>(null)
   const [visited, setVisited] = useState<boolean>(false)
   const isPlaying = useRef(false)
 
@@ -54,19 +53,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }, [JOILineSpeak])
 
   useEffect(() => {
-    console.log(
-      'speech useEFfect called init, hasPlayed',
-      hasPlayed,
-      'shouldJOiSpeak',
-      shouldJOISpeak,
-      'JOILineSpeak',
-      JOILineSpeak,
-      'model',
-      model
-    )
-
-    // if (hasPlayed || !shouldJOISpeak || !model || JOILineSpeak === null) return
-
     if (!shouldJOISpeak || !model) return
 
     let audioFile
@@ -76,9 +62,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       const randomFile = introFiles[Math.floor(Math.random() * introFiles.length)]
       audioFileRef.current = randomFile.filepath
       audioFile = randomFile.filepath
-      console.log('JOILineSpeak is null, using JOISpeech.intro', audioFile)
     } else {
-      console.log('JOILineSpeak is not null, using getFilePath')
       const visitedCookie = document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited='))
       const files = INTRO_FILES.slice(1) // exclude the first file
       const randomFilePath = getFilePath(JOILineSpeak) // use getFilePath here
@@ -96,32 +80,14 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }, [JOILineSpeak, hasPlayed, shouldJOISpeak, model, setMusicVolume, setMusicLoopTransitionDuration, JOISpeechData, getFilePath])
 
   useEffect(() => {
-    console.log(
-      '2nd useEffect called. hasplayed,',
-      hasPlayed,
-      'shouldJOISpeak',
-      shouldJOISpeak,
-      'audioFileRef.current',
-      audioFileRef.current,
-      'currentAudio.current',
-      currentAudio.current,
-      'JOILineSpeak',
-      JOILineSpeak,
-      'visited',
-      visited,
-      'model',
-      model
-    )
     if (hasPlayed || !shouldJOISpeak || !model || !audioFileRef) return
 
-    console.log('2nd useEffect 1')
     if (!audioFileRef.current) return
     const audio = new Audio(audioFileRef.current)
-    console.log('2nd useEffect 2')
+
     if (isPlaying.current) {
       return
     }
-    console.log('2nd useEffect 3')
 
     currentAudio.current = audio
     const audioContext = new AudioContext()
@@ -133,7 +99,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
       console.log('fail safe reset')
     }, TIMEOUT_FAIL_SAFE) // Fail safe reset incase audio messed up
-    console.log('posttrigger timeoutID', timeoutId)
 
     source.connect(analyser)
     analyser.connect(audioContext.destination)
