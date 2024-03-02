@@ -39,8 +39,8 @@ import { getGPUTier } from 'detect-gpu'
 import { RoutesContext } from '../libs/RoutesContext'
 
 // Constants
-// const debug = true
-const debug = false
+const debug = true
+// const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 const MENU_HOME_WAIT_TIMER = 18000
 
@@ -92,6 +92,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         console.error('Could not determine GPU tier')
         return
       }
+      console.log('gpuInfo.tier', gpuInfo.tier)
 
       setGpuTier(gpuInfo.tier)
     }
@@ -131,7 +132,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   useEffect(() => {
     setJOILineSpeak(currentRouteSelection)
   }, [currentRouteSelection])
-
+  console.log('gpuTier', gpuTier)
   return (
     <>
       <Canvas
@@ -182,18 +183,20 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
             }}
           >
             <Lights />
-            {isCarReady && <CyberpunkCar />}
+            {/* {isCarReady && <CyberpunkCar />} */}
             <WideMonitor />
-            <DeskItems />
-            {gpuTier !== null && gpuTier >= 2 ? <CyberpunkMap /> : <CyberpunkMapLowPoly />}
+            {/* <DeskItems /> */}
+            {gpuTier !== null && gpuTier >= 3 ? <CyberpunkMap /> : <CyberpunkMapLowPoly />}
+
+            {/* <CyberpunkMapLowPoly /> */}
             <JOI />
             <Rain />
           </AnimationContext.Provider>
         </SoundsContext.Provider>
         <EffectComposer disableNormalPass>
-          <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
+          {/* <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={2} /> */}
           <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
-          <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
+          {/* <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} /> */}
           <Noise opacity={0.7} premultiply blendFunction={28} />
           <BrightnessContrast brightness={0.02} contrast={0.275} />
           <Vignette offset={0.0} darkness={1} />

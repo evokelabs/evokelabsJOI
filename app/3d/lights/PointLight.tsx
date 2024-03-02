@@ -45,7 +45,6 @@ const PointLight = ({ positionOffset = [0, 0, 0] }) => {
       color={LIGHT_COLOR}
       position={position}
       intensity={0}
-      castShadow
       shadow-normalBias={SHADOW_NORMAL_BIAS}
       decay={DECAY}
     />

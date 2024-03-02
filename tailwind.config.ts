@@ -47,10 +47,10 @@ const config: Config = {
     function ({ addUtilities, theme }: { addUtilities: any; theme: any }) {
       const newUtilities = {
         '.font-orbitron': {
-          fontFamily: 'Orbitron, sans-serif'
+          fontFamily: '"Orbitron", sans-serif'
         },
         '.font-rajdhani': {
-          fontFamily: 'Rajdhani, sans-serif'
+          fontFamily: '"Rajdhani", sans-serif'
         },
         '.text-red-blur': {
           color: theme('colors.red'),
