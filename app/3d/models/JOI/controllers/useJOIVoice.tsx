@@ -6,6 +6,7 @@ import { SoundsContext } from '@/app/libs/SoundsContext'
 import { DEFAULT_MUSIC_LOOP_VOLUME, JOI_MUSIC_LOOP_TRANSITION_DURATION, LOW_MUSIC_LOOP_VOLUME } from '@/app/audio/ELAudioStartSoundControl'
 
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
+import { RoutesContext } from '@/app/libs/RoutesContext'
 
 const INTRO_FILES = JOISpeech.intro.map(item => item.filepath)
 
@@ -17,7 +18,7 @@ const KEYS = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'avail
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
-  const { shouldJOISpeak } = useContext(AnimationContext)
+  const { shouldJOISpeak, setShouldJOISpeak } = useContext(AnimationContext)
   const { setMusicVolume } = useContext(SoundsContext)
   const { setMusicLoopTransitionDuration, JOILineSpeak } = useContext(SoundsContext)
   const [visited] = useState<boolean>(false)
@@ -53,6 +54,14 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     },
     [JOISpeechData]
   )
+
+  const resetSpeechFlag = useCallback(() => {
+    console.log('resetSpeechFlag')
+    setHasPlayed(false)
+    setShouldJOISpeak(true)
+    setHasPlayed(false)
+    JOILineSpeak
+  }, [setHasPlayed, setShouldJOISpeak, JOILineSpeak])
 
   useEffect(() => {
     setHasPlayed(false)
@@ -241,4 +250,5 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     hasSiteHomeVisited,
     visited
   ])
+  return { resetSpeechFlag }
 }

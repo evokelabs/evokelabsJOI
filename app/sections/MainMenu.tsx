@@ -2,12 +2,15 @@ import { Key, useContext, useState } from 'react'
 import ButtonMainMenu from '../ui/ButtonMainMenu'
 import { NextRouter } from 'next/router'
 import { RoutesContext } from '../libs/RoutesContext'
+import { useJOIVoice } from '../3d/models/JOI/controllers/useJOIVoice'
 
 const MainMenu = ({ router, routeConfig }: { router: NextRouter; routeConfig: any }) => {
   const { currentRouteSelection, setCurrentRouteSelection } = useContext(RoutesContext)
+  const { resetSpeechFlag } = useJOIVoice(null)
 
   const resetAllButtons = (index: number) => {
     setCurrentRouteSelection(index)
+    resetSpeechFlag()
   }
 
   return (
