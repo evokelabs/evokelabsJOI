@@ -92,6 +92,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         ]
         console.log('Text:', responseArray.map(item => item.text).join(' '))
         console.log('Filepath:', responseArray.map(item => item.filepath).join(' '))
+
+        // Update audioFileRef directly
+        audioFileRef.current = responseArray.map(item => item.filepath).join(' ')
+
+        return JOISpeechData[key].map(item => item.filepath)
       }
 
       // get a random item from the array
@@ -160,6 +165,26 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     getFilePath,
     hasSiteHomeVisited
   ])
+  useEffect(() => {
+    let audioIndex = 0
+
+    const playAudio = () => {
+      if (!audioFileRef.current || audioIndex >= audioFileRef.current.length) return
+
+      const audio = new Audio(audioFileRef.current[audioIndex])
+      audio.play()
+
+      audio.onended = () => {
+        audioIndex++
+        playAudio()
+      }
+    }
+
+    if (JOILineSpeak !== null) {
+      getFilePath(JOILineSpeak)
+      playAudio()
+    }
+  }, [JOILineSpeak, getFilePath])
 
   useEffect(() => {
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited)) return
@@ -170,6 +195,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       const audio = new Audio(audioFileRef.current)
 
       if (!audio) return
+
+      console.log(`Playing audio from ${audioFileRef.current}`) // Add this line
 
       currentAudio.current = audio
 
