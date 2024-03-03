@@ -32,7 +32,7 @@ const RowHalf = ({ heading, paragraph, PNG }: { heading: string; paragraph: stri
   return (
     <div className='relative items-center flex w-1/2' style={{ maxWidth: MAX_WIDTH }}>
       <div className='absolute flex flex-row items-start px-1'>
-        <div className='w-fit pl-3'>
+        <div className='w-fit pl-2.5'>
           <IconDefault />
         </div>
         <div className={'w-auto  pr-3 mt-1.5'}>

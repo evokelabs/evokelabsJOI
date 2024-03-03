@@ -14,6 +14,7 @@ const MAX_VOLUME = 255
 const MAX_INFLUENCE = 0.15
 const GAIN_NODE_VOLUME = 2
 const TIMEOUT_FAIL_SAFE = 7500
+const TIMEOUT_HARD_STATE_RESET = 7000
 const KEYS = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'availability']
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
@@ -55,12 +56,23 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     [JOISpeechData]
   )
 
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
+
   const resetSpeechFlag = useCallback(() => {
-    console.log('resetSpeechFlag')
-    setHasPlayed(false)
-    setShouldJOISpeak(true)
-    setHasPlayed(false)
-    JOILineSpeak
+    // Clear the existing timer if there is one
+    if (timerRef.current) {
+      clearTimeout(timerRef.current)
+    }
+
+    // Start a new timer
+    timerRef.current = setTimeout(() => {
+      console.log('resetSpeechFlag called')
+      setHasPlayed(false)
+      setShouldJOISpeak(true)
+      setHasPlayed(false)
+      JOILineSpeak
+      isPlaying.current = false
+    }, TIMEOUT_HARD_STATE_RESET)
   }, [setHasPlayed, setShouldJOISpeak, JOILineSpeak])
 
   useEffect(() => {
