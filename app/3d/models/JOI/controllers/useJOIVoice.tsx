@@ -6,6 +6,8 @@ import { SoundsContext } from '@/app/libs/SoundsContext'
 import { DEFAULT_MUSIC_LOOP_VOLUME, JOI_MUSIC_LOOP_TRANSITION_DURATION, LOW_MUSIC_LOOP_VOLUME } from '@/app/audio/ELAudioStartSoundControl'
 
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
+import Availabilities from '@/app/sections/data/availabilities.json'
+
 import { RoutesContext } from '@/app/libs/RoutesContext'
 
 const INTRO_FILES = JOISpeech.intro.map(item => item.filepath)
@@ -51,39 +53,38 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       // If JOILineSpeak is 5, handle the specific use case
       if (JOILineSpeak === 5) {
         console.log('JOILineSpeak is 5')
-        // Select a random item from the 'availability' array
-        const availability = JOISpeechData[key][Math.floor(Math.random() * JOISpeechData[key].length)]
 
         // Randomly select either 'busy' or 'open'
-        const status = Math.random() < 0.5 ? 'busy' : 'open'
-        const statusArray = availability[status] // Changed this line
-        // const statusItem = statusArray[Math.floor(Math.random() * statusArray.length)]
+        const status = Availabilities.status === 'unavailable' ? 'busy' : 'open'
 
-        console.log('Selected items:', availability, availability[status])
+        // Iterate over the 'availability' array and find the object with the 'busy' or 'open' key
+        const availabilityObject = JOISpeechData[key].find(item => item[status])
 
-        // Select a random item from the 'email' array of the chosen 'busy' or 'open' array
-        // const email = statusItem.email[Math.floor(Math.random() * statusItem.email.length)]
+        console.log('Selected availability object:', availabilityObject)
 
-        // Select a random item from the 'follow' array of the chosen 'busy' or 'open' array
-        // const follow = statusItem.follow[Math.floor(Math.random() * statusItem.follow.length)]
-        // console.log(
-        //   'availability.filepath',
-        //   availability.filepath,
-        //   'statusItem.filepath',
-        //   statusItem.filepath,
-        //   'email.filepath',
-        //   email.filepath,
-        //   'follow',
-        //   follow
-        // )
-        // console.log('Selected items:', availability, statusItem, email, follow)
-        // Return the selected mp3 files in a chain
-        // return [availability.filepath, statusItem.filepath, email.filepath, follow.filepath]
+        // If the object is found, get the 'email' and 'follow' arrays
+        const emailResponses =
+          availabilityObject &&
+          availabilityObject[status] &&
+          Array.isArray(availabilityObject[status]) &&
+          availabilityObject[status].length > 0 &&
+          availabilityObject[status][availabilityObject[status].length - 1][0]
+            ? availabilityObject[status][availabilityObject[status].length - 1][0]['email']
+            : []
+        const followResponses =
+          availabilityObject &&
+          availabilityObject[status] &&
+          Array.isArray(availabilityObject[status]) &&
+          availabilityObject[status].length > 0 &&
+          availabilityObject[status][availabilityObject[status].length - 1][0]
+            ? availabilityObject[status][availabilityObject[status].length - 1][0]['follow']
+            : []
+
+        console.log('Email responses:', emailResponses, 'Follow responses:', followResponses)
       }
 
       // get a random item from the array
       const item = JOISpeechData[key][Math.floor(Math.random() * JOISpeechData[key].length)]
-      console.log('Selected item:', item)
 
       return item.filepath
     },
