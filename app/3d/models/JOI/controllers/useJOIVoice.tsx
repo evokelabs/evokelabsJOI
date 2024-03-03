@@ -18,6 +18,8 @@ const TIMEOUT_HARD_STATE_RESET = 7000
 const KEYS = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'availability']
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
+  console.log('useJOIVoice called')
+
   const [hasPlayed, setHasPlayed] = useState(false)
   const { shouldJOISpeak, setShouldJOISpeak } = useContext(AnimationContext)
   const { setMusicVolume } = useContext(SoundsContext)
@@ -67,11 +69,12 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     // Start a new timer
     timerRef.current = setTimeout(() => {
       console.log('resetSpeechFlag called')
+      isPlaying.current = false
+      // setHasSiteHomeVisited(true)
       setHasPlayed(false)
       setShouldJOISpeak(true)
       setHasPlayed(false)
       JOILineSpeak
-      isPlaying.current = false
     }, TIMEOUT_HARD_STATE_RESET)
   }, [setHasPlayed, setShouldJOISpeak, JOILineSpeak])
 
@@ -80,6 +83,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }, [JOILineSpeak])
 
   useEffect(() => {
+    console.log('pre 1st check', shouldJOISpeak, model, JOILineSpeak, hasSiteHomeVisited, hasPlayed)
     if (!shouldJOISpeak || !model) return
 
     if (JOILineSpeak === null) {

@@ -114,17 +114,64 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   //JOi Route Speech function
   const [JOILineSpeak, setJOILineSpeak] = useState<null | number>(null)
 
-  //Routes Function
   const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(null)
 
   useEffect(() => {
+    // If the current route is '/', set currentRouteSelection to null
+    if (router.pathname === '/') {
+      setCurrentRouteSelection(null)
+    } else {
+      // Find the index of the current route in ROUTE_CONFIG
+      const currentRouteIndex = ROUTE_CONFIG.findIndex(route => route.route === router.pathname)
+
+      // If the current route is found in ROUTE_CONFIG, update currentRouteSelection
+      if (currentRouteIndex !== -1) {
+        setCurrentRouteSelection(currentRouteIndex)
+      }
+    }
+  }, [router.pathname, ROUTE_CONFIG])
+
+  //Routes Function
+  const [menuHomeWaitTimer, setMenuHomeWaitTimer] = useState(MENU_HOME_WAIT_TIMER)
+
+  useEffect(() => {
+    const menuTimer = setTimeout(() => {
+      setIsPreLoaderFinished(true)
+    }, menuHomeWaitTimer)
+
+    const carTimer = setTimeout(() => {
+      setIsCarReady(true)
+    }, menuHomeWaitTimer / 2)
+
+    // Cleanup function to clear the timeouts if the component unmounts before the timeouts finish
+    return () => {
+      clearTimeout(menuTimer)
+      clearTimeout(carTimer)
+    }
+  }, [menuHomeWaitTimer])
+
+  useEffect(() => {
+    console.log('first route useEffect', currentRouteSelection)
     if (currentRouteSelection !== null) {
+      console.log('second route useEffect', currentRouteSelection)
       const selectedRoute = ROUTE_CONFIG[currentRouteSelection]
       if (selectedRoute && router.pathname !== selectedRoute.route) {
+        console.log('third route useEffect')
         router.push(selectedRoute.route)
       }
-    } else if (router.pathname !== '/') {
-      router.push('/')
+    } else {
+      // Check if the current route is defined in ROUTE_CONFIG
+      const routeExists = Object.values(ROUTE_CONFIG).some(route => route.route === router.pathname)
+
+      console.log('fourth  route useEffect', routeExists)
+      // If the current route is not defined in ROUTE_CONFIG, redirect to the root route
+      if (!routeExists && router.pathname !== '/') {
+        console.log('fiveth route useEffect')
+        router.push('/')
+      } else if (routeExists) {
+        console.log('six route useEffect')
+        setMenuHomeWaitTimer(0)
+      }
     }
   }, [currentRouteSelection, router, ROUTE_CONFIG])
 
