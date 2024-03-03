@@ -18,8 +18,6 @@ const TIMEOUT_HARD_STATE_RESET = 7000
 const KEYS = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'availability']
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
-  console.log('useJOIVoice called')
-
   const [hasPlayed, setHasPlayed] = useState(false)
   const { shouldJOISpeak, setShouldJOISpeak } = useContext(AnimationContext)
   const { setMusicVolume } = useContext(SoundsContext)
@@ -50,14 +48,47 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         return
       }
 
+      // If JOILineSpeak is 5, handle the specific use case
+      if (JOILineSpeak === 5) {
+        console.log('JOILineSpeak is 5')
+        // Select a random item from the 'availability' array
+        const availability = JOISpeechData[key][Math.floor(Math.random() * JOISpeechData[key].length)]
+
+        // Randomly select either 'busy' or 'open'
+        const status = Math.random() < 0.5 ? 'busy' : 'open'
+        const statusArray = availability[status] // Changed this line
+        // const statusItem = statusArray[Math.floor(Math.random() * statusArray.length)]
+
+        console.log('Selected items:', availability, availability[status])
+
+        // Select a random item from the 'email' array of the chosen 'busy' or 'open' array
+        // const email = statusItem.email[Math.floor(Math.random() * statusItem.email.length)]
+
+        // Select a random item from the 'follow' array of the chosen 'busy' or 'open' array
+        // const follow = statusItem.follow[Math.floor(Math.random() * statusItem.follow.length)]
+        // console.log(
+        //   'availability.filepath',
+        //   availability.filepath,
+        //   'statusItem.filepath',
+        //   statusItem.filepath,
+        //   'email.filepath',
+        //   email.filepath,
+        //   'follow',
+        //   follow
+        // )
+        // console.log('Selected items:', availability, statusItem, email, follow)
+        // Return the selected mp3 files in a chain
+        // return [availability.filepath, statusItem.filepath, email.filepath, follow.filepath]
+      }
+
       // get a random item from the array
       const item = JOISpeechData[key][Math.floor(Math.random() * JOISpeechData[key].length)]
+      console.log('Selected item:', item)
 
       return item.filepath
     },
     [JOISpeechData]
   )
-
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   const resetSpeechFlag = useCallback(() => {
@@ -68,7 +99,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
     // Start a new timer
     timerRef.current = setTimeout(() => {
-      console.log('resetSpeechFlag called')
       isPlaying.current = false
       // setHasSiteHomeVisited(true)
       setHasPlayed(false)
@@ -83,7 +113,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }, [JOILineSpeak])
 
   useEffect(() => {
-    console.log('pre 1st check', shouldJOISpeak, model, JOILineSpeak, hasSiteHomeVisited, hasPlayed)
     if (!shouldJOISpeak || !model) return
 
     if (JOILineSpeak === null) {
@@ -121,30 +150,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   ])
 
   useEffect(() => {
-    console.log('1st check pass')
-    console.log(
-      'useEffect shouldJOISpeak',
-      shouldJOISpeak,
-      'hasPlayed',
-      hasPlayed,
-      'JOILineSpeak',
-      JOILineSpeak,
-      'hasSiteHomeVisited',
-      hasSiteHomeVisited,
-      'model',
-      model
-    )
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited)) return
-    console.log('2nd check pass')
 
     const audioContext = audioContextRef.current
-    console.log('pre 3rd check, audioContext', audioContext, 'isPlaying.current', isPlaying.current)
     if (!audioContext || isPlaying.current) return
-    console.log('3rd useEFfectpass')
-    console.log('audioFileRef', audioFileRef)
-    console.log('audioFileRef current', audioFileRef.current)
     if (audioFileRef.current) {
-      console.log('audioFileRef.current pass')
       const audio = new Audio(audioFileRef.current)
 
       if (!audio) return
