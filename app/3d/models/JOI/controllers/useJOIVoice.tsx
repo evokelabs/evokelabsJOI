@@ -52,15 +52,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       // If JOILineSpeak is 5, handle the specific use case
       if (JOILineSpeak === 5) {
-        console.log('JOILineSpeak is 5')
-
         // Randomly select either 'busy' or 'open'
         const status = Availabilities.status === 'unavailable' ? 'busy' : 'open'
 
         // Iterate over the 'availability' array and find the object with the 'busy' or 'open' key
         const availabilityObject = JOISpeechData[key].find(item => item[status])
-
-        console.log('Selected availability object:', availabilityObject)
 
         // If the object is found, get the 'email' and 'follow' arrays
         const emailResponses =
@@ -80,7 +76,22 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
             ? availabilityObject[status][availabilityObject[status].length - 1][0]['follow']
             : []
 
-        console.log('Email responses:', emailResponses, 'Follow responses:', followResponses)
+        // Get a random email response
+        const randomEmailResponse = emailResponses[Math.floor(Math.random() * emailResponses.length)]
+
+        // Get a random follow response
+        const randomFollowResponse = followResponses[Math.floor(Math.random() * followResponses.length)]
+
+        // Get a random busy or open response
+        const randomStatusResponse = availabilityObject[status][Math.floor(Math.random() * (availabilityObject[status].length - 1))]
+
+        const responseArray = [
+          { filepath: randomStatusResponse.filepath, text: randomStatusResponse.text },
+          { filepath: randomEmailResponse.filepath, text: randomEmailResponse.text },
+          { filepath: randomFollowResponse.filepath, text: randomFollowResponse.text }
+        ]
+        console.log('Text:', responseArray.map(item => item.text).join(' '))
+        console.log('Filepath:', responseArray.map(item => item.filepath).join(' '))
       }
 
       // get a random item from the array
