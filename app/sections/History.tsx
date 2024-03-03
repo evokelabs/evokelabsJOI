@@ -20,7 +20,7 @@ const History = () => {
                   <IconSmall />
                 </>
               }
-              heading='Evokelabs History'
+              heading='Evoke Labs History'
               button={<ButtonDefault />}
             />
           </>
