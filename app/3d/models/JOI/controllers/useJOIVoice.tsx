@@ -110,7 +110,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         items = items.filter((item, index) => index < items.length - 2)
       }
       const item = items[Math.floor(Math.random() * items.length)]
-      console.log('saying: ', item.text)
+
       return item.filepath
     },
     [JOISpeechData]
@@ -130,6 +130,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       setHasPlayed(false)
       setShouldJOISpeak(true)
       setHasPlayed(false)
+
       JOILineSpeak
     }, TIMEOUT_HARD_STATE_RESET)
   }, [setHasPlayed, setShouldJOISpeak, JOILineSpeak])
@@ -237,6 +238,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       const audioEndCleanUp = () => {
         isPlaying.current = false
         setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
+        setAvailabilityTextArray(prevState => [])
+        setAvailabilityFilePathArray(prevState => [])
         if (timeoutId) clearTimeout(timeoutId)
       }
 
@@ -312,7 +315,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     JOISpeechData,
     getFilePath,
     hasSiteHomeVisited,
-    availabilityFilePathArray,
     visited
   ])
   return { resetSpeechFlag }

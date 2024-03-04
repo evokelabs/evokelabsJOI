@@ -151,25 +151,19 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }, [menuHomeWaitTimer])
 
   useEffect(() => {
-    console.log('first route useEffect', currentRouteSelection)
     if (currentRouteSelection !== null) {
-      console.log('second route useEffect', currentRouteSelection)
       const selectedRoute = ROUTE_CONFIG[currentRouteSelection]
       if (selectedRoute && router.pathname !== selectedRoute.route) {
-        console.log('third route useEffect')
         router.push(selectedRoute.route)
       }
     } else {
       // Check if the current route is defined in ROUTE_CONFIG
       const routeExists = Object.values(ROUTE_CONFIG).some(route => route.route === router.pathname)
 
-      console.log('fourth  route useEffect', routeExists)
       // If the current route is not defined in ROUTE_CONFIG, redirect to the root route
       if (!routeExists && router.pathname !== '/') {
-        console.log('fiveth route useEffect')
         router.push('/')
       } else if (routeExists) {
-        console.log('six route useEffect')
         setMenuHomeWaitTimer(0)
       }
     }

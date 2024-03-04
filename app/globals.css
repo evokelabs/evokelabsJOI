@@ -101,8 +101,7 @@ abbr:where([title]) {
 .react-calendar .react-calendar__tile--now {
   @apply text-teal-blur;
   border: #f75049 1px solid;
-  box-sizing: border-box;
-  padding: 0px;
+  background: #151a2b;
 }
 
 .react-calendar button {
