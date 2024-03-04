@@ -126,7 +126,7 @@
   ],
   "JOISpecial": [
     {
-      "text": "Not a Joytoy, a digital assistant.",
+      "text": "Not a joytoy, a digital assistant.",
       "filepath": "./sounds/JOI-voice/05-JOISpecial/01-joytoy.mp3"
     },
     { "text": "I just know we're going to be good friends.", "filepath": "./sounds/JOI-voice/05-JOISpecial/02-friends.mp3" },
