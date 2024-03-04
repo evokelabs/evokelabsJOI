@@ -3,11 +3,11 @@ import { createContext } from 'react'
 export const JOISpeechContext = createContext<{
   JOILineCaption: string | null
   setJOILineCaption: (value: string | null) => void
-  startJOILineCaption: () => void
-  endJOILineCaption: () => void
+  isAudioPlaying: boolean
+  setIsAudioPlaying: (value: boolean) => void
 }>({
   JOILineCaption: null,
   setJOILineCaption: () => {},
-  startJOILineCaption: () => {},
-  endJOILineCaption: () => {}
+  isAudioPlaying: false,
+  setIsAudioPlaying: () => {}
 })

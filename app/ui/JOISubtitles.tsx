@@ -2,7 +2,11 @@ import React, { useContext } from 'react'
 import { JOISpeechContext } from '../libs/JOISpeechContext'
 
 const JOISubtitles = () => {
-  const { JOILineCaption, setJOILineCaption, startJOILineCaption, endJOILineCaption } = useContext(JOISpeechContext)
+  const { JOILineCaption, isAudioPlaying } = useContext(JOISpeechContext)
+
+  if (!isAudioPlaying) {
+    return null
+  }
 
   return (
     <div className='absolute bottom-4 pt-5 flex flex-row justify-center items-center z-[10000000000000000] w-full font-semibold pointer-events-none'>

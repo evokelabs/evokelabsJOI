@@ -61,6 +61,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   //JOI Speech settings
   const [JOILineCaption, setJOILineCaption] = useState<string | null>(null)
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false)
 
   useEffect(() => {
     const menuTimer = setTimeout(() => {
@@ -188,7 +189,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   return (
     <>
-      <JOISpeechContext.Provider value={{ JOILineCaption, setJOILineCaption, startJOILineCaption, endJOILineCaption }}>
+      <JOISpeechContext.Provider value={{ JOILineCaption, setJOILineCaption, isAudioPlaying, setIsAudioPlaying }}>
         <Canvas
           camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
           shadows

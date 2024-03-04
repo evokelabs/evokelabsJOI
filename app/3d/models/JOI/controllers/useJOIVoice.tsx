@@ -10,6 +10,7 @@ import Availabilities from '@/app/sections/data/availabilities.json'
 import { JOISpeechContext } from '@/app/libs/JOISpeechContext'
 
 const INTRO_FILES = JOISpeech.intro.map(item => item.filepath)
+const INTRO_TEXT = JOISpeech.intro.map(item => item.text)
 
 const MAX_VOLUME = 255
 const MAX_INFLUENCE = 0.15
@@ -23,7 +24,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const { shouldJOISpeak, setShouldJOISpeak } = useContext(AnimationContext)
   const { setMusicVolume } = useContext(SoundsContext)
   const { setMusicLoopTransitionDuration, JOILineSpeak } = useContext(SoundsContext)
-  const { JOILineCaption, setJOILineCaption, startJOILineCaption, endJOILineCaption } = useContext(JOISpeechContext)
+  const { setJOILineCaption, setIsAudioPlaying } = useContext(JOISpeechContext)
   const [visited] = useState<boolean>(false)
   const isPlaying = useRef(false)
 
@@ -154,9 +155,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         // If the cookie is found, select a random file that is not the first one
         const nonFirstIntroFiles = introFiles.filter((_, index) => index !== 0)
         const randomFile = nonFirstIntroFiles[Math.floor(Math.random() * nonFirstIntroFiles.length)]
+        setJOILineCaption(randomFile.text)
         audioFileRef.current = randomFile.filepath
       } else {
         // If the cookie is not found, play the first file
+        setJOILineCaption(INTRO_TEXT[0])
         audioFileRef.current = INTRO_FILES[0]
       }
     } else if (JOILineSpeak !== null) {
@@ -210,6 +213,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           if (isPlaying.current) {
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
+            setIsAudioPlaying(true)
             audio.onended = () => {
               audioIndex++
               if (audioIndex < availabilityFilePath.length) {
@@ -222,6 +226,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           }
         } else {
           if (isPlaying.current) {
+            setIsAudioPlaying(true)
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             return
           }
@@ -238,6 +243,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       }
 
       const audioEndCleanUp = () => {
+        setIsAudioPlaying(false)
         isPlaying.current = false
         setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
         setAvailabilityTextArray(prevState => [])
@@ -307,6 +313,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         audio.removeEventListener('ended', onAudioEnd)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     JOILineSpeak,
     hasPlayed,
