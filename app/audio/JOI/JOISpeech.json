@@ -21,7 +21,7 @@
       "filepath": "./sounds/JOI-voice/00-Intro/Preloader/05-preloader.mp3"
     },
     {
-      "text": "I always knew you were special",
+      "text": "I always knew you were special.",
       "filepath": "./sounds/JOI-voice/00-Intro/Preloader/06-preloader.mp3"
     }
   ],
@@ -39,12 +39,12 @@
       "filepath": "./sounds/JOI-voice/00-Intro/Intro/03-intro.mp3"
     },
     {
-      "text": "Good to see you once more. Happy to have you visit Evoke Labs again",
+      "text": "Good to see you once more. Happy to have you visit Evoke Labs again.",
       "filepath": "./sounds/JOI-voice/00-Intro/Intro/04-intro.mp3"
     }
   ],
   "services": [
-    { "text": "We've got the skills, if you've got the credits", "filepath": "./sounds/JOI-voice/01-Services/01-skillscredits.mp3" },
+    { "text": "We've got the skills, if you've got the credits.", "filepath": "./sounds/JOI-voice/01-Services/01-skillscredits.mp3" },
     { "text": "Netrunner for hire, just what every corpo needs.", "filepath": "./sounds/JOI-voice/01-Services/02-netrunner.mp3" },
     { "text": "We take the corpo life path very seriously.", "filepath": "./sounds/JOI-voice/01-Services/03-corpolifepath.mp3" },
     { "text": "They say there's no such thing as fair game. We disagree.", "filepath": "./sounds/JOI-voice/01-Services/04-fairgame.mp3" },
@@ -61,8 +61,8 @@
       "filepath": "./sounds/JOI-voice/02-Portfolio/02-takealook.mp3"
     },
     { "text": "We're experienced edgerunners.", "filepath": "./sounds/JOI-voice/02-Portfolio/03-edgerunners.mp3" },
-    { "text": "You might be featured here one day", "filepath": "./sounds/JOI-voice/02-Portfolio/04-featured.mp3" },
-    { "text": "Past projects, future inspirations", "filepath": "./sounds/JOI-voice/02-Portfolio/05-pastprojects.mp3" },
+    { "text": "You might be featured here one day.", "filepath": "./sounds/JOI-voice/02-Portfolio/04-featured.mp3" },
+    { "text": "Past projects, future inspirations.", "filepath": "./sounds/JOI-voice/02-Portfolio/05-pastprojects.mp3" },
     { "text": "Work for yourself, live for yourself. The only way.", "filepath": "./sounds/JOI-voice/02-Portfolio/06-workforyourself.mp3" },
     { "text": "No two gigs are ever the same.", "filepath": "./sounds/JOI-voice/02-Portfolio/07-twogigs.mp3" }
   ],
@@ -72,7 +72,7 @@
       "filepath": "./sounds/JOI-voice/03-History/01-twentyyearsexperience.mp3"
     },
     {
-      "text": "These are the earlier renditions of Evoke Labs",
+      "text": "These are the earlier renditions of Evoke Labs.",
       "filepath": "./sounds/JOI-voice/03-History/02-earlierrend.mp3"
     },
     {
@@ -89,7 +89,7 @@
     },
 
     {
-      "text": "There's no substitute for experience",
+      "text": "There's no substitute for experience.",
       "filepath": "./sounds/JOI-voice/03-History/06-nosub.mp3"
     },
     {
@@ -276,15 +276,15 @@
             ],
             "follow": [
               {
-                "text": "and you'll get a speedy reply.",
+                "text": " and you'll get a speedy reply.",
                 "filepath": "./sounds/JOI-voice/06-Availability/Open/02-follow/01-speedyreply.mp3"
               },
               {
-                "text": "and you can expect a fast response.",
+                "text": " and you can expect a fast response.",
                 "filepath": "./sounds/JOI-voice/06-Availability/Open/02-follow/02-fastresponse.mp3"
               },
               {
-                "text": "and we'll make sure to reply promptly.",
+                "text": " and we'll make sure to reply promptly.",
                 "filepath": "./sounds/JOI-voice/06-Availability/Open/02-follow/03-replypromptly.mp3"
               },
               {
@@ -292,7 +292,7 @@
                 "filepath": "./sounds/JOI-voice/06-Availability/Open/02-follow/04-flash.mp3"
               },
               {
-                "text": "and we'll get back to you in record time.",
+                "text": " and we'll get back to you in record time.",
                 "filepath": "./sounds/JOI-voice/06-Availability/Open/02-follow/05-recordtime.mp3"
               }
             ]
