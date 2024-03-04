@@ -167,7 +167,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       audioFileRef.current = randomFilePath
       if (!audioFileRef.current) return
     }
-  }, [JOILineSpeak, getFilePath, hasSiteHomeVisited, model, shouldJOISpeak])
+  }, [JOILineSpeak, getFilePath, hasSiteHomeVisited, model, setJOILineCaption, shouldJOISpeak])
 
   useEffect(() => {
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited)) return
