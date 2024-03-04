@@ -24,7 +24,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const { shouldJOISpeak, setShouldJOISpeak } = useContext(AnimationContext)
   const { setMusicVolume } = useContext(SoundsContext)
   const { setMusicLoopTransitionDuration, JOILineSpeak } = useContext(SoundsContext)
-  const { setJOILineCaption, setIsAudioPlaying } = useContext(JOISpeechContext)
+  const { setJOILineCaption, setIsAudioPlaying, isAudioPlaying, setIsChainPlaying, isChainPlaying } = useContext(JOISpeechContext)
   const [audioIndexState, setAudioIndexState] = useState(0)
   const [visited] = useState<boolean>(false)
   const isPlaying = useRef(false)
@@ -214,14 +214,13 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           if (isPlaying.current) {
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
             setJOILineCaption(availabilityTextArray[audioIndex])
-            setIsAudioPlaying(true)
             setAudioIndexState(audioIndex) // Update the audio index state
+            setIsAudioPlaying(true)
+            setIsChainPlaying(true)
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             audio.onended = () => {
-              setIsAudioPlaying(false)
               audioIndex++
               if (audioIndex < availabilityFilePath.length) {
-                console.log('availabilityTextArray', availabilityTextArray[audioIndex])
                 setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
                 setAudioIndexState(audioIndex) // Update the audio index state
                 playSpeech(availabilityFilePath) // Play the next audio file
@@ -250,6 +249,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       }
 
       const audioEndCleanUp = () => {
+        setIsChainPlaying(false)
         setIsAudioPlaying(false)
         isPlaying.current = false
         setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
@@ -331,7 +331,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     JOISpeechData,
     getFilePath,
     hasSiteHomeVisited,
-    visited
+    visited,
+    setIsAudioPlaying
   ])
   return { resetSpeechFlag }
 }

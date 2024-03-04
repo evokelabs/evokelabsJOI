@@ -5,13 +5,13 @@ export const JOISpeechContext = createContext<{
   setJOILineCaption: (value: string | null) => void
   isAudioPlaying: boolean
   setIsAudioPlaying: (value: boolean) => void
-  audioIndexState: number
-  setAudioIndexState: (value: number) => void
+  isChainPlaying: boolean
+  setIsChainPlaying: (value: boolean) => void
 }>({
   JOILineCaption: null,
   setJOILineCaption: () => {},
   isAudioPlaying: false,
   setIsAudioPlaying: () => {},
-  audioIndexState: 0,
-  setAudioIndexState: () => {}
+  isChainPlaying: false,
+  setIsChainPlaying: () => {}
 })
