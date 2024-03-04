@@ -44,7 +44,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
   const getFilePath = useCallback(
     (JOILineSpeak: number) => {
+      console.log('getFilePath triggered')
       const key = KEYS[JOILineSpeak]
+      console.log('key', key, 'JOILineSpeak', JOILineSpeak)
       if (!key || !JOISpeechData[key]) {
         console.error('Invalid JOILineSpeak value')
         return
@@ -94,8 +96,16 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         console.log('Filepath:', responseArray.map(item => item.filepath).join(' '))
       }
 
-      // get a random item from the array
-      const item = JOISpeechData[key][Math.floor(Math.random() * JOISpeechData[key].length)]
+      // get a random item from the array, omit last two 'open' and 'busy' items from availability array
+      let items = JOISpeechData[key]
+      if (JOILineSpeak === 5) {
+        items = items.filter((item, index) => index < items.length - 2)
+      }
+      const item = items[Math.floor(Math.random() * items.length)]
+
+      console.log('key:', key)
+      console.log('item:', item)
+      console.log('item.filepath:', item.filepath)
 
       return item.filepath
     },
