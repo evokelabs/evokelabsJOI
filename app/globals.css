@@ -98,6 +98,13 @@ abbr:where([title]) {
   cursor: not-allowed;
 }
 
+.react-calendar .react-calendar__tile--now {
+  @apply text-teal-blur;
+  border: #f75049 1px solid;
+  box-sizing: border-box;
+  padding: 0px;
+}
+
 .react-calendar button {
   padding: 6px;
   @apply text-teal-blur;
