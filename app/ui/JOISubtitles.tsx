@@ -1,20 +1,29 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { JOISpeechContext } from '../libs/JOISpeechContext'
 
 const JOISubtitles = () => {
-  const { JOILineCaption, isAudioPlaying, setIsAudioPlaying } = useContext(JOISpeechContext)
-  const [currentCaption, setCurrentCaption] = useState(JOILineCaption)
+  const { JOILineCaption, isAudioPlaying, setIsAudioPlaying, audioIndexState } = useContext(JOISpeechContext)
 
-  const SAFEGUARD_TIMER = 5000
+  const [currentCaption, setCurrentCaption] = useState(JOILineCaption)
+  const wasAudioPlaying = useRef(isAudioPlaying)
+
+  const SAFEGUARD_TIMER = 7500
+
+  useEffect(() => {
+    if (isAudioPlaying && JOILineCaption) {
+      setCurrentCaption(JOILineCaption) // Use the audio index state to determine which caption to display
+    }
+  }, [isAudioPlaying, setIsAudioPlaying, audioIndexState, JOILineCaption]) // Add JOILineCaption to the dependency array
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout
-    if (isAudioPlaying) {
+    if (isAudioPlaying && !wasAudioPlaying.current && JOILineCaption) {
       setCurrentCaption(JOILineCaption)
       timeoutId = setTimeout(() => {
         setIsAudioPlaying(false)
       }, SAFEGUARD_TIMER)
     }
+    wasAudioPlaying.current = isAudioPlaying
     return () => {
       if (timeoutId) {
         clearTimeout(timeoutId)

@@ -25,6 +25,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const { setMusicVolume } = useContext(SoundsContext)
   const { setMusicLoopTransitionDuration, JOILineSpeak } = useContext(SoundsContext)
   const { setJOILineCaption, setIsAudioPlaying } = useContext(JOISpeechContext)
+  const [audioIndexState, setAudioIndexState] = useState(0)
   const [visited] = useState<boolean>(false)
   const isPlaying = useRef(false)
 
@@ -213,12 +214,16 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           if (isPlaying.current) {
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
             setJOILineCaption(availabilityTextArray[audioIndex])
-            audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             setIsAudioPlaying(true)
+            setAudioIndexState(audioIndex) // Update the audio index state
+            audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             audio.onended = () => {
+              setIsAudioPlaying(false)
               audioIndex++
               if (audioIndex < availabilityFilePath.length) {
+                console.log('availabilityTextArray', availabilityTextArray[audioIndex])
                 setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
+                setAudioIndexState(audioIndex) // Update the audio index state
                 playSpeech(availabilityFilePath) // Play the next audio file
               } else {
                 audioEndCleanUp()
