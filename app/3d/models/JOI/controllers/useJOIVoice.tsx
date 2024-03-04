@@ -209,14 +209,19 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
 
       setTimeout(() => {
-        playSpeech()
+        playSpeech(availabilityFilePathArray)
         isPlaying.current = true
       }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2) // delay the audio play to match the music loop transition duration
 
-      const playSpeech = () => {
-        audio.play().catch(error => console.error('Audio play failed due to', error))
-        console.log('availabilityTextArray', availabilityTextArray)
-        console.log('availabilityFilePathArray', availabilityFilePathArray)
+      const playSpeech = (availabilityFilePath: string | string[]) => {
+        if (availabilityFilePath.length > 1) {
+          console.log('avalabilities array detected', availabilityFilePath)
+        } else {
+          if (isPlaying.current) {
+            console.log('attempting to play single audio', audioFileRef.current)
+            audio.play().catch(error => console.error('Audio play failed due to', error))
+          }
+        }
       }
 
       audio.onended = () => {
