@@ -32,6 +32,10 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const audioFileRef = useRef<string | null>(null)
   const audioContextRef = useRef<AudioContext | null>(null)
 
+  //Availability response
+  const [availabilityTextArray, setAvailabilityTextArray] = useState<string[]>([])
+  const [availabilityFilePathArray, setAvailabilityFilePathArray] = useState<string[]>([])
+
   interface JOISpeechType {
     [key: string]: any[]
   }
@@ -44,7 +48,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
   const getFilePath = useCallback(
     (JOILineSpeak: number) => {
-      console.log('getFilePath triggered')
       const key = KEYS[JOILineSpeak]
       console.log('key', key, 'JOILineSpeak', JOILineSpeak)
       if (!key || !JOISpeechData[key]) {
@@ -92,8 +95,14 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           { filepath: randomEmailResponse.filepath, text: randomEmailResponse.text },
           { filepath: randomFollowResponse.filepath, text: randomFollowResponse.text }
         ]
-        console.log('Text:', responseArray.map(item => item.text).join(' '))
-        console.log('Filepath:', responseArray.map(item => item.filepath).join(' '))
+        const text = responseArray.map(item => item.text)
+        const filePath = responseArray.map(item => item.filepath)
+
+        setAvailabilityTextArray(text)
+        setAvailabilityFilePathArray(filePath)
+      } else {
+        setAvailabilityTextArray([]) // Make sure to clear the availability array
+        setAvailabilityFilePathArray([]) // Make sure to clear the availability filepath array
       }
 
       // get a random item from the array, omit last two 'open' and 'busy' items from availability array
@@ -102,10 +111,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         items = items.filter((item, index) => index < items.length - 2)
       }
       const item = items[Math.floor(Math.random() * items.length)]
-
-      console.log('key:', key)
-      console.log('item:', item)
-      console.log('item.filepath:', item.filepath)
 
       return item.filepath
     },
@@ -204,14 +209,15 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
 
       setTimeout(() => {
-        audio.play().catch(error => console.error('Audio play failed due to', error))
-        isPlaying.current = true
-      }, 500) // delay the audio play to give the previous audio time to stop
-
-      setTimeout(() => {
-        audio.play().catch(error => console.error('Audio play failed due to', error))
+        playSpeech()
         isPlaying.current = true
       }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2) // delay the audio play to match the music loop transition duration
+
+      const playSpeech = () => {
+        audio.play().catch(error => console.error('Audio play failed due to', error))
+        console.log('availabilityTextArray', availabilityTextArray)
+        console.log('availabilityFilePathArray', availabilityFilePathArray)
+      }
 
       audio.onended = () => {
         isPlaying.current = false
@@ -296,7 +302,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     JOISpeechData,
     getFilePath,
     hasSiteHomeVisited,
-    visited
+    visited,
+    availabilityTextArray,
+    availabilityFilePathArray
   ])
   return { resetSpeechFlag }
 }
