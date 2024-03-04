@@ -215,7 +215,12 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       const playSpeech = (availabilityFilePath: string | string[]) => {
         if (availabilityFilePath.length > 1) {
-          console.log('avalabilities array detected', availabilityFilePath)
+          if (isPlaying.current) {
+            audio.play().catch(error => console.error('Audio play failed due to', error))
+            console.log('avalabilities array detected', availabilityFilePath)
+            console.log(availabilityTextArray)
+            console.log(availabilityFilePathArray)
+          }
         } else {
           if (isPlaying.current) {
             console.log('attempting to play single audio', audioFileRef.current)
