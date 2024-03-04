@@ -97,11 +97,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         const text = responseArray.map(item => item.text)
         const filePath = responseArray.map(item => item.filepath)
 
-        setAvailabilityTextArray(text)
-        setAvailabilityFilePathArray(filePath)
+        setAvailabilityTextArray(prevState => [...prevState, ...text])
+        setAvailabilityFilePathArray(prevState => [...prevState, ...filePath])
       } else {
-        setAvailabilityTextArray([]) // Make sure to clear the availability array
-        setAvailabilityFilePathArray([]) // Make sure to clear the availability filepath array
+        setAvailabilityTextArray(prevState => [])
+        setAvailabilityFilePathArray(prevState => [])
       }
 
       // get a random item from the array, omit last two 'open' and 'busy' items from availability array
@@ -302,7 +302,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         audio.removeEventListener('ended', onAudioEnd)
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     JOILineSpeak,
     hasPlayed,
@@ -313,6 +312,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     JOISpeechData,
     getFilePath,
     hasSiteHomeVisited,
+    availabilityFilePathArray,
     visited
   ])
   return { resetSpeechFlag }
