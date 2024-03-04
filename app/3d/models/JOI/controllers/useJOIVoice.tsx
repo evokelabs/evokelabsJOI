@@ -183,6 +183,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     if (!audioContext || isPlaying.current) return
     if (audioFileRef.current) {
       const audio = new Audio(audioFileRef.current)
+      console.log('audio', audio, 'audioFileRef.current', audioFileRef.current)
 
       if (!audio) return
 
@@ -213,30 +214,43 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         isPlaying.current = true
       }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2) // delay the audio play to match the music loop transition duration
 
+      let audioIndex = 0
+
       const playSpeech = (availabilityFilePath: string | string[]) => {
+        console.log('availabilityFilePath.length', availabilityFilePath.length)
         if (availabilityFilePath.length > 1) {
           if (isPlaying.current) {
-            audio.play().catch(error => console.error('Audio play failed due to', error))
-            console.log('avalabilities array detected', availabilityFilePath)
             console.log(availabilityTextArray)
-            console.log(availabilityFilePathArray)
+            audio.play().catch(error => console.error('Normal Audio play failed due to', error))
+            audio.onended = () => {
+              audioIndex++
+              if (audioIndex < availabilityFilePath.length + 1) {
+                playSpeech(availabilityFilePath) // Play the next audio file
+              } else {
+                audioEndCleanUp()
+              }
+            }
           }
         } else {
           if (isPlaying.current) {
             console.log('attempting to play single audio', audioFileRef.current)
-            audio.play().catch(error => console.error('Audio play failed due to', error))
+            audio.play().catch(error => console.error('Normal Audio play failed due to', error))
           }
         }
       }
 
       audio.onended = () => {
-        isPlaying.current = false
-        setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
-        if (timeoutId) clearTimeout(timeoutId)
+        audioEndCleanUp()
       }
 
       audio.onerror = () => {
         isPlaying.current = false
+        if (timeoutId) clearTimeout(timeoutId)
+      }
+
+      const audioEndCleanUp = () => {
+        isPlaying.current = false
+        setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
         if (timeoutId) clearTimeout(timeoutId)
       }
 
