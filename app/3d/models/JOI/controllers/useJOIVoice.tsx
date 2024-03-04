@@ -8,8 +8,6 @@ import { DEFAULT_MUSIC_LOOP_VOLUME, JOI_MUSIC_LOOP_TRANSITION_DURATION, LOW_MUSI
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
 import Availabilities from '@/app/sections/data/availabilities.json'
 
-import { RoutesContext } from '@/app/libs/RoutesContext'
-
 const INTRO_FILES = JOISpeech.intro.map(item => item.filepath)
 
 const MAX_VOLUME = 255
@@ -28,13 +26,15 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const isPlaying = useRef(false)
 
   const [hasSiteHomeVisited, setHasSiteHomeVisited] = useState(false)
-  const currentAudio = useRef<HTMLAudioElement | null>(null)
+
   const audioFileRef = useRef<string | null>(null)
   const audioContextRef = useRef<AudioContext | null>(null)
 
   //Availability response
   const [availabilityTextArray, setAvailabilityTextArray] = useState<string[]>([])
   const [availabilityFilePathArray, setAvailabilityFilePathArray] = useState<string[]>([])
+
+  const currentAudio = useRef<HTMLAudioElement | null>(null)
 
   interface JOISpeechType {
     [key: string]: any[]
@@ -57,7 +57,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       // If JOILineSpeak is 5, handle the specific use case
       if (JOILineSpeak === 5) {
         // Randomly select either 'busy' or 'open'
-        const status = Availabilities.status === 'unavailable' ? 'open' : 'busy'
+        const status = Availabilities.status === 'available' ? 'open' : 'busy'
 
         // Iterate over the 'availability' array and find the object with the 'busy' or 'open' key
         const availabilityObject = JOISpeechData[key].find(item => item[status])
@@ -161,19 +161,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       audioFileRef.current = randomFilePath
       if (!audioFileRef.current) return
     }
-
-    // The rest of the audio playing logic goes here...
-  }, [
-    JOILineSpeak,
-    hasPlayed,
-    shouldJOISpeak,
-    model,
-    setMusicVolume,
-    setMusicLoopTransitionDuration,
-    JOISpeechData,
-    getFilePath,
-    hasSiteHomeVisited
-  ])
+  }, [JOILineSpeak, getFilePath, hasSiteHomeVisited, model, shouldJOISpeak])
 
   useEffect(() => {
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited)) return
@@ -217,23 +205,22 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       const playSpeech = (availabilityFilePath: string | string[]) => {
         if (availabilityFilePath.length > 1) {
           if (isPlaying.current) {
-            console.log(availabilityTextArray)
+            audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             audio.onended = () => {
+              audioIndex++
               if (audioIndex < availabilityFilePath.length) {
-                console.log('queuing ', availabilityFilePath[audioIndex])
-                console.log('saying: ', availabilityTextArray[audioIndex])
-                audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
                 playSpeech(availabilityFilePath) // Play the next audio file
-                audioIndex++
               } else {
                 audioEndCleanUp()
               }
             }
+            return
           }
         } else {
           if (isPlaying.current) {
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
+            return
           }
         }
       }
@@ -315,6 +302,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         audio.removeEventListener('ended', onAudioEnd)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     JOILineSpeak,
     hasPlayed,
@@ -325,9 +313,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     JOISpeechData,
     getFilePath,
     hasSiteHomeVisited,
-    visited,
-    availabilityTextArray,
-    availabilityFilePathArray
+    visited
   ])
   return { resetSpeechFlag }
 }
