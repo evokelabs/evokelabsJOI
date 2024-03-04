@@ -12,14 +12,14 @@ const JOISubtitles = () => {
     console.log('Is talking?', isAudioPlaying)
     console.log('Is chain playing?', isChainPlaying)
     let timeoutId: NodeJS.Timeout
-    if (!isAudioPlaying) {
+    if (!isAudioPlaying && !isChainPlaying) {
       setTimeout(() => {
         setCurrentCaption(JOILineCaption)
       }, 500) // Delay setCurrentCaption by 0.5 seconds to account for the duration-500 t
       timeoutId = setTimeout(() => {
         setIsAudioPlaying(false)
       }, SAFEGUARD_TIMER)
-    } else if (isAudioPlaying && isChainPlaying) {
+    } else if (!isAudioPlaying && isChainPlaying) {
       setCurrentCaption(JOILineCaption)
       setIsAudioPlaying(true)
     }

@@ -215,7 +215,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
             setJOILineCaption(availabilityTextArray[audioIndex])
             setAudioIndexState(audioIndex) // Update the audio index state
-            setIsAudioPlaying(true)
+            setIsAudioPlaying(false)
             setIsChainPlaying(true)
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             audio.onended = () => {
