@@ -20,7 +20,7 @@ const JOISubtitles = () => {
         clearTimeout(timeoutId)
       }
     }
-  }, [isAudioPlaying, setIsAudioPlaying])
+  }, [JOILineCaption, isAudioPlaying, setIsAudioPlaying])
 
   const opacityClass = isAudioPlaying ? 'opacity-100' : 'opacity-0'
 

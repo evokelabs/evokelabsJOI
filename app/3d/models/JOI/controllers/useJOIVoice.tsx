@@ -212,11 +212,13 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         if (availabilityFilePath.length > 1) {
           if (isPlaying.current) {
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
+            setJOILineCaption(availabilityTextArray[audioIndex])
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             setIsAudioPlaying(true)
             audio.onended = () => {
               audioIndex++
               if (audioIndex < availabilityFilePath.length) {
+                setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
                 playSpeech(availabilityFilePath) // Play the next audio file
               } else {
                 audioEndCleanUp()
