@@ -14,19 +14,21 @@ const MainMenu = ({ router, routeConfig }: { router: NextRouter; routeConfig: an
   }
 
   return (
-    <div className='grid grid-cols-3 gap-x-8'>
-      {routeConfig.map((config: { labels: string[]; callToAction: boolean | undefined }, index: number) => (
-        <ButtonMainMenu
-          key={index}
-          mainMenuNumber={index}
-          label={config.labels[0]}
-          hoverLabel={config.labels[1]}
-          isLocalActive={router.pathname === routeConfig[index].route}
-          onClick={() => resetAllButtons(index)}
-          callToAction={config.callToAction}
-        />
-      ))}
-    </div>
+    <>
+      <div className='grid grid-cols-3 gap-x-8'>
+        {routeConfig.map((config: { labels: string[]; callToAction: boolean | undefined }, index: number) => (
+          <ButtonMainMenu
+            key={index}
+            mainMenuNumber={index}
+            label={config.labels[0]}
+            hoverLabel={config.labels[1]}
+            isLocalActive={router.pathname === routeConfig[index].route}
+            onClick={() => resetAllButtons(index)}
+            callToAction={config.callToAction}
+          />
+        ))}
+      </div>
+    </>
   )
 }
 

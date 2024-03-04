@@ -15,7 +15,7 @@ import { AnimationContext } from '../libs/AnimationContext'
 import { useCameraSettings } from '../libs/useCameraSettings'
 
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, BrightnessContrast } from '@react-three/postprocessing'
-import { Vector2, WebGLRenderer } from 'three'
+import { Vector2 } from 'three'
 import MainMenu from '../sections/MainMenu'
 import { NextRouter } from 'next/router'
 import Home from '../sections/Home'
@@ -37,6 +37,8 @@ import CyberpunkMapLowPoly from './models/CyberpunkMapLowPoly'
 
 import { getGPUTier } from 'detect-gpu'
 import { RoutesContext } from '../libs/RoutesContext'
+import JOISubtitles from '../ui/JOISubtitles'
+import { JOISpeechContext } from '../libs/JOISpeechContext'
 
 // Constants
 // const debug = true
@@ -56,6 +58,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   const [isPreLoaderFinished, setIsPreLoaderFinished] = useState(false)
   const [isCarReady, setIsCarReady] = useState(false)
+
+  //JOI Speech settings
+  const [JOILineCaption, setJOILineCaption] = useState<string | null>(null)
 
   useEffect(() => {
     const menuTimer = setTimeout(() => {
@@ -110,9 +115,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     ],
     []
   )
-
-  //JOi Route Speech function
-  const [JOILineSpeak, setJOILineSpeak] = useState<null | number>(null)
 
   const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(null)
 
@@ -169,78 +171,92 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     }
   }, [currentRouteSelection, router, ROUTE_CONFIG])
 
+  //JOi Route Speech function
+  const [JOILineSpeak, setJOILineSpeak] = useState<null | number>(null)
+
   useEffect(() => {
     setJOILineSpeak(currentRouteSelection)
   }, [currentRouteSelection])
 
+  const startJOILineCaption = () => {
+    console.log('Starting speech: ', JOILineCaption)
+  }
+
+  const endJOILineCaption = () => {
+    console.log('Ending speech: ', JOILineCaption)
+  }
+
   return (
     <>
-      <Canvas
-        camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
-        shadows
-        gl={{
-          powerPreference: 'high-performance'
-        }}
-      >
-        <SoundsContext.Provider
-          value={{
-            musicVolume,
-            setMusicVolume,
-            musicLoopTransitionDuration,
-            setMusicLoopTransitionDuration,
-            JOILineSpeak,
-            setJOILineSpeak
+      <JOISpeechContext.Provider value={{ JOILineCaption, setJOILineCaption, startJOILineCaption, endJOILineCaption }}>
+        <Canvas
+          camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
+          shadows
+          gl={{
+            powerPreference: 'high-performance'
           }}
         >
-          <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
-            <RoutesContext.Provider value={{ currentRouteSelection, setCurrentRouteSelection }}>
-              <div className='max-w-[1170px]'>
-                {isPreLoaderFinished && router.pathname === '/' && <Home />}
-                {router.pathname === '/services' && <Services />}
-                {router.pathname === '/portfolio' && <Portfolio />}
-                {router.pathname === '/history' && <History />}
-                {router.pathname === '/resume' && <Resume />}
-                {router.pathname === '/joi' && <JOISpecial />}
-                {router.pathname === '/availabilities' && <Availabilities />}
-                {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
-              </div>
-            </RoutesContext.Provider>
-          </Html>
-          <VideoSkybox />
-          <ELAudioStartSoundControl />
-          {debug ? <Perf position='top-left' /> : null}
-          {/* <Perf position='top-left' /> */}
-          <CameraRig fov={fov} debug={debug} />
-          <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
-          <AnimationContext.Provider
+          <SoundsContext.Provider
             value={{
-              shouldAmbientLightPlay,
-              shouldPointLightPlay,
-              shouldJOISpeak,
-              setAmbientLightPlay,
-              setPointLightPlay,
-              setShouldJOISpeak
+              musicVolume,
+              setMusicVolume,
+              musicLoopTransitionDuration,
+              setMusicLoopTransitionDuration,
+              JOILineSpeak,
+              setJOILineSpeak
             }}
           >
-            <Lights />
-            {isCarReady && <CyberpunkCar />}
-            <WideMonitor />
-            <DeskItems />
-            {gpuTier !== null && gpuTier >= 2 ? <CyberpunkMap /> : <CyberpunkMapLowPoly />}
-            <JOI />
-            <Rain />
-          </AnimationContext.Provider>
-        </SoundsContext.Provider>
-        <EffectComposer disableNormalPass>
-          <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
-          <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
-          <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
-          <Noise opacity={0.7} premultiply blendFunction={28} />
-          <BrightnessContrast brightness={0.02} contrast={0.275} />
-          <Vignette offset={0.0} darkness={1} />
-        </EffectComposer>
-      </Canvas>
-      <SocialIcons />
+            <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
+              <RoutesContext.Provider value={{ currentRouteSelection, setCurrentRouteSelection }}>
+                <div className='max-w-[1170px]'>
+                  {isPreLoaderFinished && router.pathname === '/' && <Home />}
+                  {router.pathname === '/services' && <Services />}
+                  {router.pathname === '/portfolio' && <Portfolio />}
+                  {router.pathname === '/history' && <History />}
+                  {router.pathname === '/resume' && <Resume />}
+                  {router.pathname === '/joi' && <JOISpecial />}
+                  {router.pathname === '/availabilities' && <Availabilities />}
+                  {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+                </div>
+              </RoutesContext.Provider>
+            </Html>
+            <VideoSkybox />
+            <ELAudioStartSoundControl />
+            {debug ? <Perf position='top-left' /> : null}
+            {/* <Perf position='top-left' /> */}
+            <CameraRig fov={fov} debug={debug} />
+            <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
+            <AnimationContext.Provider
+              value={{
+                shouldAmbientLightPlay,
+                shouldPointLightPlay,
+                shouldJOISpeak,
+                setAmbientLightPlay,
+                setPointLightPlay,
+                setShouldJOISpeak
+              }}
+            >
+              <Lights />
+              {isCarReady && <CyberpunkCar />}
+              <WideMonitor />
+              <DeskItems />
+              {gpuTier !== null && gpuTier >= 2 ? <CyberpunkMap /> : <CyberpunkMapLowPoly />}
+              <JOI />
+              <Rain />
+            </AnimationContext.Provider>
+          </SoundsContext.Provider>
+          <EffectComposer disableNormalPass>
+            <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
+            <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
+            <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
+            <Noise opacity={0.7} premultiply blendFunction={28} />
+            <BrightnessContrast brightness={0.02} contrast={0.275} />
+            <Vignette offset={0.0} darkness={1} />
+          </EffectComposer>
+        </Canvas>
+        <SocialIcons />
+        <JOISubtitles />
+      </JOISpeechContext.Provider>
     </>
   )
 }
