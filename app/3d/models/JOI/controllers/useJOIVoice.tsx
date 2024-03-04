@@ -7,6 +7,7 @@ import { DEFAULT_MUSIC_LOOP_VOLUME, JOI_MUSIC_LOOP_TRANSITION_DURATION, LOW_MUSI
 
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
 import Availabilities from '@/app/sections/data/availabilities.json'
+import { JOISpeechContext } from '@/app/libs/JOISpeechContext'
 
 const INTRO_FILES = JOISpeech.intro.map(item => item.filepath)
 
@@ -22,6 +23,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const { shouldJOISpeak, setShouldJOISpeak } = useContext(AnimationContext)
   const { setMusicVolume } = useContext(SoundsContext)
   const { setMusicLoopTransitionDuration, JOILineSpeak } = useContext(SoundsContext)
+  const { JOILineCaption, setJOILineCaption, startJOILineCaption, endJOILineCaption } = useContext(JOISpeechContext)
   const [visited] = useState<boolean>(false)
   const isPlaying = useRef(false)
 
@@ -110,10 +112,10 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         items = items.filter((item, index) => index < items.length - 2)
       }
       const item = items[Math.floor(Math.random() * items.length)]
-
+      setJOILineCaption(item.text)
       return item.filepath
     },
-    [JOISpeechData]
+    [JOISpeechData, setJOILineCaption]
   )
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
