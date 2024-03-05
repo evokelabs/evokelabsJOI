@@ -77,6 +77,12 @@ const SoundControlIcons = () => {
     console.log('JOIToggle changed:', JOIToggle)
   }, [JOIToggle])
 
+  useEffect(() => {
+    // If all child toggles are true, set master toggle to true
+    // If any child toggle is false, set master toggle to false
+    setSoundControlMasterToggle(musicToggle && SFXToggle && rainToggle && JOIToggle)
+  }, [musicToggle, SFXToggle, rainToggle, JOIToggle])
+
   return (
     <div className='absolute bottom-5 right-0 pt-5 flex flex-row z-[10000000000000000]'>
       <ToggleButton toggle={musicToggle} setToggle={setMusicToggle} SVGIcon={props => <SoundMusicIconSVG {...props} />} />
