@@ -39,6 +39,7 @@ import { getGPUTier } from 'detect-gpu'
 import { RoutesContext } from '../libs/RoutesContext'
 import JOISubtitles from '../ui/JOISubtitles'
 import { JOISpeechContext } from '../libs/JOISpeechContext'
+import SoundControlIcons from '../ui/SoundControlIcons'
 
 // Constants
 // const debug = true
@@ -251,6 +252,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           </EffectComposer>
         </Canvas>
         <SocialIcons />
+        <SoundControlIcons />
         <JOISubtitles />
       </JOISpeechContext.Provider>
     </>

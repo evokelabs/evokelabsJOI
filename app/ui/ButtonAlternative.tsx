@@ -5,7 +5,7 @@ import useButtonEventsController from './libs/useButtonEventsController'
 import useButtonInteractionController from './libs/useButtonInteractionController'
 import { RED_TILE_PATTERN } from './libs/TitleFillsPatterns'
 
-const ButtonSocial = ({ SVGIcon }: { SVGIcon: (props: { isHovered: boolean }) => JSX.Element }) => {
+const ButtonAlternative = ({ SVGIcon }: { SVGIcon: (props: { isHovered: boolean }) => JSX.Element }) => {
   const svgRef = useRef<SVGSVGElement | null>(null)
   const pathBGFillRef = useRef<SVGPathElement | null>(null)
   const pathFGFillRef = useRef<SVGPathElement | null>(null)
@@ -38,25 +38,27 @@ const ButtonSocial = ({ SVGIcon }: { SVGIcon: (props: { isHovered: boolean }) =>
   return (
     <div className={'cursor-pointer w-fit'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
       <svg width='60' height='47' viewBox='0 0 60 47' fill='none' ref={svgRef}>
-        <path ref={pathBGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={secondaryColor} fillOpacity='0.85' />
         <RedCRTBlur />
-        <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
-          <path ref={pathFGFillRef} d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill={primaryColor} fillOpacity='0.1' />
-          <path d='M34.3242 45H2V2H45V34.08L34.3242 45Z' fill='url(#redTile)' />
+
+        <path d='M2 2V45H8.45333L12.56 40.8718H35.44L39.5467 45H46V10.2564L37.7867 2H2Z' fill='#0E0E17' fill-opacity='0.85' />
+        <g clip-path='url(#clip0_905_698)' filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
+          <path d='M2 2V45H8.45333L12.56 40.8718H35.44L39.5467 45H46V10.2564L37.7867 2H2Z' fill='#DE5456' fill-opacity='0.1' />
+          <path d='M2 2V45H8.45333L12.56 40.8718H35.44L39.5467 45H46V10.2564L37.7867 2H2Z' fill='url(#pattern0)' fill-opacity='0.1' />
           <path
-            ref={pathBGStrokeRef}
             fillRule='evenodd'
             clipRule='evenodd'
-            d='M0 47H35.166L47 34.8952V0H0V47ZM34.3242 45L45 34.08V2H2V45H34.3242Z'
+            d='M0 47V0H38.6182L48 9.43105V47H38.7152L34.6085 42.8718H13.3915L9.28483 47H0ZM12.56 40.8718H35.44L39.5467 45H46V10.2564L37.7867 2H2V45H8.45333L12.56 40.8718Z'
             fill={primaryColor}
             fillOpacity='0.6'
           />
-          {SVGIcon({ isHovered })}
         </g>
+
+        {SVGIcon({ isHovered })}
+
         {RED_TILE_PATTERN}
       </svg>
     </div>
   )
 }
 
-export default ButtonSocial
+export default ButtonAlternative
