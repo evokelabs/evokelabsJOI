@@ -53,7 +53,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [shouldAmbientLightPlay, setAmbientLightPlay] = useState(false)
   const [shouldPointLightPlay, setPointLightPlay] = useState(false)
   const [shouldJOISpeak, setShouldJOISpeak] = useState(false)
-  const [musicVolume, setMusicVolume] = useState(DEFAULT_MUSIC_LOOP_VOLUME)
+  const [musicVolume, setMusicVolume] = useState(0)
   const [musicLoopTransitionDuration, setMusicLoopTransitionDuration] = useState(DEFAULT_MUSIC_LOOP_TRANSITION_DURATION)
   // Camera settings
   const { cameraTarget, fov } = useCameraSettings()

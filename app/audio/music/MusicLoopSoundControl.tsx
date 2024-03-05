@@ -1,3 +1,4 @@
+import { SoundControlContext } from '@/app/libs/SoundControlContext'
 import { SoundsContext } from '@/app/libs/SoundsContext'
 import { useContext, useEffect, useRef } from 'react'
 
@@ -14,6 +15,8 @@ const MusicLoopSoundControl = () => {
   const hasMounted = useRef(false)
   const DELAY = 3800
   const LOOP = true
+
+  const { muteMusic } = useContext(SoundControlContext)
 
   useEffect(() => {
     const currentAudioElement = audioElement.current
@@ -35,7 +38,8 @@ const MusicLoopSoundControl = () => {
       gainNode.current.gain.setValueAtTime(startVolume, audioContext.current.currentTime)
 
       // Gradually increase the volume to the desired level over the transition duration
-      gainNode.current.gain.linearRampToValueAtTime(musicVolume, audioContext.current.currentTime + musicLoopTransitionDuration / 1000)
+      const targetVolume = !muteMusic ? 0 : musicVolume
+      gainNode.current.gain.linearRampToValueAtTime(targetVolume, audioContext.current.currentTime + musicLoopTransitionDuration / 1000)
 
       // Set hasMounted to true after the audio has started playing
       hasMounted.current = true
@@ -53,7 +57,7 @@ const MusicLoopSoundControl = () => {
     return () => {
       currentAudioElement.removeEventListener('canplaythrough', playAudio)
     }
-  }, [LOOP, musicLoopTransitionDuration, musicVolume])
+  }, [LOOP, musicLoopTransitionDuration, musicVolume, muteMusic])
 
   return null
 }
