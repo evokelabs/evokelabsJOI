@@ -8,6 +8,7 @@ import SoundControlIconOffSVG from './svg/button/SoundControlIconOffSVG'
 import ButtonAlternative from './ButtonAlternative'
 import SoundCrossIconSVG from './svg/button/SoundCrossIconSVG'
 import SoundEdgeTag from './PanelContent/SoundEdgeTag'
+import ButtonSocial from './ButtonSocial'
 
 const ToggleButton = ({
   toggle,
@@ -15,7 +16,8 @@ const ToggleButton = ({
   SVGIcon,
   SVGIconOn,
   SVGIconOff,
-  showCrossIcon = true
+  showCrossIcon = true,
+  ButtonComponent = ButtonAlternative
 }: {
   toggle: boolean
   setToggle: React.Dispatch<React.SetStateAction<boolean>>
@@ -23,6 +25,7 @@ const ToggleButton = ({
   SVGIconOn?: (props: { isHovered: boolean }) => JSX.Element
   SVGIconOff?: (props: { isHovered: boolean }) => JSX.Element
   showCrossIcon?: boolean
+  ButtonComponent?: (props: { SVGIcon: (props: { isHovered: boolean }) => JSX.Element }) => JSX.Element
 }) => {
   const [isHovered, setIsHovered] = useState(false)
 
@@ -37,7 +40,7 @@ const ToggleButton = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       {toggle ? (
-        IconOn && <ButtonAlternative SVGIcon={props => IconOn({ ...props, isHovered })} />
+        IconOn && <ButtonComponent SVGIcon={props => IconOn({ ...props, isHovered })} />
       ) : (
         <>
           {showCrossIcon && (
@@ -45,7 +48,7 @@ const ToggleButton = ({
               <SoundCrossIconSVG />
             </div>
           )}
-          {IconOff && <ButtonAlternative SVGIcon={props => IconOff({ ...props, isHovered })} />}
+          {IconOff && <ButtonComponent SVGIcon={props => IconOff({ ...props, isHovered })} />}
         </>
       )}
     </div>
@@ -108,6 +111,7 @@ const SoundControlIcons = () => {
         SVGIconOn={props => <SoundControlIconOnSVG {...props} />}
         SVGIconOff={props => <SoundControlIconOffSVG {...props} />}
         showCrossIcon={false}
+        ButtonComponent={ButtonSocial}
       />
     </div>
   )
