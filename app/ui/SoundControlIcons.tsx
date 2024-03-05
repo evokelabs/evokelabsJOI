@@ -88,31 +88,32 @@ const SoundControlIcons = () => {
   }, [musicToggle, SFXToggle, rainToggle, JOIToggle])
 
   return (
-    <div className='absolute bottom-5 right-0 pt-5 flex flex-row z-[10000000000000000]'>
-      {!soundControlMasterToggle && (
-        <>
-          <SoundEdgeTag />
-          <ToggleButton toggle={musicToggle} setToggle={setMusicToggle} SVGIcon={props => <SoundMusicIconSVG {...props} />} />
-          <ToggleButton toggle={SFXToggle} setToggle={setSFXToggle} SVGIcon={props => <SoundSFXIconSVG {...props} />} />
-          <ToggleButton toggle={rainToggle} setToggle={setRainToggle} SVGIcon={props => <SoundRainIconSVG {...props} />} />
-          <ToggleButton toggle={JOIToggle} setToggle={setJOIToggle} SVGIcon={props => <SoundJOIIconSVG {...props} />} />
-        </>
-      )}
-      {soundControlMasterToggle && <SoundEdgeTag />}
-      <ToggleButton
-        toggle={soundControlMasterToggle}
-        setToggle={value => {
-          setSoundControlMasterToggle(value)
-          setMusicToggle(value)
-          setSFXToggle(value)
-          setRainToggle(value)
-          setJOIToggle(value)
-        }}
-        SVGIconOn={props => <SoundControlIconOnSVG {...props} />}
-        SVGIconOff={props => <SoundControlIconOffSVG {...props} />}
-        showCrossIcon={false}
-        ButtonComponent={ButtonSocial}
-      />
+    <div className='relative'>
+      <div className='absolute bottom-5 right-0 pt-5 flex flex-row z-[10000000000000000]'>
+        {!soundControlMasterToggle && (
+          <>
+            <ToggleButton toggle={musicToggle} setToggle={setMusicToggle} SVGIcon={props => <SoundMusicIconSVG {...props} />} />
+            <ToggleButton toggle={SFXToggle} setToggle={setSFXToggle} SVGIcon={props => <SoundSFXIconSVG {...props} />} />
+            <ToggleButton toggle={rainToggle} setToggle={setRainToggle} SVGIcon={props => <SoundRainIconSVG {...props} />} />
+            <ToggleButton toggle={JOIToggle} setToggle={setJOIToggle} SVGIcon={props => <SoundJOIIconSVG {...props} />} />
+          </>
+        )}
+        <ToggleButton
+          toggle={soundControlMasterToggle}
+          setToggle={value => {
+            setSoundControlMasterToggle(value)
+            setMusicToggle(value)
+            setSFXToggle(value)
+            setRainToggle(value)
+            setJOIToggle(value)
+          }}
+          SVGIconOn={props => <SoundControlIconOnSVG {...props} />}
+          SVGIconOff={props => <SoundControlIconOffSVG {...props} />}
+          showCrossIcon={false}
+          ButtonComponent={ButtonSocial}
+        />
+      </div>
+      <SoundEdgeTag className={soundControlMasterToggle ? 'translate-x-0 transition-transform' : '-translate-x-60 transition-transform'} />
     </div>
   )
 }
