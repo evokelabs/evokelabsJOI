@@ -12,28 +12,7 @@ export const DEFAULT_MUSIC_LOOP_TRANSITION_DURATION = 8500
 export const JOI_MUSIC_LOOP_TRANSITION_DURATION = 1250
 
 const ELAudioStartSoundControl = () => {
-  const [play, setPlay] = useState(false)
-  const hasStarted = useRef(false)
-
-  useEffect(() => {
-    const handleUserInteraction = () => {
-      if (!hasStarted.current) {
-        setPlay(true)
-        hasStarted.current = true
-      }
-
-      window.removeEventListener('click', handleUserInteraction)
-      window.removeEventListener('keydown', handleUserInteraction)
-    }
-
-    window.addEventListener('click', handleUserInteraction)
-    window.addEventListener('keydown', handleUserInteraction)
-
-    return () => {
-      window.removeEventListener('click', handleUserInteraction)
-      window.removeEventListener('keydown', handleUserInteraction)
-    }
-  }, [])
+  const [play, setPlay] = useState(true)
 
   return (
     <>

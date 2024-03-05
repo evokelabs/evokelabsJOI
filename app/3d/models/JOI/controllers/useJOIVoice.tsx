@@ -41,6 +41,17 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
   const currentAudio = useRef<HTMLAudioElement | null>(null)
 
+  //Set JOI Speak to speak after delay
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      console.log('trigger setShouldJOISpeak')
+      setShouldJOISpeak(true)
+    }, 11500) // 5000 milliseconds = 5 seconds
+
+    // Clean up function to clear the timeout if the component unmounts before the timeout finishes
+    return () => clearTimeout(timeoutId)
+  }, []) // Empty dependency array so this effect only runs once on mount
+
   interface JOISpeechType {
     [key: string]: any[]
   }
@@ -48,6 +59,22 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const JOISpeechData: JOISpeechType = JOISpeech
 
   const { muteJOI } = useContext(SoundControlContext)
+
+  //Window event to detect if user interact with the document first
+  const [hasUserInteracted, setHasUserInteracted] = useState(false)
+
+  useEffect(() => {
+    // Set up event listeners for user interaction
+    const handleUserInteraction = () => setHasUserInteracted(true)
+    window.addEventListener('click', handleUserInteraction)
+    window.addEventListener('keydown', handleUserInteraction)
+
+    // Clean up the event listeners when the component unmounts
+    return () => {
+      window.removeEventListener('click', handleUserInteraction)
+      window.removeEventListener('keydown', handleUserInteraction)
+    }
+  }, []) // Empty dependency array so this effect only runs once on mount
 
   useEffect(() => {
     audioContextRef.current = new AudioContext()
@@ -175,7 +202,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }, [JOILineSpeak, getFilePath, hasSiteHomeVisited, model, setJOILineCaption, shouldJOISpeak])
 
   useEffect(() => {
-    if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited)) return
+    if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited) || !hasUserInteracted) return
 
     const audioContext = audioContextRef.current
     if (!audioContext || isPlaying.current) return
@@ -207,6 +234,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
 
       setTimeout(() => {
+        console.log('setTimeout')
         isPlaying.current = true
         playSpeech(availabilityFilePathArray)
       }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2) // delay the audio play to match the music loop transition duration
@@ -221,6 +249,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
             setAudioIndexState(audioIndex) // Update the audio index state
             setIsAudioPlaying(false)
             setIsChainPlaying(true)
+            console.log('1st playSpeech pass, audio play')
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             audio.onended = () => {
               audioIndex++
@@ -237,6 +266,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         } else {
           if (isPlaying.current) {
             setIsAudioPlaying(true)
+            console.log('2nd playSpeech pass, audio play')
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             return
           }
@@ -324,7 +354,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         audio.removeEventListener('ended', onAudioEnd)
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     JOILineSpeak,
     hasPlayed,
@@ -336,7 +365,13 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     getFilePath,
     hasSiteHomeVisited,
     visited,
-    setIsAudioPlaying
+    setIsAudioPlaying,
+    muteJOI,
+    availabilityFilePathArray,
+    setJOILineCaption,
+    availabilityTextArray,
+    setIsChainPlaying,
+    hasUserInteracted
   ])
 
   useEffect(() => {
