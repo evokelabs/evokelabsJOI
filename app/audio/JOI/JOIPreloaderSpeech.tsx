@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
+import { SoundControlContext } from '@/app/libs/SoundControlContext'
 
 const AUDIO_SOURCES = JOISpeech.preloader.map(item => item.filepath)
 
@@ -12,6 +13,7 @@ const LOOP = false
 const JOIPreloaderSpeech = () => {
   const audioElement = useRef<HTMLAudioElement | null>(null)
   const gainNode = useRef<GainNode | null>(null)
+  const { muteJOI } = useContext(SoundControlContext)
 
   useEffect(() => {
     // Create a new AudioContext and an audio element
@@ -50,7 +52,8 @@ const JOIPreloaderSpeech = () => {
 
         // Gradually increase the volume to the desired level over the transition duration
         if (VOLUME > 0) {
-          gainNode.current.gain.exponentialRampToValueAtTime(VOLUME, audioContext.currentTime + TRANSITION_DURATION / 1000)
+          const targetVolume = !muteJOI ? 0.001 : VOLUME
+          gainNode.current.gain.exponentialRampToValueAtTime(targetVolume, audioContext.currentTime + TRANSITION_DURATION / 1000)
         } else {
           gainNode.current.gain.setValueAtTime(0, audioContext.currentTime + TRANSITION_DURATION / 1000)
         }
