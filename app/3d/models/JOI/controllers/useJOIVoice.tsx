@@ -365,13 +365,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     getFilePath,
     hasSiteHomeVisited,
     visited,
-    setIsAudioPlaying,
-    muteJOI,
-    availabilityFilePathArray,
-    setJOILineCaption,
-    availabilityTextArray,
-    setIsChainPlaying,
-    hasUserInteracted
+    setIsAudioPlaying
   ])
 
   useEffect(() => {
