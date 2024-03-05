@@ -1,3 +1,4 @@
+// useAudio.tsx
 import { useEffect, useRef } from 'react'
 
 function useAudio(audioSource: string, volume: number, delay: number, transitionDuration: number, loop: boolean) {
@@ -32,14 +33,15 @@ function useAudio(audioSource: string, volume: number, delay: number, transition
         audioElement.current.play()
         audioElement.current.loop = loop
 
-        // Start the volume at a small positive value
-        gainNode.current.gain.setValueAtTime(0.001, audioContext.currentTime)
-
-        // Gradually increase the volume to the desired level over the transition duration
-        if (volume > 0) {
-          gainNode.current.gain.exponentialRampToValueAtTime(volume, audioContext.currentTime + transitionDuration / 1000)
+        // If the volume is 0, immediately set the volume to 0
+        if (volume === 0) {
+          gainNode.current.gain.setValueAtTime(0, audioContext.currentTime)
         } else {
-          gainNode.current.gain.setValueAtTime(0, audioContext.currentTime + transitionDuration / 1000)
+          // If the volume is greater than 0, start the volume at a small positive value
+          gainNode.current.gain.setValueAtTime(0.001, audioContext.currentTime)
+
+          // Gradually increase the volume to the desired level over the transition duration
+          gainNode.current.gain.exponentialRampToValueAtTime(volume, audioContext.currentTime + transitionDuration / 1000)
         }
 
         // Add the 'ended' event listener if the audio does not loop
@@ -48,16 +50,21 @@ function useAudio(audioSource: string, volume: number, delay: number, transition
         }
       }
     }
-
     setTimeout(playAudio, delay)
 
-    // Clean up event listeners when the component unmounts
+    // Clean up event listeners and stop the audio when the volume changes
     return () => {
       if (audioElement.current) {
         audioElement.current.removeEventListener('ended', handleEnded)
+        audioElement.current.pause()
+        if (gainNode.current) {
+          gainNode.current.disconnect()
+        }
+        source.disconnect()
+        audioContext.close()
       }
     }
-  }, [audioSource, delay, loop, transitionDuration, volume])
+  }, [audioSource, delay, loop, transitionDuration, volume]) // Add volume as a dependency
 
   return null
 }
