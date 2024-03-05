@@ -95,6 +95,7 @@ const SoundControlIcons = () => {
           <ToggleButton toggle={JOIToggle} setToggle={setJOIToggle} SVGIcon={props => <SoundJOIIconSVG {...props} />} />
         </>
       )}
+      {soundControlMasterToggle && <SoundEdgeTag />}
       <ToggleButton
         toggle={soundControlMasterToggle}
         setToggle={value => {
