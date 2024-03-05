@@ -68,9 +68,8 @@ function useAudio(audioSource: string, volume: number, delay: number, transition
 
   // Call updateVolume when the volume prop changes
   useEffect(() => {
-    const timer = setTimeout(updateVolume, delay)
-    return () => clearTimeout(timer)
-  }, [delay, transitionDuration, updateVolume, volume])
+    updateVolume()
+  }, [updateVolume, volume])
 
   return null
 }
