@@ -4,7 +4,7 @@ import RedCRTBlur from '../../libs/RedCRTBlur'
 
 const SoundControlIconOnSVG = ({ isHovered }: { isHovered: boolean }) => {
   return (
-    <svg width='44' height='43' viewBox='-2 0 44 43' fill='none'>
+    <svg width='44' height='43' viewBox='-1.5 0 44 43' fill='none'>
       <RedCRTBlur />
       <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
         <path d='M25.1053 32.5111V14L17.7885 19.7233H13V26.7878H17.7885L25.1053 32.5111Z' fill={isHovered ? TEAL : RED} />

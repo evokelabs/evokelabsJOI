@@ -11,38 +11,41 @@ import SoundCrossIconSVG from './svg/button/SoundCrossIconSVG'
 const ToggleButton = ({
   toggle,
   setToggle,
-  SVGIcon
+  SVGIcon,
+  SVGIconOn,
+  SVGIconOff
 }: {
   toggle: boolean
   setToggle: React.Dispatch<React.SetStateAction<boolean>>
-  SVGIcon: (props: { isHovered: boolean }) => JSX.Element
+  SVGIcon?: (props: { isHovered: boolean }) => JSX.Element
+  SVGIconOn?: (props: { isHovered: boolean }) => JSX.Element
+  SVGIconOff?: (props: { isHovered: boolean }) => JSX.Element
 }) => {
   const [isHovered, setIsHovered] = useState(false)
 
-  return toggle ? (
+  const IconOn = SVGIconOn || SVGIcon
+  const IconOff = SVGIconOff || SVGIcon
+
+  return (
     <div
       onClick={() => setToggle(!toggle)}
       className='relative'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <ButtonAlternative SVGIcon={props => SVGIcon({ ...props, isHovered })} />
-    </div>
-  ) : (
-    <div
-      onClick={() => setToggle(!toggle)}
-      className='relative'
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className='absolute mt-1.5 right-0 mr-2'>
-        <SoundCrossIconSVG />
-      </div>
-      <ButtonAlternative SVGIcon={props => SVGIcon({ ...props, isHovered })} />
+      {toggle ? (
+        IconOn && <ButtonAlternative SVGIcon={props => IconOn({ ...props, isHovered })} />
+      ) : (
+        <>
+          <div className='absolute mt-1.5 right-0 mr-2'>
+            <SoundCrossIconSVG />
+          </div>
+          {IconOff && <ButtonAlternative SVGIcon={props => IconOff({ ...props, isHovered })} />}
+        </>
+      )}
     </div>
   )
 }
-
 const SoundControlIcons = () => {
   const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(false)
   const [musicToggle, setMusicToggle] = useState(false)
@@ -79,7 +82,8 @@ const SoundControlIcons = () => {
       <ToggleButton
         toggle={soundControlMasterToggle}
         setToggle={setSoundControlMasterToggle}
-        SVGIcon={props => <SoundControlIconOnSVG {...props} />}
+        SVGIconOn={props => <SoundControlIconOnSVG {...props} />}
+        SVGIconOff={props => <SoundControlIconOffSVG {...props} />}
       />
     </div>
   )
