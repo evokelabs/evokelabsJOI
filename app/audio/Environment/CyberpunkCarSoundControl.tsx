@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 
 import { CyberpunkRefType } from '../../3d/models/CyberpunkCar/index'
+import { SoundControlContext } from '@/app/libs/SoundControlContext'
 
 const SOUND_PATH = '/sounds/engineLoop.ogg'
 const MAX_VOLUME = 0.55
-// const MAX_VOLUME = 0
 const MIN_VOLUME = 0
 const VOLUME_DIVISOR = 25
 
@@ -14,6 +14,8 @@ const CyberpunkCarSoundControl = ({ carRef }: CyberpunkRefType) => {
   const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null)
   const [gainNode, setGainNode] = useState<GainNode | null>(null)
   const [panner, setPanner] = useState<StereoPannerNode | null>(null)
+
+  const { muteSFX } = useContext(SoundControlContext)
 
   // On mount and when audioCtx changes, set up the audio context, gain node, and panner.
   // Also, load and play the sound, and add event listeners to resume the audio when it's suspended.
@@ -57,14 +59,14 @@ const CyberpunkCarSoundControl = ({ carRef }: CyberpunkRefType) => {
   // On each frame, update the volume and pan of the sound based on the car's position.
   useFrame(() => {
     if (carRef.current && gainNode && panner) {
-      const volume = MAX_VOLUME - Math.abs(carRef.current.position.x) / VOLUME_DIVISOR
-      gainNode.gain.value = Math.max(MIN_VOLUME, Math.min(MAX_VOLUME, volume))
+      const currentMaxVolume = !muteSFX ? 0 : MAX_VOLUME
+      const volume = currentMaxVolume - Math.abs(carRef.current.position.x) / VOLUME_DIVISOR
+      gainNode.gain.value = Math.max(MIN_VOLUME, Math.min(currentMaxVolume, volume))
 
       const pan = carRef.current.position.x / -25
       panner.pan.value = Math.max(-1, Math.min(1, pan))
     }
   })
-
   return null
 }
 

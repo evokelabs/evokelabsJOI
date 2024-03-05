@@ -1,6 +1,8 @@
-import { useEffect, useRef } from 'react'
+import { SoundControlContext } from '@/app/libs/SoundControlContext'
+import { useContext, useEffect, useRef } from 'react'
 
 const AUDIO_SOURCE = '/sounds/shutters.mp3'
+
 const ShutterSoundControl = ({
   volume = 0,
   delay = 0,
@@ -15,9 +17,14 @@ const ShutterSoundControl = ({
   const audioElement = useRef<HTMLAudioElement | null>(null)
   const gainNode = useRef<GainNode | null>(null)
 
+  const { muteSFX } = useContext(SoundControlContext)
+  const audioContextRef = useRef<AudioContext | null>(null)
+
   useEffect(() => {
     // Create a new AudioContext and an audio element
+
     const audioContext = new AudioContext()
+    audioContextRef.current = audioContext // Assign audioContext to audioContextRef.current
     audioElement.current = new Audio()
     audioElement.current.src = AUDIO_SOURCE
 
@@ -31,29 +38,37 @@ const ShutterSoundControl = ({
 
     // Define a function to play the audio
     const playAudio = () => {
-      if (audioElement.current && gainNode.current) {
+      if (audioElement.current && gainNode.current && audioContext.state === 'running') {
         audioElement.current.play()
         audioElement.current.loop = loop
-
-        // Start the volume at a small positive value
-        gainNode.current.gain.setValueAtTime(0.001, audioContext.currentTime)
-
-        // Gradually increase the volume to the desired level over the transition duration
-        if (volume > 0) {
-          gainNode.current.gain.linearRampToValueAtTime(volume, audioContext.currentTime + transitionDuration / 1000)
-        } else {
-          gainNode.current.gain.setValueAtTime(0, audioContext.currentTime + transitionDuration / 1000)
-        }
       }
     }
 
-    setTimeout(playAudio, delay)
+    // Call playAudio only when audioContext is defined and in 'running' state
+    if (audioContext.state === 'running') {
+      setTimeout(playAudio, delay)
+    } else {
+      audioContext.onstatechange = () => {
+        if (audioContext.state === 'running') {
+          setTimeout(playAudio, delay)
+        }
+      }
+    }
 
     // Clean up event listeners when the component unmounts
     return () => {
       audioElement.current?.removeEventListener('canplaythrough', playAudio)
     }
-  }, [delay, loop, transitionDuration, volume])
+  }, [delay, loop])
+
+  useEffect(() => {
+    // Update the gain value when muteSFX changes
+    if (gainNode.current && audioContextRef.current) {
+      const targetVolume = !muteSFX ? 0 : volume
+      gainNode.current.gain.cancelScheduledValues(audioContextRef.current.currentTime)
+      gainNode.current.gain.linearRampToValueAtTime(targetVolume, audioContextRef.current.currentTime + transitionDuration / 1000)
+    }
+  }, [muteSFX, volume, transitionDuration])
 
   return null
 }
