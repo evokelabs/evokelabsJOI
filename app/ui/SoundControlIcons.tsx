@@ -85,7 +85,13 @@ const SoundControlIcons = () => {
       <ToggleButton toggle={JOIToggle} setToggle={setJOIToggle} SVGIcon={props => <SoundJOIIconSVG {...props} />} />
       <ToggleButton
         toggle={soundControlMasterToggle}
-        setToggle={setSoundControlMasterToggle}
+        setToggle={value => {
+          setSoundControlMasterToggle(value)
+          setMusicToggle(value)
+          setSFXToggle(value)
+          setRainToggle(value)
+          setJOIToggle(value)
+        }}
         SVGIconOn={props => <SoundControlIconOnSVG {...props} />}
         SVGIconOff={props => <SoundControlIconOffSVG {...props} />}
         showCrossIcon={false}
