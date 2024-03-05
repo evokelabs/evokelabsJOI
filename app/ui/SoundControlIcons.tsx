@@ -16,19 +16,32 @@ const ToggleButton = ({
   toggle: boolean
   setToggle: React.Dispatch<React.SetStateAction<boolean>>
   SVGIcon: (props: { isHovered: boolean }) => JSX.Element
-}) =>
-  toggle ? (
-    <div onClick={() => setToggle(!toggle)} className='relative'>
-      <ButtonAlternative SVGIcon={SVGIcon} />
+}) => {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return toggle ? (
+    <div
+      onClick={() => setToggle(!toggle)}
+      className='relative'
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <ButtonAlternative SVGIcon={props => SVGIcon({ ...props, isHovered })} />
     </div>
   ) : (
-    <div onClick={() => setToggle(!toggle)} className='relative'>
+    <div
+      onClick={() => setToggle(!toggle)}
+      className='relative'
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className='absolute mt-1.5 right-0 mr-2'>
         <SoundCrossIconSVG />
       </div>
-      <ButtonAlternative SVGIcon={SVGIcon} />
+      <ButtonAlternative SVGIcon={props => SVGIcon({ ...props, isHovered })} />
     </div>
   )
+}
 
 const SoundControlIcons = () => {
   const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(false)
