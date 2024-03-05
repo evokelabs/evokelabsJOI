@@ -40,6 +40,7 @@ import { RoutesContext } from '../libs/RoutesContext'
 import JOISubtitles from '../ui/JOISubtitles'
 import { JOISpeechContext } from '../libs/JOISpeechContext'
 import SoundControlIcons from '../ui/SoundControlIcons'
+import { SoundControlContext } from '../libs/SoundControlContext'
 
 // Constants
 // const debug = true
@@ -181,80 +182,104 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     setJOILineSpeak(currentRouteSelection)
   }, [currentRouteSelection])
 
+  //Sound Control Function
+  const [muteMusic, setMuteMusic] = useState(false)
+  const [muteSFX, setMuteSFX] = useState(false)
+  const [muteRain, setMuteRain] = useState(false)
+  const [muteJOI, setMuteJOI] = useState(false)
+
+  useEffect(() => {
+    console.log('muteMusic changed:', muteMusic)
+  }, [muteMusic])
+
+  useEffect(() => {
+    console.log('muteSFX changed:', muteSFX)
+  }, [muteSFX])
+
+  useEffect(() => {
+    console.log('muteRain changed:', muteRain)
+  }, [muteRain])
+
+  useEffect(() => {
+    console.log('muteJOI changed:', muteJOI)
+  }, [muteJOI])
+
   return (
     <>
-      <JOISpeechContext.Provider
-        value={{ JOILineCaption, setJOILineCaption, isAudioPlaying, setIsAudioPlaying, isChainPlaying, setIsChainPlaying }}
-      >
-        <Canvas
-          camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
-          shadows
-          gl={{
-            powerPreference: 'high-performance'
-          }}
+      <SoundControlContext.Provider value={{ muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI }}>
+        <JOISpeechContext.Provider
+          value={{ JOILineCaption, setJOILineCaption, isAudioPlaying, setIsAudioPlaying, isChainPlaying, setIsChainPlaying }}
         >
-          <SoundsContext.Provider
-            value={{
-              musicVolume,
-              setMusicVolume,
-              musicLoopTransitionDuration,
-              setMusicLoopTransitionDuration,
-              JOILineSpeak,
-              setJOILineSpeak
+          <Canvas
+            camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
+            shadows
+            gl={{
+              powerPreference: 'high-performance'
             }}
           >
-            <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
-              <RoutesContext.Provider value={{ currentRouteSelection, setCurrentRouteSelection }}>
-                <div className='max-w-[1170px]'>
-                  {isPreLoaderFinished && router.pathname === '/' && <Home />}
-                  {router.pathname === '/services' && <Services />}
-                  {router.pathname === '/portfolio' && <Portfolio />}
-                  {router.pathname === '/history' && <History />}
-                  {router.pathname === '/resume' && <Resume />}
-                  {router.pathname === '/joi' && <JOISpecial />}
-                  {router.pathname === '/availabilities' && <Availabilities />}
-                  {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
-                </div>
-              </RoutesContext.Provider>
-            </Html>
-            <VideoSkybox />
-            <ELAudioStartSoundControl />
-            {debug ? <Perf position='top-left' /> : null}
-            {/* <Perf position='top-left' /> */}
-            <CameraRig fov={fov} debug={debug} />
-            <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
-            <AnimationContext.Provider
+            <SoundsContext.Provider
               value={{
-                shouldAmbientLightPlay,
-                shouldPointLightPlay,
-                shouldJOISpeak,
-                setAmbientLightPlay,
-                setPointLightPlay,
-                setShouldJOISpeak
+                musicVolume,
+                setMusicVolume,
+                musicLoopTransitionDuration,
+                setMusicLoopTransitionDuration,
+                JOILineSpeak,
+                setJOILineSpeak
               }}
             >
-              <Lights />
-              {isCarReady && <CyberpunkCar />}
-              <WideMonitor />
-              <DeskItems />
-              {gpuTier !== null && gpuTier >= 2 ? <CyberpunkMap /> : <CyberpunkMapLowPoly />}
-              <JOI />
-              <Rain />
-            </AnimationContext.Provider>
-          </SoundsContext.Provider>
-          <EffectComposer disableNormalPass>
-            <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
-            <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
-            <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
-            <Noise opacity={0.7} premultiply blendFunction={28} />
-            <BrightnessContrast brightness={0.02} contrast={0.275} />
-            <Vignette offset={0.0} darkness={1} />
-          </EffectComposer>
-        </Canvas>
-        <SocialIcons />
-        <SoundControlIcons />
-        <JOISubtitles />
-      </JOISpeechContext.Provider>
+              <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
+                <RoutesContext.Provider value={{ currentRouteSelection, setCurrentRouteSelection }}>
+                  <div className='max-w-[1170px]'>
+                    {isPreLoaderFinished && router.pathname === '/' && <Home />}
+                    {router.pathname === '/services' && <Services />}
+                    {router.pathname === '/portfolio' && <Portfolio />}
+                    {router.pathname === '/history' && <History />}
+                    {router.pathname === '/resume' && <Resume />}
+                    {router.pathname === '/joi' && <JOISpecial />}
+                    {router.pathname === '/availabilities' && <Availabilities />}
+                    {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+                  </div>
+                </RoutesContext.Provider>
+              </Html>
+              <VideoSkybox />
+              <ELAudioStartSoundControl />
+              {debug ? <Perf position='top-left' /> : null}
+              {/* <Perf position='top-left' /> */}
+              <CameraRig fov={fov} debug={debug} />
+              <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
+              <AnimationContext.Provider
+                value={{
+                  shouldAmbientLightPlay,
+                  shouldPointLightPlay,
+                  shouldJOISpeak,
+                  setAmbientLightPlay,
+                  setPointLightPlay,
+                  setShouldJOISpeak
+                }}
+              >
+                <Lights />
+                {isCarReady && <CyberpunkCar />}
+                <WideMonitor />
+                <DeskItems />
+                {gpuTier !== null && gpuTier >= 2 ? <CyberpunkMap /> : <CyberpunkMapLowPoly />}
+                <JOI />
+                <Rain />
+              </AnimationContext.Provider>
+            </SoundsContext.Provider>
+            <EffectComposer disableNormalPass>
+              <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
+              <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
+              <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
+              <Noise opacity={0.7} premultiply blendFunction={28} />
+              <BrightnessContrast brightness={0.02} contrast={0.275} />
+              <Vignette offset={0.0} darkness={1} />
+            </EffectComposer>
+          </Canvas>
+          <SocialIcons />
+          <SoundControlIcons />
+          <JOISubtitles />
+        </JOISpeechContext.Provider>
+      </SoundControlContext.Provider>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import SoundMusicIconSVG from './svg/button/SoundMusicIconSVG'
 import SoundSFXIconSVG from './svg/button/SoundSFXIconSVG'
 import SoundRainIconSVG from './svg/button/SoundRainIconSVG'
@@ -9,6 +9,8 @@ import ButtonAlternative from './ButtonAlternative'
 import SoundCrossIconSVG from './svg/button/SoundCrossIconSVG'
 import SoundEdgeTag from './PanelContent/SoundEdgeTag'
 import ButtonSocial from './ButtonSocial'
+
+import { SoundControlContext } from '@/app/libs/SoundControlContext'
 
 const ToggleButton = ({
   toggle,
@@ -55,57 +57,59 @@ const ToggleButton = ({
   )
 }
 const SoundControlIcons = () => {
+  const { muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI } = useContext(SoundControlContext)
+
   const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(false)
-  const [musicToggle, setMusicToggle] = useState(false)
-  const [SFXToggle, setSFXToggle] = useState(false)
-  const [rainToggle, setRainToggle] = useState(false)
-  const [JOIToggle, setJOIToggle] = useState(false)
-
-  useEffect(() => {
-    console.log('soundControlMasterToggle changed:', soundControlMasterToggle)
-  }, [soundControlMasterToggle])
-
-  useEffect(() => {
-    console.log('musicToggle changed:', musicToggle)
-  }, [musicToggle])
-
-  useEffect(() => {
-    console.log('SFXToggle changed:', SFXToggle)
-  }, [SFXToggle])
-
-  useEffect(() => {
-    console.log('rainToggle changed:', rainToggle)
-  }, [rainToggle])
-
-  useEffect(() => {
-    console.log('JOIToggle changed:', JOIToggle)
-  }, [JOIToggle])
 
   useEffect(() => {
     // If all child toggles are true, set master toggle to true
     // If any child toggle is false, set master toggle to false
-    setSoundControlMasterToggle(musicToggle && SFXToggle && rainToggle && JOIToggle)
-  }, [musicToggle, SFXToggle, rainToggle, JOIToggle])
+    setSoundControlMasterToggle(muteMusic && muteSFX && muteRain && muteJOI)
+  }, [muteMusic, muteSFX, muteRain, muteJOI])
 
   return (
     <div className='relative'>
       <div className='absolute bottom-5 right-0 pt-5 flex flex-row justify-end  z-[10000000000000000]'>
         <div className={`flex transition-all duration-500 overflow-hidden ${soundControlMasterToggle ? 'max-w-4' : 'max-w-full'}`}>
           <SoundEdgeTag />
-          <ToggleButton toggle={musicToggle} setToggle={setMusicToggle} SVGIcon={props => <SoundMusicIconSVG {...props} />} />
-          <ToggleButton toggle={SFXToggle} setToggle={setSFXToggle} SVGIcon={props => <SoundSFXIconSVG {...props} />} />
-          <ToggleButton toggle={rainToggle} setToggle={setRainToggle} SVGIcon={props => <SoundRainIconSVG {...props} />} />
-          <ToggleButton toggle={JOIToggle} setToggle={setJOIToggle} SVGIcon={props => <SoundJOIIconSVG {...props} />} />
+          <ToggleButton
+            toggle={muteMusic}
+            setToggle={value => {
+              setMuteMusic(value)
+            }}
+            SVGIcon={props => <SoundMusicIconSVG {...props} />}
+          />
+          <ToggleButton
+            toggle={muteSFX}
+            setToggle={value => {
+              setMuteSFX(value)
+            }}
+            SVGIcon={props => <SoundSFXIconSVG {...props} />}
+          />
+          <ToggleButton
+            toggle={muteRain}
+            setToggle={value => {
+              setMuteRain(value)
+            }}
+            SVGIcon={props => <SoundRainIconSVG {...props} />}
+          />
+          <ToggleButton
+            toggle={muteJOI}
+            setToggle={value => {
+              setMuteJOI(value)
+            }}
+            SVGIcon={props => <SoundJOIIconSVG {...props} />}
+          />
         </div>
 
         <ToggleButton
           toggle={soundControlMasterToggle}
           setToggle={value => {
             setSoundControlMasterToggle(value)
-            setMusicToggle(value)
-            setSFXToggle(value)
-            setRainToggle(value)
-            setJOIToggle(value)
+            setMuteMusic(value)
+            setMuteSFX(value)
+            setMuteRain(value)
+            setMuteJOI(value)
           }}
           SVGIconOn={props => <SoundControlIconOnSVG {...props} />}
           SVGIconOff={props => <SoundControlIconOffSVG {...props} />}
