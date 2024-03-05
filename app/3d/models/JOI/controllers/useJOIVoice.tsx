@@ -8,6 +8,7 @@ import { DEFAULT_MUSIC_LOOP_VOLUME, JOI_MUSIC_LOOP_TRANSITION_DURATION, LOW_MUSI
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
 import Availabilities from '@/app/sections/data/availabilities.json'
 import { JOISpeechContext } from '@/app/libs/JOISpeechContext'
+import { SoundControlContext } from '@/app/libs/SoundControlContext'
 
 const INTRO_FILES = JOISpeech.intro.map(item => item.filepath)
 const INTRO_TEXT = JOISpeech.intro.map(item => item.text)
@@ -45,6 +46,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }
 
   const JOISpeechData: JOISpeechType = JOISpeech
+
+  const { muteJOI } = useContext(SoundControlContext)
 
   useEffect(() => {
     audioContextRef.current = new AudioContext()
@@ -197,7 +200,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       source.connect(gainNode) // Connect the source to the GainNode
       gainNode.connect(audioContext.destination) // Connect the GainNode to the destination
 
-      gainNode.gain.value = GAIN_NODE_VOLUME
+      gainNode.gain.value = muteJOI ? GAIN_NODE_VOLUME : -1
 
       setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume before the audio starts playing
       setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
@@ -215,7 +218,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
             setJOILineCaption(availabilityTextArray[audioIndex])
             setAudioIndexState(audioIndex) // Update the audio index state
-            setIsAudioPlaying(false)
+            setIsAudioPlaying(true)
             setIsChainPlaying(true)
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             audio.onended = () => {
@@ -332,7 +335,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     getFilePath,
     hasSiteHomeVisited,
     visited,
-    setIsAudioPlaying
+    setIsAudioPlaying,
+    muteJOI
   ])
   return { resetSpeechFlag }
 }
