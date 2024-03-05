@@ -87,8 +87,6 @@ const Rain = () => {
     muteRainRef.current = muteRain
   }, [muteRain])
 
-  const repositionIndexRef = useRef(0)
-
   useEffect(() => {
     const animate = () => {
       const { rain, positions, velocities, matrix, position } = rainRef
