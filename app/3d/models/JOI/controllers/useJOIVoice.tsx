@@ -18,6 +18,7 @@ const MAX_INFLUENCE = 0.15
 const GAIN_NODE_VOLUME = 2
 const TIMEOUT_FAIL_SAFE = 7500
 const TIMEOUT_HARD_STATE_RESET = 7000
+const TIME_TO_SPEAK_ON_LOAD = 12800
 const KEYS = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'availability']
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
@@ -44,9 +45,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   //Set JOI Speak to speak after delay
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      console.log('trigger setShouldJOISpeak')
       setShouldJOISpeak(true)
-    }, 11500) // 5000 milliseconds = 5 seconds
+    }, TIME_TO_SPEAK_ON_LOAD) // 5000 milliseconds = 5 seconds
 
     // Clean up function to clear the timeout if the component unmounts before the timeout finishes
     return () => clearTimeout(timeoutId)
@@ -234,7 +234,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
 
       setTimeout(() => {
-        console.log('setTimeout')
         isPlaying.current = true
         playSpeech(availabilityFilePathArray)
       }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2) // delay the audio play to match the music loop transition duration
@@ -249,7 +248,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
             setAudioIndexState(audioIndex) // Update the audio index state
             setIsAudioPlaying(false)
             setIsChainPlaying(true)
-            console.log('1st playSpeech pass, audio play')
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             audio.onended = () => {
               audioIndex++
@@ -266,7 +264,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         } else {
           if (isPlaying.current) {
             setIsAudioPlaying(true)
-            console.log('2nd playSpeech pass, audio play')
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             return
           }

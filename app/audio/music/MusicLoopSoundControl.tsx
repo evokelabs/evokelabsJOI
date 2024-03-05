@@ -21,6 +21,10 @@ const MusicLoopSoundControl = () => {
   useEffect(() => {
     const currentAudioElement = audioElement.current
 
+    audioContext.current.resume().then(() => {
+      playAudio()
+    })
+
     // Create a MediaElementAudioSourceNode from the audio element
     if (!source.current) {
       source.current = audioContext.current.createMediaElementSource(currentAudioElement)
@@ -34,12 +38,18 @@ const MusicLoopSoundControl = () => {
       currentAudioElement.loop = LOOP
 
       // Start the volume transition from zero if it's the first playthrough, otherwise start from the current volume
+
       const startVolume = hasMounted.current ? gainNode.current.gain.value : 0
       gainNode.current.gain.setValueAtTime(startVolume, audioContext.current.currentTime)
 
+      console.log('startVolume', startVolume)
+      console.log('audioContext.current.currentTime', audioContext.current.currentTime)
+
       // Gradually increase the volume to the desired level over the transition duration
+      console.log('musicVolume', musicVolume)
       const targetVolume = !muteMusic ? 0 : musicVolume
-      gainNode.current.gain.linearRampToValueAtTime(targetVolume, audioContext.current.currentTime + musicLoopTransitionDuration / 1000)
+      gainNode.current.gain.linearRampToValueAtTime(musicVolume, audioContext.current.currentTime + musicLoopTransitionDuration / 1000)
+      console.log('targetVolume', targetVolume)
 
       // Set hasMounted to true after the audio has started playing
       hasMounted.current = true

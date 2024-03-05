@@ -73,10 +73,6 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
   }, [])
 
   useEffect(() => {
-    console.log('muteSFX Home', muteSFX)
-  }, [muteSFX])
-
-  useEffect(() => {
     if (divRef.current) {
       gsap.to(divRef.current, {
         height: isActive ? 'auto' : '0px',

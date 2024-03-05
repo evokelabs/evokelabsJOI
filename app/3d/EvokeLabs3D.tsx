@@ -188,22 +188,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [muteRain, setMuteRain] = useState(false)
   const [muteJOI, setMuteJOI] = useState(false)
 
-  useEffect(() => {
-    console.log('muteMusic changed:', muteMusic)
-  }, [muteMusic])
-
-  useEffect(() => {
-    console.log('muteSFX changed:', muteSFX)
-  }, [muteSFX])
-
-  useEffect(() => {
-    console.log('muteRain changed:', muteRain)
-  }, [muteRain])
-
-  useEffect(() => {
-    console.log('muteJOI changed:', muteJOI)
-  }, [muteJOI])
-
   return (
     <>
       <SoundControlContext.Provider value={{ muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI }}>

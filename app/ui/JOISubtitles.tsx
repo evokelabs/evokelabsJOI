@@ -9,15 +9,12 @@ const JOISubtitles = () => {
   const SAFEGUARD_TIMER = 7500
 
   useEffect(() => {
-    console.log('Is talking?', isAudioPlaying)
-    console.log('Is chain playing?', isChainPlaying)
     let timeoutId: NodeJS.Timeout
     if (!isAudioPlaying && !isChainPlaying) {
       setTimeout(() => {
         setCurrentCaption(JOILineCaption)
       }, 500) // Delay setCurrentCaption by 0.5 seconds to account for the duration-500 t
       timeoutId = setTimeout(() => {
-        console.log('SAFEGUARD_TIMER triggered')
         setIsAudioPlaying(false)
         setIsChainPlaying(false)
         setCurrentCaption(null)
