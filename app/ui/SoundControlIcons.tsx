@@ -8,6 +8,28 @@ import SoundControlIconOffSVG from './svg/button/SoundControlIconOffSVG'
 import ButtonAlternative from './ButtonAlternative'
 import SoundCrossIconSVG from './svg/button/SoundCrossIconSVG'
 
+const ToggleButton = ({
+  toggle,
+  setToggle,
+  SVGIcon
+}: {
+  toggle: boolean
+  setToggle: React.Dispatch<React.SetStateAction<boolean>>
+  SVGIcon: (props: { isHovered: boolean }) => JSX.Element
+}) =>
+  toggle ? (
+    <div onClick={() => setToggle(!toggle)} className='relative'>
+      <ButtonAlternative SVGIcon={SVGIcon} />
+    </div>
+  ) : (
+    <div onClick={() => setToggle(!toggle)} className='relative'>
+      <div className='absolute mt-1.5 right-0 mr-2'>
+        <SoundCrossIconSVG />
+      </div>
+      <ButtonAlternative SVGIcon={SVGIcon} />
+    </div>
+  )
+
 const SoundControlIcons = () => {
   const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(false)
   const [musicToggle, setMusicToggle] = useState(false)
@@ -37,54 +59,15 @@ const SoundControlIcons = () => {
 
   return (
     <div className='absolute bottom-5 right-0 pt-5 flex flex-row z-[10000000000000000]'>
-      <div onClick={() => setMusicToggle(!musicToggle)} className='relative'>
-        <div className='absolute mt-1.5 right-0 mr-2'>
-          <SoundCrossIconSVG />
-        </div>
-        <ButtonAlternative SVGIcon={props => <SoundMusicIconSVG {...props} />} />
-      </div>
-      <div onClick={() => setSFXToggle(!SFXToggle)} className='relative'>
-        <div className='absolute mt-1.5 right-0 mr-2'>
-          <SoundCrossIconSVG />
-        </div>
-        <ButtonAlternative SVGIcon={props => <SoundSFXIconSVG {...props} />} />
-      </div>
-      <div onClick={() => setRainToggle(!rainToggle)} className='relative'>
-        <div className='absolute mt-1.5 right-0 mr-2'>
-          <SoundCrossIconSVG />
-        </div>
-        <ButtonAlternative SVGIcon={props => <SoundRainIconSVG {...props} />} />
-      </div>
-      <div onClick={() => setJOIToggle(!JOIToggle)} className='relative'>
-        <div className='absolute mt-1.5 right-0 mr-2'>
-          <SoundCrossIconSVG />
-        </div>
-        <ButtonAlternative SVGIcon={props => <SoundJOIIconSVG {...props} />} />
-      </div>
-      <div onClick={() => setSoundControlMasterToggle(!soundControlMasterToggle)} className='relative'>
-        <ButtonAlternative SVGIcon={props => <SoundControlIconOffSVG {...props} />} />
-      </div>
-      <div onClick={() => setSoundControlMasterToggle(!soundControlMasterToggle)} className='relative'>
-        <ButtonAlternative SVGIcon={props => <SoundControlIconOnSVG {...props} />} />
-      </div>
-      <div onClick={() => setMusicToggle(!musicToggle)} className='relative'>
-        <ButtonAlternative SVGIcon={props => <SoundMusicIconSVG {...props} />} />
-      </div>
-      <div onClick={() => setSFXToggle(!SFXToggle)} className='relative'>
-        <ButtonAlternative SVGIcon={props => <SoundSFXIconSVG {...props} />} />
-      </div>
-      <div onClick={() => setRainToggle(!rainToggle)} className='relative'>
-        <ButtonAlternative SVGIcon={props => <SoundRainIconSVG {...props} />} />
-      </div>
-      <div onClick={() => setJOIToggle(!JOIToggle)} className='relative'>
-        <ButtonAlternative SVGIcon={props => <SoundJOIIconSVG {...props} />} />
-      </div>
-      <div onClick={() => setSoundControlMasterToggle(!soundControlMasterToggle)} className='relative'>
-        <ButtonAlternative SVGIcon={props => <SoundControlIconOffSVG {...props} />} />
-      </div>
-      <div onClick={() => setSoundControlMasterToggle(!soundControlMasterToggle)} className='relative'>
-        <ButtonAlternative SVGIcon={props => <SoundControlIconOnSVG {...props} />} />
-      </div>
+      <ToggleButton toggle={musicToggle} setToggle={setMusicToggle} SVGIcon={props => <SoundMusicIconSVG {...props} />} />
+      <ToggleButton toggle={SFXToggle} setToggle={setSFXToggle} SVGIcon={props => <SoundSFXIconSVG {...props} />} />
+      <ToggleButton toggle={rainToggle} setToggle={setRainToggle} SVGIcon={props => <SoundRainIconSVG {...props} />} />
+      <ToggleButton toggle={JOIToggle} setToggle={setJOIToggle} SVGIcon={props => <SoundJOIIconSVG {...props} />} />
+      <ToggleButton
+        toggle={soundControlMasterToggle}
+        setToggle={setSoundControlMasterToggle}
+        SVGIcon={props => <SoundControlIconOnSVG {...props} />}
+      />
     </div>
   )
 }
