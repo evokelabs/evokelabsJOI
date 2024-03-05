@@ -89,15 +89,14 @@ const SoundControlIcons = () => {
 
   return (
     <div className='relative'>
-      <div className='absolute bottom-5 right-0 pt-5 flex flex-row z-[10000000000000000]'>
-        {!soundControlMasterToggle && (
-          <>
-            <ToggleButton toggle={musicToggle} setToggle={setMusicToggle} SVGIcon={props => <SoundMusicIconSVG {...props} />} />
-            <ToggleButton toggle={SFXToggle} setToggle={setSFXToggle} SVGIcon={props => <SoundSFXIconSVG {...props} />} />
-            <ToggleButton toggle={rainToggle} setToggle={setRainToggle} SVGIcon={props => <SoundRainIconSVG {...props} />} />
-            <ToggleButton toggle={JOIToggle} setToggle={setJOIToggle} SVGIcon={props => <SoundJOIIconSVG {...props} />} />
-          </>
-        )}
+      <div className='absolute bottom-5 right-0 pt-5 flex flex-row justify-end  z-[10000000000000000]'>
+        <div className={`flex transition-all duration-500 overflow-hidden ${soundControlMasterToggle ? 'max-w-0' : 'max-w-full'}`}>
+          <ToggleButton toggle={musicToggle} setToggle={setMusicToggle} SVGIcon={props => <SoundMusicIconSVG {...props} />} />
+          <ToggleButton toggle={SFXToggle} setToggle={setSFXToggle} SVGIcon={props => <SoundSFXIconSVG {...props} />} />
+          <ToggleButton toggle={rainToggle} setToggle={setRainToggle} SVGIcon={props => <SoundRainIconSVG {...props} />} />
+          <ToggleButton toggle={JOIToggle} setToggle={setJOIToggle} SVGIcon={props => <SoundJOIIconSVG {...props} />} />
+        </div>
+
         <ToggleButton
           toggle={soundControlMasterToggle}
           setToggle={value => {
