@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 function useAudio(audioSource: string, volume: number, delay: number, transitionDuration: number, loop: boolean) {
   const audioElement = useRef<HTMLAudioElement | null>(null)
@@ -33,24 +33,13 @@ function useAudio(audioSource: string, volume: number, delay: number, transition
         audioElement.current.play()
         audioElement.current.loop = loop
 
-        // Start the volume at a small positive value
-        gainNode.current.gain.setValueAtTime(0.001, audioContext.current.currentTime)
-
-        // Gradually change the volume to the desired level over the transition duration
-        if (volume === 0) {
-          gainNode.current.gain.linearRampToValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
-        } else {
-          gainNode.current.gain.exponentialRampToValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
-        }
-
         // Add the 'ended' event listener if the audio does not loop
         if (!loop) {
           audioElement.current.addEventListener('ended', handleEnded)
         }
       }
     }
-    setTimeout(playAudio, delay)
-
+    playAudio()
     // Clean up event listeners and stop the audio when the volume changes
     return () => {
       if (audioElement.current) {
@@ -66,22 +55,22 @@ function useAudio(audioSource: string, volume: number, delay: number, transition
   }, [audioSource, delay, loop, transitionDuration, volume]) // Add volume as a dependency
 
   // Define a function to update the volume
-  const updateVolume = () => {
+  // Define a function to update the volume
+  const updateVolume = useCallback(() => {
     if (gainNode.current && audioContext.current) {
-      // Start the volume at a small positive value
-      gainNode.current.gain.setValueAtTime(0.001, audioContext.current.currentTime)
+      // Set the initial volume to the current value
+      gainNode.current.gain.setValueAtTime(volume, audioContext.current.currentTime)
 
-      // Gradually change the volume to the desired level over the transition duration
-      if (volume === 0) {
-        gainNode.current.gain.linearRampToValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
-      } else {
-        gainNode.current.gain.exponentialRampToValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
-      }
+      // Gradually change the volume to the new value over the transition duration
+      gainNode.current.gain.linearRampToValueAtTime(volume, audioContext.current.currentTime + transitionDuration / 1000)
     }
-  }
+  }, [transitionDuration, volume]) // Add transitionDuration and volume as dependencies
 
   // Call updateVolume when the volume prop changes
-  useEffect(updateVolume, [volume])
+  useEffect(() => {
+    const timer = setTimeout(updateVolume, delay)
+    return () => clearTimeout(timer)
+  }, [delay, transitionDuration, updateVolume, volume])
 
   return null
 }
