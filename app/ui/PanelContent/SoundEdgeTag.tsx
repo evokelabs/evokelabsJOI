@@ -4,7 +4,7 @@ import { RED_TILE_PATTERN } from '../libs/TitleFillsPatterns'
 
 const SoundEdgeTag = ({ className }: { className?: string }) => {
   return (
-    <div className={`absolute   bottom-0 right-0 mr-[3.4rem] mb-[1.3rem] ${className}`} style={{ transitionDuration: '500ms' }}>
+    <div className={`relative left-1.5 top-0.5 ${className}`}>
       <svg width='16' height='44' viewBox='0 0 17 44' fill='none'>
         <path
           d='M15.0717 1.97012L15.0717 42.2297H8.01707L4.99367 39.631L4.99367 32.4275L1.97026 29.8289L1.97026 15.2371L4.99367 12.6385L4.99367 4.56875L8.01709 1.97012L15.0717 1.97012Z'

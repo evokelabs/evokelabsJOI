@@ -90,7 +90,8 @@ const SoundControlIcons = () => {
   return (
     <div className='relative'>
       <div className='absolute bottom-5 right-0 pt-5 flex flex-row justify-end  z-[10000000000000000]'>
-        <div className={`flex transition-all duration-500 overflow-hidden ${soundControlMasterToggle ? 'max-w-0' : 'max-w-full'}`}>
+        <div className={`flex transition-all duration-500 overflow-hidden ${soundControlMasterToggle ? 'max-w-4' : 'max-w-full'}`}>
+          <SoundEdgeTag />
           <ToggleButton toggle={musicToggle} setToggle={setMusicToggle} SVGIcon={props => <SoundMusicIconSVG {...props} />} />
           <ToggleButton toggle={SFXToggle} setToggle={setSFXToggle} SVGIcon={props => <SoundSFXIconSVG {...props} />} />
           <ToggleButton toggle={rainToggle} setToggle={setRainToggle} SVGIcon={props => <SoundRainIconSVG {...props} />} />
@@ -112,7 +113,6 @@ const SoundControlIcons = () => {
           ButtonComponent={ButtonSocial}
         />
       </div>
-      <SoundEdgeTag className={soundControlMasterToggle ? 'translate-x-0 transition-transform' : '-translate-x-60 transition-transform'} />
     </div>
   )
 }
