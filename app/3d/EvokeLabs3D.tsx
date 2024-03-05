@@ -230,7 +230,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
               <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
                 <RoutesContext.Provider value={{ currentRouteSelection, setCurrentRouteSelection }}>
                   <div className='max-w-[1170px]'>
-                    {isPreLoaderFinished && router.pathname === '/' && <Home />}
+                    {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                     {router.pathname === '/services' && <Services />}
                     {router.pathname === '/portfolio' && <Portfolio />}
                     {router.pathname === '/history' && <History />}

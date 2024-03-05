@@ -17,6 +17,7 @@ const ScrabbleOnSoundControl: React.FC<ScrabbleOnSoundControlProps> = ({
   loop = true,
   isScrabble
 }) => {
+  const track = useRef<MediaElementAudioSourceNode | null>(null)
   const audioElement = useRef(new Audio(AUDIO_SOURCE_LOOP))
   const audioContext = useRef(new AudioContext())
 
@@ -37,11 +38,15 @@ const ScrabbleOnSoundControl: React.FC<ScrabbleOnSoundControlProps> = ({
   useEffect(() => {
     const audioElementCurrent = audioElement.current
 
+    if (!track.current) {
+      track.current = audioContext.current.createMediaElementSource(audioElementCurrent)
+    }
+
     audioElementCurrent.volume = volume
 
     // Connect the audio elements to the AudioContext
-    const track = audioContext.current.createMediaElementSource(audioElementCurrent)
-    track.connect(audioContext.current.destination)
+
+    track.current.connect(audioContext.current.destination)
 
     return () => {
       audioElementCurrent.pause()

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import home from './data/home.json'
 import homeExpanded from './data/homeExpanded.json'
@@ -37,7 +37,7 @@ const shuffle = (array: string[]) => {
   return array
 }
 
-const Home = () => {
+const Home = ({ muteSFX }: { muteSFX: boolean }) => {
   const TIMER = 5000
   const TYPE_ON_SPEED = 70
   const TYPE_OFF_SPEED = 35
@@ -71,6 +71,10 @@ const Home = () => {
   const handleEndSound = useCallback(() => {
     setIsTypingSound(false)
   }, [])
+
+  useEffect(() => {
+    console.log('muteSFX Home', muteSFX)
+  }, [muteSFX])
 
   useEffect(() => {
     if (divRef.current) {
@@ -294,7 +298,7 @@ const Home = () => {
       </div>
 
       <TypeOnSoundControl
-        volume={0.45}
+        volume={!muteSFX ? 0 : 0.45}
         delay={0.1}
         transitionDuration={10}
         loop={true}
@@ -302,7 +306,7 @@ const Home = () => {
         onEndSound={handleEndSound}
       />
 
-      <ScrabbleOnSoundControl volume={0.45} delay={0.1} transitionDuration={10} loop={true} isScrabble={isScrabbleSound} />
+      <ScrabbleOnSoundControl volume={!muteSFX ? 0 : 0.45} delay={0.1} transitionDuration={10} loop={true} isScrabble={isScrabbleSound} />
     </>
   )
 }
