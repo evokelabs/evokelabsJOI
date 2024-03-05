@@ -7,6 +7,7 @@ import SoundControlIconOnSVG from './svg/button/SoundControlIconOnSVG'
 import SoundControlIconOffSVG from './svg/button/SoundControlIconOffSVG'
 import ButtonAlternative from './ButtonAlternative'
 import SoundCrossIconSVG from './svg/button/SoundCrossIconSVG'
+import SoundEdgeTag from './PanelContent/SoundEdgeTag'
 
 const ToggleButton = ({
   toggle,
@@ -87,6 +88,7 @@ const SoundControlIcons = () => {
     <div className='absolute bottom-5 right-0 pt-5 flex flex-row z-[10000000000000000]'>
       {!soundControlMasterToggle && (
         <>
+          <SoundEdgeTag />
           <ToggleButton toggle={musicToggle} setToggle={setMusicToggle} SVGIcon={props => <SoundMusicIconSVG {...props} />} />
           <ToggleButton toggle={SFXToggle} setToggle={setSFXToggle} SVGIcon={props => <SoundSFXIconSVG {...props} />} />
           <ToggleButton toggle={rainToggle} setToggle={setRainToggle} SVGIcon={props => <SoundRainIconSVG {...props} />} />
