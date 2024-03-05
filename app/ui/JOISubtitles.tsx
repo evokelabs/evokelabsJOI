@@ -17,7 +17,10 @@ const JOISubtitles = () => {
         setCurrentCaption(JOILineCaption)
       }, 500) // Delay setCurrentCaption by 0.5 seconds to account for the duration-500 t
       timeoutId = setTimeout(() => {
+        console.log('SAFEGUARD_TIMER triggered')
         setIsAudioPlaying(false)
+        setIsChainPlaying(false)
+        setCurrentCaption(null)
       }, SAFEGUARD_TIMER)
     } else if (!isAudioPlaying && isChainPlaying) {
       setCurrentCaption(JOILineCaption)
@@ -29,7 +32,7 @@ const JOISubtitles = () => {
         clearTimeout(timeoutId)
       }
     }
-  }, [JOILineCaption, isAudioPlaying, isChainPlaying, setIsAudioPlaying])
+  }, [JOILineCaption, isAudioPlaying, isChainPlaying, setIsAudioPlaying, setIsChainPlaying])
 
   const opacityClass = isAudioPlaying ? 'opacity-100' : 'opacity-0'
 
