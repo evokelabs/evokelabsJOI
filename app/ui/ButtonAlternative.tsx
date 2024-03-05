@@ -38,13 +38,23 @@ const ButtonAlternative = ({ SVGIcon }: { SVGIcon: (props: { isHovered: boolean 
   return (
     <div className={'cursor-pointer w-fit'} style={{ pointerEvents: isActive ? 'none' : 'all' }}>
       <svg width='60' height='47' viewBox='0 0 60 47' fill='none' ref={svgRef}>
+        <path
+          ref={pathBGFillRef}
+          d='M2 2V45H8.45333L12.56 40.8718H35.44L39.5467 45H46V10.2564L37.7867 2H2Z'
+          fill={secondaryColor}
+          fillOpacity='0.85'
+        />
         <RedCRTBlur />
-
-        <path d='M2 2V45H8.45333L12.56 40.8718H35.44L39.5467 45H46V10.2564L37.7867 2H2Z' fill='#0E0E17' fill-opacity='0.85' />
-        <g clip-path='url(#clip0_905_698)' filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
-          <path d='M2 2V45H8.45333L12.56 40.8718H35.44L39.5467 45H46V10.2564L37.7867 2H2Z' fill='#DE5456' fill-opacity='0.1' />
-          <path d='M2 2V45H8.45333L12.56 40.8718H35.44L39.5467 45H46V10.2564L37.7867 2H2Z' fill='url(#pattern0)' fill-opacity='0.1' />
+        <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
           <path
+            ref={pathFGFillRef}
+            d='M2 2V45H8.45333L12.56 40.8718H35.44L39.5467 45H46V10.2564L37.7867 2H2Z'
+            fill={primaryColor}
+            fillOpacity='0.1'
+          />
+          <path d='M2 2V45H8.45333L12.56 40.8718H35.44L39.5467 45H46V10.2564L37.7867 2H2Z' fill='url(#redTile)' />
+          <path
+            ref={pathBGStrokeRef}
             fillRule='evenodd'
             clipRule='evenodd'
             d='M0 47V0H38.6182L48 9.43105V47H38.7152L34.6085 42.8718H13.3915L9.28483 47H0ZM12.56 40.8718H35.44L39.5467 45H46V10.2564L37.7867 2H2V45H8.45333L12.56 40.8718Z'
