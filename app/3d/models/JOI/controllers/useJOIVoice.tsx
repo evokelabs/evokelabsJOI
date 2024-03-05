@@ -123,6 +123,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     [JOISpeechData, setJOILineCaption]
   )
   const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const gainNode = useRef<GainNode | null>(null)
 
   const resetSpeechFlag = useCallback(() => {
     // Clear the existing timer if there is one
@@ -196,11 +197,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       source.connect(analyser)
       analyser.connect(audioContext.destination)
 
-      const gainNode = audioContext.createGain() // Create a GainNode
-      source.connect(gainNode) // Connect the source to the GainNode
-      gainNode.connect(audioContext.destination) // Connect the GainNode to the destination
+      gainNode.current = audioContext.createGain() // Create a GainNode
+      source.connect(gainNode.current) // Connect the source to the GainNode
+      gainNode.current.connect(audioContext.destination) // Connect the GainNode to the destination
 
-      gainNode.gain.value = muteJOI ? GAIN_NODE_VOLUME : -1
+      gainNode.current.gain.value = muteJOI ? GAIN_NODE_VOLUME : -1
 
       setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume before the audio starts playing
       setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
@@ -335,8 +336,13 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     getFilePath,
     hasSiteHomeVisited,
     visited,
-    setIsAudioPlaying,
-    muteJOI
+    setIsAudioPlaying
   ])
+
+  useEffect(() => {
+    if (gainNode.current) {
+      gainNode.current.gain.value = muteJOI ? GAIN_NODE_VOLUME : -1
+    }
+  }, [muteJOI])
   return { resetSpeechFlag }
 }
