@@ -17,7 +17,6 @@ const MAX_VOLUME = 255
 const MAX_INFLUENCE = 0.15
 const GAIN_NODE_VOLUME = 2
 const TIMEOUT_FAIL_SAFE = 7500
-const TIMEOUT_HARD_STATE_RESET = 7000
 const TIME_TO_SPEAK_ON_LOAD = 12800
 const KEYS = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'availability']
 
@@ -148,29 +147,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     },
     [JOISpeechData, setJOILineCaption]
   )
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
   const gainNode = useRef<GainNode | null>(null)
-
-  const resetSpeechFlag = useCallback(() => {
-    // Clear the existing timer if there is one
-    if (timerRef.current) {
-      clearTimeout(timerRef.current)
-    }
-
-    // Start a new timer
-    timerRef.current = setTimeout(() => {
-      isPlaying.current = false
-      setHasSiteHomeVisited(true)
-      setShouldJOISpeak(true)
-      setHasPlayed(true)
-
-      JOILineSpeak
-    }, TIMEOUT_HARD_STATE_RESET)
-  }, [setHasPlayed, setShouldJOISpeak, JOILineSpeak])
 
   useEffect(() => {
     setHasPlayed(false)
-    console.log('hasPlayed', hasPlayed)
+    console.log('JOILONESPEAK useEFect triggered. hasPlayed is', hasPlayed)
   }, [JOILineSpeak])
 
   useEffect(() => {
@@ -213,7 +194,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       'hasUserInteracted',
       hasUserInteracted,
       'availabilityFilePathArray',
-      availabilityFilePathArray
+      availabilityFilePathArray,
+      'hasPlayed',
+      hasPlayed,
+      'isAudioPlaying',
+      isAudioPlaying
     )
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited) || !hasUserInteracted) return
 
@@ -421,5 +406,4 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       gainNode.current.gain.value = muteJOI ? -1 : GAIN_NODE_VOLUME
     }
   }, [muteJOI])
-  return { resetSpeechFlag }
 }

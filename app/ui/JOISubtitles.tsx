@@ -9,6 +9,14 @@ const JOISubtitles = () => {
   const SAFEGUARD_TIMER = 7500
 
   useEffect(() => {
+    console.log(
+      'JOIN SUBTILES USEEFFECT, isAudioPlaying:',
+      isAudioPlaying,
+      'isChainPlaying:',
+      isChainPlaying,
+      'JOILineCaption:',
+      JOILineCaption
+    )
     if (!isAudioPlaying && !isChainPlaying) {
       setTimeout(() => {
         setCurrentCaption(JOILineCaption)
@@ -20,6 +28,16 @@ const JOISubtitles = () => {
   }, [JOILineCaption, isAudioPlaying, isChainPlaying, setIsAudioPlaying, setIsChainPlaying])
 
   useEffect(() => {
+    console.log(
+      'JOIN SUBTILES USEEFFECT 2, isAudioPlaying:',
+      isAudioPlaying,
+      'isChainPlaying:',
+      isChainPlaying,
+      'JOILineCaption:',
+      JOILineCaption,
+      'currentCaption:',
+      currentCaption
+    )
     let timeoutId: NodeJS.Timeout
     timeoutId = setTimeout(() => {
       setIsAudioPlaying(false)
@@ -32,11 +50,11 @@ const JOISubtitles = () => {
         clearTimeout(timeoutId)
       }
     }
-  }, [setIsAudioPlaying, setIsChainPlaying])
+  }, [setIsAudioPlaying, setIsChainPlaying, isAudioPlaying, isChainPlaying, JOILineCaption, currentCaption])
 
   const opacityClass = isAudioPlaying ? 'opacity-100' : 'opacity-0'
 
-  return (
+  return currentCaption ? (
     <div
       className={`absolute bottom-4 pt-5 flex flex-row justify-center items-center z-[10000000000000000] w-full font-semibold pointer-events-none transition-opacity duration-500 ${opacityClass}`}
     >
@@ -44,7 +62,7 @@ const JOISubtitles = () => {
         <span className='text-teal-blur'>JOI:</span> {currentCaption}
       </p>
     </div>
-  )
+  ) : null
 }
 
 export default JOISubtitles
