@@ -48,10 +48,18 @@ function useAudio(audioSource: string, volume: number, delay: number, transition
     }
   }
 
+  const play = () => {
+    sound.current?.play()
+  }
+
+  const stop = () => {
+    sound.current?.stop()
+  }
+
   // Call updateVolume when the volume prop changes
   useEffect(updateVolume, [volume])
 
-  return null
+  return { play, stop }
 }
 
 export default useAudio

@@ -10,26 +10,38 @@ const VOLUME = 0.55
 const DELAY = 2500
 const TRANSITION_DURATION = 150
 const LOOP = false
+const INTERACTION_TIMEOUT = 10000 // 10 seconds
 
 const JOIPreloaderSpeech = () => {
   const { muteJOI } = useContext(SoundControlContext)
   const [hasUserInteracted, setHasUserInteracted] = useState(false)
+  const [hasPlayed, setHasPlayed] = useState(false)
 
   useEffect(() => {
     // Set up event listeners for user interaction
-    const handleUserInteraction = () => setHasUserInteracted(true)
+    const handleUserInteraction = () => {
+      setHasUserInteracted(true)
+      clearTimeout(interactionTimeout) // Clear the timeout if the user interacts with the window
+    }
+
+    // Set a timeout to set hasPlayed to true after 10 seconds
+    const interactionTimeout = setTimeout(() => {
+      setHasPlayed(true)
+    }, INTERACTION_TIMEOUT)
+
     window.addEventListener('click', handleUserInteraction)
     window.addEventListener('keydown', handleUserInteraction)
 
-    // Clean up the event listeners when the component unmounts
+    // Clean up the event listeners and timeout when the component unmounts
     return () => {
       window.removeEventListener('click', handleUserInteraction)
       window.removeEventListener('keydown', handleUserInteraction)
+      clearTimeout(interactionTimeout)
     }
   }, []) // Empty dependency array so this effect only runs once on mount
 
   useEffect(() => {
-    if (!hasUserInteracted) return
+    if (!hasUserInteracted || hasPlayed) return
 
     // Select a random audio source
     const randomIndex = Math.floor(Math.random() * AUDIO_SOURCES.length)
@@ -48,6 +60,8 @@ const JOIPreloaderSpeech = () => {
 
           // Start playing the audio
           sound.play()
+
+          setHasPlayed(true) // Set hasPlayed to true after the audio has been played
         }
 
         setTimeout(playAudio, DELAY)
@@ -58,7 +72,7 @@ const JOIPreloaderSpeech = () => {
     return () => {
       sound.unload()
     }
-  }, [hasUserInteracted, muteJOI]) // Add muteJOI as a dependency
+  }, [hasUserInteracted, muteJOI])
 
   return null
 }
