@@ -41,17 +41,17 @@ const ToggleButton = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {!toggle ? (
-        IconOn && <ButtonComponent SVGIcon={props => IconOn({ ...props, isHovered })} />
-      ) : (
+      {toggle ? (
         <>
           {showCrossIcon && (
             <div className='absolute mt-1.5 right-0 mr-2'>
               <SoundCrossIconSVG />
             </div>
           )}
-          {IconOff && <ButtonComponent SVGIcon={props => IconOff({ ...props, isHovered })} />}
+          {IconOn && <ButtonComponent SVGIcon={props => IconOn({ ...props, isHovered })} />}
         </>
+      ) : (
+        <>{IconOff && <ButtonComponent SVGIcon={props => IconOff({ ...props, isHovered })} />}</>
       )}
     </div>
   )
@@ -59,13 +59,20 @@ const ToggleButton = ({
 const SoundControlIcons = () => {
   const { muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI } = useContext(SoundControlContext)
 
-  const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(true)
+  const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(false)
 
   useEffect(() => {
-    // If all child toggles are true, set master toggle to true
-    // If any child toggle is false, set master toggle to false
-    setSoundControlMasterToggle(muteMusic && muteSFX && muteRain && muteJOI)
-  }, [muteMusic, muteSFX, muteRain, muteJOI])
+    setMuteMusic(true)
+    setMuteSFX(true)
+    setMuteRain(true)
+    setMuteJOI(true)
+  }, [])
+
+  // useEffect(() => {
+  //   // If all child toggles are false, set master toggle to false
+  //   // If any child toggle is true, set master toggle to true
+  //   setSoundControlMasterToggle(muteMusic || muteSFX || muteRain || muteJOI)
+  // }, [muteMusic, muteSFX, muteRain, muteJOI])
 
   return (
     <div className='relative'>
@@ -111,9 +118,9 @@ const SoundControlIcons = () => {
             setMuteRain(value)
             setMuteJOI(value)
           }}
-          SVGIconOn={props => <SoundControlIconOnSVG {...props} />}
-          SVGIconOff={props => <SoundControlIconOffSVG {...props} />}
-          showCrossIcon={false}
+          SVGIconOn={props => <SoundControlIconOffSVG {...props} />}
+          SVGIconOff={props => <SoundControlIconOnSVG {...props} />}
+          showCrossIcon={!soundControlMasterToggle} // Show cross icon when muted
           ButtonComponent={ButtonSocial}
         />
       </div>
