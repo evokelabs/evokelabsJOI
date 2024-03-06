@@ -77,7 +77,7 @@ const SoundControlIcons = () => {
   return (
     <div className='relative'>
       <div className='absolute bottom-5 right-0 pt-5 flex flex-row justify-end  z-[10000000000000000]'>
-        <div className={`flex transition-all duration-500 overflow-hidden ${soundControlMasterToggle ? 'max-w-4' : 'max-w-full'}`}>
+        <div className={`flex transition-all duration-500 overflow-hidden ${!soundControlMasterToggle ? 'max-w-4' : 'max-w-full'}`}>
           <SoundEdgeTag />
           <ToggleButton
             toggle={muteMusic}
@@ -118,9 +118,9 @@ const SoundControlIcons = () => {
             setMuteRain(value)
             setMuteJOI(value)
           }}
-          SVGIconOn={props => <SoundControlIconOnSVG {...props} />}
-          SVGIconOff={props => <SoundControlIconOffSVG {...props} />}
-          showCrossIcon={soundControlMasterToggle} // Show cross icon when muted
+          SVGIconOn={props => <SoundControlIconOffSVG {...props} />}
+          SVGIconOff={props => <SoundControlIconOnSVG {...props} />}
+          showCrossIcon={!soundControlMasterToggle} // Show cross icon when muted
           ButtonComponent={ButtonSocial}
         />
       </div>
