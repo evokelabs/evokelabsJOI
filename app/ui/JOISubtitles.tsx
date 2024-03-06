@@ -49,6 +49,7 @@ const JOISubtitles = () => {
       innerTimeoutId = setTimeout(() => {
         setCurrentCaption(null)
         console.log('sbutitle fail safe triggered x 2 - currentCaption:', currentCaption)
+        console.log('----------------------------------')
       }, 500)
     }, SAFEGUARD_TIMER)
 
@@ -65,7 +66,7 @@ const JOISubtitles = () => {
 
   const opacityClass = isAudioPlaying ? 'opacity-100' : 'opacity-0'
 
-  return currentCaption ? (
+  return (
     <div
       className={`absolute bottom-4 pt-5 flex flex-row justify-center items-center z-[10000000000000000] w-full font-semibold pointer-events-none transition-opacity duration-500 ${opacityClass}`}
     >
@@ -73,7 +74,7 @@ const JOISubtitles = () => {
         <span className='text-teal-blur'>JOI:</span> {currentCaption}
       </p>
     </div>
-  ) : null
+  )
 }
 
 export default JOISubtitles

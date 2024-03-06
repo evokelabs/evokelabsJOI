@@ -151,7 +151,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
   useEffect(() => {
     setHasPlayed(false)
-    console.log('JOILONESPEAK useEFect triggered. hasPlayed is', hasPlayed)
   }, [JOILineSpeak])
 
   useEffect(() => {
@@ -183,7 +182,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
   useEffect(() => {
     console.log(
-      'CLICKED: shouldJOISpeak',
+      'USEEFFECT: shouldJOISpeak',
       shouldJOISpeak,
       'hasPlayed',
       hasPlayed,
@@ -203,9 +202,13 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited) || !hasUserInteracted) return
 
     const audioContext = audioContextRef.current
+
+    console.log('audioContext', audioContext, 'audioContextRef.current', audioContextRef.current, 'isPlaying.current', isPlaying.current)
     if (!audioContext || isPlaying.current) return
     if (audioFileRef.current) {
       const audio = new Audio(audioFileRef.current)
+
+      console.log('audio', audio)
 
       if (!audio) return
 
@@ -240,19 +243,18 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       //If availabilityFilePath hold object of arrays, play the audio files in sequence. It will hold an object when JOILineSpeak is 5
       const playSpeech = (availabilityFilePath: string | string[]) => {
+        console.log(
+          'Trying to play speech isPlaying.current',
+          isPlaying.current,
+          'availabilityFilePath.length',
+          availabilityFilePath.length,
+          'availabilityFilePath',
+          availabilityFilePath,
+          'isAudioPlaying',
+          isAudioPlaying
+        )
         if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
           if (isPlaying.current) {
-            // console.log('FIRST CASE')
-            // console.log('-----------------')
-            // console.log('shouldJOISpeak', shouldJOISpeak)
-            // console.log('hasPlayed', hasPlayed)
-            // console.log('JOILineSpeak', JOILineSpeak)
-            // console.log('hasSiteHomeVisited', hasSiteHomeVisited)
-            // console.log('hasUserInteracted', hasUserInteracted)
-            // console.log('audioFileRef.current', audioFileRef.current)
-            // console.log('audio.src', audio.src)
-            // console.log('isAudioPlaying', isAudioPlaying)
-            // console.log('-----------------')
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
             setJOILineCaption(availabilityTextArray[audioIndex])
             setAudioIndexState(audioIndex) // Update the audio index state
@@ -274,34 +276,20 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         } else {
           if (isPlaying.current) {
             setIsAudioPlaying(true)
-            //console.log all useful information
-            // console.log('SECOND CASE')
-            // console.log('-----------------')
-            // console.log('shouldJOISpeak', shouldJOISpeak)
-            // console.log('hasPlayed', hasPlayed)
-            // console.log('JOILineSpeak', JOILineSpeak)
-            // console.log('hasSiteHomeVisited', hasSiteHomeVisited)
-            // console.log('hasUserInteracted', hasUserInteracted)
-            // console.log('audioFileRef.current', audioFileRef.current)
-            // console.log('isPlaying.current', isPlaying.current)
-            // console.log('audio.src', audio.src)
-            // console.log('JOISpeechData,', JOISpeechData)
-            // console.log('getFilePath,', getFilePath)
-            // console.log('hasSiteHomeVisited,', hasSiteHomeVisited)
-            // console.log('isAudioPlaying', isAudioPlaying)
-            // console.log('muteJOI', muteJOI)
-            // console.log('visited,', visited)
-            // console.log('setIsAudioPlaying,', setIsAudioPlaying)
-            // console.log('setMusicVolume,', setMusicVolume)
-            // console.log('setMusicLoopTransitionDuration,', setMusicLoopTransitionDuration)
-            // console.log('muteJOI', muteJOI)
-            // console.log('availabilityFilePath[audioIndex]', availabilityFilePath[audioIndex])
-            // console.log('-----------------')
-
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             return
           }
         }
+        console.log(
+          'isPlaying.current',
+          isPlaying.current,
+          'availabilityFilePath.length',
+          availabilityFilePath.length,
+          'availabilityFilePath',
+          availabilityFilePath,
+          'isAudioPlaying',
+          isAudioPlaying
+        )
       }
 
       audio.onended = () => {
