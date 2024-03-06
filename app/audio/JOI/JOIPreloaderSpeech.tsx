@@ -43,8 +43,10 @@ const JOIPreloaderSpeech = () => {
 
     // Define a function to play the audio
     const playAudio = () => {
+      console.log('playing preloade audio')
       if (audioElement.current && gainNode.current) {
         audioElement.current.play()
+        console.log('playing preloade audio audioElement.current.play')
         audioElement.current.loop = LOOP
 
         // Start the volume at a small positive value
@@ -54,8 +56,10 @@ const JOIPreloaderSpeech = () => {
         if (VOLUME > 0) {
           const targetVolume = muteJOI ? 0.001 : VOLUME
           gainNode.current.gain.exponentialRampToValueAtTime(targetVolume, audioContext.currentTime + TRANSITION_DURATION / 1000)
+          console.log('VOLUME', VOLUME)
         } else {
           gainNode.current.gain.setValueAtTime(0, audioContext.currentTime + TRANSITION_DURATION / 1000)
+          console.log('gainNode.current.gain', gainNode.current.gain)
         }
 
         // Add the 'ended' event listener

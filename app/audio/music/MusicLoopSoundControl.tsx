@@ -10,6 +10,7 @@ const MusicLoopSoundControl = () => {
   const gainNode = useRef(audioContext.current.createGain())
   const source = useRef<MediaElementAudioSourceNode | null>(null)
   const hasMounted = useRef(false)
+  const DELAY = 0
   const LOOP = true
 
   const { musicLoopTransitionDuration } = useContext(SoundsContext)
@@ -18,8 +19,6 @@ const MusicLoopSoundControl = () => {
 
   const [isMuted, setIsMuted] = useState(muteMusic)
   // Add a new state for mute status
-
-  const GAIN_NODE_VOLUME = 1
 
   useEffect(() => {
     // Update isMuted when muteMusic changes
