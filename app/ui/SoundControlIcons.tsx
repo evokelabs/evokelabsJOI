@@ -62,17 +62,10 @@ const SoundControlIcons = () => {
   const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(true)
 
   useEffect(() => {
-    setMuteMusic(true)
-    setMuteSFX(true)
-    setMuteRain(true)
-    setMuteJOI(true)
-  }, [])
-
-  // useEffect(() => {
-  //   // If all child toggles are false, set master toggle to false
-  //   // If any child toggle is true, set master toggle to true
-  //   setSoundControlMasterToggle(muteMusic || muteSFX || muteRain || muteJOI)
-  // }, [muteMusic, muteSFX, muteRain, muteJOI])
+    // If all child toggles are false, set master toggle to false
+    // If any child toggle is true, set master toggle to true
+    setSoundControlMasterToggle(muteMusic || muteSFX || muteRain || muteJOI)
+  }, [muteMusic, muteSFX, muteRain, muteJOI])
 
   return (
     <div className='relative'>
