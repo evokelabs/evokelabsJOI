@@ -13,7 +13,7 @@ import { SoundControlContext } from '@/app/libs/SoundControlContext'
 const INTRO_FILES = JOISpeech.intro.map(item => item.filepath)
 const INTRO_TEXT = JOISpeech.intro.map(item => item.text)
 
-const MAX_VOLUME = 255
+const MAX_VOLUME = 225
 const MAX_INFLUENCE = 0.15
 const GAIN_NODE_VOLUME = 2
 const TIMEOUT_FAIL_SAFE = 7500
@@ -222,9 +222,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       //If availabilityFilePath hold object of arrays, play the audio files in sequence. It will hold an object when JOILineSpeak is 5
       const playSpeech = (availabilityFilePath: string | string[]) => {
-        setTimeout(() => {
-          isPlaying.current = false
-        }, 4500)
         if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
           if (isPlaying.current) {
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
