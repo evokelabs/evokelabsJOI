@@ -366,8 +366,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   ])
 
   useEffect(() => {
-    console.log('muteJOI', muteJOI)
-    console.log('muteJOI', muteJOI)
     if (gainNode.current) {
       gainNode.current.gain.value = muteJOI ? -1 : GAIN_NODE_VOLUME
     }

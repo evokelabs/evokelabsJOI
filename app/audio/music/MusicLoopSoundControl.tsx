@@ -52,8 +52,6 @@ const MusicLoopSoundControl = () => {
       // Gradually increase the volume to the desired level over the transition duration
       const targetVolume = isMuted ? 0 : musicVolume
 
-      console.log('targetVolume', targetVolume)
-
       gainNode.current.gain.linearRampToValueAtTime(targetVolume, audioContext.current.currentTime + musicLoopTransitionDuration / 1000)
 
       // Set hasMounted to true after the audio has started playing
