@@ -20,8 +20,9 @@ const MusicLoopSoundControl = () => {
   const [isMuted, setIsMuted] = useState(muteMusic)
   // Add a new state for mute status
 
+  const GAIN_NODE_VOLUME = 1
+
   useEffect(() => {
-    console.log('MusicLoopSoundControl: muteMusic changed', muteMusic, 'isMuted:', isMuted)
     // Update isMuted when muteMusic changes
     setIsMuted(muteMusic)
   }, [isMuted, muteMusic])
@@ -70,6 +71,13 @@ const MusicLoopSoundControl = () => {
       currentAudioElement.removeEventListener('canplaythrough', playAudio)
     }
   }, [LOOP, musicLoopTransitionDuration, musicVolume, isMuted]) // Replace muteMusic with isMuted
+
+  useEffect(() => {
+    console.log('muteMusic', muteMusic)
+    if (gainNode.current) {
+      gainNode.current.gain.value = muteMusic ? 0 : GAIN_NODE_VOLUME
+    }
+  }, [GAIN_NODE_VOLUME, muteMusic])
 
   return null
 }
