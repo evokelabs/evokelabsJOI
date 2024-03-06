@@ -51,6 +51,9 @@ const MusicLoopSoundControl = () => {
 
       // Gradually increase the volume to the desired level over the transition duration
       const targetVolume = isMuted ? 0 : musicVolume
+
+      console.log('targetVolume', targetVolume)
+
       gainNode.current.gain.linearRampToValueAtTime(targetVolume, audioContext.current.currentTime + musicLoopTransitionDuration / 1000)
 
       // Set hasMounted to true after the audio has started playing
@@ -71,10 +74,10 @@ const MusicLoopSoundControl = () => {
     }
   }, [LOOP, musicLoopTransitionDuration, musicVolume, isMuted]) // Replace muteMusic with isMuted
 
+  // Mute the audio when isMuted is true
   useEffect(() => {
-    console.log('muteMusic', muteMusic)
     if (gainNode.current) {
-      gainNode.current.gain.value = muteMusic ? 0 : GAIN_NODE_VOLUME
+      gainNode.current.gain.value = 0
     }
   }, [muteMusic])
 
