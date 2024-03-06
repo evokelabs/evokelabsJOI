@@ -62,7 +62,6 @@ const MusicLoopSoundControl = () => {
 
     // Set the musicVolume to DEFAULT_MUSIC_LOOP_VOLUME after the transition duration
     setTimeout(() => {
-      console.log('Setting music volume to', DEFAULT_MUSIC_LOOP_VOLUME)
       setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
     }, musicLoopTransitionDuration)
 

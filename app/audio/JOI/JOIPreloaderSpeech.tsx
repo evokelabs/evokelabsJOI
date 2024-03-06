@@ -7,7 +7,7 @@ import { SoundControlContext } from '@/app/libs/SoundControlContext'
 const AUDIO_SOURCES = JOISpeech.preloader.map(item => item.filepath)
 
 const VOLUME = 0.55
-const DELAY = 2500
+const DELAY = 1750
 const TRANSITION_DURATION = 150
 const LOOP = false
 const INTERACTION_TIMEOUT = 10000 // 10 seconds
@@ -16,6 +16,7 @@ const JOIPreloaderSpeech = () => {
   const { muteJOI } = useContext(SoundControlContext)
   const [hasUserInteracted, setHasUserInteracted] = useState(false)
   const [hasPlayed, setHasPlayed] = useState(false)
+  const [interactionTimeoutReached, setInteractionTimeoutReached] = useState(false)
 
   useEffect(() => {
     // Set up event listeners for user interaction
@@ -24,9 +25,9 @@ const JOIPreloaderSpeech = () => {
       clearTimeout(interactionTimeout) // Clear the timeout if the user interacts with the window
     }
 
-    // Set a timeout to set hasPlayed to true after 10 seconds
+    // Set a timeout to set interactionTimeoutReached to true after 10 seconds
     const interactionTimeout = setTimeout(() => {
-      setHasPlayed(true)
+      setInteractionTimeoutReached(true)
     }, INTERACTION_TIMEOUT)
 
     window.addEventListener('click', handleUserInteraction)
@@ -41,7 +42,7 @@ const JOIPreloaderSpeech = () => {
   }, []) // Empty dependency array so this effect only runs once on mount
 
   useEffect(() => {
-    if (!hasUserInteracted || hasPlayed) return
+    if (!hasUserInteracted || interactionTimeoutReached) return
 
     // Select a random audio source
     const randomIndex = Math.floor(Math.random() * AUDIO_SOURCES.length)
@@ -72,7 +73,7 @@ const JOIPreloaderSpeech = () => {
     return () => {
       sound.unload()
     }
-  }, [hasPlayed, hasUserInteracted, muteJOI])
+  }, [hasPlayed, hasUserInteracted, muteJOI, interactionTimeoutReached])
 
   return null
 }
