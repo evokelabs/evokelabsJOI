@@ -13,12 +13,28 @@ const MusicLoopSoundControl = () => {
   const { muteMusic } = useContext(SoundControlContext)
 
   const [isMuted, setIsMuted] = useState(muteMusic)
+  const [hasUserInteracted, setHasUserInteracted] = useState(false)
 
   useEffect(() => {
     setIsMuted(muteMusic)
   }, [muteMusic])
 
   useEffect(() => {
+    // Set up event listeners for user interaction
+    const handleUserInteraction = () => setHasUserInteracted(true)
+    window.addEventListener('click', handleUserInteraction)
+    window.addEventListener('keydown', handleUserInteraction)
+
+    // Clean up the event listeners when the component unmounts
+    return () => {
+      window.removeEventListener('click', handleUserInteraction)
+      window.removeEventListener('keydown', handleUserInteraction)
+    }
+  }, []) // Empty dependency array so this effect only runs once on mount
+
+  useEffect(() => {
+    if (!hasUserInteracted) return
+
     sound.current = new Howl({
       src: [AUDIO_SOURCE],
       loop: true,
@@ -55,7 +71,7 @@ const MusicLoopSoundControl = () => {
         sound.current.unload()
       }
     }
-  }, []) // Empty dependency array ensures this effect only runs once after the initial render
+  }, [hasUserInteracted]) // This effect runs whenever hasUserInteracted changes
 
   useEffect(() => {
     if (sound.current) {
