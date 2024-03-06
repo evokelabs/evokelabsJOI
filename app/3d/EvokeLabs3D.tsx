@@ -188,6 +188,14 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [muteRain, setMuteRain] = useState(true)
   const [muteJOI, setMuteJOI] = useState(true)
 
+  const soundAudioLevelControls = {
+    setMusicVolume,
+    setMuteRain,
+    setMuteSFX,
+    muteRain,
+    muteSFX
+  }
+
   return (
     <>
       <SoundControlContext.Provider value={{ muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI }}>
@@ -216,10 +224,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   <div className='max-w-[1170px]'>
                     {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                     {router.pathname === '/services' && <Services />}
-                    {router.pathname === '/portfolio' && <Portfolio setMusicVolume={setMusicVolume} />}
-                    {router.pathname === '/history' && <History setMusicVolume={setMusicVolume} />}
+                    {router.pathname === '/portfolio' && <Portfolio soundAudioLevelControls={soundAudioLevelControls} />}
+                    {router.pathname === '/history' && <History soundAudioLevelControls={soundAudioLevelControls} />}
                     {router.pathname === '/resume' && <Resume />}
-                    {router.pathname === '/joi' && <JOISpecial setMusicVolume={setMusicVolume} />}
+                    {router.pathname === '/joi' && <JOISpecial soundAudioLevelControls={soundAudioLevelControls} />}
                     {router.pathname === '/availabilities' && <Availabilities />}
                     {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
                   </div>

@@ -6,6 +6,7 @@ import YouTubeSVG from '@/app/ui/svg/button/YouTubeSVG'
 import FigmaSVG from '@/app/ui/svg/button/FigmaSVG'
 import LaunchSVG from '@/app/ui/svg/button/LaunchSVG'
 import BackSVG from '@/app/ui/svg/button/BackSVG'
+import { SoundAudioLevelControls } from '../data/types'
 
 interface PortfolioItem {
   id: number
@@ -22,7 +23,7 @@ interface PortfolioItem {
 }
 
 interface PortfolioItemProps extends PortfolioItem {
-  setMusicVolume: React.Dispatch<React.SetStateAction<number>>
+  soundAudioLevelControls: SoundAudioLevelControls
 }
 const PortfolioItem: React.FC<PortfolioItemProps> = ({
   id,
@@ -34,7 +35,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   thumb,
   link,
   mainVideo,
-  setMusicVolume
+  soundAudioLevelControls
 }) => {
   return (
     <PanelBackground headerTitle='Past Gigs'>
@@ -69,7 +70,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
         </div>
 
         <div className='mt-3'>
-          <VideoFrame videoURL={mainVideo} setMusicVolume={setMusicVolume} />
+          <VideoFrame videoURL={mainVideo} soundAudioLevelControls={soundAudioLevelControls} />
         </div>
         {desc && (
           <>

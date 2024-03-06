@@ -1,16 +1,31 @@
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLACK, RED, RED_BLACK } from '../libs/UIConstants'
-import { Dispatch, SetStateAction, useContext } from 'react'
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 import { SoundsContext } from '../libs/SoundsContext'
 import { LOW_MUSIC_LOOP_VOLUME, DEFAULT_MUSIC_LOOP_VOLUME } from '../audio/ELAudioStartSoundControl'
+import { SoundAudioLevelControls } from '../sections/data/types'
 
-const VideoFrame = ({ videoURL, setMusicVolume }: { videoURL: string; setMusicVolume: Dispatch<SetStateAction<number>> }) => {
+const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; soundAudioLevelControls: SoundAudioLevelControls }) => {
+  const [userMuted, setUserMuted] = useState(false)
+
+  useEffect(() => {
+    setUserMuted(soundAudioLevelControls.muteSFX || soundAudioLevelControls.muteRain)
+  }, [])
+
   const handleVideoPlay = () => {
-    setMusicVolume(LOW_MUSIC_LOOP_VOLUME / 2)
+    soundAudioLevelControls.setMusicVolume(LOW_MUSIC_LOOP_VOLUME / 6)
+    if (!userMuted) {
+      soundAudioLevelControls.setMuteRain(true)
+      soundAudioLevelControls.setMuteSFX(true)
+    }
   }
 
   const handleVideoPause = () => {
-    setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
+    soundAudioLevelControls.setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
+    if (!userMuted) {
+      soundAudioLevelControls.setMuteRain(false)
+      soundAudioLevelControls.setMuteSFX(false)
+    }
   }
 
   return (

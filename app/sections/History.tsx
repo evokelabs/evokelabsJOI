@@ -6,8 +6,9 @@ import PanelContent from '../ui/PanelContent'
 import ContentHead from '../ui/PanelContent/ContentHead'
 import VideoFrame from '../ui/VideoFrame'
 import HistorySVG from '../ui/svg/mainMenu/HistorySVG'
+import { SoundAudioLevelControls } from './data/types'
 
-const History = ({ setMusicVolume }: { setMusicVolume: Dispatch<SetStateAction<number>> }) => {
+const History = ({ soundAudioLevelControls }: { soundAudioLevelControls: SoundAudioLevelControls }) => {
   return (
     <>
       <PanelContent
@@ -27,7 +28,7 @@ const History = ({ setMusicVolume }: { setMusicVolume: Dispatch<SetStateAction<n
           </>
         }
       >
-        <VideoFrame videoURL='./videos/Evokelabs-History.mp4' setMusicVolume={setMusicVolume} />
+        <VideoFrame videoURL='./videos/Evokelabs-History.mp4' soundAudioLevelControls={soundAudioLevelControls} />
         <div className='flex flex-row mt-2 justify-end -mr-3'></div>
       </PanelContent>
     </>

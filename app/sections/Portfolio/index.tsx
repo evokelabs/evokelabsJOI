@@ -7,8 +7,9 @@ import PortfolioItem from './PortfolioItem'
 import PortfolioTile from './PortfolioTile'
 import PortfolioPanelContent from './ui/PortfolioPanelContent'
 import ContentHeader from './ui/ContentHeader'
+import { SoundAudioLevelControls } from '../data/types'
 
-const PortfolioHome = ({ setMusicVolume }: { setMusicVolume: Dispatch<SetStateAction<number>> }) => {
+const PortfolioHome = ({ soundAudioLevelControls }: { soundAudioLevelControls: SoundAudioLevelControls }) => {
   const [portfolioData, setPortfolioData] = useState<PortfolioItem[]>(portfolio)
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null)
 
@@ -17,7 +18,7 @@ const PortfolioHome = ({ setMusicVolume }: { setMusicVolume: Dispatch<SetStateAc
   }
 
   if (selectedItem) {
-    return <PortfolioItem {...selectedItem} setMusicVolume={setMusicVolume} />
+    return <PortfolioItem {...selectedItem} soundAudioLevelControls={soundAudioLevelControls} />
   }
 
   return (
