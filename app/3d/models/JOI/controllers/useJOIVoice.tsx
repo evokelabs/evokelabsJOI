@@ -267,6 +267,10 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
               setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
               setAudioIndexState(audioIndex) // Update the audio index state
               playSpeech(availabilityFilePath) // Play the next audio file
+              audio.onpause = () => {
+                console.log('Audio paused unexpectedly.')
+                // Add your failsafe code here
+              }
             } else {
               audioEndCleanUp()
             }
@@ -274,7 +278,14 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           return
         } else {
           setIsAudioPlaying(true)
+          setTimeout(() => {
+            setHasPlayed(true)
+          }, 5000)
           audio.play().catch(error => console.error('Normal Audio play failed due to', error))
+          audio.onpause = () => {
+            console.log('Audio paused unexpectedly.')
+            // Add your failsafe code here
+          }
           console.log('Audio should be playing: ', audio.src, 'isAudioPlaying', isAudioPlaying, 'isPlaying.current', isPlaying.current)
         }
         console.log(
@@ -374,13 +385,12 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }, [
     JOILineSpeak,
     hasPlayed,
-    shouldJOISpeak
+    shouldJOISpeak,
+    hasSiteHomeVisited
     // model,
-    // muteJOI,
     // setMusicVolume,
     // setMusicLoopTransitionDuration,
     // JOISpeechData,
-    // hasSiteHomeVisited,
     // visited,
     // setIsAudioPlaying,
     // hasUserInteracted
