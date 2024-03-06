@@ -1,14 +1,17 @@
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLACK, RED, RED_BLACK } from '../libs/UIConstants'
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
-import { SoundsContext } from '../libs/SoundsContext'
-import { LOW_MUSIC_LOOP_VOLUME, DEFAULT_MUSIC_LOOP_VOLUME } from '../audio/ELAudioStartSoundControl'
+import { useEffect, useRef, useState } from 'react'
+
 import { SoundAudioLevelControls } from '../sections/data/types'
 
 const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; soundAudioLevelControls: SoundAudioLevelControls }) => {
   const [userMutedMusic, setUserMutedMusic] = useState(soundAudioLevelControls.muteMusic)
   const [userMutedRain, setUserMutedRain] = useState(soundAudioLevelControls.muteRain)
   const [userMutedSFX, setUserMutedSFX] = useState(soundAudioLevelControls.muteSFX)
+
+  const initialMuteMusic = useRef(userMutedMusic)
+  const initialMuteRain = useRef(userMutedRain)
+  const initialMuteSFX = useRef(userMutedSFX)
 
   const handleVideoPlay = () => {
     soundAudioLevelControls.setMuteMusic(true)
@@ -21,6 +24,20 @@ const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; s
     soundAudioLevelControls.setMuteRain(false)
     soundAudioLevelControls.setMuteSFX(false)
   }
+
+  useEffect(() => {
+    // Capture the initial mute states
+    const initialMusic = initialMuteMusic.current
+    const initialRain = initialMuteRain.current
+    const initialSFX = initialMuteSFX.current
+
+    return () => {
+      // Use the captured initial mute states
+      soundAudioLevelControls.setMuteMusic(initialMusic)
+      soundAudioLevelControls.setMuteRain(initialRain)
+      soundAudioLevelControls.setMuteSFX(initialSFX)
+    }
+  }, [])
 
   return (
     <div>
