@@ -14,15 +14,26 @@ const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; s
   const initialMuteSFX = useRef(userMutedSFX)
 
   const handleVideoPlay = () => {
+    // if (!initialMuteMusic.current) {
     soundAudioLevelControls.setMuteMusic(true)
+    // }
+    // if (!initialMuteRain.current) {
     soundAudioLevelControls.setMuteRain(true)
+    // }
+    // if (!initialMuteSFX.current) {
     soundAudioLevelControls.setMuteSFX(true)
   }
 
   const handleVideoPause = () => {
+    // if (initialMuteMusic.current) {
     soundAudioLevelControls.setMuteMusic(false)
+    // }
+    // if (initialMuteRain.current) {
     soundAudioLevelControls.setMuteRain(false)
+    // }
+    // if (initialMuteSFX.current) {
     soundAudioLevelControls.setMuteSFX(false)
+    // }
   }
 
   useEffect(() => {
