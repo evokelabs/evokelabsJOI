@@ -1,11 +1,22 @@
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLACK, RED, RED_BLACK } from '../libs/UIConstants'
+import { Dispatch, SetStateAction, useContext } from 'react'
+import { SoundsContext } from '../libs/SoundsContext'
+import { LOW_MUSIC_LOOP_VOLUME, DEFAULT_MUSIC_LOOP_VOLUME } from '../audio/ELAudioStartSoundControl'
 
-const VideoFrame = ({ videoURL }: { videoURL: string }) => {
+const VideoFrame = ({ videoURL, setMusicVolume }: { videoURL: string; setMusicVolume: Dispatch<SetStateAction<number>> }) => {
+  const handleVideoPlay = () => {
+    setMusicVolume(LOW_MUSIC_LOOP_VOLUME / 2)
+  }
+
+  const handleVideoPause = () => {
+    setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
+  }
+
   return (
     <div>
       <div className='w-full bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60  p-2 pb-0 border-b-0 shadow-red-blur'>
-        <video className='w-full h-full object-cover' controls src={videoURL} />
+        <video className='w-full h-full object-cover' controls src={videoURL} onPlay={handleVideoPlay} onPause={handleVideoPause} />
       </div>
       <div className='h-2 border-b-2 bg-grid-darkRed border-l-2 border-red border-opacity-60 mr-2 relative pb-2 '>
         <div className='absolute -right-3'>

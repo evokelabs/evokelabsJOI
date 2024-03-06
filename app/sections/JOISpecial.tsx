@@ -5,6 +5,7 @@ import VideoFrame from '../ui/VideoFrame'
 import ButtonDefault from '../ui/ButtonDefault'
 import JOISVG from '../ui/svg/mainMenu/JOISVG'
 import YouTubeSVG from '../ui/svg/button/YouTubeSVG'
+import { Dispatch, SetStateAction } from 'react'
 
 const ContentHead = () => {
   return (
@@ -27,10 +28,10 @@ const ContentHead = () => {
   )
 }
 
-const JOISpecial = () => {
+const JOISpecial = ({ setMusicVolume }: { setMusicVolume: Dispatch<SetStateAction<number>> }) => {
   return (
     <PanelContent headerTitle='JOI Special' contentHead={<ContentHead />}>
-      <VideoFrame videoURL='./videos/JOI-Introduction.mp4' />
+      <VideoFrame videoURL='./videos/JOI-Introduction.mp4' setMusicVolume={setMusicVolume} />
       <div className='flex flex-row  justify-between'>
         <div className='flex flex-row mt-3 justify-end -mr-3'>
           <ButtonDefault label='4k version' svgIcon={<YouTubeSVG />} />

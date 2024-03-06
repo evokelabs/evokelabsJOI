@@ -216,10 +216,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   <div className='max-w-[1170px]'>
                     {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                     {router.pathname === '/services' && <Services />}
-                    {router.pathname === '/portfolio' && <Portfolio />}
-                    {router.pathname === '/history' && <History />}
+                    {router.pathname === '/portfolio' && <Portfolio setMusicVolume={setMusicVolume} />}
+                    {router.pathname === '/history' && <History setMusicVolume={setMusicVolume} />}
                     {router.pathname === '/resume' && <Resume />}
-                    {router.pathname === '/joi' && <JOISpecial />}
+                    {router.pathname === '/joi' && <JOISpecial setMusicVolume={setMusicVolume} />}
                     {router.pathname === '/availabilities' && <Availabilities />}
                     {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
                   </div>

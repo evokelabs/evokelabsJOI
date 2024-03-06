@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import ButtonDefault from '../../ui/ButtonDefault'
 import PanelContent from '../../ui/PanelContent'
 
@@ -8,7 +8,7 @@ import PortfolioTile from './PortfolioTile'
 import PortfolioPanelContent from './ui/PortfolioPanelContent'
 import ContentHeader from './ui/ContentHeader'
 
-const PortfolioHome = () => {
+const PortfolioHome = ({ setMusicVolume }: { setMusicVolume: Dispatch<SetStateAction<number>> }) => {
   const [portfolioData, setPortfolioData] = useState<PortfolioItem[]>(portfolio)
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null)
 
