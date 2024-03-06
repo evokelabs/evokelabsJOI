@@ -355,7 +355,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     hasPlayed,
     shouldJOISpeak,
     model,
-    muteJOI,
     setMusicVolume,
     setMusicLoopTransitionDuration,
     JOISpeechData,
