@@ -12,6 +12,7 @@ const MusicLoopSoundControl = () => {
   const hasMounted = useRef(false)
   const DELAY = 3800
   const LOOP = true
+  const GAIN_NODE_VOLUME = 1
 
   const { musicLoopTransitionDuration } = useContext(SoundsContext)
   const { musicVolume } = useContext(SoundsContext)
@@ -69,6 +70,13 @@ const MusicLoopSoundControl = () => {
       currentAudioElement.removeEventListener('canplaythrough', playAudio)
     }
   }, [LOOP, musicLoopTransitionDuration, musicVolume, isMuted]) // Replace muteMusic with isMuted
+
+  useEffect(() => {
+    console.log('muteMusic', muteMusic)
+    if (gainNode.current) {
+      gainNode.current.gain.value = muteMusic ? 0 : GAIN_NODE_VOLUME
+    }
+  }, [muteMusic])
 
   return null
 }

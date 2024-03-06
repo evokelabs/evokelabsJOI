@@ -11,15 +11,13 @@ export const DEFAULT_MUSIC_LOOP_TRANSITION_DURATION = 8500
 export const JOI_MUSIC_LOOP_TRANSITION_DURATION = 1250
 
 const ELAudioStartSoundControl = () => {
-  const [play, setPlay] = useState(true)
-
   return (
     <>
-      {/* {play && <JOIPreloaderSpeech />} */}
-      {/* {play && <MusicStartSoundControl />} */}
-      {/* {play && <MusicLoopSoundControl />} */}
-      {/* {play && <RainSoundControl />} */}
-      {/* {play && <CyberpunkAmbienceSoundControl />} */}
+      {<JOIPreloaderSpeech />}
+      {/* {<MusicStartSoundControl />} */}
+      {<MusicLoopSoundControl />}
+      {<RainSoundControl />}
+      {<CyberpunkAmbienceSoundControl />}
     </>
   )
 }
