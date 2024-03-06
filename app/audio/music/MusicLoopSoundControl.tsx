@@ -5,16 +5,14 @@ import { Howl } from 'howler'
 import { DEFAULT_MUSIC_LOOP_VOLUME } from '../ELAudioStartSoundControl'
 
 const AUDIO_SOURCE = '/sounds/musicLoop.ogg'
-const DELAY = 5500 // Delay in milliseconds
+const DELAY = 3200 // Delay in milliseconds
 
 const MusicLoopSoundControl = () => {
   const sound = useRef<Howl | null>(null)
-  const { musicLoopTransitionDuration } = useContext(SoundsContext)
+  const { musicLoopTransitionDuration, setMusicVolume, musicVolume } = useContext(SoundsContext)
   const { muteMusic } = useContext(SoundControlContext)
 
   const [isMuted, setIsMuted] = useState(muteMusic)
-
-  const musicVolume = DEFAULT_MUSIC_LOOP_VOLUME
 
   useEffect(() => {
     setIsMuted(muteMusic)
@@ -36,27 +34,40 @@ const MusicLoopSoundControl = () => {
         // Gradually increase the volume to the desired level over the transition duration
         const targetVolume = isMuted ? 0 : musicVolume
         sound.current.fade(startVolume, targetVolume, musicLoopTransitionDuration)
+
+        // Start playing the audio after the volume transition has begun
+        setTimeout(() => {
+          sound.current?.play()
+        }, DELAY)
       }
     }
 
-    const timeoutId = setTimeout(() => {
-      sound.current?.play()
-      playAudio()
-    }, DELAY)
+    playAudio()
+
+    // Set the musicVolume to DEFAULT_MUSIC_LOOP_VOLUME after the transition duration
+    setTimeout(() => {
+      console.log('Setting music volume to', DEFAULT_MUSIC_LOOP_VOLUME)
+      setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
+    }, musicLoopTransitionDuration)
 
     return () => {
       if (sound.current) {
         sound.current.unload()
       }
-      clearTimeout(timeoutId)
     }
   }, []) // Empty dependency array ensures this effect only runs once after the initial render
 
   useEffect(() => {
     if (sound.current) {
-      sound.current.volume(isMuted ? 0 : musicVolume)
+      if (isMuted) {
+        // Instantly mute the audio
+        sound.current.volume(0)
+      } else {
+        // Gradually increase the volume to the desired level over the transition duration
+        sound.current.fade(sound.current.volume(), musicVolume, musicLoopTransitionDuration)
+      }
     }
-  }, [isMuted, musicVolume])
+  }, [isMuted, musicVolume, musicLoopTransitionDuration])
 
   return null
 }
