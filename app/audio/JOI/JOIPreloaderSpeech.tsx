@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
@@ -14,8 +14,23 @@ const JOIPreloaderSpeech = () => {
   const audioElement = useRef<HTMLAudioElement | null>(null)
   const gainNode = useRef<GainNode | null>(null)
   const { muteJOI } = useContext(SoundControlContext)
+  const [hasUserInteracted, setHasUserInteracted] = useState(false)
 
   useEffect(() => {
+    // Set up event listeners for user interaction
+    const handleUserInteraction = () => setHasUserInteracted(true)
+    window.addEventListener('click', handleUserInteraction)
+    window.addEventListener('keydown', handleUserInteraction)
+
+    // Clean up the event listeners when the component unmounts
+    return () => {
+      window.removeEventListener('click', handleUserInteraction)
+      window.removeEventListener('keydown', handleUserInteraction)
+    }
+  }, []) // Empty dependency array so this effect only runs once on mount
+
+  useEffect(() => {
+    if (!hasUserInteracted) return
     // Create a new AudioContext and an audio element
     const audioContext = new AudioContext()
     audioElement.current = new Audio()
@@ -75,7 +90,7 @@ const JOIPreloaderSpeech = () => {
         audioElement.current.removeEventListener('ended', handleEnded)
       }
     }
-  }, [])
+  }, [hasUserInteracted])
 
   return null
 }
