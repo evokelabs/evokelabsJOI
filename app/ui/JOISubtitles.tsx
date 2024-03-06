@@ -6,7 +6,7 @@ const JOISubtitles = () => {
 
   const [currentCaption, setCurrentCaption] = useState(JOILineCaption)
 
-  const SAFEGUARD_TIMER = 7500
+  const SAFEGUARD_TIMER = 4500
 
   useEffect(() => {
     console.log(
@@ -29,7 +29,7 @@ const JOISubtitles = () => {
 
   useEffect(() => {
     console.log(
-      'JOIN SUBTILES USEEFFECT 2, isAudioPlaying:',
+      'Subtitles timeoutID function, isAudioPlaying:',
       isAudioPlaying,
       'isChainPlaying:',
       isChainPlaying,
@@ -39,18 +39,29 @@ const JOISubtitles = () => {
       currentCaption
     )
     let timeoutId: NodeJS.Timeout
+    let innerTimeoutId: NodeJS.Timeout // Add this line
+
     timeoutId = setTimeout(() => {
+      console.log('sbutitle fail safe triggered')
       setIsAudioPlaying(false)
       setIsChainPlaying(false)
-      setCurrentCaption(null)
+
+      innerTimeoutId = setTimeout(() => {
+        setCurrentCaption(null)
+        console.log('sbutitle fail safe triggered x 2 - currentCaption:', currentCaption)
+      }, 500)
     }, SAFEGUARD_TIMER)
 
     return () => {
       if (timeoutId) {
         clearTimeout(timeoutId)
       }
+      if (innerTimeoutId) {
+        // Add this block
+        clearTimeout(innerTimeoutId)
+      }
     }
-  }, [setIsAudioPlaying, setIsChainPlaying, isAudioPlaying, isChainPlaying, JOILineCaption, currentCaption])
+  }, [isAudioPlaying])
 
   const opacityClass = isAudioPlaying ? 'opacity-100' : 'opacity-0'
 
