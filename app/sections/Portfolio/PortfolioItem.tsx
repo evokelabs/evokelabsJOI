@@ -21,7 +21,21 @@ interface PortfolioItem {
   recommended: number
 }
 
-const PortfolioItem: React.FC<PortfolioItem> = ({ id, heading, subHeading, technology, desc, video, thumb, link, mainVideo }) => {
+interface PortfolioItemProps extends PortfolioItem {
+  setMusicVolume: React.Dispatch<React.SetStateAction<number>>
+}
+const PortfolioItem: React.FC<PortfolioItemProps> = ({
+  id,
+  heading,
+  subHeading,
+  technology,
+  desc,
+  video,
+  thumb,
+  link,
+  mainVideo,
+  setMusicVolume
+}) => {
   return (
     <PanelBackground headerTitle='Past Gigs'>
       <div className='m-2 relative'>
@@ -55,7 +69,7 @@ const PortfolioItem: React.FC<PortfolioItem> = ({ id, heading, subHeading, techn
         </div>
 
         <div className='mt-3'>
-          <VideoFrame videoURL={mainVideo} />
+          <VideoFrame videoURL={mainVideo} setMusicVolume={setMusicVolume} />
         </div>
         {desc && (
           <>

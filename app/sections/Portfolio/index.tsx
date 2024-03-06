@@ -17,7 +17,7 @@ const PortfolioHome = ({ setMusicVolume }: { setMusicVolume: Dispatch<SetStateAc
   }
 
   if (selectedItem) {
-    return <PortfolioItem {...selectedItem} />
+    return <PortfolioItem {...selectedItem} setMusicVolume={setMusicVolume} />
   }
 
   return (
