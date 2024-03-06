@@ -15,11 +15,11 @@ const ELAudioStartSoundControl = () => {
 
   return (
     <>
-      {play && <JOIPreloaderSpeech />}
+      {/* {play && <JOIPreloaderSpeech />} */}
       {/* {play && <MusicStartSoundControl />} */}
-      {play && <MusicLoopSoundControl />}
-      {play && <RainSoundControl />}
-      {play && <CyberpunkAmbienceSoundControl />}
+      {/* {play && <MusicLoopSoundControl />} */}
+      {/* {play && <RainSoundControl />} */}
+      {/* {play && <CyberpunkAmbienceSoundControl />} */}
     </>
   )
 }

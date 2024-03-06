@@ -9,27 +9,33 @@ const JOISubtitles = () => {
   const SAFEGUARD_TIMER = 7500
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout
     if (!isAudioPlaying && !isChainPlaying) {
       setTimeout(() => {
         setCurrentCaption(JOILineCaption)
       }, 500) // Delay setCurrentCaption by 0.5 seconds to account for the duration-500 t
-      timeoutId = setTimeout(() => {
-        setIsAudioPlaying(false)
-        setIsChainPlaying(false)
-        setCurrentCaption(null)
-      }, SAFEGUARD_TIMER)
     } else if (!isAudioPlaying && isChainPlaying) {
       setCurrentCaption(JOILineCaption)
       setIsAudioPlaying(true)
     }
+  }, [JOILineCaption, isAudioPlaying, isChainPlaying, setIsAudioPlaying, setIsChainPlaying])
+
+  useEffect(() => {
+    console.log('useEffect')
+    let timeoutId: NodeJS.Timeout
+    console.log('useEffect 2nd pass')
+    timeoutId = setTimeout(() => {
+      setIsAudioPlaying(false)
+      setIsChainPlaying(false)
+      setCurrentCaption(null)
+      console.log('time out triggered')
+    }, SAFEGUARD_TIMER)
 
     return () => {
       if (timeoutId) {
         clearTimeout(timeoutId)
       }
     }
-  }, [JOILineCaption, isAudioPlaying, isChainPlaying, setIsAudioPlaying, setIsChainPlaying])
+  }, [setIsAudioPlaying, setIsChainPlaying])
 
   const opacityClass = isAudioPlaying ? 'opacity-100' : 'opacity-0'
 

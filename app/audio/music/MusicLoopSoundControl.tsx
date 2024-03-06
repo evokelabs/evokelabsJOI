@@ -21,7 +21,6 @@ const MusicLoopSoundControl = () => {
   // Add a new state for mute status
 
   useEffect(() => {
-    console.log('MusicLoopSoundControl: muteMusic changed', muteMusic, 'isMuted:', isMuted)
     // Update isMuted when muteMusic changes
     setIsMuted(muteMusic)
   }, [isMuted, muteMusic])
