@@ -35,6 +35,7 @@ const MusicStartSoundControl = () => {
     return () => {
       howl.unload()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Adjust the volume when muteMusic changes

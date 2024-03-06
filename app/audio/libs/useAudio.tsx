@@ -57,7 +57,7 @@ function useAudio(audioSource: string, volume: number, delay: number, transition
   }
 
   // Call updateVolume when the volume prop changes
-  useEffect(updateVolume, [volume])
+  useEffect(updateVolume, [transitionDuration, volume])
 
   return { play, stop }
 }
