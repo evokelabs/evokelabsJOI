@@ -1,4 +1,3 @@
-//Better
 import { AnimationContext } from '@/app/libs/AnimationContext'
 import { useEffect, useState, useContext, useCallback, useRef } from 'react'
 import { SkinnedMesh } from 'three'
@@ -129,13 +128,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           { filepath: randomEmailResponse.filepath, text: randomEmailResponse.text },
           { filepath: randomFollowResponse.filepath, text: randomFollowResponse.text }
         ]
-        console.log('Text:', responseArray.map(item => item.text).join(' '))
-        console.log('Filepath:', responseArray.map(item => item.filepath).join(' '))
-
-        // Update audioFileRef directly
-        audioFileRef.current = responseArray.map(item => item.filepath).join(' ')
-
-        return JOISpeechData[key].map(item => item.filepath)
         const text = responseArray.map(item => item.text)
         const filePath = responseArray.map(item => item.filepath)
 
@@ -218,8 +210,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       const audio = new Audio(audioFileRef.current)
 
       if (!audio) return
-
-      console.log(`Playing audio from ${audioFileRef.current}`) // Add this line
 
       currentAudio.current = audio
 

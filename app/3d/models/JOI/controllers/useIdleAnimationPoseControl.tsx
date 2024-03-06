@@ -1,5 +1,3 @@
-//better
-
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { AnimationAction, AnimationClip, AnimationMixer, Clock, Object3D } from 'three'
 import { shuffleArray } from '@/app/libs/helpers'
@@ -24,14 +22,8 @@ export const useIdleAnimationPoseControl = (
     return playPosesInOrder ? [...animationNames] : shuffleArray(animationNames)
   }, [animations, playPosesInOrder])
 
-  console.log('useIdleTriggered')
-
-  const { selectedAnimation } = useControls({
-    selectedAnimation: {
-      options: animationNames,
-      value: animationNames[0]
-    }
-  })
+  // Store a reference to the GSAP animation
+  const gsapAnimation = useRef<gsap.core.Tween | null>(null)
 
   const onLoop = useCallback(
     (event: { action: AnimationAction; loopDelta: number }) => {
@@ -62,7 +54,6 @@ export const useIdleAnimationPoseControl = (
       })
 
       nextAction.play()
-      // console.log('looping triggered, playing', nextAction.getClip().name)
     },
     [animationBlendTime]
   )
