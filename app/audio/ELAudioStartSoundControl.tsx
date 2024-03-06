@@ -7,7 +7,7 @@ import CyberpunkAmbienceSoundControl from './Environment/CyberpunkAmbienceSoundC
 
 export const DEFAULT_MUSIC_LOOP_VOLUME = 0.45
 export const LOW_MUSIC_LOOP_VOLUME = 0.2
-export const DEFAULT_MUSIC_LOOP_TRANSITION_DURATION = 6500
+export const DEFAULT_MUSIC_LOOP_TRANSITION_DURATION = 5500
 export const JOI_MUSIC_LOOP_TRANSITION_DURATION = 1250
 
 const ELAudioStartSoundControl = () => {

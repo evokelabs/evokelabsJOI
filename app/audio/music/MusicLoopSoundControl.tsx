@@ -6,6 +6,7 @@ import { DEFAULT_MUSIC_LOOP_VOLUME } from '../ELAudioStartSoundControl'
 
 const AUDIO_SOURCE = '/sounds/musicLoop.ogg'
 const DELAY = 3200 // Delay in milliseconds
+const INTERACTION_TIMEOUT = 10000 // 10 seconds
 
 const MusicLoopSoundControl = () => {
   const sound = useRef<Howl | null>(null)
@@ -14,21 +15,32 @@ const MusicLoopSoundControl = () => {
 
   const [isMuted, setIsMuted] = useState(muteMusic)
   const [hasUserInteracted, setHasUserInteracted] = useState(false)
+  const [interactionTimeoutReached, setInteractionTimeoutReached] = useState(false)
 
   useEffect(() => {
     setIsMuted(muteMusic)
   }, [muteMusic])
 
   useEffect(() => {
+    // Set a timeout to set interactionTimeoutReached to true after 10 seconds
+    const interactionTimeout = setTimeout(() => {
+      setInteractionTimeoutReached(true)
+    }, INTERACTION_TIMEOUT)
+
     // Set up event listeners for user interaction
-    const handleUserInteraction = () => setHasUserInteracted(true)
+    const handleUserInteraction = () => {
+      setHasUserInteracted(true)
+      clearTimeout(interactionTimeout) // Clear the timeout when the user interacts with the window
+    }
+
     window.addEventListener('click', handleUserInteraction)
     window.addEventListener('keydown', handleUserInteraction)
 
-    // Clean up the event listeners when the component unmounts
+    // Clean up the event listeners and timeout when the component unmounts
     return () => {
       window.removeEventListener('click', handleUserInteraction)
       window.removeEventListener('keydown', handleUserInteraction)
+      clearTimeout(interactionTimeout)
     }
   }, []) // Empty dependency array so this effect only runs once on mount
 
@@ -52,9 +64,12 @@ const MusicLoopSoundControl = () => {
         sound.current.fade(startVolume, targetVolume, musicLoopTransitionDuration)
 
         // Start playing the audio after the volume transition has begun
-        setTimeout(() => {
-          sound.current?.play()
-        }, DELAY)
+        setTimeout(
+          () => {
+            sound.current?.play()
+          },
+          interactionTimeoutReached ? 250 : DELAY
+        )
       }
     }
 
@@ -70,7 +85,7 @@ const MusicLoopSoundControl = () => {
         sound.current.unload()
       }
     }
-  }, [hasUserInteracted]) // This effect runs whenever hasUserInteracted changes
+  }, [hasUserInteracted, interactionTimeoutReached]) // This effect runs whenever hasUserInteracted or interactionTimeoutReached changes
 
   useEffect(() => {
     if (sound.current) {
