@@ -211,7 +211,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       'hasSiteHomeVisited',
       hasSiteHomeVisited,
       'hasUserInteracted',
-      hasUserInteracted
+      hasUserInteracted,
+      'availabilityFilePathArray',
+      availabilityFilePathArray
     )
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited) || !hasUserInteracted) return
 
@@ -251,20 +253,21 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       let audioIndex = 0
 
+      //If availabilityFilePath hold object of arrays, play the audio files in sequence. It will hold an object when JOILineSpeak is 5
       const playSpeech = (availabilityFilePath: string | string[]) => {
-        if (availabilityFilePath.length > 1) {
+        if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
           if (isPlaying.current) {
-            console.log('FIRST CASE')
-            console.log('-----------------')
-            console.log('shouldJOISpeak', shouldJOISpeak)
-            console.log('hasPlayed', hasPlayed)
-            console.log('JOILineSpeak', JOILineSpeak)
-            console.log('hasSiteHomeVisited', hasSiteHomeVisited)
-            console.log('hasUserInteracted', hasUserInteracted)
-            console.log('audioFileRef.current', audioFileRef.current)
-            console.log('audio.src', audio.src)
-            console.log('isAudioPlaying', isAudioPlaying)
-            console.log('-----------------')
+            // console.log('FIRST CASE')
+            // console.log('-----------------')
+            // console.log('shouldJOISpeak', shouldJOISpeak)
+            // console.log('hasPlayed', hasPlayed)
+            // console.log('JOILineSpeak', JOILineSpeak)
+            // console.log('hasSiteHomeVisited', hasSiteHomeVisited)
+            // console.log('hasUserInteracted', hasUserInteracted)
+            // console.log('audioFileRef.current', audioFileRef.current)
+            // console.log('audio.src', audio.src)
+            // console.log('isAudioPlaying', isAudioPlaying)
+            // console.log('-----------------')
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
             setJOILineCaption(availabilityTextArray[audioIndex])
             setAudioIndexState(audioIndex) // Update the audio index state
@@ -287,28 +290,28 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           if (isPlaying.current) {
             setIsAudioPlaying(true)
             //console.log all useful information
-            console.log('SECOND CASE')
-            console.log('-----------------')
-            console.log('shouldJOISpeak', shouldJOISpeak)
-            console.log('hasPlayed', hasPlayed)
-            console.log('JOILineSpeak', JOILineSpeak)
-            console.log('hasSiteHomeVisited', hasSiteHomeVisited)
-            console.log('hasUserInteracted', hasUserInteracted)
-            console.log('audioFileRef.current', audioFileRef.current)
-            console.log('isPlaying.current', isPlaying.current)
-            console.log('audio.src', audio.src)
-            console.log('JOISpeechData,', JOISpeechData)
+            // console.log('SECOND CASE')
+            // console.log('-----------------')
+            // console.log('shouldJOISpeak', shouldJOISpeak)
+            // console.log('hasPlayed', hasPlayed)
+            // console.log('JOILineSpeak', JOILineSpeak)
+            // console.log('hasSiteHomeVisited', hasSiteHomeVisited)
+            // console.log('hasUserInteracted', hasUserInteracted)
+            // console.log('audioFileRef.current', audioFileRef.current)
+            // console.log('isPlaying.current', isPlaying.current)
+            // console.log('audio.src', audio.src)
+            // console.log('JOISpeechData,', JOISpeechData)
             // console.log('getFilePath,', getFilePath)
-            console.log('hasSiteHomeVisited,', hasSiteHomeVisited)
-            console.log('isAudioPlaying', isAudioPlaying)
-            console.log('muteJOI', muteJOI)
-            console.log('visited,', visited)
-            console.log('setIsAudioPlaying,', setIsAudioPlaying)
-            console.log('setMusicVolume,', setMusicVolume)
-            console.log('setMusicLoopTransitionDuration,', setMusicLoopTransitionDuration)
-            console.log('muteJOI', muteJOI)
-            console.log('availabilityFilePath[audioIndex]', availabilityFilePath[audioIndex])
-            console.log('-----------------')
+            // console.log('hasSiteHomeVisited,', hasSiteHomeVisited)
+            // console.log('isAudioPlaying', isAudioPlaying)
+            // console.log('muteJOI', muteJOI)
+            // console.log('visited,', visited)
+            // console.log('setIsAudioPlaying,', setIsAudioPlaying)
+            // console.log('setMusicVolume,', setMusicVolume)
+            // console.log('setMusicLoopTransitionDuration,', setMusicLoopTransitionDuration)
+            // console.log('muteJOI', muteJOI)
+            // console.log('availabilityFilePath[audioIndex]', availabilityFilePath[audioIndex])
+            // console.log('-----------------')
 
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             return
@@ -407,7 +410,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     // setMusicVolume,
     // setMusicLoopTransitionDuration,
     // JOISpeechData,
-    // getFilePath,
     // hasSiteHomeVisited,
     // visited,
     // setIsAudioPlaying,
