@@ -3,7 +3,7 @@ import useAudio from '../libs/useAudio'
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
 
 const AUDIO_SOURCE = '/sounds/rainLoop.ogg'
-const VOLUME_SET = 0.2
+const VOLUME_SET = 0.15
 const DELAY = 0
 const TRANSITION_DURATION = 2500
 const LOOP = true
