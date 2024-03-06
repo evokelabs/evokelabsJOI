@@ -1,3 +1,5 @@
+//better
+
 import { useEffect } from 'react'
 import { Mesh } from 'three'
 import { useThree } from '@react-three/fiber'

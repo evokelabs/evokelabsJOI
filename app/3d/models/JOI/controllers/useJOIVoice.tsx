@@ -1,3 +1,4 @@
+//Better
 import { AnimationContext } from '@/app/libs/AnimationContext'
 import { useEffect, useState, useContext, useCallback, useRef } from 'react'
 import { SkinnedMesh } from 'three'
