@@ -160,10 +160,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     // Start a new timer
     timerRef.current = setTimeout(() => {
       isPlaying.current = false
-      // setHasSiteHomeVisited(true)
-      setHasPlayed(false)
+      setHasSiteHomeVisited(true)
       setShouldJOISpeak(true)
-      setHasPlayed(false)
+      setHasPlayed(true)
 
       JOILineSpeak
     }, TIMEOUT_HARD_STATE_RESET)
@@ -171,6 +170,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
   useEffect(() => {
     setHasPlayed(false)
+    console.log('hasPlayed', hasPlayed)
   }, [JOILineSpeak])
 
   useEffect(() => {
@@ -201,6 +201,18 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }, [JOILineSpeak, getFilePath, hasSiteHomeVisited, model, setJOILineCaption, shouldJOISpeak])
 
   useEffect(() => {
+    console.log(
+      'CLICKED: shouldJOISpeak',
+      shouldJOISpeak,
+      'hasPlayed',
+      hasPlayed,
+      'JOILineSpeak',
+      JOILineSpeak,
+      'hasSiteHomeVisited',
+      hasSiteHomeVisited,
+      'hasUserInteracted',
+      hasUserInteracted
+    )
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited) || !hasUserInteracted) return
 
     const audioContext = audioContextRef.current
@@ -285,7 +297,16 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
             console.log('audioFileRef.current', audioFileRef.current)
             console.log('isPlaying.current', isPlaying.current)
             console.log('audio.src', audio.src)
+            console.log('JOISpeechData,', JOISpeechData)
+            // console.log('getFilePath,', getFilePath)
+            console.log('hasSiteHomeVisited,', hasSiteHomeVisited)
             console.log('isAudioPlaying', isAudioPlaying)
+            console.log('muteJOI', muteJOI)
+            console.log('visited,', visited)
+            console.log('setIsAudioPlaying,', setIsAudioPlaying)
+            console.log('setMusicVolume,', setMusicVolume)
+            console.log('setMusicLoopTransitionDuration,', setMusicLoopTransitionDuration)
+            console.log('muteJOI', muteJOI)
             console.log('availabilityFilePath[audioIndex]', availabilityFilePath[audioIndex])
             console.log('-----------------')
 
@@ -306,6 +327,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       const audioEndCleanUp = () => {
         setIsChainPlaying(false)
+        setHasPlayed(true)
         setIsAudioPlaying(false)
         isPlaying.current = false
         setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
@@ -379,16 +401,17 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }, [
     JOILineSpeak,
     hasPlayed,
-    shouldJOISpeak,
-    model,
-    muteJOI,
-    setMusicVolume,
-    setMusicLoopTransitionDuration,
-    JOISpeechData,
-    getFilePath,
-    hasSiteHomeVisited,
-    visited,
-    setIsAudioPlaying
+    shouldJOISpeak
+    // model,
+    // muteJOI,
+    // setMusicVolume,
+    // setMusicLoopTransitionDuration,
+    // JOISpeechData,
+    // getFilePath,
+    // hasSiteHomeVisited,
+    // visited,
+    // setIsAudioPlaying,
+    // hasUserInteracted
   ])
 
   useEffect(() => {
