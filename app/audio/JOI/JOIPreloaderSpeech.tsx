@@ -1,18 +1,17 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { Howl } from 'howler'
 
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
 
 const AUDIO_SOURCES = JOISpeech.preloader.map(item => item.filepath)
 
-const VOLUME = 1.575
-const DELAY = 3500
+const VOLUME = 0.55
+const DELAY = 2500
 const TRANSITION_DURATION = 150
 const LOOP = false
 
 const JOIPreloaderSpeech = () => {
-  const audioElement = useRef<HTMLAudioElement | null>(null)
-  const gainNode = useRef<GainNode | null>(null)
   const { muteJOI } = useContext(SoundControlContext)
   const [hasUserInteracted, setHasUserInteracted] = useState(false)
 
@@ -31,66 +30,35 @@ const JOIPreloaderSpeech = () => {
 
   useEffect(() => {
     if (!hasUserInteracted) return
-    // Create a new AudioContext and an audio element
-    const audioContext = new AudioContext()
-    audioElement.current = new Audio()
 
     // Select a random audio source
     const randomIndex = Math.floor(Math.random() * AUDIO_SOURCES.length)
-    audioElement.current.src = AUDIO_SOURCES[randomIndex]
+    const audioSource = AUDIO_SOURCES[randomIndex]
 
-    // Create a GainNode to control the volume
-    gainNode.current = audioContext.createGain()
-
-    // Create a MediaElementAudioSourceNode from the audio element
-    const source = audioContext.createMediaElementSource(audioElement.current)
-    source.connect(gainNode.current)
-    gainNode.current.connect(audioContext.destination)
-
-    // Define a function to handle the 'ended' event
-    const handleEnded = () => {
-      if (gainNode.current) {
-        gainNode.current.disconnect()
-      }
-      source.disconnect()
-      audioContext.close()
-    }
-
-    // Define a function to play the audio
-    const playAudio = () => {
-      console.log('playing preloade audio')
-      if (audioElement.current && gainNode.current) {
-        audioElement.current.play()
-        console.log('playing preloade audio audioElement.current.play')
-        audioElement.current.loop = LOOP
-
-        // Start the volume at a small positive value
-        gainNode.current.gain.setValueAtTime(0.001, audioContext.currentTime)
-
-        // Gradually increase the volume to the desired level over the transition duration
-        if (VOLUME > 0) {
+    const sound = new Howl({
+      src: [audioSource],
+      loop: LOOP,
+      volume: 0.001, // Start with a small positive volume
+      onload: () => {
+        // Define a function to play the audio
+        const playAudio = () => {
+          // Gradually increase the volume to the desired level over the transition duration
           const targetVolume = muteJOI ? 0.001 : VOLUME
-          gainNode.current.gain.exponentialRampToValueAtTime(targetVolume, audioContext.currentTime + TRANSITION_DURATION / 1000)
-          console.log('VOLUME', VOLUME)
-        } else {
-          gainNode.current.gain.setValueAtTime(0, audioContext.currentTime + TRANSITION_DURATION / 1000)
-          console.log('gainNode.current.gain', gainNode.current.gain)
+          sound.fade(sound.volume(), targetVolume, TRANSITION_DURATION)
+
+          // Start playing the audio
+          sound.play()
         }
 
-        // Add the 'ended' event listener
-        audioElement.current.addEventListener('ended', handleEnded)
+        setTimeout(playAudio, DELAY)
       }
-    }
+    })
 
-    setTimeout(playAudio, DELAY)
-
-    // Clean up event listeners when the component unmounts
+    // Clean up the Howl instance when the component unmounts
     return () => {
-      if (audioElement.current) {
-        audioElement.current.removeEventListener('ended', handleEnded)
-      }
+      sound.unload()
     }
-  }, [hasUserInteracted])
+  }, [hasUserInteracted, muteJOI]) // Add muteJOI as a dependency
 
   return null
 }
