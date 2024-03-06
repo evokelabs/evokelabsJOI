@@ -59,7 +59,7 @@ const ToggleButton = ({
 const SoundControlIcons = () => {
   const { muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI } = useContext(SoundControlContext)
 
-  const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(false)
+  const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(true)
 
   useEffect(() => {
     setMuteMusic(true)
@@ -118,9 +118,9 @@ const SoundControlIcons = () => {
             setMuteRain(value)
             setMuteJOI(value)
           }}
-          SVGIconOn={props => <SoundControlIconOffSVG {...props} />}
-          SVGIconOff={props => <SoundControlIconOnSVG {...props} />}
-          showCrossIcon={!soundControlMasterToggle} // Show cross icon when muted
+          SVGIconOn={props => <SoundControlIconOnSVG {...props} />}
+          SVGIconOff={props => <SoundControlIconOffSVG {...props} />}
+          showCrossIcon={soundControlMasterToggle} // Show cross icon when muted
           ButtonComponent={ButtonSocial}
         />
       </div>
