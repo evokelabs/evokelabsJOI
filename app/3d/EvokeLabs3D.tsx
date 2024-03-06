@@ -189,9 +189,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [muteJOI, setMuteJOI] = useState(true)
 
   const soundAudioLevelControls = {
-    setMusicVolume,
+    setMuteMusic,
     setMuteRain,
     setMuteSFX,
+    muteMusic,
     muteRain,
     muteSFX
   }

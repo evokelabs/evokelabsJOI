@@ -6,26 +6,20 @@ import { LOW_MUSIC_LOOP_VOLUME, DEFAULT_MUSIC_LOOP_VOLUME } from '../audio/ELAud
 import { SoundAudioLevelControls } from '../sections/data/types'
 
 const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; soundAudioLevelControls: SoundAudioLevelControls }) => {
-  const [userMuted, setUserMuted] = useState(false)
-
-  useEffect(() => {
-    setUserMuted(soundAudioLevelControls.muteSFX || soundAudioLevelControls.muteRain)
-  }, [])
+  const [userMutedMusic, setUserMutedMusic] = useState(soundAudioLevelControls.muteMusic)
+  const [userMutedRain, setUserMutedRain] = useState(soundAudioLevelControls.muteRain)
+  const [userMutedSFX, setUserMutedSFX] = useState(soundAudioLevelControls.muteSFX)
 
   const handleVideoPlay = () => {
-    soundAudioLevelControls.setMusicVolume(LOW_MUSIC_LOOP_VOLUME / 6)
-    if (!userMuted) {
-      soundAudioLevelControls.setMuteRain(true)
-      soundAudioLevelControls.setMuteSFX(true)
-    }
+    soundAudioLevelControls.setMuteMusic(true)
+    soundAudioLevelControls.setMuteRain(true)
+    soundAudioLevelControls.setMuteSFX(true)
   }
 
   const handleVideoPause = () => {
-    soundAudioLevelControls.setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
-    if (!userMuted) {
-      soundAudioLevelControls.setMuteRain(false)
-      soundAudioLevelControls.setMuteSFX(false)
-    }
+    soundAudioLevelControls.setMuteMusic(false)
+    soundAudioLevelControls.setMuteRain(false)
+    soundAudioLevelControls.setMuteSFX(false)
   }
 
   return (
