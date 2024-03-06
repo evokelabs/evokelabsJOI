@@ -150,7 +150,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   const gainNode = useRef<GainNode | null>(null)
 
   useEffect(() => {
-    setHasPlayed(false)
+    setHasPlayed(false), (isPlaying.current = false)
   }, [JOILineSpeak])
 
   useEffect(() => {
@@ -203,7 +203,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
     const audioContext = audioContextRef.current
 
-    console.log('audioContext', audioContext, 'audioContextRef.current', audioContextRef.current, 'isPlaying.current', isPlaying.current)
+    console.log('isPlaying.current', isPlaying.current)
     if (!audioContext || isPlaying.current) return
     if (audioFileRef.current) {
       const audio = new Audio(audioFileRef.current)
@@ -235,8 +235,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
 
       setTimeout(() => {
-        isPlaying.current = true
+        isPlaying.current = false
         playSpeech(availabilityFilePathArray)
+        console.log('setTimeout totrigger playSpeech(). isPlaying.current:', isPlaying.current)
       }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2) // delay the audio play to match the music loop transition duration
 
       let audioIndex = 0
@@ -244,7 +245,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       //If availabilityFilePath hold object of arrays, play the audio files in sequence. It will hold an object when JOILineSpeak is 5
       const playSpeech = (availabilityFilePath: string | string[]) => {
         console.log(
-          'Trying to play speech isPlaying.current',
+          'Trying to play speech. isPlaying.current',
           isPlaying.current,
           'availabilityFilePath.length',
           availabilityFilePath.length,
@@ -254,31 +255,27 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           isAudioPlaying
         )
         if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
-          if (isPlaying.current) {
-            audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
-            setJOILineCaption(availabilityTextArray[audioIndex])
-            setAudioIndexState(audioIndex) // Update the audio index state
-            setIsAudioPlaying(false)
-            setIsChainPlaying(true)
-            audio.play().catch(error => console.error('Normal Audio play failed due to', error))
-            audio.onended = () => {
-              audioIndex++
-              if (audioIndex < availabilityFilePath.length) {
-                setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
-                setAudioIndexState(audioIndex) // Update the audio index state
-                playSpeech(availabilityFilePath) // Play the next audio file
-              } else {
-                audioEndCleanUp()
-              }
+          audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
+          setJOILineCaption(availabilityTextArray[audioIndex])
+          setAudioIndexState(audioIndex) // Update the audio index state
+          setIsAudioPlaying(false)
+          setIsChainPlaying(true)
+          audio.play().catch(error => console.error('Normal Audio play failed due to', error))
+          audio.onended = () => {
+            audioIndex++
+            if (audioIndex < availabilityFilePath.length) {
+              setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
+              setAudioIndexState(audioIndex) // Update the audio index state
+              playSpeech(availabilityFilePath) // Play the next audio file
+            } else {
+              audioEndCleanUp()
             }
-            return
           }
+          return
         } else {
-          if (isPlaying.current) {
-            setIsAudioPlaying(true)
-            audio.play().catch(error => console.error('Normal Audio play failed due to', error))
-            return
-          }
+          setIsAudioPlaying(true)
+          audio.play().catch(error => console.error('Normal Audio play failed due to', error))
+          console.log('Audio should be playing: ', audio.src, 'isAudioPlaying', isAudioPlaying, 'isPlaying.current', isPlaying.current)
         }
         console.log(
           'isPlaying.current',
