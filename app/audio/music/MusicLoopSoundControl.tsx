@@ -10,9 +10,7 @@ const MusicLoopSoundControl = () => {
   const gainNode = useRef(audioContext.current.createGain())
   const source = useRef<MediaElementAudioSourceNode | null>(null)
   const hasMounted = useRef(false)
-  const DELAY = 3800
   const LOOP = true
-  const GAIN_NODE_VOLUME = 1
 
   const { musicLoopTransitionDuration } = useContext(SoundsContext)
   const { musicVolume } = useContext(SoundsContext)
@@ -58,14 +56,6 @@ const MusicLoopSoundControl = () => {
 
       // Set hasMounted to true after the audio has started playing
       hasMounted.current = true
-    }
-
-    // If the component has not mounted, play the audio after the delay
-    if (!hasMounted.current) {
-      setTimeout(playAudio, DELAY)
-    } else {
-      // If the component has already mounted, play the audio immediately
-      playAudio()
     }
 
     // Clean up event listeners when the component unmounts
