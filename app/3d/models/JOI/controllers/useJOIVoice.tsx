@@ -242,6 +242,17 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       const playSpeech = (availabilityFilePath: string | string[]) => {
         if (availabilityFilePath.length > 1) {
           if (isPlaying.current) {
+            console.log('FIRST CASE')
+            console.log('-----------------')
+            console.log('shouldJOISpeak', shouldJOISpeak)
+            console.log('hasPlayed', hasPlayed)
+            console.log('JOILineSpeak', JOILineSpeak)
+            console.log('hasSiteHomeVisited', hasSiteHomeVisited)
+            console.log('hasUserInteracted', hasUserInteracted)
+            console.log('audioFileRef.current', audioFileRef.current)
+            console.log('audio.src', audio.src)
+            console.log('isAudioPlaying', isAudioPlaying)
+            console.log('-----------------')
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
             setJOILineCaption(availabilityTextArray[audioIndex])
             setAudioIndexState(audioIndex) // Update the audio index state
@@ -263,6 +274,21 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         } else {
           if (isPlaying.current) {
             setIsAudioPlaying(true)
+            //console.log all useful information
+            console.log('SECOND CASE')
+            console.log('-----------------')
+            console.log('shouldJOISpeak', shouldJOISpeak)
+            console.log('hasPlayed', hasPlayed)
+            console.log('JOILineSpeak', JOILineSpeak)
+            console.log('hasSiteHomeVisited', hasSiteHomeVisited)
+            console.log('hasUserInteracted', hasUserInteracted)
+            console.log('audioFileRef.current', audioFileRef.current)
+            console.log('isPlaying.current', isPlaying.current)
+            console.log('audio.src', audio.src)
+            console.log('isAudioPlaying', isAudioPlaying)
+            console.log('availabilityFilePath[audioIndex]', availabilityFilePath[audioIndex])
+            console.log('-----------------')
+
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             return
           }
