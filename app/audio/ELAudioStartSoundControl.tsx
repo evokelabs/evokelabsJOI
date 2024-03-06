@@ -7,19 +7,17 @@ import CyberpunkAmbienceSoundControl from './Environment/CyberpunkAmbienceSoundC
 
 export const DEFAULT_MUSIC_LOOP_VOLUME = 0.4
 export const LOW_MUSIC_LOOP_VOLUME = 0.2
-export const DEFAULT_MUSIC_LOOP_TRANSITION_DURATION = 8500
+export const DEFAULT_MUSIC_LOOP_TRANSITION_DURATION = 0
 export const JOI_MUSIC_LOOP_TRANSITION_DURATION = 0
 
 const ELAudioStartSoundControl = () => {
-  const [play, setPlay] = useState(true)
-
   return (
     <>
-      {play && <JOIPreloaderSpeech />}
-      {/* {play && <MusicStartSoundControl />} */}
-      {play && <MusicLoopSoundControl />}
-      {play && <RainSoundControl />}
-      {play && <CyberpunkAmbienceSoundControl />}
+      {<JOIPreloaderSpeech />}
+      {/* {<MusicStartSoundControl />} */}
+      {<MusicLoopSoundControl />}
+      {<RainSoundControl />}
+      {<CyberpunkAmbienceSoundControl />}
     </>
   )
 }
