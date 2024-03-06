@@ -1,13 +1,10 @@
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
 import { SoundsContext } from '@/app/libs/SoundsContext'
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
 const AUDIO_SOURCE = '/sounds/musicLoop.ogg'
 
 const MusicLoopSoundControl = () => {
-  const { musicVolume } = useContext(SoundsContext)
-  const { musicLoopTransitionDuration } = useContext(SoundsContext)
-
   const audioElement = useRef(new Audio(AUDIO_SOURCE))
   const audioContext = useRef(new AudioContext())
   const gainNode = useRef(audioContext.current.createGain())
@@ -16,7 +13,18 @@ const MusicLoopSoundControl = () => {
   const DELAY = 3800
   const LOOP = true
 
+  const { musicLoopTransitionDuration } = useContext(SoundsContext)
+  const { musicVolume } = useContext(SoundsContext)
   const { muteMusic } = useContext(SoundControlContext)
+
+  const [isMuted, setIsMuted] = useState(muteMusic)
+  // Add a new state for mute status
+
+  useEffect(() => {
+    console.log('MusicLoopSoundControl: muteMusic changed', muteMusic, 'isMuted:', isMuted)
+    // Update isMuted when muteMusic changes
+    setIsMuted(muteMusic)
+  }, [isMuted, muteMusic])
 
   useEffect(() => {
     const currentAudioElement = audioElement.current
@@ -38,18 +46,12 @@ const MusicLoopSoundControl = () => {
       currentAudioElement.loop = LOOP
 
       // Start the volume transition from zero if it's the first playthrough, otherwise start from the current volume
-
       const startVolume = hasMounted.current ? gainNode.current.gain.value : 0
       gainNode.current.gain.setValueAtTime(startVolume, audioContext.current.currentTime)
 
-      console.log('startVolume', startVolume)
-      console.log('audioContext.current.currentTime', audioContext.current.currentTime)
-
       // Gradually increase the volume to the desired level over the transition duration
-      console.log('musicVolume', musicVolume)
-      const targetVolume = !muteMusic ? 0 : musicVolume
-      gainNode.current.gain.linearRampToValueAtTime(musicVolume, audioContext.current.currentTime + musicLoopTransitionDuration / 1000)
-      console.log('targetVolume', targetVolume)
+      const targetVolume = isMuted ? 0 : musicVolume
+      gainNode.current.gain.linearRampToValueAtTime(targetVolume, audioContext.current.currentTime + musicLoopTransitionDuration / 1000)
 
       // Set hasMounted to true after the audio has started playing
       hasMounted.current = true
@@ -67,7 +69,7 @@ const MusicLoopSoundControl = () => {
     return () => {
       currentAudioElement.removeEventListener('canplaythrough', playAudio)
     }
-  }, [LOOP, musicLoopTransitionDuration, musicVolume, muteMusic])
+  }, [LOOP, musicLoopTransitionDuration, musicVolume, isMuted]) // Replace muteMusic with isMuted
 
   return null
 }

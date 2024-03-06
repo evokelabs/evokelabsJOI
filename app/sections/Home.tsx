@@ -294,7 +294,7 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
       </div>
 
       <TypeOnSoundControl
-        volume={!muteSFX ? 0 : 0.45}
+        volume={muteSFX ? 0 : 0.45}
         delay={0.1}
         transitionDuration={10}
         loop={true}
@@ -302,7 +302,7 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
         onEndSound={handleEndSound}
       />
 
-      <ScrabbleOnSoundControl volume={!muteSFX ? 0 : 0.45} delay={0.1} transitionDuration={10} loop={true} isScrabble={isScrabbleSound} />
+      <ScrabbleOnSoundControl volume={muteSFX ? 0 : 0.45} delay={0.1} transitionDuration={10} loop={true} isScrabble={isScrabbleSound} />
     </>
   )
 }

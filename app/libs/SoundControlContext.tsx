@@ -12,12 +12,12 @@ interface SoundControlContextType {
 }
 
 export const SoundControlContext = createContext<SoundControlContextType>({
-  muteMusic: false,
+  muteMusic: true,
   setMuteMusic: () => {},
-  muteSFX: false,
+  muteSFX: true,
   setMuteSFX: () => {},
-  muteRain: false,
+  muteRain: true,
   setMuteRain: () => {},
-  muteJOI: false,
+  muteJOI: true,
   setMuteJOI: () => {}
 })

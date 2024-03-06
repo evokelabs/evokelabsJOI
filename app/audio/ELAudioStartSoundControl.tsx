@@ -1,10 +1,9 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import MusicStartSoundControl from './music/MusicStartSoundControl'
 import MusicLoopSoundControl from './music/MusicLoopSoundControl'
-import RainSoundControl from './environment/RainSoundControl'
-import CyberpunkAmbienceSoundControl from './environment/CyberpunkAmbienceSoundControl'
 import JOIPreloaderSpeech from './JOI/JOIPreloaderSpeech'
-import { SoundControlContext } from '../libs/SoundControlContext'
+import RainSoundControl from './Environment/RainSoundControl'
+import CyberpunkAmbienceSoundControl from './Environment/CyberpunkAmbienceSoundControl'
 
 export const DEFAULT_MUSIC_LOOP_VOLUME = 0.4
 export const LOW_MUSIC_LOOP_VOLUME = 0.2
@@ -17,7 +16,7 @@ const ELAudioStartSoundControl = () => {
   return (
     <>
       {play && <JOIPreloaderSpeech />}
-      {play && <MusicStartSoundControl />}
+      {/* {play && <MusicStartSoundControl />} */}
       {play && <MusicLoopSoundControl />}
       {play && <RainSoundControl />}
       {play && <CyberpunkAmbienceSoundControl />}

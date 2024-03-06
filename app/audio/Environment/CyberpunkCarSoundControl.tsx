@@ -59,7 +59,7 @@ const CyberpunkCarSoundControl = ({ carRef }: CyberpunkRefType) => {
   // On each frame, update the volume and pan of the sound based on the car's position.
   useFrame(() => {
     if (carRef.current && gainNode && panner) {
-      const currentMaxVolume = !muteSFX ? 0 : MAX_VOLUME
+      const currentMaxVolume = muteSFX ? 0 : MAX_VOLUME
       const volume = currentMaxVolume - Math.abs(carRef.current.position.x) / VOLUME_DIVISOR
       gainNode.gain.value = Math.max(MIN_VOLUME, Math.min(currentMaxVolume, volume))
 

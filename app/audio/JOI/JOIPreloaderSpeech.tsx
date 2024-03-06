@@ -52,7 +52,7 @@ const JOIPreloaderSpeech = () => {
 
         // Gradually increase the volume to the desired level over the transition duration
         if (VOLUME > 0) {
-          const targetVolume = !muteJOI ? 0.001 : VOLUME
+          const targetVolume = muteJOI ? 0.001 : VOLUME
           gainNode.current.gain.exponentialRampToValueAtTime(targetVolume, audioContext.currentTime + TRANSITION_DURATION / 1000)
         } else {
           gainNode.current.gain.setValueAtTime(0, audioContext.currentTime + TRANSITION_DURATION / 1000)

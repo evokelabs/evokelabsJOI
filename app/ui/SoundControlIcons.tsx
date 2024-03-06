@@ -31,8 +31,8 @@ const ToggleButton = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false)
 
-  const IconOn = SVGIconOn || SVGIcon
   const IconOff = SVGIconOff || SVGIcon
+  const IconOn = SVGIconOn || SVGIcon
 
   return (
     <div
@@ -41,7 +41,7 @@ const ToggleButton = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {toggle ? (
+      {!toggle ? (
         IconOn && <ButtonComponent SVGIcon={props => IconOn({ ...props, isHovered })} />
       ) : (
         <>
@@ -59,7 +59,7 @@ const ToggleButton = ({
 const SoundControlIcons = () => {
   const { muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI } = useContext(SoundControlContext)
 
-  const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(false)
+  const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(true)
 
   useEffect(() => {
     // If all child toggles are true, set master toggle to true

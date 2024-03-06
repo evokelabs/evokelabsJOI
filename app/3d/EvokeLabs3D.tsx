@@ -183,10 +183,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }, [currentRouteSelection])
 
   //Sound Control Function
-  const [muteMusic, setMuteMusic] = useState(false)
-  const [muteSFX, setMuteSFX] = useState(false)
-  const [muteRain, setMuteRain] = useState(false)
-  const [muteJOI, setMuteJOI] = useState(false)
+  const [muteMusic, setMuteMusic] = useState(true)
+  const [muteSFX, setMuteSFX] = useState(true)
+  const [muteRain, setMuteRain] = useState(true)
+  const [muteJOI, setMuteJOI] = useState(true)
 
   return (
     <>

@@ -64,7 +64,7 @@ const ShutterSoundControl = ({
   useEffect(() => {
     // Update the gain value when muteSFX changes
     if (gainNode.current && audioContextRef.current) {
-      const targetVolume = !muteSFX ? 0 : volume
+      const targetVolume = muteSFX ? 0 : volume
       gainNode.current.gain.cancelScheduledValues(audioContextRef.current.currentTime)
       gainNode.current.gain.linearRampToValueAtTime(targetVolume, audioContextRef.current.currentTime + transitionDuration / 1000)
     }
