@@ -24,8 +24,14 @@ export const useIdleAnimationPoseControl = (
     return playPosesInOrder ? [...animationNames] : shuffleArray(animationNames)
   }, [animations, playPosesInOrder])
 
-  // Store a reference to the GSAP animation
-  const gsapAnimation = useRef<gsap.core.Tween | null>(null)
+  console.log('useIdleTriggered')
+
+  const { selectedAnimation } = useControls({
+    selectedAnimation: {
+      options: animationNames,
+      value: animationNames[0]
+    }
+  })
 
   const onLoop = useCallback(
     (event: { action: AnimationAction; loopDelta: number }) => {
@@ -56,6 +62,7 @@ export const useIdleAnimationPoseControl = (
       })
 
       nextAction.play()
+      // console.log('looping triggered, playing', nextAction.getClip().name)
     },
     [animationBlendTime]
   )
