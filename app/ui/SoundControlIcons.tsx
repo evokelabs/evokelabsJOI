@@ -67,6 +67,23 @@ const SoundControlIcons = () => {
     setSoundControlMasterToggle(muteMusic || muteSFX || muteRain || muteJOI)
   }, [muteMusic, muteSFX, muteRain, muteJOI])
 
+  useEffect(() => {
+    const enableAudio = () => {
+      setMuteMusic(false)
+      setMuteSFX(false)
+      setMuteRain(false)
+      setMuteJOI(false)
+      setSoundControlMasterToggle(false)
+      window.removeEventListener('click', enableAudio)
+    }
+
+    window.addEventListener('click', enableAudio)
+
+    return () => {
+      window.removeEventListener('click', enableAudio)
+    }
+  }, [])
+
   return (
     <div className='relative'>
       <div className='absolute bottom-5 right-0 pt-5 flex flex-row justify-end  z-[10000000000000000]'>
