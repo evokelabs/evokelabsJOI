@@ -19,15 +19,10 @@ const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; s
       soundAudioLevelControls.setMuteMusic(true)
       soundAudioLevelControls.setMuteRain(true)
       soundAudioLevelControls.setMuteSFX(true)
-    } else {
-      // soundAudioLevelControls.setMuteMusic(false)
-      // soundAudioLevelControls.setMuteRain(false)
-      // soundAudioLevelControls.setMuteSFX(false)
     }
   }
 
   const handleVideoPause = () => {
-    console.log('userMutedAll', userMutedAll)
     if (userMutedAll) {
       soundAudioLevelControls.setMuteMusic(true)
       soundAudioLevelControls.setMuteRain(true)
@@ -39,6 +34,7 @@ const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; s
     }
   }
 
+  //Intelligent video sound control based on sound context
   useEffect(() => {
     initialMuteMusic.current = soundAudioLevelControls.muteAll
     initialMuteRain.current = soundAudioLevelControls.muteAll
@@ -48,6 +44,17 @@ const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; s
     setUserMutedRain(initialMuteRain.current)
     setUserMutedSFX(initialMuteSFX.current)
   }, [soundAudioLevelControls.muteAll])
+
+  //Restore sound settings when unmounting
+  useEffect(() => {
+    return () => {
+      if (!userMutedAll) {
+        soundAudioLevelControls.setMuteMusic(false)
+        soundAudioLevelControls.setMuteRain(false)
+        soundAudioLevelControls.setMuteSFX(false)
+      }
+    }
+  }, [])
 
   return (
     <div>
