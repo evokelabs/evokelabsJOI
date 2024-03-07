@@ -15,7 +15,7 @@ const INTRO_TEXT = JOISpeech.intro.map(item => item.text)
 
 const MAX_VOLUME = 255
 const MAX_INFLUENCE = 0.15
-const GAIN_NODE_VOLUME = 2
+const GAIN_NODE_VOLUME = 1.7
 const TIMEOUT_FAIL_SAFE = 7500
 const TIME_TO_SPEAK_ON_LOAD = 12800
 const KEYS = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'availability']
@@ -219,48 +219,27 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2) // delay the audio play to match the music loop transition duration
 
       let audioIndex = 0
-      let loopTimeoutId: NodeJS.Timeout | null = null
 
+      //If availabilityFilePath hold object of arrays, play the audio files in sequence. It will hold an object when JOILineSpeak is 5
       const playSpeech = (availabilityFilePath: string | string[]) => {
-        // Clear the previous timeout
-        if (loopTimeoutId) {
-          clearTimeout(loopTimeoutId)
-          loopTimeoutId = null
-        }
-
+        // setTimeout(() => {
+        //   isPlaying.current = false
+        // }, 5500)
         if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
           if (isPlaying.current) {
-            console.log('Trigger loop cycle')
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
             setJOILineCaption(availabilityTextArray[audioIndex])
             setAudioIndexState(audioIndex) // Update the audio index state
             setIsAudioPlaying(false)
             setIsChainPlaying(true)
-            audio.onplay = () => {
-              loopTimeoutId = setTimeout(() => {
-                console.log('adding audioIndex from loop timeout')
-                audioIndex++
-                if (audioIndex < availabilityFilePath.length) {
-                  setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
-                  setAudioIndexState(audioIndex) // Update the audio index state
-                  playSpeech(availabilityFilePath) // Play the next audio file
-                } else {
-                  audioEndCleanUp()
-                }
-              }, 5150)
-            }
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             audio.onended = () => {
-              console.log('audio onended triggered', audioIndex, availabilityFilePath.length)
               audioIndex++
               if (audioIndex < availabilityFilePath.length) {
-                console.log('inner loop triggered')
                 setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
                 setAudioIndexState(audioIndex) // Update the audio index state
                 playSpeech(availabilityFilePath) // Play the next audio file
-                console.log('inner loop triggered end, audioIndex:', audioIndex, availabilityFilePath.length)
               } else {
-                console.log('else triggered')
                 audioEndCleanUp()
               }
             }
@@ -268,12 +247,10 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           }
         } else {
           if (isPlaying.current) {
-            console.log('Playing audio trigger in playspeech')
             setIsAudioPlaying(true)
             setTimeout(() => {
               setHasPlayed(true)
-              isPlaying.current = false
-            }, 4500)
+            }, 5000)
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
           }
         }
