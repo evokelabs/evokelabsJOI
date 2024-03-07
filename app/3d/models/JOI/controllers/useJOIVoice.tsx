@@ -15,7 +15,7 @@ const INTRO_TEXT = JOISpeech.intro.map(item => item.text)
 
 const MAX_VOLUME = 225
 const MAX_INFLUENCE = 0.15
-const GAIN_NODE_VOLUME = 1.75
+const GAIN_NODE_VOLUME = 0.85
 const TIMEOUT_FAIL_SAFE = 7500
 const TIME_TO_SPEAK_ON_LOAD = 12800
 const KEYS = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'availability']

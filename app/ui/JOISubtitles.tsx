@@ -30,7 +30,9 @@ const JOISubtitles = () => {
 
       innerTimeoutId = setTimeout(() => {
         console.log('clearing setCurrentCaption to null. InnerTimeId: ', innerTimeoutId)
-        setCurrentCaption(null)
+        if (!isAudioPlaying) {
+          // setCurrentCaption(null)
+        }
       }, 550)
     }, SAFEGUARD_TIMER)
 
@@ -46,7 +48,6 @@ const JOISubtitles = () => {
         clearTimeout(timeoutId)
       }
       if (innerTimeoutId) {
-        // Add this block
         console.log('clearTimeout:innerTimeoutId', innerTimeoutId)
         clearTimeout(innerTimeoutId)
       }
