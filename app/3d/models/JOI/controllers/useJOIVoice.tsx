@@ -184,8 +184,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited) || !hasUserInteracted) return
 
     const audioContext = audioContextRef.current
-
-    if (!audioContext || isPlaying.current) return
+    console.log('isPlaying.current', isPlaying.current)
+    // if (!audioContext || isPlaying.current) return
+    if (!audioContext) return
     if (audioFileRef.current) {
       const audio = new Audio(audioFileRef.current)
 
@@ -225,6 +226,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         // setTimeout(() => {
         //   isPlaying.current = false
         // }, 5500)
+        console.log('playSpeech Triggered')
+
+        setIsAudioPlaying(true)
         if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
           if (isPlaying.current) {
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
@@ -247,6 +251,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           }
         } else {
           if (isPlaying.current) {
+            console.log('isPlaying.current Triggered')
             setIsAudioPlaying(true)
             setTimeout(() => {
               setHasPlayed(true)
