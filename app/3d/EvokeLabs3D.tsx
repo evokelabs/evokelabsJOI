@@ -46,7 +46,8 @@ import { SoundControlContext } from '../libs/SoundControlContext'
 // const debug = true
 const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
-const MENU_HOME_WAIT_TIMER = 18000
+const MENU_HOME_WAIT_TIMER_COOKIE = 18000
+const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // State
@@ -65,7 +66,15 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [JOILineCaption, setJOILineCaption] = useState<string | null>(null)
   const [isAudioPlaying, setIsAudioPlaying] = useState(false)
 
+  const visitedCookie =
+    typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
+  const initialTimer = visitedCookie ? MENU_HOME_WAIT_TIMER_COOKIE : MENU_HOME_WAIT_TIMER_NOCOOKIE
+
   useEffect(() => {
+    const visitedCookie =
+      typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
+    const MENU_HOME_WAIT_TIMER = visitedCookie ? MENU_HOME_WAIT_TIMER_COOKIE : MENU_HOME_WAIT_TIMER_NOCOOKIE
+
     const menuTimer = setTimeout(() => {
       setIsPreLoaderFinished(true)
     }, MENU_HOME_WAIT_TIMER)
@@ -137,7 +146,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }, [router.pathname, ROUTE_CONFIG])
 
   //Routes Function
-  const [menuHomeWaitTimer, setMenuHomeWaitTimer] = useState(MENU_HOME_WAIT_TIMER)
+  const [menuHomeWaitTimer, setMenuHomeWaitTimer] = useState(initialTimer)
 
   useEffect(() => {
     const menuTimer = setTimeout(() => {

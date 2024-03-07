@@ -6,6 +6,12 @@ const JOISubtitles = () => {
 
   const [currentCaption, setCurrentCaption] = useState(JOILineCaption)
 
+  const CAPTION_WAIT_TIMER_COOKIE = 4500
+  const MENU_HOME_WAIT_TIMER_NOCOOKIE = 7500
+
+  const visitedCookie =
+    typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
+  const initialTimer = visitedCookie ? CAPTION_WAIT_TIMER_COOKIE : MENU_HOME_WAIT_TIMER_NOCOOKIE
   useEffect(() => {
     if (!isAudioPlaying && !isChainPlaying) {
       setTimeout(() => {
@@ -21,7 +27,7 @@ const JOISubtitles = () => {
     let timeoutId: NodeJS.Timeout
     let innerTimeoutId: NodeJS.Timeout
 
-    const SAFEGUARD_TIMER = isAudioPlaying ? 4500 : 150
+    const SAFEGUARD_TIMER = isAudioPlaying ? initialTimer : 150
     timeoutId = setTimeout(() => {
       setIsAudioPlaying(false)
       setIsChainPlaying(false)
