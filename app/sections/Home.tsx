@@ -6,6 +6,7 @@ import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
 import TypeOnSoundControl from '../audio/ui/TypeOnSoundControl'
 import ScrabbleOnSoundControl from '../audio/ui/ScrabbleSoundControl'
+import { NextRouter } from 'next/router'
 
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
@@ -37,7 +38,7 @@ const shuffle = (array: string[]) => {
   return array
 }
 
-const Home = ({ muteSFX }: { muteSFX: boolean }) => {
+const Home = ({ muteSFX, router, routeConfig }: { muteSFX: boolean; router: NextRouter; routeConfig: any }) => {
   const TIMER = 5000
   const TYPE_ON_SPEED = 70
   const TYPE_OFF_SPEED = 35

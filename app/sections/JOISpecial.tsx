@@ -7,6 +7,7 @@ import JOISVG from '../ui/svg/mainMenu/JOISVG'
 import YouTubeSVG from '../ui/svg/button/YouTubeSVG'
 import { Dispatch, SetStateAction } from 'react'
 import { SoundAudioLevelControls } from './data/types'
+import { NextRouter } from 'next/router'
 
 const ContentHead = () => {
   return (
@@ -29,7 +30,15 @@ const ContentHead = () => {
   )
 }
 
-const JOISpecial = ({ soundAudioLevelControls }: { soundAudioLevelControls: SoundAudioLevelControls }) => {
+const JOISpecial = ({
+  soundAudioLevelControls,
+  router,
+  routeConfig
+}: {
+  soundAudioLevelControls: SoundAudioLevelControls
+  router: NextRouter
+  routeConfig: any
+}) => {
   return (
     <PanelContent headerTitle='JOI Special' contentHead={<ContentHead />}>
       <VideoFrame videoURL='./videos/JOI-Introduction.mp4' soundAudioLevelControls={soundAudioLevelControls} />

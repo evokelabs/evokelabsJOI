@@ -27,6 +27,7 @@ import FixABookingSVG from '../ui/svg/button/FixABookingSVG'
 import quotes from './data/quotes.json'
 import { useEffect, useState } from 'react'
 import TypingAnimation from '../libs/TypingAnimation'
+import { NextRouter } from 'next/router'
 
 const ContentHead = () => {
   return (
@@ -60,7 +61,7 @@ interface Quote {
   source: string
 }
 
-const Services = () => {
+const Services = ({ router, routeConfig }: { router: NextRouter; routeConfig: any }) => {
   return (
     <PanelContent headerTitle='Corpo Guide' contentHead={<ContentHead />}>
       <div className='mb-5 space-y-2'>
