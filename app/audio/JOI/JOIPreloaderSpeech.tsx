@@ -49,6 +49,7 @@ const JOIPreloaderSpeech = () => {
     const audioSource = AUDIO_SOURCES[randomIndex]
 
     const sound = new Howl({
+      html5: true,
       src: [audioSource],
       loop: LOOP,
       volume: 0.001, // Start with a small positive volume

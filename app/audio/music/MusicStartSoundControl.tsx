@@ -14,6 +14,7 @@ const MusicStartSoundControl = () => {
 
   useEffect(() => {
     const howl = new Howl({
+      html5: true,
       src: [AUDIO_SOURCE],
       loop: LOOP,
       volume: muteMusic ? 0 : VOLUME_SET, // Start with the desired volume

@@ -10,6 +10,7 @@ const INTERACTION_TIMEOUT = 10000 // 10 seconds
 
 const MusicLoopSoundControl = () => {
   const sound = useRef<Howl | null>(null)
+
   const { musicLoopTransitionDuration, setMusicVolume, musicVolume } = useContext(SoundsContext)
   const { muteMusic } = useContext(SoundControlContext)
 
@@ -48,6 +49,7 @@ const MusicLoopSoundControl = () => {
     if (!hasUserInteracted) return
 
     sound.current = new Howl({
+      html5: true,
       src: [AUDIO_SOURCE],
       loop: true,
       volume: 0 // Start with volume 0
