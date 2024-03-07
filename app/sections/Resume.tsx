@@ -1,3 +1,4 @@
+import { NextRouter } from 'next/router'
 import { RED } from '../libs/UIConstants'
 import ButtonDefault from '../ui/ButtonDefault'
 import HeadingHighlight from '../ui/HeadingHighlight'
@@ -18,7 +19,7 @@ import UniversityOfSydneySVG from '../ui/svg/resume/UniversityOfSydneySVG'
 import VMLSVG from '../ui/svg/resume/VMLSVG'
 import WaxInteractiveSVG from '../ui/svg/resume/WaxInteractiveSVG'
 
-const Resume = () => {
+const Resume = ({ router, routeConfig }: { router: NextRouter; routeConfig: any }) => {
   return (
     <PanelBackground
       headerTitle='Dossier'
