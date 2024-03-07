@@ -9,6 +9,7 @@ import availabilities from './data/availabilities.json'
 import { RED } from '../libs/UIConstants'
 import AvailabilitiesSVG from '../ui/svg/mainMenu/AvailabilitiesSVG'
 import EmailSVG from '../ui/svg/button/EmailSVG'
+import { NextRouter } from 'next/router'
 interface Period {
   start: string
   end: string
@@ -36,7 +37,7 @@ const Pulse = () => {
   )
 }
 
-const Availabilities = () => {
+const Availabilities = ({ router, routeConfig }: { router: NextRouter; routeConfig: any }) => {
   const tileClassName = ({ date, view }: { date: Date; view: string }) => {
     if (view === VIEW_MODE && isUnavailable(date)) {
       return Status.UNAVAILABLE
