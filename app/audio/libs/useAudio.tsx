@@ -6,7 +6,6 @@ function useAudio(audioSource: string, volume: number, delay: number, transition
 
   useEffect(() => {
     sound.current = new Howl({
-      html5: true,
       src: [audioSource],
       loop: loop,
       volume: 0.001, // Start with a small positive volume
