@@ -18,26 +18,18 @@ const JOISubtitles = () => {
   }, [JOILineCaption, isAudioPlaying, isChainPlaying, setIsAudioPlaying, setIsChainPlaying])
 
   useEffect(() => {
-    console.log('caption useEffect')
     let timeoutId: NodeJS.Timeout
     let innerTimeoutId: NodeJS.Timeout
 
     const SAFEGUARD_TIMER = isAudioPlaying ? 4500 : 150
-    console.log('SAFEGUARD_TIMER', SAFEGUARD_TIMER)
     timeoutId = setTimeout(() => {
       setIsAudioPlaying(false)
       setIsChainPlaying(false)
 
-      console.log('timeoutID triggered: ', timeoutId)
-
       innerTimeoutId = setTimeout(() => {
-        setCurrentCaption(null)
-        console.log('setCurrentCaption to null')
-        console.log('innerTimeoutId triggered: ', innerTimeoutId)
+        // setCurrentCaption(null)
       }, 550)
     }, SAFEGUARD_TIMER)
-    console.log('isAudioPlaying', isAudioPlaying)
-    console.log('-------------------------------------')
 
     return () => {
       if (timeoutId) {
