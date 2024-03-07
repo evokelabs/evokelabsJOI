@@ -198,7 +198,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       let timeoutId: NodeJS.Timeout | null = setTimeout(() => {
         isPlaying.current = true
-        setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
+        if (!muteJOI) {
+          setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
+        }
       }, TIMEOUT_FAIL_SAFE)
 
       source.connect(analyser)
@@ -210,7 +212,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       gainNode.current.gain.value = muteJOI ? -1 : GAIN_NODE_VOLUME
 
-      setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume before the audio starts playing
+      if (!muteJOI) {
+        setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume before the audio starts playing
+      }
       setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
 
       setTimeout(() => {
@@ -339,7 +343,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     JOILineSpeak,
     hasPlayed,
     shouldJOISpeak,
-    hasSiteHomeVisited
+    hasSiteHomeVisited,
+    muteJOI
     // model,
     // setMusicVolume,
     // setMusicLoopTransitionDuration,

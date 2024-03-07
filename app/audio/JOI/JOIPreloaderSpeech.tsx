@@ -7,7 +7,7 @@ import { SoundControlContext } from '@/app/libs/SoundControlContext'
 const AUDIO_SOURCES = JOISpeech.preloader.map(item => item.filepath)
 
 const VOLUME = 0.55
-const DELAY = 1750
+const DELAY = 500
 const TRANSITION_DURATION = 150
 const LOOP = false
 const INTERACTION_TIMEOUT = 10000 // 10 seconds
