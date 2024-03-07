@@ -42,6 +42,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
   const currentAudio = useRef<HTMLAudioElement | null>(null)
 
+  const canPlay = useRef(true)
+
   //Set JOI Speak to speak after delay
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -222,11 +224,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       //If availabilityFilePath hold object of arrays, play the audio files in sequence. It will hold an object when JOILineSpeak is 5
       const playSpeech = (availabilityFilePath: string | string[]) => {
-        // setTimeout(() => {
-        //   isPlaying.current = false
-        // }, 5500)
-
-        setIsAudioPlaying(true)
+        // setIsAudioPlaying(true)
         if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
           if (isPlaying.current) {
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
@@ -249,11 +247,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           }
         } else {
           if (isPlaying.current) {
-            setIsAudioPlaying(true)
             setTimeout(() => {
               setHasPlayed(true)
             }, 5000)
-            audio.play().catch(error => console.error('Normal Audio play failed due to', error))
+            playAudio()
+            setIsAudioPlaying(true)
           }
         }
       }
@@ -265,6 +263,16 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       audio.onerror = () => {
         isPlaying.current = false
         if (timeoutId) clearTimeout(timeoutId)
+      }
+
+      const playAudio = () => {
+        if (canPlay.current) {
+          audio.play().catch(error => console.error('Normal Audio play failed due to', error))
+          canPlay.current = false
+          setTimeout(() => {
+            canPlay.current = true
+          }, 2000)
+        }
       }
 
       const audioEndCleanUp = () => {
