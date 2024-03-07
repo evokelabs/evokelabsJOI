@@ -143,6 +143,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       }
       const item = items[Math.floor(Math.random() * items.length)]
       setJOILineCaption(item.text)
+      console.log('setJOILineCaption getFilePath:', item.text)
       return item.filepath
     },
     [JOISpeechData, setJOILineCaption]
@@ -167,10 +168,12 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         const nonFirstIntroFiles = introFiles.filter((_, index) => index !== 0)
         const randomFile = nonFirstIntroFiles[Math.floor(Math.random() * nonFirstIntroFiles.length)]
         setJOILineCaption(randomFile.text)
+        console.log('setJOILineCaption Visited cookie:', randomFile.text)
         audioFileRef.current = randomFile.filepath
       } else {
         // If the cookie is not found, play the first file
         setJOILineCaption(INTRO_TEXT[0])
+        console.log('setJOILineCaption INTRO_TEXT[0]:', INTRO_TEXT[0])
         audioFileRef.current = INTRO_FILES[0]
       }
     } else if (JOILineSpeak !== null) {
@@ -184,8 +187,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited) || !hasUserInteracted) return
 
     const audioContext = audioContextRef.current
-
+    console.log('useEffect JOILineSpeak:', JOILineSpeak)
+    console.log('audioContext', audioContext)
+    console.log('isPlaying.current', isPlaying.current)
     if (!audioContext || isPlaying.current) return
+
     if (audioFileRef.current) {
       const audio = new Audio(audioFileRef.current)
 
@@ -197,7 +203,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       const analyser = audioContext.createAnalyser()
 
       let timeoutId: NodeJS.Timeout | null = setTimeout(() => {
-        isPlaying.current = true
+        console.log('joi speak timeout triggered')
+        isPlaying.current = false
         if (!muteJOI) {
           setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
         }
@@ -226,10 +233,12 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       //If availabilityFilePath hold object of arrays, play the audio files in sequence. It will hold an object when JOILineSpeak is 5
       const playSpeech = (availabilityFilePath: string | string[]) => {
+        console.log('!playSpeech triggered!')
         if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
           if (isPlaying.current) {
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
             setJOILineCaption(availabilityTextArray[audioIndex])
+            console.log('setJOILineCaptionavailabilityTextArray[audioIndex]', availabilityTextArray[audioIndex])
             setAudioIndexState(audioIndex) // Update the audio index state
             setIsAudioPlaying(false)
             setIsChainPlaying(true)
@@ -238,6 +247,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
               audioIndex++
               if (audioIndex < availabilityFilePath.length) {
                 setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
+                console.log('setJOILineCaption(availabilityTextArray[audioIndex])', setJOILineCaption(availabilityTextArray[audioIndex]))
                 setAudioIndexState(audioIndex) // Update the audio index state
                 playSpeech(availabilityFilePath) // Play the next audio file
               } else {
