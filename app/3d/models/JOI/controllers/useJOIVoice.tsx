@@ -219,16 +219,34 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2) // delay the audio play to match the music loop transition duration
 
       let audioIndex = 0
+      let loopTimeoutId: NodeJS.Timeout | null = null
 
-      //If availabilityFilePath hold object of arrays, play the audio files in sequence. It will hold an object when JOILineSpeak is 5
       const playSpeech = (availabilityFilePath: string | string[]) => {
+        // Clear the previous timeout
+        if (loopTimeoutId) {
+          clearTimeout(loopTimeoutId)
+          loopTimeoutId = null
+        }
+
         if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
           if (isPlaying.current) {
+            console.log('Trigger loop cycle')
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
             setJOILineCaption(availabilityTextArray[audioIndex])
             setAudioIndexState(audioIndex) // Update the audio index state
             setIsAudioPlaying(false)
             setIsChainPlaying(true)
+            loopTimeoutId = setTimeout(() => {
+              console.log('adding audioIndex from loop timeout')
+              audioIndex++
+              if (audioIndex < availabilityFilePath.length) {
+                setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
+                setAudioIndexState(audioIndex) // Update the audio index state
+                playSpeech(availabilityFilePath) // Play the next audio file
+              } else {
+                audioEndCleanUp()
+              }
+            }, 4150)
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             audio.onended = () => {
               audioIndex++
@@ -244,6 +262,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           }
         } else {
           if (isPlaying.current) {
+            console.log('Playing audio trigger in playspeech')
             setIsAudioPlaying(true)
             setTimeout(() => {
               setHasPlayed(true)
