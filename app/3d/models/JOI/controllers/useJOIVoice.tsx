@@ -236,25 +236,31 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
             setAudioIndexState(audioIndex) // Update the audio index state
             setIsAudioPlaying(false)
             setIsChainPlaying(true)
-            loopTimeoutId = setTimeout(() => {
-              console.log('adding audioIndex from loop timeout')
-              audioIndex++
-              if (audioIndex < availabilityFilePath.length) {
-                setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
-                setAudioIndexState(audioIndex) // Update the audio index state
-                playSpeech(availabilityFilePath) // Play the next audio file
-              } else {
-                audioEndCleanUp()
-              }
-            }, 4150)
+            audio.onplay = () => {
+              loopTimeoutId = setTimeout(() => {
+                console.log('adding audioIndex from loop timeout')
+                audioIndex++
+                if (audioIndex < availabilityFilePath.length) {
+                  setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
+                  setAudioIndexState(audioIndex) // Update the audio index state
+                  playSpeech(availabilityFilePath) // Play the next audio file
+                } else {
+                  audioEndCleanUp()
+                }
+              }, 5150)
+            }
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             audio.onended = () => {
+              console.log('audio onended triggered', audioIndex, availabilityFilePath.length)
               audioIndex++
               if (audioIndex < availabilityFilePath.length) {
+                console.log('inner loop triggered')
                 setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
                 setAudioIndexState(audioIndex) // Update the audio index state
                 playSpeech(availabilityFilePath) // Play the next audio file
+                console.log('inner loop triggered end, audioIndex:', audioIndex, availabilityFilePath.length)
               } else {
+                console.log('else triggered')
                 audioEndCleanUp()
               }
             }
