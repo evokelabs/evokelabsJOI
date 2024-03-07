@@ -268,9 +268,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         if (canPlay.current) {
           // setIsAudioPlaying(true)
           audio.play().catch(error => console.error('Normal Audio play failed due to', error))
-          // canPlay.current = false
+          canPlay.current = false
           setTimeout(() => {
-            // canPlay.current = true
+            canPlay.current = true
           }, 2000)
         }
       }
