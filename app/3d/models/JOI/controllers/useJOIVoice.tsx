@@ -15,7 +15,7 @@ const INTRO_TEXT = JOISpeech.intro.map(item => item.text)
 
 const MAX_VOLUME = 255
 const MAX_INFLUENCE = 0.15
-const GAIN_NODE_VOLUME = 1.3
+const GAIN_NODE_VOLUME = 2
 const TIMEOUT_FAIL_SAFE = 7500
 const TIME_TO_SPEAK_ON_LOAD = 12800
 const KEYS = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'availability']
@@ -210,9 +210,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       gainNode.current.gain.value = muteJOI ? -1 : GAIN_NODE_VOLUME
 
-      if (!muteJOI) {
-        setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume before the audio starts playing
-      }
+      setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume before the audio starts playing
       setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
 
       setTimeout(() => {
@@ -224,9 +222,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       //If availabilityFilePath hold object of arrays, play the audio files in sequence. It will hold an object when JOILineSpeak is 5
       const playSpeech = (availabilityFilePath: string | string[]) => {
-        // setTimeout(() => {
-        //   isPlaying.current = false
-        // }, 4500)
+        setTimeout(() => {
+          isPlaying.current = false
+        }, 4500)
         if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
           if (isPlaying.current) {
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
@@ -344,8 +342,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     JOILineSpeak,
     hasPlayed,
     shouldJOISpeak,
-    hasSiteHomeVisited,
-    muteJOI
+    hasSiteHomeVisited
     // model,
     // setMusicVolume,
     // setMusicLoopTransitionDuration,

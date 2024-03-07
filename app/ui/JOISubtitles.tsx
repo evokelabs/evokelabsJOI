@@ -28,7 +28,7 @@ const JOISubtitles = () => {
       setIsChainPlaying(false)
 
       innerTimeoutId = setTimeout(() => {
-        setCurrentCaption(null)
+        // setCurrentCaption(null)
       }, 550)
     }, SAFEGUARD_TIMER)
 
