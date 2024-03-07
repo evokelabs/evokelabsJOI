@@ -14,26 +14,21 @@ const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; s
   const initialMuteSFX = useRef(userMutedSFX)
 
   const handleVideoPlay = () => {
-    // if (!initialMuteMusic.current) {
     soundAudioLevelControls.setMuteMusic(true)
-    // }
-    // if (!initialMuteRain.current) {
     soundAudioLevelControls.setMuteRain(true)
-    // }
-    // if (!initialMuteSFX.current) {
     soundAudioLevelControls.setMuteSFX(true)
   }
 
   const handleVideoPause = () => {
-    // if (initialMuteMusic.current) {
-    soundAudioLevelControls.setMuteMusic(false)
-    // }
-    // if (initialMuteRain.current) {
-    soundAudioLevelControls.setMuteRain(false)
-    // }
-    // if (initialMuteSFX.current) {
-    soundAudioLevelControls.setMuteSFX(false)
-    // }
+    if (!initialMuteMusic.current) {
+      soundAudioLevelControls.setMuteMusic(false)
+    }
+    if (!initialMuteRain.current) {
+      soundAudioLevelControls.setMuteRain(false)
+    }
+    if (!initialMuteSFX.current) {
+      soundAudioLevelControls.setMuteSFX(false)
+    }
   }
 
   useEffect(() => {
@@ -41,9 +36,20 @@ const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; s
     const initialMusic = initialMuteMusic.current
     const initialRain = initialMuteRain.current
     const initialSFX = initialMuteSFX.current
+    console.log(
+      'mount useEffect triggered. initialMutedMusic:',
+      initialMusic,
+      'initialMutedRain:',
+      initialRain,
+      'initialMutedSFX:',
+      initialSFX
+    )
 
     return () => {
       // Use the captured initial mute states
+      setUserMutedMusic(initialMusic)
+      setUserMutedRain(initialRain)
+      setUserMutedSFX(initialSFX)
       soundAudioLevelControls.setMuteMusic(initialMusic)
       soundAudioLevelControls.setMuteRain(initialRain)
       soundAudioLevelControls.setMuteSFX(initialSFX)
