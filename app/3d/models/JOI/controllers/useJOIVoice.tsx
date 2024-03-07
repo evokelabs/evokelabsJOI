@@ -222,9 +222,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       //If availabilityFilePath hold object of arrays, play the audio files in sequence. It will hold an object when JOILineSpeak is 5
       const playSpeech = (availabilityFilePath: string | string[]) => {
-        setTimeout(() => {
-          isPlaying.current = false
-        }, 4500)
+        // setTimeout(() => {
+        //   isPlaying.current = false
+        // }, 4500)
         if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
           if (isPlaying.current) {
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
