@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { SoundAudioLevelControls } from '../sections/data/types'
 
 const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; soundAudioLevelControls: SoundAudioLevelControls }) => {
+  const [userMutedAll, setUserMutedAll] = useState(soundAudioLevelControls.muteAll)
   const [userMutedMusic, setUserMutedMusic] = useState(soundAudioLevelControls.muteMusic)
   const [userMutedRain, setUserMutedRain] = useState(soundAudioLevelControls.muteRain)
   const [userMutedSFX, setUserMutedSFX] = useState(soundAudioLevelControls.muteSFX)
@@ -14,47 +15,39 @@ const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; s
   const initialMuteSFX = useRef(userMutedSFX)
 
   const handleVideoPlay = () => {
-    soundAudioLevelControls.setMuteMusic(true)
-    soundAudioLevelControls.setMuteRain(true)
-    soundAudioLevelControls.setMuteSFX(true)
+    if (!userMutedAll) {
+      soundAudioLevelControls.setMuteMusic(true)
+      soundAudioLevelControls.setMuteRain(true)
+      soundAudioLevelControls.setMuteSFX(true)
+    } else {
+      // soundAudioLevelControls.setMuteMusic(false)
+      // soundAudioLevelControls.setMuteRain(false)
+      // soundAudioLevelControls.setMuteSFX(false)
+    }
   }
 
   const handleVideoPause = () => {
-    if (!initialMuteMusic.current) {
+    console.log('userMutedAll', userMutedAll)
+    if (userMutedAll) {
+      soundAudioLevelControls.setMuteMusic(true)
+      soundAudioLevelControls.setMuteRain(true)
+      soundAudioLevelControls.setMuteSFX(true)
+    } else {
       soundAudioLevelControls.setMuteMusic(false)
-    }
-    if (!initialMuteRain.current) {
       soundAudioLevelControls.setMuteRain(false)
-    }
-    if (!initialMuteSFX.current) {
       soundAudioLevelControls.setMuteSFX(false)
     }
   }
 
   useEffect(() => {
-    // Capture the initial mute states
-    const initialMusic = initialMuteMusic.current
-    const initialRain = initialMuteRain.current
-    const initialSFX = initialMuteSFX.current
-    console.log(
-      'mount useEffect triggered. initialMutedMusic:',
-      initialMusic,
-      'initialMutedRain:',
-      initialRain,
-      'initialMutedSFX:',
-      initialSFX
-    )
-
-    return () => {
-      // Use the captured initial mute states
-      setUserMutedMusic(initialMusic)
-      setUserMutedRain(initialRain)
-      setUserMutedSFX(initialSFX)
-      soundAudioLevelControls.setMuteMusic(initialMusic)
-      soundAudioLevelControls.setMuteRain(initialRain)
-      soundAudioLevelControls.setMuteSFX(initialSFX)
-    }
-  }, [])
+    initialMuteMusic.current = soundAudioLevelControls.muteAll
+    initialMuteRain.current = soundAudioLevelControls.muteAll
+    initialMuteSFX.current = soundAudioLevelControls.muteAll
+    setUserMutedAll(soundAudioLevelControls.muteAll)
+    setUserMutedMusic(initialMuteMusic.current)
+    setUserMutedRain(initialMuteRain.current)
+    setUserMutedSFX(initialMuteSFX.current)
+  }, [soundAudioLevelControls.muteAll])
 
   return (
     <div>

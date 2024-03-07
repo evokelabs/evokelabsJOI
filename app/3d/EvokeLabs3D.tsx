@@ -183,15 +183,18 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }, [currentRouteSelection])
 
   //Sound Control Function
+  const [muteAll, setMuteAll] = useState(true)
   const [muteMusic, setMuteMusic] = useState(true)
   const [muteSFX, setMuteSFX] = useState(true)
   const [muteRain, setMuteRain] = useState(true)
   const [muteJOI, setMuteJOI] = useState(true)
 
   const soundAudioLevelControls = {
+    setMuteAll,
     setMuteMusic,
     setMuteRain,
     setMuteSFX,
+    muteAll,
     muteMusic,
     muteRain,
     muteSFX
@@ -199,7 +202,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   return (
     <>
-      <SoundControlContext.Provider value={{ muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI }}>
+      <SoundControlContext.Provider
+        value={{ muteAll, setMuteAll, muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI }}
+      >
         <JOISpeechContext.Provider
           value={{ JOILineCaption, setJOILineCaption, isAudioPlaying, setIsAudioPlaying, isChainPlaying, setIsChainPlaying }}
         >

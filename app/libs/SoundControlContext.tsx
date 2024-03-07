@@ -1,6 +1,8 @@
 import { createContext, Dispatch, SetStateAction } from 'react'
 
 interface SoundControlContextType {
+  muteAll: boolean
+  setMuteAll: Dispatch<SetStateAction<boolean>>
   muteMusic: boolean
   setMuteMusic: Dispatch<SetStateAction<boolean>>
   muteSFX: boolean
@@ -12,6 +14,8 @@ interface SoundControlContextType {
 }
 
 export const SoundControlContext = createContext<SoundControlContextType>({
+  muteAll: true,
+  setMuteAll: () => {},
   muteMusic: true,
   setMuteMusic: () => {},
   muteSFX: true,

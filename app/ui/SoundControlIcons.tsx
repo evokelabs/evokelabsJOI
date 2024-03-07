@@ -36,7 +36,9 @@ const ToggleButton = ({
 
   return (
     <div
-      onClick={() => setToggle(!toggle)}
+      onClick={() => {
+        setToggle(!toggle)
+      }}
       className='relative'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -57,7 +59,8 @@ const ToggleButton = ({
   )
 }
 const SoundControlIcons = () => {
-  const { muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI } = useContext(SoundControlContext)
+  const { muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI, setMuteAll, muteAll } =
+    useContext(SoundControlContext)
 
   const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(true)
 
@@ -65,10 +68,12 @@ const SoundControlIcons = () => {
     // If all child toggles are false, set master toggle to false
     // If any child toggle is true, set master toggle to true
     setSoundControlMasterToggle(muteMusic || muteSFX || muteRain || muteJOI)
-  }, [muteMusic, muteSFX, muteRain, muteJOI])
+    setMuteAll(muteMusic && muteSFX && muteRain && muteJOI)
+  }, [muteMusic, muteSFX, muteRain, muteJOI, muteAll, setMuteAll])
 
   useEffect(() => {
     const enableAudio = () => {
+      setMuteAll(false)
       setMuteMusic(false)
       setMuteSFX(false)
       setMuteRain(false)
@@ -122,6 +127,7 @@ const SoundControlIcons = () => {
         <ToggleButton
           toggle={soundControlMasterToggle}
           setToggle={value => {
+            setMuteAll(value)
             setSoundControlMasterToggle(value)
             setMuteMusic(value)
             setMuteSFX(value)
