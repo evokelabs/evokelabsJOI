@@ -224,7 +224,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       //If availabilityFilePath hold object of arrays, play the audio files in sequence. It will hold an object when JOILineSpeak is 5
       const playSpeech = (availabilityFilePath: string | string[]) => {
-        // setIsAudioPlaying(true)
+        setIsAudioPlaying(true)
         if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
           if (isPlaying.current) {
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
@@ -251,7 +251,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
               setHasPlayed(true)
             }, 5000)
             playAudio()
-            setIsAudioPlaying(true)
           }
         }
       }
@@ -267,10 +266,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       const playAudio = () => {
         if (canPlay.current) {
+          // setIsAudioPlaying(true)
           audio.play().catch(error => console.error('Normal Audio play failed due to', error))
-          canPlay.current = false
+          // canPlay.current = false
           setTimeout(() => {
-            canPlay.current = true
+            // canPlay.current = true
           }, 2000)
         }
       }
