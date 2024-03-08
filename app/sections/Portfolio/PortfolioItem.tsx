@@ -20,6 +20,7 @@ interface PortfolioItem {
   mainVideo: string
   date: string
   recommended: number
+  slug: string
 }
 
 interface PortfolioItemProps extends PortfolioItem {
@@ -35,6 +36,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   thumb,
   link,
   mainVideo,
+  slug,
   soundAudioLevelControls
 }) => {
   return (
@@ -80,7 +82,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
         )}
         {(link || desc) && (
           <div className='flex flex-row  mt-6 justify-between'>
-            <div>{link && <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} link={link}/>}</div>
+            <div>{link && <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} link={link} />}</div>
             <div className='flex flex-row -mr-3.5'>
               {/* <ButtonDefault label='Figma' svgIcon={<FigmaSVG />} /> */}
               {/* <ButtonDefault label='YouTube' svgIcon={<YouTubeSVG />} /> */}

@@ -14,6 +14,7 @@ const PortfolioHome = ({ soundAudioLevelControls }: { soundAudioLevelControls: S
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null)
 
   const handleItemClick = (item: PortfolioItem) => {
+    console.log('slug', item.slug)
     setSelectedItem(item)
   }
 
