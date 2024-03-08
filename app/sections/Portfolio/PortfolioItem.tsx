@@ -66,7 +66,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
               </div>
             </div>
           </div>
-          <ButtonDefault />
+          <ButtonDefault label='BACK' svgIcon={<BackSVG />} />
         </div>
 
         <div className='mt-3'>
@@ -74,18 +74,20 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
         </div>
         {desc && (
           <>
-            <div dangerouslySetInnerHTML={{ __html: desc }} className='mt-3 text-teal-blur text-[20px] space-y-6'></div>
-            <HR />
+            <div dangerouslySetInnerHTML={{ __html: desc }} className='mt-3 text-red-blur font-semibold text-[21px] space-y-6'></div>
+            {/* <HR /> */}
           </>
         )}
-        <div className='flex flex-row  my-4 justify-between'>
-          <div>{link && <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} />}</div>
-          <div className='flex flex-row -mr-3.5'>
-            {/* <ButtonDefault label='Figma' svgIcon={<FigmaSVG />} />
-            <ButtonDefault label='YouTube' svgIcon={<YouTubeSVG />} /> */}
-            <ButtonDefault label='BACK' svgIcon={<BackSVG />} />
+        {(link || desc) && (
+          <div className='flex flex-row  mt-6 justify-between'>
+            <div>{link && <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} link={link}/>}</div>
+            <div className='flex flex-row -mr-3.5'>
+              {/* <ButtonDefault label='Figma' svgIcon={<FigmaSVG />} /> */}
+              {/* <ButtonDefault label='YouTube' svgIcon={<YouTubeSVG />} /> */}
+              <ButtonDefault />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </PanelBackground>
   )
