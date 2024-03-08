@@ -111,12 +111,13 @@ const SVGButton: React.FC<SVGButtonProps> = ({
         break
       case 'SEND AN EMAIL':
         window.open('mailto:adrian@evokelabs.com?subject=Enquiry from Evokelabs.com', '_self')
+        break
       case 'BACK':
         setCurrentRouteSelection(1)
         break
       case 'LAUNCH':
         if (link) {
-          window.open(link, '_self')
+          window.open(link, '_blank')
         } else {
           console.log('No link provided for LAUNCH')
         }
