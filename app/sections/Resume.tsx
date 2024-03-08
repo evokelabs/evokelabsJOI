@@ -32,7 +32,7 @@ const Resume = () => {
             </>
           }
           heading='Resume'
-          button={<ButtonDefault label='hardcopy' svgIcon={<HardcopySVG />} />}
+          button={<ButtonDefault label='HARDCOPY' svgIcon={<HardcopySVG />} />}
         />
       }
     >

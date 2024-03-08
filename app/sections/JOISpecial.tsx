@@ -34,7 +34,7 @@ const JOISpecial = ({ soundAudioLevelControls }: { soundAudioLevelControls: Soun
       <VideoFrame videoURL='./videos/JOI-Introduction.mp4' soundAudioLevelControls={soundAudioLevelControls} />
       <div className='flex flex-row  justify-between'>
         <div className='flex flex-row mt-3 justify-end -mr-3'>
-          <ButtonDefault label='4k version' svgIcon={<YouTubeSVG />} />
+          <ButtonDefault label='4K VERSION' svgIcon={<YouTubeSVG />} />
         </div>
         <div className='flex flex-row mt-3 justify-end -mr-3'>
           <ButtonDefault />

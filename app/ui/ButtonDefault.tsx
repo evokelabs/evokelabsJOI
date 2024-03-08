@@ -101,6 +101,12 @@ const SVGButton: React.FC<SVGButtonProps> = ({
       case 'FIX A BOOKING':
         setCurrentRouteSelection(5)
         break
+      case 'HARDCOPY':
+        window.open('/resume/AdrianPikios-Evokelabs-Resume.pdf', '_blank')
+        break
+      case '4K VERSION':
+        window.open('https://www.youtube.com/evokelabs', '_self')
+        break
       // Add more cases as needed
       // case 'OTHER_LABEL':
       //   // Do something else
