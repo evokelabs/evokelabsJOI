@@ -75,7 +75,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }, []) // Empty dependency array so this effect only runs once on mount
 
   useEffect(() => {
-    audioContextRef.current = new AudioContext()
+    // audioContextRef.current = new AudioContext()
   }, [])
 
   const getFilePath = useCallback(
@@ -182,10 +182,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
   const timeoutRef = useRef<number | null>(null)
 
+  audioContextRef.current = new AudioContext()
+  const audioContext = audioContextRef.current
+
   useEffect(() => {
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited) || !hasUserInteracted) return
-
-    const audioContext = audioContextRef.current
 
     if (!audioContext || isPlaying.current) return
     if (audioFileRef.current) {
