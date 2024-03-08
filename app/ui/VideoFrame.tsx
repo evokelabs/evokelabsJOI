@@ -1,10 +1,19 @@
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLACK, RED, RED_BLACK } from '../libs/UIConstants'
-import { useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
 
 import { SoundAudioLevelControls } from '../sections/data/types'
+import { AnimationContext } from '../libs/AnimationContext'
 
-const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; soundAudioLevelControls: SoundAudioLevelControls }) => {
+const VideoFrame = ({
+  videoURL,
+  soundAudioLevelControls,
+  setShouldMapDarkness
+}: {
+  videoURL: string
+  soundAudioLevelControls: SoundAudioLevelControls
+  setShouldMapDarkness: Dispatch<SetStateAction<boolean>>
+}) => {
   const [userMutedAll, setUserMutedAll] = useState(soundAudioLevelControls.muteAll)
   const [userMutedMusic, setUserMutedMusic] = useState(soundAudioLevelControls.muteMusic)
   const [userMutedRain, setUserMutedRain] = useState(soundAudioLevelControls.muteRain)
@@ -15,6 +24,8 @@ const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; s
   const initialMuteSFX = useRef(userMutedSFX)
 
   const handleVideoPlay = () => {
+    console.log('handle viewer playr')
+    setShouldMapDarkness(false)
     if (!userMutedAll) {
       soundAudioLevelControls.setMuteMusic(true)
       soundAudioLevelControls.setMuteRain(true)
@@ -23,6 +34,8 @@ const VideoFrame = ({ videoURL, soundAudioLevelControls }: { videoURL: string; s
   }
 
   const handleVideoPause = () => {
+    console.log('handle viewer paused')
+    setShouldMapDarkness(true)
     if (userMutedAll) {
       soundAudioLevelControls.setMuteMusic(true)
       soundAudioLevelControls.setMuteRain(true)

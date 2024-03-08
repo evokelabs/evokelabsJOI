@@ -8,7 +8,7 @@ import LaunchSVG from '@/app/ui/svg/button/LaunchSVG'
 import BackSVG from '@/app/ui/svg/button/BackSVG'
 import { SoundAudioLevelControls } from '../data/types'
 import { RoutesContext } from '@/app/libs/RoutesContext'
-import { useContext, useEffect } from 'react'
+import { Dispatch, SetStateAction, useContext, useEffect } from 'react'
 import VideoFrameMute from '@/app/ui/VideoFrameMute'
 
 interface PortfolioItem {
@@ -29,6 +29,7 @@ interface PortfolioItem {
 
 interface PortfolioItemProps extends PortfolioItem {
   soundAudioLevelControls: SoundAudioLevelControls
+  setShouldMapDarkness: Dispatch<SetStateAction<boolean>>
 }
 const PortfolioItem: React.FC<PortfolioItemProps> = ({
   id,
@@ -42,6 +43,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   mainVideo,
   slug,
   soundAudioLevelControls,
+  setShouldMapDarkness,
   mutedVideo
 }) => {
   const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
@@ -87,7 +89,11 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
 
         <div className='mt-3'>
           {!mutedVideo ? (
-            <VideoFrame videoURL={mainVideo} soundAudioLevelControls={soundAudioLevelControls} />
+            <VideoFrame
+              videoURL={mainVideo}
+              soundAudioLevelControls={soundAudioLevelControls}
+              setShouldMapDarkness={setShouldMapDarkness}
+            />
           ) : (
             <VideoFrameMute videoURL={mainVideo} soundAudioLevelControls={soundAudioLevelControls} />
           )}

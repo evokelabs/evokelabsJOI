@@ -58,6 +58,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [shouldJOISpeak, setShouldJOISpeak] = useState(false)
   const [musicVolume, setMusicVolume] = useState(0)
   const [musicLoopTransitionDuration, setMusicLoopTransitionDuration] = useState(DEFAULT_MUSIC_LOOP_TRANSITION_DURATION)
+  //Animations states
+  const [shouldMapDarkness, setShouldMapDarkness] = useState(false)
   // Camera settings
   const { cameraTarget, fov } = useCameraSettings()
 
@@ -261,12 +263,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [isDragging, setIsDragging] = useState(false)
 
   const handleMouseDown = useCallback(() => {
-    console.log('mousedown')
     setIsDragging(true)
   }, [])
 
   const handleMouseUp = useCallback(() => {
-    console.log('mouseup')
     setIsDragging(false)
   }, [])
 
@@ -307,54 +307,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 setJOILineSpeak
               }}
             >
-              <Html
-                scale={0.034}
-                prepend
-                distanceFactor={10}
-                transform
-                className='scale-x-[-1]'
-                position={position}
-                onPointerDown={handleMouseDown}
-                onPointerUp={handleMouseUp}
-                onPointerMove={handleMouseMove}
-              >
-                <PortfolioContext.Provider
-                  value={{
-                    selectedShowOnlyOption,
-                    setSelectedShowOnlyOption,
-                    selectedSortByOption,
-                    setSelectedSortByOption
-                  }}
-                >
-                  <RoutesContext.Provider
-                    value={{
-                      currentRouteSelection,
-                      setCurrentRouteSelection,
-                      currentPortfolioSelection,
-                      setCurrentPortfolioSelection
-                    }}
-                  >
-                    <Draggable>
-                      <div className='max-w-[1170px]' onPointerDown={handleMouseDown} onPointerUp={handleMouseUp}>
-                        {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
-                        {router.pathname === '/services' && <Services />}
-                        {router.pathname.startsWith('/portfolio') && <Portfolio soundAudioLevelControls={soundAudioLevelControls} />}
-                        {router.pathname === '/history' && <History soundAudioLevelControls={soundAudioLevelControls} />}
-                        {router.pathname === '/resume' && <Resume />}
-                        {router.pathname === '/joi' && <JOISpecial soundAudioLevelControls={soundAudioLevelControls} />}
-                        {router.pathname === '/availabilities' && <Availabilities />}
-                        {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
-                      </div>
-                    </Draggable>
-                  </RoutesContext.Provider>
-                </PortfolioContext.Provider>
-              </Html>
-              <VideoSkybox />
-              <ELAudioStartSoundControl />
-              {debug ? <Perf position='top-left' /> : null}
-              {/* <Perf position='top-left' /> */}
-              <CameraRig fov={fov} debug={debug} />
-              <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
               <AnimationContext.Provider
                 value={{
                   shouldAmbientLightPlay,
@@ -362,9 +314,66 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   shouldJOISpeak,
                   setAmbientLightPlay,
                   setPointLightPlay,
-                  setShouldJOISpeak
+                  setShouldJOISpeak,
+                  shouldMapDarkness,
+                  setShouldMapDarkness
                 }}
               >
+                <Html
+                  scale={0.034}
+                  prepend
+                  distanceFactor={10}
+                  transform
+                  className='scale-x-[-1]'
+                  position={position}
+                  onPointerDown={handleMouseDown}
+                  onPointerUp={handleMouseUp}
+                  onPointerMove={handleMouseMove}
+                >
+                  <PortfolioContext.Provider
+                    value={{
+                      selectedShowOnlyOption,
+                      setSelectedShowOnlyOption,
+                      selectedSortByOption,
+                      setSelectedSortByOption
+                    }}
+                  >
+                    <RoutesContext.Provider
+                      value={{
+                        currentRouteSelection,
+                        setCurrentRouteSelection,
+                        currentPortfolioSelection,
+                        setCurrentPortfolioSelection
+                      }}
+                    >
+                      <Draggable>
+                        <div className='max-w-[1170px]' onPointerDown={handleMouseDown} onPointerUp={handleMouseUp}>
+                          {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
+                          {router.pathname === '/services' && <Services />}
+                          {router.pathname.startsWith('/portfolio') && (
+                            <Portfolio soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+                          )}
+                          {router.pathname === '/history' && (
+                            <History soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+                          )}
+                          {router.pathname === '/resume' && <Resume />}
+                          {router.pathname === '/joi' && (
+                            <JOISpecial soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+                          )}
+                          {router.pathname === '/availabilities' && <Availabilities />}
+                          {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+                        </div>
+                      </Draggable>
+                    </RoutesContext.Provider>
+                  </PortfolioContext.Provider>
+                </Html>
+                <VideoSkybox />
+                <ELAudioStartSoundControl />
+                {debug ? <Perf position='top-left' /> : null}
+                {/* <Perf position='top-left' /> */}
+                <CameraRig fov={fov} debug={debug} />
+                <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
+
                 <Lights />
                 {isCarReady && <CyberpunkCar />}
                 <WideMonitor />

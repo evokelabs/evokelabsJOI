@@ -9,7 +9,13 @@ import HistorySVG from '../ui/svg/mainMenu/HistorySVG'
 import { SoundAudioLevelControls } from './data/types'
 import { NextRouter } from 'next/router'
 
-const History = ({ soundAudioLevelControls }: { soundAudioLevelControls: SoundAudioLevelControls }) => {
+const History = ({
+  soundAudioLevelControls,
+  setShouldMapDarkness
+}: {
+  soundAudioLevelControls: SoundAudioLevelControls
+  setShouldMapDarkness: Dispatch<SetStateAction<boolean>>
+}) => {
   return (
     <>
       <PanelContent
@@ -29,7 +35,11 @@ const History = ({ soundAudioLevelControls }: { soundAudioLevelControls: SoundAu
           </>
         }
       >
-        <VideoFrame videoURL='./videos/Evokelabs-History.mp4' soundAudioLevelControls={soundAudioLevelControls} />
+        <VideoFrame
+          videoURL='./videos/Evokelabs-History.mp4'
+          soundAudioLevelControls={soundAudioLevelControls}
+          setShouldMapDarkness={setShouldMapDarkness}
+        />
         <div className='flex flex-row mt-2 justify-end -mr-3'></div>
       </PanelContent>
     </>
