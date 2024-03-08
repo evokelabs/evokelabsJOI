@@ -9,7 +9,7 @@ const LIGHT_COLOR = '#FFA775'
 const SHADOW_NORMAL_BIAS = 0.04
 const DECAY = 4.85
 const LIGHT_INTENSITY = 90
-const LIGHT_ANIMATION_DURATION = 4
+const LIGHT_ANIMATION_DURATION = 2
 const LIGHT_ANIMATION_DELAY = 0
 const LIGHT_ANIMATION_EASE = 'Power1.easeIn'
 
@@ -25,17 +25,14 @@ const PointLight = ({ positionOffset = [0, 0, 0] }) => {
   ]
 
   useEffect(() => {
-    if (shouldPointLightPlay && pointLightRef.current) {
-      gsap.fromTo(
-        pointLightRef.current,
-        { intensity: 0 },
-        {
-          intensity: LIGHT_INTENSITY,
-          duration: LIGHT_ANIMATION_DURATION,
-          delay: LIGHT_ANIMATION_DELAY,
-          ease: LIGHT_ANIMATION_EASE
-        }
-      )
+    console.log('shouldPointLightPlay', shouldPointLightPlay)
+    if (pointLightRef.current) {
+      gsap.to(pointLightRef.current, {
+        intensity: shouldPointLightPlay ? LIGHT_INTENSITY : 0,
+        duration: LIGHT_ANIMATION_DURATION,
+        delay: LIGHT_ANIMATION_DELAY,
+        ease: LIGHT_ANIMATION_EASE
+      })
     }
   }, [shouldPointLightPlay])
 
