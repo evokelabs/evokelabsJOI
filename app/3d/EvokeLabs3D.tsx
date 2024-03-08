@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Html, OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
@@ -221,9 +221,17 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [JOILineSpeak, setJOILineSpeak] = useState<null | number>(null)
   const [isChainPlaying, setIsChainPlaying] = useState(false)
 
+  const prevPathname = useRef(router.pathname)
+
   useEffect(() => {
-    setJOILineSpeak(currentRouteSelection)
-  }, [currentRouteSelection])
+    if (
+      !(prevPathname.current?.startsWith('/portfolio') && router.pathname.startsWith('/portfolio')) &&
+      prevPathname.current !== router.pathname
+    ) {
+      setJOILineSpeak(currentRouteSelection)
+    }
+    prevPathname.current = router.pathname
+  }, [router.pathname])
 
   //Sound Control Function
   const [muteAll, setMuteAll] = useState(true)

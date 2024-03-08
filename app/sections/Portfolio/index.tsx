@@ -18,7 +18,6 @@ const PortfolioHome = ({ soundAudioLevelControls }: { soundAudioLevelControls: S
   const handleItemClick = (item: PortfolioItem) => {
     setSelectedItem(item)
     setCurrentPortfolioSelection(item.slug)
-    console.log(item.video)
   }
 
   useEffect(() => {
