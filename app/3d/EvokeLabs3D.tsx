@@ -150,7 +150,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       const selectedRoute = ROUTE_CONFIG[currentRouteSelection]
 
       if (selectedRoute && router.pathname !== selectedRoute.route) {
-        // router.push(selectedRoute.route)
+        router.push(selectedRoute.route)
       } else if (router.pathname !== '/') {
         setMenuHomeWaitTimer(0)
       }
@@ -161,12 +161,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       // If the current route is not defined in ROUTE_CONFIG, redirect to the root route
 
       if (!routeExists && router.pathname !== '/') {
-        // router.push('/')
+        router.push('/')
       } else if (routeExists && router.pathname !== '/' && currentRouteSelection === null) {
         setMenuHomeWaitTimer(0)
-        // router.push('/')
-
-        // Do not redirect to '/' if the current route exists in ROUTE_CONFIG
+        router.push('/')
       }
     }
   }, [currentRouteSelection, ROUTE_CONFIG])
