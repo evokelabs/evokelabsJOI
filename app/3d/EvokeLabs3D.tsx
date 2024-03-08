@@ -127,8 +127,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     ],
     []
   )
-
-  const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(null)
+  const currentRouteIndex = ROUTE_CONFIG.findIndex(route => route.route === router.pathname)
+  const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(currentRouteIndex)
 
   useEffect(() => {
     // If the current route is '/', set currentRouteSelection to null
@@ -145,7 +145,46 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     }
   }, [router.pathname, ROUTE_CONFIG])
 
-  //Routes Function
+  useEffect(() => {
+    if (currentRouteSelection !== null) {
+      const selectedRoute = ROUTE_CONFIG[currentRouteSelection]
+
+      if (selectedRoute && router.pathname !== selectedRoute.route) {
+        router.push(selectedRoute.route)
+      } else if (router.pathname !== '/') {
+        setMenuHomeWaitTimer(0)
+      }
+    } else {
+      // Check if the current route is defined in ROUTE_CONFIG
+      const routeExists = ROUTE_CONFIG.some(route => route.route === router.pathname)
+
+      // If the current route is not defined in ROUTE_CONFIG, redirect to the root route
+
+      if (!routeExists && router.pathname !== '/') {
+        router.push('/')
+      } else if (routeExists && router.pathname !== '/' && currentRouteSelection === null) {
+        setMenuHomeWaitTimer(0)
+        router.push('/')
+
+        // Do not redirect to '/' if the current route exists in ROUTE_CONFIG
+      }
+    }
+  }, [currentRouteSelection, ROUTE_CONFIG])
+
+  useEffect(() => {
+    // If the current route is '/', set currentRouteSelection to null
+    if (router.pathname === '/') {
+      setCurrentRouteSelection(null)
+    } else {
+      // Find the index of the current route in ROUTE_CONFIG
+      const currentRouteIndex = ROUTE_CONFIG.findIndex(route => route.route === router.pathname)
+
+      // If the current route is found in ROUTE_CONFIG, update currentRouteSelection
+      // If the current route is not found in ROUTE_CONFIG, set currentRouteSelection to null
+      setCurrentRouteSelection(currentRouteIndex !== -1 ? currentRouteIndex : null)
+    }
+  }, [router.pathname, ROUTE_CONFIG])
+
   const [menuHomeWaitTimer, setMenuHomeWaitTimer] = useState(initialTimer)
 
   useEffect(() => {
@@ -163,25 +202,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       clearTimeout(carTimer)
     }
   }, [menuHomeWaitTimer])
-
-  useEffect(() => {
-    if (currentRouteSelection !== null) {
-      const selectedRoute = ROUTE_CONFIG[currentRouteSelection]
-      if (selectedRoute && router.pathname !== selectedRoute.route) {
-        router.push(selectedRoute.route)
-      }
-    } else {
-      // Check if the current route is defined in ROUTE_CONFIG
-      const routeExists = Object.values(ROUTE_CONFIG).some(route => route.route === router.pathname)
-
-      // If the current route is not defined in ROUTE_CONFIG, redirect to the root route
-      if (!routeExists && router.pathname !== '/') {
-        router.push('/')
-      } else if (routeExists) {
-        setMenuHomeWaitTimer(0)
-      }
-    }
-  }, [currentRouteSelection, router, ROUTE_CONFIG])
 
   //JOi Route Speech function
   const [JOILineSpeak, setJOILineSpeak] = useState<null | number>(null)
