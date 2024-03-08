@@ -41,6 +41,7 @@ import JOISubtitles from '../ui/JOISubtitles'
 import { JOISpeechContext } from '../libs/JOISpeechContext'
 import SoundControlIcons from '../ui/SoundControlIcons'
 import { SoundControlContext } from '../libs/SoundControlContext'
+import { PortfolioContext } from '../libs/PortfolioContext'
 
 // Constants
 // const debug = true
@@ -251,6 +252,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     muteSFX
   }
 
+  //Portfolio Pulldown states
+  const [selectedShowOnlyOption, setSelectedShowOnlyOption] = useState('All')
+  const [selectedSortByOption, setSelectedSortByOption] = useState('Date (Newest)')
+
   return (
     <>
       <SoundControlContext.Provider
@@ -277,25 +282,34 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
               }}
             >
               <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
-                <RoutesContext.Provider
+                <PortfolioContext.Provider
                   value={{
-                    currentRouteSelection,
-                    setCurrentRouteSelection,
-                    currentPortfolioSelection,
-                    setCurrentPortfolioSelection
+                    selectedShowOnlyOption,
+                    setSelectedShowOnlyOption,
+                    selectedSortByOption,
+                    setSelectedSortByOption
                   }}
                 >
-                  <div className='max-w-[1170px]'>
-                    {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
-                    {router.pathname === '/services' && <Services />}
-                    {router.pathname.startsWith('/portfolio') && <Portfolio soundAudioLevelControls={soundAudioLevelControls} />}
-                    {router.pathname === '/history' && <History soundAudioLevelControls={soundAudioLevelControls} />}
-                    {router.pathname === '/resume' && <Resume />}
-                    {router.pathname === '/joi' && <JOISpecial soundAudioLevelControls={soundAudioLevelControls} />}
-                    {router.pathname === '/availabilities' && <Availabilities />}
-                    {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
-                  </div>
-                </RoutesContext.Provider>
+                  <RoutesContext.Provider
+                    value={{
+                      currentRouteSelection,
+                      setCurrentRouteSelection,
+                      currentPortfolioSelection,
+                      setCurrentPortfolioSelection
+                    }}
+                  >
+                    <div className='max-w-[1170px]'>
+                      {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
+                      {router.pathname === '/services' && <Services />}
+                      {router.pathname.startsWith('/portfolio') && <Portfolio soundAudioLevelControls={soundAudioLevelControls} />}
+                      {router.pathname === '/history' && <History soundAudioLevelControls={soundAudioLevelControls} />}
+                      {router.pathname === '/resume' && <Resume />}
+                      {router.pathname === '/joi' && <JOISpecial soundAudioLevelControls={soundAudioLevelControls} />}
+                      {router.pathname === '/availabilities' && <Availabilities />}
+                      {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+                    </div>
+                  </RoutesContext.Provider>
+                </PortfolioContext.Provider>
               </Html>
               <VideoSkybox />
               <ELAudioStartSoundControl />
