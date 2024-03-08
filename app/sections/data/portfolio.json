@@ -11,7 +11,8 @@
     "video": "/portfolio/front/tiktok.mp4",
     "mainVideo": "/portfolio/items/tiktok.mp4",
     "link": "",
-    "recommended": 1
+    "recommended": 1,
+    "mutedVideo": false
   },
   {
     "id": 16,
@@ -25,7 +26,8 @@
     "video": "/portfolio/front/petculture.mp4",
     "mainVideo": "/portfolio/items/petculture.mp4",
     "link": "",
-    "recommended": 2
+    "recommended": 2,
+    "mutedVideo": false
   },
   {
     "id": 15,
@@ -39,7 +41,8 @@
     "video": "/portfolio/front/wiseman.mp4",
     "mainVideo": "/portfolio/items/wiseman.mp4",
     "link": "",
-    "recommended": 2
+    "recommended": 2,
+    "mutedVideo": false
   },
   {
     "id": 14,
@@ -53,7 +56,8 @@
     "video": "/portfolio/front/hummgroup.mp4",
     "mainVideo": "/portfolio/items/hummgroup.mp4",
     "link": "",
-    "recommended": 3
+    "recommended": 3,
+    "mutedVideo": false
   },
   {
     "id": 13,
@@ -67,7 +71,8 @@
     "video": "/portfolio/front/hyland.mp4",
     "mainVideo": "/portfolio/items/hyland.mp4",
     "link": "http:///www.siecap.com.au",
-    "recommended": 4
+    "recommended": 4,
+    "mutedVideo": false
   },
   {
     "id": 12,
@@ -81,7 +86,8 @@
     "video": "/portfolio/front/university.mp4",
     "mainVideo": "/portfolio/items/university.mp4",
     "link": "",
-    "recommended": 5
+    "recommended": 5,
+    "mutedVideo": true
   },
   {
     "id": 11,
@@ -95,7 +101,8 @@
     "video": "/portfolio/front/richardrose.mp4",
     "mainVideo": "/portfolio/items/richardrose.mp4",
     "link": "http://www.richardsrose.com.au/",
-    "recommended": 4
+    "recommended": 4,
+    "mutedVideo": true
   },
   {
     "id": 10,
@@ -109,7 +116,8 @@
     "video": "/portfolio/front/stanBanners.mp4",
     "mainVideo": "/portfolio/items/stanBanners.mp4",
     "link": "",
-    "recommended": 4
+    "recommended": 4,
+    "mutedVideo": true
   },
   {
     "id": 9,
@@ -123,7 +131,8 @@
     "video": "/portfolio/front/RicharRoseHtml5BannerBuilds.mp4",
     "mainVideo": "/portfolio/items/RicharRoseHtml5BannerBuilds.mp4",
     "link": "",
-    "recommended": 3
+    "recommended": 3,
+    "mutedVideo": true
   },
   {
     "id": 8,
@@ -137,7 +146,8 @@
     "video": "/portfolio/front/richardsRoseMotionSuite.mp4",
     "mainVideo": "/portfolio/items/richardsRoseMotionSuite.mp4",
     "link": "",
-    "recommended": 3
+    "recommended": 3,
+    "mutedVideo": true
   },
   {
     "id": 7,
@@ -151,7 +161,8 @@
     "video": "/portfolio/front/ravine.mp4",
     "mainVideo": "/portfolio/items/ravine.mp4",
     "link": "",
-    "recommended": 4
+    "recommended": 4,
+    "mutedVideo": true
   },
   {
     "id": 6,
@@ -165,7 +176,8 @@
     "video": "/portfolio/front/letitgo.mp4",
     "mainVideo": "/portfolio/items/letitgo.mp4",
     "link": "https://www.youtube.com/watch?v=veGbtkyoe_Q",
-    "recommended": 1
+    "recommended": 1,
+    "mutedVideo": true
   },
   {
     "id": 5,
@@ -179,7 +191,8 @@
     "video": "/portfolio/front/pudgecreek.mp4",
     "mainVideo": "/portfolio/items/pudgecreek.mp4",
     "link": "https://www.youtube.com/watch?v=OGpwAhMmhyk",
-    "recommended": 2
+    "recommended": 2,
+    "mutedVideo": true
   },
   {
     "id": 4,
@@ -193,7 +206,8 @@
     "video": "/portfolio/front/ajfCollection.mp4",
     "mainVideo": "/portfolio/items/ajfCollection.mp4",
     "link": "",
-    "recommended": 2
+    "recommended": 2,
+    "mutedVideo": true
   },
   {
     "id": 3,
@@ -207,7 +221,8 @@
     "video": "/portfolio/front/optusMotion.mp4",
     "mainVideo": "/portfolio/items/optusMotion.mp4",
     "link": "",
-    "recommended": 5
+    "recommended": 5,
+    "mutedVideo": true
   },
   {
     "id": 2,
@@ -221,7 +236,8 @@
     "video": "/portfolio/front/php.mp4",
     "mainVideo": "/portfolio/items/php.mp4",
     "link": "",
-    "recommended": 4
+    "recommended": 4,
+    "mutedVideo": true
   },
   {
     "id": 1,
@@ -235,6 +251,7 @@
     "video": "/portfolio/front/vml.mp4",
     "mainVideo": "/portfolio/items/vml.mp4",
     "link": "",
-    "recommended": 4
+    "recommended": 4,
+    "mutedVideo": true
   }
 ]

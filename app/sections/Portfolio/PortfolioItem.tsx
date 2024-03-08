@@ -9,6 +9,7 @@ import BackSVG from '@/app/ui/svg/button/BackSVG'
 import { SoundAudioLevelControls } from '../data/types'
 import { RoutesContext } from '@/app/libs/RoutesContext'
 import { useContext, useEffect } from 'react'
+import VideoFrameMute from '@/app/ui/VideoFrameMute'
 
 interface PortfolioItem {
   id: number
@@ -23,6 +24,7 @@ interface PortfolioItem {
   date: string
   recommended: number
   slug: string
+  mutedVideo: boolean
 }
 
 interface PortfolioItemProps extends PortfolioItem {
@@ -39,7 +41,8 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   link,
   mainVideo,
   slug,
-  soundAudioLevelControls
+  soundAudioLevelControls,
+  mutedVideo
 }) => {
   const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
 
@@ -83,7 +86,11 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
         </div>
 
         <div className='mt-3'>
-          <VideoFrame videoURL={mainVideo} soundAudioLevelControls={soundAudioLevelControls} />
+          {!mutedVideo ? (
+            <VideoFrame videoURL={mainVideo} soundAudioLevelControls={soundAudioLevelControls} />
+          ) : (
+            <VideoFrameMute videoURL={mainVideo} soundAudioLevelControls={soundAudioLevelControls} />
+          )}
         </div>
         {desc && (
           <>
