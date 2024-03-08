@@ -49,7 +49,6 @@ const MusicLoopSoundControl = () => {
     if (!hasUserInteracted) return
 
     sound.current = new Howl({
-      html5: true,
       src: [AUDIO_SOURCE],
       loop: true,
       volume: 0 // Start with volume 0
