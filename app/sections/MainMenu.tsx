@@ -1,4 +1,4 @@
-import {  useContext } from 'react'
+import { useContext } from 'react'
 import ButtonMainMenu from '../ui/ButtonMainMenu'
 import { NextRouter } from 'next/router'
 import { RoutesContext } from '../libs/RoutesContext'
@@ -19,7 +19,7 @@ const MainMenu = ({ router, routeConfig }: { router: NextRouter; routeConfig: an
             mainMenuNumber={index}
             label={config.labels[0]}
             hoverLabel={config.labels[1]}
-            isLocalActive={router.pathname === routeConfig[index].route}
+            isLocalActive={router.pathname.startsWith(routeConfig[index].route)}
             onClick={() => resetAllButtons(index)}
             callToAction={config.callToAction}
           />
