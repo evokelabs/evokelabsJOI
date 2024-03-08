@@ -156,7 +156,7 @@ const Services = () => {
           paragraph='Above all, Evoke Labs is dedicated to delivering a positive experience for end users, team members and stakeholders alike. Your happiness is our ultimate goal, driven by commitment, open communications and proven results.'
         />
       </div>
-      <div className='my-6 space-y-1 pr-2 h-[60px]'>
+      <div className='my-6 space-y-1 pr-2 h-[64px]'>
         <TypingAnimation quotes={quotes} />
       </div>
       <HR />
