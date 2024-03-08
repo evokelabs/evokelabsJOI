@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import ButtonDefault from '../../ui/ButtonDefault'
 import PanelContent from '../../ui/PanelContent'
 
@@ -20,6 +20,12 @@ const PortfolioHome = ({ soundAudioLevelControls }: { soundAudioLevelControls: S
     setCurrentPortfolioSelection(item.slug)
     console.log(item.video)
   }
+
+  useEffect(() => {
+    if (currentPortfolioSelection === null) {
+      setSelectedItem(null)
+    }
+  }, [currentPortfolioSelection])
 
   if (selectedItem) {
     return <PortfolioItem {...selectedItem} soundAudioLevelControls={soundAudioLevelControls} />

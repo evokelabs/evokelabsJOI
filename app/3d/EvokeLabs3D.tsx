@@ -161,6 +161,11 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         console.log('currentRouteIndex', currentRouteIndex)
         setCurrentRouteSelection(currentRouteIndex)
       }
+
+      if (currentRouteIndex === 1 && router.pathname === '/portfolio' && currentPortfolioSelection !== null) {
+        console.log('case successful')
+        setCurrentPortfolioSelection(null)
+      }
     }
   }, [router.pathname, ROUTE_CONFIG])
 
@@ -194,7 +199,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       }
     }
     console.log('---------------------')
-  }, [currentRouteSelection, ROUTE_CONFIG])
+  }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection])
 
   useEffect(() => {
     // If the current route is '/', set currentRouteSelection to null
