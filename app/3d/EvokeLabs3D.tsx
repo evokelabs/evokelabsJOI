@@ -135,7 +135,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   //ROUTING FUNCTIONS
 
   useEffect(() => {
-    console.log(currentPortfolioSelection)
     if (currentPortfolioSelection !== null && currentPortfolioSelection !== '') {
       router.push(`/portfolio/${currentPortfolioSelection}`)
       setCurrentRouteSelection(1)
@@ -143,62 +142,47 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }, [currentPortfolioSelection])
 
   useEffect(() => {
-    console.log('---------------------')
-    console.log('first useEffec triggered')
     // If the current route is '/', set currentRouteSelection to null
     if (router.pathname === '/') {
-      console.log('first useEffec 1st if triggered')
       setCurrentRouteSelection(null)
     } else {
       // Find the index of the current route in ROUTE_CONFIG
-      console.log('first useEffect else triggered')
+
       const currentRouteIndex = ROUTE_CONFIG.findIndex(route => router.pathname.startsWith(route.route))
-      console.log('currentRouteIndex', currentRouteIndex)
 
       // If the current route is found in ROUTE_CONFIG, update currentRouteSelection
       if (currentRouteIndex !== -1) {
-        console.log('first useEffect if triggered')
-        console.log('currentRouteIndex', currentRouteIndex)
         setCurrentRouteSelection(currentRouteIndex)
       }
 
       if (currentRouteIndex === 1 && router.pathname === '/portfolio' && currentPortfolioSelection !== null) {
-        console.log('case successful')
         setCurrentPortfolioSelection(null)
       }
     }
   }, [router.pathname, ROUTE_CONFIG])
 
   useEffect(() => {
-    console.log('second useEffec triggered')
     if (currentRouteSelection !== null) {
-      console.log('1st')
       const selectedRoute = ROUTE_CONFIG[currentRouteSelection]
 
       if (selectedRoute && router.pathname !== selectedRoute.route) {
-        console.log('2nd')
         router.push(selectedRoute.route)
       } else if (router.pathname !== '/') {
-        console.log('3rd')
         setMenuHomeWaitTimer(0)
       }
     } else {
       // Check if the current route is defined in ROUTE_CONFIG
       const routeExists = ROUTE_CONFIG.some(route => router.pathname.startsWith(route.route))
 
-      console.log('4th routeExists', routeExists)
       // If the current route is not defined in ROUTE_CONFIG, redirect to the root route
 
       if (!routeExists && router.pathname !== '/' && currentPortfolioSelection === null) {
-        console.log('first / redirect')
         router.push('/')
       } else if (routeExists && router.pathname !== '/' && currentRouteSelection === null && currentPortfolioSelection === null) {
         setMenuHomeWaitTimer(0)
-        console.log('second / redirect, routeExists', routeExists)
         router.push('/')
       }
     }
-    console.log('---------------------')
   }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection])
 
   useEffect(() => {
