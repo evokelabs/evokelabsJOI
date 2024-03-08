@@ -98,6 +98,9 @@ const SVGButton: React.FC<SVGButtonProps> = ({
       case 'CLOSE':
         setCurrentRouteSelection(null)
         break
+      case 'FIX A BOOKING':
+        setCurrentRouteSelection(5)
+        break
       // Add more cases as needed
       // case 'OTHER_LABEL':
       //   // Do something else

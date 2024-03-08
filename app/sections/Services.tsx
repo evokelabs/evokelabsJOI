@@ -25,9 +25,7 @@ import VR from '@/app/ui/png/services/VR.png'
 import FixABookingSVG from '../ui/svg/button/FixABookingSVG'
 
 import quotes from './data/quotes.json'
-import { useEffect, useState } from 'react'
 import TypingAnimation from '../libs/TypingAnimation'
-import { NextRouter } from 'next/router'
 
 const ContentHead = () => {
   return (
@@ -167,7 +165,7 @@ const Services = () => {
         <p>Your digital transformation is just a click away.</p>
       </div>
       <div className='flex flex-row justify-between mb-4 pt-1'>
-        <ButtonDefault label='Fix a booking' svgIcon={<FixABookingSVG />} />
+        <ButtonDefault label='FIX A BOOKING' svgIcon={<FixABookingSVG />} />
         <ButtonDefault />
       </div>
     </PanelContent>
