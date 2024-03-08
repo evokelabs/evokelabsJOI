@@ -107,6 +107,10 @@ const SVGButton: React.FC<SVGButtonProps> = ({
       case '4K VERSION':
         window.open('https://www.youtube.com/evokelabs', '_self')
         break
+      case 'SEND AN EMAIL':
+        window.open('mailto:adrian@evokelabs.com?subject=Enquiry from Evokelabs.com', '_self')
+
+        break
       // Add more cases as needed
       // case 'OTHER_LABEL':
       //   // Do something else
