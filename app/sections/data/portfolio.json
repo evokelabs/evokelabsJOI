@@ -2,6 +2,7 @@
   {
     "id": 17,
     "heading": "TikTok Canada/Aus/Nz",
+    "slug": "tiktok",
     "subHeading": "EDM Development & CRM integration  | Akcelo",
     "date": "2022-02-01",
     "technology": ["Foundation for Email", "Mailchimp", "HTML5", "CSS"],
@@ -15,6 +16,7 @@
   {
     "id": 16,
     "heading": "Petculture",
+    "slug": "petculture",
     "subHeading": "EDM Development & CRM integration  | Akcelo",
     "date": "2021-02-01",
     "technology": ["Foundation for Email", "Klaviyo", "HTML5", "CSS"],
@@ -28,6 +30,7 @@
   {
     "id": 15,
     "heading": "Wisemans Surf Lodge",
+    "slug": "wisemans",
     "subHeading": "EDM Development & CRM integration  | Akcelo",
     "date": "2021-03-01",
     "technology": ["Foundation for Email", "Hubspot", "HTML5", "CSS"],
@@ -41,6 +44,7 @@
   {
     "id": 14,
     "heading": "hummgroup",
+    "slug": "hummgroup",
     "subHeading": "Inhouse Frontend Developer & Digital Designer",
     "date": "2020-10-01",
     "technology": ["Foundation for Email", "HTML5", "CSS", "Adobe CC", "Figma"],
@@ -54,6 +58,7 @@
   {
     "id": 13,
     "heading": "Hyland Communication Agency",
+    "slug": "hyland",
     "subHeading": "Inhouse Wordpress Developer & HTML5 Banners SUITE",
     "date": "2020-05-01",
     "technology": ["Wordpress", "HTML5", "CSS", "PHP", "Adobe CC"],
@@ -67,6 +72,7 @@
   {
     "id": 12,
     "heading": "University of Sydney",
+    "slug": "universityofsydney",
     "subHeading": "HTML5 Banner Suite",
     "date": "2019-01-01",
     "technology": ["Photoshop", "Animate", "HTML5", "Javascript", "Doubleclick"],
@@ -80,6 +86,7 @@
   {
     "id": 11,
     "heading": "Richards Rose",
+    "slug": "richardsrose",
     "subHeading": "Wordpress build",
     "date": "2018-05-01",
     "technology": ["Wordpress", "HTML5", "CSS", "Javascript", "PHP"],
@@ -93,6 +100,7 @@
   {
     "id": 10,
     "heading": "Stan",
+    "slug": "stan",
     "subHeading": "HTML5 Banner Suite",
     "date": "2017-05-01",
     "technology": ["Animate"],
@@ -106,6 +114,7 @@
   {
     "id": 9,
     "heading": "Richards Rose",
+    "slug": "richardsrose-html5-banners",
     "subHeading": "HTML5 Banner Suite",
     "date": "2017-01-01",
     "technology": ["Animate", "HTML5", "CSS", "Javascript", "GSAP"],
@@ -119,6 +128,7 @@
   {
     "id": 8,
     "heading": "Richards Rose",
+    "slug": "richardsrose-motion-suite",
     "subHeading": "Motion Build Suite",
     "date": "2017-01-01",
     "technology": ["Photoshop", "After Effects"],
@@ -132,6 +142,7 @@
   {
     "id": 7,
     "heading": "DJ Ravine",
+    "slug": "djravine",
     "subHeading": "Brand Identity",
     "date": "2016-06-01",
     "technology": ["Illustrator", "Photoshop", "After Effects", "Social Media"],
@@ -145,6 +156,7 @@
   {
     "id": 6,
     "heading": "Let It Go with Crystal Maiden",
+    "slug": "letitgo",
     "subHeading": "Youtube Video & Steam Workshop Item",
     "date": "2015-06-01",
     "technology": ["3d", "After Effects", "Premiere", "Steam Workshop", "audio"],
@@ -158,6 +170,7 @@
   {
     "id": 5,
     "heading": "Pudge Creek",
+    "slug": "pudgecreek",
     "subHeading": "YouTube Video",
     "date": "2014-07-01",
     "technology": ["3d", "After Effects", "Premiere", "Social Media"],
@@ -171,6 +184,7 @@
   {
     "id": 4,
     "heading": "AJF Partnership",
+    "slug": "ajfpartnership",
     "subHeading": "Freelance Digital Collection",
     "date": "2013-07-01",
     "technology": ["After Effects", "Animate", "HTML5", "CSS", "Javascript"],
@@ -184,6 +198,7 @@
   {
     "id": 3,
     "heading": "Optus",
+    "slug": "optus",
     "subHeading": "Go Places Interactive",
     "date": "2012-07-01",
     "technology": ["3d", "After Effects", "Animate"],
@@ -197,6 +212,7 @@
   {
     "id": 2,
     "heading": "Powerhouse Productions",
+    "slug": "powerhouseproductions",
     "subHeading": "Digital Promotional Campaigns",
     "date": "2011-07-01",
     "technology": ["Strategy", "Art Direction", "UX/UI", "Animate", "Photoshop"],
@@ -210,6 +226,7 @@
   {
     "id": 1,
     "heading": "VML",
+    "slug": "vml",
     "subHeading": "Freelance Digital Collection",
     "date": "2010-07-01",
     "technology": ["Art Direction", "Photoshop", "Animate", "HTML", " CSS"],
