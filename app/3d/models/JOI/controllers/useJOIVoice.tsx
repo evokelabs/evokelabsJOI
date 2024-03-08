@@ -180,6 +180,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     }
   }, [JOILineSpeak, getFilePath, hasSiteHomeVisited, model, setJOILineCaption, shouldJOISpeak])
 
+  const timeoutRef = useRef<number | null>(null)
+
   useEffect(() => {
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited) || !hasUserInteracted) return
 
@@ -222,11 +224,15 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
       //If availabilityFilePath hold object of arrays, play the audio files in sequence. It will hold an object when JOILineSpeak is 5
       const playSpeech = (availabilityFilePath: string | string[]) => {
-        // setTimeout(() => {
-        //   isPlaying.current = false
-        // }, 5500)
         if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
           if (isPlaying.current) {
+            if (timeoutRef.current !== null) {
+              window.clearTimeout(timeoutRef.current)
+              timeoutRef.current = null
+            }
+            timeoutRef.current = window.setTimeout(() => {
+              isPlaying.current = false
+            }, 4500)
             audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
             setJOILineCaption(availabilityTextArray[audioIndex])
             setAudioIndexState(audioIndex) // Update the audio index state
@@ -234,6 +240,10 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
             setIsChainPlaying(true)
             audio.play().catch(error => console.error('Normal Audio play failed due to', error))
             audio.onended = () => {
+              // if (timeoutRef.current !== null) {
+              //   window.clearTimeout(timeoutRef.current)
+              //   timeoutRef.current = null
+              // }
               audioIndex++
               if (audioIndex < availabilityFilePath.length) {
                 setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
@@ -246,6 +256,9 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
             return
           }
         } else {
+          timeoutRef.current = window.setTimeout(() => {
+            isPlaying.current = false
+          }, 4500)
           if (isPlaying.current) {
             setIsAudioPlaying(true)
             setTimeout(() => {
