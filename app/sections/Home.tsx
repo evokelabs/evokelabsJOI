@@ -38,7 +38,7 @@ const shuffle = (array: string[]) => {
   return array
 }
 
-const Home = ({ muteSFX, router, routeConfig }: { muteSFX: boolean; router: NextRouter; routeConfig: any }) => {
+const Home = ({ muteSFX }: { muteSFX: boolean }) => {
   const TIMER = 5000
   const TYPE_ON_SPEED = 70
   const TYPE_OFF_SPEED = 35

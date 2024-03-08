@@ -37,7 +37,7 @@ const Pulse = () => {
   )
 }
 
-const Availabilities = ({ router, routeConfig }: { router: NextRouter; routeConfig: any }) => {
+const Availabilities = () => {
   const tileClassName = ({ date, view }: { date: Date; view: string }) => {
     if (view === VIEW_MODE && isUnavailable(date)) {
       return Status.UNAVAILABLE

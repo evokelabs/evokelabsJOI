@@ -19,7 +19,7 @@ import UniversityOfSydneySVG from '../ui/svg/resume/UniversityOfSydneySVG'
 import VMLSVG from '../ui/svg/resume/VMLSVG'
 import WaxInteractiveSVG from '../ui/svg/resume/WaxInteractiveSVG'
 
-const Resume = ({ router, routeConfig }: { router: NextRouter; routeConfig: any }) => {
+const Resume = () => {
   return (
     <PanelBackground
       headerTitle='Dossier'

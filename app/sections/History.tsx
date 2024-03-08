@@ -9,15 +9,7 @@ import HistorySVG from '../ui/svg/mainMenu/HistorySVG'
 import { SoundAudioLevelControls } from './data/types'
 import { NextRouter } from 'next/router'
 
-const History = ({
-  soundAudioLevelControls,
-  router,
-  routeConfig
-}: {
-  soundAudioLevelControls: SoundAudioLevelControls
-  router: NextRouter
-  routeConfig: any
-}) => {
+const History = ({ soundAudioLevelControls }: { soundAudioLevelControls: SoundAudioLevelControls }) => {
   return (
     <>
       <PanelContent

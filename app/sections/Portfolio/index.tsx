@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import ButtonDefault from '../../ui/ButtonDefault'
 import PanelContent from '../../ui/PanelContent'
 
@@ -8,17 +8,8 @@ import PortfolioTile from './PortfolioTile'
 import PortfolioPanelContent from './ui/PortfolioPanelContent'
 import ContentHeader from './ui/ContentHeader'
 import { SoundAudioLevelControls } from '../data/types'
-import { NextRouter } from 'next/router'
 
-const PortfolioHome = ({
-  soundAudioLevelControls,
-  router,
-  routeConfig
-}: {
-  soundAudioLevelControls: SoundAudioLevelControls
-  router: NextRouter
-  routeConfig: any
-}) => {
+const PortfolioHome = ({ soundAudioLevelControls }: { soundAudioLevelControls: SoundAudioLevelControls }) => {
   const [portfolioData, setPortfolioData] = useState<PortfolioItem[]>(portfolio)
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null)
 

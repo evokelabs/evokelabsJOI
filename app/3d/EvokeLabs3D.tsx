@@ -145,25 +145,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     }
   }, [router.pathname, ROUTE_CONFIG])
 
-  useEffect(() => {
-    if (currentRouteSelection !== null) {
-      const selectedRoute = ROUTE_CONFIG[currentRouteSelection]
-      if (selectedRoute && router.pathname !== selectedRoute.route) {
-        router.push(selectedRoute.route)
-      }
-    } else {
-      // Check if the current route is defined in ROUTE_CONFIG
-      const routeExists = Object.values(ROUTE_CONFIG).some(route => route.route === router.pathname)
-
-      // If the current route is not defined in ROUTE_CONFIG, redirect to the root route
-      if (!routeExists && router.pathname !== '/') {
-        router.push('/')
-      } else if (routeExists) {
-        setMenuHomeWaitTimer(0)
-      }
-    }
-  }, [currentRouteSelection, router, ROUTE_CONFIG])
-
   //Routes Function
   const [menuHomeWaitTimer, setMenuHomeWaitTimer] = useState(initialTimer)
 
@@ -182,6 +163,25 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       clearTimeout(carTimer)
     }
   }, [menuHomeWaitTimer])
+
+  useEffect(() => {
+    if (currentRouteSelection !== null) {
+      const selectedRoute = ROUTE_CONFIG[currentRouteSelection]
+      if (selectedRoute && router.pathname !== selectedRoute.route) {
+        router.push(selectedRoute.route)
+      }
+    } else {
+      // Check if the current route is defined in ROUTE_CONFIG
+      const routeExists = Object.values(ROUTE_CONFIG).some(route => route.route === router.pathname)
+
+      // If the current route is not defined in ROUTE_CONFIG, redirect to the root route
+      if (!routeExists && router.pathname !== '/') {
+        router.push('/')
+      } else if (routeExists) {
+        setMenuHomeWaitTimer(0)
+      }
+    }
+  }, [currentRouteSelection, router, ROUTE_CONFIG])
 
   //JOi Route Speech function
   const [JOILineSpeak, setJOILineSpeak] = useState<null | number>(null)
@@ -237,21 +237,13 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
               <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
                 <RoutesContext.Provider value={{ currentRouteSelection, setCurrentRouteSelection }}>
                   <div className='max-w-[1170px]'>
-                    {isPreLoaderFinished && router.pathname === '/' && (
-                      <Home muteSFX={muteSFX} router={router} routeConfig={ROUTE_CONFIG} />
-                    )}
-                    {router.pathname === '/services' && <Services router={router} routeConfig={ROUTE_CONFIG} />}
-                    {router.pathname === '/portfolio' && (
-                      <Portfolio soundAudioLevelControls={soundAudioLevelControls} router={router} routeConfig={ROUTE_CONFIG} />
-                    )}
-                    {router.pathname === '/history' && (
-                      <History soundAudioLevelControls={soundAudioLevelControls} router={router} routeConfig={ROUTE_CONFIG} />
-                    )}
-                    {router.pathname === '/resume' && <Resume router={router} routeConfig={ROUTE_CONFIG} />}
-                    {router.pathname === '/joi' && (
-                      <JOISpecial soundAudioLevelControls={soundAudioLevelControls} router={router} routeConfig={ROUTE_CONFIG} />
-                    )}
-                    {router.pathname === '/availabilities' && <Availabilities router={router} routeConfig={ROUTE_CONFIG} />}
+                    {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
+                    {router.pathname === '/services' && <Services />}
+                    {router.pathname === '/portfolio' && <Portfolio soundAudioLevelControls={soundAudioLevelControls} />}
+                    {router.pathname === '/history' && <History soundAudioLevelControls={soundAudioLevelControls} />}
+                    {router.pathname === '/resume' && <Resume />}
+                    {router.pathname === '/joi' && <JOISpecial soundAudioLevelControls={soundAudioLevelControls} />}
+                    {router.pathname === '/availabilities' && <Availabilities />}
                     {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
                   </div>
                 </RoutesContext.Provider>

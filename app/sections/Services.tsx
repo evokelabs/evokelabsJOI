@@ -61,7 +61,7 @@ interface Quote {
   source: string
 }
 
-const Services = ({ router, routeConfig }: { router: NextRouter; routeConfig: any }) => {
+const Services = () => {
   return (
     <PanelContent headerTitle='Corpo Guide' contentHead={<ContentHead />}>
       <div className='mb-5 space-y-2'>
