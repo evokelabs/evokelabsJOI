@@ -7,6 +7,8 @@ import FigmaSVG from '@/app/ui/svg/button/FigmaSVG'
 import LaunchSVG from '@/app/ui/svg/button/LaunchSVG'
 import BackSVG from '@/app/ui/svg/button/BackSVG'
 import { SoundAudioLevelControls } from '../data/types'
+import { RoutesContext } from '@/app/libs/RoutesContext'
+import { useContext, useEffect } from 'react'
 
 interface PortfolioItem {
   id: number
@@ -39,6 +41,15 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   slug,
   soundAudioLevelControls
 }) => {
+  const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
+
+  useEffect(() => {
+    // Cleanup function
+    return () => {
+      setCurrentPortfolioSelection(null)
+    }
+  }, [])
+
   return (
     <PanelBackground headerTitle='Past Gigs'>
       <div className='m-2 relative'>
