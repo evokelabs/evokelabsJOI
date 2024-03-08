@@ -34,8 +34,8 @@ const VideoFrame = ({
   }
 
   const handleVideoPause = () => {
-    console.log('handle viewer paused')
     setShouldMapDarkness(true)
+    console.log('handle viewer paused: ')
     if (userMutedAll) {
       soundAudioLevelControls.setMuteMusic(true)
       soundAudioLevelControls.setMuteRain(true)

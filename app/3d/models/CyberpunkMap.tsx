@@ -12,6 +12,7 @@ const CyberpunkMap = () => {
   const { setPointLightPlay, setAmbientLightPlay, setShouldMapDarkness, shouldMapDarkness } = useContext(AnimationContext)
   const [playShutterAudio, setPlayShutterAudio] = useState(false)
   const meshRef = useRef<Group>()
+  const [modelLoaded, setModelLoaded] = useState(false)
 
   const shouldMapDarknessRef = useRef(shouldMapDarkness)
 
@@ -76,14 +77,16 @@ const CyberpunkMap = () => {
 
   useEffect(() => {
     shouldMapDarknessRef.current = shouldMapDarkness
+    console.log('shouldMapDarknessRef.current changed to:', shouldMapDarknessRef.current)
+    console.log('shouldMapDarkness changed to:', shouldMapDarkness)
   }, [shouldMapDarkness])
 
   useEffect(() => {
-    console.log('useEffect shouldMapDarkness triggered,' + shouldMapDarknessRef.current)
-    if (meshRef.current) {
+    console.log('useEffect shouldMapDarkness triggered,' + shouldMapDarkness)
+    if (modelLoaded && meshRef.current) {
       meshRef.current.traverse(object => {
         if (object instanceof Mesh && object.name === 'Window_Shutters_Closed') {
-          if (shouldMapDarknessRef.current) {
+          if (shouldMapDarkness) {
             animateShuttersUp(object)
           } else {
             animateShuttersDown(object)
@@ -91,7 +94,7 @@ const CyberpunkMap = () => {
         }
       })
     }
-  }, [animateShuttersDown, animateShuttersUp, shouldMapDarknessRef])
+  }, [animateShuttersDown, animateShuttersUp, shouldMapDarkness, modelLoaded])
 
   useEffect(() => {
     const videoTablet = document.createElement('video')
@@ -99,7 +102,6 @@ const CyberpunkMap = () => {
     videoTablet.loop = true
     videoTablet.muted = true
     videoTablet.play()
-    setShouldMapDarkness(true)
 
     // Create video textures
     const videoTextureTablet = new VideoTexture(videoTablet)
@@ -141,6 +143,7 @@ const CyberpunkMap = () => {
                 object.receiveShadow = true
                 break
             }
+            setModelLoaded(true)
           }
         })
       },
@@ -156,6 +159,21 @@ const CyberpunkMap = () => {
       })
     }
   }, [scene, gltfLoader, setPointLightPlay, setAmbientLightPlay, shouldMapDarkness])
+
+  useEffect(() => {
+    console.log('useEffect shouldMapDarkness triggered,' + shouldMapDarknessRef.current)
+    if (modelLoaded && meshRef.current) {
+      meshRef.current.traverse(object => {
+        if (object instanceof Mesh && object.name === 'Window_Shutters_Closed') {
+          if (shouldMapDarknessRef.current) {
+            animateShuttersUp(object)
+          } else {
+            animateShuttersDown(object)
+          }
+        }
+      })
+    }
+  }, [animateShuttersDown, animateShuttersUp, shouldMapDarknessRef, modelLoaded])
 
   return playShutterAudio ? <ShutterSoundControl volume={0.45} delay={0} transitionDuration={0} loop={false} /> : null
 }
