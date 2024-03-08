@@ -33,9 +33,11 @@ const IconClose = () => {
   })
 
   const { setCurrentRouteSelection } = useContext(RoutesContext)
+  const { setCurrentPortfolioSelection } = useContext(RoutesContext)
 
   const returnToHome = () => {
     setCurrentRouteSelection(null)
+    setCurrentPortfolioSelection(null)
   }
 
   return (
