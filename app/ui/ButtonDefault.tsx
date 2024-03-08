@@ -93,12 +93,13 @@ const SVGButton: React.FC<SVGButtonProps> = ({
   svgIcon,
   link
 }) => {
-  const { setCurrentRouteSelection } = useContext(RoutesContext)
+  const { setCurrentPortfolioSelection, setCurrentRouteSelection } = useContext(RoutesContext)
 
   const handleClick = () => {
     switch (label) {
       case 'CLOSE':
         setCurrentRouteSelection(null)
+        setCurrentPortfolioSelection(null)
         break
       case 'FIX A BOOKING':
         setCurrentRouteSelection(5)
