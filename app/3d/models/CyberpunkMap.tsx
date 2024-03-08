@@ -9,92 +9,47 @@ import ShutterSoundControl from '@/app/audio/environment/ShuttersSoundControl'
 const CyberpunkMap = () => {
   const { scene } = useThree()
   const gltfLoader = useRef(useDracoLoader()).current
-  const { setPointLightPlay, setAmbientLightPlay, setShouldMapDarkness, shouldMapDarkness } = useContext(AnimationContext)
+  const { setPointLightPlay, setAmbientLightPlay, shouldMapDarkness } = useContext(AnimationContext)
   const [playShutterAudio, setPlayShutterAudio] = useState(false)
   const meshRef = useRef<Group>()
   const [modelLoaded, setModelLoaded] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
 
-  const shouldMapDarknessRef = useRef(shouldMapDarkness)
+  const animateShutters = useCallback((object: Mesh<any, any, any>, positionY: number) => {
+    console.log('animateShutters')
+    if (isAnimating) return
 
-  const animateIntroShutters = (object: Mesh<any, any, any>) => {
-    object.castShadow = true
+    setIsAnimating(true)
+
     gsap.to(object.position, {
-      y: 2.7,
-      duration: 3.25,
-      delay: 6.5,
+      y: positionY,
+      duration: 1,
       ease: 'linear',
       onStart: () => {
-        setPlayShutterAudio(true)
-        setAmbientLightPlay(true)
-
-        gsap.delayedCall(3, () => {
-          setPointLightPlay(true)
-        })
+        if (!playShutterAudio) {
+          // setPlayShutterAudio(true)
+        }
+        setPointLightPlay(true)
       },
       onComplete: () => {
         setPlayShutterAudio(false)
+        setIsAnimating(false)
       }
     })
-  }
+  }, [])
 
-  const animateShuttersUp = useCallback(
-    (object: Mesh<any, any, any>) => {
-      console.log('animateShuttersUp')
-      gsap.to(object.position, {
-        y: 2.7,
-        duration: 3.25,
-        ease: 'linear',
-        onStart: () => {
-          setPlayShutterAudio(true)
-          setPointLightPlay(true)
-        },
-        onComplete: () => {
-          setPlayShutterAudio(false)
-        }
-      })
-    },
-
-    [setPlayShutterAudio, setPointLightPlay]
-  )
-  const animateShuttersDown = useCallback(
-    (object: Mesh<any, any, any>) => {
-      console.log('animateShuttersDown')
-      gsap.to(object.position, {
-        y: 0,
-        duration: 3.25,
-        ease: 'linear',
-        onStart: () => {
-          setPlayShutterAudio(true)
-          setPointLightPlay(true)
-        },
-        onComplete: () => {
-          setPlayShutterAudio(false)
-        }
-      })
-    },
-    [setPlayShutterAudio, setPointLightPlay]
-  )
+  const animateShuttersUp = (object: Mesh<any, any, any>) => animateShutters(object, 2.7)
+  const animateShuttersDown = (object: Mesh<any, any, any>) => animateShutters(object, 1.62)
 
   useEffect(() => {
-    shouldMapDarknessRef.current = shouldMapDarkness
-    console.log('shouldMapDarknessRef.current changed to:', shouldMapDarknessRef.current)
-    console.log('shouldMapDarkness changed to:', shouldMapDarkness)
-  }, [shouldMapDarkness])
-
-  useEffect(() => {
-    console.log('useEffect shouldMapDarkness triggered,' + shouldMapDarkness)
-    if (modelLoaded && meshRef.current) {
+    if (modelLoaded && meshRef.current && !isAnimating) {
       meshRef.current.traverse(object => {
         if (object instanceof Mesh && object.name === 'Window_Shutters_Closed') {
-          if (shouldMapDarkness) {
-            animateShuttersUp(object)
-          } else {
-            animateShuttersDown(object)
-          }
+          shouldMapDarkness ? animateShuttersUp(object) : animateShuttersDown(object)
         }
       })
     }
-  }, [animateShuttersDown, animateShuttersUp, shouldMapDarkness, modelLoaded])
+  }, [animateShuttersDown, animateShuttersUp, modelLoaded])
 
   useEffect(() => {
     const videoTablet = document.createElement('video')
@@ -103,12 +58,8 @@ const CyberpunkMap = () => {
     videoTablet.muted = true
     videoTablet.play()
 
-    // Create video textures
     const videoTextureTablet = new VideoTexture(videoTablet)
-
-    const videoMaterialTablet = new MeshBasicMaterial({
-      map: videoTextureTablet
-    })
+    const videoMaterialTablet = new MeshBasicMaterial({ map: videoTextureTablet })
 
     gltfLoader.load(
       '/glb/EvokelabsRoom.glb',
@@ -119,22 +70,17 @@ const CyberpunkMap = () => {
         meshRef.current = gltf.scene
         scene.add(meshRef.current)
         meshRef.current.traverse(object => {
-          // console.log('Traversed object:', object)
-          // console.log('Is Mesh:', object instanceof Mesh)
-          // console.log('Name:', object.name)
           if (object instanceof Mesh) {
             switch (object.name) {
               case 'Window_Glass_Main':
                 object.castShadow = false
                 break
               case 'Window_Shutters_Closed':
-                console.log('Window_Shutters_Closed found')
-                animateIntroShutters(object)
+                animateShuttersUp(object)
                 break
               case 'Wall_Curved_VendingMachine_Outdoor':
                 object.castShadow = true
                 break
-
               case 'VideoTexture-Tablet':
                 object.material = videoMaterialTablet
                 break
@@ -158,22 +104,7 @@ const CyberpunkMap = () => {
         if (child instanceof Scene) scene.remove(child)
       })
     }
-  }, [scene, gltfLoader, setPointLightPlay, setAmbientLightPlay, shouldMapDarkness])
-
-  useEffect(() => {
-    console.log('useEffect shouldMapDarkness triggered,' + shouldMapDarknessRef.current)
-    if (modelLoaded && meshRef.current) {
-      meshRef.current.traverse(object => {
-        if (object instanceof Mesh && object.name === 'Window_Shutters_Closed') {
-          if (shouldMapDarknessRef.current) {
-            animateShuttersUp(object)
-          } else {
-            animateShuttersDown(object)
-          }
-        }
-      })
-    }
-  }, [animateShuttersDown, animateShuttersUp, shouldMapDarknessRef, modelLoaded])
+  }, [scene, gltfLoader])
 
   return playShutterAudio ? <ShutterSoundControl volume={0.45} delay={0} transitionDuration={0} loop={false} /> : null
 }
