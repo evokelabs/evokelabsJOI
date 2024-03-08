@@ -16,7 +16,6 @@ const PortfolioHome = ({ soundAudioLevelControls }: { soundAudioLevelControls: S
   const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
 
   const handleItemClick = (item: PortfolioItem) => {
-    console.log('slug', item.slug)
     setSelectedItem(item)
     setCurrentPortfolioSelection(item.slug)
   }

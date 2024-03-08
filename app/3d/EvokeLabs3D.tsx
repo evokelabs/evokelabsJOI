@@ -129,7 +129,17 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   )
   const currentRouteIndex = ROUTE_CONFIG.findIndex(route => route.route === router.pathname)
   const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(currentRouteIndex)
-  const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>(null)
+
+  const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>('')
+
+  //ROUTING FUNCTIONS
+
+  useEffect(() => {
+    console.log(currentPortfolioSelection)
+    if (currentPortfolioSelection !== null && currentPortfolioSelection !== '') {
+      router.push(`/portfolio/${currentPortfolioSelection}`)
+    }
+  }, [currentPortfolioSelection])
 
   useEffect(() => {
     // If the current route is '/', set currentRouteSelection to null
@@ -161,10 +171,12 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
       // If the current route is not defined in ROUTE_CONFIG, redirect to the root route
 
-      if (!routeExists && router.pathname !== '/') {
+      if (!routeExists && router.pathname !== '/' && currentPortfolioSelection === null) {
+        console.log('first / redirect')
         router.push('/')
       } else if (routeExists && router.pathname !== '/' && currentRouteSelection === null) {
         setMenuHomeWaitTimer(0)
+        console.log('second / redirect')
         router.push('/')
       }
     }
