@@ -1,5 +1,8 @@
+import { useEffect, useRef } from 'react'
 import PanelHeader from './PanelHeader'
 import { BottomFooter, BottomLeftCornerSVG, TopLeftCornerSVG } from './UIElements'
+
+import gsap from 'gsap'
 
 interface PanelContentProps {
   headerTitle: string
@@ -7,9 +10,17 @@ interface PanelContentProps {
   contentHead?: React.ReactNode
 }
 
-const index = ({ headerTitle, children, contentHead }: PanelContentProps) => {
+const Index = ({ headerTitle, children, contentHead }: PanelContentProps) => {
+  const ref = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (ref.current) {
+      gsap.fromTo(ref.current, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: 'Bounce.easeOut' })
+    }
+  }, [])
+
   return (
-    <div className='relative max-w-[72.75rem] mb-2 '>
+    <div ref={ref} className='relative max-w-[72.75rem] mb-2'>
       <div className='relative flex flex-row h-full'>
         <div className='w-auto h-auto grid grid-rows-[min-content,auto,min-content]'>
           <div className='pt-4'>
@@ -34,4 +45,4 @@ const index = ({ headerTitle, children, contentHead }: PanelContentProps) => {
   )
 }
 
-export default index
+export default Index
