@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Canvas, ThreeEvent } from '@react-three/fiber'
 import { Html, OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 
@@ -42,6 +42,7 @@ import { JOISpeechContext } from '../libs/JOISpeechContext'
 import SoundControlIcons from '../ui/SoundControlIcons'
 import { SoundControlContext } from '../libs/SoundControlContext'
 import { PortfolioContext } from '../libs/PortfolioContext'
+import Draggable from 'react-draggable'
 
 // Constants
 // const debug = true
@@ -256,6 +257,31 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [selectedShowOnlyOption, setSelectedShowOnlyOption] = useState('All')
   const [selectedSortByOption, setSelectedSortByOption] = useState('Date (Newest)')
 
+  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.1])
+  const [isDragging, setIsDragging] = useState(false)
+
+  const handleMouseDown = useCallback(() => {
+    console.log('mousedown')
+    setIsDragging(true)
+  }, [])
+
+  const handleMouseUp = useCallback(() => {
+    console.log('mouseup')
+    setIsDragging(false)
+  }, [])
+
+  const handleMouseMove = useCallback(
+    (event: ThreeEvent<PointerEvent>) => {
+      if (isDragging) {
+        // Convert the mouse position to world coordinates
+        const x = event.unprojectedPoint.x
+        const y = event.unprojectedPoint.y
+        setPosition([x, y, 2.1])
+      }
+    },
+    [isDragging]
+  )
+
   return (
     <>
       <SoundControlContext.Provider
@@ -281,7 +307,17 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 setJOILineSpeak
               }}
             >
-              <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
+              <Html
+                scale={0.034}
+                prepend
+                distanceFactor={10}
+                transform
+                className='scale-x-[-1]'
+                position={position}
+                onPointerDown={handleMouseDown}
+                onPointerUp={handleMouseUp}
+                onPointerMove={handleMouseMove}
+              >
                 <PortfolioContext.Provider
                   value={{
                     selectedShowOnlyOption,
@@ -298,16 +334,18 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                       setCurrentPortfolioSelection
                     }}
                   >
-                    <div className='max-w-[1170px]'>
-                      {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
-                      {router.pathname === '/services' && <Services />}
-                      {router.pathname.startsWith('/portfolio') && <Portfolio soundAudioLevelControls={soundAudioLevelControls} />}
-                      {router.pathname === '/history' && <History soundAudioLevelControls={soundAudioLevelControls} />}
-                      {router.pathname === '/resume' && <Resume />}
-                      {router.pathname === '/joi' && <JOISpecial soundAudioLevelControls={soundAudioLevelControls} />}
-                      {router.pathname === '/availabilities' && <Availabilities />}
-                      {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
-                    </div>
+                    <Draggable>
+                      <div className='max-w-[1170px]' onPointerDown={handleMouseDown} onPointerUp={handleMouseUp}>
+                        {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
+                        {router.pathname === '/services' && <Services />}
+                        {router.pathname.startsWith('/portfolio') && <Portfolio soundAudioLevelControls={soundAudioLevelControls} />}
+                        {router.pathname === '/history' && <History soundAudioLevelControls={soundAudioLevelControls} />}
+                        {router.pathname === '/resume' && <Resume />}
+                        {router.pathname === '/joi' && <JOISpecial soundAudioLevelControls={soundAudioLevelControls} />}
+                        {router.pathname === '/availabilities' && <Availabilities />}
+                        {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+                      </div>
+                    </Draggable>
                   </RoutesContext.Provider>
                 </PortfolioContext.Provider>
               </Html>

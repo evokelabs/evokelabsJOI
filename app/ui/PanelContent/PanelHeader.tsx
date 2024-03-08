@@ -1,6 +1,7 @@
 import { RED, RED_DARK } from '@/app/libs/UIConstants'
 import IconClose from '../IconClose'
 import { RED_TILE_PATTERN } from '../libs/TitleFillsPatterns'
+import { useState } from 'react'
 
 const TopHeaderSVG = () => {
   return (
@@ -15,8 +16,23 @@ const TopHeaderSVG = () => {
 }
 
 const PanelHeader = ({ headerTitle }: { headerTitle: string }) => {
+  const [isDragging, setIsDragging] = useState(false)
+
+  const handleMouseDown = () => {
+    setIsDragging(true)
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+  }
   return (
-    <div className='flex items-end border-red border-b-2 border-opacity-60 relative top-0.5'>
+    <div
+      className={`flex items-end border-red border-b-2 border-opacity-60 relative top-0.5 ${
+        isDragging ? 'cursor-grabbing' : 'cursor-grab'
+      }`}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+    >
       <div className='absolute'>
         <h1 className='font-orbitron font-medium text-teal-blur text-[2rem] leading-none px-5 py-3.5 uppercase'>{headerTitle}</h1>
       </div>
