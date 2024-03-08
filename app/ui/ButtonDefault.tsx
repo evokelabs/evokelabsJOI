@@ -109,7 +109,8 @@ const SVGButton: React.FC<SVGButtonProps> = ({
         break
       case 'SEND AN EMAIL':
         window.open('mailto:adrian@evokelabs.com?subject=Enquiry from Evokelabs.com', '_self')
-
+      case 'BACK':
+        setCurrentRouteSelection(1)
         break
       // Add more cases as needed
       // case 'OTHER_LABEL':

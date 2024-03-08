@@ -66,7 +66,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
               </div>
             </div>
           </div>
-          <ButtonDefault label='Back' />
+          <ButtonDefault />
         </div>
 
         <div className='mt-3'>
@@ -79,11 +79,11 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
           </>
         )}
         <div className='flex flex-row  my-4 justify-between'>
-          <div>{link && <ButtonDefault label='Launch' svgIcon={<LaunchSVG />} />}</div>
+          <div>{link && <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} />}</div>
           <div className='flex flex-row -mr-3.5'>
-            <ButtonDefault label='Figma' svgIcon={<FigmaSVG />} />
-            <ButtonDefault label='YouTube' svgIcon={<YouTubeSVG />} />
-            <ButtonDefault label='Back' svgIcon={<BackSVG />} />
+            {/* <ButtonDefault label='Figma' svgIcon={<FigmaSVG />} />
+            <ButtonDefault label='YouTube' svgIcon={<YouTubeSVG />} /> */}
+            <ButtonDefault label='BACK' svgIcon={<BackSVG />} />
           </div>
         </div>
       </div>
