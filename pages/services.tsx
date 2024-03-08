@@ -1,3 +1,3 @@
-export default function services() {
+export default function page() {
   return null
 }
