@@ -129,6 +129,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   )
   const currentRouteIndex = ROUTE_CONFIG.findIndex(route => route.route === router.pathname)
   const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(currentRouteIndex)
+  const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>(null)
 
   useEffect(() => {
     // If the current route is '/', set currentRouteSelection to null
@@ -253,7 +254,14 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
               }}
             >
               <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
-                <RoutesContext.Provider value={{ currentRouteSelection, setCurrentRouteSelection }}>
+                <RoutesContext.Provider
+                  value={{
+                    currentRouteSelection,
+                    setCurrentRouteSelection,
+                    currentPortfolioSelection,
+                    setCurrentPortfolioSelection
+                  }}
+                >
                   <div className='max-w-[1170px]'>
                     {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                     {router.pathname === '/services' && <Services />}
