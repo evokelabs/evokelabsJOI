@@ -11,6 +11,7 @@ const CyberpunkAmbienceSoundControl = () => {
   const { muteSFX } = useContext(SoundControlContext)
   const VOLUME = muteSFX ? 0 : VOLUME_SET
   useAudio(AUDIO_SOURCE, VOLUME, DELAY, TRANSITION_DURATION, LOOP)
+  console.log('cyberpunk ambience sound control volume:', VOLUME)
   return null
 }
 

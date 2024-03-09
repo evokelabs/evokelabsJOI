@@ -15,6 +15,27 @@ const CyberpunkMap = () => {
   const [modelLoaded, setModelLoaded] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
 
+  const animateIntroShutters = (object: Mesh<any, any, any>) => {
+    object.castShadow = true
+    gsap.to(object.position, {
+      y: 2.7,
+      duration: 3.25,
+      delay: 6.5,
+      ease: 'linear',
+      onStart: () => {
+        setPlayShutterAudio(true)
+        setAmbientLightPlay(true)
+
+        gsap.delayedCall(3, () => {
+          setPointLightPlay(true)
+        })
+      },
+      onComplete: () => {
+        setPlayShutterAudio(false)
+      }
+    })
+  }
+
   const animateShutters = useCallback((object: Mesh<any, any, any>, positionY: number, duration: number, pointLightState: boolean) => {
     console.log('animateShutters')
     if (isAnimating) return
@@ -27,7 +48,7 @@ const CyberpunkMap = () => {
       ease: 'linear',
       onStart: () => {
         if (!playShutterAudio) {
-          // setPlayShutterAudio(true)
+          setPlayShutterAudio(true)
         }
         setPointLightPlay(pointLightState)
       },
@@ -38,10 +59,11 @@ const CyberpunkMap = () => {
     })
   }, [])
 
-  const animateShuttersUp = (object: Mesh<any, any, any>) => animateShutters(object, 2.7, 2, true)
+  const animateShuttersUp = (object: Mesh<any, any, any>) => animateShutters(object, 2.7, 3.25, true)
   const animateShuttersDown = (object: Mesh<any, any, any>) => animateShutters(object, 1.62, 2, false)
 
   useEffect(() => {
+    console.log('shouldMapDarkness', shouldMapDarkness)
     if (modelLoaded && meshRef.current && !isAnimating) {
       meshRef.current.traverse(object => {
         if (object instanceof Mesh && object.name === 'Window_Shutters_Closed') {
@@ -49,7 +71,7 @@ const CyberpunkMap = () => {
         }
       })
     }
-  }, [animateShuttersDown, animateShuttersUp, modelLoaded])
+  }, [shouldMapDarkness])
 
   useEffect(() => {
     const videoTablet = document.createElement('video')
@@ -76,7 +98,7 @@ const CyberpunkMap = () => {
                 object.castShadow = false
                 break
               case 'Window_Shutters_Closed':
-                animateShuttersUp(object)
+                animateIntroShutters(object)
                 break
               case 'Wall_Curved_VendingMachine_Outdoor':
                 object.castShadow = true
