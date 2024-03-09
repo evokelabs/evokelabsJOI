@@ -2,8 +2,8 @@ import { useState } from 'react'
 import MusicStartSoundControl from './music/MusicStartSoundControl'
 import MusicLoopSoundControl from './music/MusicLoopSoundControl'
 import JOIPreloaderSpeech from './JOI/JOIPreloaderSpeech'
-import RainSoundControl from './Environment/RainSoundControl'
-import CyberpunkAmbienceSoundControl from './Environment/CyberpunkAmbienceSoundControl'
+import RainSoundControl from './environment/RainSoundControl'
+import CyberpunkAmbienceSoundControl from './environment/CyberpunkAmbienceSoundControl'
 
 export const DEFAULT_MUSIC_LOOP_VOLUME = 0.45
 export const LOW_MUSIC_LOOP_VOLUME = 0.2
