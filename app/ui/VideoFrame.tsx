@@ -22,6 +22,11 @@ const VideoFrame = ({
   const initialMuteRain = useRef(userMutedRain)
   const initialMuteSFX = useRef(userMutedSFX)
 
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+
+  const [videoKey, setVideoKey] = useState(0)
+  const [progressTriggered, setProgressTriggered] = useState(false)
+
   const handleVideoPlay = () => {
     setShouldMapDarkness(true)
     if (!userMutedAll) {
@@ -57,20 +62,71 @@ const VideoFrame = ({
 
   //Restore sound settings when unmounting
   useEffect(() => {
-    return () => {
-      if (!userMutedAll) {
-        soundAudioLevelControls.setMuteMusic(false)
-        soundAudioLevelControls.setMuteRain(false)
-        soundAudioLevelControls.setMuteSFX(false)
+    const video = videoRef.current
+    if (video) {
+      const handlePlay = () => console.log('Video playback has started')
+      const handlePlaying = () => console.log('Video is currently playing')
+
+      const handleLoadStart = () => console.log('Browser has started loading the video')
+      const handleLoadedData = () => console.log('Browser has loaded the current frame')
+
+      const handleProgress = () => {
+        console.log('Browser is downloading the video')
+        setProgressTriggered(true)
       }
-      setShouldMapDarkness(false)
+
+      const handleError = () => {
+        console.log('Video failed to load')
+        console.log('Error code:', video.error?.code)
+        console.log('Error message:', video.error?.message)
+
+        // Only change the videoKey state if a progress event has not been triggered
+        if (!progressTriggered) {
+          setVideoKey(prevKey => prevKey + 1)
+        }
+      }
+
+      video.addEventListener('play', handlePlay)
+      video.addEventListener('playing', handlePlaying)
+      video.addEventListener('progress', handleProgress)
+      video.addEventListener('loadstart', handleLoadStart)
+      video.addEventListener('loadeddata', handleLoadedData)
+      video.addEventListener('error', handleError)
+
+      return () => {
+        video.removeEventListener('play', handlePlay)
+        video.removeEventListener('playing', handlePlaying)
+        video.removeEventListener('progress', handleProgress)
+        video.removeEventListener('loadstart', handleLoadStart)
+        video.removeEventListener('loadeddata', handleLoadedData)
+        video.removeEventListener('error', handleError)
+      }
     }
   }, [])
+
+  useEffect(() => {
+    // Try to reload the video
+    const video = videoRef.current
+    if (video) {
+      video.load()
+    }
+
+    // Reset progressTriggered state
+    setProgressTriggered(false)
+  }, [videoKey])
 
   return (
     <div>
       <div className='w-full bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60  p-2 pb-0 border-b-0 shadow-red-blur'>
-        <video className='w-full h-full object-cover' controls src={videoURL} onPlay={handleVideoPlay} onPause={handleVideoPause} />
+        <video
+          key={videoKey}
+          ref={videoRef}
+          className='w-full h-full object-cover'
+          controls
+          src={videoURL}
+          onPlay={handleVideoPlay}
+          onPause={handleVideoPause}
+        />
       </div>
       <div className='h-2 border-b-2 bg-grid-darkRed border-l-2 border-red border-opacity-60 mr-2 relative pb-2 '>
         <div className='absolute -right-3'>
