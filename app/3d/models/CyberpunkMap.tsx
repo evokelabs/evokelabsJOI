@@ -37,36 +37,43 @@ const CyberpunkMap = () => {
     })
   }
 
-  const animateShutters = useCallback((object: Mesh<any, any, any>, positionY: number, speed: number, pointLightState: boolean) => {
-    if (isAnimating) {
-      gsap.killTweensOf(object.position)
-      // setIsAnimating(false)
-    }
+  const isAnimatingRef = useRef(false)
 
-    const distance = Math.abs(object.position.y - positionY)
-    const duration = distance / speed
+  const animateShutters = useCallback(
+    (object: Mesh<any, any, any>, direction: 'up' | 'down') => {
+      const positionY = direction === 'up' ? 2.9 : 1.55
+      const speed = 0.35
+      const pointLightState = direction === 'up'
 
-    gsap.to(object.position, {
-      y: positionY,
-      duration: duration,
-      ease: 'power1.out',
-      onStart: () => {
-        if (!playShutterAudio) {
-          setShutterAudioVolume(0.2)
-          // setPlayShutterAudio(true)
-        }
-        setIsAnimating(true)
-        setPointLightPlay(pointLightState)
-      },
-      onComplete: () => {
-        // setPlayShutterAudio(false)
-        setIsAnimating(false)
+      if (isAnimatingRef.current) {
+        gsap.killTweensOf(object.position)
+        isAnimatingRef.current = false
       }
-    })
-  }, [])
 
-  const animateShuttersUp = (object: Mesh<any, any, any>) => animateShutters(object, 2.9, 0.35, true)
-  const animateShuttersDown = (object: Mesh<any, any, any>) => animateShutters(object, 1.55, 0.35, false)
+      const distance = Math.abs(object.position.y - positionY)
+      const duration = distance / speed
+
+      gsap.to(object.position, {
+        y: positionY,
+        duration: duration,
+        ease: 'power1.out',
+        onStart: () => {
+          if (!playShutterAudio) {
+            setShutterAudioVolume(0.2)
+          }
+          isAnimatingRef.current = true
+          setPointLightPlay(pointLightState)
+        },
+        onComplete: () => {
+          isAnimatingRef.current = false
+        }
+      })
+    },
+    [playShutterAudio]
+  )
+
+  const animateShuttersUp = (object: Mesh<any, any, any>) => animateShutters(object, 'up')
+  const animateShuttersDown = (object: Mesh<any, any, any>) => animateShutters(object, 'down')
 
   useEffect(() => {
     console.log('use effect Cyberpunk triggered', shouldMapDarkness)
@@ -77,7 +84,7 @@ const CyberpunkMap = () => {
         }
       })
     }
-  }, [shouldMapDarkness])
+  }, [shouldMapDarkness, modelLoaded, animateShuttersUp, animateShuttersDown])
 
   useEffect(() => {
     const videoTablet = document.createElement('video')
