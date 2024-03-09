@@ -39,38 +39,35 @@ const CyberpunkMap = () => {
 
   const isAnimatingRef = useRef(false)
 
-  const animateShutters = useCallback(
-    (object: Mesh<any, any, any>, direction: 'up' | 'down') => {
-      const positionY = direction === 'up' ? 2.9 : 1.55
-      const speed = 0.35
-      const pointLightState = direction === 'up'
+  const animateShutters = useCallback((object: Mesh<any, any, any>, direction: 'up' | 'down') => {
+    const positionY = direction === 'up' ? 2.9 : 1.55
+    const speed = 0.35
+    const pointLightState = direction === 'up'
 
-      if (isAnimatingRef.current) {
-        gsap.killTweensOf(object.position)
+    if (isAnimatingRef.current) {
+      gsap.killTweensOf(object.position)
+      // isAnimatingRef.current = false
+    }
+
+    const distance = Math.abs(object.position.y - positionY)
+    const duration = distance / speed
+
+    gsap.to(object.position, {
+      y: positionY,
+      duration: duration,
+      ease: 'power1.out',
+      onStart: () => {
+        if (!playShutterAudio) {
+          setShutterAudioVolume(0.2)
+        }
+        isAnimatingRef.current = true
+        setPointLightPlay(pointLightState)
+      },
+      onComplete: () => {
         isAnimatingRef.current = false
       }
-
-      const distance = Math.abs(object.position.y - positionY)
-      const duration = distance / speed
-
-      gsap.to(object.position, {
-        y: positionY,
-        duration: duration,
-        ease: 'power1.out',
-        onStart: () => {
-          if (!playShutterAudio) {
-            setShutterAudioVolume(0.2)
-          }
-          isAnimatingRef.current = true
-          setPointLightPlay(pointLightState)
-        },
-        onComplete: () => {
-          isAnimatingRef.current = false
-        }
-      })
-    },
-    [playShutterAudio]
-  )
+    })
+  }, [])
 
   const animateShuttersUp = (object: Mesh<any, any, any>) => animateShutters(object, 'up')
   const animateShuttersDown = (object: Mesh<any, any, any>) => animateShutters(object, 'down')
@@ -84,7 +81,7 @@ const CyberpunkMap = () => {
         }
       })
     }
-  }, [shouldMapDarkness, modelLoaded, animateShuttersUp, animateShuttersDown])
+  }, [shouldMapDarkness])
 
   useEffect(() => {
     const videoTablet = document.createElement('video')
