@@ -15,7 +15,7 @@ const Index = ({ headerTitle, children, contentHead }: PanelContentProps) => {
 
   useEffect(() => {
     if (ref.current) {
-      gsap.fromTo(ref.current, { opacity: 0.0 }, { opacity: 1, duration: 0.65, ease: 'Power2.easeInOut' })
+      gsap.fromTo(ref.current, { opacity: 0.0 }, { opacity: 1, duration: 1.25, ease: 'expo.out' })
     }
   }, [])
 
