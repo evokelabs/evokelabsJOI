@@ -1,6 +1,6 @@
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLACK, RED, RED_BLACK } from '../libs/UIConstants'
-import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 
 import { SoundAudioLevelControls } from '../sections/data/types'
 
@@ -27,28 +27,13 @@ const VideoFrame = ({
   const [progressTriggered, setProgressTriggered] = useState(false)
   const [videoError, setVideoError] = useState(false)
 
-  const videoErrorRef = useRef(false)
-
-  const handleVideoPlay = useCallback(() => {
+  const handleVideoPlay = () => {
     console.log('handleVideoPlay trigger')
-    console.log(
-      'videoError:',
-      videoErrorRef.current,
-      'videoRef.current.error:',
-      videoRef.current?.error,
-      'videoRef.current:',
-      videoRef.current
-    )
+    console.log('videoError:', videoError, 'videoRef.current.error:', videoRef.current?.error, 'videoRef.current:', videoRef.current)
 
     const video = videoRef.current
-    if (video) {
-      if (video.error) {
-        console.error('Video failed to load')
-        console.error('Error code:', video.error.code)
-        console.error('Error message:', video.error.message)
-        videoErrorRef.current = true
-        return
-      }
+    if (video && video.muted && !videoError) {
+      video.muted = false
     }
 
     setShouldMapDarkness(true)
@@ -57,7 +42,7 @@ const VideoFrame = ({
       soundAudioLevelControls.setMuteRain(true)
       soundAudioLevelControls.setMuteSFX(true)
     }
-  }, [userMutedAll, soundAudioLevelControls, setShouldMapDarkness])
+  }
 
   const handleVideoPause = () => {
     setShouldMapDarkness(false)
@@ -84,6 +69,19 @@ const VideoFrame = ({
     }
   }, [])
 
+  useEffect(() => {
+    const video = videoRef.current
+    if (video) {
+      if (!videoError && video.error === null) {
+        video.muted = false
+        console.log('1st. videoRef.current.muted:', video.muted)
+      } else {
+        video.muted = true
+        console.log('2nd. videoRef.current.muted:', video.muted)
+      }
+    }
+  }, [videoError])
+
   //Intelligent video sound control based on sound context
   useEffect(() => {
     initialMuteMusic.current = soundAudioLevelControls.muteAll
@@ -103,14 +101,23 @@ const VideoFrame = ({
         console.error('Video failed to load')
         console.error('Error code:', video.error?.code)
         console.error('Error message:', video.error?.message)
-        videoErrorRef.current = true
+        setVideoError(true)
+      }
+
+      const handlePlaying = () => {
+        // Unmute the video when it starts playing, unless there was a video error
+        if (!videoError) {
+          video.muted = false
+        }
       }
 
       video.addEventListener('error', handleError)
+      video.addEventListener('playing', handlePlaying)
       video.addEventListener('play', handleVideoPlay)
 
       return () => {
         video.removeEventListener('error', handleError)
+        video.removeEventListener('playing', handlePlaying)
         video.removeEventListener('play', handleVideoPlay)
       }
     }
