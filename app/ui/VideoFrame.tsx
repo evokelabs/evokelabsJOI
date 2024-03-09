@@ -23,7 +23,7 @@ const VideoFrame = ({
   const initialMuteSFX = useRef(userMutedSFX)
 
   const handleVideoPlay = () => {
-    setShouldMapDarkness(false)
+    setShouldMapDarkness(true)
     if (!userMutedAll) {
       soundAudioLevelControls.setMuteMusic(true)
       soundAudioLevelControls.setMuteRain(true)
@@ -32,7 +32,7 @@ const VideoFrame = ({
   }
 
   const handleVideoPause = () => {
-    setShouldMapDarkness(true)
+    setShouldMapDarkness(false)
     if (userMutedAll) {
       soundAudioLevelControls.setMuteMusic(true)
       soundAudioLevelControls.setMuteRain(true)
@@ -63,7 +63,7 @@ const VideoFrame = ({
         soundAudioLevelControls.setMuteRain(false)
         soundAudioLevelControls.setMuteSFX(false)
       }
-      setShouldMapDarkness(true)
+      setShouldMapDarkness(false)
     }
   }, [])
 

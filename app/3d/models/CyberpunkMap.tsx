@@ -73,7 +73,7 @@ const CyberpunkMap = () => {
     if (modelLoaded && meshRef.current) {
       meshRef.current.traverse(object => {
         if (object instanceof Mesh && object.name === 'Window_Shutters_Closed') {
-          shouldMapDarkness ? animateShuttersUp(object) : animateShuttersDown(object)
+          shouldMapDarkness ? animateShuttersDown(object) : animateShuttersUp(object)
         }
       })
     }
