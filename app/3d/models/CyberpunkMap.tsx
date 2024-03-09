@@ -20,7 +20,7 @@ const CyberpunkMap = () => {
     gsap.to(object.position, {
       y: 2.7,
       duration: 3.25,
-      delay: 6.5,
+      delay: 6,
       ease: 'linear',
       onStart: () => {
         setPlayShutterAudio(true)
@@ -38,14 +38,17 @@ const CyberpunkMap = () => {
 
   const animateShutters = useCallback((object: Mesh<any, any, any>, positionY: number, duration: number, pointLightState: boolean) => {
     console.log('animateShutters')
-    if (isAnimating) return
+    if (isAnimating) {
+      gsap.killTweensOf(object.position)
+      setIsAnimating(false)
+    }
 
     setIsAnimating(true)
 
     gsap.to(object.position, {
       y: positionY,
       duration: duration,
-      ease: 'linear',
+      ease: 'power1.inOut',
       onStart: () => {
         if (!playShutterAudio) {
           setPlayShutterAudio(true)
@@ -60,11 +63,10 @@ const CyberpunkMap = () => {
   }, [])
 
   const animateShuttersUp = (object: Mesh<any, any, any>) => animateShutters(object, 2.7, 3.25, true)
-  const animateShuttersDown = (object: Mesh<any, any, any>) => animateShutters(object, 1.62, 2, false)
+  const animateShuttersDown = (object: Mesh<any, any, any>) => animateShutters(object, 1.55, 3.25, false)
 
   useEffect(() => {
-    console.log('shouldMapDarkness', shouldMapDarkness)
-    if (modelLoaded && meshRef.current && !isAnimating) {
+    if (modelLoaded && meshRef.current) {
       meshRef.current.traverse(object => {
         if (object instanceof Mesh && object.name === 'Window_Shutters_Closed') {
           shouldMapDarkness ? animateShuttersUp(object) : animateShuttersDown(object)
