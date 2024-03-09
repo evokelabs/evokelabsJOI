@@ -48,6 +48,14 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
 }) => {
   const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
 
+  const setUserMutedAll = (muteAll: boolean) => {
+    console.log('muting all')
+    soundAudioLevelControls.setMuteAll(true)
+    soundAudioLevelControls.setMuteMusic(true)
+    soundAudioLevelControls.setMuteRain(true)
+    soundAudioLevelControls.setMuteSFX(true)
+  }
+
   useEffect(() => {
     // Cleanup function
     return () => {
@@ -106,7 +114,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
         )}
         {(link || desc) && (
           <div className='flex flex-row  mt-6 justify-between'>
-            <div>{link && <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} link={link} />}</div>
+            <div onClick={() => setUserMutedAll(true)}>{link && <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} link={link} />}</div>
             <div className='flex flex-row -mr-3.5'>
               {/* <ButtonDefault label='Figma' svgIcon={<FigmaSVG />} /> */}
               {/* <ButtonDefault label='YouTube' svgIcon={<YouTubeSVG />} /> */}

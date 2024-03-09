@@ -40,14 +40,11 @@ const CyberpunkMap = () => {
   const animateShutters = useCallback((object: Mesh<any, any, any>, positionY: number, speed: number, pointLightState: boolean) => {
     if (isAnimating) {
       gsap.killTweensOf(object.position)
-      setIsAnimating(false)
+      // setIsAnimating(false)
     }
 
     const distance = Math.abs(object.position.y - positionY)
     const duration = distance / speed
-
-    setIsAnimating(true)
-    setShutterAudioVolume(0.2)
 
     gsap.to(object.position, {
       y: positionY,
@@ -55,8 +52,10 @@ const CyberpunkMap = () => {
       ease: 'power1.out',
       onStart: () => {
         if (!playShutterAudio) {
+          setShutterAudioVolume(0.2)
           setPlayShutterAudio(true)
         }
+        setIsAnimating(true)
         setPointLightPlay(pointLightState)
       },
       onComplete: () => {
