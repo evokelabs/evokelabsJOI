@@ -45,14 +45,16 @@ const VideoFrame = ({
 
       video.muted = false // Unmute the video
 
-      setShouldMapDarkness(true)
-      if (!userMutedAll) {
+      console.log('video error:', video.error)
+      console.log('userMutedAll:', userMutedAll)
+      if (!userMutedAll && !videoError) {
+        setShouldMapDarkness(true)
         soundAudioLevelControls.setMuteMusic(true)
         soundAudioLevelControls.setMuteRain(true)
         soundAudioLevelControls.setMuteSFX(true)
       }
     }
-  }, [userMutedAll, soundAudioLevelControls, setShouldMapDarkness])
+  }, [userMutedAll, soundAudioLevelControls, videoError, setShouldMapDarkness])
 
   const handleVideoPause = () => {
     setShouldMapDarkness(false)
@@ -118,7 +120,7 @@ const VideoFrame = ({
     <>
       <div>
         {videoError ? (
-          <div className='w-full h-[560px] bg-grid-brightRed  border-red border-2 border-opacity-60 shadow-red-blur flex justify-center items-center text-teal-blur text-2xl font-orbitron font-semibold'>
+          <div className='w-full h-[634px] bg-grid-brightRed  border-red border-2 border-opacity-60 shadow-red-blur flex justify-center items-center text-teal-blur text-2xl font-orbitron font-semibold'>
             Audio Error. Please refresh the page or visit another section.
           </div>
         ) : (
@@ -126,7 +128,7 @@ const VideoFrame = ({
             <video
               ref={videoRef}
               muted
-              className='w-full h-full object-cover'
+              className='w-full h-full object-contain'
               controls
               src={videoURL}
               onPlay={handleVideoPlay}
@@ -135,7 +137,7 @@ const VideoFrame = ({
           </div>
         )}
       </div>
-      {videoError && (
+      {!videoError ? (
         <div className='h-2 border-b-2 bg-grid-darkRed border-l-2 border-red border-opacity-60 mr-2 relative pb-2 '>
           <div className='absolute -right-3'>
             <svg width='16' height='10' viewBox='0 0 16 10'>
@@ -149,7 +151,7 @@ const VideoFrame = ({
             </svg>
           </div>
         </div>
-      )}
+      ) : null}
     </>
   )
 }
