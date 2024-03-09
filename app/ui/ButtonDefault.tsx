@@ -95,6 +95,8 @@ const SVGButton: React.FC<SVGButtonProps> = ({
 }) => {
   const { setCurrentPortfolioSelection, setCurrentRouteSelection } = useContext(RoutesContext)
 
+  
+
   const handleClick = () => {
     switch (label) {
       case 'CLOSE':

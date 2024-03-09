@@ -25,7 +25,6 @@ const PointLight = ({ positionOffset = [0, 0, 0] }) => {
   ]
 
   useEffect(() => {
-    console.log('shouldPointLightPlay', shouldPointLightPlay)
     if (pointLightRef.current) {
       gsap.to(pointLightRef.current, {
         intensity: shouldPointLightPlay ? LIGHT_INTENSITY : 0,

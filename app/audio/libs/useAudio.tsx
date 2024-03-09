@@ -15,20 +15,6 @@ function useAudio(audioSource: string, volume: number, delay: number, transition
           if (sound.current) {
             // Start the volume transition from the current volume
             const startVolume = sound.current.volume()
-            console.log(
-              'useAudio startVolumn: ',
-              startVolume,
-              'targetVolume: ',
-              volume,
-              'transitionDuration: ',
-              transitionDuration,
-              'audioSource',
-              audioSource,
-              'delay',
-              delay,
-              'loop',
-              loop
-            )
 
             // Gradually change the volume to the desired level over the transition duration
             const targetVolume = volume

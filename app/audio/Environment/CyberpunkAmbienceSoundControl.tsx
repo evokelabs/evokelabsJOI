@@ -12,7 +12,6 @@ const CyberpunkAmbienceSoundControl = () => {
   const VOLUME = muteSFX ? 0 : VOLUME_SET
   const DELAY = muteSFX ? 0 : DELAY_SET
   useAudio(AUDIO_SOURCE, VOLUME, DELAY, TRANSITION_DURATION, LOOP)
-  console.log('cyberpunk ambience sound control volume:', VOLUME)
   return null
 }
 

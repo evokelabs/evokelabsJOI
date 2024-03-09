@@ -11,6 +11,7 @@ const CyberpunkMap = () => {
   const gltfLoader = useRef(useDracoLoader()).current
   const { setPointLightPlay, setAmbientLightPlay, shouldMapDarkness } = useContext(AnimationContext)
   const [playShutterAudio, setPlayShutterAudio] = useState(false)
+  const [shutterAudioVolume, setShutterAudioVolume] = useState(0.45)
   const meshRef = useRef<Group>()
   const [modelLoaded, setModelLoaded] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
@@ -46,6 +47,7 @@ const CyberpunkMap = () => {
     const duration = distance / speed
 
     setIsAnimating(true)
+    setShutterAudioVolume(0.2)
 
     gsap.to(object.position, {
       y: positionY,
@@ -132,7 +134,7 @@ const CyberpunkMap = () => {
     }
   }, [scene, gltfLoader])
 
-  return playShutterAudio ? <ShutterSoundControl volume={0.45} delay={0} transitionDuration={0} loop={false} /> : null
+  return playShutterAudio ? <ShutterSoundControl volume={shutterAudioVolume} delay={0} transitionDuration={0} loop={false} /> : null
 }
 
 export default CyberpunkMap
