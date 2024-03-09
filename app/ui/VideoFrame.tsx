@@ -28,16 +28,19 @@ const VideoFrame = ({
   const [videoError, setVideoError] = useState(false)
 
   const handleVideoPlay = () => {
+    console.log('handleVideoPlay trigger')
+    console.log('videoError:', videoError, 'videoRef.current.error:', videoRef.current?.error, 'videoRef.current:', videoRef.current)
+
+    const video = videoRef.current
+    if (video && video.muted && !videoError) {
+      video.muted = false
+    }
+
     setShouldMapDarkness(true)
     if (!userMutedAll) {
       soundAudioLevelControls.setMuteMusic(true)
       soundAudioLevelControls.setMuteRain(true)
       soundAudioLevelControls.setMuteSFX(true)
-    }
-    if (!videoError && videoRef.current && videoRef.current.error === null) {
-      videoRef.current.muted = false
-    } else if (videoRef.current) {
-      videoRef.current.muted = true
     }
   }
 
@@ -65,6 +68,19 @@ const VideoFrame = ({
       handleVideoPause()
     }
   }, [])
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (video) {
+      if (!videoError && video.error === null) {
+        video.muted = false
+        console.log('1st. videoRef.current.muted:', video.muted)
+      } else {
+        video.muted = true
+        console.log('2nd. videoRef.current.muted:', video.muted)
+      }
+    }
+  }, [videoError])
 
   //Intelligent video sound control based on sound context
   useEffect(() => {
@@ -105,7 +121,7 @@ const VideoFrame = ({
         video.removeEventListener('play', handleVideoPlay)
       }
     }
-  }, [videoError, progressTriggered, handleVideoPlay])
+  }, [handleVideoPlay, progressTriggered, videoError])
 
   // Remove the unmute logic from handleVideoPlay
 
