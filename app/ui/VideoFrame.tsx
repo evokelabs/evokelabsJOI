@@ -30,8 +30,6 @@ const VideoFrame = ({
   const videoErrorRef = useRef(videoError)
 
   const handleVideoPlay = useCallback(() => {
-    console.log('handleVideoPlay trigger')
-
     const video = videoRef.current
     if (video) {
       video.muted = false // Unmute the video
@@ -95,12 +93,13 @@ const VideoFrame = ({
         videoErrorRef.current = true
         video.muted = true
 
-        // if (!userMutedAll) {
-        //   console.log('unmute all video error')
-        //   soundAudioLevelControls.setMuteMusic(false)
-        //   soundAudioLevelControls.setMuteRain(false)
-        //   soundAudioLevelControls.setMuteSFX(false)
-        // }
+        if (!userMutedAll) {
+          console.log('unmute all video error')
+          setShouldMapDarkness(false)
+          soundAudioLevelControls.setMuteMusic(false)
+          soundAudioLevelControls.setMuteRain(false)
+          soundAudioLevelControls.setMuteSFX(false)
+        }
 
         return
       }
