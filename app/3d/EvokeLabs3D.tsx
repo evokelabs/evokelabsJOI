@@ -47,7 +47,7 @@ import Draggable from 'react-draggable'
 // Constants
 // const debug = true
 const debug = false
-const INITIAL_CAMERA_POSITION = [0.2, 1.4, -1] as const
+const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 const MENU_HOME_WAIT_TIMER_COOKIE = 18000
 const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
 
@@ -259,7 +259,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [selectedShowOnlyOption, setSelectedShowOnlyOption] = useState('All')
   const [selectedSortByOption, setSelectedSortByOption] = useState('Date (Newest)')
 
-  const [position, setPosition] = useState<[number, number, number]>([-0.0, 1.42, 2])
+  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.1])
   const [isDragging, setIsDragging] = useState(false)
 
   const handleMouseDown = useCallback(() => {
@@ -320,7 +320,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 }}
               >
                 <Html
-                  scale={0.035}
+                  scale={0.034}
                   prepend
                   distanceFactor={10}
                   transform
@@ -384,7 +384,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
               </AnimationContext.Provider>
             </SoundsContext.Provider>
             <EffectComposer disableNormalPass>
-              <DepthOfField target={[0.8, 1.75, 1.8]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
+              <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
               <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
               <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
               <Noise opacity={0.7} premultiply blendFunction={28} />
