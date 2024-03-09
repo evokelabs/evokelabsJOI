@@ -24,8 +24,8 @@ const VideoFrame = ({
 
   const videoRef = useRef<HTMLVideoElement | null>(null)
 
-  const [videoKey, setVideoKey] = useState(0)
   const [progressTriggered, setProgressTriggered] = useState(false)
+  const [videoError, setVideoError] = useState(false)
 
   const handleVideoPlay = () => {
     setShouldMapDarkness(true)
@@ -33,6 +33,11 @@ const VideoFrame = ({
       soundAudioLevelControls.setMuteMusic(true)
       soundAudioLevelControls.setMuteRain(true)
       soundAudioLevelControls.setMuteSFX(true)
+    }
+    if (!videoError && videoRef.current && videoRef.current.error === null) {
+      videoRef.current.muted = false
+    } else if (videoRef.current) {
+      videoRef.current.muted = true
     }
   }
 
@@ -49,6 +54,18 @@ const VideoFrame = ({
     }
   }
 
+  useEffect(() => {
+    // Set videoError to false when the component mounts
+    setVideoError(false)
+
+    return () => {
+      // Set videoError to false when the component unmounts
+      setVideoError(false)
+      // Call handleVideoPlay when the component unmounts
+      handleVideoPause()
+    }
+  }, [])
+
   //Intelligent video sound control based on sound context
   useEffect(() => {
     initialMuteMusic.current = soundAudioLevelControls.muteAll
@@ -64,63 +81,40 @@ const VideoFrame = ({
   useEffect(() => {
     const video = videoRef.current
     if (video) {
-      const handlePlay = () => console.log('Video playback has started')
-      const handlePlaying = () => console.log('Video is currently playing')
-
-      const handleLoadStart = () => console.log('Browser has started loading the video')
-      const handleLoadedData = () => console.log('Browser has loaded the current frame')
-
-      const handleProgress = () => {
-        console.log('Browser is downloading the video')
-        setProgressTriggered(true)
+      const handleError = () => {
+        console.error('Video failed to load')
+        console.error('Error code:', video.error?.code)
+        console.error('Error message:', video.error?.message)
+        setVideoError(true)
       }
 
-      const handleError = () => {
-        console.log('Video failed to load')
-        console.log('Error code:', video.error?.code)
-        console.log('Error message:', video.error?.message)
-
-        // Only change the videoKey state if a progress event has not been triggered
-        if (!progressTriggered) {
-          setVideoKey(prevKey => prevKey + 1)
+      const handlePlaying = () => {
+        // Unmute the video when it starts playing, unless there was a video error
+        if (!videoError) {
+          video.muted = false
         }
       }
 
-      video.addEventListener('play', handlePlay)
-      video.addEventListener('playing', handlePlaying)
-      video.addEventListener('progress', handleProgress)
-      video.addEventListener('loadstart', handleLoadStart)
-      video.addEventListener('loadeddata', handleLoadedData)
       video.addEventListener('error', handleError)
+      video.addEventListener('playing', handlePlaying)
+      video.addEventListener('play', handleVideoPlay)
 
       return () => {
-        video.removeEventListener('play', handlePlay)
-        video.removeEventListener('playing', handlePlaying)
-        video.removeEventListener('progress', handleProgress)
-        video.removeEventListener('loadstart', handleLoadStart)
-        video.removeEventListener('loadeddata', handleLoadedData)
         video.removeEventListener('error', handleError)
+        video.removeEventListener('playing', handlePlaying)
+        video.removeEventListener('play', handleVideoPlay)
       }
     }
-  }, [])
+  }, [videoError, progressTriggered, handleVideoPlay])
 
-  useEffect(() => {
-    // Try to reload the video
-    const video = videoRef.current
-    if (video) {
-      video.load()
-    }
-
-    // Reset progressTriggered state
-    setProgressTriggered(false)
-  }, [videoKey])
+  // Remove the unmute logic from handleVideoPlay
 
   return (
     <div>
       <div className='w-full bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60  p-2 pb-0 border-b-0 shadow-red-blur'>
         <video
-          key={videoKey}
           ref={videoRef}
+          muted
           className='w-full h-full object-cover'
           controls
           src={videoURL}

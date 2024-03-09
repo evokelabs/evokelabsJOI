@@ -8,7 +8,7 @@ const VideoFrameMute = ({ videoURL, soundAudioLevelControls }: { videoURL: strin
   return (
     <div>
       <div className='w-full bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60  p-2 pb-0 border-b-0 shadow-red-blur'>
-        <video className='w-full h-full object-cover' autoPlay loop src={videoURL} />
+        <video className='w-full h-full object-cover' muted autoPlay loop src={videoURL} />
       </div>
       <div className='h-2 border-b-2 bg-grid-darkRed border-l-2 border-red border-opacity-60 mr-2 relative pb-2 '>
         <div className='absolute -right-3'>
