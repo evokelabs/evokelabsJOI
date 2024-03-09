@@ -3,7 +3,7 @@ import { PerspectiveCamera, Vector3 } from 'three'
 
 const CAMERA_DAMPING = 0.015
 const CAMERA_X_OFFSET = 3
-const CAMERA_Y_OFFSET = 0.5
+const CAMERA_Y_OFFSET = -0.6
 
 const CameraRig = ({ fov, debug }: { fov: number; debug: boolean }) => {
   const { camera } = useThree()
