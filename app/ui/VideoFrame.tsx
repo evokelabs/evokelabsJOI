@@ -17,12 +17,10 @@ const VideoFrame = ({
   const [userMutedMusic, setUserMutedMusic] = useState(soundAudioLevelControls.muteMusic)
   const [userMutedRain, setUserMutedRain] = useState(soundAudioLevelControls.muteRain)
   const [userMutedSFX, setUserMutedSFX] = useState(soundAudioLevelControls.muteSFX)
-  const [userMutedJOI, setUserMutedJOI] = useState(soundAudioLevelControls.muteJOI)
 
   const initialMuteMusic = useRef(userMutedMusic)
   const initialMuteRain = useRef(userMutedRain)
   const initialMuteSFX = useRef(userMutedSFX)
-  const initialMuteJOI = useRef(userMutedJOI)
 
   const videoRef = useRef<HTMLVideoElement | null>(null)
 
@@ -42,7 +40,6 @@ const VideoFrame = ({
         soundAudioLevelControls.setMuteMusic(true)
         soundAudioLevelControls.setMuteRain(true)
         soundAudioLevelControls.setMuteSFX(true)
-        soundAudioLevelControls.setMuteJOI(true)
       }
     }
   }, [userMutedAll, setShouldMapDarkness, soundAudioLevelControls])
@@ -50,17 +47,13 @@ const VideoFrame = ({
   const handleVideoPause = () => {
     setShouldMapDarkness(false)
     if (userMutedAll) {
-      console.log('trigger 1 ', userMutedAll)
       soundAudioLevelControls.setMuteMusic(true)
       soundAudioLevelControls.setMuteRain(true)
       soundAudioLevelControls.setMuteSFX(true)
-      soundAudioLevelControls.setMuteJOI(true)
     } else {
-      console.log('trigger 2 ', userMutedAll)
       soundAudioLevelControls.setMuteMusic(false)
       soundAudioLevelControls.setMuteRain(false)
       soundAudioLevelControls.setMuteSFX(false)
-      soundAudioLevelControls.setMuteJOI(false)
     }
   }
 
@@ -72,6 +65,7 @@ const VideoFrame = ({
       // Set videoError to false when the component unmounts
       setVideoError(false)
       // Call handleVideoPlay when the component unmounts
+
       handleVideoPause()
     }
   }, [])
@@ -81,12 +75,11 @@ const VideoFrame = ({
     initialMuteMusic.current = soundAudioLevelControls.muteAll
     initialMuteRain.current = soundAudioLevelControls.muteAll
     initialMuteSFX.current = soundAudioLevelControls.muteAll
-    initialMuteJOI.current = soundAudioLevelControls.muteAll
+
     setUserMutedAll(soundAudioLevelControls.muteAll)
     setUserMutedMusic(initialMuteMusic.current)
     setUserMutedRain(initialMuteRain.current)
     setUserMutedSFX(initialMuteSFX.current)
-    setUserMutedJOI(initialMuteJOI.current)
   }, [soundAudioLevelControls.muteAll])
 
   //Restore sound settings when unmounting
@@ -102,13 +95,12 @@ const VideoFrame = ({
         videoErrorRef.current = true
         video.muted = true
 
-        if (!userMutedAll) {
-          console.log('unmute all video error')
-          soundAudioLevelControls.setMuteMusic(false)
-          soundAudioLevelControls.setMuteRain(false)
-          soundAudioLevelControls.setMuteSFX(false)
-          soundAudioLevelControls.setMuteJOI(false)
-        }
+        // if (!userMutedAll) {
+        //   console.log('unmute all video error')
+        //   soundAudioLevelControls.setMuteMusic(false)
+        //   soundAudioLevelControls.setMuteRain(false)
+        //   soundAudioLevelControls.setMuteSFX(false)
+        // }
 
         return
       }

@@ -38,8 +38,10 @@ const CyberpunkMap = () => {
   }
 
   const animateShutters = useCallback((object: Mesh<any, any, any>, positionY: number, speed: number, pointLightState: boolean) => {
-    gsap.killTweensOf(object.position)
-    // setIsAnimating(false)
+    if (isAnimating) {
+      gsap.killTweensOf(object.position)
+      // setIsAnimating(false)
+    }
 
     const distance = Math.abs(object.position.y - positionY)
     const duration = distance / speed
