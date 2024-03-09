@@ -370,7 +370,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 <VideoSkybox />
                 <ELAudioStartSoundControl />
                 {debug ? <Perf position='top-left' /> : null}
-                {/* <Perf position='top-left' /> */}
                 <CameraRig fov={fov} debug={debug} />
                 <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
 

@@ -119,17 +119,25 @@ const VideoFrame = ({
   // Remove the unmute logic from handleVideoPlay
 
   return (
-    <div>
-      <div className='w-full bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60  p-2 pb-0 border-b-0 shadow-red-blur'>
-        <video
-          ref={videoRef}
-          muted
-          className='w-full h-full object-cover'
-          controls
-          src={videoURL}
-          onPlay={handleVideoPlay}
-          onPause={handleVideoPause}
-        />
+    <>
+      <div className='h-[500px]'>
+        {videoError ? (
+          <div className='w-full h-full  bg-grid-brightRed  border-red border-t-2 border-x-2 border-opacity-60 p-2 border-b-0 shadow-red-blur flex justify-center items-center text-teal-blur text-2xl font-orbitron font-semibold'>
+            Audio Error. Please refresh the page or visit another section.
+          </div>
+        ) : (
+          <div className='w-full bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60  p-2 pb-0 border-b-0 shadow-red-blur'>
+            <video
+              ref={videoRef}
+              muted
+              className='w-full h-full object-cover'
+              controls
+              src={videoURL}
+              onPlay={handleVideoPlay}
+              onPause={handleVideoPause}
+            />
+          </div>
+        )}
       </div>
       <div className='h-2 border-b-2 bg-grid-darkRed border-l-2 border-red border-opacity-60 mr-2 relative pb-2 '>
         <div className='absolute -right-3'>
@@ -144,7 +152,7 @@ const VideoFrame = ({
           </svg>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
