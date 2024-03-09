@@ -17,55 +17,50 @@ const VideoFrame = ({
   const [userMutedMusic, setUserMutedMusic] = useState(soundAudioLevelControls.muteMusic)
   const [userMutedRain, setUserMutedRain] = useState(soundAudioLevelControls.muteRain)
   const [userMutedSFX, setUserMutedSFX] = useState(soundAudioLevelControls.muteSFX)
+  const [userMutedJOI, setUserMutedJOI] = useState(soundAudioLevelControls.muteJOI)
 
   const initialMuteMusic = useRef(userMutedMusic)
   const initialMuteRain = useRef(userMutedRain)
   const initialMuteSFX = useRef(userMutedSFX)
+  const initialMuteJOI = useRef(userMutedJOI)
 
   const videoRef = useRef<HTMLVideoElement | null>(null)
 
   const [progressTriggered, setProgressTriggered] = useState(false)
   const [videoError, setVideoError] = useState(false)
 
-  const videoErrorRef = useRef(false)
+  const videoErrorRef = useRef(videoError)
 
   const handleVideoPlay = useCallback(() => {
     console.log('handleVideoPlay trigger')
-    console.log('videoError:', videoErrorRef.current, 'videoRef.current.error:', videoRef.current?.error)
 
     const video = videoRef.current
     if (video) {
-      if (video.error) {
-        console.error('Video failed to load')
-        console.error('Error code:', video.error.code)
-        console.error('Error message:', video.error.message)
-        videoErrorRef.current = true
-        return
-      }
-
       video.muted = false // Unmute the video
-
-      console.log('video error:', video.error)
-      console.log('userMutedAll:', userMutedAll)
-      if (!userMutedAll && !videoError) {
+      if (!userMutedAll) {
         setShouldMapDarkness(true)
         soundAudioLevelControls.setMuteMusic(true)
         soundAudioLevelControls.setMuteRain(true)
         soundAudioLevelControls.setMuteSFX(true)
+        soundAudioLevelControls.setMuteJOI(true)
       }
     }
-  }, [userMutedAll, soundAudioLevelControls, videoError, setShouldMapDarkness])
+  }, [userMutedAll, setShouldMapDarkness, soundAudioLevelControls])
 
   const handleVideoPause = () => {
     setShouldMapDarkness(false)
     if (userMutedAll) {
+      console.log('trigger 1 ', userMutedAll)
       soundAudioLevelControls.setMuteMusic(true)
       soundAudioLevelControls.setMuteRain(true)
       soundAudioLevelControls.setMuteSFX(true)
+      soundAudioLevelControls.setMuteJOI(true)
     } else {
+      console.log('trigger 2 ', userMutedAll)
       soundAudioLevelControls.setMuteMusic(false)
       soundAudioLevelControls.setMuteRain(false)
       soundAudioLevelControls.setMuteSFX(false)
+      soundAudioLevelControls.setMuteJOI(false)
     }
   }
 
@@ -86,10 +81,12 @@ const VideoFrame = ({
     initialMuteMusic.current = soundAudioLevelControls.muteAll
     initialMuteRain.current = soundAudioLevelControls.muteAll
     initialMuteSFX.current = soundAudioLevelControls.muteAll
+    initialMuteJOI.current = soundAudioLevelControls.muteAll
     setUserMutedAll(soundAudioLevelControls.muteAll)
     setUserMutedMusic(initialMuteMusic.current)
     setUserMutedRain(initialMuteRain.current)
     setUserMutedSFX(initialMuteSFX.current)
+    setUserMutedJOI(initialMuteJOI.current)
   }, [soundAudioLevelControls.muteAll])
 
   //Restore sound settings when unmounting
@@ -100,8 +97,20 @@ const VideoFrame = ({
         console.error('Video failed to load')
         console.error('Error code:', video.error?.code)
         console.error('Error message:', video.error?.message)
+        setVideoError(true)
+        setShouldMapDarkness(false)
         videoErrorRef.current = true
-        setVideoError(true) // Add this line
+        video.muted = true
+
+        if (!userMutedAll) {
+          console.log('unmute all video error')
+          soundAudioLevelControls.setMuteMusic(false)
+          soundAudioLevelControls.setMuteRain(false)
+          soundAudioLevelControls.setMuteSFX(false)
+          soundAudioLevelControls.setMuteJOI(false)
+        }
+
+        return
       }
 
       video.addEventListener('error', handleError)
@@ -112,8 +121,11 @@ const VideoFrame = ({
         video.removeEventListener('play', handleVideoPlay)
       }
     }
-  }, [handleVideoPlay, progressTriggered, videoError])
+  }, [handleVideoPlay, progressTriggered, setShouldMapDarkness, soundAudioLevelControls, userMutedAll, videoError])
 
+  useEffect(() => {
+    videoErrorRef.current = videoError
+  }, [videoError])
   // Remove the unmute logic from handleVideoPlay
 
   return (
@@ -121,7 +133,7 @@ const VideoFrame = ({
       <div>
         {videoError ? (
           <div className='w-full h-[634px] bg-grid-brightRed  border-red border-2 border-opacity-60 shadow-red-blur flex justify-center items-center text-teal-blur text-2xl font-orbitron font-semibold'>
-            Audio Error. Please refresh the page or visit another section.
+            Audio Hardware Error. Please refresh the page or visit another section.
           </div>
         ) : (
           <div className='w-full bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60  p-2 pb-0 border-b-0 shadow-red-blur'>

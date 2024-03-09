@@ -38,10 +38,8 @@ const CyberpunkMap = () => {
   }
 
   const animateShutters = useCallback((object: Mesh<any, any, any>, positionY: number, speed: number, pointLightState: boolean) => {
-    if (isAnimating) {
-      gsap.killTweensOf(object.position)
-      // setIsAnimating(false)
-    }
+    gsap.killTweensOf(object.position)
+    // setIsAnimating(false)
 
     const distance = Math.abs(object.position.y - positionY)
     const duration = distance / speed
@@ -53,13 +51,13 @@ const CyberpunkMap = () => {
       onStart: () => {
         if (!playShutterAudio) {
           setShutterAudioVolume(0.2)
-          setPlayShutterAudio(true)
+          // setPlayShutterAudio(true)
         }
         setIsAnimating(true)
         setPointLightPlay(pointLightState)
       },
       onComplete: () => {
-        setPlayShutterAudio(false)
+        // setPlayShutterAudio(false)
         setIsAnimating(false)
       }
     })
@@ -69,6 +67,7 @@ const CyberpunkMap = () => {
   const animateShuttersDown = (object: Mesh<any, any, any>) => animateShutters(object, 1.55, 0.35, false)
 
   useEffect(() => {
+    console.log('use effect Cyberpunk triggered', shouldMapDarkness)
     if (modelLoaded && meshRef.current) {
       meshRef.current.traverse(object => {
         if (object instanceof Mesh && object.name === 'Window_Shutters_Closed') {

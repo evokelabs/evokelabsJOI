@@ -5,8 +5,10 @@ export interface SoundAudioLevelControls {
   setMuteMusic: Dispatch<SetStateAction<boolean>>
   setMuteRain: Dispatch<SetStateAction<boolean>>
   setMuteSFX: Dispatch<SetStateAction<boolean>>
+  setMuteJOI: Dispatch<SetStateAction<boolean>>
   muteAll: boolean
   muteMusic: boolean
   muteRain: boolean
   muteSFX: boolean
+  muteJOI: boolean
 }

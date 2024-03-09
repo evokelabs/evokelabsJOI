@@ -249,10 +249,12 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     setMuteMusic,
     setMuteRain,
     setMuteSFX,
+    setMuteJOI,
     muteAll,
     muteMusic,
     muteRain,
-    muteSFX
+    muteSFX,
+    muteJOI
   }
 
   //Portfolio Pulldown states
