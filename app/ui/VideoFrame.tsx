@@ -31,14 +31,7 @@ const VideoFrame = ({
 
   const handleVideoPlay = useCallback(() => {
     console.log('handleVideoPlay trigger')
-    console.log(
-      'videoError:',
-      videoErrorRef.current,
-      'videoRef.current.error:',
-      videoRef.current?.error,
-      'videoRef.current:',
-      videoRef.current
-    )
+    console.log('videoError:', videoErrorRef.current, 'videoRef.current.error:', videoRef.current?.error)
 
     const video = videoRef.current
     if (video) {
@@ -49,13 +42,15 @@ const VideoFrame = ({
         videoErrorRef.current = true
         return
       }
-    }
 
-    setShouldMapDarkness(true)
-    if (!userMutedAll) {
-      soundAudioLevelControls.setMuteMusic(true)
-      soundAudioLevelControls.setMuteRain(true)
-      soundAudioLevelControls.setMuteSFX(true)
+      video.muted = false // Unmute the video
+
+      setShouldMapDarkness(true)
+      if (!userMutedAll) {
+        soundAudioLevelControls.setMuteMusic(true)
+        soundAudioLevelControls.setMuteRain(true)
+        soundAudioLevelControls.setMuteSFX(true)
+      }
     }
   }, [userMutedAll, soundAudioLevelControls, setShouldMapDarkness])
 
@@ -104,6 +99,7 @@ const VideoFrame = ({
         console.error('Error code:', video.error?.code)
         console.error('Error message:', video.error?.message)
         videoErrorRef.current = true
+        setVideoError(true) // Add this line
       }
 
       video.addEventListener('error', handleError)
@@ -120,9 +116,9 @@ const VideoFrame = ({
 
   return (
     <>
-      <div className='h-[500px]'>
+      <div className='min-h-[620px] h-full'>
         {videoError ? (
-          <div className='w-full h-full  bg-grid-brightRed  border-red border-t-2 border-x-2 border-opacity-60 p-2 border-b-0 shadow-red-blur flex justify-center items-center text-teal-blur text-2xl font-orbitron font-semibold'>
+          <div className='w-full h-full bg-grid-brightRed  border-red border-t-2 border-x-2 border-opacity-60 p-2 border-b-0 shadow-red-blur flex justify-center items-center text-teal-blur text-2xl font-orbitron font-semibold'>
             Audio Error. Please refresh the page or visit another section.
           </div>
         ) : (
