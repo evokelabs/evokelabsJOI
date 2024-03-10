@@ -393,7 +393,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
                     <VideoSkybox />
                     <ELAudioStartSoundControl />
-                    <CameraRig fov={fov} debug={false} />
+                    <CameraRig fov={fov} debug={true} />
                     <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
 
                     <Lights />
