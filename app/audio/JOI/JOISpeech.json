@@ -21,7 +21,7 @@
       "filepath": "./sounds/JOI-voice/00-Intro/Preloader/05-preloader.mp3"
     },
     {
-      "text": "I always knew you were special",
+      "text": "I always knew you were special.",
       "filepath": "./sounds/JOI-voice/00-Intro/Preloader/06-preloader.mp3"
     }
   ],
@@ -39,12 +39,12 @@
       "filepath": "./sounds/JOI-voice/00-Intro/Intro/03-intro.mp3"
     },
     {
-      "text": "Good to see you once more. Happy to have you visit Evoke Labs again",
+      "text": "Good to see you once more. Happy to have you visit Evoke Labs again.",
       "filepath": "./sounds/JOI-voice/00-Intro/Intro/04-intro.mp3"
     }
   ],
   "services": [
-    { "text": "We've got the skills, if you've got the credits", "filepath": "./sounds/JOI-voice/01-Services/01-skillscredits.mp3" },
+    { "text": "We've got the skills, if you've got the credits.", "filepath": "./sounds/JOI-voice/01-Services/01-skillscredits.mp3" },
     { "text": "Netrunner for hire, just what every corpo needs.", "filepath": "./sounds/JOI-voice/01-Services/02-netrunner.mp3" },
     { "text": "We take the corpo life path very seriously.", "filepath": "./sounds/JOI-voice/01-Services/03-corpolifepath.mp3" },
     { "text": "They say there's no such thing as fair game. We disagree.", "filepath": "./sounds/JOI-voice/01-Services/04-fairgame.mp3" },
@@ -61,8 +61,8 @@
       "filepath": "./sounds/JOI-voice/02-Portfolio/02-takealook.mp3"
     },
     { "text": "We're experienced edgerunners.", "filepath": "./sounds/JOI-voice/02-Portfolio/03-edgerunners.mp3" },
-    { "text": "You might be featured here one day", "filepath": "./sounds/JOI-voice/02-Portfolio/04-featured.mp3" },
-    { "text": "Past projects, future inspirations", "filepath": "./sounds/JOI-voice/02-Portfolio/05-pastprojects.mp3" },
+    { "text": "You might be featured here one day.", "filepath": "./sounds/JOI-voice/02-Portfolio/04-featured.mp3" },
+    { "text": "Past projects, future inspirations.", "filepath": "./sounds/JOI-voice/02-Portfolio/05-pastprojects.mp3" },
     { "text": "Work for yourself, live for yourself. The only way.", "filepath": "./sounds/JOI-voice/02-Portfolio/06-workforyourself.mp3" },
     { "text": "No two gigs are ever the same.", "filepath": "./sounds/JOI-voice/02-Portfolio/07-twogigs.mp3" }
   ],
@@ -72,7 +72,7 @@
       "filepath": "./sounds/JOI-voice/03-History/01-twentyyearsexperience.mp3"
     },
     {
-      "text": "These are the earlier renditions of Evoke Labs",
+      "text": "These are the earlier renditions of Evoke Labs.",
       "filepath": "./sounds/JOI-voice/03-History/02-earlierrend.mp3"
     },
     {
@@ -89,7 +89,7 @@
     },
 
     {
-      "text": "There's no substitute for experience",
+      "text": "There's no substitute for experience.",
       "filepath": "./sounds/JOI-voice/03-History/06-nosub.mp3"
     },
     {
@@ -126,7 +126,7 @@
   ],
   "JOISpecial": [
     {
-      "text": "Not a Joytoy, a digital assistant.",
+      "text": "Not a joytoy, a digital assistant.",
       "filepath": "./sounds/JOI-voice/05-JOISpecial/01-joytoy.mp3"
     },
     { "text": "I just know we're going to be good friends.", "filepath": "./sounds/JOI-voice/05-JOISpecial/02-friends.mp3" },
@@ -228,72 +228,72 @@
       "open": [
         {
           "text": "Our timings are open and the future looks clear.",
-          "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-timings.mp3"
+          "filepath": "./sounds/JOI-voice/06-Availability/Open/01-timings.mp3"
         },
         {
           "text": "Good news, our schedule is free.",
-          "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-freeschedule.mp3"
+          "filepath": "./sounds/JOI-voice/06-Availability/Open/02-freeschedule.mp3"
         },
         {
           "text": "You're in luck, our calendar has some space.",
-          "filepath": "./sounds/JOI-voice/06-Availability/Busy/03-calendar.mp3"
+          "filepath": "./sounds/JOI-voice/06-Availability/Open/03-calendar.mp3"
         },
         {
           "text": "Now is an excellent time to get in touch.",
-          "filepath": "./sounds/JOI-voice/06-Availability/Busy/04-getintouch.mp3"
+          "filepath": "./sounds/JOI-voice/06-Availability/Open/04-getintouch.mp3"
         },
         {
           "text": "Great timing, we're free for new opportunities.",
-          "filepath": "./sounds/JOI-voice/06-Availability/Busy/05-greattimings.mp3"
+          "filepath": "./sounds/JOI-voice/06-Availability/Open/05-greattimings.mp3"
         },
         {
           "text": "And we're open, this is a perfect time to connect.",
-          "filepath": "./sounds/JOI-voice/06-Availability/Busy/06-connect.mp3"
+          "filepath": "./sounds/JOI-voice/06-Availability/Open/06-wereopen.mp3"
         },
         [
           {
             "email": [
               {
                 "text": "Send an email",
-                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/01-sendemail.mp3"
+                "filepath": "./sounds/JOI-voice/06-Availability/Open/01-email/01-sendemail.mp3"
               },
               {
                 "text": "Drop us an email",
-                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/02-dropemail.mp3"
+                "filepath": "./sounds/JOI-voice/06-Availability/Open/01-email/02-dropemail.mp3"
               },
               {
                 "text": "Flick us an email",
-                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/03-flickemail.mp3"
+                "filepath": "./sounds/JOI-voice/06-Availability/Open/01-email/03-flickemail.mp3"
               },
               {
                 "text": "Slide into our inbox",
-                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/04-slideintoourinbox.mp3"
+                "filepath": "./sounds/JOI-voice/06-Availability/Open/01-email/04-slideintoourinbox.mp3"
               },
               {
                 "text": "Pop us an email",
-                "filepath": "./sounds/JOI-voice/06-Availability/Busy/01-email/05-popusanemail.mp3"
+                "filepath": "./sounds/JOI-voice/06-Availability/Open/01-email/05-popusanemail.mp3"
               }
             ],
             "follow": [
               {
-                "text": "and you'll get a speedy reply.",
-                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/01-speedyreply.mp3"
+                "text": " and you'll get a speedy reply.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Open/02-follow/01-speedyreply.mp3"
               },
               {
-                "text": "and you can expect a fast response.",
-                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/02-fastresponse.mp3"
+                "text": " and you can expect a fast response.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Open/02-follow/02-fastresponse.mp3"
               },
               {
-                "text": "and we'll make sure to reply promptly.",
-                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/03-replypromptly.mp3"
+                "text": " and we'll make sure to reply promptly.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Open/02-follow/03-replypromptly.mp3"
               },
               {
                 "text": "and we'll respond in a flash.",
-                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/04-flash.mp3"
+                "filepath": "./sounds/JOI-voice/06-Availability/Open/02-follow/04-flash.mp3"
               },
               {
-                "text": "and we'll get back to you in record time.",
-                "filepath": "./sounds/JOI-voice/06-Availability/Busy/02-follow/05-recordtime.mp3"
+                "text": " and we'll get back to you in record time.",
+                "filepath": "./sounds/JOI-voice/06-Availability/Open/02-follow/05-recordtime.mp3"
               }
             ]
           }

@@ -20,10 +20,10 @@ const TypeOnSoundControl: React.FC<TypeOnSoundControlProps> = ({
   isTyping,
   onEndSound
 }) => {
+  const track = useRef<MediaElementAudioSourceNode | null>(null)
   const audioElement = useRef(new Audio(AUDIO_SOURCE_LOOP))
   const audioEndElement = useRef(new Audio(AUDIO_SOURCE_END))
   const audioContext = useRef(new AudioContext())
-  const gainNode = useRef(audioContext.current.createGain())
 
   // Define a function to play the audio
   const playAudio = useCallback(() => {
@@ -42,18 +42,25 @@ const TypeOnSoundControl: React.FC<TypeOnSoundControlProps> = ({
     audioEndElement.current.onended = onEndSound
   }, [onEndSound])
 
+  const endTrack = useRef<MediaElementAudioSourceNode | null>(null)
+
   useEffect(() => {
     const audioElementCurrent = audioElement.current
     const audioEndElementCurrent = audioEndElement.current
 
+    if (!track.current) {
+      track.current = audioContext.current.createMediaElementSource(audioElementCurrent)
+    }
+
+    if (!endTrack.current) {
+      endTrack.current = audioContext.current.createMediaElementSource(audioEndElementCurrent)
+    }
+
     audioElementCurrent.volume = volume
     audioEndElementCurrent.volume = volume
 
-    // Connect the audio elements to the AudioContext
-    const track = audioContext.current.createMediaElementSource(audioElementCurrent)
-    const endTrack = audioContext.current.createMediaElementSource(audioEndElementCurrent)
-    track.connect(audioContext.current.destination)
-    endTrack.connect(audioContext.current.destination)
+    track.current.connect(audioContext.current.destination)
+    endTrack.current.connect(audioContext.current.destination)
 
     return () => {
       audioElementCurrent.pause()

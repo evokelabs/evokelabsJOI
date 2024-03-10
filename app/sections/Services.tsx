@@ -25,7 +25,6 @@ import VR from '@/app/ui/png/services/VR.png'
 import FixABookingSVG from '../ui/svg/button/FixABookingSVG'
 
 import quotes from './data/quotes.json'
-import { useEffect, useState } from 'react'
 import TypingAnimation from '../libs/TypingAnimation'
 
 const ContentHead = () => {
@@ -157,7 +156,7 @@ const Services = () => {
           paragraph='Above all, Evoke Labs is dedicated to delivering a positive experience for end users, team members and stakeholders alike. Your happiness is our ultimate goal, driven by commitment, open communications and proven results.'
         />
       </div>
-      <div className='my-6 space-y-1 pr-2 h-[60px]'>
+      <div className='my-6 space-y-1 pr-2 h-[64px]'>
         <TypingAnimation quotes={quotes} />
       </div>
       <HR />
@@ -166,7 +165,7 @@ const Services = () => {
         <p>Your digital transformation is just a click away.</p>
       </div>
       <div className='flex flex-row justify-between mb-4 pt-1'>
-        <ButtonDefault label='Fix a booking' svgIcon={<FixABookingSVG />} />
+        <ButtonDefault label='FIX A BOOKING' svgIcon={<FixABookingSVG />} />
         <ButtonDefault />
       </div>
     </PanelContent>

@@ -1,3 +1,3 @@
-export default function joi() {
+export default function page() {
   return null
 }

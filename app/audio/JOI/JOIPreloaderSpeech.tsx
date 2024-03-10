@@ -1,74 +1,80 @@
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { Howl } from 'howler'
 
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
+import { SoundControlContext } from '@/app/libs/SoundControlContext'
 
 const AUDIO_SOURCES = JOISpeech.preloader.map(item => item.filepath)
 
-const VOLUME = 1.575
-const DELAY = 2500
+const VOLUME = 0.55
+const DELAY = 500
 const TRANSITION_DURATION = 150
 const LOOP = false
+const INTERACTION_TIMEOUT = 10000 // 10 seconds
 
 const JOIPreloaderSpeech = () => {
-  const audioElement = useRef<HTMLAudioElement | null>(null)
-  const gainNode = useRef<GainNode | null>(null)
+  const { muteJOI } = useContext(SoundControlContext)
+  const [hasUserInteracted, setHasUserInteracted] = useState(false)
+  const [hasPlayed, setHasPlayed] = useState(false)
+  const [interactionTimeoutReached, setInteractionTimeoutReached] = useState(false)
 
   useEffect(() => {
-    // Create a new AudioContext and an audio element
-    const audioContext = new AudioContext()
-    audioElement.current = new Audio()
+    // Set up event listeners for user interaction
+    const handleUserInteraction = () => {
+      setHasUserInteracted(true)
+      clearTimeout(interactionTimeout) // Clear the timeout if the user interacts with the window
+    }
+
+    // Set a timeout to set interactionTimeoutReached to true after 10 seconds
+    const interactionTimeout = setTimeout(() => {
+      setInteractionTimeoutReached(true)
+    }, INTERACTION_TIMEOUT)
+
+    window.addEventListener('click', handleUserInteraction)
+    window.addEventListener('keydown', handleUserInteraction)
+
+    // Clean up the event listeners and timeout when the component unmounts
+    return () => {
+      window.removeEventListener('click', handleUserInteraction)
+      window.removeEventListener('keydown', handleUserInteraction)
+      clearTimeout(interactionTimeout)
+    }
+  }, []) // Empty dependency array so this effect only runs once on mount
+
+  useEffect(() => {
+    if (!hasUserInteracted || interactionTimeoutReached) return
 
     // Select a random audio source
     const randomIndex = Math.floor(Math.random() * AUDIO_SOURCES.length)
-    audioElement.current.src = AUDIO_SOURCES[randomIndex]
+    const audioSource = AUDIO_SOURCES[randomIndex]
 
-    // Create a GainNode to control the volume
-    gainNode.current = audioContext.createGain()
+    const sound = new Howl({
+      html5: true,
+      src: [audioSource],
+      loop: LOOP,
+      volume: 0.001, // Start with a small positive volume
+      onload: () => {
+        // Define a function to play the audio
+        const playAudio = () => {
+          // Gradually increase the volume to the desired level over the transition duration
+          const targetVolume = muteJOI ? 0.001 : VOLUME
+          sound.fade(sound.volume(), targetVolume, TRANSITION_DURATION)
 
-    // Create a MediaElementAudioSourceNode from the audio element
-    const source = audioContext.createMediaElementSource(audioElement.current)
-    source.connect(gainNode.current)
-    gainNode.current.connect(audioContext.destination)
+          // Start playing the audio
+          sound.play()
 
-    // Define a function to handle the 'ended' event
-    const handleEnded = () => {
-      if (gainNode.current) {
-        gainNode.current.disconnect()
-      }
-      source.disconnect()
-      audioContext.close()
-    }
-
-    // Define a function to play the audio
-    const playAudio = () => {
-      if (audioElement.current && gainNode.current) {
-        audioElement.current.play()
-        audioElement.current.loop = LOOP
-
-        // Start the volume at a small positive value
-        gainNode.current.gain.setValueAtTime(0.001, audioContext.currentTime)
-
-        // Gradually increase the volume to the desired level over the transition duration
-        if (VOLUME > 0) {
-          gainNode.current.gain.exponentialRampToValueAtTime(VOLUME, audioContext.currentTime + TRANSITION_DURATION / 1000)
-        } else {
-          gainNode.current.gain.setValueAtTime(0, audioContext.currentTime + TRANSITION_DURATION / 1000)
+          setHasPlayed(true) // Set hasPlayed to true after the audio has been played
         }
 
-        // Add the 'ended' event listener
-        audioElement.current.addEventListener('ended', handleEnded)
+        setTimeout(playAudio, DELAY)
       }
-    }
+    })
 
-    setTimeout(playAudio, DELAY)
-
-    // Clean up event listeners when the component unmounts
+    // Clean up the Howl instance when the component unmounts
     return () => {
-      if (audioElement.current) {
-        audioElement.current.removeEventListener('ended', handleEnded)
-      }
+      sound.unload()
     }
-  }, [])
+  }, [hasPlayed, hasUserInteracted, muteJOI, interactionTimeoutReached])
 
   return null
 }

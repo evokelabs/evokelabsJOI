@@ -9,7 +9,7 @@ import ShutterSoundControl from '@/app/audio/environment/ShuttersSoundControl'
 const CyberpunkMapLowPoly = () => {
   const { scene } = useThree()
   const gltfLoader = useRef(useDracoLoader()).current
-  const { setPointLightPlay, setAmbientLightPlay, setShouldJOISpeak } = useContext(AnimationContext)
+  const { setPointLightPlay, setAmbientLightPlay } = useContext(AnimationContext)
   // Controls shutter audio
   const [playShutterAudio, setPlayShutterAudio] = useState(false)
 
@@ -37,9 +37,6 @@ const CyberpunkMapLowPoly = () => {
                   },
                   onComplete: () => {
                     setPlayShutterAudio(false)
-                    gsap.delayedCall(1, () => {
-                      setShouldJOISpeak(true)
-                    })
                   }
                 })
                 break
@@ -72,7 +69,7 @@ const CyberpunkMapLowPoly = () => {
         if (child instanceof Scene) scene.remove(child)
       })
     }
-  }, [scene, gltfLoader, setPointLightPlay, setAmbientLightPlay, setShouldJOISpeak])
+  }, [scene, gltfLoader, setPointLightPlay, setAmbientLightPlay])
 
   return playShutterAudio ? <ShutterSoundControl volume={0.45} delay={0} transitionDuration={0} loop={false} /> : null
 }

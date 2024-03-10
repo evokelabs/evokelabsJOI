@@ -1,3 +1,4 @@
+import { NextRouter } from 'next/router'
 import { RED } from '../libs/UIConstants'
 import ButtonDefault from '../ui/ButtonDefault'
 import HeadingHighlight from '../ui/HeadingHighlight'
@@ -31,7 +32,7 @@ const Resume = () => {
             </>
           }
           heading='Resume'
-          button={<ButtonDefault label='hardcopy' svgIcon={<HardcopySVG />} />}
+          button={<ButtonDefault label='HARDCOPY' svgIcon={<HardcopySVG />} />}
         />
       }
     >

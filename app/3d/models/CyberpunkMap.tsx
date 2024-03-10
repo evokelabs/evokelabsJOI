@@ -1,6 +1,6 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useThree } from '@react-three/fiber'
-import { Mesh, MeshBasicMaterial, Scene, VideoTexture } from 'three'
+import { Group, Mesh, MeshBasicMaterial, Scene, VideoTexture } from 'three'
 import { gsap } from 'gsap'
 import { useDracoLoader } from '@/app/libs/useDracoLoader'
 import { AnimationContext } from '@/app/libs/AnimationContext'
@@ -9,9 +9,79 @@ import ShutterSoundControl from '@/app/audio/environment/ShuttersSoundControl'
 const CyberpunkMap = () => {
   const { scene } = useThree()
   const gltfLoader = useRef(useDracoLoader()).current
-  const { setPointLightPlay, setAmbientLightPlay, setShouldJOISpeak } = useContext(AnimationContext)
-  // Controls shutter audio
+  const { setPointLightPlay, setAmbientLightPlay, shouldMapDarkness } = useContext(AnimationContext)
   const [playShutterAudio, setPlayShutterAudio] = useState(false)
+  const [shutterAudioVolume, setShutterAudioVolume] = useState(0.45)
+  const meshRef = useRef<Group>()
+  const [modelLoaded, setModelLoaded] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
+
+  const animateIntroShutters = (object: Mesh<any, any, any>) => {
+    object.castShadow = true
+    gsap.to(object.position, {
+      y: 2.7,
+      duration: 3.25,
+      delay: 6,
+      ease: 'linear',
+      onStart: () => {
+        setPlayShutterAudio(true)
+        setAmbientLightPlay(true)
+
+        gsap.delayedCall(3, () => {
+          setPointLightPlay(true)
+        })
+      },
+      onComplete: () => {
+        setPlayShutterAudio(false)
+      }
+    })
+  }
+
+  const isAnimatingRef = useRef(false)
+
+  const animateShutters = useCallback((object: Mesh<any, any, any>, direction: 'up' | 'down') => {
+    const positionY = direction === 'up' ? 2.9 : 1.55
+    const speed = 0.35
+    const pointLightState = direction === 'up'
+
+    if (isAnimatingRef.current) {
+      gsap.killTweensOf(object.position)
+      // isAnimatingRef.current = false
+    }
+
+    const distance = Math.abs(object.position.y - positionY)
+    const duration = distance / speed
+
+    gsap.to(object.position, {
+      y: positionY,
+      duration: duration,
+      ease: 'power1.out',
+      onStart: () => {
+        if (!playShutterAudio) {
+          setShutterAudioVolume(0.2)
+        }
+        isAnimatingRef.current = true
+        setPointLightPlay(pointLightState)
+      },
+      onComplete: () => {
+        isAnimatingRef.current = false
+      }
+    })
+  }, [])
+
+  const animateShuttersUp = (object: Mesh<any, any, any>) => animateShutters(object, 'up')
+  const animateShuttersDown = (object: Mesh<any, any, any>) => animateShutters(object, 'down')
+
+  useEffect(() => {
+    console.log('use effect Cyberpunk triggered', shouldMapDarkness)
+    if (modelLoaded && meshRef.current) {
+      meshRef.current.traverse(object => {
+        if (object instanceof Mesh && object.name === 'Window_Shutters_Closed') {
+          shouldMapDarkness ? animateShuttersDown(object) : animateShuttersUp(object)
+        }
+      })
+    }
+  }, [shouldMapDarkness])
 
   useEffect(() => {
     const videoTablet = document.createElement('video')
@@ -20,49 +90,29 @@ const CyberpunkMap = () => {
     videoTablet.muted = true
     videoTablet.play()
 
-    // Create video textures
     const videoTextureTablet = new VideoTexture(videoTablet)
-
-    const videoMaterialTablet = new MeshBasicMaterial({
-      map: videoTextureTablet
-    })
+    const videoMaterialTablet = new MeshBasicMaterial({ map: videoTextureTablet })
 
     gltfLoader.load(
       '/glb/EvokelabsRoom.glb',
       gltf => {
-        scene.add(gltf.scene)
-        gltf.scene.traverse(object => {
+        if (meshRef.current) {
+          scene.remove(meshRef.current)
+        }
+        meshRef.current = gltf.scene
+        scene.add(meshRef.current)
+        meshRef.current.traverse(object => {
           if (object instanceof Mesh) {
             switch (object.name) {
               case 'Window_Glass_Main':
                 object.castShadow = false
                 break
               case 'Window_Shutters_Closed':
-                object.castShadow = true
-                gsap.to(object.position, {
-                  y: 2.7,
-                  duration: 3.25,
-                  delay: 6.5,
-                  ease: 'linear',
-                  onStart: () => {
-                    setPlayShutterAudio(true)
-                    setAmbientLightPlay(true)
-                    gsap.delayedCall(3, () => {
-                      setPointLightPlay(true)
-                    })
-                  },
-                  onComplete: () => {
-                    setPlayShutterAudio(false)
-                    gsap.delayedCall(1, () => {
-                      setShouldJOISpeak(true)
-                    })
-                  }
-                })
+                animateIntroShutters(object)
                 break
               case 'Wall_Curved_VendingMachine_Outdoor':
                 object.castShadow = true
                 break
-
               case 'VideoTexture-Tablet':
                 object.material = videoMaterialTablet
                 break
@@ -71,6 +121,7 @@ const CyberpunkMap = () => {
                 object.receiveShadow = true
                 break
             }
+            setModelLoaded(true)
           }
         })
       },
@@ -85,9 +136,9 @@ const CyberpunkMap = () => {
         if (child instanceof Scene) scene.remove(child)
       })
     }
-  }, [scene, gltfLoader, setPointLightPlay, setAmbientLightPlay, setShouldJOISpeak])
+  }, [scene, gltfLoader])
 
-  return playShutterAudio ? <ShutterSoundControl volume={0.45} delay={0} transitionDuration={0} loop={false} /> : null
+  return playShutterAudio ? <ShutterSoundControl volume={shutterAudioVolume} delay={0} transitionDuration={0} loop={false} /> : null
 }
 
 export default CyberpunkMap

@@ -1,5 +1,5 @@
 import IconSmall from '@/app/ui/IconSmall'
-import React from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import DropdownMenus from './DropdownMenus'
 import HR from '@/app/ui/HR'
 import PortfolioItem from '../PortfolioItem'
@@ -7,6 +7,7 @@ import PortfolioItem from '../PortfolioItem'
 import portfolio from '../../data/portfolio.json'
 import PortfolioSVG from '@/app/ui/svg/mainMenu/PortfolioSVG'
 import { RED } from '@/app/libs/UIConstants'
+import { PortfolioContext } from '@/app/libs/PortfolioContext'
 
 type ContentHeadPortfolioProps = {
   setPortfolioData: React.Dispatch<React.SetStateAction<PortfolioItem[]>>
@@ -28,9 +29,12 @@ const technologyMapping: { [key: string]: string[] } = {
 }
 
 const ContentHeader: React.FC<ContentHeadPortfolioProps> = ({ setPortfolioData, portfolioData }) => {
+  const { selectedShowOnlyOption, setSelectedShowOnlyOption, selectedSortByOption, setSelectedSortByOption } = useContext(PortfolioContext)
+
   const handleSelectShowOnly = (option: string) => {
     const technologies = technologyMapping[option]
     let filteredData: PortfolioItem[] = []
+    setSelectedShowOnlyOption(option)
 
     if (option === 'All') {
       filteredData = portfolio
@@ -56,6 +60,7 @@ const ContentHeader: React.FC<ContentHeadPortfolioProps> = ({ setPortfolioData, 
     } else if (option === 'Recommended') {
       sortedData = [...portfolioData].sort((a, b) => a.recommended - b.recommended)
     }
+    setSelectedSortByOption(option)
     setPortfolioData(sortedData)
   }
 
@@ -73,11 +78,11 @@ const ContentHeader: React.FC<ContentHeadPortfolioProps> = ({ setPortfolioData, 
             <div className='flex gap-10 text-red-blur font-semibold  items-center'>
               <div className='flex-row flex items-center gap-5 text-[21px]'>
                 <p>SHOW ONLY:</p>
-                <DropdownMenus options={SHOW_ONLY_OPTIONS} defaultOption='All' onSelect={handleSelectShowOnly} />
+                <DropdownMenus options={SHOW_ONLY_OPTIONS} defaultOption={selectedShowOnlyOption} onSelect={handleSelectShowOnly} />
               </div>
               <div className='flex-row flex items-center gap-5 text-[21px]'>
                 <p>SORT BY:</p>
-                <DropdownMenus options={SORT_BY_OPTIONS} defaultOption='Date (Newest)' onSelect={handleSelectSortBy} />
+                <DropdownMenus options={SORT_BY_OPTIONS} defaultOption={selectedSortByOption} onSelect={handleSelectSortBy} />
               </div>
             </div>
           </div>

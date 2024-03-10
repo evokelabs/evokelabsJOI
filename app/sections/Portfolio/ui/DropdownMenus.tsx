@@ -36,7 +36,7 @@ const DropdownMenus: React.FC<DropdownMenuProps> = ({ options, defaultOption, on
   }, [])
 
   return (
-    <div className='relative inline-block text-left z-10' tabIndex={0}>
+    <div className='relative inline-block text-left z-10 hover:bg-red' tabIndex={0}>
       <div>
         <button
           ref={buttonRef}

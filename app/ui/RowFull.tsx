@@ -35,7 +35,7 @@ const RowFull = ({
   return (
     <div className='relative flex items-center ' style={{ maxWidth: MAX_WIDTH }}>
       <div className='absolute flex flex-row items-center px-1 w-auto'>
-        <div className='w-fit pl-3'>
+        <div className='w-fit pl-2'>
           <div className='absolute -ml-0.5'>{svgIcon}</div>
           <IconDefault />
         </div>

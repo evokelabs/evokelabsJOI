@@ -19,6 +19,7 @@ type SVGButtonProps = {
   pathBGStrokeRef: React.RefObject<SVGPathElement>
   buttonProps: ButtonProps
   svgIcon: JSX.Element
+  link?: string
 }
 
 type ButtonProps = {
@@ -89,14 +90,40 @@ const SVGButton: React.FC<SVGButtonProps> = ({
   pathFGFillRef,
   pathBGStrokeRef,
   buttonProps: { width, viewBox, d1, d2 },
-  svgIcon
+  svgIcon,
+  link
 }) => {
-  const { setCurrentRouteSelection } = useContext(RoutesContext)
+  const { setCurrentPortfolioSelection, setCurrentRouteSelection } = useContext(RoutesContext)
+
+  
 
   const handleClick = () => {
     switch (label) {
       case 'CLOSE':
         setCurrentRouteSelection(null)
+        setCurrentPortfolioSelection(null)
+        break
+      case 'FIX A BOOKING':
+        setCurrentRouteSelection(5)
+        break
+      case 'HARDCOPY':
+        window.open('/resume/AdrianPikios-Evokelabs-Resume.pdf', '_blank')
+        break
+      case '4K VERSION':
+        window.open('https://www.youtube.com/evokelabs', '_self')
+        break
+      case 'SEND AN EMAIL':
+        window.open('mailto:adrian@evokelabs.com?subject=Enquiry from Evokelabs.com', '_self')
+        break
+      case 'BACK':
+        setCurrentRouteSelection(1)
+        break
+      case 'LAUNCH':
+        if (link) {
+          window.open(link, '_blank')
+        } else {
+          console.log('No link provided for LAUNCH')
+        }
         break
       // Add more cases as needed
       // case 'OTHER_LABEL':
@@ -131,13 +158,13 @@ const SVGButton: React.FC<SVGButtonProps> = ({
   )
 }
 
-const ButtonDefault = ({ label = 'CLOSE', svgIcon = <CloseSVG /> }: { label?: string; svgIcon?: JSX.Element }) => {
+const ButtonDefault = ({ label = 'CLOSE', svgIcon = <CloseSVG />, link }: { label?: string; svgIcon?: JSX.Element; link?: string }) => {
   const buttonControllers = useButtonControllers()
 
   return label.length > 8 ? (
-    <SVGButton {...buttonControllers} label={label} buttonProps={BUTTON_LARGE} svgIcon={svgIcon} />
+    <SVGButton {...buttonControllers} label={label} buttonProps={BUTTON_LARGE} svgIcon={svgIcon} link={link} />
   ) : (
-    <SVGButton {...buttonControllers} label={label} buttonProps={BUTTON_DEFAULT} svgIcon={svgIcon} />
+    <SVGButton {...buttonControllers} label={label} buttonProps={BUTTON_DEFAULT} svgIcon={svgIcon} link={link} />
   )
 }
 

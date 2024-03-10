@@ -1,3 +1,3 @@
-export default function history() {
+export default function page() {
   return null
 }

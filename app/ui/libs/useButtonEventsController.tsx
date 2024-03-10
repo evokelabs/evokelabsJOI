@@ -27,7 +27,7 @@ const useButtonEventsController = ({
         setIsMouseDown(false)
       })
       svgCurrent.addEventListener('click', () => {
-        setIsActive(true)
+        // setIsActive(true)
       })
     }
   }, [setIsActive, setIsHovered, setIsMouseDown, svg])

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import home from './data/home.json'
 import homeExpanded from './data/homeExpanded.json'
@@ -6,6 +6,7 @@ import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
 import TypeOnSoundControl from '../audio/ui/TypeOnSoundControl'
 import ScrabbleOnSoundControl from '../audio/ui/ScrabbleSoundControl'
+import { NextRouter } from 'next/router'
 
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
@@ -37,7 +38,7 @@ const shuffle = (array: string[]) => {
   return array
 }
 
-const Home = () => {
+const Home = ({ muteSFX }: { muteSFX: boolean }) => {
   const TIMER = 5000
   const TYPE_ON_SPEED = 70
   const TYPE_OFF_SPEED = 35
@@ -294,7 +295,7 @@ const Home = () => {
       </div>
 
       <TypeOnSoundControl
-        volume={0.45}
+        volume={muteSFX ? 0 : 0.45}
         delay={0.1}
         transitionDuration={10}
         loop={true}
@@ -302,7 +303,7 @@ const Home = () => {
         onEndSound={handleEndSound}
       />
 
-      <ScrabbleOnSoundControl volume={0.45} delay={0.1} transitionDuration={10} loop={true} isScrabble={isScrabbleSound} />
+      <ScrabbleOnSoundControl volume={muteSFX ? 0 : 0.45} delay={0.1} transitionDuration={10} loop={true} isScrabble={isScrabbleSound} />
     </>
   )
 }

@@ -6,27 +6,51 @@ import { SoundsContext } from '@/app/libs/SoundsContext'
 import { DEFAULT_MUSIC_LOOP_VOLUME, JOI_MUSIC_LOOP_TRANSITION_DURATION, LOW_MUSIC_LOOP_VOLUME } from '@/app/audio/ELAudioStartSoundControl'
 
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
+import Availabilities from '@/app/sections/data/availabilities.json'
+import { JOISpeechContext } from '@/app/libs/JOISpeechContext'
+import { SoundControlContext } from '@/app/libs/SoundControlContext'
 
 const INTRO_FILES = JOISpeech.intro.map(item => item.filepath)
+const INTRO_TEXT = JOISpeech.intro.map(item => item.text)
 
 const MAX_VOLUME = 255
 const MAX_INFLUENCE = 0.15
-const GAIN_NODE_VOLUME = 2
+const GAIN_NODE_VOLUME = 1.7
 const TIMEOUT_FAIL_SAFE = 7500
+const TIME_TO_SPEAK_ON_LOAD = 12800
 const KEYS = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'availability']
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
   const [hasPlayed, setHasPlayed] = useState(false)
-  const { shouldJOISpeak } = useContext(AnimationContext)
+  const { shouldJOISpeak, setShouldJOISpeak } = useContext(AnimationContext)
   const { setMusicVolume } = useContext(SoundsContext)
   const { setMusicLoopTransitionDuration, JOILineSpeak } = useContext(SoundsContext)
+  const { muteJOI } = useContext(SoundControlContext)
+  const { setJOILineCaption, setIsAudioPlaying, setIsChainPlaying } = useContext(JOISpeechContext)
+  const [audioIndexState, setAudioIndexState] = useState(0)
   const [visited] = useState<boolean>(false)
   const isPlaying = useRef(false)
 
   const [hasSiteHomeVisited, setHasSiteHomeVisited] = useState(false)
-  const currentAudio = useRef<HTMLAudioElement | null>(null)
+
   const audioFileRef = useRef<string | null>(null)
   const audioContextRef = useRef<AudioContext | null>(null)
+
+  //Availability response
+  const [availabilityTextArray, setAvailabilityTextArray] = useState<string[]>([])
+  const [availabilityFilePathArray, setAvailabilityFilePathArray] = useState<string[]>([])
+
+  const currentAudio = useRef<HTMLAudioElement | null>(null)
+
+  //Set JOI Speak to speak after delay
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setShouldJOISpeak(true)
+    }, TIME_TO_SPEAK_ON_LOAD) // 5000 milliseconds = 5 seconds
+
+    // Clean up function to clear the timeout if the component unmounts before the timeout finishes
+    return () => clearTimeout(timeoutId)
+  }, []) // Empty dependency array so this effect only runs once on mount
 
   interface JOISpeechType {
     [key: string]: any[]
@@ -34,8 +58,24 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
 
   const JOISpeechData: JOISpeechType = JOISpeech
 
+  //Window event to detect if user interact with the document first
+  const [hasUserInteracted, setHasUserInteracted] = useState(false)
+
   useEffect(() => {
-    audioContextRef.current = new AudioContext()
+    // Set up event listeners for user interaction
+    const handleUserInteraction = () => setHasUserInteracted(true)
+    window.addEventListener('click', handleUserInteraction)
+    window.addEventListener('keydown', handleUserInteraction)
+
+    // Clean up the event listeners when the component unmounts
+    return () => {
+      window.removeEventListener('click', handleUserInteraction)
+      window.removeEventListener('keydown', handleUserInteraction)
+    }
+  }, []) // Empty dependency array so this effect only runs once on mount
+
+  useEffect(() => {
+    // audioContextRef.current = new AudioContext()
   }, [])
 
   const getFilePath = useCallback(
@@ -46,13 +86,68 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         return
       }
 
-      // get a random item from the array
-      const item = JOISpeechData[key][Math.floor(Math.random() * JOISpeechData[key].length)]
+      // If JOILineSpeak is 5, handle the specific use case
+      if (JOILineSpeak === 5) {
+        // Randomly select either 'busy' or 'open'
+        const status = Availabilities.status === 'available' ? 'open' : 'busy'
 
+        // Iterate over the 'availability' array and find the object with the 'busy' or 'open' key
+        const availabilityObject = JOISpeechData[key].find(item => item[status])
+
+        // If the object is found, get the 'email' and 'follow' arrays
+        const emailResponses =
+          availabilityObject &&
+          availabilityObject[status] &&
+          Array.isArray(availabilityObject[status]) &&
+          availabilityObject[status].length > 0 &&
+          availabilityObject[status][availabilityObject[status].length - 1][0]
+            ? availabilityObject[status][availabilityObject[status].length - 1][0]['email']
+            : []
+        const followResponses =
+          availabilityObject &&
+          availabilityObject[status] &&
+          Array.isArray(availabilityObject[status]) &&
+          availabilityObject[status].length > 0 &&
+          availabilityObject[status][availabilityObject[status].length - 1][0]
+            ? availabilityObject[status][availabilityObject[status].length - 1][0]['follow']
+            : []
+
+        // Get a random email response
+        const randomEmailResponse = emailResponses[Math.floor(Math.random() * emailResponses.length)]
+
+        // Get a random follow response
+        const randomFollowResponse = followResponses[Math.floor(Math.random() * followResponses.length)]
+
+        // Get a random busy or open response
+        const randomStatusResponse = availabilityObject[status][Math.floor(Math.random() * (availabilityObject[status].length - 1))]
+
+        const responseArray = [
+          { filepath: randomStatusResponse.filepath, text: randomStatusResponse.text },
+          { filepath: randomEmailResponse.filepath, text: randomEmailResponse.text },
+          { filepath: randomFollowResponse.filepath, text: randomFollowResponse.text }
+        ]
+        const text = responseArray.map(item => item.text)
+        const filePath = responseArray.map(item => item.filepath)
+
+        setAvailabilityTextArray(prevState => [...prevState, ...text])
+        setAvailabilityFilePathArray(prevState => [...prevState, ...filePath])
+      } else {
+        setAvailabilityTextArray(prevState => [])
+        setAvailabilityFilePathArray(prevState => [])
+      }
+
+      // get a random item from the array, omit last two 'open' and 'busy' items from availability array
+      let items = JOISpeechData[key]
+      if (JOILineSpeak === 5) {
+        items = items.filter((item, index) => index < items.length - 2)
+      }
+      const item = items[Math.floor(Math.random() * items.length)]
+      setJOILineCaption(item.text)
       return item.filepath
     },
-    [JOISpeechData]
+    [JOISpeechData, setJOILineCaption]
   )
+  const gainNode = useRef<GainNode | null>(null)
 
   useEffect(() => {
     setHasPlayed(false)
@@ -71,9 +166,11 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         // If the cookie is found, select a random file that is not the first one
         const nonFirstIntroFiles = introFiles.filter((_, index) => index !== 0)
         const randomFile = nonFirstIntroFiles[Math.floor(Math.random() * nonFirstIntroFiles.length)]
+        setJOILineCaption(randomFile.text)
         audioFileRef.current = randomFile.filepath
       } else {
         // If the cookie is not found, play the first file
+        setJOILineCaption(INTRO_TEXT[0])
         audioFileRef.current = INTRO_FILES[0]
       }
     } else if (JOILineSpeak !== null) {
@@ -81,45 +178,18 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       audioFileRef.current = randomFilePath
       if (!audioFileRef.current) return
     }
+  }, [JOILineSpeak, getFilePath, hasSiteHomeVisited, model, setJOILineCaption, shouldJOISpeak])
 
-    // The rest of the audio playing logic goes here...
-  }, [
-    JOILineSpeak,
-    hasPlayed,
-    shouldJOISpeak,
-    model,
-    setMusicVolume,
-    setMusicLoopTransitionDuration,
-    JOISpeechData,
-    getFilePath,
-    hasSiteHomeVisited
-  ])
+  const timeoutRef = useRef<number | null>(null)
+
+  audioContextRef.current = new AudioContext()
+  const audioContext = audioContextRef.current
 
   useEffect(() => {
-    console.log('1st check pass')
-    console.log(
-      'useEffect shouldJOISpeak',
-      shouldJOISpeak,
-      'hasPlayed',
-      hasPlayed,
-      'JOILineSpeak',
-      JOILineSpeak,
-      'hasSiteHomeVisited',
-      hasSiteHomeVisited,
-      'model',
-      model
-    )
-    if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited)) return
-    console.log('2nd check pass')
+    if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited) || !hasUserInteracted) return
 
-    const audioContext = audioContextRef.current
-    console.log('pre 3rd check, audioContext', audioContext, 'isPlaying.current', isPlaying.current)
     if (!audioContext || isPlaying.current) return
-    console.log('3rd useEFfectpass')
-    console.log('audioFileRef', audioFileRef)
-    console.log('audioFileRef current', audioFileRef.current)
     if (audioFileRef.current) {
-      console.log('audioFileRef.current pass')
       const audio = new Audio(audioFileRef.current)
 
       if (!audio) return
@@ -130,40 +200,93 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       const analyser = audioContext.createAnalyser()
 
       let timeoutId: NodeJS.Timeout | null = setTimeout(() => {
-        isPlaying.current = false
+        isPlaying.current = true
         setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
       }, TIMEOUT_FAIL_SAFE)
 
       source.connect(analyser)
       analyser.connect(audioContext.destination)
 
-      const gainNode = audioContext.createGain() // Create a GainNode
-      source.connect(gainNode) // Connect the source to the GainNode
-      gainNode.connect(audioContext.destination) // Connect the GainNode to the destination
+      gainNode.current = audioContext.createGain() // Create a GainNode
+      source.connect(gainNode.current) // Connect the source to the GainNode
+      gainNode.current.connect(audioContext.destination) // Connect the GainNode to the destination
 
-      gainNode.gain.value = GAIN_NODE_VOLUME
+      gainNode.current.gain.value = muteJOI ? -1 : GAIN_NODE_VOLUME
 
       setMusicVolume(LOW_MUSIC_LOOP_VOLUME) // lower the music volume before the audio starts playing
       setMusicLoopTransitionDuration(JOI_MUSIC_LOOP_TRANSITION_DURATION)
 
       setTimeout(() => {
-        audio.play().catch(error => console.error('Audio play failed due to', error))
         isPlaying.current = true
-      }, 500) // delay the audio play to give the previous audio time to stop
-
-      setTimeout(() => {
-        audio.play().catch(error => console.error('Audio play failed due to', error))
-        isPlaying.current = true
+        playSpeech(availabilityFilePathArray)
       }, JOI_MUSIC_LOOP_TRANSITION_DURATION / 2) // delay the audio play to match the music loop transition duration
 
+      let audioIndex = 0
+
+      //If availabilityFilePath hold object of arrays, play the audio files in sequence. It will hold an object when JOILineSpeak is 5
+      const playSpeech = (availabilityFilePath: string | string[]) => {
+        if (availabilityFilePath.length > 1 && JOILineSpeak === 5) {
+          if (isPlaying.current) {
+            if (timeoutRef.current !== null) {
+              window.clearTimeout(timeoutRef.current)
+              timeoutRef.current = null
+            }
+            timeoutRef.current = window.setTimeout(() => {
+              isPlaying.current = false
+            }, 4500)
+            audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
+            setJOILineCaption(availabilityTextArray[audioIndex])
+            setAudioIndexState(audioIndex) // Update the audio index state
+            setIsAudioPlaying(false)
+            setIsChainPlaying(true)
+            audio.play().catch(error => console.error('Normal Audio play failed due to', error))
+            audio.onended = () => {
+              // if (timeoutRef.current !== null) {
+              //   window.clearTimeout(timeoutRef.current)
+              //   timeoutRef.current = null
+              // }
+              audioIndex++
+              if (audioIndex < availabilityFilePath.length) {
+                setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
+                setAudioIndexState(audioIndex) // Update the audio index state
+                playSpeech(availabilityFilePath) // Play the next audio file
+              } else {
+                audioEndCleanUp()
+              }
+            }
+            return
+          }
+        } else {
+          timeoutRef.current = window.setTimeout(() => {
+            isPlaying.current = false
+          }, 4500)
+          if (isPlaying.current) {
+            setIsAudioPlaying(true)
+            setTimeout(() => {
+              setHasPlayed(true)
+            }, 5000)
+            audio.play().catch(error => console.error('Normal Audio play failed due to', error))
+          }
+        }
+      }
+
       audio.onended = () => {
-        isPlaying.current = false
-        setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
-        if (timeoutId) clearTimeout(timeoutId)
+        audioEndCleanUp()
       }
 
       audio.onerror = () => {
         isPlaying.current = false
+        if (timeoutId) clearTimeout(timeoutId)
+      }
+
+      const audioEndCleanUp = () => {
+        setIsChainPlaying(false)
+        setHasPlayed(true)
+        setIsAudioPlaying(false)
+        isPlaying.current = false
+        setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME) // revert the music volume back to the original value when the audio finishes
+        setAvailabilityTextArray(prevState => [])
+        setAvailabilityFilePathArray(prevState => [])
         if (timeoutId) clearTimeout(timeoutId)
       }
 
@@ -233,12 +356,19 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
     JOILineSpeak,
     hasPlayed,
     shouldJOISpeak,
-    model,
-    setMusicVolume,
-    setMusicLoopTransitionDuration,
-    JOISpeechData,
-    getFilePath,
-    hasSiteHomeVisited,
-    visited
+    hasSiteHomeVisited
+    // model,
+    // setMusicVolume,
+    // setMusicLoopTransitionDuration,
+    // JOISpeechData,
+    // visited,
+    // setIsAudioPlaying,
+    // hasUserInteracted
   ])
+
+  useEffect(() => {
+    if (gainNode.current) {
+      gainNode.current.gain.value = muteJOI ? -1 : GAIN_NODE_VOLUME
+    }
+  }, [muteJOI])
 }

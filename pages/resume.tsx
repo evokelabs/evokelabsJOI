@@ -1,3 +1,3 @@
-export default function resume() {
+export default function page() {
   return null
 }

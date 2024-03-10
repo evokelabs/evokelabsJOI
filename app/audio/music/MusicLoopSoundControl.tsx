@@ -1,59 +1,104 @@
+import { SoundControlContext } from '@/app/libs/SoundControlContext'
 import { SoundsContext } from '@/app/libs/SoundsContext'
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
+import { Howl } from 'howler'
+import { DEFAULT_MUSIC_LOOP_VOLUME } from '../ELAudioStartSoundControl'
 
 const AUDIO_SOURCE = '/sounds/musicLoop.ogg'
+const DELAY = 3200 // Delay in milliseconds
+const INTERACTION_TIMEOUT = 10000 // 10 seconds
 
 const MusicLoopSoundControl = () => {
-  const { musicVolume } = useContext(SoundsContext)
-  const { musicLoopTransitionDuration } = useContext(SoundsContext)
+  const sound = useRef<Howl | null>(null)
 
-  const audioElement = useRef(new Audio(AUDIO_SOURCE))
-  const audioContext = useRef(new AudioContext())
-  const gainNode = useRef(audioContext.current.createGain())
-  const source = useRef<MediaElementAudioSourceNode | null>(null)
-  const hasMounted = useRef(false)
-  const DELAY = 3800
-  const LOOP = true
+  const { musicLoopTransitionDuration, setMusicVolume, musicVolume } = useContext(SoundsContext)
+  const { muteMusic } = useContext(SoundControlContext)
+
+  const [isMuted, setIsMuted] = useState(muteMusic)
+  const [hasUserInteracted, setHasUserInteracted] = useState(false)
+  const [interactionTimeoutReached, setInteractionTimeoutReached] = useState(false)
 
   useEffect(() => {
-    const currentAudioElement = audioElement.current
+    setIsMuted(muteMusic)
+  }, [muteMusic])
 
-    // Create a MediaElementAudioSourceNode from the audio element
-    if (!source.current) {
-      source.current = audioContext.current.createMediaElementSource(currentAudioElement)
-      source.current.connect(gainNode.current)
-      gainNode.current.connect(audioContext.current.destination)
+  useEffect(() => {
+    // Set a timeout to set interactionTimeoutReached to true after 10 seconds
+    const interactionTimeout = setTimeout(() => {
+      setInteractionTimeoutReached(true)
+    }, INTERACTION_TIMEOUT)
+
+    // Set up event listeners for user interaction
+    const handleUserInteraction = () => {
+      setHasUserInteracted(true)
+      clearTimeout(interactionTimeout) // Clear the timeout when the user interacts with the window
     }
 
-    // Define a function to play the audio
-    const playAudio = () => {
-      currentAudioElement.play()
-      currentAudioElement.loop = LOOP
+    window.addEventListener('click', handleUserInteraction)
+    window.addEventListener('keydown', handleUserInteraction)
 
-      // Start the volume transition from zero if it's the first playthrough, otherwise start from the current volume
-      const startVolume = hasMounted.current ? gainNode.current.gain.value : 0
-      gainNode.current.gain.setValueAtTime(startVolume, audioContext.current.currentTime)
-
-      // Gradually increase the volume to the desired level over the transition duration
-      gainNode.current.gain.linearRampToValueAtTime(musicVolume, audioContext.current.currentTime + musicLoopTransitionDuration / 1000)
-
-      // Set hasMounted to true after the audio has started playing
-      hasMounted.current = true
-    }
-
-    // If the component has not mounted, play the audio after the delay
-    if (!hasMounted.current) {
-      setTimeout(playAudio, DELAY)
-    } else {
-      // If the component has already mounted, play the audio immediately
-      playAudio()
-    }
-
-    // Clean up event listeners when the component unmounts
+    // Clean up the event listeners and timeout when the component unmounts
     return () => {
-      currentAudioElement.removeEventListener('canplaythrough', playAudio)
+      window.removeEventListener('click', handleUserInteraction)
+      window.removeEventListener('keydown', handleUserInteraction)
+      clearTimeout(interactionTimeout)
     }
-  }, [LOOP, musicLoopTransitionDuration, musicVolume])
+  }, []) // Empty dependency array so this effect only runs once on mount
+
+  useEffect(() => {
+    if (!hasUserInteracted) return
+
+    sound.current = new Howl({
+      src: [AUDIO_SOURCE],
+      loop: true,
+      volume: 0 // Start with volume 0
+    })
+
+    const playAudio = () => {
+      if (sound.current) {
+        // Start the volume transition from zero
+        const startVolume = 0
+        sound.current.volume(startVolume)
+
+        // Gradually increase the volume to the desired level over the transition duration
+        const targetVolume = isMuted ? 0 : musicVolume
+        sound.current.fade(startVolume, targetVolume, musicLoopTransitionDuration)
+
+        // Start playing the audio after the volume transition has begun
+        setTimeout(
+          () => {
+            sound.current?.play()
+          },
+          interactionTimeoutReached ? 250 : DELAY
+        )
+      }
+    }
+
+    playAudio()
+
+    // Set the musicVolume to DEFAULT_MUSIC_LOOP_VOLUME after the transition duration
+    setTimeout(() => {
+      setMusicVolume(DEFAULT_MUSIC_LOOP_VOLUME)
+    }, musicLoopTransitionDuration)
+
+    return () => {
+      if (sound.current) {
+        sound.current.unload()
+      }
+    }
+  }, [hasUserInteracted, interactionTimeoutReached]) // This effect runs whenever hasUserInteracted or interactionTimeoutReached changes
+
+  useEffect(() => {
+    if (sound.current) {
+      if (isMuted) {
+        // Instantly mute the audio
+        sound.current.volume(0)
+      } else {
+        // Gradually increase the volume to the desired level over the transition duration
+        sound.current.fade(sound.current.volume(), musicVolume, musicLoopTransitionDuration)
+      }
+    }
+  }, [isMuted, musicVolume, musicLoopTransitionDuration])
 
   return null
 }

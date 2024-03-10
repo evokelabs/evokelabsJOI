@@ -6,6 +6,10 @@ import YouTubeSVG from '@/app/ui/svg/button/YouTubeSVG'
 import FigmaSVG from '@/app/ui/svg/button/FigmaSVG'
 import LaunchSVG from '@/app/ui/svg/button/LaunchSVG'
 import BackSVG from '@/app/ui/svg/button/BackSVG'
+import { SoundAudioLevelControls } from '../data/types'
+import { RoutesContext } from '@/app/libs/RoutesContext'
+import { Dispatch, SetStateAction, useContext, useEffect } from 'react'
+import VideoFrameMute from '@/app/ui/VideoFrameMute'
 
 interface PortfolioItem {
   id: number
@@ -19,9 +23,46 @@ interface PortfolioItem {
   mainVideo: string
   date: string
   recommended: number
+  slug: string
+  mutedVideo: boolean
 }
 
-const PortfolioItem: React.FC<PortfolioItem> = ({ id, heading, subHeading, technology, desc, video, thumb, link, mainVideo }) => {
+interface PortfolioItemProps extends PortfolioItem {
+  soundAudioLevelControls: SoundAudioLevelControls
+  setShouldMapDarkness: Dispatch<SetStateAction<boolean>>
+}
+const PortfolioItem: React.FC<PortfolioItemProps> = ({
+  id,
+  heading,
+  subHeading,
+  technology,
+  desc,
+  video,
+  thumb,
+  link,
+  mainVideo,
+  slug,
+  soundAudioLevelControls,
+  setShouldMapDarkness,
+  mutedVideo
+}) => {
+  const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
+
+  const setUserMutedAll = (muteAll: boolean) => {
+    console.log('muting all')
+    soundAudioLevelControls.setMuteAll(true)
+    soundAudioLevelControls.setMuteMusic(true)
+    soundAudioLevelControls.setMuteRain(true)
+    soundAudioLevelControls.setMuteSFX(true)
+  }
+
+  useEffect(() => {
+    // Cleanup function
+    return () => {
+      setCurrentPortfolioSelection(null)
+    }
+  }, [])
+
   return (
     <PanelBackground headerTitle='Past Gigs'>
       <div className='m-2 relative'>
@@ -51,26 +92,36 @@ const PortfolioItem: React.FC<PortfolioItem> = ({ id, heading, subHeading, techn
               </div>
             </div>
           </div>
-          <ButtonDefault label='Back' />
+          <ButtonDefault label='BACK' svgIcon={<BackSVG />} />
         </div>
 
         <div className='mt-3'>
-          <VideoFrame videoURL={mainVideo} />
+          {!mutedVideo ? (
+            <VideoFrame
+              videoURL={mainVideo}
+              soundAudioLevelControls={soundAudioLevelControls}
+              setShouldMapDarkness={setShouldMapDarkness}
+            />
+          ) : (
+            <VideoFrameMute videoURL={mainVideo} soundAudioLevelControls={soundAudioLevelControls} />
+          )}
         </div>
         {desc && (
           <>
-            <div dangerouslySetInnerHTML={{ __html: desc }} className='mt-3 text-teal-blur text-[20px] space-y-6'></div>
-            <HR />
+            <div dangerouslySetInnerHTML={{ __html: desc }} className='mt-3 text-red-blur font-semibold text-[21px] space-y-6'></div>
+            {/* <HR /> */}
           </>
         )}
-        <div className='flex flex-row  my-4 justify-between'>
-          <div>{link && <ButtonDefault label='Launch' svgIcon={<LaunchSVG />} />}</div>
-          <div className='flex flex-row -mr-3.5'>
-            <ButtonDefault label='Figma' svgIcon={<FigmaSVG />} />
-            <ButtonDefault label='YouTube' svgIcon={<YouTubeSVG />} />
-            <ButtonDefault label='Back' svgIcon={<BackSVG />} />
+        {(link || desc) && (
+          <div className='flex flex-row  mt-6 justify-between'>
+            <div onClick={() => setUserMutedAll(true)}>{link && <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} link={link} />}</div>
+            <div className='flex flex-row -mr-3.5'>
+              {/* <ButtonDefault label='Figma' svgIcon={<FigmaSVG />} /> */}
+              {/* <ButtonDefault label='YouTube' svgIcon={<YouTubeSVG />} /> */}
+              <ButtonDefault />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </PanelBackground>
   )

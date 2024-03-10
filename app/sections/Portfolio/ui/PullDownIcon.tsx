@@ -2,7 +2,7 @@ import React from 'react'
 import { BLACK, RED } from '@/app/libs/UIConstants'
 
 const ArrowDownIcon = () => (
-  <div className='relative -mt-0.5'>
+  <div className='relative -mt-0.5 '>
     <svg width='26' height='26' viewBox='0 0 26 26' fill='none'>
       <path d='M0 0H26V26H0V0Z' fill={BLACK} fillOpacity='0.85' />
       <path d='M0 0H26V26H0V0Z' fill={RED} fillOpacity='0.1' />

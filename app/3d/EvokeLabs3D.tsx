@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Canvas, ThreeEvent } from '@react-three/fiber'
 import { Html, OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 
@@ -15,7 +15,7 @@ import { AnimationContext } from '../libs/AnimationContext'
 import { useCameraSettings } from '../libs/useCameraSettings'
 
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, BrightnessContrast } from '@react-three/postprocessing'
-import { Vector2, WebGLRenderer } from 'three'
+import { Vector2 } from 'three'
 import MainMenu from '../sections/MainMenu'
 import { NextRouter } from 'next/router'
 import Home from '../sections/Home'
@@ -37,27 +37,48 @@ import CyberpunkMapLowPoly from './models/CyberpunkMapLowPoly'
 
 import { getGPUTier } from 'detect-gpu'
 import { RoutesContext } from '../libs/RoutesContext'
+import JOISubtitles from '../ui/JOISubtitles'
+import { JOISpeechContext } from '../libs/JOISpeechContext'
+import SoundControlIcons from '../ui/SoundControlIcons'
+import { SoundControlContext } from '../libs/SoundControlContext'
+import { PortfolioContext } from '../libs/PortfolioContext'
+import Draggable from 'react-draggable'
 
 // Constants
 // const debug = true
 const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
-const MENU_HOME_WAIT_TIMER = 18000
+const MENU_HOME_WAIT_TIMER_COOKIE = 18000
+const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // State
   const [shouldAmbientLightPlay, setAmbientLightPlay] = useState(false)
   const [shouldPointLightPlay, setPointLightPlay] = useState(false)
   const [shouldJOISpeak, setShouldJOISpeak] = useState(false)
-  const [musicVolume, setMusicVolume] = useState(DEFAULT_MUSIC_LOOP_VOLUME)
+  const [musicVolume, setMusicVolume] = useState(0)
   const [musicLoopTransitionDuration, setMusicLoopTransitionDuration] = useState(DEFAULT_MUSIC_LOOP_TRANSITION_DURATION)
+  //Animations states
+  const [shouldMapDarkness, setShouldMapDarkness] = useState(false)
   // Camera settings
   const { cameraTarget, fov } = useCameraSettings()
 
   const [isPreLoaderFinished, setIsPreLoaderFinished] = useState(false)
   const [isCarReady, setIsCarReady] = useState(false)
 
+  //JOI Speech settings
+  const [JOILineCaption, setJOILineCaption] = useState<string | null>(null)
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false)
+
+  const visitedCookie =
+    typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
+  const initialTimer = visitedCookie ? MENU_HOME_WAIT_TIMER_COOKIE : MENU_HOME_WAIT_TIMER_NOCOOKIE
+
   useEffect(() => {
+    const visitedCookie =
+      typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
+    const MENU_HOME_WAIT_TIMER = visitedCookie ? MENU_HOME_WAIT_TIMER_COOKIE : MENU_HOME_WAIT_TIMER_NOCOOKIE
+
     const menuTimer = setTimeout(() => {
       setIsPreLoaderFinished(true)
     }, MENU_HOME_WAIT_TIMER)
@@ -111,98 +132,283 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     ],
     []
   )
+  const currentRouteIndex = ROUTE_CONFIG.findIndex(route => route.route === router.pathname)
+  const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(currentRouteIndex)
 
-  //JOi Route Speech function
-  const [JOILineSpeak, setJOILineSpeak] = useState<null | number>(null)
+  const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>(null)
 
-  //Routes Function
-  const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(null)
+  //ROUTING FUNCTIONS
+
+  useEffect(() => {
+    if (currentPortfolioSelection !== null && currentPortfolioSelection !== '') {
+      router.push(`/portfolio/${currentPortfolioSelection}`)
+      setCurrentRouteSelection(1)
+    }
+  }, [currentPortfolioSelection])
+
+  useEffect(() => {
+    // If the current route is '/', set currentRouteSelection to null
+    if (router.pathname === '/') {
+      setCurrentRouteSelection(null)
+    } else {
+      // Find the index of the current route in ROUTE_CONFIG
+
+      const currentRouteIndex = ROUTE_CONFIG.findIndex(route => router.pathname.startsWith(route.route))
+
+      // If the current route is found in ROUTE_CONFIG, update currentRouteSelection
+      if (currentRouteIndex !== -1) {
+        setCurrentRouteSelection(currentRouteIndex)
+      }
+
+      if (currentRouteIndex === 1 && router.pathname === '/portfolio' && currentPortfolioSelection !== null) {
+        setCurrentPortfolioSelection(null)
+      }
+    }
+  }, [router.pathname, ROUTE_CONFIG])
 
   useEffect(() => {
     if (currentRouteSelection !== null) {
       const selectedRoute = ROUTE_CONFIG[currentRouteSelection]
+
       if (selectedRoute && router.pathname !== selectedRoute.route) {
         router.push(selectedRoute.route)
+      } else if (router.pathname !== '/') {
+        setMenuHomeWaitTimer(0)
       }
-    } else if (router.pathname !== '/') {
-      router.push('/')
+    } else {
+      // Check if the current route is defined in ROUTE_CONFIG
+      const routeExists = ROUTE_CONFIG.some(route => router.pathname.startsWith(route.route))
+
+      // If the current route is not defined in ROUTE_CONFIG, redirect to the root route
+
+      if (!routeExists && router.pathname !== '/' && currentPortfolioSelection === null) {
+        router.push('/')
+      } else if (routeExists && router.pathname !== '/' && currentRouteSelection === null && currentPortfolioSelection === null) {
+        setMenuHomeWaitTimer(0)
+        router.push('/')
+      }
     }
-  }, [currentRouteSelection, router, ROUTE_CONFIG])
+  }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection])
 
   useEffect(() => {
-    setJOILineSpeak(currentRouteSelection)
-  }, [currentRouteSelection])
-  console.log('gpuTier', gpuTier)
+    // If the current route is '/', set currentRouteSelection to null
+    if (router.pathname === '/') {
+      setCurrentRouteSelection(null)
+    } else {
+      // Find the index of the current route in ROUTE_CONFIG
+      const currentRouteIndex = ROUTE_CONFIG.findIndex(route => route.route === router.pathname)
+
+      // If the current route is found in ROUTE_CONFIG, update currentRouteSelection
+      // If the current route is not found in ROUTE_CONFIG, set currentRouteSelection to null
+      setCurrentRouteSelection(currentRouteIndex !== -1 ? currentRouteIndex : null)
+    }
+  }, [router.pathname, ROUTE_CONFIG])
+
+  const [menuHomeWaitTimer, setMenuHomeWaitTimer] = useState(initialTimer)
+
+  useEffect(() => {
+    const menuTimer = setTimeout(() => {
+      setIsPreLoaderFinished(true)
+    }, menuHomeWaitTimer)
+
+    const carTimer = setTimeout(() => {
+      setIsCarReady(true)
+    }, menuHomeWaitTimer / 2)
+
+    // Cleanup function to clear the timeouts if the component unmounts before the timeouts finish
+    return () => {
+      clearTimeout(menuTimer)
+      clearTimeout(carTimer)
+    }
+  }, [menuHomeWaitTimer])
+
+  //JOi Route Speech function
+  const [JOILineSpeak, setJOILineSpeak] = useState<null | number>(null)
+  const [isChainPlaying, setIsChainPlaying] = useState(false)
+
+  const prevPathname = useRef(router.pathname)
+
+  useEffect(() => {
+    if (
+      !(prevPathname.current?.startsWith('/portfolio') && router.pathname.startsWith('/portfolio')) &&
+      prevPathname.current !== router.pathname
+    ) {
+      setJOILineSpeak(currentRouteSelection)
+    }
+    prevPathname.current = router.pathname
+  }, [router.pathname])
+
+  //Sound Control Function
+  const [muteAll, setMuteAll] = useState(true)
+  const [muteMusic, setMuteMusic] = useState(true)
+  const [muteSFX, setMuteSFX] = useState(true)
+  const [muteRain, setMuteRain] = useState(true)
+  const [muteJOI, setMuteJOI] = useState(true)
+
+  const soundAudioLevelControls = {
+    setMuteAll,
+    setMuteMusic,
+    setMuteRain,
+    setMuteSFX,
+    setMuteJOI,
+    muteAll,
+    muteMusic,
+    muteRain,
+    muteSFX,
+    muteJOI
+  }
+
+  //Portfolio Pulldown states
+  const [selectedShowOnlyOption, setSelectedShowOnlyOption] = useState('All')
+  const [selectedSortByOption, setSelectedSortByOption] = useState('Date (Newest)')
+
+  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.1])
+  const [isDragging, setIsDragging] = useState(false)
+
+  const handleMouseDown = useCallback(() => {
+    setIsDragging(true)
+  }, [])
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false)
+  }, [])
+
+  const handleMouseMove = useCallback(
+    (event: ThreeEvent<PointerEvent>) => {
+      if (isDragging) {
+        // Convert the mouse position to world coordinates
+        const x = event.unprojectedPoint.x
+        const y = event.unprojectedPoint.y
+        setPosition([x, y, 2.1])
+      }
+    },
+    [isDragging]
+  )
+  const container = useCallback((node: HTMLDivElement) => {
+    if (node !== null) {
+      setEventSource(node)
+    }
+  }, [])
+  const [eventSource, setEventSource] = useState<HTMLElement | undefined>()
   return (
     <>
-      <Canvas
-        camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
-        shadows
-        gl={{
-          powerPreference: 'high-performance'
-        }}
+      <SoundControlContext.Provider
+        value={{ muteAll, setMuteAll, muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI }}
       >
-        <SoundsContext.Provider
-          value={{
-            musicVolume,
-            setMusicVolume,
-            musicLoopTransitionDuration,
-            setMusicLoopTransitionDuration,
-            JOILineSpeak,
-            setJOILineSpeak
-          }}
+        <JOISpeechContext.Provider
+          value={{ JOILineCaption, setJOILineCaption, isAudioPlaying, setIsAudioPlaying, isChainPlaying, setIsChainPlaying }}
         >
-          <Html scale={0.034} prepend distanceFactor={10} transform className='scale-x-[-1]' position={[0, 1.42, 2.1]}>
-            <RoutesContext.Provider value={{ currentRouteSelection, setCurrentRouteSelection }}>
-              <div className='max-w-[1170px]'>
-                {isPreLoaderFinished && router.pathname === '/' && <Home />}
-                {router.pathname === '/services' && <Services />}
-                {router.pathname === '/portfolio' && <Portfolio />}
-                {router.pathname === '/history' && <History />}
-                {router.pathname === '/resume' && <Resume />}
-                {router.pathname === '/joi' && <JOISpecial />}
-                {router.pathname === '/availabilities' && <Availabilities />}
-                {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
-              </div>
-            </RoutesContext.Provider>
-          </Html>
-          <VideoSkybox />
-          <ELAudioStartSoundControl />
-          {debug ? <Perf position='top-left' /> : null}
-          {/* <Perf position='top-left' /> */}
-          <CameraRig fov={fov} debug={debug} />
-          <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
-          <AnimationContext.Provider
-            value={{
-              shouldAmbientLightPlay,
-              shouldPointLightPlay,
-              shouldJOISpeak,
-              setAmbientLightPlay,
-              setPointLightPlay,
-              setShouldJOISpeak
-            }}
-          >
-            <Lights />
-            {/* {isCarReady && <CyberpunkCar />} */}
-            <WideMonitor />
-            {/* <DeskItems /> */}
-            {gpuTier !== null && gpuTier >= 3 ? <CyberpunkMap /> : <CyberpunkMapLowPoly />}
+          <div ref={container} className='h-full'>
+            <Canvas
+              camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
+              shadows
+              gl={{
+                powerPreference: 'high-performance'
+              }}
+              style={{ pointerEvents: 'none' }}
+              eventSource={eventSource}
+              eventPrefix='page'
+            >
+              <SoundsContext.Provider
+                value={{
+                  musicVolume,
+                  setMusicVolume,
+                  musicLoopTransitionDuration,
+                  setMusicLoopTransitionDuration,
+                  JOILineSpeak,
+                  setJOILineSpeak
+                }}
+              >
+                <AnimationContext.Provider
+                  value={{
+                    shouldAmbientLightPlay,
+                    shouldPointLightPlay,
+                    shouldJOISpeak,
+                    setAmbientLightPlay,
+                    setPointLightPlay,
+                    setShouldJOISpeak,
+                    shouldMapDarkness,
+                    setShouldMapDarkness
+                  }}
+                >
+                  <Html
+                    scale={0.034}
+                    prepend
+                    distanceFactor={10}
+                    transform
+                    className='scale-x-[-1]'
+                    position={position}
+                    onPointerDown={handleMouseDown}
+                    onPointerUp={handleMouseUp}
+                    onPointerMove={handleMouseMove}
+                  >
+                    <PortfolioContext.Provider
+                      value={{
+                        selectedShowOnlyOption,
+                        setSelectedShowOnlyOption,
+                        selectedSortByOption,
+                        setSelectedSortByOption
+                      }}
+                    >
+                      <RoutesContext.Provider
+                        value={{
+                          currentRouteSelection,
+                          setCurrentRouteSelection,
+                          currentPortfolioSelection,
+                          setCurrentPortfolioSelection
+                        }}
+                      >
+                        <Draggable>
+                          <div className='max-w-[1170px]' onPointerDown={handleMouseDown} onPointerUp={handleMouseUp}>
+                            {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
+                            {router.pathname === '/services' && <Services />}
+                            {router.pathname.startsWith('/portfolio') && (
+                              <Portfolio soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+                            )}
+                            {router.pathname === '/history' && (
+                              <History soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+                            )}
+                            {router.pathname === '/resume' && <Resume />}
+                            {router.pathname === '/joi' && (
+                              <JOISpecial soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+                            )}
+                            {router.pathname === '/availabilities' && <Availabilities />}
+                            {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+                          </div>
+                        </Draggable>
+                      </RoutesContext.Provider>
+                    </PortfolioContext.Provider>
+                  </Html>
+                  <VideoSkybox />
+                  <ELAudioStartSoundControl />
+                  {debug ? <Perf position='top-left' /> : null}
+                  <CameraRig fov={fov} debug={debug} />
+                  <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
 
-            {/* <CyberpunkMapLowPoly /> */}
-            <JOI />
-            <Rain />
-          </AnimationContext.Provider>
-        </SoundsContext.Provider>
-        {/* <EffectComposer disableNormalPass> */}
-          {/* <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={2} /> */}
-          {/* <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} /> */}
-          {/* <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} /> */}
-          {/* <Noise opacity={0.7} premultiply blendFunction={28} /> */}
-          {/* <BrightnessContrast brightness={0.02} contrast={0.275} /> */}
-          {/* <Vignette offset={0.0} darkness={1} /> */}
-        {/* </EffectComposer> */}
-      </Canvas>
-      <SocialIcons />
+                  <Lights />
+                  {isCarReady && <CyberpunkCar />}
+                  <WideMonitor />
+                  <DeskItems />
+                  {gpuTier !== null && gpuTier >= 2 ? <CyberpunkMap /> : <CyberpunkMapLowPoly />}
+                  <JOI />
+                  <Rain />
+                </AnimationContext.Provider>
+              </SoundsContext.Provider>
+              <EffectComposer disableNormalPass>
+                <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
+                <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
+                <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
+                <Noise opacity={0.7} premultiply blendFunction={28} />
+                <BrightnessContrast brightness={0.02} contrast={0.275} />
+                <Vignette offset={0.0} darkness={1} />
+              </EffectComposer>
+            </Canvas>
+          </div>
+          <SocialIcons />
+          <SoundControlIcons />
+          <JOISubtitles />
+        </JOISpeechContext.Provider>
+      </SoundControlContext.Provider>
     </>
   )
 }

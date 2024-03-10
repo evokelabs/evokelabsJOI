@@ -6,5 +6,7 @@ export const AnimationContext = createContext({
   shouldAmbientLightPlay: false,
   setAmbientLightPlay: (value: boolean) => {},
   shouldJOISpeak: false,
-  setShouldJOISpeak: (value: boolean) => {}
+  setShouldJOISpeak: (value: boolean) => {},
+  shouldMapDarkness: false,
+  setShouldMapDarkness: (value: boolean) => {}
 })

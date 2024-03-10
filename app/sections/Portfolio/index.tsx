@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 import ButtonDefault from '../../ui/ButtonDefault'
 import PanelContent from '../../ui/PanelContent'
 
@@ -7,17 +7,33 @@ import PortfolioItem from './PortfolioItem'
 import PortfolioTile from './PortfolioTile'
 import PortfolioPanelContent from './ui/PortfolioPanelContent'
 import ContentHeader from './ui/ContentHeader'
+import { SoundAudioLevelControls } from '../data/types'
+import { RoutesContext } from '@/app/libs/RoutesContext'
 
-const PortfolioHome = () => {
+const PortfolioHome = ({
+  soundAudioLevelControls,
+  setShouldMapDarkness
+}: {
+  soundAudioLevelControls: SoundAudioLevelControls
+  setShouldMapDarkness: Dispatch<SetStateAction<boolean>>
+}) => {
   const [portfolioData, setPortfolioData] = useState<PortfolioItem[]>(portfolio)
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null)
+  const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
 
   const handleItemClick = (item: PortfolioItem) => {
     setSelectedItem(item)
+    setCurrentPortfolioSelection(item.slug)
   }
 
+  useEffect(() => {
+    if (currentPortfolioSelection === null) {
+      setSelectedItem(null)
+    }
+  }, [currentPortfolioSelection])
+
   if (selectedItem) {
-    return <PortfolioItem {...selectedItem} />
+    return <PortfolioItem {...selectedItem} soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
   }
 
   return (
