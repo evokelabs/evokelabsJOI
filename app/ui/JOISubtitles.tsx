@@ -51,9 +51,9 @@ const JOISubtitles = () => {
 
   return (
     <div
-      className={`absolute bottom-4 pt-5 flex flex-row justify-center items-center z-[10000000000000000] w-full font-semibold pointer-events-none transition-opacity duration-500 ${opacityClass}`}
+      className={`absolute bottom-4 pb-0 md:pb-1 flex flex-row justify-center items-center z-[10000000000000000] w-full font-semibold pointer-events-none transition-opacity duration-500 ${opacityClass}`}
     >
-      <p className='text-red-blur text-4xl bg-black px-4 py-2 bg-opacity-40 shadow-lg'>
+      <p className='text-red-blur text-md lg:text-2xl 2xl:text-4xl bg-black px-4 py-2 bg-opacity-40 shadow-lg text-center'>
         <span className='text-teal-blur'>JOI:</span> {currentCaption}
       </p>
     </div>
