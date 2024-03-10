@@ -5,7 +5,7 @@ import { GLTF } from 'three/examples/jsm/Addons.js'
 
 // Constants for the emission animation
 
-const EMISSIVE_INTENSITY_RANGE = { min: 0.15, max: 20 }
+const EMISSIVE_INTENSITY_RANGE = { min: 0.15, max: 220 }
 const DURATION = 0.25
 
 const START_EYE_EMISSION_ANIMATION_DELAY = 1

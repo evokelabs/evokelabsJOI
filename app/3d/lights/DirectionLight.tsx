@@ -31,7 +31,19 @@ const DirectionLight = () => {
     }
   }, [scene])
 
-  return <directionalLight ref={lightRef} color={LIGHT_COLOR} position={BASE_POSITION} intensity={LIGHT_INTENSITY} />
+  return (
+    <directionalLight
+      ref={lightRef}
+      color={LIGHT_COLOR}
+      position={BASE_POSITION}
+      intensity={LIGHT_INTENSITY}
+      castShadow
+      shadow-normalBias={SHADOW_NORMAL_BIAS}
+      shadow-mapSize-width={2048} // Increase shadow map width
+      shadow-mapSize-height={2048} // Increase shadow map height
+      shadow-bias={-0.00002} // Adjust shadow bias
+    />
+  )
 }
 
 export default DirectionLight
