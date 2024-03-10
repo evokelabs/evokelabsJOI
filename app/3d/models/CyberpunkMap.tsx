@@ -14,7 +14,6 @@ const CyberpunkMap = () => {
   const [shutterAudioVolume, setShutterAudioVolume] = useState(0.45)
   const meshRef = useRef<Group>()
   const [modelLoaded, setModelLoaded] = useState(false)
-  const [isAnimating, setIsAnimating] = useState(false)
 
   const animateIntroShutters = (object: Mesh<any, any, any>) => {
     object.castShadow = true
@@ -73,7 +72,6 @@ const CyberpunkMap = () => {
   const animateShuttersDown = (object: Mesh<any, any, any>) => animateShutters(object, 'down')
 
   useEffect(() => {
-    console.log('use effect Cyberpunk triggered', shouldMapDarkness)
     if (modelLoaded && meshRef.current) {
       meshRef.current.traverse(object => {
         if (object instanceof Mesh && object.name === 'Window_Shutters_Closed') {
