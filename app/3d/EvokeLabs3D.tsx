@@ -389,7 +389,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   <ELAudioStartSoundControl />
                   {debug ? <Perf position='top-left' /> : null}
                   <CameraRig fov={fov} debug={false} />
-                  <OrbitControls makeDefault target={cameraTarget} enableZoom={true} enablePan={true} enableRotate={true} />
+                  <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
 
                   <Lights />
                   {isCarReady && <CyberpunkCar />}
