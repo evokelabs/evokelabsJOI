@@ -292,8 +292,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [eventSource, setEventSource] = useState<HTMLElement | undefined>()
 
   ///GPU
-  // const lowGPU = gpuTier !== null && gpuTier >= 2
-  const lowGPU = true
+  const lowGPU = gpuTier !== null && gpuTier >= 2
+  // const lowGPU = true
   console.log('lowGPU', lowGPU)
 
   return (
@@ -387,7 +387,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   </Html>
                   <VideoSkybox />
                   <ELAudioStartSoundControl />
-                  {debug ? <Perf position='top-left' /> : null}
                   <CameraRig fov={fov} debug={false} />
                   <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
 
