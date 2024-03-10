@@ -8,7 +8,7 @@ import ParagraphHighlight from '../ui/ParagraphHighlight'
 import RowHalf from '../ui/RowHalf'
 import RowThird from '../ui/RowThird'
 
-import ServicesSVG from '../ui/svg/mainMenu/ServicesSVG'
+import ServicesSVG from '../ui/svg/mainmenu/ServicesSVG'
 
 import ThreeD from '@/app/ui/png/services/3d.png'
 import AI from '@/app/ui/png/services/ai.png'

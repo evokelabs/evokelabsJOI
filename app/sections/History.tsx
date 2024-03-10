@@ -5,7 +5,7 @@ import IconSmall from '../ui/IconSmall'
 import PanelContent from '../ui/PanelContent'
 import ContentHead from '../ui/PanelContent/ContentHead'
 import VideoFrame from '../ui/VideoFrame'
-import HistorySVG from '../ui/svg/mainMenu/HistorySVG'
+import HistorySVG from '../ui/svg/mainmenu/HistorySVG'
 import { SoundAudioLevelControls } from './data/types'
 import { NextRouter } from 'next/router'
 

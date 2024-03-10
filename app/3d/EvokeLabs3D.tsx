@@ -46,7 +46,7 @@ import Draggable from 'react-draggable'
 
 // Constants
 // const debug = true
-const debug = false
+const debug = true
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 const MENU_HOME_WAIT_TIMER_COOKIE = 18000
 const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
@@ -290,6 +290,12 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     }
   }, [])
   const [eventSource, setEventSource] = useState<HTMLElement | undefined>()
+
+  ///GPU
+  // const lowGPU = gpuTier !== null && gpuTier >= 2
+  const lowGPU = true
+  console.log('lowGPU', lowGPU)
+
   return (
     <>
       <SoundControlContext.Provider
@@ -382,26 +388,34 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   <VideoSkybox />
                   <ELAudioStartSoundControl />
                   {debug ? <Perf position='top-left' /> : null}
-                  <CameraRig fov={fov} debug={debug} />
-                  <OrbitControls makeDefault target={cameraTarget} enableZoom={debug} enablePan={debug} enableRotate={debug} />
+                  <CameraRig fov={fov} debug={false} />
+                  <OrbitControls makeDefault target={cameraTarget} enableZoom={true} enablePan={true} enableRotate={true} />
 
                   <Lights />
                   {isCarReady && <CyberpunkCar />}
                   <WideMonitor />
-                  <DeskItems />
-                  {gpuTier !== null && gpuTier >= 2 ? <CyberpunkMap /> : <CyberpunkMapLowPoly />}
+                  {!lowGPU && <DeskItems />}
+                  {lowGPU ? <CyberpunkMapLowPoly /> : <CyberpunkMap />}
                   <JOI />
                   <Rain />
                 </AnimationContext.Provider>
               </SoundsContext.Provider>
-              <EffectComposer disableNormalPass>
-                <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
-                <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
-                <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
-                <Noise opacity={0.7} premultiply blendFunction={28} />
-                <BrightnessContrast brightness={0.02} contrast={0.275} />
-                <Vignette offset={0.0} darkness={1} />
-              </EffectComposer>
+              {lowGPU ? (
+                <EffectComposer disableNormalPass>
+                  <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
+                  <BrightnessContrast brightness={0.02} contrast={0.275} />
+                  <Vignette offset={0.0} darkness={1} />
+                </EffectComposer>
+              ) : (
+                <EffectComposer disableNormalPass>
+                  <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
+                  <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
+                  <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
+                  <Noise opacity={0.7} premultiply blendFunction={28} />
+                  <BrightnessContrast brightness={0.02} contrast={0.275} />
+                  <Vignette offset={0.0} darkness={1} />
+                </EffectComposer>
+              )}
             </Canvas>
           </div>
           <SocialIcons />

@@ -5,7 +5,7 @@ import HR from '@/app/ui/HR'
 import PortfolioItem from '../PortfolioItem'
 
 import portfolio from '../../data/portfolio.json'
-import PortfolioSVG from '@/app/ui/svg/mainMenu/PortfolioSVG'
+import PortfolioSVG from '@/app/ui/svg/mainmenu/PortfolioSVG'
 import { RED } from '@/app/libs/UIConstants'
 import { PortfolioContext } from '@/app/libs/PortfolioContext'
 
