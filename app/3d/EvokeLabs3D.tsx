@@ -43,6 +43,7 @@ import SoundControlIcons from '../ui/SoundControlIcons'
 import { SoundControlContext } from '../libs/SoundControlContext'
 import { PortfolioContext } from '../libs/PortfolioContext'
 import Draggable from 'react-draggable'
+import { GPUContext } from '../libs/GPUContext'
 
 // Constants
 // const debug = true
@@ -94,7 +95,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     }
   }, [])
 
-  const [gpuTier, setGpuTier] = useState<number | null>(0)
   useEffect(() => {
     const fetchGpuTier = async () => {
       if (debug) {
@@ -292,9 +292,14 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [eventSource, setEventSource] = useState<HTMLElement | undefined>()
 
   ///GPU
-  const lowGPU = gpuTier !== null && gpuTier >= 2
+  const [gpuTier, setGpuTier] = useState<number | null>(null)
+  const [lowGPU, setLowGPU] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    setLowGPU(gpuTier !== null && gpuTier >= 2)
+  }, [gpuTier])
+
   // const lowGPU = true
-  console.log('lowGPU', lowGPU)
 
   return (
     <>
@@ -385,18 +390,20 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                       </RoutesContext.Provider>
                     </PortfolioContext.Provider>
                   </Html>
-                  <VideoSkybox />
-                  <ELAudioStartSoundControl />
-                  <CameraRig fov={fov} debug={false} />
-                  <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
+                  <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
+                    <VideoSkybox />
+                    <ELAudioStartSoundControl />
+                    <CameraRig fov={fov} debug={false} />
+                    <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
 
-                  <Lights />
-                  {isCarReady && <CyberpunkCar />}
-                  <WideMonitor />
-                  {!lowGPU && <DeskItems />}
-                  {lowGPU ? <CyberpunkMapLowPoly /> : <CyberpunkMap />}
-                  <JOI />
-                  <Rain />
+                    <Lights />
+                    {isCarReady && <CyberpunkCar />}
+                    <WideMonitor />
+                    {!lowGPU && <DeskItems />}
+                    {lowGPU ? <CyberpunkMapLowPoly /> : <CyberpunkMap />}
+                    <JOI />
+                    <Rain />
+                  </GPUContext.Provider>
                 </AnimationContext.Provider>
               </SoundsContext.Provider>
               {lowGPU ? (

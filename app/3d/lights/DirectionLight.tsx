@@ -1,6 +1,7 @@
 import * as THREE from 'three'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useContext } from 'react'
 import { useThree } from '@react-three/fiber'
+import { GPUContext } from '@/app/libs/GPUContext'
 
 const BASE_POSITION: [number, number, number] = [3, 1.5, 7]
 const LIGHT_COLOR = '#003C67'
@@ -10,6 +11,7 @@ const SHADOW_NORMAL_BIAS = 0.04
 const DirectionLight = () => {
   const lightRef = useRef<any>(null)
   const { scene } = useThree()
+  const { lowGPU } = useContext(GPUContext) // use the context
 
   useEffect(() => {
     if (lightRef.current) {
@@ -31,17 +33,24 @@ const DirectionLight = () => {
     }
   }, [scene])
 
+  const shadowProps =
+    lowGPU === false
+      ? {
+          castShadow: true,
+          'shadow-normalBias': SHADOW_NORMAL_BIAS,
+          'shadow-mapSize-width': 2048, // Increase shadow map width
+          'shadow-mapSize-height': 2048, // Increase shadow map height
+          'shadow-bias': -0.00002 // Adjust shadow bias
+        }
+      : {}
+
   return (
     <directionalLight
       ref={lightRef}
       color={LIGHT_COLOR}
       position={BASE_POSITION}
-      intensity={LIGHT_INTENSITY}
-      castShadow
-      shadow-normalBias={SHADOW_NORMAL_BIAS}
-      shadow-mapSize-width={2048} // Increase shadow map width
-      shadow-mapSize-height={2048} // Increase shadow map height
-      shadow-bias={-0.00002} // Adjust shadow bias
+      intensity={lowGPU ? LIGHT_INTENSITY / 2 : LIGHT_INTENSITY} // use the context value
+      {...shadowProps}
     />
   )
 }
