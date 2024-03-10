@@ -370,20 +370,22 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                         }}
                       >
                         <Draggable>
-                          <div className='max-w-[73em]' onPointerDown={handleMouseDown} onPointerUp={handleMouseUp}>
-                            {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
-                            {router.pathname === '/services' && <Services />}
-                            {router.pathname.startsWith('/portfolio') && (
-                              <Portfolio soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
-                            )}
-                            {router.pathname === '/history' && (
-                              <History soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
-                            )}
-                            {router.pathname === '/resume' && <Resume />}
-                            {router.pathname === '/joi' && (
-                              <JOISpecial soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
-                            )}
-                            {router.pathname === '/availabilities' && <Availabilities />}
+                          <div onPointerDown={handleMouseDown} onPointerUp={handleMouseUp}>
+                            <div className='max-w-[73em]'>
+                              {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
+                              {router.pathname === '/services' && <Services />}
+                              {router.pathname.startsWith('/portfolio') && (
+                                <Portfolio soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+                              )}
+                              {router.pathname === '/history' && (
+                                <History soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+                              )}
+                              {router.pathname === '/resume' && <Resume />}
+                              {router.pathname === '/joi' && (
+                                <JOISpecial soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+                              )}
+                              {router.pathname === '/availabilities' && <Availabilities />}
+                            </div>
                             {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
                           </div>
                         </Draggable>
@@ -393,8 +395,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
                     <VideoSkybox />
                     <ELAudioStartSoundControl />
-                    <CameraRig fov={fov} debug={false} />
-                    <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
+                    <CameraRig fov={fov} debug={true} />
+                    <OrbitControls makeDefault target={cameraTarget} enableZoom={true} enablePan={true} enableRotate={true} />
 
                     <Lights />
                     {isCarReady && <CyberpunkCar />}
