@@ -38,7 +38,7 @@ const Resume = () => {
     >
       <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
       <div className='mt-2 mb-3'>
-        <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-[26px]'>
+        <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-[1.625rem]'>
           <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,
           design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative studios,
           corporations, and start-ups to deliver hundreds of successful digital projects. Specialising in front-end technologies and

@@ -95,8 +95,6 @@ const SVGButton: React.FC<SVGButtonProps> = ({
 }) => {
   const { setCurrentPortfolioSelection, setCurrentRouteSelection } = useContext(RoutesContext)
 
-  
-
   const handleClick = () => {
     switch (label) {
       case 'CLOSE':
@@ -151,7 +149,7 @@ const SVGButton: React.FC<SVGButtonProps> = ({
       </svg>
       <div className='absolute bottom-0 flex flex-row items-center justify-between w-full h-full pl-2.5 pr-12 pointer-events-none'>
         <IconButtonDefault isHovered={isHovered} isActive={isActive} isMouseDown={isMouseDown} />
-        <div className='absolute ml-0.5 w-[46px] h-[46px]'>{svgIcon}</div>
+        <div className='absolute ml-0.5 w-[2.875rem] h-[2.875rem]'>{svgIcon}</div>
         <p className={'font-rajdhani text-[2rem] font-semibold text-teal-blur'}>{label}</p>
       </div>
     </div>

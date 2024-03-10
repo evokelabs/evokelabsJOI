@@ -31,7 +31,7 @@ const ContentHead = () => {
   return (
     <>
       <div className='flex flex-row my-1 gap-6'>
-        <div className='w-[70px]'>
+        <div className='w-[5em]'>
           <ServicesSVG />
           <IconSmall />
         </div>
@@ -156,7 +156,7 @@ const Services = () => {
           paragraph='Above all, Evoke Labs is dedicated to delivering a positive experience for end users, team members and stakeholders alike. Your happiness is our ultimate goal, driven by commitment, open communications and proven results.'
         />
       </div>
-      <div className='my-6 space-y-1 pr-2 h-[64px]'>
+      <div className='my-6 space-y-1 pr-2 h-[4em]'>
         <TypingAnimation quotes={quotes} />
       </div>
       <HR />

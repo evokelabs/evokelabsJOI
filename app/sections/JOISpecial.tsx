@@ -12,7 +12,7 @@ const ContentHead = () => {
   return (
     <>
       <div className='flex flex-row my-1 gap-6'>
-        <div className='w-[70px]'>
+        <div className='w-[5em]'>
           <JOISVG />
           <IconSmall />
         </div>

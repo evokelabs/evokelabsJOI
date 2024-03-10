@@ -12,12 +12,6 @@ const config: Config = {
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         'custom-pattern': `url(${TileFill})`
       },
-      width: {
-        '120px': '120px'
-      },
-      height: {
-        '120px': '120px'
-      },
       fontFamily: {
         default: ['Rajdhani', 'sans-serif'],
         orbitron: ['Orbitron', 'sans-serif'],
