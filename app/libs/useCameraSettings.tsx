@@ -6,7 +6,7 @@ import { getFov } from '../libs/helpers'
 const MOBILE_WIDTH_THRESHOLD = 768
 const INITIAL_TARGET_MOBILE = new Vector3(0.8, 1.4, 2.5)
 const DEFAULT_FOV = 50
-// const INITIAL_TARGET_DESKTOP = new Vector3(0.15, 1.4, 2.5)
+// const INITIAL_TARGET_DESKTOP = new Vector3(0.15, 1.4, 2.5) OLD
 const INITIAL_TARGET_DESKTOP = new Vector3(0.7, 1.6, 2.5)
 
 export const useCameraSettings = () => {
