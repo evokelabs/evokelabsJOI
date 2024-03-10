@@ -122,7 +122,7 @@ const VideoFrame = ({
   return (
     <>
       <div>
-        {!videoError ? (
+        {videoError ? (
           <div className='w-full h-[634px] bg-grid-brightRed  border-red border-2 border-opacity-60 shadow-red-blur flex justify-center items-center text-teal-blur text-center font-orbitron flex-col'>
             <p className='text-[66px] font-bold '>Audio Hardware Error</p>
             <p className='text-3xl font-semibold leading-4 '>Please refresh the page or visit another section.</p>
