@@ -162,7 +162,7 @@ const ButtonMainMenu = ({
 
   return (
     <div
-      className='cursor-pointer w-fit'
+      className='cursor-pointer w-fit origin-top-left'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       ref={hoverAreaRef}
