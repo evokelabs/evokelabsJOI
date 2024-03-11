@@ -30,33 +30,37 @@ import TypingAnimation from '../libs/TypingAnimation'
 const ContentHead = () => {
   return (
     <>
-      <div className='flex flex-row my-1 gap-6'>
-        <div className='w-[5em]'>
+      <div className='flex flex-row my-1 gap-6 items-center '>
+        <div>
           <ServicesSVG />
           <IconSmall />
         </div>
-        <div className='flex justify-between w-full mr-10'>
-          <div className='flex flex-row pr-4'>
-            <ul className='ml-4 p text-red font-medium text-[22px] font-default space-y-1' style={{ listStyleType: 'square' }}>
-              <li className='leading-[1]'>Australian citizen with full work rights. </li>
-              <li className='leading-[1]'>ABN / GST compliant for contract and freelance roles.</li>
-              <li className='leading-[1]'>Open to onsite and/or remote gigs. Crypto accepted.</li>
-            </ul>
-          </div>
-          <div className='flex flex-col text-right justify-center space-y-1'>
+        <div>
+          <ul
+            className='ml-0 lg:ml-4 text-red font-medium text-[1rem] md:text-[1.2rem]  lg:text-[1.375rem] font-default space-y-1'
+            style={{ listStyleType: 'square' }}
+          >
+            <li className='leading-[1]'>Australian citizen with full work rights. </li>
+            <li className='leading-[1]'>ABN / GST compliant for contract and freelance roles.</li>
+            <li className='leading-[1]'>Open to onsite and/or remote gigs. Crypto accepted.</li>
+          </ul>
+        </div>
+        <div className='ml-auto hidden 2xl:block'>
+          <div className='flex flex:row 2xl:flex-col text-right justify-center space-y-1 ml-auto mr-6'>
             <ParagraphHighlight BGColor={RED} fontSize='23px' paragraph='<strong>Current location:</strong> Sydney, Australia' />
             <ParagraphHighlight BGColor={RED} fontSize='23px' paragraph='<strong>ABN:</strong> 53 470 501 232' />
           </div>
         </div>
       </div>
+
+      <div className='flex 2xl:hidden flex-col text-left justify-center space-y-1 ml-auto mr-6 mt-2'>
+        <ParagraphHighlight BGColor={RED} fontSize='1.2em' paragraph='<strong>Current location:</strong> Sydney, Australia' />
+        <ParagraphHighlight BGColor={RED} fontSize='1.2em' paragraph='<strong>ABN:</strong> 53 470 501 232' />
+      </div>
+
       <HR />
     </>
   )
-}
-
-interface Quote {
-  quote: string
-  source: string
 }
 
 const Services = () => {
