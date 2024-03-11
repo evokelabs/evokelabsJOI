@@ -46,7 +46,7 @@ const Resume = () => {
         </p>
       </div>
       <HeadingHighlight heading={'Experience'} fullWidth={true} BGColor={RED} />
-      <div className='space-y-4 my-4'>
+      <div className='space-y-4 my-4 w-full'>
         <RowFull
           heading='LEONARDO.AI'
           subHeading='LEAD FRONT-END DEVELOPER  | NOV 2022 - AUGUST 2023'

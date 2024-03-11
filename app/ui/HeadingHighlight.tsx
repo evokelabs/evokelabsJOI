@@ -5,9 +5,9 @@ const HeadingFullWidth = ({ heading, BGColor }: { heading: string; BGColor: stri
     <div
       className={`${
         BGColor === RED ? 'bg-red' : BGColor === TEAL ? 'bg-teal' : 'bg-orange'
-      } font-semibold font-rajdhani text-[2.25rem] text-black w-full block uppercase`}
+      } font-semibold font-rajdhani text-[1.8rem] lg:text-[2.25rem] text-black w-full block uppercase`}
     >
-      <span className={'px-3 block h-[2.1875rem] leading-[1.05]'}>{heading}</span>
+      <span className={'px-3 block leading-9 pt-0.5'}>{heading}</span>
     </div>
   )
 }
