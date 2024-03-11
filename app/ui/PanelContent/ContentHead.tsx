@@ -25,15 +25,17 @@ const DefaultHeaderContent = ({
         <div className='flex flex-row items-center w-fit'>
           {icon ? icon : null}
           {heading ? (
-            <h2
-              className='font-rajdhani font-semibold text-red-blur text-[1.75rem] 2xl:text-[2.25rem] 
-        leading-none uppercase relative'
-            >
-              {heading}
-            </h2>
+            <div className='relative w-fit block'>
+              <h2
+                className='font-rajdhani font-semibold text-red-blur text-[1.5rem] 2xl:text-[2.25rem] 
+        leading-none uppercase inline w-full'
+              >
+                {heading}
+              </h2>
+            </div>
           ) : null}
         </div>
-        {button ? <div className='relative sm:ml-auto uppercase flex flex-row mt-1'>{button}</div> : null}
+        {button ? <div className='relative sm:ml-auto uppercase block mt-1'>{button}</div> : null}
       </div>
       {hr ? <HR /> : <div className='my-0 2xl:my-2'></div>}
     </>
