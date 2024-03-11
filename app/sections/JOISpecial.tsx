@@ -47,10 +47,14 @@ const JOISpecial = ({
       />
       <div className='flex flex-col 2xl:flex-row justify-between gap-2 pb-1'>
         <div className='flex mt-2 2xl:mt-3 justify-start h-[2.6em] 2xl:h-full'>
-          <ButtonDefault label='4K VERSION' svgIcon={<YouTubeSVG />} />
+          <div className='scale-[60%] 2xl:scale-100 origin-top-left'>
+            <ButtonDefault label='4K VERSION' svgIcon={<YouTubeSVG />} />
+          </div>
         </div>
         <div className='flex flex-row 2xl:mt-3 mr-0 2xl:-mr-3 h-[2.6em] 2xl:h-full'>
-          <ButtonDefault />
+          <div className='scale-[60%] 2xl:scale-100 origin-top-left'>
+            <ButtonDefault />
+          </div>
         </div>
       </div>
     </PanelContent>
