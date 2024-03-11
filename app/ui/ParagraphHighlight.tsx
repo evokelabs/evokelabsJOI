@@ -23,7 +23,7 @@ const ParagraphHighlight = ({
   return (
     <div>
       <div
-        className={`font-medium font-rajdhani text-black w-fit inline-block px-2 2xl:px-4 py-1 2xl:py-2 ${fontSizeClass} ${
+        className={`font-medium font-rajdhani text-black w-fit inline-block px-2 2xl:px-3 py-1 2xl:py-2 ${fontSizeClass} ${
           BGColor === RED ? 'bg-red shadow-red-blur' : BGColor === TEAL ? 'bg-teal shadow-teal-blur' : 'bg-orange shadow-orange-blur'
         }`}
       >

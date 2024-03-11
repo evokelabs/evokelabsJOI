@@ -21,7 +21,7 @@ const Index = ({ headerTitle, children, contentHead }: PanelContentProps) => {
 
   return (
     <div ref={ref} className='relative mb-2'>
-      <div className='relative flex flex-row h-full '>
+      <div className='relative flex flex-row h-full w-full'>
         <div className='w-auto h-auto grid grid-rows-[min-content,auto,min-content] '>
           <div className='pt-4'>
             <TopLeftCornerSVG />

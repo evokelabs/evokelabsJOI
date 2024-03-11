@@ -103,6 +103,10 @@ const config: Config = {
         '.border-2-red': {
           borderColor: 'rgba(222, 84, 86, 0.6)',
           borderWidth: '2px'
+        },
+        '.border-2-red-full': {
+          borderColor: 'rgba(222, 84, 86)',
+          borderWidth: '2px'
         }
       }
       addUtilities(newUtilities)

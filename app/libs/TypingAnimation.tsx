@@ -66,8 +66,8 @@ const TypingAnimation: React.FC<TypingAnimationProps> = ({ quotes }) => {
 
   return (
     <div className='my-6 space-y-1 pr-2'>
-      <ParagraphHighlight BGColor={RED} fontSize='22px' paragraph={typing.quote} />
-      {typing.source ? <ParagraphHighlight BGColor={RED} fontSize='22px' paragraph={typing.source} /> : null}
+      <ParagraphHighlight BGColor={RED} fontSize='lg' paragraph={typing.quote} />
+      {typing.source ? <ParagraphHighlight BGColor={RED} fontSize='lg' paragraph={typing.source} /> : null}
     </div>
   )
 }
