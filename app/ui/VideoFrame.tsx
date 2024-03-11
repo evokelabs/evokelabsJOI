@@ -130,7 +130,7 @@ const VideoFrame = ({
             </div>
           </div>
         ) : (
-          <div className='w-full bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60  p-2 pb-0 border-b-0 shadow-red-blur'>
+          <div className='w-full bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60 p-2 pb-0 border-b-0 shadow-red-blur '>
             <video
               ref={videoRef}
               muted
