@@ -13,9 +13,9 @@ const RowHalf = ({ heading, paragraph, PNG }: { heading: string; paragraph: stri
           <div className={'mt-1.5 w-full relative left-4 top-1 pr-6 pl-1'}>
             <h2
               dangerouslySetInnerHTML={{ __html: heading }}
-              className='text-teal-blur uppercase font-rajdhani text-[18px] sm:text-[20px] md:text-[25px] font-semibold leading-none lg:mb-1'
+              className='text-teal-blur uppercase font-rajdhani text-[18px] sm:text-[20px] md:text-[28px] font-semibold leading-none lg:mb-1'
             ></h2>
-            <p className='text-red-blur font-rajdhani text-[14px] sm:text-[16px] md:text-[17px] leading-4 sm:leading-5 lg:leading-6 font-medium'>
+            <p className='text-red-blur font-rajdhani text-[14px] sm:text-[16px] lg:text-[19px] md:text-[17px] leading-4 sm:leading-5 lg:leading-6 font-medium'>
               {paragraph}
             </p>
           </div>

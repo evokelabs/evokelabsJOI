@@ -251,14 +251,14 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
         }`}
         >
           <h1
-            className={`font-rajdhani font-bold text-red-blur text-[3rem] md:text-[5.6rem] 2xl:text-[6.25rem] leading-[0.75em] transition-colors duration-150 inline ${hoverColor} ${
+            className={`font-rajdhani font-bold text-red-blur text-[3rem] md:text-[5.2rem] 2xl:text-[6.25rem] leading-[0.75em] transition-colors duration-150 inline ${hoverColor} ${
               isActive ? 'text-black-blur' : null
             }`}
           >
             EVOKE LABS DOES DIGITAL
           </h1>
           <h1
-            className={`font-rajdhani font-bold text-teal-blur text-[3rem] md:text-[5.6rem] 2xl:text-[6.25rem] leading-[0.75em] transition-colors duration-150 uppercase inline  ${hoverColor} ${
+            className={`font-rajdhani font-bold text-teal-blur text-[3rem] md:text-[5.2rem] 2xl:text-[6.25rem] leading-[0.75em] transition-colors duration-150 uppercase inline  ${hoverColor} ${
               isActive ? 'text-black-blur ' : 'type'
             }`}
           >
