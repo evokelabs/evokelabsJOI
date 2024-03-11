@@ -121,28 +121,27 @@ const VideoFrame = ({
 
   return (
     <>
-      <div>
-        {videoError ? (
-          <div className='w-full h-[39.625rem] bg-grid-brightRed  border-red border-2 border-opacity-60 shadow-red-blur flex justify-center items-center text-teal-blur text-center font-orbitron flex-col'>
-            <div className='bg-grid-darkRed py-4 px-6 -space-y-2 '>
-              <p className='text-[66px] font-bold '>Audio Hardware Error</p>
-              <p className='text-3xl font-semibold '>Please refresh the page or visit another section.</p>
-            </div>
+      {videoError ? (
+        <div className='w-full h-[32em] bg-grid-brightRed  border-red border-2 border-opacity-60 shadow-red-blur flex justify-center items-center text-teal-blur text-center font-orbitron flex-col'>
+          <div className='bg-grid-darkRed py-4 px-6 -space-y-2 w-fit '>
+            <p className='text-[66px] font-bold '>Audio Hardware Error</p>
+            <p className='text-3xl font-semibold '>Please refresh the page or visit another section.</p>
           </div>
-        ) : (
-          <div className='w-full bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60 p-2 pb-0 border-b-0 shadow-red-blur '>
-            <video
-              ref={videoRef}
-              muted
-              className='w-full h-full object-contain'
-              controls
-              src={videoURL}
-              onPlay={handleVideoPlay}
-              onPause={handleVideoPause}
-            />
-          </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className='w-full bg-grid-darkRed h-full border-red border-t-2 border-x-2 border-opacity-60 p-2 pb-0 border-b-0 shadow-red-blur '>
+          <video
+            ref={videoRef}
+            muted
+            className='w-full h-full object-contain'
+            controls
+            src={videoURL}
+            onPlay={handleVideoPlay}
+            onPause={handleVideoPause}
+          />
+        </div>
+      )}
+
       {!videoError ? (
         <div className='h-2 border-b-2 bg-grid-darkRed border-l-2 border-red border-opacity-60 mr-2 relative pb-2 '>
           <div className='absolute -right-3'>
