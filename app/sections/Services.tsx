@@ -98,7 +98,7 @@ const Services = () => {
         />
       </div>
       <HeadingHighlight BGColor={RED} fullWidth={false} heading='Development Services' />
-      <div className='flex flex-wrap w-full'>
+      <div className='flex flex-wrap gap-3 my-2'>
         <RowHalf
           heading='Front End Development'
           paragraph='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single/multi page apps and  PWAs with APIs/GraphQL support.'
@@ -121,7 +121,7 @@ const Services = () => {
         />
       </div>
       <HeadingHighlight BGColor={RED} fullWidth={false} heading='Technologist Services' />
-      <div className='flex flex-wrap gap-3 my-2 mb-3'>
+      <div className='flex flex-wrap gap-3 my-2 mb-'>
         <RowHalf
           heading='VR/AR Technologies'
           paragraph='Creating immersive environments and interactive experiences by combining 3D assets, real world space and game logic. A new frontier in the digital realm.'
@@ -160,18 +160,18 @@ const Services = () => {
           paragraph='Above all, Evoke Labs is dedicated to delivering a positive experience for end users, team members and stakeholders alike. Your happiness is our ultimate goal, driven by commitment, open communications and proven results.'
         />
       </div> */}
-      <div className='my-6 space-y-1 pr-2 h-[4em]'>
+      {/* <div className='my-6 space-y-1 pr-2 h-[4em]'>
         <TypingAnimation quotes={quotes} />
-      </div>
+      </div> */}
       <HR />
-      <div className='my-4 uppercase text-teal-blur font-semibold text-[28px]'>
+      {/* <div className='my-4 uppercase text-teal-blur font-semibold text-[28px]'>
         <p>Thanks for visiting Evoke Labs, Evolving digital media since 2003.</p>
         <p>Your digital transformation is just a click away.</p>
       </div>
       <div className='flex flex-row justify-between mb-4 pt-1'>
         <ButtonDefault label='FIX A BOOKING' svgIcon={<FixABookingSVG />} />
         <ButtonDefault />
-      </div>
+      </div> */}
     </PanelContent>
   )
 }
