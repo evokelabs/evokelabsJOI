@@ -47,15 +47,15 @@ const ContentHead = () => {
         </div>
         <div className='ml-auto hidden 2xl:block'>
           <div className='flex flex:row 2xl:flex-col text-right justify-center space-y-1 ml-auto mr-6'>
-            <ParagraphHighlight BGColor={RED} fontSize='1.4375em' paragraph='<strong>Current location:</strong> Sydney, Australia' />
-            <ParagraphHighlight BGColor={RED} fontSize='1.4375em' paragraph='<strong>ABN:</strong> 53 470 501 232' />
+            <ParagraphHighlight BGColor={RED} fontSize='base' paragraph='<strong>Current location:</strong> Sydney, Australia' />
+            <ParagraphHighlight BGColor={RED} fontSize='base' paragraph='<strong>ABN:</strong> 53 470 501 232' />
           </div>
         </div>
       </div>
 
       <div className='flex 2xl:hidden flex-col text-left justify-center space-y-1 ml-auto mr-6 mt-2'>
-        <ParagraphHighlight BGColor={RED} fontSize='1.2em' paragraph='<strong>Current location:</strong> Sydney, Australia' />
-        <ParagraphHighlight BGColor={RED} fontSize='1.2em' paragraph='<strong>ABN:</strong> 53 470 501 232' />
+        <ParagraphHighlight BGColor={RED} fontSize='sm' paragraph='<strong>Current location:</strong> Sydney, Australia' />
+        <ParagraphHighlight BGColor={RED} fontSize='sm' paragraph='<strong>ABN:</strong> 53 470 501 232' />
       </div>
 
       <HR />
