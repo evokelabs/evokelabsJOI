@@ -24,10 +24,10 @@ const History = ({
           <>
             <ContentHead
               icon={
-                <>
+                <div className='w-fit hidden md:block'>
                   <HistorySVG />
                   <IconSmall />
-                </>
+                </div>
               }
               heading='Evoke Labs History'
               button={<ButtonDefault />}
