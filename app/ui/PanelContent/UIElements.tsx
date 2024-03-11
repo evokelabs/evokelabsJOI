@@ -1,4 +1,4 @@
-import { BLUE_DARK, RED, RED_DARK } from '@/app/libs/UIConstants'
+import { BLACK, BLUE_DARK, RED, RED_BLACK, RED_DARK } from '@/app/libs/UIConstants'
 import { RED_TILE_PATTERN } from '../libs/TitleFillsPatterns'
 import RedCRTBlur from '../libs/RedCRTBlur'
 
@@ -45,6 +45,36 @@ export const BottomRightCornerSVG = () => {
         <path d='M14 -15V1L2 13H-8V-15H14Z' fill={BLUE_DARK} />
         <path d='M14 -15V1L2 13H-8V-15H14Z' fill='url(#blueTile)' />
         <path d='M2 13L14 1V-15H12V0L1 11H-8V13H2Z' fill={RED} fillOpacity={0.6} />
+      </g>
+      {RED_TILE_PATTERN}
+    </svg>
+  )
+}
+
+export const BottomRightCornerLarge = () => {
+  return (
+    <svg width='22' height='22' viewBox='0 0 22 22' fill='none'>
+      <path d='M0 0H22V1L1 22H0V0Z' fill={BLACK} fillOpacity={0.85} />
+      <path d='M0 0H22V1L1 22H0V0Z' fill={RED_BLACK} fillOpacity={0.1} />
+      <path d='M0 0H22V1L1 22H0V0Z' fill='url(#redTile)' />
+      <RedCRTBlur />
+      <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
+        <path d='M0 20L20 0H22V1L1 22H0V20Z' fill={RED} fillOpacity={0.6} />
+      </g>
+      {RED_TILE_PATTERN}
+    </svg>
+  )
+}
+
+export const BottomRightCornerSmall = () => {
+  return (
+    <svg width='17' height='17' viewBox='0 0 17 17' fill='none'>
+      <path d='M0 0H22V1L1 22H0V0Z' fill={BLACK} fillOpacity={0.85} />
+      <path d='M0 0H22V1L1 22H0V0Z' fill={RED_BLACK} fillOpacity={0.1} />
+      <path d='M0 15V0H15L0 15Z' fill='url(#redTile)' />
+      <RedCRTBlur />
+      <g filter='url(#RedCRTBlur1) url(#RedCRTBlur2)'>
+        <path d='M17 0.734512L0.817749 17H0V15L15 0H17V0.734512Z' fill={RED} fillOpacity={0.6} />
       </g>
       {RED_TILE_PATTERN}
     </svg>

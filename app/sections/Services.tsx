@@ -78,7 +78,7 @@ const Services = () => {
           paragraph='Converting ideas into interfaces and interactions that satisfy. Storyboarding, wireframes, site maps, UI design, iconography, responsiveness and prototyping.'
           PNG={Interactive}
         />
-        {/* <RowHalf
+        <RowHalf
           heading='Motion Design/Video Editing'
           paragraph='Bringing digital assets and video footage to life inside the timeline. Expert Adobe After Effects and Premiere talent. Transcode, upscale and compress videos for online use.'
           PNG={Motion}
@@ -87,7 +87,7 @@ const Services = () => {
           heading='3D artist/generalist'
           paragraph='Adding a new dimension to asset creation. Modelling, shading, UV editing, texturing, rigging, animation, lighting, motion capture and optimised exports for various platforms.'
           PNG={ThreeD}
-        /> */}
+        />
       </div>
       <HeadingHighlight BGColor={RED} fullWidth={false} heading='Development Services' />
       <div className='flex flex-wrap my-2 gap-3'>
@@ -138,7 +138,7 @@ const Services = () => {
       <div>
         <HeadingHighlight BGColor={TEAL} fullWidth={false} heading='THE EVOKE LABS DIFFERENCE' />
       </div>
-      <div className='flex flex-col 2xl:flex-row mt-2'>
+      <div className='flex flex-col lg:flex-row mt-2 gap-2'>
         <RowThird
           heading='The versatility factor'
           paragraph='Why settle for one expertise when you can have it all? Visionary, developer, designer - my versatile skill set is your secret weapon. Unleash the boundless innovation that comes from a true Renaissance professional.'
