@@ -387,7 +387,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                               {router.pathname === '/availabilities' && <Availabilities />}
                             </div>
                             {isPreLoaderFinished && (
-                              <div className='left-1 relative scale-[54%] sm:scale-[62%] md:scale-[80%] lg:scale-100 lg:w-full origin-top-left min-w-[50em] 2xl:min-w-[0%]'>
+                              <div className='left-1 relative scale-[54%] sm:scale-[62%] md:scale-[80%] lg:scale-90 2xl:scale-100 lg:w-[112%] 2xl:w-full origin-top-left min-w-[50em] '>
                                 <MainMenu router={router} routeConfig={ROUTE_CONFIG} />
                               </div>
                             )}
