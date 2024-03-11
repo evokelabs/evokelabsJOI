@@ -371,20 +371,21 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                       >
                         <Draggable>
                           <div onPointerDown={handleMouseDown} onPointerUp={handleMouseUp}>
-                            {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
-                            {router.pathname === '/services' && <Services />}
-                            {router.pathname.startsWith('/portfolio') && (
-                              <Portfolio soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
-                            )}
-                            {router.pathname === '/history' && (
-                              <History soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
-                            )}
-                            {router.pathname === '/resume' && <Resume />}
-                            {router.pathname === '/joi' && (
-                              <JOISpecial soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
-                            )}
-                            {router.pathname === '/availabilities' && <Availabilities />}
-
+                            <div className='max-w-[23em] sm:max-w-[35.5em] md:max-w-[49em] lg:max-w-[50em] 2xl:max-w-[73em]'>
+                              {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
+                              {router.pathname === '/services' && <Services />}
+                              {router.pathname.startsWith('/portfolio') && (
+                                <Portfolio soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+                              )}
+                              {router.pathname === '/history' && (
+                                <History soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+                              )}
+                              {router.pathname === '/resume' && <Resume />}
+                              {router.pathname === '/joi' && (
+                                <JOISpecial soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+                              )}
+                              {router.pathname === '/availabilities' && <Availabilities />}
+                            </div>
                             {isPreLoaderFinished && (
                               <div className='scale-50 sm:scale-[60%] md:scale-[80%] lg:scale-90 2xl:scale-100 2xl:w-full origin-top-left min-w-[50em] sm:min-w-[75em] md:min-w-[80em] lg:min-w-[68em] 2xl:min-w-[0%]'>
                                 <MainMenu router={router} routeConfig={ROUTE_CONFIG} />
