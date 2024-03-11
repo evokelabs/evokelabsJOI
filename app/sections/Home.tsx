@@ -237,7 +237,7 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
   return (
     <>
       <div
-        className={`max-w-[23.5em] sm:max-w-[36em] md:max-w-[50em] 2xl:max-w-[72em] w-full mb-4 mx-3.5 mr-2 group ${
+        className={`max-w-[25.5em] sm:max-w-[34em] md:max-w-[37.5em] lg:max-w-[42.5em] 2xl:max-w-[72em] w-full mb-4 mx-3.5 mr-2 group ${
           !isActive ? 'cursor-zoom-in' : 'cursor-zoom-out '
         }`}
         onMouseEnter={() => setIsHovered(true)}
@@ -269,15 +269,15 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
 
         <div
           ref={divRef}
-          className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0 text-[1.2rem] lg:text-[2.2rem] '
+          className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0 text-[1.2rem] md:text-[1.75rem] lg:text-[2rem] 2xl:text-[2.2rem] '
         >
-          <div className='flex flex-col justify-between min-h-[20em]  '>
+          <div className='flex flex-col justify-between min-h-[10em] 2xl:min-h-[8em]  '>
             <p className='mt-6 mb-4 text-teal-blur font-semibold leading-tight '>
               Evoke labs is home to Adrian Pikios, <span className='text-red-blur bg-grid-red px-2 '>{scrambledSolo}</span> who uses the
               powers of <span className='text-red-blur bg-grid-red px-2 '>{scrambledPower}</span> to design, develop & create{' '}
               <span className='text-red-blur bg-grid-red px-2 '>{scrambledDescribe}</span> digital experiences.
             </p>
-            <p className='mb-5 text-teal-blur font-semibold leading-tight'>
+            <p className='mb-2 2xl:mb-5 text-teal-blur font-semibold leading-tight'>
               When not working on personal projects, I partner with clients, brands and agencies to help produce their digital campaigns.
             </p>
           </div>
