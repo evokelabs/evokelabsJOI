@@ -21,22 +21,22 @@ const Index = ({ headerTitle, children, contentHead }: PanelContentProps) => {
 
   return (
     <div ref={ref} className='relative mb-2'>
-      <div className='relative flex flex-row h-full'>
-        <div className='w-auto h-auto grid grid-rows-[min-content,auto,min-content]'>
+      <div className='relative flex flex-row h-full '>
+        <div className='w-auto h-auto grid grid-rows-[min-content,auto,min-content] '>
           <div className='pt-4'>
             <TopLeftCornerSVG />
           </div>
-          <div className='w-[0.6875rem] bg-grid-red border-red border-2 border-r-0 border-opacity-60 justify-self-end border-t-0 border-b-0'></div>
+          <div className='w-[0.6875rem] bg-grid-red border-red border-2 border-r-0 border-opacity-60 justify-self-end border-t-0 border-b-0 red'></div>
           <div className='justify-self-end '>
             <BottomLeftCornerSVG />
           </div>
         </div>
 
-        <div className='w-full'>
+        <div className='w-full h-full'>
           <PanelHeader headerTitle={headerTitle} />
-          <div className='bg-grid-blue pl-3 pr-0 pt-2.5  border-red border-x-2 border-opacity-60  shadow-red-blur   '>
+          <div className='bg-grid-blue pl-3 pr-0 pt-2.5 border-red border-x-2 border-opacity-60  shadow-red-blur'>
             {contentHead}
-            <div className={'max-h-[47.5rem]  overflow-y-auto overflow-x-hidden red-scrollbar mr-2 pr-2 '}>{children}</div>
+            <div className={'min-h-[16rem] max-h-[47.5rem] overflow-y-auto overflow-x-hidden red-scrollbar mr-2 pr-2 '}>{children}</div>
           </div>
           <BottomFooter />
         </div>
