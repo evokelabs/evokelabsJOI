@@ -6,7 +6,7 @@ import { StaticImport } from 'next/dist/shared/lib/get-img-props'
 
 const SVG = ({ heading, PNG }: { heading: string; PNG: StaticImport }) => {
   return (
-    <div className='hidden sm:block'>
+    <div className='sm:block'>
       <svg width='546' height='172' viewBox={`0 0 546 172`} fill='none'>
         <path d='M2 170V2H544V154.909L528.986 170H2Z' fill={BLACK} fillOpacity='0.85' />
         <path d='M2 170V2H544V154.909L528.986 170H2Z' fill={RED} fillOpacity='0.1' />
@@ -20,7 +20,7 @@ const SVG = ({ heading, PNG }: { heading: string; PNG: StaticImport }) => {
         {RED_TILE_PATTERN}
       </svg>
 
-      <div className='absolute w-[142px] ml-4 opacity-80 top-0 '>
+      <div className='absolute w-[142px] ml-4 mt-5 md:mt-0 opacity-80 top-0 hidden sm:block '>
         <Image src={PNG} alt={heading} className='text-teal -mt-1 md:mt-4 font-rajdhani font-semibold text-center ' />
       </div>
     </div>
@@ -35,15 +35,15 @@ const RowHalf = ({ heading, paragraph, PNG }: { heading: string; paragraph: stri
           <div className='w-fit pl-2.5 hidden sm:block'>
             <IconDefault />
           </div>
-          <div className={'pr-3 mt-1.5'}>
+          <div className={'pr-5 lg:pr-2 mt-1.5 pl-4 sm:pl-0 '}>
             <h2
               dangerouslySetInnerHTML={{ __html: heading }}
-              className='text-teal-blur uppercase font-rajdhani text-[28px] font-semibold leading-none mb-1.5'
+              className='text-teal-blur uppercase font-rajdhani text-[20px] md:text-[28px] font-semibold leading-none mb-1.5'
             ></h2>
-            <p className='text-red-blur font-rajdhani text-[19px] leading-6 font-medium'>{paragraph}</p>
+            <p className='text-red-blur font-rajdhani text-[16px] md:text-[19px] leading-5 lg:leading-6 font-medium'>{paragraph}</p>
           </div>
         </div>
-        <div className='hidden sm:block '>
+        <div>
           <SVG PNG={PNG} heading={heading} />
         </div>
       </div>
