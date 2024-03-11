@@ -75,7 +75,7 @@ const Services = () => {
       </div>
       <HR />
       <HeadingHighlight BGColor={RED} fullWidth={false} heading='Creative Services' />
-      <div className='flex flex-wrap gap-3 my-4'>
+      <div className='flex flex-wrap gap-3 my-2'>
         <RowHalf
           heading='Digital Design'
           paragraph='Digital asset creation for websites, landing pages, social media posts, digital banners, email templates, mobile/web apps, motion design, animation GIFs, SVG and social tiles.'
@@ -98,7 +98,7 @@ const Services = () => {
         />
       </div>
       <HeadingHighlight BGColor={RED} fullWidth={false} heading='Development Services' />
-      <div className='flex flex-wrap gap-3 my-4'>
+      <div className='flex flex-wrap gap-3 my-2'>
         <RowHalf
           heading='Front End Development'
           paragraph='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single/multi page apps and  PWAs with APIs/GraphQL support.'
@@ -121,7 +121,7 @@ const Services = () => {
         />
       </div>
       <HeadingHighlight BGColor={RED} fullWidth={false} heading='Technologist Services' />
-      <div className='flex flex-wrap gap-3 my-4'>
+      <div className='flex flex-wrap gap-3 my-2 mb-3'>
         <RowHalf
           heading='VR/AR Technologies'
           paragraph='Creating immersive environments and interactive experiences by combining 3D assets, real world space and game logic. A new frontier in the digital realm.'
@@ -146,7 +146,7 @@ const Services = () => {
       <div>
         <HeadingHighlight BGColor={TEAL} fullWidth={false} heading='THE EVOKE LABS DIFFERENCE' />
       </div>
-      <div className='flex gap-3 mt-4'>
+      {/* <div className='flex gap-3 mt-2'>
         <RowThird
           heading='The versatility factor'
           paragraph='Why settle for one expertise when you can have it all? Visionary, developer, designer - my versatile skill set is your secret weapon. Unleash the boundless innovation that comes from a true Renaissance professional.'
@@ -159,7 +159,7 @@ const Services = () => {
           heading='The people factor'
           paragraph='Above all, Evoke Labs is dedicated to delivering a positive experience for end users, team members and stakeholders alike. Your happiness is our ultimate goal, driven by commitment, open communications and proven results.'
         />
-      </div>
+      </div> */}
       <div className='my-6 space-y-1 pr-2 h-[4em]'>
         <TypingAnimation quotes={quotes} />
       </div>
