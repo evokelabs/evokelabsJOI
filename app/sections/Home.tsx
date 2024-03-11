@@ -237,36 +237,39 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
   return (
     <>
       <div
-        className={`mb-4 mx-3.5 mr-2 group ${!isActive ? 'cursor-zoom-in' : 'cursor-zoom-out'}`}
+        className={`max-w-[23.5em] sm:max-w-[36em] md:max-w-[50em] 2xl:max-w-[72em] w-full mb-4 mx-3.5 mr-2 group ${
+          !isActive ? 'cursor-zoom-in' : 'cursor-zoom-out '
+        }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onMouseUp={() => setIsActive(!isActive)}
       >
         <div
-          className={`pt-6  px-5 border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
+          className={`pt-4 px-3 lg:pt-6 lg:px-5 border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
             isActive && !isHovered ? 'bg-red' : 'bg-grid-blue'
           } ${!isActive ? 'pb-[2px]' : 'pb-4'}
         }`}
         >
           <h1
-            className={`font-rajdhani font-bold text-red-blur text-[100px]  leading-[0.75em] transition-colors duration-150 ${hoverColor} ${
+            className={`font-rajdhani font-bold text-red-blur text-[3rem] md:text-[5.6rem] 2xl:text-[6.25rem] leading-[0.75em] transition-colors duration-150 inline ${hoverColor} ${
               isActive ? 'text-black-blur' : null
             }`}
           >
             EVOKE LABS DOES DIGITAL
           </h1>
           <h1
-            className={`font-rajdhani font-bold text-teal-blur text-[100px] leading-[0.75em] transition-colors duration-150 uppercase  ${hoverColor} ${
+            className={`font-rajdhani font-bold text-teal-blur text-[3rem] md:text-[5.6rem] 2xl:text-[6.25rem] leading-[0.75em] transition-colors duration-150 uppercase inline  ${hoverColor} ${
               isActive ? 'text-black-blur ' : 'type'
             }`}
           >
+            {' '}
             {animatedPhrase}
           </h1>
         </div>
 
         <div
           ref={divRef}
-          className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0 text-[2.2rem] '
+          className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0 text-[1.2rem] lg:text-[2.2rem] '
         >
           <div className='flex flex-col justify-between min-h-[20em]  '>
             <p className='mt-6 mb-4 text-teal-blur font-semibold leading-tight '>
