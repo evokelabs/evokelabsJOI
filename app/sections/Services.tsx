@@ -30,32 +30,24 @@ import TypingAnimation from '../libs/TypingAnimation'
 const ContentHead = () => {
   return (
     <>
-      <div className='flex flex-row my-1 gap-6 items-center '>
+      <div className='flex flex-row my-1 gap-0 2xl:gap-6 items-center '>
         <div>
           <ServicesSVG />
           <IconSmall />
         </div>
-        <div>
-          <ul
-            className='ml-0 lg:ml-4 text-red font-medium text-[1rem] md:text-[1.2rem]  lg:text-[1.375rem] font-default space-y-1'
-            style={{ listStyleType: 'square' }}
-          >
+        <div className='w-[180px] md:w-auto'>
+          <ul className='ml-0 text-red font-medium text-[0.75rem] lg:text-[0.9rem] 2xl:text-[1.375rem] font-default space-y-1 list-none md:list-square pl-1 md:pl-4'>
             <li className='leading-[1]'>Australian citizen with full work rights. </li>
             <li className='leading-[1]'>ABN / GST compliant for contract and freelance roles.</li>
             <li className='leading-[1]'>Open to onsite and/or remote gigs. Crypto accepted.</li>
           </ul>
         </div>
-        <div className='ml-auto hidden 2xl:block'>
-          <div className='flex flex:row 2xl:flex-col text-right justify-center space-y-1 ml-auto mr-6'>
-            <ParagraphHighlight BGColor={RED} fontSize='base' paragraph='<strong>Current location:</strong> Sydney, Australia' />
-            <ParagraphHighlight BGColor={RED} fontSize='base' paragraph='<strong>ABN:</strong> 53 470 501 232' />
+        <div className='ml-auto'>
+          <div className='flex flex-col 2xl:flex-col text-right justify-center space-y-1 mr-2 2xl:mr-6'>
+            <ParagraphHighlight BGColor={RED} fontSize='sm' paragraph='<strong>Current location:</strong> Sydney, Australia' />
+            <ParagraphHighlight BGColor={RED} fontSize='sm' paragraph='<strong>ABN:</strong> 53 470 501 232' />
           </div>
         </div>
-      </div>
-
-      <div className='flex 2xl:hidden flex-col text-left justify-center space-y-1 ml-auto mr-6 mt-2'>
-        <ParagraphHighlight BGColor={RED} fontSize='sm' paragraph='<strong>Current location:</strong> Sydney, Australia' />
-        <ParagraphHighlight BGColor={RED} fontSize='sm' paragraph='<strong>ABN:</strong> 53 470 501 232' />
       </div>
 
       <HR />
@@ -160,7 +152,7 @@ const Services = () => {
           paragraph='Above all, Evoke Labs is dedicated to delivering a positive experience for end users, team members and stakeholders alike. Your happiness is our ultimate goal, driven by commitment, open communications and proven results.'
         />
       </div>
-      <div className='my-3 2xl:my-6 space-y-1 pr-2 h-[5em] 2xl:h-[4em]'>
+      <div className='my-4 2xl:my-6 space-y-1 pr-2 h-[5.5em] 2xl:h-[4em]'>
         <TypingAnimation quotes={quotes} />
       </div>
       <HR />

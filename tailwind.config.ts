@@ -34,6 +34,11 @@ const config: Config = {
         'red-blur': '4px 0 0 0 rgba(222, 84, 86, 0.2),8px 0 0 0 rgba(222, 84, 86, 0.1)',
         'teal-blur': '4px 0 0 0 rgba(83, 246, 255, 0.2),8px 0 0 0 rgba(83, 246, 255, 0.1)',
         'orange-blur': '4px 0 0 0 rgba(255, 150, 26, 0.2),8px 0 0 0 rgba(255, 150, 26, 0.1)'
+      },
+      listStyleType: {
+        none: 'none',
+        disc: 'disc',
+        square: 'square'
       }
     }
   },
