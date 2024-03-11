@@ -67,7 +67,7 @@ const Services = () => {
       </div>
       <HR />
       <HeadingHighlight BGColor={RED} fullWidth={false} heading='Creative Services' />
-      <div className='flex flex-wrap my-2 gap-3'>
+      <div className='flex flex-wrap flex-row my-2 gap-3'>
         <RowHalf
           heading='Digital Design'
           paragraph='Digital asset creation for websites, landing pages, social media posts, digital banners, email templates, mobile/web apps, motion design, animation GIFs, SVG and social tiles.'
@@ -78,7 +78,7 @@ const Services = () => {
           paragraph='Converting ideas into interfaces and interactions that satisfy. Storyboarding, wireframes, site maps, UI design, iconography, responsiveness and prototyping.'
           PNG={Interactive}
         />
-        <RowHalf
+        {/* <RowHalf
           heading='Motion Design/Video Editing'
           paragraph='Bringing digital assets and video footage to life inside the timeline. Expert Adobe After Effects and Premiere talent. Transcode, upscale and compress videos for online use.'
           PNG={Motion}
@@ -87,7 +87,7 @@ const Services = () => {
           heading='3D artist/generalist'
           paragraph='Adding a new dimension to asset creation. Modelling, shading, UV editing, texturing, rigging, animation, lighting, motion capture and optimised exports for various platforms.'
           PNG={ThreeD}
-        />
+        /> */}
       </div>
       <HeadingHighlight BGColor={RED} fullWidth={false} heading='Development Services' />
       <div className='flex flex-wrap my-2 gap-3'>
