@@ -34,7 +34,9 @@ const PanelHeader = ({ headerTitle }: { headerTitle: string }) => {
       onMouseUp={handleMouseUp}
     >
       <div className='absolute'>
-        <h1 className='font-orbitron font-medium text-teal-blur text-[2rem] leading-none px-5 py-3.5 uppercase'>{headerTitle}</h1>
+        <h1 className='font-orbitron font-medium text-teal-blur text-[1.4rem] 2xl:text-[2rem] leading-none px-5 py-[0.8em] 2xl:py-3.5 uppercase'>
+          {headerTitle}
+        </h1>
       </div>
       <div className='inline-block'>
         <TopHeaderSVG />
