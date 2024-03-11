@@ -4,7 +4,7 @@ import { StaticImport } from 'next/dist/shared/lib/get-img-props'
 const RowHalf = ({ heading, paragraph, PNG }: { heading: string; paragraph: string; PNG: StaticImport }) => {
   return (
     <>
-      <div className='relative items-center flex w-full  2xl:w-[49%] lg:min-h-[9em] h-fill bg-grid-darkRed border-2-red gap-3'>
+      <div className='relative items-center flex w-full lg:w-[49.4%] lg:min-h-[9em] h-fill bg-grid-darkRed border-2-red gap-3'>
         <div className='ml-2 my-2 bg-grid-blue border-2-red w-[220px] '>
           <Image src={PNG} alt={heading} className='text-teal font-rajdhani font-semibold text-center opacity-80' />
         </div>

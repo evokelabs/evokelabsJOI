@@ -371,7 +371,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                       >
                         <Draggable>
                           <div onPointerDown={handleMouseDown} onPointerUp={handleMouseUp}>
-                            <div className='max-w-[26em] sm:max-w-[30em] md:max-w-[38.5em] lg:max-w-[70em] 2xl:max-w-[73em]'>
+                            <div className='max-w-[26.5em] sm:max-w-[30.5em] md:max-w-[39em] lg:max-w-[70em] 2xl:max-w-[73em]'>
                               {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                               {router.pathname === '/services' && <Services />}
                               {router.pathname.startsWith('/portfolio') && (
