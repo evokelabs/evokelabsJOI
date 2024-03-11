@@ -21,10 +21,20 @@ const DefaultHeaderContent = ({
 }) => {
   return (
     <>
-      <div className='mt-1 flex flex-row items-center gap-3 '>
-        {icon ? icon : null}
-        {heading ? <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none uppercase'>{heading}</h2> : null}
-        {button ? <div className='relative ml-auto uppercase'>{button}</div> : null}
+      <div className='mt-1 flex items-start gap-3 '>
+        <div className='flex flex-row items-center'>
+          {icon ? icon : null}
+
+          {heading ? (
+            <h2
+              className='font-rajdhani font-semibold text-red-blur text-[1.75rem] 2xl:text-[2.25rem] 
+        leading-none uppercase'
+            >
+              {heading}
+            </h2>
+          ) : null}
+        </div>
+        {button ? <div className='relative top-1 sm:ml-auto uppercase'>{button}</div> : null}
       </div>
       {hr ? <HR /> : <div className='my-2'></div>}
     </>

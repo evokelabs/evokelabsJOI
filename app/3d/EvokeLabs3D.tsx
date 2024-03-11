@@ -371,7 +371,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                       >
                         <Draggable>
                           <div onPointerDown={handleMouseDown} onPointerUp={handleMouseUp}>
-                            <div className='max-w-[25em] sm:max-w-[28em] md:max-w-[37em] lg:max-w-[42em] 2xl:max-w-[73em]'>
+                            <div className='max-w-[25em] sm:max-w-[29em] md:max-w-[37em] lg:max-w-[42em] 2xl:max-w-[73em]'>
                               {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                               {router.pathname === '/services' && <Services />}
                               {router.pathname.startsWith('/portfolio') && (
@@ -387,7 +387,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                               {router.pathname === '/availabilities' && <Availabilities />}
                             </div>
                             {isPreLoaderFinished && (
-                              <div className='left-0.5 relative scale-[50%] sm:scale-[60%] md:scale-[80%] lg:scale-90 2xl:scale-100 2xl:w-full origin-top-left min-w-[50em] 2xl:min-w-[0%]'>
+                              <div className='left-0.5 relative scale-[54%] sm:scale-[62%] md:scale-[80%] lg:scale-90 2xl:scale-100 2xl:w-full origin-top-left min-w-[50em] 2xl:min-w-[0%]'>
                                 <MainMenu router={router} routeConfig={ROUTE_CONFIG} />
                               </div>
                             )}

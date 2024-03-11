@@ -98,7 +98,7 @@ const SVGButton: React.FC<SVGButtonProps> = ({
   const getOriginClass = (label: string) => {
     switch (label) {
       case 'CLOSE':
-        return 'origin-bottom-right'
+        return 'origin-right'
       case 'HARDCOPY':
         return 'origin-bottom-right'
       default:
@@ -144,7 +144,7 @@ const SVGButton: React.FC<SVGButtonProps> = ({
   }
   return (
     <div
-      className={`relative cursor-pointer uppercase w-fit flex flex-row items-center scale-75 mr-2 lg:mr-0 lg:scale-100 ${getOriginClass(
+      className={`relative cursor-pointer uppercase w-fit flex flex-row items-center scale-75 mr-2 2xl:mr-0 2xl:scale-100 ${getOriginClass(
         label
       )}`}
       style={{ pointerEvents: isActive ? 'none' : 'all' }}
