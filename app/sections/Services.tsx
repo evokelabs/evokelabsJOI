@@ -98,7 +98,7 @@ const Services = () => {
         />
       </div>
       <HeadingHighlight BGColor={RED} fullWidth={false} heading='Development Services' />
-      <div className='flex flex-wrap gap-3 my-2'>
+      <div className='flex flex-wrap w-full'>
         <RowHalf
           heading='Front End Development'
           paragraph='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single/multi page apps and  PWAs with APIs/GraphQL support.'
