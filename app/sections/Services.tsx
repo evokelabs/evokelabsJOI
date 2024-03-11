@@ -47,8 +47,8 @@ const ContentHead = () => {
         </div>
         <div className='ml-auto hidden 2xl:block'>
           <div className='flex flex:row 2xl:flex-col text-right justify-center space-y-1 ml-auto mr-6'>
-            <ParagraphHighlight BGColor={RED} fontSize='23px' paragraph='<strong>Current location:</strong> Sydney, Australia' />
-            <ParagraphHighlight BGColor={RED} fontSize='23px' paragraph='<strong>ABN:</strong> 53 470 501 232' />
+            <ParagraphHighlight BGColor={RED} fontSize='1.4375em' paragraph='<strong>Current location:</strong> Sydney, Australia' />
+            <ParagraphHighlight BGColor={RED} fontSize='1.4375em' paragraph='<strong>ABN:</strong> 53 470 501 232' />
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@ const ContentHead = () => {
 const Services = () => {
   return (
     <PanelContent headerTitle='Corpo Guide' contentHead={<ContentHead />}>
-      <div className='mb-5 space-y-2'>
+      <div className='mb-5 space-y-0 lg:space-y-2'>
         <HeadingHighlight BGColor={TEAL} fullWidth={false} heading='YOUR CREATIVE TECHNOLOGIST PARTNER' />
         <ParagraphHighlight
           BGColor={TEAL}

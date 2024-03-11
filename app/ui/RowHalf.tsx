@@ -30,7 +30,7 @@ const SVG = ({ heading, PNG }: { heading: string; PNG: StaticImport }) => {
 
 const RowHalf = ({ heading, paragraph, PNG }: { heading: string; paragraph: string; PNG: StaticImport }) => {
   return (
-    <div className='relative items-center flex w-1/2' style={{ maxWidth: MAX_WIDTH }}>
+    <div className='relative items-center flex w-full 2xl:w-1/2' style={{ maxWidth: MAX_WIDTH }}>
       <div className='absolute flex flex-row items-start px-1'>
         <div className='w-fit pl-2.5'>
           <IconDefault />

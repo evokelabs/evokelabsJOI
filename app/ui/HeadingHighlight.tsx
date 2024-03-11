@@ -14,11 +14,11 @@ const HeadingFullWidth = ({ heading, BGColor }: { heading: string; BGColor: stri
 
 const HeadingSpan = ({ heading, BGColor }: { heading: string; BGColor: string }) => {
   return (
-    <div className={`font-semibold font-rajdhani text-[2.25rem] text-black w-auto inline-block uppercase h-0`}>
+    <div className={`font-semibold font-rajdhani text-[1.5rem] lg:text-[2.25rem]  text-black w-fit inline-block uppercase h-fit`}>
       <span
         className={`${
           BGColor === RED ? 'bg-red shadow-red-blur' : BGColor === TEAL ? 'bg-teal shadow-teal-blur' : 'bg-orange shadow-orange-blur'
-        } px-3 inline-block h-[2.375rem] leading-[1.1] `}
+        } px-2 lg:px-3 inline-block leading-[0.9] pt-1 lg:pt-00.5 `}
       >
         {heading}
       </span>
