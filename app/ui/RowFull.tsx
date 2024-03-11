@@ -19,17 +19,21 @@ const RowFull = ({
   return (
     <>
       <div className='inline-flex w-full flex-row '>
-        <div className='relative items-center flex lg:min-h-[9em] h-fill bg-grid-darkRed border-l-2 border-red border-t-2 border-b-2 border-opacity-60 w-full'>
-          <div className='w-[150px] p-2 z-20'>
-            <div className='relative top-0'>
+        <div className='relative items-center flex lg:min-h-[9em] bg-grid-darkRed border-l-2 border-red border-t-2 border-b-2 border-opacity-60 w-full flex-col md:flex-row'>
+          <div className='w-fit lg:w-[150px] p-2 pr-0 lg:p-2 z-20 relative'>
+            <div className='relative top-0 '>
               <IconDefault />
             </div>
-            <div className='absolute top-2.5 left-2'>{svgIcon}</div>
+            <div className='absolute top-2.5'>{svgIcon}</div>
           </div>
-          <div className={'w-full relative left-3 pr-6 pl-1'}>
-            <h1 className='font-rajdhani font-semibold text-teal-blur text-[1.75rem] leading-none'>{heading}</h1>
-            <h2 className='font-rajdhani font-semibold text-red-blur text-[1.25rem] leading-none '>{subHeading}</h2>
-            <p className='font-rajdhani font-medium text-red-blur text-[1.125rem] leading-5 mt-1'>{paragraph}</p>
+          <div className={'w-full relative p-3 md:p-0 lg:p-5 lg:pl-5 md:text-left -mt-3 md:mt-0 text-center '}>
+            <h1 className='font-rajdhani font-semibold text-teal-blur text-[1.25rem] lg:text-[1.75rem] leading-none pb-1 md:pb-0'>
+              {heading}
+            </h1>
+            <h2 className='font-rajdhani font-semibold text-red-blur text-[0.95rem] lg:text-[1.25rem] leading-none '>{subHeading}</h2>
+            <p className='font-rajdhani font-medium text-red-blur text-[0.8rem] leading-4  lg:text-[1.125rem] lg:leading-5 mt-1'>
+              {paragraph}
+            </p>
           </div>
         </div>
         <div className='flex relative flex-col'>

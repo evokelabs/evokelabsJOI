@@ -32,13 +32,17 @@ const Resume = () => {
             </>
           }
           heading='Resume'
-          button={<ButtonDefault label='HARDCOPY' svgIcon={<HardcopySVG />} />}
+          button={
+            <div className='scale-[60%] lg:scale-[100%] w-[50%] sm:w-[100%] origin-right left-0 md:right-2 relative'>
+              <ButtonDefault label='HARDCOPY' svgIcon={<HardcopySVG />} />
+            </div>
+          }
         />
       }
     >
       <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
       <div className='mt-2 mb-3'>
-        <p className='font-rajdhani text-red-blur text-[1.375rem] font-medium leading-[1.625rem]'>
+        <p className='font-rajdhani text-red-blur text-[1.15rem] leading-5 lg:text-[1.375rem] font-medium lg:leading-[1.625rem]'>
           <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,
           design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative studios,
           corporations, and start-ups to deliver hundreds of successful digital projects. Specialising in front-end technologies and
@@ -46,7 +50,7 @@ const Resume = () => {
         </p>
       </div>
       <HeadingHighlight heading={'Experience'} fullWidth={true} BGColor={RED} />
-      <div className='space-y-4 my-4 w-full'>
+      <div className='space-y-2 my-4 w-full'>
         <RowFull
           heading='LEONARDO.AI'
           subHeading='LEAD FRONT-END DEVELOPER  | NOV 2022 - AUGUST 2023'
@@ -117,33 +121,33 @@ const Resume = () => {
         />
       </div>
       <HeadingHighlight heading={'Skill set'} fullWidth={true} BGColor={RED} />
-      <div className='flex flex-row gap-6 my-3'>
-        <div className='w-2/3'>
-          <div className='text-[18.5px] text-red-blur font-medium space-y-1.5'>
-            <p className='leading-5'>
+      <div className='flex flex-col lg:flex-row lg:gap-6 my-0 mt-3 lg:my-3 h-full relative'>
+        <div className='w-full'>
+          <div className='text-[16px] lg:text-[20px] text-red-blur font-medium space-y-1.5 leading-5'>
+            <p>
               <span className='text-teal-blur font-semibold'>Project Management:</span> Google Suite, Trello, GitHub
             </p>
-            <p className='leading-5'>
+            <p>
               <span className='text-teal-blur font-semibold'>Design/UX:</span> Figma, Adobe XD, Photoshop, Illustrator, InDesign, Powerpoint
             </p>
-            <p className='leading-5'>
+            <p>
               <span className='text-teal-blur font-semibold'>Front End:</span> HTML5, CSS, Javascript ES6/ES8, GSAP, npm, Typescript, API
               integration (REST/GraphQL), JQuery, SASS
             </p>
-            <p className='leading-5'>
+            <p>
               <span className='text-teal-blur font-semibold'>Frameworks/Libraries:</span> React.js, Tailwind CSS, Bootstrap, Material
               Design, Foundation For Email, Gulp, Lodash, Pug, Handlebars
             </p>
-            <p className='leading-5'>
+            <p>
               <span className='text-teal-blur font-semibold'>Motion:</span> After Effects, Premiere, 3dsmax, Zbrush
             </p>
-            <p className='leading-5'>
+            <p>
               <span className='text-teal-blur font-semibold'>Supplementary:</span> Google Web Designer, Animate, Audition, Cubase, Sizmek,
               Google Doubleclick/Ad Manager, Unreal Engine, Oculus SDK
             </p>
           </div>
         </div>
-        <div className='w-1/3 flex flex-col justify-end items-end'>
+        <div className='lg:ml-auto flex flex-col justify-start lg:justify-end scale-[60%] lg:scale-100 origin-left w-[60%] lg:w-full h-[60%] lg:h-auto lg:items-end '>
           <ButtonDefault />
         </div>
       </div>
