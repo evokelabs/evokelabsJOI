@@ -95,6 +95,17 @@ const SVGButton: React.FC<SVGButtonProps> = ({
 }) => {
   const { setCurrentPortfolioSelection, setCurrentRouteSelection } = useContext(RoutesContext)
 
+  const getOriginClass = (label: string) => {
+    switch (label) {
+      case 'CLOSE':
+        return 'origin-bottom-right'
+      case 'HARDCOPY':
+        return 'origin-bottom-right'
+      default:
+        return 'origin-bottom-left'
+    }
+  }
+
   const handleClick = () => {
     switch (label) {
       case 'CLOSE':
@@ -133,7 +144,9 @@ const SVGButton: React.FC<SVGButtonProps> = ({
   }
   return (
     <div
-      className={'relative cursor-pointer uppercase w-fit flex flex-row items-center'}
+      className={`relative cursor-pointer uppercase w-fit flex flex-row items-center scale-75 mr-2 lg:mr-0 lg:scale-100 ${getOriginClass(
+        label
+      )}`}
       style={{ pointerEvents: isActive ? 'none' : 'all' }}
       onClick={handleClick}
     >
