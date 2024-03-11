@@ -45,7 +45,9 @@ const RowFull = ({
           <p className='font-rajdhani font-medium text-red-blur text-[1.125rem] leading-5 mt-1'>{paragraph}</p>
         </div>
       </div>
-      <SVG />
+      <div>
+        <SVG />
+      </div>
     </div>
   )
 }

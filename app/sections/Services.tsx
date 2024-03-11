@@ -146,7 +146,7 @@ const Services = () => {
       <div>
         <HeadingHighlight BGColor={TEAL} fullWidth={false} heading='THE EVOKE LABS DIFFERENCE' />
       </div>
-      {/* <div className='flex gap-3 mt-2'>
+      <div className='flex flex-col 2xl:flex-row gap-3 mt-2'>
         <RowThird
           heading='The versatility factor'
           paragraph='Why settle for one expertise when you can have it all? Visionary, developer, designer - my versatile skill set is your secret weapon. Unleash the boundless innovation that comes from a true Renaissance professional.'
@@ -159,19 +159,28 @@ const Services = () => {
           heading='The people factor'
           paragraph='Above all, Evoke Labs is dedicated to delivering a positive experience for end users, team members and stakeholders alike. Your happiness is our ultimate goal, driven by commitment, open communications and proven results.'
         />
-      </div> */}
-      {/* <div className='my-6 space-y-1 pr-2 h-[4em]'>
+      </div>
+      <div className='my-3 2xl:my-6 space-y-1 pr-2 h-[5em] 2xl:h-[4em]'>
         <TypingAnimation quotes={quotes} />
-      </div> */}
+      </div>
       <HR />
-      {/* <div className='my-4 uppercase text-teal-blur font-semibold text-[28px]'>
+      <div className='my-3 2xl:my-4 uppercase text-teal-blur font-semibold text-[18px] lg:text-[20px] 2xl:text-[28px]'>
         <p>Thanks for visiting Evoke Labs, Evolving digital media since 2003.</p>
         <p>Your digital transformation is just a click away.</p>
       </div>
-      <div className='flex flex-row justify-between mb-4 pt-1'>
-        <ButtonDefault label='FIX A BOOKING' svgIcon={<FixABookingSVG />} />
-        <ButtonDefault />
-      </div> */}
+
+      <div className='flex flex-col 2xl:flex-row justify-between gap-2 pb-1 2xl:mt-0'>
+        <div className='flex justify-start h-[2.6em] 2xl:h-full'>
+          <div className='scale-[60%] 2xl:scale-100 origin-top-left'>
+            <ButtonDefault label='FIX A BOOKING' svgIcon={<FixABookingSVG />} />
+          </div>
+        </div>
+        <div className='flex flex-row mr-0 2xl:-mr-3 h-[2.6em] 2xl:h-full'>
+          <div className='scale-[60%] 2xl:scale-100 origin-top-left'>
+            <ButtonDefault />
+          </div>
+        </div>
+      </div>
     </PanelContent>
   )
 }
