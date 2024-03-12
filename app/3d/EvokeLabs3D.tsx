@@ -53,6 +53,8 @@ const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 const MENU_HOME_WAIT_TIMER_COOKIE = 18000
 const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
 
+let tl = gsap.timeline() // Move this outside the function
+
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // State
   const [shouldAmbientLightPlay, setAmbientLightPlay] = useState(false)
@@ -71,6 +73,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   //JOI Speech settings
   const [JOILineCaption, setJOILineCaption] = useState<string | null>(null)
   const [isAudioPlaying, setIsAudioPlaying] = useState(false)
+
+  //Routes settings
+  const [homePanelExpanded, setHomePanelExpanded] = useState(false)
 
   const visitedCookie =
     typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
@@ -146,8 +151,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const positionRef = useRef<[number, number, number]>([0, 1.42, 2.1])
 
   const moveHTMLPanel = (newY: number) => {
+    tl.kill() // Stop any running animations
     const tempObj = { y: position[1] }
-    const tl = gsap.timeline()
+    tl = gsap.timeline()
     tl.to(tempObj, {
       duration: 1,
       ease: 'power1.inOut',
@@ -188,6 +194,11 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     console.log('currentRouteSelection', currentRouteSelection)
     moveHTMLPanel(newY)
   }, [router.pathname, ROUTE_CONFIG])
+
+  useEffect(() => {
+    const newY = gsap.utils.random(1, 2, true)()
+    moveHTMLPanel(newY)
+  }, [homePanelExpanded])
 
   useEffect(() => {
     if (currentRouteSelection !== null) {
@@ -389,7 +400,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                           currentRouteSelection,
                           setCurrentRouteSelection,
                           currentPortfolioSelection,
-                          setCurrentPortfolioSelection
+                          setCurrentPortfolioSelection,
+                          homePanelExpanded,
+                          setHomePanelExpanded
                         }}
                       >
                         <Draggable>

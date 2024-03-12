@@ -6,7 +6,7 @@ import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
 import TypeOnSoundControl from '../audio/ui/TypeOnSoundControl'
 import ScrabbleOnSoundControl from '../audio/ui/ScrabbleSoundControl'
-import { NextRouter } from 'next/router'
+import { RoutesContext } from '../libs/RoutesContext'
 
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
@@ -47,6 +47,9 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
 
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
+
+  // Import context states setHomePanelExpanded and homePanelExpanded from RoutesContext
+  const { homePanelExpanded, setHomePanelExpanded } = useContext(RoutesContext)
 
   // Shuffle the arrays from homeExpanded.json and home.json
   const shuffledSolo = shuffle(homeExpanded.solo)
@@ -242,7 +245,10 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
         }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onMouseUp={() => setIsActive(!isActive)}
+        onMouseUp={() => {
+          setIsActive(!isActive)
+          setHomePanelExpanded(!isActive)
+        }}
       >
         <div
           className={`pt-4 px-3 lg:pt-6 lg:px-5 border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
