@@ -17,8 +17,10 @@ const CameraRig = ({ fov, debug }: { fov: number; debug: boolean }) => {
     const ZPosition = -CAMERA_Y_OFFSET
     const targetPosition = new Vector3(XPosition, YPosition, ZPosition)
 
-    // Move the camera towards the target position
-    camera.position?.lerp(targetPosition, CAMERA_DAMPING)
+    // Move the camera towards the target position only for lg and above screen sizes
+    if (window.innerWidth >= 640) {
+      camera.position?.lerp(targetPosition, CAMERA_DAMPING)
+    }
 
     // Update the field of view and the projection matrix of the camera
     const perspectiveCamera = camera as PerspectiveCamera
