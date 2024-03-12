@@ -306,7 +306,15 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   //Function to control 2D html positioning
   const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.1])
 
-  
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setPosition(prevPosition => prevPosition.map(value => value + 0.01) as [number, number, number])
+    }, 1000)
+
+    return () => {
+      clearInterval(intervalId) // Clean up the interval on unmount
+    }
+  }, [])
 
   return (
     <>
