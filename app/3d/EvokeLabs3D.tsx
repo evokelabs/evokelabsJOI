@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, ThreeEvent } from '@react-three/fiber'
 import { Html, OrbitControls } from '@react-three/drei'
-import { Perf } from 'r3f-perf'
 
 import CameraRig from './cameras/CameraRig'
 import { Lights } from './lights'
@@ -153,12 +152,12 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const positionRef = useRef<[number, number, number]>([0, 1.42, 2.1])
 
   const Y_VALUES = {
-    0: 1.44,
-    1: 1.44,
-    2: 1.45,
-    3: 1.44,
-    4: 1.44,
-    5: 1.52,
+    0: 1.41,
+    1: 1.41,
+    2: 1.41,
+    3: 1.41,
+    4: 1.41,
+    5: 1.5,
     6: 1.75, // Home Default
     7: 1.65 // Home Expanded
   }
@@ -181,8 +180,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     tl = gsap.timeline()
     console.log('moving to ', newY)
     tl.to(tempObj, {
-      duration: 0.25,
-      ease: 'Power1.out',
+      duration: 0.5,
+      ease: 'Power1.inOut',
       y: newY,
       onUpdate: () => {
         positionRef.current = [positionRef.current[0], tempObj.y, positionRef.current[2]]
@@ -214,16 +213,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         setCurrentPortfolioSelection(null)
       }
     }
-    let newY
-    if (homePanelExpanded) {
-      newY = Y_VALUES[7]
-    } else if (currentRouteSelection !== null) {
-      newY = Y_VALUES[currentRouteSelection as keyof typeof Y_VALUES]
-    } else {
-      newY = Y_VALUES[6]
-    }
-    moveHTMLPanel(newY)
-  }, [currentRouteSelection, homePanelExpanded])
+  }, [currentRouteSelection])
 
   useEffect(() => {
     if (currentRouteSelection !== null) {
@@ -248,6 +238,18 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       }
     }
   }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection])
+
+  useEffect(() => {
+    let newY
+    if (homePanelExpanded) {
+      newY = Y_VALUES[7]
+    } else if (currentRouteSelection !== null) {
+      newY = Y_VALUES[currentRouteSelection as keyof typeof Y_VALUES]
+    } else {
+      newY = Y_VALUES[6]
+    }
+    moveHTMLPanel(newY)
+  }, [currentRouteSelection, homePanelExpanded])
 
   useEffect(() => {
     // If the current route is '/', set currentRouteSelection to null
