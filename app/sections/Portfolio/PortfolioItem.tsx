@@ -85,7 +85,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
             </ul>
           </div>
         </div>
-        <div className='min-w-[16em] lg:scale-[100%] lg:w-fit h-fit origin-right items-center absolute lg:relative top-[0.5em] lg:top-0 right-12 lg:right-0 lg-0'>
+        <div className='min-w-[16em] lg:w-fit h-fit origin-right items-center absolute lg:relative top-[0.45em] lg:top-0 right-12 lg:right-0 lg-0 scale-[50%] lg:scale-100'>
           <ButtonDefault label='BACK' svgIcon={<BackSVG />} />
         </div>
       </div>
@@ -101,23 +101,23 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
         <>
           <div
             dangerouslySetInnerHTML={{ __html: desc }}
-            className='mt-3 text-red-blur font-semibold text-[16px] lg:text-[21px] space-y-4 lg:space-y-6'
+            className='mt-3 text-red-blur font-semibold text-[16px] lg:text-[21px] space-y-4 lg:space-y-6 '
           ></div>
           {/* <HR /> */}
         </>
       )}
       {(link || desc) && (
-        <div className='flex flex-row mt-4 mb-2 justify-between'>
+        <div className='flex flex-row mt-2 lg:mt-4 lg:mb-2 justify-between md:w-full scale-[60%] lg:scale-[100%] origin-top-left -mb-6 '>
           {link && (
             <div
               onClick={() => setUserMutedAll(true)}
-              className='lg:ml-auto flex flex-col justify-start md:justify-end origin-left lg:w-full '
+              className='lg:ml-auto flex flex-col justify-start md:justify-end lg:w-full lg:scale-100 origin-left'
             >
               <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} link={link} />
             </div>
           )}
 
-          <div className='lg:ml-auto flex flex-col justify-start lg:justify-end origin-left lg:w-full place-items-end'>
+          <div className='lg:ml-auto flex flex-col justify-start lg:justify-end lg:w-full  lg:scale-100 origin-right lg:place-items-end'>
             <ButtonDefault />
           </div>
         </div>
