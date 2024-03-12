@@ -150,6 +150,27 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   const positionRef = useRef<[number, number, number]>([0, 1.42, 2.1])
 
+  const Y_VALUES = {
+    0: 1,
+    1: 2,
+    2: 3,
+    3: 4,
+    4: 1,
+    5: 1
+  }
+
+  useEffect(() => {
+    let newY
+    if (homePanelExpanded) {
+      newY = Y_VALUES[1]
+    } else if (currentRouteSelection !== null) {
+      newY = Y_VALUES[currentRouteSelection as keyof typeof Y_VALUES]
+    } else {
+      newY = Y_VALUES[4]
+    }
+    moveHTMLPanel(newY)
+  }, [currentRouteSelection, homePanelExpanded, router.pathname])
+
   const moveHTMLPanel = (newY: number) => {
     tl.kill() // Stop any running animations
     const tempObj = { y: position[1] }
@@ -178,7 +199,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       setCurrentRouteSelection(null)
     } else {
       // Find the index of the current route in ROUTE_CONFIG
-
       const currentRouteIndex = ROUTE_CONFIG.findIndex(route => router.pathname.startsWith(route.route))
 
       // If the current route is found in ROUTE_CONFIG, update currentRouteSelection
@@ -190,15 +210,16 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         setCurrentPortfolioSelection(null)
       }
     }
-    const newY = gsap.utils.random(1, 2, true)()
-    console.log('currentRouteSelection', currentRouteSelection)
+    let newY
+    if (homePanelExpanded) {
+      newY = Y_VALUES[1]
+    } else if (currentRouteSelection !== null) {
+      newY = Y_VALUES[currentRouteSelection as keyof typeof Y_VALUES]
+    } else {
+      newY = Y_VALUES[4]
+    }
     moveHTMLPanel(newY)
-  }, [router.pathname, ROUTE_CONFIG])
-
-  useEffect(() => {
-    const newY = gsap.utils.random(1, 2, true)()
-    moveHTMLPanel(newY)
-  }, [homePanelExpanded])
+  }, [router.pathname, ROUTE_CONFIG, currentRouteSelection, homePanelExpanded])
 
   useEffect(() => {
     if (currentRouteSelection !== null) {

@@ -237,6 +237,14 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
     }
   }, [isActive, shouldUpdate, updatePhraseRef])
 
+  useEffect(() => {
+    // Cleanup function
+    return () => {
+      setIsActive(false)
+      setHomePanelExpanded(false)
+    }
+  }, [])
+
   return (
     <>
       <div
