@@ -152,27 +152,39 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const positionRef = useRef<[number, number, number]>([0, 1.42, 2.1])
 
   const Y_VALUES = {
-    0: 1.41,
-    1: 1.41,
-    2: 1.41,
-    3: 1.41,
-    4: 1.41,
-    5: 1.5,
-    6: 1.75, // Home Default
-    7: 1.65 // Home Expanded
-  }
-
-  useEffect(() => {
-    let newY
-    if (homePanelExpanded) {
-      newY = Y_VALUES[1]
-    } else if (currentRouteSelection !== null) {
-      newY = Y_VALUES[currentRouteSelection as keyof typeof Y_VALUES]
-    } else {
-      newY = Y_VALUES[4]
+    BASE: {
+      0: 1.41,
+      1: 1.41,
+      2: 1.41,
+      3: 1.41,
+      4: 1.41,
+      5: 1.5,
+      6: 1.75, // Home Default
+      7: 1.65 // Home Expanded
+    },
+    SM: {
+      // Add the y values for the SM display size
+    },
+    MD: {
+      // Add the y values for the MD display size
+    },
+    LG: {
+      // Add the y values for the LG display size
+    },
+    XL: {
+      // Add the y values for the XL display size
+    },
+    '2XL': {
+      0: 1.43,
+      1: 1.43,
+      2: 1.43,
+      3: 1.43,
+      4: 1.43,
+      5: 1.5,
+      6: 1.78, // Home Default
+      7: 1.6 // Home Expanded
     }
-    moveHTMLPanel(newY)
-  }, [currentRouteSelection, homePanelExpanded, router.pathname])
+  }
 
   const moveHTMLPanel = (newY: number) => {
     tl.kill() // Stop any running animations
@@ -181,7 +193,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     console.log('moving to ', newY)
     tl.to(tempObj, {
       duration: 0.5,
-      ease: 'Power1.inOut',
+      ease: 'Power2.inOut',
       y: newY,
       onUpdate: () => {
         positionRef.current = [positionRef.current[0], tempObj.y, positionRef.current[2]]
@@ -237,19 +249,17 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         router.push('/')
       }
     }
-  }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection])
 
-  useEffect(() => {
     let newY
     if (homePanelExpanded) {
-      newY = Y_VALUES[7]
+      newY = Y_VALUES['2XL'][7]
     } else if (currentRouteSelection !== null) {
-      newY = Y_VALUES[currentRouteSelection as keyof typeof Y_VALUES]
+      newY = Y_VALUES['2XL'][currentRouteSelection as keyof (typeof Y_VALUES)['2XL']]
     } else {
-      newY = Y_VALUES[6]
+      newY = Y_VALUES['2XL'][6]
     }
     moveHTMLPanel(newY)
-  }, [currentRouteSelection, homePanelExpanded])
+  }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection, homePanelExpanded])
 
   useEffect(() => {
     // If the current route is '/', set currentRouteSelection to null
@@ -465,7 +475,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                     <VideoSkybox />
                     <ELAudioStartSoundControl />
                     <CameraRig fov={fov} debug={false} />
-                    <OrbitControls makeDefault target={cameraTarget} enableZoom={true} enablePan={false} enableRotate={false} />
+                    <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
 
                     <Lights />
                     {isCarReady && <CyberpunkCar />}
