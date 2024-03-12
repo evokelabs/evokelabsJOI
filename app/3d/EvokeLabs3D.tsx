@@ -140,6 +140,31 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   //ROUTING FUNCTIONS
 
+  const htmlRef = useRef<HTMLDivElement>(null)
+  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.1])
+
+  const positionRef = useRef<[number, number, number]>([0, 1.42, 2.1])
+
+  const moveHTMLPanel = (newY: number) => {
+    const tempObj = { y: position[1] }
+    const tl = gsap.timeline()
+    tl.to(tempObj, {
+      duration: 1,
+      ease: 'power1.inOut',
+      y: newY,
+      onUpdate: () => {
+        positionRef.current = [positionRef.current[0], tempObj.y, positionRef.current[2]]
+        setPosition([...positionRef.current])
+      }
+    })
+  }
+
+  useEffect(() => {
+    const newY = gsap.utils.random(1, 2, true)()
+    console.log('currentRouteSelection', currentRouteSelection)
+    moveHTMLPanel(newY)
+  }, [setCurrentRouteSelection, currentRouteSelection])
+
   useEffect(() => {
     if (currentPortfolioSelection !== null && currentPortfolioSelection !== '') {
       router.push(`/portfolio/${currentPortfolioSelection}`)
@@ -301,21 +326,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   // const lowGPU = true
 
-  const [isCentered, setIsCentered] = useState(false)
-
-  //Function to control 2D html positioning
-  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.1])
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setPosition(prevPosition => prevPosition.map(value => value + 0.01) as [number, number, number])
-    }, 1000)
-
-    return () => {
-      clearInterval(intervalId) // Clean up the interval on unmount
-    }
-  }, [])
-
   return (
     <>
       <SoundControlContext.Provider
@@ -358,6 +368,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   }}
                 >
                   <Html
+                    ref={htmlRef}
                     scale={0.034}
                     prepend
                     distanceFactor={10}
@@ -384,21 +395,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                           setCurrentPortfolioSelection
                         }}
                       >
-                        <Draggable
-                          onDrag={(event, data) => {
-                            // Get the current position of the dragged element
-                            const x = data.x
-                            const y = data.y
-
-                            console.log('x:', x, 'y:', y)
-
-                            // Update the position state
-                            // setPosition([x, y, positionRef.current[2]])
-
-                            // Start the animation
-                            // startAnimation()
-                          }}
-                        >
+                        <Draggable>
                           <div
                             onPointerDown={handleMouseDown}
                             onPointerUp={handleMouseUp}
@@ -430,8 +427,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
                     <VideoSkybox />
                     <ELAudioStartSoundControl />
-                    <CameraRig fov={fov} debug={false} />
-                    <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
+                    <CameraRig fov={fov} debug={true} />
+                    <OrbitControls makeDefault target={cameraTarget} enableZoom={true} enablePan={true} enableRotate={false} />
 
                     <Lights />
                     {isCarReady && <CyberpunkCar />}
