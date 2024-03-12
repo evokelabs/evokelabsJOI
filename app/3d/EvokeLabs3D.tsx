@@ -158,9 +158,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }
 
   const htmlRef = useRef<HTMLDivElement>(null)
-  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.2])
+  const [position, setPosition] = useState<[number, number, number]>([0.025, 1.42, 2])
 
-  const positionRef = useRef<[number, number, number]>([0, 1.42, 2.2])
+  const positionRef = useRef<[number, number, number]>([0.025, 1.42, 2])
 
   let newY = 0
 
@@ -199,7 +199,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       3: 1.43,
       4: 1.43,
       5: 1.5,
-      6: 1.74, // Home Default
+      6: 1.78, // Home Default
       7: 1.6 // Home Expanded
     }
   }
@@ -210,7 +210,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     tl = gsap.timeline()
 
     tl.to(tempObj, {
-      duration: 0.45,
+      duration: 0.5,
       ease: 'circ.out',
       y: newY,
       onUpdate: () => {
@@ -440,7 +440,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 >
                   <Html
                     ref={htmlRef}
-                    scale={0.034}
+                    scale={0.032}
                     prepend
                     distanceFactor={10}
                     transform
