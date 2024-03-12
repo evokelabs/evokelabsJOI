@@ -138,7 +138,80 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>(null)
 
   //ROUTING FUNCTIONS
+  const [offset, setOffset] = useState(-0.06)
 
+  const useOffsetPosition = (position: [number, number, number], offset: number): [number, number, number] => {
+    const [offsetPosition, setOffsetPosition] = useState<[number, number, number]>([0, 0, 0])
+
+    useEffect(() => {
+      setOffsetPosition([position[0], position[1] + offset, position[2]])
+    }, [position, offset])
+
+    return offsetPosition
+  }
+
+  const htmlRef = useRef<HTMLDivElement>(null)
+  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.2])
+
+  const positionRef = useRef<[number, number, number]>([0, 1.42, 2.2])
+
+  let newY = 0
+
+  const offsetPosition = useOffsetPosition(position, 0)
+  useEffect(() => {
+    setOffset(-0.06)
+  }, [])
+
+  const Y_VALUES = {
+    BASE: {
+      0: 1.4,
+      1: 1.41,
+      2: 1.41,
+      3: 1.41,
+      4: 1.41,
+      5: 1.5,
+      6: 1.75, // Home Default
+      7: 1.65 // Home Expanded
+    },
+    SM: {
+      // Add the y values for the SM display size
+    },
+    MD: {
+      // Add the y values for the MD display size
+    },
+    LG: {
+      // Add the y values for the LG display size
+    },
+    XL: {
+      // Add the y values for the XL display size
+    },
+    '2XL': {
+      0: 1.43,
+      1: 1.43,
+      2: 1.43,
+      3: 1.43,
+      4: 1.43,
+      5: 1.5,
+      6: 1.74, // Home Default
+      7: 1.6 // Home Expanded
+    }
+  }
+
+  const moveHTMLPanel = (newY: number) => {
+    tl.kill() // Stop any running animations
+    const tempObj = { y: position[1] }
+    tl = gsap.timeline()
+
+    tl.to(tempObj, {
+      duration: 0.45,
+      ease: 'circ.out',
+      y: newY,
+      onUpdate: () => {
+        positionRef.current = [positionRef.current[0], tempObj.y, positionRef.current[2]]
+        setPosition([...positionRef.current])
+      }
+    })
+  }
   useEffect(() => {
     if (currentPortfolioSelection !== null && currentPortfolioSelection !== '') {
       router.push(`/portfolio/${currentPortfolioSelection}`)
