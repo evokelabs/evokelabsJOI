@@ -6,7 +6,7 @@ import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
 import TypeOnSoundControl from '../audio/ui/TypeOnSoundControl'
 import ScrabbleOnSoundControl from '../audio/ui/ScrabbleSoundControl'
-import { NextRouter } from 'next/router'
+import { RoutesContext } from '../libs/RoutesContext'
 
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
@@ -47,6 +47,9 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
 
   const [isHovered, setIsHovered] = useState(false)
   const [isActive, setIsActive] = useState(false)
+
+  // Import context states setHomePanelExpanded and homePanelExpanded from RoutesContext
+  const { homePanelExpanded, setHomePanelExpanded } = useContext(RoutesContext)
 
   // Shuffle the arrays from homeExpanded.json and home.json
   const shuffledSolo = shuffle(homeExpanded.solo)
@@ -234,15 +237,26 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
     }
   }, [isActive, shouldUpdate, updatePhraseRef])
 
+  useEffect(() => {
+    // Cleanup function
+    return () => {
+      setIsActive(false)
+      setHomePanelExpanded(false)
+    }
+  }, [])
+
   return (
     <>
       <div
-        className={`max-w-[25.5em] sm:max-w-[34em] md:max-w-[37.5em] lg:max-w-[42.5em] 2xl:max-w-[72em] w-full mb-4 mx-3.5 mr-2 group ${
+        className={`max-w-[26em] sm:max-w-[30em] md:max-w-[38em] lg:max-w-[69em] 2xl:max-w-[72em] w-full mb-4 mx-3.5 mr-2 group ${
           !isActive ? 'cursor-zoom-in' : 'cursor-zoom-out '
         }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onMouseUp={() => setIsActive(!isActive)}
+        onMouseUp={() => {
+          setIsActive(!isActive)
+          setHomePanelExpanded(!isActive)
+        }}
       >
         <div
           className={`pt-4 px-3 lg:pt-6 lg:px-5 border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
@@ -251,14 +265,14 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
         }`}
         >
           <h1
-            className={`font-rajdhani font-bold text-red-blur text-[3rem] md:text-[5.6rem] 2xl:text-[6.25rem] leading-[0.75em] transition-colors duration-150 inline ${hoverColor} ${
+            className={`font-rajdhani font-bold text-red-blur text-[3rem] md:text-[5.2rem] 2xl:text-[6.25rem] leading-[0.75em] transition-colors duration-150 inline ${hoverColor} ${
               isActive ? 'text-black-blur' : null
             }`}
           >
             EVOKE LABS DOES DIGITAL
           </h1>
           <h1
-            className={`font-rajdhani font-bold text-teal-blur text-[3rem] md:text-[5.6rem] 2xl:text-[6.25rem] leading-[0.75em] transition-colors duration-150 uppercase inline  ${hoverColor} ${
+            className={`font-rajdhani font-bold text-teal-blur text-[3rem] md:text-[5.2rem] 2xl:text-[6.25rem] leading-[0.75em] transition-colors duration-150 uppercase inline  ${hoverColor} ${
               isActive ? 'text-black-blur ' : 'type'
             }`}
           >

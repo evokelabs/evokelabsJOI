@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, ThreeEvent } from '@react-three/fiber'
 import { Html, OrbitControls } from '@react-three/drei'
-import { Perf } from 'r3f-perf'
 
 import CameraRig from './cameras/CameraRig'
 import { Lights } from './lights'
@@ -44,13 +43,18 @@ import { SoundControlContext } from '../libs/SoundControlContext'
 import { PortfolioContext } from '../libs/PortfolioContext'
 import Draggable from 'react-draggable'
 import { GPUContext } from '../libs/GPUContext'
+import gsap from 'gsap'
 
 // Constants
-// const debug = true
 const debug = true
+// const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
-const MENU_HOME_WAIT_TIMER_COOKIE = 18000
-const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
+// const MENU_HOME_WAIT_TIMER_COOKIE = 18000
+const MENU_HOME_WAIT_TIMER_COOKIE = 0
+// const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
+const MENU_HOME_WAIT_TIMER_NOCOOKIE = 0
+
+let tl = gsap.timeline() // Move this outside the function
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // State
@@ -70,6 +74,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   //JOI Speech settings
   const [JOILineCaption, setJOILineCaption] = useState<string | null>(null)
   const [isAudioPlaying, setIsAudioPlaying] = useState(false)
+
+  //Routes settings
+  const [homePanelExpanded, setHomePanelExpanded] = useState(false)
 
   const visitedCookie =
     typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
@@ -225,7 +232,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       setCurrentRouteSelection(null)
     } else {
       // Find the index of the current route in ROUTE_CONFIG
-
       const currentRouteIndex = ROUTE_CONFIG.findIndex(route => router.pathname.startsWith(route.route))
 
       // If the current route is found in ROUTE_CONFIG, update currentRouteSelection
@@ -237,7 +243,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         setCurrentPortfolioSelection(null)
       }
     }
-  }, [router.pathname, ROUTE_CONFIG])
+  }, [currentRouteSelection])
 
   useEffect(() => {
     if (currentRouteSelection !== null) {
@@ -261,7 +267,25 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         router.push('/')
       }
     }
-  }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection])
+
+    if (homePanelExpanded) {
+      newY = Y_VALUES['2XL'][7]
+    } else if (currentRouteSelection !== null) {
+      newY = Y_VALUES['2XL'][currentRouteSelection as keyof (typeof Y_VALUES)['2XL']]
+    } else {
+      newY = Y_VALUES['2XL'][6]
+    }
+
+    // Calculate the new Y position with the offset
+    const newYWithOffset = newY + offset
+
+    console.log('moving to newY', newY)
+    console.log('moving to offsetPosition', offsetPosition)
+    console.log('moving to offsetPosition[1]', offsetPosition[1])
+    console.log('moving to newYWithOffset', newYWithOffset)
+
+    moveHTMLPanel(newYWithOffset)
+  }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection, homePanelExpanded])
 
   useEffect(() => {
     // If the current route is '/', set currentRouteSelection to null
@@ -335,7 +359,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [selectedShowOnlyOption, setSelectedShowOnlyOption] = useState('All')
   const [selectedSortByOption, setSelectedSortByOption] = useState('Date (Newest)')
 
-  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.1])
   const [isDragging, setIsDragging] = useState(false)
 
   const handleMouseDown = useCallback(() => {
@@ -416,6 +439,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   }}
                 >
                   <Html
+                    ref={htmlRef}
                     scale={0.034}
                     prepend
                     distanceFactor={10}
@@ -439,12 +463,21 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                           currentRouteSelection,
                           setCurrentRouteSelection,
                           currentPortfolioSelection,
-                          setCurrentPortfolioSelection
+                          setCurrentPortfolioSelection,
+                          homePanelExpanded,
+                          setHomePanelExpanded
                         }}
                       >
                         <Draggable>
-                          <div onPointerDown={handleMouseDown} onPointerUp={handleMouseUp}>
-                            <div className='max-w-[26em] sm:max-w-[30em] md:max-w-[38.5em] lg:max-w-[70em] 2xl:max-w-[73em]'>
+                          <div
+                            onPointerDown={handleMouseDown}
+                            onPointerUp={handleMouseUp}
+                            className='flex flex-col-reverse h-screen p-4 relative translate-y-10 '
+                          >
+                            <div className='left-1 scale-[54%] sm:scale-[62%] md:scale-[80%] lg:scale-90 2xl:scale-100 lg:w-[112%] 2xl:w-full origin-top-left min-w-[50em] '>
+                              {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+                            </div>
+                            <div className='max-w-[26.5em] sm:max-w-[30.5em] md:max-w-[39em] lg:max-w-[70em] 2xl:max-w-[73em] '>
                               {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                               {router.pathname === '/services' && <Services />}
                               {router.pathname.startsWith('/portfolio') && (
@@ -459,11 +492,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                               )}
                               {router.pathname === '/availabilities' && <Availabilities />}
                             </div>
-                            {isPreLoaderFinished && (
-                              <div className='left-1 relative scale-[54%] sm:scale-[62%] md:scale-[80%] lg:scale-100 lg:w-full origin-top-left min-w-[50em] 2xl:min-w-[0%]'>
-                                <MainMenu router={router} routeConfig={ROUTE_CONFIG} />
-                              </div>
-                            )}
                           </div>
                         </Draggable>
                       </RoutesContext.Provider>
@@ -472,8 +500,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
                     <VideoSkybox />
                     <ELAudioStartSoundControl />
-                    <CameraRig fov={fov} debug={true} />
-                    <OrbitControls makeDefault target={cameraTarget} enableZoom={true} enablePan={true} enableRotate={true} />
+                    <CameraRig fov={fov} debug={false} />
+                    <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
 
                     <Lights />
                     {isCarReady && <CyberpunkCar />}

@@ -65,64 +65,63 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
 
   return (
     <PanelBackground headerTitle='Past Gigs'>
-      <div className='m-2 relative'>
-        <div className='flex flex-row w-full justify-between'>
-          <div className={'h-full relative flex items-end overflow-hidden'}>
-            <div className='w-full h-full'>
-              <div className='relative'>
-                <div>
-                  <h2 className='uppercase text-teal-blur text-[32px] font-semibold leading-7 pt-0.5 inline-block bg-opacity-85 bg-black'>
-                    {heading}
-                  </h2>
-                </div>
-                <div>
-                  <h3 className='uppercase text-red-blur text-[19px] font-medium leading-tight   pt-0.5 inline-block bg-opacity-85 bg-black '>
-                    {subHeading}
-                  </h3>
-                </div>
-                <div className='relative w-fit pointer-events-none'>
-                  <ul className='flex gap-3 text-black uppercase font-semibold text-[16px] mt-1'>
-                    {technology.map((tech, index) => (
-                      <li key={index} className='bg-red shadow-red-blur px-2'>
-                        {tech}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
+      <div className='flex flex-row justify-between items-start lg:items-center'>
+        <div className='m-2 ml-0 relative flex flex-col justify-start'>
+          <h2 className='uppercase text-teal-blur text-[28px] lg:text-[32px] font-semibold leading-7 inline-block bg-opacity-85 bg-black'>
+            {heading}
+          </h2>
+
+          <h3 className='uppercase text-red-blur text-[15px] lg:text-[19px] font-medium leading-tight inline-block bg-opacity-85 bg-black '>
+            {subHeading}
+          </h3>
+
+          <div className='relative w-fit pointer-events-none'>
+            <ul className='flex flex-wrap gap-2 text-black uppercase font-semibold text-[14px] lg:text-[16px] mt-1'>
+              {technology.map((tech, index) => (
+                <li key={index} className='bg-red shadow-red-blur px-2'>
+                  {tech}
+                </li>
+              ))}
+            </ul>
           </div>
+        </div>
+        <div className='min-w-[16em] lg:w-fit h-fit origin-right items-center absolute lg:relative top-[0.45em] lg:top-0 right-12 lg:right-0 lg-0 scale-[50%] lg:scale-100'>
           <ButtonDefault label='BACK' svgIcon={<BackSVG />} />
         </div>
+      </div>
 
-        <div className='mt-3'>
-          {!mutedVideo ? (
-            <VideoFrame
-              videoURL={mainVideo}
-              soundAudioLevelControls={soundAudioLevelControls}
-              setShouldMapDarkness={setShouldMapDarkness}
-            />
-          ) : (
-            <VideoFrameMute videoURL={mainVideo} soundAudioLevelControls={soundAudioLevelControls} />
-          )}
-        </div>
-        {desc && (
-          <>
-            <div dangerouslySetInnerHTML={{ __html: desc }} className='mt-3 text-red-blur font-semibold text-[21px] space-y-6'></div>
-            {/* <HR /> */}
-          </>
-        )}
-        {(link || desc) && (
-          <div className='flex flex-row  mt-6 justify-between'>
-            <div onClick={() => setUserMutedAll(true)}>{link && <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} link={link} />}</div>
-            <div className='flex flex-row -mr-3.5'>
-              {/* <ButtonDefault label='Figma' svgIcon={<FigmaSVG />} /> */}
-              {/* <ButtonDefault label='YouTube' svgIcon={<YouTubeSVG />} /> */}
-              <ButtonDefault />
-            </div>
-          </div>
+      <div className='mt-1 w-full'>
+        {!mutedVideo ? (
+          <VideoFrame videoURL={mainVideo} soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+        ) : (
+          <VideoFrameMute videoURL={mainVideo} soundAudioLevelControls={soundAudioLevelControls} />
         )}
       </div>
+      {desc && (
+        <>
+          <div
+            dangerouslySetInnerHTML={{ __html: desc }}
+            className='mt-3 text-red-blur font-semibold text-[16px] lg:text-[21px] space-y-4 lg:space-y-6 '
+          ></div>
+          {/* <HR /> */}
+        </>
+      )}
+      {(link || desc) && (
+        <div className='flex flex-row mt-2 lg:mt-4 lg:mb-2 justify-between md:w-full scale-[60%] lg:scale-[100%] origin-top-left -mb-6 '>
+          {link && (
+            <div
+              onClick={() => setUserMutedAll(true)}
+              className='lg:ml-auto flex flex-col justify-start md:justify-end lg:w-full lg:scale-100 origin-left'
+            >
+              <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} link={link} />
+            </div>
+          )}
+
+          <div className='lg:ml-auto flex flex-col justify-start lg:justify-end lg:w-full  lg:scale-100 origin-right lg:place-items-end'>
+            <ButtonDefault />
+          </div>
+        </div>
+      )}
     </PanelBackground>
   )
 }

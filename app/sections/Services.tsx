@@ -30,13 +30,13 @@ import TypingAnimation from '../libs/TypingAnimation'
 const ContentHead = () => {
   return (
     <>
-      <div className='flex flex-row my-1 gap-0 2xl:gap-6 items-center '>
-        <div>
+      <div className='flex flex-row mt-1 gap-0 2xl:gap-6 items-center '>
+        <div className='absolute block'>
           <ServicesSVG />
           <IconSmall />
         </div>
-        <div className='w-[180px] md:w-auto'>
-          <ul className='ml-0 text-red font-medium text-[0.75rem] lg:text-[0.9rem] 2xl:text-[1.375rem] font-default space-y-1 list-none md:list-square pl-1 md:pl-4'>
+        <div className='w-[170px] md:w-auto ml-20 relative'>
+          <ul className='ml-0 text-red font-medium text-[0.65rem] sm:text-[0.75rem] md:text-[0.9rem] lg:text-[1.2rem] 2xl:text-[1.375rem] font-default space-y-1 list-none md:list-square pl-1 md:pl-6 2xl:pl-8 sm:w-auto'>
             <li className='leading-[1]'>Australian citizen with full work rights. </li>
             <li className='leading-[1]'>ABN / GST compliant for contract and freelance roles.</li>
             <li className='leading-[1]'>Open to onsite and/or remote gigs. Crypto accepted.</li>
@@ -58,7 +58,7 @@ const ContentHead = () => {
 const Services = () => {
   return (
     <PanelContent headerTitle='Corpo Guide' contentHead={<ContentHead />}>
-      <div className='mb-5 space-y-0 lg:space-y-2'>
+      <div className='mb-2 lg:mb-5 space-y-0 lg:space-y-2'>
         <HeadingHighlight BGColor={TEAL} fullWidth={false} heading='YOUR CREATIVE TECHNOLOGIST PARTNER' />
         <ParagraphHighlight
           BGColor={TEAL}
@@ -67,7 +67,7 @@ const Services = () => {
       </div>
       <HR />
       <HeadingHighlight BGColor={RED} fullWidth={false} heading='Creative Services' />
-      <div className='flex flex-wrap my-2 gap-3'>
+      <div className='flex flex-wrap flex-row my-2 gap-3'>
         <RowHalf
           heading='Digital Design'
           paragraph='Digital asset creation for websites, landing pages, social media posts, digital banners, email templates, mobile/web apps, motion design, animation GIFs, SVG and social tiles.'
@@ -138,7 +138,7 @@ const Services = () => {
       <div>
         <HeadingHighlight BGColor={TEAL} fullWidth={false} heading='THE EVOKE LABS DIFFERENCE' />
       </div>
-      <div className='flex flex-col 2xl:flex-row mt-2'>
+      <div className='flex flex-col lg:flex-row mt-2 gap-2'>
         <RowThird
           heading='The versatility factor'
           paragraph='Why settle for one expertise when you can have it all? Visionary, developer, designer - my versatile skill set is your secret weapon. Unleash the boundless innovation that comes from a true Renaissance professional.'

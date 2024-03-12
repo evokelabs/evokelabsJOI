@@ -38,7 +38,7 @@ const PortfolioHome = ({
 
   return (
     <PanelContent headerTitle='Past Gigs' contentHead={<ContentHeader setPortfolioData={setPortfolioData} portfolioData={portfolioData} />}>
-      <div className='grid grid-cols-2 gap-5 mr-1 mb-3'>
+      <div className='flex flex-col lg:grid lg:grid-cols-2 gap-5 mr-1 mb-3 relative h-auto'>
         {portfolioData.map(item => (
           <PortfolioPanelContent key={item.id} onClick={() => handleItemClick(item)}>
             <PortfolioTile

@@ -36,7 +36,7 @@ const DropdownMenus: React.FC<DropdownMenuProps> = ({ options, defaultOption, on
   }, [])
 
   return (
-    <div className='relative inline-block text-left z-10 hover:bg-red' tabIndex={0}>
+    <div className='relative inline-block text-left hover:bg-red' tabIndex={0}>
       <div>
         <button
           ref={buttonRef}
@@ -53,7 +53,7 @@ const DropdownMenus: React.FC<DropdownMenuProps> = ({ options, defaultOption, on
       </div>
 
       {isOpen && (
-        <div ref={dropdownRef} className='absolute left-0 mt-2 bg-grid-red border-2-red'>
+        <div ref={dropdownRef} className='absolute left-0 mt-2 bg-grid-red border-2-red z-20'>
           <div role='menu' aria-orientation='vertical' aria-labelledby='options-menu'>
             {options.map(option => (
               <button

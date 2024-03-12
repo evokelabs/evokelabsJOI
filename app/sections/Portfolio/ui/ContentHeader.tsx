@@ -1,12 +1,11 @@
 import IconSmall from '@/app/ui/IconSmall'
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext } from 'react'
 import DropdownMenus from './DropdownMenus'
 import HR from '@/app/ui/HR'
 import PortfolioItem from '../PortfolioItem'
 
 import portfolio from '../../data/portfolio.json'
 import PortfolioSVG from '@/app/ui/svg/mainmenu/PortfolioSVG'
-import { RED } from '@/app/libs/UIConstants'
 import { PortfolioContext } from '@/app/libs/PortfolioContext'
 
 type ContentHeadPortfolioProps = {
@@ -66,25 +65,20 @@ const ContentHeader: React.FC<ContentHeadPortfolioProps> = ({ setPortfolioData, 
 
   return (
     <>
-      <div className='flex flex-row my-1 gap-6'>
-        <div className='w-[7em]'>
+      <div className='flex lg:flex-row flex-col my-1 gap-2 lg:gap-6'>
+        <div className='flex center items-center'>
           <PortfolioSVG />
           <IconSmall />
+          <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none uppercase '>Portfolio</h2>
         </div>
-
-        <div className='flex justify-between w-full mr-3'>
-          <div className='flex flex-row pr-4 items-center w-full justify-between'>
-            <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none uppercase '>Portfolio</h2>
-            <div className='flex gap-10 text-red-blur font-semibold  items-center'>
-              <div className='flex-row flex items-center gap-5 text-[21px]'>
-                <p>SHOW ONLY:</p>
-                <DropdownMenus options={SHOW_ONLY_OPTIONS} defaultOption={selectedShowOnlyOption} onSelect={handleSelectShowOnly} />
-              </div>
-              <div className='flex-row flex items-center gap-5 text-[21px]'>
-                <p>SORT BY:</p>
-                <DropdownMenus options={SORT_BY_OPTIONS} defaultOption={selectedSortByOption} onSelect={handleSelectSortBy} />
-              </div>
-            </div>
+        <div className='flex flex-col md:flex-row justify-between gap-1 lg:gap-5 lg:justify-end w-full pr-7'>
+          <div className='text-[21px] text-red-blur font-semibold flex items-center gap-5'>
+            <p className='w-[120px] md:w-fit'>SHOW ONLY:</p>
+            <DropdownMenus options={SHOW_ONLY_OPTIONS} defaultOption={selectedShowOnlyOption} onSelect={handleSelectShowOnly} />
+          </div>
+          <div className='text-[21px] text-red-blur font-semibold flex items-center gap-5'>
+            <p className='w-[120px] md:w-fit'>SORT BY:</p>
+            <DropdownMenus options={SORT_BY_OPTIONS} defaultOption={selectedSortByOption} onSelect={handleSelectSortBy} />
           </div>
         </div>
       </div>
