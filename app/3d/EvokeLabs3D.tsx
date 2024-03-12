@@ -50,8 +50,10 @@ import gsap from 'gsap'
 const debug = true
 // const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
-const MENU_HOME_WAIT_TIMER_COOKIE = 18000
-const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
+// const MENU_HOME_WAIT_TIMER_COOKIE = 18000
+const MENU_HOME_WAIT_TIMER_COOKIE = 0
+// const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
+const MENU_HOME_WAIT_TIMER_NOCOOKIE = 0
 
 let tl = gsap.timeline() // Move this outside the function
 
@@ -151,12 +153,14 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const positionRef = useRef<[number, number, number]>([0, 1.42, 2.1])
 
   const Y_VALUES = {
-    0: 1,
-    1: 2,
-    2: 3,
-    3: 4,
-    4: 1,
-    5: 1
+    0: 1.44,
+    1: 1.44,
+    2: 1.45,
+    3: 1.44,
+    4: 1.44,
+    5: 1.52,
+    6: 1.75, // Home Default
+    7: 1.65 // Home Expanded
   }
 
   useEffect(() => {
@@ -175,9 +179,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     tl.kill() // Stop any running animations
     const tempObj = { y: position[1] }
     tl = gsap.timeline()
+    console.log('moving to ', newY)
     tl.to(tempObj, {
-      duration: 0.75,
-      ease: 'power2.out',
+      duration: 0.25,
+      ease: 'Power1.out',
       y: newY,
       onUpdate: () => {
         positionRef.current = [positionRef.current[0], tempObj.y, positionRef.current[2]]
@@ -185,7 +190,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       }
     })
   }
-
   useEffect(() => {
     if (currentPortfolioSelection !== null && currentPortfolioSelection !== '') {
       router.push(`/portfolio/${currentPortfolioSelection}`)
@@ -212,14 +216,14 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     }
     let newY
     if (homePanelExpanded) {
-      newY = Y_VALUES[1]
+      newY = Y_VALUES[7]
     } else if (currentRouteSelection !== null) {
       newY = Y_VALUES[currentRouteSelection as keyof typeof Y_VALUES]
     } else {
-      newY = Y_VALUES[4]
+      newY = Y_VALUES[6]
     }
     moveHTMLPanel(newY)
-  }, [router.pathname, ROUTE_CONFIG, currentRouteSelection, homePanelExpanded])
+  }, [currentRouteSelection, homePanelExpanded])
 
   useEffect(() => {
     if (currentRouteSelection !== null) {
@@ -458,8 +462,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
                     <VideoSkybox />
                     <ELAudioStartSoundControl />
-                    <CameraRig fov={fov} debug={true} />
-                    <OrbitControls makeDefault target={cameraTarget} enableZoom={true} enablePan={true} enableRotate={false} />
+                    <CameraRig fov={fov} debug={false} />
+                    <OrbitControls makeDefault target={cameraTarget} enableZoom={true} enablePan={false} enableRotate={false} />
 
                     <Lights />
                     {isCarReady && <CyberpunkCar />}
