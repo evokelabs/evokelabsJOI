@@ -57,6 +57,8 @@ const MENU_HOME_WAIT_TIMER_NOCOOKIE = 0
 let tl = gsap.timeline() // Move this outside the function
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
+  type Y_VALUES_TYPE = Record<string, Record<string, number>>
+
   // State
   const [shouldAmbientLightPlay, setAmbientLightPlay] = useState(false)
   const [shouldPointLightPlay, setPointLightPlay] = useState(false)
@@ -82,6 +84,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
   const initialTimer = visitedCookie ? MENU_HOME_WAIT_TIMER_COOKIE : MENU_HOME_WAIT_TIMER_NOCOOKIE
 
+  // Use useRef to preserve the value of newY over time
+  const newYRef = useRef(0)
   useEffect(() => {
     const visitedCookie =
       typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
@@ -158,26 +162,44 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }
 
   const htmlRef = useRef<HTMLDivElement>(null)
-  const [position, setPosition] = useState<[number, number, number]>([0.67, 0, 1.48])
+  const [position, setPosition] = useState<[number, number, number]>([0.67, 1.31, 1.48])
 
-  const positionRef = useRef<[number, number, number]>([0.67, 0, 1.48])
+  const positionRef = useRef<[number, number, number]>([0.67, 1.31, 1.48])
 
   let newY = 0
+
+  const getScreenSize = () => {
+    const width = window.innerWidth
+
+    if (width < 640) {
+      return 'BASE'
+    } else if (width >= 640 && width < 768) {
+      return 'SM'
+    } else if (width >= 768 && width < 1024) {
+      return 'MD'
+    } else if (width >= 1024 && width < 1280) {
+      return 'LG'
+    } else if (width >= 1280 && width < 1536) {
+      return 'XL'
+    } else {
+      return '2XL'
+    }
+  }
 
   const offsetPosition = useOffsetPosition(position, 0)
   useEffect(() => {
     setOffset(-0.06)
   }, [])
 
-  const Y_VALUES = {
+  const Y_VALUES: Y_VALUES_TYPE = {
     BASE: {
-      0: 1.43,
-      1: 1.43,
-      2: 1.48,
-      3: 1.43,
-      4: 1.44,
-      5: 1.55,
-      6: 1.78, // Home Default
+      0: 1.31,
+      1: 1.31,
+      2: 1.31,
+      3: 1.31,
+      4: 1.31,
+      5: 1.31,
+      6: 1.31, // Home Default
       7: 1.6 // Home Expanded
     },
     SM: {
@@ -268,18 +290,28 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       }
     }
 
+    const screenSize = getScreenSize()
+
+    console.log('screensize is ', screenSize)
+
     if (homePanelExpanded) {
-      newY = Y_VALUES['2XL'][7]
+      console.log('triggered 1')
+      console.log('triggered1', Y_VALUES[screenSize]['7'])
+      newYRef.current = Y_VALUES[screenSize]['7']
     } else if (currentRouteSelection !== null) {
-      newY = Y_VALUES['2XL'][currentRouteSelection as keyof (typeof Y_VALUES)['2XL']]
+      console.log('triggered 2,')
+      console.log('triggered 2', Y_VALUES[screenSize][currentRouteSelection.toString()])
+      newYRef.current = Y_VALUES[screenSize][currentRouteSelection.toString()]
     } else if (router.pathname.startsWith('/portfolio/')) {
-      newY = Y_VALUES['2XL'][2]
+      console.log('triggered 3', Y_VALUES[screenSize]['2'])
+      newYRef.current = Y_VALUES[screenSize]['2']
     } else {
-      newY = Y_VALUES['2XL'][6]
+      console.log('triggered 4:', Y_VALUES[screenSize]['6'])
+      newYRef.current = Y_VALUES[screenSize]['6']
     }
 
     // Calculate the new Y position with the offset
-    const newYWithOffset = newY + offset
+    const newYWithOffset = newYRef.current + offset
 
     console.log('moving to newY', newY)
     console.log('moving to offset', offset)
