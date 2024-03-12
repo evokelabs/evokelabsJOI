@@ -160,12 +160,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }
 
   useEffect(() => {
-    const newY = gsap.utils.random(1, 2, true)()
-    console.log('currentRouteSelection', currentRouteSelection)
-    moveHTMLPanel(newY)
-  }, [setCurrentRouteSelection, currentRouteSelection])
-
-  useEffect(() => {
     if (currentPortfolioSelection !== null && currentPortfolioSelection !== '') {
       router.push(`/portfolio/${currentPortfolioSelection}`)
       setCurrentRouteSelection(1)
@@ -190,6 +184,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         setCurrentPortfolioSelection(null)
       }
     }
+    const newY = gsap.utils.random(1, 2, true)()
+    console.log('currentRouteSelection', currentRouteSelection)
+    moveHTMLPanel(newY)
   }, [router.pathname, ROUTE_CONFIG])
 
   useEffect(() => {
