@@ -44,10 +44,11 @@ import { SoundControlContext } from '../libs/SoundControlContext'
 import { PortfolioContext } from '../libs/PortfolioContext'
 import Draggable from 'react-draggable'
 import { GPUContext } from '../libs/GPUContext'
+import gsap from 'gsap'
 
 // Constants
-// const debug = true
 const debug = true
+// const debug = false
 const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
 const MENU_HOME_WAIT_TIMER_COOKIE = 18000
 const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
@@ -262,7 +263,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [selectedShowOnlyOption, setSelectedShowOnlyOption] = useState('All')
   const [selectedSortByOption, setSelectedSortByOption] = useState('Date (Newest)')
 
-  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.1])
   const [isDragging, setIsDragging] = useState(false)
 
   const handleMouseDown = useCallback(() => {
@@ -300,6 +300,13 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }, [gpuTier])
 
   // const lowGPU = true
+
+  const [isCentered, setIsCentered] = useState(false)
+
+  //Function to control 2D html positioning
+  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.1])
+
+  
 
   return (
     <>
@@ -369,12 +376,30 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                           setCurrentPortfolioSelection
                         }}
                       >
-                        <Draggable>
-                          <div onPointerDown={handleMouseDown} onPointerUp={handleMouseUp} className='flex flex-col-reverse h-screen p-4'>
-                            <div className='left-1 scale-[54%] sm:scale-[62%] md:scale-[80%] lg:scale-90 2xl:scale-100 lg:w-[112%] 2xl:w-full origin-top-left min-w-[50em]'>
+                        <Draggable
+                          onDrag={(event, data) => {
+                            // Get the current position of the dragged element
+                            const x = data.x
+                            const y = data.y
+
+                            console.log('x:', x, 'y:', y)
+
+                            // Update the position state
+                            // setPosition([x, y, positionRef.current[2]])
+
+                            // Start the animation
+                            // startAnimation()
+                          }}
+                        >
+                          <div
+                            onPointerDown={handleMouseDown}
+                            onPointerUp={handleMouseUp}
+                            className='flex flex-col-reverse h-screen p-4 relative translate-y-10 '
+                          >
+                            <div className='left-1 scale-[54%] sm:scale-[62%] md:scale-[80%] lg:scale-90 2xl:scale-100 lg:w-[112%] 2xl:w-full origin-top-left min-w-[50em] '>
                               {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
                             </div>
-                            <div className='max-w-[26.5em] sm:max-w-[30.5em] md:max-w-[39em] lg:max-w-[70em] 2xl:max-w-[73em] overflow-y-auto overflow-x-hidden'>
+                            <div className='max-w-[26.5em] sm:max-w-[30.5em] md:max-w-[39em] lg:max-w-[70em] 2xl:max-w-[73em] '>
                               {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                               {router.pathname === '/services' && <Services />}
                               {router.pathname.startsWith('/portfolio') && (
@@ -397,8 +422,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
                     <VideoSkybox />
                     <ELAudioStartSoundControl />
-                    <CameraRig fov={fov} debug={true} />
-                    <OrbitControls makeDefault target={cameraTarget} enableZoom={true} enablePan={true} enableRotate={true} />
+                    <CameraRig fov={fov} debug={false} />
+                    <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
 
                     <Lights />
                     {isCarReady && <CyberpunkCar />}
