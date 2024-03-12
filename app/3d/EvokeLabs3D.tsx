@@ -195,9 +195,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     '2XL': {
       0: 1.43,
       1: 1.43,
-      2: 1.43,
+      2: 1.47,
       3: 1.43,
-      4: 1.43,
+      4: 1.47,
       5: 1.5,
       6: 1.78, // Home Default
       7: 1.6 // Home Expanded
@@ -243,7 +243,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         setCurrentPortfolioSelection(null)
       }
     }
-  }, [currentRouteSelection])
+  }, [router.pathname, ROUTE_CONFIG])
 
   useEffect(() => {
     if (currentRouteSelection !== null) {
@@ -272,6 +272,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       newY = Y_VALUES['2XL'][7]
     } else if (currentRouteSelection !== null) {
       newY = Y_VALUES['2XL'][currentRouteSelection as keyof (typeof Y_VALUES)['2XL']]
+    } else if (router.pathname.startsWith('/portfolio/')) {
+      newY = Y_VALUES['2XL'][2]
     } else {
       newY = Y_VALUES['2XL'][6]
     }
