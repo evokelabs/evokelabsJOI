@@ -145,7 +145,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>(null)
 
   //ROUTING FUNCTIONS
-  const [offset, setOffset] = useState(0)
+  const [offset, setOffset] = useState(-0.06)
 
   const useOffsetPosition = (position: [number, number, number], offset: number): [number, number, number] => {
     const [offsetPosition, setOffsetPosition] = useState<[number, number, number]>([0, 0, 0])
@@ -158,15 +158,15 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }
 
   const htmlRef = useRef<HTMLDivElement>(null)
-  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.3])
+  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.2])
 
-  const positionRef = useRef<[number, number, number]>([0, 1.42, 2.3])
+  const positionRef = useRef<[number, number, number]>([0, 1.42, 2.2])
 
   let newY = 0
 
   const offsetPosition = useOffsetPosition(position, 0)
   useEffect(() => {
-    setOffset(-0.05)
+    setOffset(-0.06)
   }, [])
 
   const Y_VALUES = {
@@ -210,8 +210,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     tl = gsap.timeline()
 
     tl.to(tempObj, {
-      duration: 0.75,
-      ease: 'power1.inOut',
+      duration: 0.45,
+      ease: 'circ.out',
       y: newY,
       onUpdate: () => {
         positionRef.current = [positionRef.current[0], tempObj.y, positionRef.current[2]]
