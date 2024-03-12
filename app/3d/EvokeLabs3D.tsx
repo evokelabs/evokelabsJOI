@@ -370,8 +370,11 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                         }}
                       >
                         <Draggable>
-                          <div onPointerDown={handleMouseDown} onPointerUp={handleMouseUp}>
-                            <div className='max-w-[26.5em] sm:max-w-[30.5em] md:max-w-[39em] lg:max-w-[70em] 2xl:max-w-[73em]'>
+                          <div onPointerDown={handleMouseDown} onPointerUp={handleMouseUp} className='flex flex-col-reverse h-screen p-4'>
+                            <div className='left-1 scale-[54%] sm:scale-[62%] md:scale-[80%] lg:scale-90 2xl:scale-100 lg:w-[112%] 2xl:w-full origin-top-left min-w-[50em]'>
+                              {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+                            </div>
+                            <div className='max-w-[26.5em] sm:max-w-[30.5em] md:max-w-[39em] lg:max-w-[70em] 2xl:max-w-[73em] overflow-y-auto overflow-x-hidden'>
                               {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                               {router.pathname === '/services' && <Services />}
                               {router.pathname.startsWith('/portfolio') && (
@@ -386,11 +389,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                               )}
                               {router.pathname === '/availabilities' && <Availabilities />}
                             </div>
-                            {isPreLoaderFinished && (
-                              <div className='left-1 relative scale-[54%] sm:scale-[62%] md:scale-[80%] lg:scale-90 2xl:scale-100 lg:w-[112%] 2xl:w-full origin-top-left min-w-[50em] '>
-                                <MainMenu router={router} routeConfig={ROUTE_CONFIG} />
-                              </div>
-                            )}
                           </div>
                         </Draggable>
                       </RoutesContext.Provider>
