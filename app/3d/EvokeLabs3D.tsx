@@ -210,7 +210,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     tl = gsap.timeline()
 
     tl.to(tempObj, {
-      duration: 0.5,
+      duration: 0.35,
       ease: 'circ.out',
       y: newY,
       onUpdate: () => {
