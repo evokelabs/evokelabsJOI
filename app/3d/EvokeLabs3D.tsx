@@ -172,11 +172,11 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const Y_VALUES = {
     BASE: {
       0: 1.4,
-      1: 1.41,
-      2: 1.41,
+      1: 1.4,
+      2: 1.4,
       3: 1.41,
       4: 1.41,
-      5: 1.5,
+      5: 1.48,
       6: 1.75, // Home Default
       7: 1.65 // Home Expanded
     },
@@ -195,10 +195,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     '2XL': {
       0: 1.43,
       1: 1.43,
-      2: 1.47,
+      2: 1.48,
       3: 1.43,
-      4: 1.47,
-      5: 1.5,
+      4: 1.44,
+      5: 1.55,
       6: 1.78, // Home Default
       7: 1.6 // Home Expanded
     }
@@ -287,7 +287,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     console.log('moving to newYWithOffset', newYWithOffset)
 
     moveHTMLPanel(newYWithOffset)
-  }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection, homePanelExpanded])
+  }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection, homePanelExpanded, offset])
 
   useEffect(() => {
     // If the current route is '/', set currentRouteSelection to null
@@ -398,6 +398,34 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }, [gpuTier])
 
   // const lowGPU = true
+
+  //ASPECT RATION FUNCTION
+  useEffect(() => {
+    // Function to log the aspect ratio and update the offset
+    const logAspectRatioAndUpdateOffset = () => {
+      const aspectRatio = window.innerHeight / window.innerWidth
+      console.log('Aspect ratio:', aspectRatio)
+
+      if (aspectRatio < 0.25) {
+        console.log('changing to 1.6')
+        setOffset(-0.06)
+      } else if (aspectRatio > 0.27) {
+        console.log('changing to 0.06')
+        setOffset(0)
+      }
+    }
+
+    // Log the aspect ratio and update the offset initially
+    logAspectRatioAndUpdateOffset()
+
+    // Set up the event listener
+    window.addEventListener('resize', logAspectRatioAndUpdateOffset)
+
+    // Cleanup function to remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', logAspectRatioAndUpdateOffset)
+    }
+  }, []) // Empty dependency array so the effect only runs once
 
   return (
     <>
