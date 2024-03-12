@@ -122,7 +122,7 @@ const Resume = () => {
       </div>
       <HeadingHighlight heading={'Skill set'} fullWidth={true} BGColor={RED} />
       <div className='flex flex-col lg:flex-row lg:gap-6 my-0 mt-3 lg:my-3 h-full relative'>
-        <div className='w-full'>
+        <div className='w-full lg:flex-2'>
           <div className='text-[16px] lg:text-[20px] text-red-blur font-medium space-y-1.5 leading-5'>
             <p>
               <span className='text-teal-blur font-semibold'>Project Management:</span> Google Suite, Trello, GitHub
@@ -147,7 +147,7 @@ const Resume = () => {
             </p>
           </div>
         </div>
-        <div className='lg:ml-auto flex flex-col justify-start lg:justify-end scale-[60%] lg:scale-100 origin-left w-[60%] lg:w-full h-[60%] lg:h-auto lg:items-end '>
+        <div className='lg:ml-auto flex flex-col justify-start lg:justify-end scale-[60%] lg:scale-100 origin-left w-[60%] lg:w-full h-[60%] lg:h-auto lg:items-end lg:flex-1'>
           <ButtonDefault />
         </div>
       </div>

@@ -10,7 +10,7 @@ const RowHalf = ({ heading, paragraph, PNG }: { heading: string; paragraph: stri
           <div className='bg-grid-blue border-2-red w-[140px] lg:w-[180px] left-2.5 top-2 relative z-30'>
             <Image src={PNG} alt={heading} className='text-teal font-rajdhani font-semibold text-center opacity-80' />
           </div>
-          <div className={'mt-1.5 w-full relative left-4 top-1 pr-6 pl-1'}>
+          <div className={'mt-1.5 w-full relative left-4 top-1 pr-6 pl-2'}>
             <h2
               dangerouslySetInnerHTML={{ __html: heading }}
               className='text-teal-blur uppercase font-rajdhani text-[18px] sm:text-[20px] md:text-[28px] font-semibold leading-none lg:mb-1'

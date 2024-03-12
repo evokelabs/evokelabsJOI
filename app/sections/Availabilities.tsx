@@ -92,7 +92,7 @@ const Availabilities = () => {
         />
       }
     >
-      <div className='space-y-4 2xl:space-y-10 my-0'>
+      <div className='space-y-4 2xl:space-y-7 my-0'>
         <div className='flex flex-col 2xl:flex-row gap-4 justify-between'>
           <CustomCalendar value={today} />
           <CustomCalendar value={nextMonth} />
