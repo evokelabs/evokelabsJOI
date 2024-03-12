@@ -145,15 +145,33 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>(null)
 
   //ROUTING FUNCTIONS
+  const [offset, setOffset] = useState(0)
+
+  const useOffsetPosition = (position: [number, number, number], offset: number): [number, number, number] => {
+    const [offsetPosition, setOffsetPosition] = useState<[number, number, number]>([0, 0, 0])
+
+    useEffect(() => {
+      setOffsetPosition([position[0], position[1] + offset, position[2]])
+    }, [position, offset])
+
+    return offsetPosition
+  }
 
   const htmlRef = useRef<HTMLDivElement>(null)
-  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.1])
+  const [position, setPosition] = useState<[number, number, number]>([0, 1.42, 2.3])
 
-  const positionRef = useRef<[number, number, number]>([0, 1.42, 2.1])
+  const positionRef = useRef<[number, number, number]>([0, 1.42, 2.3])
+
+  let newY = 0
+
+  const offsetPosition = useOffsetPosition(position, 0)
+  useEffect(() => {
+    setOffset(-0.05)
+  }, [])
 
   const Y_VALUES = {
     BASE: {
-      0: 1.41,
+      0: 1.4,
       1: 1.41,
       2: 1.41,
       3: 1.41,
@@ -181,7 +199,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       3: 1.43,
       4: 1.43,
       5: 1.5,
-      6: 1.78, // Home Default
+      6: 1.74, // Home Default
       7: 1.6 // Home Expanded
     }
   }
@@ -190,10 +208,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     tl.kill() // Stop any running animations
     const tempObj = { y: position[1] }
     tl = gsap.timeline()
-    console.log('moving to ', newY)
+
     tl.to(tempObj, {
-      duration: 0.5,
-      ease: 'Power2.inOut',
+      duration: 0.75,
+      ease: 'power1.inOut',
       y: newY,
       onUpdate: () => {
         positionRef.current = [positionRef.current[0], tempObj.y, positionRef.current[2]]
@@ -250,7 +268,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       }
     }
 
-    let newY
     if (homePanelExpanded) {
       newY = Y_VALUES['2XL'][7]
     } else if (currentRouteSelection !== null) {
@@ -258,7 +275,16 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     } else {
       newY = Y_VALUES['2XL'][6]
     }
-    moveHTMLPanel(newY)
+
+    // Calculate the new Y position with the offset
+    const newYWithOffset = newY + offset
+
+    console.log('moving to newY', newY)
+    console.log('moving to offsetPosition', offsetPosition)
+    console.log('moving to offsetPosition[1]', offsetPosition[1])
+    console.log('moving to newYWithOffset', newYWithOffset)
+
+    moveHTMLPanel(newYWithOffset)
   }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection, homePanelExpanded])
 
   useEffect(() => {
