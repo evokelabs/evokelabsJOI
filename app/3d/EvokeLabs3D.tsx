@@ -48,7 +48,7 @@ import gsap from 'gsap'
 // Constants
 const debug = true
 // const debug = false
-const INITIAL_CAMERA_POSITION = [0, 1.5, -1] as const
+const INITIAL_CAMERA_POSITION = [0.84, 1.5, 0.5] as const
 // const MENU_HOME_WAIT_TIMER_COOKIE = 18000
 const MENU_HOME_WAIT_TIMER_COOKIE = 0
 // const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
@@ -158,9 +158,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }
 
   const htmlRef = useRef<HTMLDivElement>(null)
-  const [position, setPosition] = useState<[number, number, number]>([0.025, 1.42, 2])
+  const [position, setPosition] = useState<[number, number, number]>([0.67, 0, 1.48])
 
-  const positionRef = useRef<[number, number, number]>([0.025, 1.42, 2])
+  const positionRef = useRef<[number, number, number]>([0.67, 0, 1.48])
 
   let newY = 0
 
@@ -171,14 +171,14 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   const Y_VALUES = {
     BASE: {
-      0: 1.4,
-      1: 1.4,
-      2: 1.4,
-      3: 1.41,
-      4: 1.41,
-      5: 1.48,
-      6: 1.75, // Home Default
-      7: 1.65 // Home Expanded
+      0: 1.43,
+      1: 1.43,
+      2: 1.48,
+      3: 1.43,
+      4: 1.44,
+      5: 1.55,
+      6: 1.78, // Home Default
+      7: 1.6 // Home Expanded
     },
     SM: {
       // Add the y values for the SM display size
@@ -282,6 +282,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     const newYWithOffset = newY + offset
 
     console.log('moving to newY', newY)
+    console.log('moving to offset', offset)
     console.log('moving to offsetPosition', offsetPosition)
     console.log('moving to offsetPosition[1]', offsetPosition[1])
     console.log('moving to newYWithOffset', newYWithOffset)
@@ -531,7 +532,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                     <VideoSkybox />
                     <ELAudioStartSoundControl />
                     <CameraRig fov={fov} debug={false} />
-                    <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
+                    <OrbitControls makeDefault target={cameraTarget} enableZoom={true} enablePan={false} enableRotate={false} />
 
                     <Lights />
                     {isCarReady && <CyberpunkCar />}

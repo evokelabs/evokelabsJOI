@@ -2,8 +2,9 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { PerspectiveCamera, Vector3 } from 'three'
 
 const CAMERA_DAMPING = 0.015
-const CAMERA_X_OFFSET = 3
-const CAMERA_Y_OFFSET = 0.75
+const CAMERA_X_OFFSET = 3.4
+const CAMERA_X_OFFSET_BASE = 1.0
+const CAMERA_Y_OFFSET = 0
 
 const CameraRig = ({ fov, debug }: { fov: number; debug: boolean }) => {
   const { camera } = useThree()
@@ -12,15 +13,15 @@ const CameraRig = ({ fov, debug }: { fov: number; debug: boolean }) => {
     if (debug) return
 
     // Calculate the target position of the camera
-    const XPosition = 0 - (pointer.x * viewport.width) / CAMERA_X_OFFSET
+    const XPosition = CAMERA_X_OFFSET_BASE - (pointer.x * viewport.width) / CAMERA_X_OFFSET
     const YPosition = (CAMERA_X_OFFSET + pointer.y) / 2
     const ZPosition = -CAMERA_Y_OFFSET
     const targetPosition = new Vector3(XPosition, YPosition, ZPosition)
 
     // Move the camera towards the target position only for lg and above screen sizes
-    if (window.innerWidth >= 640) {
-      camera.position?.lerp(targetPosition, CAMERA_DAMPING)
-    }
+    // if (window.innerWidth >= 640) {
+    // camera.position?.lerp(targetPosition, CAMERA_DAMPING)
+    // }
 
     // Update the field of view and the projection matrix of the camera
     const perspectiveCamera = camera as PerspectiveCamera
