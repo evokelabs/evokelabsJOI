@@ -122,10 +122,10 @@ const VideoFrame = ({
   return (
     <>
       {videoError ? (
-        <div className='w-full h-[32em] bg-grid-brightRed  border-red border-2 border-opacity-60 shadow-red-blur flex justify-center items-center text-teal-blur text-center font-orbitron flex-col'>
-          <div className='bg-grid-darkRed py-4 px-6 -space-y-2 w-fit '>
-            <p className='text-[66px] font-bold '>Audio Hardware Error</p>
-            <p className='text-3xl font-semibold '>Please refresh the page or visit another section.</p>
+        <div className='w-full h-[14em] lg:h-[40em] bg-grid-brightRed  border-red border-2 border-opacity-60 shadow-red-blur flex justify-center items-center text-teal-blur text-center font-orbitron flex-col'>
+          <div className='bg-grid-darkRed py-4 px-6 w-fit '>
+            <p className='text-[30px] lg:text-[66px]  font-bold '>Audio Hardware Error</p>
+            <p className='text-base/4 lg:text-3xl font-semibold '>Please refresh the page or visit another section.</p>
           </div>
         </div>
       ) : (
