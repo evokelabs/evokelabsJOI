@@ -115,6 +115,7 @@ const SVGButton: React.FC<SVGButtonProps> = ({
         break
       case 'BACK':
         setCurrentRouteSelection(1)
+        setCurrentPortfolioSelection(null)
         break
       case 'LAUNCH':
         if (link) {

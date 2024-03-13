@@ -195,12 +195,13 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     BASE: {
       0: 1.22,
       1: 1.22,
-      2: 1.3,
+      2: 1.3, // Portfolio Item
       3: 1.22,
       4: 1.28,
       5: 1.22,
       6: 1.38, // Home Default
-      7: 1.3 // Home Expanded
+      7: 1.3, // Home Expanded
+      8: 1.3 // Portfolio Item
     },
     SM: {
       // Add the y values for the SM display size
@@ -222,7 +223,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       4: 1.44,
       5: 1.55,
       6: 1.78, // Home Default
-      7: 1.6 // Home Expanded
+      7: 1.6, // Home Expanded
+      8: 1.6 // Portfoio Item
     }
   }
 
@@ -294,10 +296,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
     if (homePanelExpanded) {
       newYRef.current = Y_VALUES[screenSize]['7']
+    } else if (currentRouteSelection === 1 && currentPortfolioSelection !== null) {
+      newYRef.current = Y_VALUES[screenSize]['8']
     } else if (currentRouteSelection !== null) {
       newYRef.current = Y_VALUES[screenSize][currentRouteSelection.toString()]
-    } else if (router.pathname.startsWith('/portfolio/')) {
-      newYRef.current = Y_VALUES[screenSize]['2']
     } else {
       newYRef.current = Y_VALUES[screenSize]['6']
     }
