@@ -48,7 +48,7 @@ import gsap from 'gsap'
 // Constants
 const debug = true
 // const debug = false
-const INITIAL_CAMERA_POSITION = [0.84, 1.5, 0.5] as const
+const INITIAL_CAMERA_POSITION = [0.84, 1.5, -15] as const
 // const MENU_HOME_WAIT_TIMER_COOKIE = 18000
 const MENU_HOME_WAIT_TIMER_COOKIE = 0
 // const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
@@ -164,7 +164,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const htmlRef = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<[number, number, number]>([0.67, 1.31, 1.48])
 
-  const positionRef = useRef<[number, number, number]>([0.67, 1.31, 1.48])
+  const positionRef = useRef<[number, number, number]>([0.67, 0, 1.48])
 
   let newY = 0
 
