@@ -30,12 +30,20 @@ import TypingAnimation from '../libs/TypingAnimation'
 const ContentHead = () => {
   return (
     <>
-      <div className='flex flex-row mt-1 gap-0 2xl:gap-6 items-center '>
-        <div className='absolute block'>
+      <div className='flex flex-row gap-0 2xl:gap-6 items-center '>
+        <div className='absolute md:block hidden'>
           <ServicesSVG />
           <IconSmall />
         </div>
-        <div className='w-[170px] md:w-auto ml-20 relative'>
+        <div className='relative w-fit block'>
+          <h2
+            className='font-rajdhani font-semibold text-red-blur text-[1.5rem] 2xl:text-[2.25rem] 
+        leading-none uppercase w-full inline md:hidden'
+          >
+            SERVICES
+          </h2>
+        </div>
+        <div className='w-[170px] md:w-auto md:ml-20 relative md:block hidden'>
           <ul className='ml-0 text-red font-medium text-[0.65rem] sm:text-[0.75rem] md:text-[0.9rem] lg:text-[1.2rem] 2xl:text-[1.375rem] font-default space-y-1 list-none md:list-square pl-1 md:pl-6 2xl:pl-8 sm:w-auto'>
             <li className='leading-[1]'>Australian citizen with full work rights. </li>
             <li className='leading-[1]'>ABN / GST compliant for contract and freelance roles.</li>
@@ -43,7 +51,7 @@ const ContentHead = () => {
           </ul>
         </div>
         <div className='ml-auto'>
-          <div className='flex flex-col 2xl:flex-col text-right justify-center space-y-1 mr-2 2xl:mr-6'>
+          <div className='flex flex-col 2xl:flex-col text-right justify-center space-y-0 md:space-y-1 mr-2 2xl:mr-6'>
             <ParagraphHighlight BGColor={RED} fontSize='sm' paragraph='<strong>Current location:</strong> Sydney, Australia' />
             <ParagraphHighlight BGColor={RED} fontSize='sm' paragraph='<strong>ABN:</strong> 53 470 501 232' />
           </div>

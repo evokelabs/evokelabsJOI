@@ -21,7 +21,7 @@ const DefaultHeaderContent = ({
 }) => {
   return (
     <>
-      <div className='mt-1 flex flex-row gap-3 w-full '>
+      <div className='mt-1 flex flex-row w-full '>
         <div className='flex flex-row items-center w-fit'>
           {icon ? icon : null}
           {heading ? (
@@ -35,7 +35,7 @@ const DefaultHeaderContent = ({
             </div>
           ) : null}
         </div>
-        {button ? <div className='relative sm:ml-auto uppercase block mt-1'>{button}</div> : null}
+        {button ? <div className='relative sm:ml-auto uppercase block mt-1 ml-auto pr-1'>{button}</div> : null}
       </div>
       {hr ? <HR /> : <div className='my-0 2xl:my-2'></div>}
     </>

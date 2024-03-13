@@ -83,10 +83,10 @@ const Availabilities = () => {
       contentHead={
         <ContentHead
           icon={
-            <>
+            <div className='hidden sm:block'>
               <AvailabilitiesSVG primaryColor={RED} />
               <IconSmall />
-            </>
+            </div>
           }
           heading='Availabilities'
         />

@@ -66,18 +66,20 @@ const ContentHeader: React.FC<ContentHeadPortfolioProps> = ({ setPortfolioData, 
   return (
     <>
       <div className='flex lg:flex-row flex-col my-1 gap-2 lg:gap-6'>
-        <div className='flex center items-center'>
+        <div className='md:flex center items-center hidden'>
           <PortfolioSVG />
           <IconSmall />
-          <h2 className='font-rajdhani font-semibold text-red-blur text-[2.25rem] leading-none uppercase '>Portfolio</h2>
         </div>
-        <div className='flex flex-col md:flex-row justify-between gap-1 lg:gap-5 lg:justify-end w-full pr-7'>
+        <div className='flex flex-row md:flex-row justify-between gap-4 lg:gap-5 lg:justify-end w-full pr-7'>
+          <h2 className='font-rajdhani font-semibold text-red-blur text-[1.5rem] 2xl:text-[2.25rem] leading-none uppercase inline mt-1 '>
+            Portfolio
+          </h2>
           <div className='text-[21px] text-red-blur font-semibold flex items-center gap-5'>
-            <p className='w-[120px] md:w-fit'>SHOW ONLY:</p>
+            <p className='lg:w-[120px] text-[18px] lg:text-[22px] md:w-fit'>SHOW ONLY:</p>
             <DropdownMenus options={SHOW_ONLY_OPTIONS} defaultOption={selectedShowOnlyOption} onSelect={handleSelectShowOnly} />
           </div>
-          <div className='text-[21px] text-red-blur font-semibold flex items-center gap-5'>
-            <p className='w-[120px] md:w-fit'>SORT BY:</p>
+          <div className='text-[21px] text-red-blur font-semibold lg:flex items-center gap-5 hidden'>
+            <p className='lg:w-[120px] text-[18px] lg:text-[22px] md:w-fit'>SORT BY:</p>
             <DropdownMenus options={SORT_BY_OPTIONS} defaultOption={selectedSortByOption} onSelect={handleSelectSortBy} />
           </div>
         </div>

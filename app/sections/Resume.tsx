@@ -26,14 +26,14 @@ const Resume = () => {
       contentHead={
         <ContentHead
           icon={
-            <>
+            <div className='hidden sm:block'>
               <ResumeSVG />
               <IconSmall />
-            </>
+            </div>
           }
           heading='Resume'
           button={
-            <div className='scale-[60%] lg:scale-[100%] w-[50%] sm:w-[100%] origin-right left-0 md:right-2 relative'>
+            <div className='sm:block scale-[60%] h-[38px] lg:scale-[100%] sm:w-[100%] origin-top-right right-0 md:right-2 relative -mt-2 '>
               <ButtonDefault label='HARDCOPY' svgIcon={<HardcopySVG />} />
             </div>
           }

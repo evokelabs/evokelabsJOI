@@ -41,11 +41,12 @@ const DropdownMenus: React.FC<DropdownMenuProps> = ({ options, defaultOption, on
         <button
           ref={buttonRef}
           type='button'
-          className='flex items-center pl-3 pt-0.5 pr-1 uppercase text-teal-blur text-[21px] bg-grid-red shadow-red-blur justify-between gap-5 border-2-red font-rajdhani font-semibold'
+          className='flex items-center pl-3 pt-0.5 pr-1 uppercase text-teal-blur text-[17px] lg:text-[21px] bg-grid-red shadow-red-blur justify-between gap-5 border-2-red font-rajdhani font-semibold'
           id='options-menu'
           aria-haspopup='true'
           aria-expanded='true'
           onClick={() => setIsOpen(!isOpen)}
+          onTouchStart={() => setIsOpen(!isOpen)}
         >
           {selectedOption}
           <PullDownIcon />
@@ -59,7 +60,8 @@ const DropdownMenus: React.FC<DropdownMenuProps> = ({ options, defaultOption, on
               <button
                 key={option}
                 onClick={handleSelect(option)}
-                className='block text-left text-[21px] pl-3 pr-8 py-2 font-rajdhani uppercase text-teal-blur hover:bg-grid-blue hover:text-red-blur w-full'
+                onTouchStart={handleSelect(option)}
+                className='block text-left text-[17px] lg:text-[21px] pl-3 pr-8 py-2 font-rajdhani uppercase text-teal-blur hover:bg-grid-blue hover:text-red-blur w-full'
                 role='menuitem'
               >
                 {option}
