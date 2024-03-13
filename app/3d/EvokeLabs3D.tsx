@@ -162,9 +162,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }
 
   const htmlRef = useRef<HTMLDivElement>(null)
-  const [position, setPosition] = useState<[number, number, number]>([0.67, 1.31, 1.48])
+  const [position, setPosition] = useState<[number, number, number]>([0.67, 1.31, 1.7])
 
-  const positionRef = useRef<[number, number, number]>([0.67, 0, 1.48])
+  const positionRef = useRef<[number, number, number]>([0.67, 0, 1.7])
 
   let newY = 0
 
@@ -193,14 +193,14 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   const Y_VALUES: Y_VALUES_TYPE = {
     BASE: {
-      0: 1.31,
-      1: 1.31,
-      2: 1.31,
-      3: 1.31,
-      4: 1.31,
-      5: 1.31,
-      6: 1.31, // Home Default
-      7: 1.6 // Home Expanded
+      0: 1.22,
+      1: 1.22,
+      2: 1.22,
+      3: 1.22,
+      4: 1.22,
+      5: 1.22,
+      6: 1.22, // Home Default
+      7: 1.22 // Home Expanded
     },
     SM: {
       // Add the y values for the SM display size
@@ -564,7 +564,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                     <VideoSkybox />
                     <ELAudioStartSoundControl />
                     <CameraRig fov={fov} debug={false} />
-                    <OrbitControls makeDefault target={cameraTarget} enableZoom={true} enablePan={false} enableRotate={false} />
+                    <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
 
                     <Lights />
                     {isCarReady && <CyberpunkCar />}

@@ -135,6 +135,7 @@ const ButtonMainMenu = ({
       hoverArea.addEventListener('mousedown', handleMouseDown)
       hoverArea.addEventListener('mouseup', handleMouseUp)
       hoverArea.addEventListener('click', handleClick)
+      hoverArea.addEventListener('touchstart', handleClick) // Add this line
     }
 
     return () => {
@@ -165,6 +166,7 @@ const ButtonMainMenu = ({
       className='cursor-pointer w-fit origin-top-left'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={() => setIsHovered(true)}
       ref={hoverAreaRef}
       style={{ pointerEvents: isActive ? 'none' : 'all' }}
     >

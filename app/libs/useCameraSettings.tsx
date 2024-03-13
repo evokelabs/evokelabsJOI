@@ -4,8 +4,8 @@ import { getFov } from '../libs/helpers'
 
 // Constants
 const MOBILE_WIDTH_THRESHOLD = 768
-const INITIAL_TARGET_MOBILE = new Vector3(0.8, 1.4, 2.5)
-const INITIAL_TARGET_DESKTOP = new Vector3(0, 1.35, 2.1)
+const INITIAL_TARGET_MOBILE = new Vector3(0.81, 1.35, 2)
+const INITIAL_TARGET_DESKTOP = new Vector3(0, 1.35, 2.2)
 const DEFAULT_FOV = 50
 
 export const useCameraSettings = () => {
@@ -19,9 +19,6 @@ export const useCameraSettings = () => {
   // Set the initial field of view based on the window width
   const initialFov = typeof window !== 'undefined' ? getFov(window.innerWidth) : DEFAULT_FOV
   const [fov, setFov] = useState(initialFov)
-
-  // Add focusDistance state
-  const [focusDistance, setFocusDistance] = useState(1)
 
   // Handle window resize events
   const handleResize = useCallback(() => {
@@ -40,5 +37,5 @@ export const useCameraSettings = () => {
     }
   }, [handleResize])
 
-  return { cameraTarget, fov, focusDistance }
+  return { cameraTarget, fov }
 }

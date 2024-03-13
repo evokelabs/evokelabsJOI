@@ -2,13 +2,15 @@
 // It uses different FOV values for different viewport widths to ensure the best user experience on all devices.
 export const getFov = (width: number): number => {
   switch (true) {
-    case width <= 480:
-      return 8 // Mobile devices
-    case width <= 1200:
+    case width <= 640:
+      return 85 // Mobile devices
+    case width <= 768:
       return 48 // Desktop Min
-    case width <= 2024:
+    case width <= 1024:
+      return 48 // Desktop Min
+    case width <= 1280:
       return 40 // Desktop Med
-    case width <= 3024:
+    case width <= 1536:
       return 28 // Desktop Max
     default:
       return 23 // Widescreen

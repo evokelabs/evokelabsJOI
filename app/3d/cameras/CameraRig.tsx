@@ -2,9 +2,10 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { PerspectiveCamera, Vector3 } from 'three'
 
 const CAMERA_DAMPING = 0.015
-const CAMERA_X_OFFSET = 3.4
-const CAMERA_X_OFFSET_BASE = 1.0
-const CAMERA_Y_OFFSET = 0
+const CAMERA_X_OFFSET = 2.76
+const CAMERA_X_OFFSET_BASE = 0.82
+const CAMERA_Y_OFFSET = -1.25
+const SM_BREAKPOINT = 640 // Tailwind CSS SM breakpoint
 
 const CameraRig = ({ fov, debug }: { fov: number; debug: boolean }) => {
   const { camera } = useThree()
@@ -12,16 +13,18 @@ const CameraRig = ({ fov, debug }: { fov: number; debug: boolean }) => {
   useFrame(({ pointer, viewport }) => {
     if (debug) return
 
+    // If the viewport width is smaller than SM, set pointer.x and pointer.y to 0
+    const pointerX = window.innerWidth < SM_BREAKPOINT ? 0 : pointer.x
+    const pointerY = window.innerWidth < SM_BREAKPOINT ? 0 : pointer.y
+
     // Calculate the target position of the camera
-    const XPosition = CAMERA_X_OFFSET_BASE - (pointer.x * viewport.width) / CAMERA_X_OFFSET
-    const YPosition = (CAMERA_X_OFFSET + pointer.y) / 2
+    const XPosition = CAMERA_X_OFFSET_BASE - (pointerX * viewport.width) / CAMERA_X_OFFSET
+    const YPosition = (CAMERA_X_OFFSET + pointerY) / 2
     const ZPosition = -CAMERA_Y_OFFSET
     const targetPosition = new Vector3(XPosition, YPosition, ZPosition)
 
-    // Move the camera towards the target position only for lg and above screen sizes
-    // if (window.innerWidth >= 640) {
-    // camera.position?.lerp(targetPosition, CAMERA_DAMPING)
-    // }
+    // Move the camera towards the target position
+    camera.position?.lerp(targetPosition, CAMERA_DAMPING)
 
     // Update the field of view and the projection matrix of the camera
     const perspectiveCamera = camera as PerspectiveCamera
