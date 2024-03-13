@@ -80,12 +80,15 @@ const SoundControlIcons = () => {
       setMuteJOI(false)
       setSoundControlMasterToggle(false)
       window.removeEventListener('click', enableAudio)
+      window.removeEventListener('touchstart', enableAudio)
     }
 
     window.addEventListener('click', enableAudio)
+    window.addEventListener('touchstart', enableAudio)
 
     return () => {
       window.removeEventListener('click', enableAudio)
+      window.removeEventListener('touchstart', enableAudio)
     }
   }, [])
 

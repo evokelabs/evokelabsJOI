@@ -31,11 +31,13 @@ const JOIPreloaderSpeech = () => {
     }, INTERACTION_TIMEOUT)
 
     window.addEventListener('click', handleUserInteraction)
+    window.addEventListener('touchstart', handleUserInteraction)
     window.addEventListener('keydown', handleUserInteraction)
 
     // Clean up the event listeners and timeout when the component unmounts
     return () => {
       window.removeEventListener('click', handleUserInteraction)
+      window.removeEventListener('touchstart', handleUserInteraction)
       window.removeEventListener('keydown', handleUserInteraction)
       clearTimeout(interactionTimeout)
     }

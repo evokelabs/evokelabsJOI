@@ -64,11 +64,13 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   useEffect(() => {
     // Set up event listeners for user interaction
     const handleUserInteraction = () => setHasUserInteracted(true)
+    window.addEventListener('touchstart', handleUserInteraction)
     window.addEventListener('click', handleUserInteraction)
     window.addEventListener('keydown', handleUserInteraction)
 
     // Clean up the event listeners when the component unmounts
     return () => {
+      window.removeEventListener('touchstart', handleUserInteraction)
       window.removeEventListener('click', handleUserInteraction)
       window.removeEventListener('keydown', handleUserInteraction)
     }

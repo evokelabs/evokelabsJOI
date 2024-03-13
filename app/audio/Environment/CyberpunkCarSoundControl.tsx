@@ -48,10 +48,12 @@ const CyberpunkCarSoundControl = ({ carRef }: CyberpunkRefType) => {
     }
 
     window.addEventListener('click', resumeAudio)
+    window.addEventListener('touchstart', resumeAudio)
     window.addEventListener('keydown', resumeAudio)
 
     return () => {
       window.removeEventListener('click', resumeAudio)
+      window.removeEventListener('touchstart', resumeAudio)
       window.removeEventListener('keydown', resumeAudio)
     }
   }, [audioCtx])

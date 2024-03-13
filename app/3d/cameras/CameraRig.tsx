@@ -9,7 +9,7 @@ const SM_BREAKPOINT = 640 // Tailwind CSS SM breakpoint
 
 const CameraRig = ({ fov, debug }: { fov: number; debug: boolean }) => {
   const { camera } = useThree()
-  const CAMERA_DAMPING = window.innerWidth < SM_BREAKPOINT ? 1 : DEFAULT_CAMERA_DAMPING
+  const CAMERA_DAMPING = window.innerWidth < SM_BREAKPOINT ? 0.7 : DEFAULT_CAMERA_DAMPING
 
   useFrame(({ pointer, viewport }) => {
     if (debug) return
