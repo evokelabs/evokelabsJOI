@@ -149,7 +149,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>(null)
 
   //ROUTING FUNCTIONS
-  const [offset, setOffset] = useState(-0.06)
+  const [offset, setOffset] = useState(0)
 
   const useOffsetPosition = (position: [number, number, number], offset: number): [number, number, number] => {
     const [offsetPosition, setOffsetPosition] = useState<[number, number, number]>([0, 0, 0])
@@ -164,7 +164,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const htmlRef = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<[number, number, number]>([0.67, 1.31, 1.7])
 
-  const positionRef = useRef<[number, number, number]>([0.67, 0, 1.7])
+  const positionRef = useRef<[number, number, number]>([0.685, 0, 1.7])
 
   let newY = 0
 
@@ -188,19 +188,19 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   const offsetPosition = useOffsetPosition(position, 0)
   useEffect(() => {
-    setOffset(-0.06)
+    setOffset(50)
   }, [])
 
   const Y_VALUES: Y_VALUES_TYPE = {
     BASE: {
       0: 1.22,
       1: 1.22,
-      2: 1.22,
+      2: 1.3,
       3: 1.22,
-      4: 1.22,
+      4: 1.28,
       5: 1.22,
-      6: 1.22, // Home Default
-      7: 1.22 // Home Expanded
+      6: 1.38, // Home Default
+      7: 1.3 // Home Expanded
     },
     SM: {
       // Add the y values for the SM display size
@@ -292,49 +292,21 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
     const screenSize = getScreenSize()
 
-    console.log('screensize is ', screenSize)
-
     if (homePanelExpanded) {
-      console.log('triggered 1')
-      console.log('triggered1', Y_VALUES[screenSize]['7'])
       newYRef.current = Y_VALUES[screenSize]['7']
     } else if (currentRouteSelection !== null) {
-      console.log('triggered 2,')
-      console.log('triggered 2', Y_VALUES[screenSize][currentRouteSelection.toString()])
       newYRef.current = Y_VALUES[screenSize][currentRouteSelection.toString()]
     } else if (router.pathname.startsWith('/portfolio/')) {
-      console.log('triggered 3', Y_VALUES[screenSize]['2'])
       newYRef.current = Y_VALUES[screenSize]['2']
     } else {
-      console.log('triggered 4:', Y_VALUES[screenSize]['6'])
       newYRef.current = Y_VALUES[screenSize]['6']
     }
 
     // Calculate the new Y position with the offset
     const newYWithOffset = newYRef.current + offset
 
-    console.log('moving to newY', newY)
-    console.log('moving to offset', offset)
-    console.log('moving to offsetPosition', offsetPosition)
-    console.log('moving to offsetPosition[1]', offsetPosition[1])
-    console.log('moving to newYWithOffset', newYWithOffset)
-
     moveHTMLPanel(newYWithOffset)
   }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection, homePanelExpanded, offset])
-
-  useEffect(() => {
-    // If the current route is '/', set currentRouteSelection to null
-    if (router.pathname === '/') {
-      setCurrentRouteSelection(null)
-    } else {
-      // Find the index of the current route in ROUTE_CONFIG
-      const currentRouteIndex = ROUTE_CONFIG.findIndex(route => route.route === router.pathname)
-
-      // If the current route is found in ROUTE_CONFIG, update currentRouteSelection
-      // If the current route is not found in ROUTE_CONFIG, set currentRouteSelection to null
-      setCurrentRouteSelection(currentRouteIndex !== -1 ? currentRouteIndex : null)
-    }
-  }, [router.pathname, ROUTE_CONFIG])
 
   const [menuHomeWaitTimer, setMenuHomeWaitTimer] = useState(initialTimer)
 
@@ -440,10 +412,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       console.log('Aspect ratio:', aspectRatio)
 
       if (aspectRatio < 0.25) {
-        console.log('changing to 1.6')
         setOffset(-0.06)
       } else if (aspectRatio > 0.27) {
-        console.log('changing to 0.06')
         setOffset(0)
       }
     }

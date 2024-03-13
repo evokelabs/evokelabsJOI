@@ -49,7 +49,6 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
 
   const setUserMutedAll = (muteAll: boolean) => {
-    console.log('muting all')
     soundAudioLevelControls.setMuteAll(true)
     soundAudioLevelControls.setMuteMusic(true)
     soundAudioLevelControls.setMuteRain(true)

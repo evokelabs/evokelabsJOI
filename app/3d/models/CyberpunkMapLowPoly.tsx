@@ -73,14 +73,11 @@ const CyberpunkMapLowPoly = () => {
   const animateShuttersDown = (object: Mesh<any, any, any>) => animateShutters(object, 'down')
 
   useEffect(() => {
-    console.log('use effect Cyberpunk triggered', shouldMapDarkness)
     if (modelLoaded && meshRef.current) {
       meshRef.current.traverse(object => {
         if (object instanceof Mesh && object.name === 'Window_Shutters_Closed_1') {
-          console.log('closing shutters 1')
           shouldMapDarkness ? animateShuttersDown(object) : animateShuttersUp(object)
         } else if (object instanceof Mesh && object.name === 'Window_Shutters_Closed_2') {
-          console.log('closing shutters 2')
           shouldMapDarkness ? animateShuttersDown(object) : animateShuttersUp(object)
         }
       })

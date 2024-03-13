@@ -94,7 +94,6 @@ const VideoFrame = ({
         video.muted = true
 
         if (!userMutedAll) {
-          console.log('unmute all video error')
           setShouldMapDarkness(false)
           soundAudioLevelControls.setMuteMusic(false)
           soundAudioLevelControls.setMuteRain(false)
