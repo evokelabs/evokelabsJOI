@@ -129,13 +129,18 @@ const ButtonMainMenu = ({
       onClick(mainMenuNumber)
     }
 
+    const handleTouchEnd = () => {
+      setIsHovered(false)
+    }
+
     if (hoverArea) {
       hoverArea.addEventListener('mouseenter', handleMouseEnter)
       hoverArea.addEventListener('mouseleave', handleMouseLeave)
       hoverArea.addEventListener('mousedown', handleMouseDown)
       hoverArea.addEventListener('mouseup', handleMouseUp)
       hoverArea.addEventListener('click', handleClick)
-      hoverArea.addEventListener('touchstart', handleClick) // Add this line
+      hoverArea.addEventListener('touchstart', handleClick)
+      hoverArea.addEventListener('touchend', handleTouchEnd)
     }
 
     return () => {
@@ -145,6 +150,8 @@ const ButtonMainMenu = ({
         hoverArea.removeEventListener('mousedown', handleMouseDown)
         hoverArea.removeEventListener('mouseup', handleMouseUp)
         hoverArea.removeEventListener('click', handleClick)
+        hoverArea.removeEventListener('click', handleClick)
+        hoverArea.removeEventListener('touchstart', handleClick)
       }
     }
   }, [mainMenuNumber, onClick])

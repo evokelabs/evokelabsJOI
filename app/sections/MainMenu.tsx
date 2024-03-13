@@ -8,6 +8,7 @@ const MainMenu = ({ router, routeConfig }: { router: NextRouter; routeConfig: an
 
   const resetAllButtons = (index: number) => {
     setCurrentRouteSelection(index)
+    console.log('reset all buttons')
   }
 
   return (

@@ -111,6 +111,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
           {link && (
             <div
               onClick={() => setUserMutedAll(true)}
+              onTouchStart={() => setUserMutedAll(true)}
               className='lg:ml-auto flex flex-col justify-start md:justify-end lg:w-full lg:scale-100 origin-left'
             >
               <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} link={link} />

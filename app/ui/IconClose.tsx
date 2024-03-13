@@ -41,7 +41,12 @@ const IconClose = () => {
   }
 
   return (
-    <div className='cursor-pointer relative -left-0.5' style={{ pointerEvents: isActive ? 'none' : 'all' }} onClick={() => returnToHome()}>
+    <div
+      className='cursor-pointer relative -left-0.5'
+      style={{ pointerEvents: isActive ? 'none' : 'all' }}
+      onClick={() => returnToHome()}
+      onTouchStart={() => returnToHome()}
+    >
       <svg width='34' height='34' viewBox='0 0 34 34' ref={svgRef}>
         <rect ref={pathBGFillRef} x='0' y='0' width='34' height='34' fill={BLUE_DARK} fillOpacity='0.85' />
         <rect ref={pathFGFillRef} x='0' y='0' width='34' height='34' fill={RED} fillOpacity='0.1' />

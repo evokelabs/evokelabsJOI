@@ -257,6 +257,10 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
           setIsActive(!isActive)
           setHomePanelExpanded(!isActive)
         }}
+        onTouchStart={() => {
+          setIsActive(!isActive)
+          setHomePanelExpanded(!isActive)
+        }}
       >
         <div
           className={`pt-4 px-3 lg:pt-6 lg:px-5 border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
