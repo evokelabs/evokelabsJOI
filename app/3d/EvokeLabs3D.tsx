@@ -46,8 +46,8 @@ import { GPUContext } from '../libs/GPUContext'
 import gsap from 'gsap'
 
 // Constants
-const debug = true
-// const debug = false
+// const debug = true
+const debug = false
 const INITIAL_CAMERA_POSITION = [0.84, 1.5, -15] as const
 // const MENU_HOME_WAIT_TIMER_COOKIE = 18000
 const MENU_HOME_WAIT_TIMER_COOKIE = 0
@@ -104,32 +104,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       clearTimeout(menuTimer)
       clearTimeout(carTimer)
     }
-  }, [])
-
-  useEffect(() => {
-    const fetchGpuTier = async () => {
-      if (debug) {
-        setGpuTier(0) // Set to low GPU tier when in debug mode
-        return
-      }
-
-      const canvasContext = document.createElement('canvas').getContext('webgl2')
-      if (!canvasContext) {
-        console.error('WebGL 2 not supported')
-        return
-      }
-
-      const gpuInfo = await getGPUTier({ glContext: canvasContext })
-      if (!gpuInfo || gpuInfo.tier === undefined) {
-        console.error('Could not determine GPU tier')
-        return
-      }
-      console.log('gpuInfo.tier', gpuInfo.tier)
-
-      setGpuTier(gpuInfo.tier)
-    }
-
-    fetchGpuTier()
   }, [])
 
   const ROUTE_CONFIG = useMemo(
@@ -396,16 +370,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }, [])
   const [eventSource, setEventSource] = useState<HTMLElement | undefined>()
 
-  ///GPU
-  const [gpuTier, setGpuTier] = useState<number | null>(null)
-  const [lowGPU, setLowGPU] = useState<boolean | null>(null)
-
-  useEffect(() => {
-    setLowGPU(gpuTier !== null && gpuTier >= 2)
-  }, [gpuTier])
-
-  // const lowGPU = true
-
   //ASPECT RATION FUNCTION
   useEffect(() => {
     // Function to log the aspect ratio and update the offset
@@ -431,6 +395,48 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       window.removeEventListener('resize', logAspectRatioAndUpdateOffset)
     }
   }, []) // Empty dependency array so the effect only runs once
+
+  // GPU
+  const [gpuTier, setGpuTier] = useState<number | null>(null)
+  const [lowGPU, setLowGPU] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    const isLowGPU = gpuTier === null || gpuTier <= 2
+    setLowGPU(isLowGPU)
+    console.log('gpuTier set as ', gpuTier)
+    console.log('setting low gpu as ', isLowGPU)
+  }, [gpuTier])
+
+  useEffect(() => {
+    if (gpuTier !== null) {
+      return
+    }
+
+    const fetchGpuTier = async () => {
+      if (debug) {
+        setGpuTier(0) // Set to low GPU tier when in debug mode
+        return
+      }
+
+      const canvasContext = document.createElement('canvas').getContext('webgl2')
+      if (!canvasContext) {
+        console.error('WebGL 2 not supported')
+        return
+      }
+
+      const gpuInfo = await getGPUTier({ glContext: canvasContext })
+      if (!gpuInfo || gpuInfo.tier === undefined) {
+        console.error('Could not determine GPU tier')
+        return
+      }
+
+      setGpuTier(gpuInfo.tier)
+    }
+
+    fetchGpuTier()
+  }, [gpuTier, debug])
+
+  console.log('lowGPU before return', lowGPU)
 
   return (
     <>
