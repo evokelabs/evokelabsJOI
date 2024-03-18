@@ -4,7 +4,7 @@ import { useCameraSettings } from '@/app/libs/useCameraSettings'
 import { ASPECT_RATIO_OFFSET, OFFSET_Y_VALUES } from './responsiveValues'
 
 export const useResponsive = (currentRouteSelection: number | null, currentPortfolioSelection: string | null) => {
-  let tl = gsap.timeline()
+  const tl = useRef(gsap.timeline())
   const [homePanelExpanded, setHomePanelExpanded] = useState(false)
   const [position, setPosition] = useState<[number, number, number]>([0, 0, 0])
   const positionRef = useRef<[number, number, number]>([-0.05, 0, 1.9])
@@ -55,11 +55,11 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
 
   const moveHTMLPanel = useCallback(
     (newY: number) => {
-      tl.kill()
+      tl.current.kill()
       const tempObj = { y: position[1] }
-      tl = gsap.timeline()
+      tl.current = gsap.timeline()
 
-      tl.to(tempObj, {
+      tl.current.to(tempObj, {
         duration: 0.35,
         ease: 'circ.out',
         y: newY,
