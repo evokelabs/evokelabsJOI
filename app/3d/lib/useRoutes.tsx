@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 export const useRoutes = (
   currentRouteSelection: number | null,
-  currentPortfolioSelection: number | string | null, // Updated type
+  currentPortfolioSelection: number | string | null,
   setCurrentRouteSelection: React.Dispatch<React.SetStateAction<number | null>>,
   setCurrentPortfolioSelection: React.Dispatch<React.SetStateAction<string | null>>,
   ROUTE_CONFIG: { labels: string[]; route: string; callToAction?: boolean }[]
