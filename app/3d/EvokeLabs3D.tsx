@@ -25,13 +25,12 @@ import Availabilities from '../sections/Availabilities'
 import Services from '../sections/Services'
 import Portfolio from '../sections/Portfolio'
 import SocialIcons from '../ui/SocialIcons'
-import ELAudioStartSoundControl, { DEFAULT_MUSIC_LOOP_TRANSITION_DURATION } from '../audio/ELAudioStartSoundControl'
+import ELAudioStartSoundControl from '../audio/ELAudioStartSoundControl'
 import { SoundsContext } from '../libs/SoundsContext'
 import WideMonitor from './models/WideMonitor'
 import DeskItems from './models/DeskItems'
 import CyberpunkMapLowPoly from './models/CyberpunkMapLowPoly'
 
-import { getGPUTier } from 'detect-gpu'
 import { RoutesContext } from '../libs/RoutesContext'
 import JOISubtitles from '../ui/JOISubtitles'
 import { JOISpeechContext } from '../libs/JOISpeechContext'
@@ -42,6 +41,7 @@ import Draggable from 'react-draggable'
 import { GPUContext } from '../libs/GPUContext'
 import gsap from 'gsap'
 import { useGPU } from './lib/useGPU'
+import { useSounds } from './lib/useSounds'
 
 // Constants
 // const debug = true
@@ -61,8 +61,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [shouldAmbientLightPlay, setAmbientLightPlay] = useState(false)
   const [shouldPointLightPlay, setPointLightPlay] = useState(false)
   const [shouldJOISpeak, setShouldJOISpeak] = useState(false)
-  const [musicVolume, setMusicVolume] = useState(0)
-  const [musicLoopTransitionDuration, setMusicLoopTransitionDuration] = useState(DEFAULT_MUSIC_LOOP_TRANSITION_DURATION)
+
   //Animations states
   const [shouldMapDarkness, setShouldMapDarkness] = useState(false)
   // Camera settings
@@ -376,26 +375,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     prevPathname.current = router.pathname
   }, [router.pathname])
 
-  //Sound Control Function
-  const [muteAll, setMuteAll] = useState(true)
-  const [muteMusic, setMuteMusic] = useState(true)
-  const [muteSFX, setMuteSFX] = useState(true)
-  const [muteRain, setMuteRain] = useState(true)
-  const [muteJOI, setMuteJOI] = useState(true)
-
-  const soundAudioLevelControls = {
-    setMuteAll,
-    setMuteMusic,
-    setMuteRain,
-    setMuteSFX,
-    setMuteJOI,
-    muteAll,
-    muteMusic,
-    muteRain,
-    muteSFX,
-    muteJOI
-  }
-
   //Portfolio Pulldown states
   const [selectedShowOnlyOption, setSelectedShowOnlyOption] = useState('All')
   const [selectedSortByOption, setSelectedSortByOption] = useState('Date (Newest)')
@@ -429,6 +408,25 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }, [])
   const [eventSource, setEventSource] = useState<HTMLElement | undefined>()
 
+  //Sounds Hook
+  const {
+    musicVolume,
+    setMusicVolume,
+    musicLoopTransitionDuration,
+    setMusicLoopTransitionDuration,
+    soundAudioLevelControls,
+    setMuteAll,
+    setMuteMusic,
+    setMuteRain,
+    setMuteSFX,
+    setMuteJOI,
+    muteAll,
+    muteMusic,
+    muteRain,
+    muteSFX,
+    muteJOI
+  } = useSounds()
+  // GPU Hook
   const { lowGPU, setLowGPU } = useGPU()
 
   return (
