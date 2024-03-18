@@ -41,6 +41,7 @@ import { PortfolioContext } from '../libs/PortfolioContext'
 import Draggable from 'react-draggable'
 import { GPUContext } from '../libs/GPUContext'
 import gsap from 'gsap'
+import { useGPU } from './lib/useGPU'
 
 // Constants
 // const debug = true
@@ -428,47 +429,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }, [])
   const [eventSource, setEventSource] = useState<HTMLElement | undefined>()
 
-  // GPU
-  const [gpuTier, setGpuTier] = useState<number | null>(null)
-  const [lowGPU, setLowGPU] = useState<boolean | null>(null)
-
-  useEffect(() => {
-    const isLowGPU = gpuTier === null || gpuTier <= 2
-    setLowGPU(isLowGPU)
-    console.log('gpuTier set as ', gpuTier)
-    console.log('setting low gpu as ', isLowGPU)
-  }, [gpuTier])
-
-  useEffect(() => {
-    if (gpuTier !== null) {
-      return
-    }
-
-    const fetchGpuTier = async () => {
-      if (debug) {
-        setGpuTier(0) // Set to low GPU tier when in debug mode
-        return
-      }
-
-      const canvasContext = document.createElement('canvas').getContext('webgl2')
-      if (!canvasContext) {
-        console.error('WebGL 2 not supported')
-        return
-      }
-
-      const gpuInfo = await getGPUTier({ glContext: canvasContext })
-      if (!gpuInfo || gpuInfo.tier === undefined) {
-        console.error('Could not determine GPU tier')
-        return
-      }
-
-      setGpuTier(gpuInfo.tier)
-    }
-
-    fetchGpuTier()
-  }, [gpuTier, debug])
-
-  console.log('lowGPU before return', lowGPU)
+  const { lowGPU, setLowGPU } = useGPU()
 
   return (
     <>
