@@ -39,6 +39,9 @@ const config: Config = {
         none: 'none',
         disc: 'disc',
         square: 'square'
+      },
+      screens: {
+        '3xl': '1850px'
       }
     }
   },

@@ -15,7 +15,7 @@ export const getFov = (width: number): number => {
     case width <= 1536:
       return 28 // Desktop 3xl
     default:
-      return 30 // Widescreen Max
+      return 25 // Widescreen Max
   }
 }
 
