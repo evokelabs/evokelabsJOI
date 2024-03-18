@@ -202,7 +202,7 @@ export const POSITION_REF_RESPONSIVE: Record<string, number[]> = {
   '3XL': [-0.05, 0, 1.9]
 }
 
-export const INITIAL_TARGET_DESKTOP_RESPONSIVE: Record<string, number[]> = {
+export const CAMERA_TARGET_RESPONSIVE: Record<string, number[]> = {
   BASE: [0.183, 1.35, 2.1],
   SM: [0.82, 1.39, 2.1], //or [0, 1.35, 2.2]
   MD: [0.225, 1.39, 2.1],
