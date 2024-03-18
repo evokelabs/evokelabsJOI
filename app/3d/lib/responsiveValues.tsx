@@ -203,7 +203,7 @@ export const POSITION_REF_RESPONSIVE: Record<string, number[]> = {
 }
 
 export const CAMERA_TARGET_RESPONSIVE: Record<string, number[]> = {
-  BASE: [0.183, 1.35, 2.1],
+  BASE: [0.83, 1.35, 2.1],
   SM: [0.82, 1.39, 2.1], //or [0, 1.35, 2.2]
   MD: [0.225, 1.39, 2.1],
   LG: [0.07, 1.39, 2.1],
