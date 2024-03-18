@@ -13,9 +13,8 @@ export const useCameraSettings = () => {
     screenSizeRef.current = screenSize
   }, [screenSize])
 
-  // Set the initial camera target based on the device type
-  const initialTarget = new Vector3(...CAMERA_TARGET_RESPONSIVE[screenSize])
-  const [cameraTarget, setCameraTarget] = useState(initialTarget)
+  // Initialize cameraTarget state
+  const [cameraTarget, setCameraTarget] = useState(new Vector3())
 
   // Set the initial field of view based on the window width
   const initialFov = typeof window !== 'undefined' ? getFov(window.innerWidth) : 50
@@ -27,6 +26,12 @@ export const useCameraSettings = () => {
     const newTarget = new Vector3(...CAMERA_TARGET_RESPONSIVE[screenSizeRef.current])
     setCameraTarget(newTarget)
   }
+
+  // Update cameraTarget whenever screenSize changes
+  useEffect(() => {
+    const newTarget = new Vector3(...CAMERA_TARGET_RESPONSIVE[screenSize])
+    setCameraTarget(newTarget)
+  }, [screenSize])
 
   // Add the resize event listener when the component mounts and remove it when it unmounts
   useEffect(() => {

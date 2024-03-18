@@ -20,6 +20,19 @@ const CameraRig = ({ fov, debug }: { fov: number; debug: boolean }) => {
   const X_POSITION_VIEWPORT = X_POSITION_VIEWPORT_RESPONSIVE[screenSize]
   const CAMERA_DAMPING = window.innerWidth < MD_BREAKPOINT ? 0.7 : DEFAULT_CAMERA_DAMPING
 
+  console.log(
+    'CAMERA_X_OFFSET',
+    CAMERA_X_OFFSET,
+    'CAMERA_X_OFFSET_BASE',
+    CAMERA_X_OFFSET_BASE,
+    'CAMERA_Y_OFFSET',
+    CAMERA_Y_OFFSET,
+    'X_POSITION_VIEWPORT',
+    X_POSITION_VIEWPORT,
+    'CAMERA_DAMPING',
+    CAMERA_DAMPING
+  )
+
   useFrame(({ pointer, viewport }) => {
     if (debug) return
 
