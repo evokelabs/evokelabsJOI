@@ -92,8 +92,8 @@ const Availabilities = () => {
         />
       }
     >
-      <div className='space-y-4 2xl:space-y-7 my-0'>
-        <div className='flex flex-col 2xl:flex-row gap-4 justify-between'>
+      <div className='space-y-4 md:space-y-7 my-0'>
+        <div className='flex flex-col md:flex-row gap-4 justify-between'>
           <CustomCalendar value={today} />
           <CustomCalendar value={nextMonth} />
           <CustomCalendar value={monthAfterNext} />
@@ -102,19 +102,19 @@ const Availabilities = () => {
           <div className='inline'>
             <Pulse />
           </div>
-          <div className='inline text-black uppercase font-rajdhani font-semibold text-[26px] 2xl:text-[36px] leading-[0.7]'>
+          <div className='inline text-black uppercase font-rajdhani font-semibold text-[26px] md:text-[36px] leading-[0.7]'>
             currently {availabilities.status}
           </div>
         </div>
 
-        <div className='flex flex-col 2xl:flex-row justify-between gap-2 pb-1 2xl:mt-0'>
-          <div className='flex justify-start h-[2.6em] 2xl:h-full'>
-            <div className='scale-[60%] 2xl:scale-100 origin-top-left'>
+        <div className='flex flex-col md:flex-row justify-between gap-2 pb-1 md:mt-0'>
+          <div className='flex justify-start h-[2.6em] md:h-full'>
+            <div className='scale-[60%] md:scale-100 origin-top-left'>
               <ButtonDefault label='SEND AN EMAIL' svgIcon={<EmailSVG />} />
             </div>
           </div>
-          <div className='flex flex-row mr-0 2xl:-mr-3 h-[2.6em] 2xl:h-full'>
-            <div className='scale-[60%] 2xl:scale-100 origin-top-left'>
+          <div className='flex flex-row mr-0 md:-mr-3 h-[2.6em] md:h-full'>
+            <div className='scale-[60%] md:scale-100 origin-top-left'>
               <ButtonDefault />
             </div>
           </div>

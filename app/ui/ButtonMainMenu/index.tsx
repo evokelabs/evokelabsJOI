@@ -188,7 +188,7 @@ const ButtonMainMenu = ({
         </div>
 
         <div
-          className={`absolute flex items-center flex-row top-3.5 font-orbitron font-bold place-content-between pl-7 lg:pl-7 pr-7 w-full text-[1.25rem] ${primaryColorBlur}`}
+          className={`absolute flex items-center flex-row top-3.5 font-orbitron font-bold place-content-between pl-7 md:pl-7 pr-7 w-full text-[1.25rem] ${primaryColorBlur}`}
           ref={buttonTextRef}
           style={{ pointerEvents: isActive ? 'none' : 'all' }}
         >

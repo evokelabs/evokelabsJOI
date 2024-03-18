@@ -5,7 +5,7 @@ import { BottomRightCornerSmall } from './PanelContent/UIElements'
 const RowHalf = ({ heading, paragraph, PNG }: { heading: string; paragraph: string; PNG: StaticImport }) => {
   return (
     <>
-      <div className='inline-flex 2xl:w-[49.4%] flex-col '>
+      <div className='inline-flex md:w-[49.4%] flex-col '>
         <div className='relative items-center flex lg:min-h-[9em] h-fill bg-grid-darkRed border-r-2 border-l-2 border-t-2 border-red border-opacity-60 '>
           <div className='bg-grid-blue border-2-red w-[140px] lg:w-[180px] left-2.5 top-2 relative z-30'>
             <Image src={PNG} alt={heading} className='text-teal font-rajdhani font-semibold text-center opacity-80' />

@@ -31,7 +31,7 @@ const History = ({
               }
               heading='Evoke Labs History'
               button={
-                <div className='scale-[60%] min-w-[16em] lg:scale-[100%] lg:w-[100%] origin-right right-2 md:right-2 relative hidden md:block'>
+                <div className='scale-[60%] min-w-[16em] md:scale-[100%] md:w-[100%] origin-right right-2 md:right-2 relative hidden md:block'>
                   <ButtonDefault />
                 </div>
               }

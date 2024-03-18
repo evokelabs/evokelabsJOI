@@ -30,28 +30,28 @@ import TypingAnimation from '../libs/TypingAnimation'
 const ContentHead = () => {
   return (
     <>
-      <div className='flex flex-row gap-0 2xl:gap-6 items-center '>
+      <div className='flex flex-row gap-0 md:gap-6 items-center '>
         <div className='absolute md:block hidden'>
           <ServicesSVG />
           <IconSmall />
         </div>
         <div className='relative w-fit block'>
           <h2
-            className='font-rajdhani font-semibold text-red-blur text-[1.5rem] 2xl:text-[2.25rem] 
+            className='font-rajdhani font-semibold text-red-blur text-[1.5rem] md:text-[2.25rem] 
         leading-none uppercase w-full inline md:hidden'
           >
             SERVICES
           </h2>
         </div>
         <div className='w-[170px] md:w-auto md:ml-20 relative md:block hidden'>
-          <ul className='ml-0 text-red font-medium text-[0.65rem] sm:text-[0.75rem] md:text-[0.9rem] lg:text-[1.2rem] 2xl:text-[1.375rem] font-default space-y-1 list-none md:list-square pl-1 md:pl-6 2xl:pl-8 sm:w-auto'>
+          <ul className='ml-0 text-red font-medium text-[0.65rem] sm:text-[0.75rem] md:text-[1.375rem] font-default space-y-1 list-none md:list-square pl-1 md:pl-8 sm:w-auto'>
             <li className='leading-[1]'>Australian citizen with full work rights. </li>
             <li className='leading-[1]'>ABN / GST compliant for contract and freelance roles.</li>
             <li className='leading-[1]'>Open to onsite and/or remote gigs. Crypto accepted.</li>
           </ul>
         </div>
         <div className='ml-auto'>
-          <div className='flex flex-col 2xl:flex-col text-right justify-center space-y-0 md:space-y-1 mr-2 2xl:mr-6'>
+          <div className='flex flex-col text-right justify-center space-y-0 md:space-y-1 mr-2 md:mr-6'>
             <ParagraphHighlight BGColor={RED} fontSize='sm' paragraph='<strong>Current location:</strong> Sydney, Australia' />
             <ParagraphHighlight BGColor={RED} fontSize='sm' paragraph='<strong>ABN:</strong> 53 470 501 232' />
           </div>
@@ -66,7 +66,7 @@ const ContentHead = () => {
 const Services = () => {
   return (
     <PanelContent headerTitle='Corpo Guide' contentHead={<ContentHead />}>
-      <div className='mb-2 lg:mb-5 space-y-0 lg:space-y-2'>
+      <div className='mb-2 md:mb-5 space-y-0 md:space-y-2'>
         <HeadingHighlight BGColor={TEAL} fullWidth={false} heading='YOUR CREATIVE TECHNOLOGIST PARTNER' />
         <ParagraphHighlight
           BGColor={TEAL}
@@ -146,7 +146,7 @@ const Services = () => {
       <div>
         <HeadingHighlight BGColor={TEAL} fullWidth={false} heading='THE EVOKE LABS DIFFERENCE' />
       </div>
-      <div className='flex flex-col lg:flex-row mt-2 gap-2'>
+      <div className='flex flex-col md:flex-row mt-2 gap-2'>
         <RowThird
           heading='The versatility factor'
           paragraph='Why settle for one expertise when you can have it all? Visionary, developer, designer - my versatile skill set is your secret weapon. Unleash the boundless innovation that comes from a true Renaissance professional.'
@@ -160,23 +160,23 @@ const Services = () => {
           paragraph='Above all, Evoke Labs is dedicated to delivering a positive experience for end users, team members and stakeholders alike. Your happiness is our ultimate goal, driven by commitment, open communications and proven results.'
         />
       </div>
-      <div className='my-4 2xl:my-6 space-y-1 pr-2 '>
+      <div className='my-4 md:my-6 space-y-1 pr-2 '>
         <TypingAnimation quotes={quotes} />
       </div>
       <HR />
-      <div className='my-3 2xl:my-4 uppercase text-teal-blur font-semibold text-[18px] lg:text-[20px] 2xl:text-[28px]'>
+      <div className='my-3 md:my-4 uppercase text-teal-blur font-semibold text-[18px] md:text-[28px]'>
         <p>Thanks for visiting Evoke Labs, Evolving digital media since 2003.</p>
         <p>Your digital transformation is just a click away.</p>
       </div>
 
-      <div className='flex flex-col 2xl:flex-row justify-between gap-2 pb-1 2xl:mt-0'>
-        <div className='flex justify-start h-[2.6em] 2xl:h-full'>
-          <div className='scale-[60%] 2xl:scale-100 origin-top-left'>
+      <div className='flex flex-col md:flex-row justify-between gap-2 pb-1 md:mt-0'>
+        <div className='flex justify-start h-[2.6em] md:h-full'>
+          <div className='scale-[60%] md:scale-100 origin-top-left'>
             <ButtonDefault label='FIX A BOOKING' svgIcon={<FixABookingSVG />} />
           </div>
         </div>
-        <div className='flex flex-row mr-0 2xl:-mr-3 h-[2.6em] 2xl:h-full'>
-          <div className='scale-[60%] 2xl:scale-100 origin-top-left'>
+        <div className='flex flex-row mr-0 md:-mr-3 h-[2.6em] md:h-full'>
+          <div className='scale-[60%] md:scale-100 origin-top-left'>
             <ButtonDefault />
           </div>
         </div>

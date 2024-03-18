@@ -33,7 +33,7 @@ const Resume = () => {
           }
           heading='Resume'
           button={
-            <div className='sm:block scale-[60%] h-[38px] lg:scale-[100%] sm:w-[100%] origin-top-right right-0 sm:right-10 md:right-2 relative -mt-2 '>
+            <div className='sm:block scale-[60%] h-[38px] md:scale-[100%] sm:w-[100%] origin-top-right right-0 sm:right-10 md:right-2 relative -mt-2 '>
               <ButtonDefault label='HARDCOPY' svgIcon={<HardcopySVG />} />
             </div>
           }
@@ -42,7 +42,7 @@ const Resume = () => {
     >
       <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
       <div className='mt-2 mb-3'>
-        <p className='font-rajdhani text-red-blur text-[1.15rem] leading-5 lg:text-[1.375rem] font-medium lg:leading-[1.625rem]'>
+        <p className='font-rajdhani text-red-blur text-[1.15rem] leading-5 md:text-[1.375rem] font-medium md:leading-[1.625rem]'>
           <span className='text-teal-blur font-semibold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,
           design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative studios,
           corporations, and start-ups to deliver hundreds of successful digital projects. Specialising in front-end technologies and
@@ -121,9 +121,9 @@ const Resume = () => {
         />
       </div>
       <HeadingHighlight heading={'Skill set'} fullWidth={true} BGColor={RED} />
-      <div className='flex flex-col lg:flex-row lg:gap-6 my-0 mt-3 lg:my-3 h-full relative'>
-        <div className='w-full lg:flex-2'>
-          <div className='text-[16px] lg:text-[20px] text-red-blur font-medium space-y-1.5 leading-5'>
+      <div className='flex flex-col md:flex-row md:gap-6 my-0 mt-3 md:my-3 h-full relative'>
+        <div className='w-full md:flex-2'>
+          <div className='text-[16px] md:text-[20px] text-red-blur font-medium space-y-1.5 leading-5'>
             <p>
               <span className='text-teal-blur font-semibold'>Project Management:</span> Google Suite, Trello, GitHub
             </p>
@@ -147,7 +147,7 @@ const Resume = () => {
             </p>
           </div>
         </div>
-        <div className='lg:ml-auto flex flex-col justify-start lg:justify-end scale-[60%] lg:scale-100 origin-left w-[60%] lg:w-full h-[60%] lg:h-auto lg:items-end lg:flex-1'>
+        <div className='md:ml-auto flex flex-col justify-start md:justify-end scale-[60%] md:scale-100 origin-left w-[60%] md:w-full h-[60%] md:h-auto md:items-end md:flex-1'>
           <ButtonDefault />
         </div>
       </div>

@@ -248,7 +248,7 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
   return (
     <>
       <div
-        className={`max-w-[26em] sm:max-w-[26em] md:max-w-[38em] lg:max-w-[69em] 2xl:max-w-[72em] w-full mb-4 mx-3.5 mr-2 group ${
+        className={`max-w-[26em] sm:max-w-[26em] md:max-w-[72em] w-full mb-4 mx-3.5 mr-2 group ${
           !isActive ? 'cursor-zoom-in' : 'cursor-zoom-out '
         }`}
         onMouseEnter={() => setIsHovered(true)}
@@ -263,20 +263,20 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
         }}
       >
         <div
-          className={`pt-4 px-3 lg:pt-6 lg:px-5 border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
+          className={`pt-4 px-3 md:pt-6 md:px-5 border-2 border-red border-opacity-60 border-b-0 shadow-red-blur transition-colors duration-150 ${hoverBGColor} ${
             isActive && !isHovered ? 'bg-red' : 'bg-grid-blue'
           } ${!isActive ? 'pb-[2px]' : 'pb-4'}
         }`}
         >
           <h1
-            className={`font-rajdhani font-bold text-red-blur text-[3rem] md:text-[5.2rem] 2xl:text-[6.25rem] leading-[0.75em] transition-colors duration-150 inline ${hoverColor} ${
+            className={`font-rajdhani font-bold text-red-blur text-[3rem] md:text-[6.25rem] leading-[0.75em] transition-colors duration-150 inline ${hoverColor} ${
               isActive ? 'text-black-blur' : null
             }`}
           >
             EVOKE LABS DOES DIGITAL
           </h1>
           <h1
-            className={`font-rajdhani font-bold text-teal-blur text-[3rem] md:text-[5.2rem] 2xl:text-[6.25rem] leading-[0.75em] transition-colors duration-150 uppercase inline  ${hoverColor} ${
+            className={`font-rajdhani font-bold text-teal-blur text-[3rem] md:text-[6.25rem] leading-[0.75em] transition-colors duration-150 uppercase inline  ${hoverColor} ${
               isActive ? 'text-black-blur ' : 'type'
             }`}
           >
@@ -287,15 +287,15 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
 
         <div
           ref={divRef}
-          className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0 text-[1.2rem] md:text-[1.75rem] lg:text-[2rem] 2xl:text-[2.2rem] '
+          className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0 text-[1.2rem] md:text-[2.2rem] '
         >
-          <div className='flex flex-col justify-between min-h-[10em] 2xl:min-h-[8em]  '>
+          <div className='flex flex-col justify-between min-h-[10em] md:min-h-[8em]  '>
             <p className='mt-6 mb-4 text-teal-blur font-semibold leading-tight '>
               Evoke labs is home to Adrian Pikios, <span className='text-red-blur bg-grid-red px-2 '>{scrambledSolo}</span> who uses the
               powers of <span className='text-red-blur bg-grid-red px-2 '>{scrambledPower}</span> to design, develop & create{' '}
               <span className='text-red-blur bg-grid-red px-2 '>{scrambledDescribe}</span> digital experiences.
             </p>
-            <p className='mb-2 2xl:mb-5 text-teal-blur font-semibold leading-tight'>
+            <p className='mb-2 md:mb-5 text-teal-blur font-semibold leading-tight'>
               When not working on personal projects, I partner with clients, brands and agencies to help produce their digital campaigns.
             </p>
           </div>

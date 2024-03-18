@@ -48,7 +48,7 @@ import gsap from 'gsap'
 // Constants
 // const debug = true
 const debug = false
-const INITIAL_CAMERA_POSITION = [0.84, 1.5, -15] as const
+const INITIAL_CAMERA_POSITION = [0.84, 1.5, 0] as const
 // const MENU_HOME_WAIT_TIMER_COOKIE = 18000
 const MENU_HOME_WAIT_TIMER_COOKIE = 0
 // const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
@@ -138,9 +138,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const htmlRef = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<[number, number, number]>([0, 0, 0])
 
-  const positionRef = useRef<[number, number, number]>([0.68, 0, 1.7])
-
-  let newY = 0
+  const positionRef = useRef<[number, number, number]>([-0.05, 0, 1.9])
 
   const getScreenSize = () => {
     const width = window.innerWidth
@@ -160,11 +158,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     }
   }
 
-  const offsetPosition = useOffsetPosition(position, 0)
-  useEffect(() => {
-    setOffset(50)
-  }, [])
-
   const Y_VALUES: Y_VALUES_TYPE = {
     BASE: {
       0: 1.22,
@@ -182,22 +175,22 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       1: 1.31,
       2: 1.36,
       3: 1.31,
-      4: 1.31,
-      5: 1.32,
+      4: 1.36,
+      5: 1.31,
       6: 1.38, // Home Default
       7: 1.36, // Home Expanded
       8: 1.3 // Portfolio Item
     },
     MD: {
-      0: 1.22,
-      1: 1.22,
-      2: 1.3,
-      3: 1.2,
-      4: 1.28,
-      5: 1.22,
-      6: 1.38, // Home Default
-      7: 1.3, // Home Expanded
-      8: 1.3 // Portfolio Item
+      0: 1.34,
+      1: 1.34,
+      2: 1.38,
+      3: 1.34,
+      4: 1.33,
+      5: 1.4,
+      6: 1.58, // Home Default
+      7: 1.45, // Home Expanded
+      8: 1.35 // Portfoio Item
     },
     LG: {
       0: 1.22,
@@ -555,10 +548,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                             onPointerUp={handleMouseUp}
                             className='flex flex-col-reverse h-screen p-4 relative translate-y-10 '
                           >
-                            <div className='left-1 scale-[54%] sm:scale-[54%] md:scale-[80%] lg:scale-90 2xl:scale-100 lg:w-[112%] 2xl:w-full origin-top-left min-w-[50em] '>
+                            <div className='left-1 scale-[54%] sm:scale-[54%] md:scale-[100%] md:w-full origin-top-left min-w-[50em] md:min-w-[74em]'>
                               {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
                             </div>
-                            <div className='max-w-[26.5em] sm:max-w-[26.5em] md:max-w-[39em] lg:max-w-[70em] 2xl:max-w-[73em] '>
+                            <div className='max-w-[26.5em] sm:max-w-[26.5em] md:max-w-[73em] lg:max-w-[70em] 2xl:max-w-[73em] '>
                               {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                               {router.pathname === '/services' && <Services />}
                               {router.pathname.startsWith('/portfolio') && (

@@ -38,7 +38,7 @@ const PortfolioHome = ({
 
   return (
     <PanelContent headerTitle='Past Gigs' contentHead={<ContentHeader setPortfolioData={setPortfolioData} portfolioData={portfolioData} />}>
-      <div className='flex flex-col lg:grid lg:grid-cols-2 gap-5 mr-1 mb-3 relative h-auto'>
+      <div className='flex flex-col md:grid md:grid-cols-2 gap-5 mr-1 mb-3 relative h-auto'>
         {portfolioData.map(item => (
           <PortfolioPanelContent key={item.id} onClick={() => handleItemClick(item)}>
             <PortfolioTile
@@ -55,8 +55,8 @@ const PortfolioHome = ({
         ))}
       </div>
 
-      <div className='flex flex-row 2xl:mt-3 mr-0 2xl:-mr-3 h-[2.6em] 2xl:h-full mt-4'>
-        <div className='scale-[60%] 2xl:scale-100 origin-top-left'>
+      <div className='flex flex-row md:mt-3 mr-0 md:-mr-3 h-[2.6em] md:h-full mt-4'>
+        <div className='scale-[60%] md:scale-100 origin-top-left'>
           <ButtonDefault />
         </div>
       </div>

@@ -13,7 +13,7 @@ const MainMenu = ({ router, routeConfig }: { router: NextRouter; routeConfig: an
 
   return (
     <>
-      <div className='grid grid-cols-2 lg:grid-cols-3 gap-x-6 justify-around ml-2 md:ml-0'>
+      <div className='grid grid-cols-2 md:grid-cols-3 gap-x-6 justify-around ml-2 sm:ml-0'>
         {routeConfig.map((config: { labels: string[]; callToAction: boolean | undefined }, index: number) => (
           <ButtonMainMenu
             key={index}

@@ -64,18 +64,18 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
 
   return (
     <PanelBackground headerTitle='Past Gigs'>
-      <div className='flex flex-row justify-between items-start lg:items-center'>
+      <div className='flex flex-row justify-between items-start md:items-center'>
         <div className='m-2 ml-0 relative flex flex-col justify-start'>
-          <h2 className='uppercase text-teal-blur text-[28px] lg:text-[32px] font-semibold leading-7 inline-block bg-opacity-85 bg-black'>
+          <h2 className='uppercase text-teal-blur text-[28px] md:text-[32px] font-semibold leading-7 inline-block bg-opacity-85 bg-black'>
             {heading}
           </h2>
 
-          <h3 className='uppercase text-red-blur text-[15px] lg:text-[19px] font-medium leading-tight inline-block bg-opacity-85 bg-black '>
+          <h3 className='uppercase text-red-blur text-[15px] md:text-[19px] font-medium leading-tight inline-block bg-opacity-85 bg-black '>
             {subHeading}
           </h3>
 
           <div className='relative w-fit pointer-events-none'>
-            <ul className='flex flex-wrap gap-2 text-black uppercase font-semibold text-[14px] lg:text-[16px] mt-1'>
+            <ul className='flex flex-wrap gap-2 text-black uppercase font-semibold text-[14px] md:text-[16px] mt-1'>
               {technology.map((tech, index) => (
                 <li key={index} className='bg-red shadow-red-blur px-2'>
                   {tech}
@@ -84,7 +84,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
             </ul>
           </div>
         </div>
-        <div className='min-w-[16em] lg:w-fit h-fit origin-right items-center absolute lg:relative top-[0.45em] lg:top-0 right-12 lg:right-0 lg-0 scale-[50%] lg:scale-100'>
+        <div className='min-w-[16em] md:w-fit h-fit origin-right items-center absolute md:relative top-[0.45em] md:top-0 right-12 md:right-0 md-0 scale-[50%] md:scale-100'>
           <ButtonDefault label='BACK' svgIcon={<BackSVG />} />
         </div>
       </div>
@@ -100,24 +100,24 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
         <>
           <div
             dangerouslySetInnerHTML={{ __html: desc }}
-            className='mt-3 text-red-blur font-semibold text-[16px] lg:text-[21px] space-y-4 lg:space-y-6 '
+            className='mt-3 text-red-blur font-semibold text-[16px] md:text-[21px] space-y-4 md:space-y-6 '
           ></div>
           {/* <HR /> */}
         </>
       )}
       {(link || desc) && (
-        <div className='flex flex-row mt-2 lg:mt-4 lg:mb-2 justify-between md:w-full scale-[60%] lg:scale-[100%] origin-top-left -mb-6 '>
+        <div className='flex flex-row mt-2 md:mt-4 md:mb-2 justify-between md:w-full scale-[60%] md:scale-[100%] origin-top-left -mb-6 '>
           {link && (
             <div
               onClick={() => setUserMutedAll(true)}
               onTouchStart={() => setUserMutedAll(true)}
-              className='lg:ml-auto flex flex-col justify-start md:justify-end lg:w-full lg:scale-100 origin-left'
+              className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full md:scale-100 origin-left'
             >
               <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} link={link} />
             </div>
           )}
 
-          <div className='lg:ml-auto flex flex-col justify-start lg:justify-end lg:w-full  lg:scale-100 origin-right lg:place-items-end'>
+          <div className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full  md:scale-100 origin-right md:place-items-end'>
             <ButtonDefault />
           </div>
         </div>
