@@ -25,10 +25,7 @@ import Availabilities from '../sections/Availabilities'
 import Services from '../sections/Services'
 import Portfolio from '../sections/Portfolio'
 import SocialIcons from '../ui/SocialIcons'
-import ELAudioStartSoundControl, {
-  DEFAULT_MUSIC_LOOP_TRANSITION_DURATION,
-  DEFAULT_MUSIC_LOOP_VOLUME
-} from '../audio/ELAudioStartSoundControl'
+import ELAudioStartSoundControl, { DEFAULT_MUSIC_LOOP_TRANSITION_DURATION } from '../audio/ELAudioStartSoundControl'
 import { SoundsContext } from '../libs/SoundsContext'
 import WideMonitor from './models/WideMonitor'
 import DeskItems from './models/DeskItems'
@@ -54,7 +51,7 @@ const MENU_HOME_WAIT_TIMER_COOKIE = 0
 // const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
 const MENU_HOME_WAIT_TIMER_NOCOOKIE = 0
 
-let tl = gsap.timeline() // Move this outside the function
+let tl = gsap.timeline()
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   type Y_VALUES_TYPE = Record<string, Record<string, number>>
@@ -70,42 +67,39 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // Camera settings
   const { cameraTarget, fov } = useCameraSettings()
 
-  const [isPreLoaderFinished, setIsPreLoaderFinished] = useState(false)
-  const [isCarReady, setIsCarReady] = useState(false)
-
   //JOI Speech settings
   const [JOILineCaption, setJOILineCaption] = useState<string | null>(null)
   const [isAudioPlaying, setIsAudioPlaying] = useState(false)
-
-  //Routes settings
-  const [homePanelExpanded, setHomePanelExpanded] = useState(false)
-
+  // Preloader settings
+  const [isPreLoaderFinished, setIsPreLoaderFinished] = useState(false)
+  // Animation settings
+  const [isCarReady, setIsCarReady] = useState(false)
+  // Calculate visitedCookie and initialTimer once outside the useEffect
   const visitedCookie =
     typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
   const initialTimer = visitedCookie ? MENU_HOME_WAIT_TIMER_COOKIE : MENU_HOME_WAIT_TIMER_NOCOOKIE
 
   // Use useRef to preserve the value of newY over time
   const newYRef = useRef(0)
-  useEffect(() => {
-    const visitedCookie =
-      typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
-    const MENU_HOME_WAIT_TIMER = visitedCookie ? MENU_HOME_WAIT_TIMER_COOKIE : MENU_HOME_WAIT_TIMER_NOCOOKIE
 
+  useEffect(() => {
     const menuTimer = setTimeout(() => {
       setIsPreLoaderFinished(true)
-    }, MENU_HOME_WAIT_TIMER)
+    }, initialTimer)
 
     const carTimer = setTimeout(() => {
       setIsCarReady(true)
-    }, MENU_HOME_WAIT_TIMER / 2)
+    }, initialTimer / 2)
 
     // Cleanup function to clear the timeouts if the component unmounts before the timeouts finish
     return () => {
       clearTimeout(menuTimer)
       clearTimeout(carTimer)
     }
-  }, [])
+  }, []) // Empty dependency array so this effect only runs once on mount
 
+  //Routes settings
+  const [homePanelExpanded, setHomePanelExpanded] = useState(false)
   const ROUTE_CONFIG = useMemo(
     () => [
       { labels: ['CORPO GUIDE', 'SERVICES'], route: '/services' },
@@ -122,23 +116,12 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>(null)
 
-  //ROUTING FUNCTIONS
+  //Resizing Functions
   const [offset, setOffset] = useState(0)
-
-  const useOffsetPosition = (position: [number, number, number], offset: number): [number, number, number] => {
-    const [offsetPosition, setOffsetPosition] = useState<[number, number, number]>([0, 0, 0])
-
-    useEffect(() => {
-      setOffsetPosition([position[0], position[1] + offset, position[2]])
-    }, [position, offset])
-
-    return offsetPosition
-  }
-
-  const htmlRef = useRef<HTMLDivElement>(null)
+  //Position of HTML panel in 3D space
   const [position, setPosition] = useState<[number, number, number]>([0, 0, 0])
-
   const positionRef = useRef<[number, number, number]>([-0.05, 0, 1.9])
+  const htmlRef = useRef<HTMLDivElement>(null)
 
   const getScreenSize = () => {
     const width = window.innerWidth
@@ -255,6 +238,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       }
     })
   }
+
+  // Routes Functions
   useEffect(() => {
     if (currentPortfolioSelection !== null && currentPortfolioSelection !== '') {
       router.push(`/portfolio/${currentPortfolioSelection}`)
@@ -322,6 +307,40 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     moveHTMLPanel(newYWithOffset)
   }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection, homePanelExpanded, offset])
 
+  //ASPECT RATIO FUNCTION
+  useEffect(() => {
+    // Function to log the aspect ratio and update the offset
+    const logAspectRatioAndUpdateOffset = () => {
+      const aspectRatio = window.innerHeight / window.innerWidth
+      console.log('Aspect ratio:', aspectRatio)
+
+      if (aspectRatio < 0.25) {
+        setOffset(-0.3)
+      } else if (aspectRatio > 0.27 && aspectRatio < 0.7) {
+        setOffset(-0.2)
+      } else if (aspectRatio > 0.7 && aspectRatio < 1.1) {
+        setOffset(-0.1)
+      } else if (aspectRatio > 1.1 && aspectRatio < 1.3) {
+        setOffset(0.01)
+      } else if (aspectRatio > 1.3 && aspectRatio < 1.5) {
+        setOffset(0.05)
+      } else if (aspectRatio > 1.5) {
+        setOffset(0.1)
+      }
+    }
+
+    // Log the aspect ratio and update the offset initially
+    logAspectRatioAndUpdateOffset()
+
+    // Set up the event listener
+    window.addEventListener('resize', logAspectRatioAndUpdateOffset)
+
+    // Cleanup function to remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', logAspectRatioAndUpdateOffset)
+    }
+  }, []) // Empty dependency array so the effect only runs once
+
   const [menuHomeWaitTimer, setMenuHomeWaitTimer] = useState(initialTimer)
 
   useEffect(() => {
@@ -382,6 +401,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   const [isDragging, setIsDragging] = useState(false)
 
+  //Draggable Function
   const handleMouseDown = useCallback(() => {
     setIsDragging(true)
   }, [])
@@ -407,40 +427,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     }
   }, [])
   const [eventSource, setEventSource] = useState<HTMLElement | undefined>()
-
-  //ASPECT RATION FUNCTION
-  useEffect(() => {
-    // Function to log the aspect ratio and update the offset
-    const logAspectRatioAndUpdateOffset = () => {
-      const aspectRatio = window.innerHeight / window.innerWidth
-      console.log('Aspect ratio:', aspectRatio)
-
-      if (aspectRatio < 0.25) {
-        setOffset(-0.3)
-      } else if (aspectRatio > 0.27 && aspectRatio < 0.7) {
-        setOffset(-0.2)
-      } else if (aspectRatio > 0.7 && aspectRatio < 1.1) {
-        setOffset(-0.1)
-      } else if (aspectRatio > 1.1 && aspectRatio < 1.3) {
-        setOffset(0.01)
-      } else if (aspectRatio > 1.3 && aspectRatio < 1.5) {
-        setOffset(0.05)
-      } else if (aspectRatio > 1.5) {
-        setOffset(0.1)
-      }
-    }
-
-    // Log the aspect ratio and update the offset initially
-    logAspectRatioAndUpdateOffset()
-
-    // Set up the event listener
-    window.addEventListener('resize', logAspectRatioAndUpdateOffset)
-
-    // Cleanup function to remove the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('resize', logAspectRatioAndUpdateOffset)
-    }
-  }, []) // Empty dependency array so the effect only runs once
 
   // GPU
   const [gpuTier, setGpuTier] = useState<number | null>(null)
