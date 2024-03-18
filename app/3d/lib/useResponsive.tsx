@@ -87,7 +87,7 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
 
     const newYWithOffset = newYRef.current + offset
     moveHTMLPanel(newYWithOffset)
-  }, [currentRouteSelection, currentPortfolioSelection, homePanelExpanded, offset, getScreenSize, moveHTMLPanel])
+  }, [currentRouteSelection, currentPortfolioSelection, homePanelExpanded, offset])
 
   return {
     htmlRef,
