@@ -104,9 +104,11 @@ export const ASPECT_RATIO_OFFSET: AspectRatioOffsetType = {
     { min: 0, max: 0.25, offset: -0.31 },
     { min: 0.27, max: 0.7, offset: -0.21 },
     { min: 0.7, max: 1.1, offset: -0.11 },
-    { min: 1.1, max: 1.3, offset: 0.011 },
-    { min: 1.3, max: 1.5, offset: 0.051 },
-    { min: 1.5, max: Infinity, offset: 0.11 }
+    { min: 1.1, max: 1.3, offset: -0.05 },
+    { min: 1.3, max: 1.5, offset: 0.05 },
+    { min: 1.5, max: 1.7, offset: 0.08 },
+    { min: 1.7, max: 2, offset: 0.06 },
+    { min: 2, max: Infinity, offset: 0.08 }
   ],
   MD: [
     { min: 0, max: 0.25, offset: -0.32 },
@@ -117,12 +119,14 @@ export const ASPECT_RATIO_OFFSET: AspectRatioOffsetType = {
     { min: 1.5, max: Infinity, offset: 0.12 }
   ],
   LG: [
-    { min: 0, max: 0.25, offset: -0.33 },
+    { min: 0, max: 0.24, offset: -0.33 },
+    { min: 0.24, max: 0.27, offset: -0.33 },
     { min: 0.27, max: 0.7, offset: -0.23 },
-    { min: 0.7, max: 1.1, offset: -0.13 },
-    { min: 1.1, max: 1.3, offset: 0.013 },
-    { min: 1.3, max: 1.5, offset: 0.053 },
-    { min: 1.5, max: Infinity, offset: 0.13 }
+    { min: 0.7, max: 1.1, offset: 0 },
+    { min: 1.1, max: 1.2, offset: 0.23 },
+    { min: 1.2, max: 1.3, offset: 0.28 },
+    { min: 1.3, max: 1.5, offset: 0.3 },
+    { min: 1.5, max: Infinity, offset: 0.35 }
   ],
   XL: [
     { min: 0, max: 0.25, offset: -0.34 },
