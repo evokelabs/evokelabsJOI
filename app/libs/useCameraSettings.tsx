@@ -1,41 +1,34 @@
-import { useCallback, useLayoutEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Vector3 } from 'three'
 import { getFov } from '../3d/lib/useResponsive'
+import { useScreenSize } from './useScreenSize'
 
 // Constants
-const MOBILE_WIDTH_THRESHOLD = 768
-const INITIAL_TARGET_MOBILE = new Vector3(0.82, 1.39, 2.1)
-const INITIAL_TARGET_DESKTOP = new Vector3(-0.05, 1.39, 2.1)
 const DEFAULT_FOV = 50
+const INITIAL_TARGET_DESKTOP = new Vector3(-0.05, 1.39, 2.1)
 
 export const useCameraSettings = () => {
-  // Determine if the device is mobile based on the window width
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= MOBILE_WIDTH_THRESHOLD
+  const screenSize = useScreenSize()
 
   // Set the initial camera target based on the device type
-  const initialTarget = isMobile ? INITIAL_TARGET_MOBILE : INITIAL_TARGET_DESKTOP
-  const [cameraTarget, setCameraTarget] = useState(initialTarget)
+  const [cameraTarget, setCameraTarget] = useState(INITIAL_TARGET_DESKTOP)
 
   // Set the initial field of view based on the window width
   const initialFov = typeof window !== 'undefined' ? getFov(window.innerWidth) : DEFAULT_FOV
   const [fov, setFov] = useState(initialFov)
 
   // Handle window resize events
-  const handleResize = useCallback(() => {
-    const isMobile = window.innerWidth <= MOBILE_WIDTH_THRESHOLD
-    const newVector = isMobile ? INITIAL_TARGET_MOBILE : INITIAL_TARGET_DESKTOP
-    setCameraTarget(newVector)
-    const newFov = getFov(window.innerWidth)
-    setFov(newFov)
-  }, [])
+  const handleResize = () => {
+    setFov(getFov(window.innerWidth))
+  }
 
   // Add the resize event listener when the component mounts and remove it when it unmounts
-  useLayoutEffect(() => {
+  useEffect(() => {
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [handleResize])
+  }, [])
 
   return { cameraTarget, fov }
 }

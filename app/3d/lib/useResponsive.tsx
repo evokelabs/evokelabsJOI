@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { useCameraSettings } from '@/app/libs/useCameraSettings'
 import { ASPECT_RATIO_OFFSET, OFFSET_Y_VALUES } from './responsiveValues'
 import { LG_BREAKPOINT, MD_BREAKPOINT, SM_BREAKPOINT, XL_BREAKPOINT, _2XL_BREAKPOINT, _3XL_BREAKPOINT } from '@/app/libs/breakPoints'
-import { useScreenSize } from '@/app/libs/useScreensize'
+import { useScreenSize } from '@/app/libs/useScreenSize'
 
 export const useResponsive = (currentRouteSelection: number | null, currentPortfolioSelection: string | null) => {
   const tl = useRef(gsap.timeline())
