@@ -85,20 +85,20 @@ type AspectRatioOffsetType = Record<string, AspectRatioRange[]>
 
 export const ASPECT_RATIO_OFFSET: AspectRatioOffsetType = {
   BASE: [
-    { min: 0, max: 0.25, offset: -0.3 },
-    { min: 0.25, max: 0.7, offset: -0.2 },
-    { min: 0.7, max: 1.1, offset: -0.1 },
-    { min: 1.1, max: 1.3, offset: 0.01 },
-    { min: 1.3, max: 1.5, offset: 0.05 },
+    { min: 0, max: 0.25, offset: -0.31 },
+    { min: 0.25, max: 0.7, offset: -0.3 },
+    { min: 0.7, max: 1.1, offset: -0.25 },
+    { min: 1.1, max: 1.3, offset: -0.22 },
+    { min: 1.3, max: 1.5, offset: -0.15 },
     { min: 1.5, max: 1.8, offset: -0.13 },
-    { min: 1.8, max: 2, offset: 0.1 },
-    { min: 2, max: 2.06, offset: -0.1 },
-    { min: 2.06, max: 2.15, offset: -0.05 },
-    { min: 2.15, max: 2.18, offset: -0.02 },
-    { min: 2.18, max: 2.21, offset: -0.1 },
-    { min: 2.21, max: 2.3, offset: -0.01 },
-    { min: 2.3, max: 2.5, offset: -0.1 },
-    { min: 2.5, max: 4, offset: 0.5 }
+    { min: 1.8, max: 2, offset: -0.1 },
+    { min: 2, max: 2.06, offset: -0.075 },
+    { min: 2.06, max: 2.15, offset: -0.01 },
+    { min: 2.15, max: 2.18, offset: -0.04 },
+    { min: 2.18, max: 2.21, offset: -0.03 },
+    { min: 2.21, max: 2.3, offset: -0.02 },
+    { min: 2.3, max: 2.5, offset: -0.01 },
+    { min: 2.5, max: 4, offset: 0.0 }
   ],
   SM: [
     { min: 0, max: 0.25, offset: -0.31 },
