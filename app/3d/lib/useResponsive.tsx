@@ -4,7 +4,7 @@ import { useCameraSettings } from '@/app/libs/useCameraSettings'
 
 type Y_VALUES_TYPE = Record<string, Record<string, number>>
 
-export const useResponsive = (currentRouteSelection: number | null, currentPortfolioSelection: number | null) => {
+export const useResponsive = (currentRouteSelection: number | null, currentPortfolioSelection: string | null) => {
   let tl = gsap.timeline()
   //Position of HTML panel in 3D space
   const [homePanelExpanded, setHomePanelExpanded] = useState(false)

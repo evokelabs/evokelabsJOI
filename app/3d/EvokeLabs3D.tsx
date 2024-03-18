@@ -105,7 +105,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   //Responsive Hook
   const { htmlRef, setPosition, position, fov, cameraTarget, homePanelExpanded, setHomePanelExpanded } = useResponsive(
     currentRouteSelection,
-    currentRouteSelection
+    currentPortfolioSelection
   )
 
   //UI handlers hook
