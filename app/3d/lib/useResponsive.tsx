@@ -95,8 +95,6 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
   }
 }
 
-// getFov is a helper function that returns the Field of View (FOV) based on the viewport width.
-// It uses different FOV values for different viewport widths to ensure the best user experience on all devices.
 export const getFov = (width: number): number => {
   switch (true) {
     case width <= SM_BREAKPOINT:

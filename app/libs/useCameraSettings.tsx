@@ -24,6 +24,7 @@ export const useCameraSettings = () => {
   useEffect(() => {
     const handleResize = () => {
       setFov(getFov(window.innerWidth))
+      console.log('fov:', fov)
     }
 
     window.addEventListener('resize', handleResize)
