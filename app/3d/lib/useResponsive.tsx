@@ -32,6 +32,7 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
       for (const range of ASPECT_RATIO_OFFSET[screenSize]) {
         if (aspectRatio >= range.min && aspectRatio < range.max) {
           newOffset = range.offset
+          console.log('newOffset:', newOffset, 'aspectRatio:', aspectRatio, 'range:', range)
           break
         }
       }
@@ -79,6 +80,7 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
     }
 
     const newYWithOffset = newYRef.current + offset
+    console.log('newYRef.current:', newYRef.current, 'newYWithOffset:', newYWithOffset, 'offset:', offset)
     moveHTMLPanel(newYWithOffset)
   }, [currentRouteSelection, currentPortfolioSelection, homePanelExpanded, offset, screenSize])
 

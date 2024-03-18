@@ -93,52 +93,52 @@ export const ASPECT_RATIO_OFFSET: AspectRatioOffsetType = {
     { min: 1.5, max: Infinity, offset: 0.1 }
   ],
   SM: [
-    { min: 0, max: 0.25, offset: -0.3 },
-    { min: 0.27, max: 0.7, offset: -0.2 },
-    { min: 0.7, max: 1.1, offset: -0.1 },
-    { min: 1.1, max: 1.3, offset: 0.01 },
-    { min: 1.3, max: 1.5, offset: 0.05 },
-    { min: 1.5, max: Infinity, offset: 0.1 }
+    { min: 0, max: 0.25, offset: -0.31 },
+    { min: 0.27, max: 0.7, offset: -0.21 },
+    { min: 0.7, max: 1.1, offset: -0.11 },
+    { min: 1.1, max: 1.3, offset: 0.011 },
+    { min: 1.3, max: 1.5, offset: 0.051 },
+    { min: 1.5, max: Infinity, offset: 0.11 }
   ],
   MD: [
-    { min: 0, max: 0.25, offset: -0.3 },
-    { min: 0.27, max: 0.7, offset: -0.2 },
-    { min: 0.7, max: 1.1, offset: -0.1 },
-    { min: 1.1, max: 1.3, offset: 0.01 },
-    { min: 1.3, max: 1.5, offset: 0.05 },
-    { min: 1.5, max: Infinity, offset: 0.1 }
+    { min: 0, max: 0.25, offset: -0.32 },
+    { min: 0.27, max: 0.7, offset: -0.22 },
+    { min: 0.7, max: 1.1, offset: -0.12 },
+    { min: 1.1, max: 1.3, offset: 0.012 },
+    { min: 1.3, max: 1.5, offset: 0.052 },
+    { min: 1.5, max: Infinity, offset: 0.12 }
   ],
   LG: [
-    { min: 0, max: 0.25, offset: -0.3 },
-    { min: 0.27, max: 0.7, offset: -0.2 },
-    { min: 0.7, max: 1.1, offset: -0.1 },
-    { min: 1.1, max: 1.3, offset: 0.01 },
-    { min: 1.3, max: 1.5, offset: 0.05 },
-    { min: 1.5, max: Infinity, offset: 0.1 }
+    { min: 0, max: 0.25, offset: -0.33 },
+    { min: 0.27, max: 0.7, offset: -0.23 },
+    { min: 0.7, max: 1.1, offset: -0.13 },
+    { min: 1.1, max: 1.3, offset: 0.013 },
+    { min: 1.3, max: 1.5, offset: 0.053 },
+    { min: 1.5, max: Infinity, offset: 0.13 }
   ],
   XL: [
-    { min: 0, max: 0.25, offset: -0.3 },
-    { min: 0.27, max: 0.7, offset: -0.2 },
-    { min: 0.7, max: 1.1, offset: -0.1 },
-    { min: 1.1, max: 1.3, offset: 0.01 },
-    { min: 1.3, max: 1.5, offset: 0.05 },
-    { min: 1.5, max: Infinity, offset: 0.1 }
+    { min: 0, max: 0.25, offset: -0.34 },
+    { min: 0.27, max: 0.7, offset: -0.24 },
+    { min: 0.7, max: 1.1, offset: -0.14 },
+    { min: 1.1, max: 1.3, offset: 0.014 },
+    { min: 1.3, max: 1.5, offset: 0.054 },
+    { min: 1.5, max: Infinity, offset: 0.14 }
   ],
   '2XL': [
-    { min: 0, max: 0.25, offset: -0.3 },
-    { min: 0.27, max: 0.7, offset: -0.2 },
-    { min: 0.7, max: 1.1, offset: -0.1 },
-    { min: 1.1, max: 1.3, offset: 0.01 },
-    { min: 1.3, max: 1.5, offset: 0.05 },
-    { min: 1.5, max: Infinity, offset: 0.1 }
+    { min: 0, max: 0.25, offset: -0.35 },
+    { min: 0.27, max: 0.7, offset: -0.25 },
+    { min: 0.7, max: 1.1, offset: -0.15 },
+    { min: 1.1, max: 1.3, offset: 0.015 },
+    { min: 1.3, max: 1.5, offset: 0.055 },
+    { min: 1.5, max: Infinity, offset: 0.15 }
   ],
   '3XL': [
-    { min: 0, max: 0.25, offset: -0.3 },
-    { min: 0.27, max: 0.7, offset: -0.2 },
-    { min: 0.7, max: 1.1, offset: -0.1 },
-    { min: 1.1, max: 1.3, offset: 0.01 },
-    { min: 1.3, max: 1.5, offset: 0.05 },
-    { min: 1.5, max: Infinity, offset: 0.1 }
+    { min: 0, max: 0.25, offset: -0.35 },
+    { min: 0.27, max: 0.7, offset: -0.25 },
+    { min: 0.7, max: 1.1, offset: -0.15 },
+    { min: 1.1, max: 1.3, offset: 0.015 },
+    { min: 1.3, max: 1.5, offset: 0.055 },
+    { min: 1.5, max: Infinity, offset: 0.15 }
   ]
 }
 
