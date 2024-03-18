@@ -192,7 +192,7 @@ export const HTML_SCALE_RESPONSIVE: Record<string, number> = {
   '3XL': 0.031
 }
 
-export const POSITION_REF_RESPONSIVE: Record<string, number[]> = {
+export const POSITION_REF_RESPONSIVE: Record<string, [number, number, number]> = {
   BASE: [0.685, 0, 1.7],
   SM: [0.68, 0, 1.7],
   MD: [-0.06, 0, 1.9],

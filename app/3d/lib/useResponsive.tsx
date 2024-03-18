@@ -1,21 +1,27 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import gsap from 'gsap'
 import { useCameraSettings } from '@/app/libs/useCameraSettings'
-import { ASPECT_RATIO_OFFSET, OFFSET_Y_VALUES } from './responsiveValues'
+import { ASPECT_RATIO_OFFSET, OFFSET_Y_VALUES, POSITION_REF_RESPONSIVE } from './responsiveValues'
 import { LG_BREAKPOINT, MD_BREAKPOINT, SM_BREAKPOINT, XL_BREAKPOINT, _2XL_BREAKPOINT, _3XL_BREAKPOINT } from '@/app/libs/breakPoints'
 import { useScreenSize } from '@/app/libs/useScreenSize'
 
 export const useResponsive = (currentRouteSelection: number | null, currentPortfolioSelection: string | null) => {
   const tl = useRef(gsap.timeline())
   const [homePanelExpanded, setHomePanelExpanded] = useState(false)
-  const [position, setPosition] = useState<[number, number, number]>([0, 0, 0])
-  const positionRef = useRef<[number, number, number]>([-0.05, 0, 1.9])
+  const screenSize = useScreenSize()
+  const initialPosition = POSITION_REF_RESPONSIVE[screenSize]
+  const [position, setPosition] = useState<[number, number, number]>(initialPosition)
+  const positionRef = useRef<[number, number, number]>(initialPosition)
   const htmlRef = useRef<HTMLDivElement>(null)
   const newYRef = useRef(0)
   const { cameraTarget, fov } = useCameraSettings()
   const [offset, setOffset] = useState(0)
 
-  const screenSize = useScreenSize()
+  useEffect(() => {
+    const newPosition = POSITION_REF_RESPONSIVE[screenSize]
+    setPosition(newPosition)
+    positionRef.current = newPosition
+  }, [screenSize])
 
   useEffect(() => {
     const logAspectRatioAndUpdateOffset = () => {
