@@ -64,7 +64,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
 
   return (
     <PanelBackground headerTitle='Past Gigs'>
-      <div className='flex flex-row justify-between items-start md:items-center'>
+      <div className='flex flex-row justify-between items-start md:items-center '>
         <div className='m-2 ml-0 relative flex flex-col justify-start'>
           <h2 className='uppercase text-teal-blur text-[28px] md:text-[32px] font-semibold leading-7 inline-block bg-opacity-85 bg-black'>
             {heading}
@@ -100,7 +100,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
         <>
           <div
             dangerouslySetInnerHTML={{ __html: desc }}
-            className='mt-3 text-red-blur font-semibold text-[16px] md:text-[21px] space-y-4 md:space-y-6 '
+            className='mt-3 text-red-blur font-semibold text-[16px] md:text-[21px] space-y-4 md:space-y-6'
           ></div>
           {/* <HR /> */}
         </>

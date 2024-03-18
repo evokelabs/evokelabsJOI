@@ -38,7 +38,7 @@ const Index = ({ headerTitle, children, contentHead }: PanelContentProps) => {
             {contentHead}
             <div
               className={
-                'min-h-[auto] max-h-[60vh] sm:max-h-[28rem] md:max-h-[48rem] overflow-y-auto overflow-x-hidden red-scrollbar mr-2 pr-2 '
+                'min-h-[auto] max-h-[28rem] md:max-h-[48rem] overflow-y-auto overflow-x-hidden red-scrollbar mr-2 pr-2 '
               }
             >
               {children}
