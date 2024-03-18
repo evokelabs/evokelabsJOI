@@ -138,7 +138,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const htmlRef = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<[number, number, number]>([0, 0, 0])
 
-  const positionRef = useRef<[number, number, number]>([-0.05, 0, 1.9])
+  const positionRef = useRef<[number, number, number]>([-0.3, 0, 1.9])
 
   const getScreenSize = () => {
     const width = window.innerWidth
@@ -193,15 +193,15 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       8: 1.35 // Portfoio Item
     },
     LG: {
-      0: 1.22,
-      1: 1.22,
-      2: 1.3,
-      3: 1.22,
-      4: 1.28,
-      5: 1.22,
-      6: 1.38, // Home Default
-      7: 1.3, // Home Expanded
-      8: 1.3 // Portfolio Item
+      0: 1.34,
+      1: 1.34,
+      2: 1.38,
+      3: 1.34,
+      4: 1.33,
+      5: 1.4,
+      6: 1.58, // Home Default
+      7: 1.45, // Home Expanded
+      8: 1.35 // Portfoio Item
     },
     XL: {
       0: 1.43,
@@ -514,7 +514,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 >
                   <Html
                     ref={htmlRef}
-                    scale={0.032}
+                    scale={0.041}
                     prepend
                     distanceFactor={10}
                     transform
@@ -548,10 +548,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                             onPointerUp={handleMouseUp}
                             className='flex flex-col-reverse h-screen p-4 relative translate-y-10 '
                           >
-                            <div className='left-1 scale-[54%] sm:scale-[54%] md:scale-[100%] md:w-full origin-top-left min-w-[50em] md:min-w-[74em]'>
+                            <div className='left-1 scale-[54%] sm:scale-[54%] md:scale-[100%] md:w-full origin-top-left min-w-[50em] md:min-w-[74em] '>
                               {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
                             </div>
-                            <div className='max-w-[26.5em] sm:max-w-[26.5em] md:max-w-[73em] lg:max-w-[70em] 2xl:max-w-[73em] '>
+                            <div className='max-w-[26.5em] sm:max-w-[26.5em] md:max-w-[73em]'>
                               {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                               {router.pathname === '/services' && <Services />}
                               {router.pathname.startsWith('/portfolio') && (
