@@ -24,7 +24,6 @@ export const useCameraSettings = () => {
   useEffect(() => {
     const handleResize = () => {
       setFov(getFov(window.innerWidth))
-      console.log('fov:', fov)
     }
 
     window.addEventListener('resize', handleResize)
@@ -32,6 +31,11 @@ export const useCameraSettings = () => {
       window.removeEventListener('resize', handleResize)
     }
   }, [])
+
+  // Log fov whenever it changes
+  useEffect(() => {
+    console.log('fov:', fov)
+  }, [fov])
 
   return { cameraTarget, fov }
 }
