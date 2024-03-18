@@ -77,7 +77,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     shouldAmbientLightPlay,
     shouldPointLightPlay,
     isPreLoaderFinished,
-    isCarReady
+    isCarReady,
+    setMenuHomeWaitTimer
   } = usePreloader()
 
   // Route Hook
@@ -92,7 +93,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     currentPortfolioSelection,
     setCurrentRouteSelection,
     setCurrentPortfolioSelection,
-    ROUTE_CONFIG
+    ROUTE_CONFIG,
+    setMenuHomeWaitTimer
   )
 
   //Responsive Hook

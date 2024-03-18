@@ -6,7 +6,8 @@ export const useRoutes = (
   currentPortfolioSelection: number | string | null,
   setCurrentRouteSelection: React.Dispatch<React.SetStateAction<number | null>>,
   setCurrentPortfolioSelection: React.Dispatch<React.SetStateAction<string | null>>,
-  ROUTE_CONFIG: { labels: string[]; route: string; callToAction?: boolean }[]
+  ROUTE_CONFIG: { labels: string[]; route: string; callToAction?: boolean }[],
+  setMenuHomeWaitTimer: React.Dispatch<React.SetStateAction<number>>
 ) => {
   const router = useRouter()
 
@@ -55,6 +56,7 @@ export const useRoutes = (
       if (selectedRoute && router.pathname !== selectedRoute.route) {
         router.push(selectedRoute.route)
       } else if (router.pathname !== '/') {
+        setMenuHomeWaitTimer(0)
       }
     } else {
       const routeExists = ROUTE_CONFIG.some(route => router.pathname.startsWith(route.route))
@@ -62,6 +64,7 @@ export const useRoutes = (
       if (!routeExists && router.pathname !== '/' && currentPortfolioSelection === null) {
         router.push('/')
       } else if (routeExists && router.pathname !== '/' && currentRouteSelection === null && currentPortfolioSelection === null) {
+        setMenuHomeWaitTimer(0)
         router.push('/')
       }
     }
