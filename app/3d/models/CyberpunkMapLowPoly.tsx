@@ -120,7 +120,6 @@ const CyberpunkMapLowPoly = () => {
     )
 
     return () => {
-      console.log('removing low poly map')
       scene.children.forEach(child => {
         if (child instanceof Scene) scene.remove(child)
       })

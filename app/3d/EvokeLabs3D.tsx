@@ -54,8 +54,6 @@ import { useResponsive } from './lib/useResponsive'
 import { ROUTE_CONFIG } from '../libs/ROUTE_CONFIG'
 
 // Constants
-// const debug = true
-const debug = false
 const INITIAL_CAMERA_POSITION = [0.84, 1.5, 0] as const
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
@@ -98,7 +96,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   )
 
   //Responsive Hook
-  const { htmlRef, setPosition, position, fov, cameraTarget, homePanelExpanded, setHomePanelExpanded } = useResponsive(
+  const { htmlRef, setPosition, position, fov, cameraTarget, homePanelExpanded, setHomePanelExpanded, htmlScale } = useResponsive(
     currentRouteSelection,
     currentPortfolioSelection
   )
@@ -181,7 +179,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 >
                   <Html
                     ref={htmlRef}
-                    scale={0.031}
+                    scale={htmlScale}
                     prepend
                     distanceFactor={10}
                     transform

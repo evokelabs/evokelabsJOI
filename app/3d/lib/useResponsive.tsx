@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import gsap from 'gsap'
 import { useCameraSettings } from '@/app/libs/useCameraSettings'
-import { ASPECT_RATIO_OFFSET, OFFSET_Y_VALUES, POSITION_REF_RESPONSIVE } from './responsiveValues'
+import { ASPECT_RATIO_OFFSET, HTML_SCALE_RESPONSIVE, OFFSET_Y_VALUES, POSITION_REF_RESPONSIVE } from './responsiveValues'
 import { LG_BREAKPOINT, MD_BREAKPOINT, SM_BREAKPOINT, XL_BREAKPOINT, _2XL_BREAKPOINT, _3XL_BREAKPOINT } from '@/app/libs/breakPoints'
 import { useScreenSize } from '@/app/libs/useScreenSize'
 
@@ -16,6 +16,7 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
   const newYRef = useRef(0)
   const { cameraTarget, fov } = useCameraSettings()
   const [offset, setOffset] = useState(0)
+  const htmlScale = HTML_SCALE_RESPONSIVE[screenSize]
 
   useEffect(() => {
     const newPosition = POSITION_REF_RESPONSIVE[screenSize]
@@ -88,7 +89,8 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
     fov,
     cameraTarget,
     homePanelExpanded,
-    setHomePanelExpanded
+    setHomePanelExpanded,
+    htmlScale
   }
 }
 

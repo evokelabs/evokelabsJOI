@@ -130,7 +130,6 @@ const CyberpunkMap = () => {
     )
 
     return () => {
-      console.log('removing cyberpunk map')
       scene.children.forEach(child => {
         if (child instanceof Scene) scene.remove(child)
       })
