@@ -138,7 +138,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const htmlRef = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<[number, number, number]>([0, 0, 0])
 
-  const positionRef = useRef<[number, number, number]>([-0.1, 0, 1.9])
+  const positionRef = useRef<[number, number, number]>([-0.05, 0, 1.9])
 
   const getScreenSize = () => {
     const width = window.innerWidth
@@ -215,15 +215,15 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       8: 1.2 // Portfoio Item
     },
     '2XL': {
-      0: 1.43,
-      1: 1.43,
-      2: 1.48,
-      3: 1.43,
-      4: 1.44,
-      5: 1.55,
-      6: 1.78, // Home Default
-      7: 1.6, // Home Expanded
-      8: 1.6 // Portfoio Item
+      0: 1.48,
+      1: 1.48,
+      2: 1.5,
+      3: 1.48,
+      4: 1.5,
+      5: 1.58,
+      6: 1.82, // Home Default
+      7: 1.64, // Home Expanded
+      8: 1.5 // Portfoio Item
     }
   }
 
@@ -514,7 +514,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 >
                   <Html
                     ref={htmlRef}
-                    scale={0.038}
+                    scale={0.0345}
                     prepend
                     distanceFactor={10}
                     transform
