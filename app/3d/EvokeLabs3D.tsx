@@ -138,7 +138,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const htmlRef = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<[number, number, number]>([0, 0, 0])
 
-  const positionRef = useRef<[number, number, number]>([-0, 0, 1.9])
+  const positionRef = useRef<[number, number, number]>([-0.05, 0, 1.9])
 
   const getScreenSize = () => {
     const width = window.innerWidth

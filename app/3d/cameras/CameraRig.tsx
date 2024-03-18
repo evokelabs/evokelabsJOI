@@ -2,8 +2,8 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { PerspectiveCamera, Vector3 } from 'three'
 
 const DEFAULT_CAMERA_DAMPING = 0.015
-const CAMERA_X_OFFSET = 2.8
-const CAMERA_X_OFFSET_BASE = 0.4
+const CAMERA_X_OFFSET = 2.7
+const CAMERA_X_OFFSET_BASE = -0
 const CAMERA_Y_OFFSET = 0.3
 const SM_BREAKPOINT = 768 // Tailwind CSS SM breakpoint
 
