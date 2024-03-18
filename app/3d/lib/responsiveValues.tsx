@@ -182,7 +182,7 @@ export const ASPECT_RATIO_OFFSET: AspectRatioOffsetType = {
 }
 
 export const CAMERA_X_OFFSET_RESPONSIVE: Record<string, number> = {
-  BASE: 2.73,
+  BASE: 2.68,
   SM: 2.73,
   MD: 2.9,
   LG: 2.9,
@@ -192,7 +192,7 @@ export const CAMERA_X_OFFSET_RESPONSIVE: Record<string, number> = {
 }
 
 export const CAMERA_X_OFFSET_BASE_RESPONSIVE: Record<string, number> = {
-  BASE: 0.83,
+  BASE: 0.835,
   SM: 0.825,
   MD: 0.25,
   LG: 0.075,
