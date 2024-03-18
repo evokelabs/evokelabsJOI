@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useState } from 'react'
 import { Vector3 } from 'three'
-import { getFov } from '../libs/helpers'
+import { getFov } from '../3d/lib/useResponsive'
 
 // Constants
 const MOBILE_WIDTH_THRESHOLD = 768

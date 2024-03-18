@@ -2,6 +2,7 @@ import type { Config } from 'tailwindcss'
 
 import { BLACK, ORANGE, BLUE_DARK, RED, RED_DARK, RED_DULL, TEAL, WHITE } from './app/libs/UIConstants'
 import { TileFill, TileFill30 } from './app/ui/libs/TitleFillsPNGData'
+import { _3XL_BREAKPOINT } from './app/libs/breakPoints'
 
 const config: Config = {
   content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
@@ -41,7 +42,7 @@ const config: Config = {
         square: 'square'
       },
       screens: {
-        '3xl': '1850px'
+        '3xl': _3XL_BREAKPOINT.toString()
       }
     }
   },

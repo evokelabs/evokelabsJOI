@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import gsap from 'gsap'
 import { useCameraSettings } from '@/app/libs/useCameraSettings'
 import { ASPECT_RATIO_OFFSET, OFFSET_Y_VALUES } from './responsiveValues'
+import { LG_BREAKPOINT, MD_BREAKPOINT, SM_BREAKPOINT, XL_BREAKPOINT, _2XL_BREAKPOINT, _3XL_BREAKPOINT } from '@/app/libs/breakPoints'
+import { useScreenSize } from '@/app/libs/useScreensize'
 
 export const useResponsive = (currentRouteSelection: number | null, currentPortfolioSelection: string | null) => {
   const tl = useRef(gsap.timeline())
@@ -13,27 +15,12 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
   const { cameraTarget, fov } = useCameraSettings()
   const [offset, setOffset] = useState(0)
 
-  const getScreenSize = useCallback(() => {
-    const width = window.innerWidth
-    const breakpoints = [640, 768, 1024, 1280, 1536, 1850]
-    const sizes = ['BASE', 'SM', 'MD', 'LG', 'XL', '2XL', '3XL']
-    let size = '3XL'
-
-    for (let i = 0; i < breakpoints.length; i++) {
-      if (width < breakpoints[i]) {
-        size = sizes[i]
-        break
-      }
-    }
-
-    return size
-  }, [])
+  const screenSize = useScreenSize()
 
   useEffect(() => {
     const logAspectRatioAndUpdateOffset = () => {
       const aspectRatio = window.innerHeight / window.innerWidth
       let newOffset = 0
-      const screenSize = getScreenSize()
 
       for (const range of ASPECT_RATIO_OFFSET[screenSize]) {
         if (aspectRatio >= range.min && aspectRatio < range.max) {
@@ -51,7 +38,7 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
     return () => {
       window.removeEventListener('resize', logAspectRatioAndUpdateOffset)
     }
-  }, [getScreenSize])
+  }, [screenSize])
 
   const moveHTMLPanel = useCallback(
     (newY: number) => {
@@ -74,7 +61,6 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
   )
 
   useEffect(() => {
-    const screenSize = getScreenSize()
     if (homePanelExpanded) {
       newYRef.current = OFFSET_Y_VALUES[screenSize]['7']
     } else if (currentRouteSelection === 1 && currentPortfolioSelection !== null) {
@@ -87,7 +73,7 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
 
     const newYWithOffset = newYRef.current + offset
     moveHTMLPanel(newYWithOffset)
-  }, [currentRouteSelection, currentPortfolioSelection, homePanelExpanded, offset])
+  }, [currentRouteSelection, currentPortfolioSelection, homePanelExpanded, offset, screenSize])
 
   return {
     htmlRef,
@@ -97,5 +83,26 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
     cameraTarget,
     homePanelExpanded,
     setHomePanelExpanded
+  }
+}
+
+// getFov is a helper function that returns the Field of View (FOV) based on the viewport width.
+// It uses different FOV values for different viewport widths to ensure the best user experience on all devices.
+export const getFov = (width: number): number => {
+  switch (true) {
+    case width <= SM_BREAKPOINT:
+      return 85 // Mobile devices
+    case width <= MD_BREAKPOINT:
+      return 68 // Desktop Min
+    case width <= LG_BREAKPOINT:
+      return 35 // Desktop Min
+    case width <= XL_BREAKPOINT:
+      return 30 // Desktop Med
+    case width <= _2XL_BREAKPOINT:
+      return 29 // Desktop 2xl
+    case width <= _3XL_BREAKPOINT:
+      return 28 // Desktop 3xl
+    default:
+      return 26 // Widescreen Max
   }
 }

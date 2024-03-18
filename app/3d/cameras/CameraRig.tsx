@@ -1,3 +1,4 @@
+import { MD_BREAKPOINT } from '@/app/libs/breakPoints'
 import { useFrame, useThree } from '@react-three/fiber'
 import { PerspectiveCamera, Vector3 } from 'three'
 
@@ -5,18 +6,17 @@ const DEFAULT_CAMERA_DAMPING = 0.015
 const CAMERA_X_OFFSET = 2.7
 const CAMERA_X_OFFSET_BASE = -0
 const CAMERA_Y_OFFSET = 0.3
-const SM_BREAKPOINT = 768 // Tailwind CSS SM breakpoint
 
 const CameraRig = ({ fov, debug }: { fov: number; debug: boolean }) => {
   const { camera } = useThree()
-  const CAMERA_DAMPING = window.innerWidth < SM_BREAKPOINT ? 0.7 : DEFAULT_CAMERA_DAMPING
+  const CAMERA_DAMPING = window.innerWidth < MD_BREAKPOINT ? 0.7 : DEFAULT_CAMERA_DAMPING
 
   useFrame(({ pointer, viewport }) => {
     if (debug) return
 
     // If the viewport width is smaller than SM, set pointer.x and pointer.y to 0
-    const pointerX = window.innerWidth < SM_BREAKPOINT ? 0 : pointer.x
-    const pointerY = window.innerWidth < SM_BREAKPOINT ? 0 : pointer.y
+    const pointerX = window.innerWidth < MD_BREAKPOINT ? 0 : pointer.x
+    const pointerY = window.innerWidth < MD_BREAKPOINT ? 0 : pointer.y
 
     // Calculate the target position of the camera
     const XPosition = CAMERA_X_OFFSET_BASE - (pointerX * (viewport.width / 1)) / CAMERA_X_OFFSET
