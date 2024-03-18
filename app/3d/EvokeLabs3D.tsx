@@ -42,6 +42,7 @@ import { GPUContext } from '../libs/GPUContext'
 import gsap from 'gsap'
 import { useGPU } from './lib/useGPU'
 import { useSounds } from './lib/useSounds'
+import { useRoutes } from './lib/useRoutes'
 
 // Constants
 // const debug = true
@@ -100,21 +101,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   //Routes settings
   const [homePanelExpanded, setHomePanelExpanded] = useState(false)
-  const ROUTE_CONFIG = useMemo(
-    () => [
-      { labels: ['CORPO GUIDE', 'SERVICES'], route: '/services' },
-      { labels: ['PAST GIGS', 'PORTFOLIO'], route: '/portfolio' },
-      { labels: ['BACKSTORY', 'HISTORY'], route: '/history' },
-      { labels: ['DOSSIER', 'RESUME'], route: '/resume' },
-      { labels: ['JOI SPECIAL', 'INTRODUCING JOI'], route: '/joi' },
-      { labels: ['FIX A BOOKING', 'AVAILABILITIES'], route: '/availabilities', callToAction: true }
-    ],
-    []
-  )
-  const currentRouteIndex = ROUTE_CONFIG.findIndex(route => route.route === router.pathname)
-  const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(currentRouteIndex)
-
-  const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>(null)
 
   //Resizing Functions
   const [offset, setOffset] = useState(0)
@@ -239,74 +225,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     })
   }
 
-  // Routes Functions
-  useEffect(() => {
-    if (currentPortfolioSelection !== null && currentPortfolioSelection !== '') {
-      router.push(`/portfolio/${currentPortfolioSelection}`)
-      setCurrentRouteSelection(1)
-    }
-  }, [currentPortfolioSelection])
-
-  useEffect(() => {
-    // If the current route is '/', set currentRouteSelection to null
-    if (router.pathname === '/') {
-      setCurrentRouteSelection(null)
-    } else {
-      // Find the index of the current route in ROUTE_CONFIG
-      const currentRouteIndex = ROUTE_CONFIG.findIndex(route => router.pathname.startsWith(route.route))
-
-      // If the current route is found in ROUTE_CONFIG, update currentRouteSelection
-      if (currentRouteIndex !== -1) {
-        setCurrentRouteSelection(currentRouteIndex)
-      }
-
-      if (currentRouteIndex === 1 && router.pathname === '/portfolio' && currentPortfolioSelection !== null) {
-        setCurrentPortfolioSelection(null)
-      }
-    }
-  }, [router.pathname, ROUTE_CONFIG])
-
-  useEffect(() => {
-    if (currentRouteSelection !== null) {
-      const selectedRoute = ROUTE_CONFIG[currentRouteSelection]
-
-      if (selectedRoute && router.pathname !== selectedRoute.route) {
-        router.push(selectedRoute.route)
-      } else if (router.pathname !== '/') {
-        setMenuHomeWaitTimer(0)
-      }
-    } else {
-      // Check if the current route is defined in ROUTE_CONFIG
-      const routeExists = ROUTE_CONFIG.some(route => router.pathname.startsWith(route.route))
-
-      // If the current route is not defined in ROUTE_CONFIG, redirect to the root route
-
-      if (!routeExists && router.pathname !== '/' && currentPortfolioSelection === null) {
-        router.push('/')
-      } else if (routeExists && router.pathname !== '/' && currentRouteSelection === null && currentPortfolioSelection === null) {
-        setMenuHomeWaitTimer(0)
-        router.push('/')
-      }
-    }
-
-    const screenSize = getScreenSize()
-
-    if (homePanelExpanded) {
-      newYRef.current = Y_VALUES[screenSize]['7']
-    } else if (currentRouteSelection === 1 && currentPortfolioSelection !== null) {
-      newYRef.current = Y_VALUES[screenSize]['8']
-    } else if (currentRouteSelection !== null) {
-      newYRef.current = Y_VALUES[screenSize][currentRouteSelection.toString()]
-    } else {
-      newYRef.current = Y_VALUES[screenSize]['6']
-    }
-
-    // Calculate the new Y position with the offset
-    const newYWithOffset = newYRef.current + offset
-
-    moveHTMLPanel(newYWithOffset)
-  }, [currentRouteSelection, ROUTE_CONFIG, currentPortfolioSelection, homePanelExpanded, offset])
-
   //ASPECT RATIO FUNCTION
   useEffect(() => {
     // Function to log the aspect ratio and update the offset
@@ -359,22 +277,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     }
   }, [menuHomeWaitTimer])
 
-  //JOi Route Speech function
-  const [JOILineSpeak, setJOILineSpeak] = useState<null | number>(null)
-  const [isChainPlaying, setIsChainPlaying] = useState(false)
-
-  const prevPathname = useRef(router.pathname)
-
-  useEffect(() => {
-    if (
-      !(prevPathname.current?.startsWith('/portfolio') && router.pathname.startsWith('/portfolio')) &&
-      prevPathname.current !== router.pathname
-    ) {
-      setJOILineSpeak(currentRouteSelection)
-    }
-    prevPathname.current = router.pathname
-  }, [router.pathname])
-
   //Portfolio Pulldown states
   const [selectedShowOnlyOption, setSelectedShowOnlyOption] = useState('All')
   const [selectedSortByOption, setSelectedSortByOption] = useState('Date (Newest)')
@@ -426,8 +328,41 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     muteSFX,
     muteJOI
   } = useSounds()
+
+  // Route Hook
+  const {
+    currentRouteSelection,
+    currentPortfolioSelection,
+    JOILineSpeak,
+    setJOILineSpeak,
+    setCurrentRouteSelection,
+    setCurrentPortfolioSelection,
+    ROUTE_CONFIG,
+    isChainPlaying,
+    setIsChainPlaying
+  } = useRoutes()
+
   // GPU Hook
   const { lowGPU, setLowGPU } = useGPU()
+
+  useEffect(() => {
+    const screenSize = getScreenSize()
+    if (homePanelExpanded) {
+      newYRef.current = Y_VALUES[screenSize]['7']
+    } else if (currentRouteSelection === 1 && currentPortfolioSelection !== null) {
+      newYRef.current = Y_VALUES[screenSize]['8']
+      currentRouteSelection
+    } else if (currentRouteSelection !== null) {
+      newYRef.current = Y_VALUES[screenSize][currentRouteSelection.toString()]
+    } else {
+      newYRef.current = Y_VALUES[screenSize]['6']
+    }
+
+    // Calculate the new Y position with the offset
+    const newYWithOffset = newYRef.current + offset
+
+    moveHTMLPanel(newYWithOffset)
+  }, [currentRouteSelection, currentPortfolioSelection, homePanelExpanded, offset])
 
   return (
     <>
