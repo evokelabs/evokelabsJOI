@@ -43,6 +43,7 @@ import gsap from 'gsap'
 import { useGPU } from './lib/useGPU'
 import { useSounds } from './lib/useSounds'
 import { useRoutes } from './lib/useRoutes'
+import { useUI } from './lib/useUI'
 
 // Constants
 // const debug = true
@@ -277,38 +278,18 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     }
   }, [menuHomeWaitTimer])
 
-  //Portfolio Pulldown states
-  const [selectedShowOnlyOption, setSelectedShowOnlyOption] = useState('All')
-  const [selectedSortByOption, setSelectedSortByOption] = useState('Date (Newest)')
-
-  const [isDragging, setIsDragging] = useState(false)
-
-  //Draggable Function
-  const handleMouseDown = useCallback(() => {
-    setIsDragging(true)
-  }, [])
-
-  const handleMouseUp = useCallback(() => {
-    setIsDragging(false)
-  }, [])
-
-  const handleMouseMove = useCallback(
-    (event: ThreeEvent<PointerEvent>) => {
-      if (isDragging) {
-        // Convert the mouse position to world coordinates
-        const x = event.unprojectedPoint.x
-        const y = event.unprojectedPoint.y
-        setPosition([x, y, 2.1])
-      }
-    },
-    [isDragging]
-  )
-  const container = useCallback((node: HTMLDivElement) => {
-    if (node !== null) {
-      setEventSource(node)
-    }
-  }, [])
-  const [eventSource, setEventSource] = useState<HTMLElement | undefined>()
+  //UI handlers hook
+  const {
+    selectedShowOnlyOption,
+    setSelectedShowOnlyOption,
+    selectedSortByOption,
+    setSelectedSortByOption,
+    handleMouseDown,
+    handleMouseUp,
+    handleMouseMove,
+    container,
+    eventSource
+  } = useUI(setPosition)
 
   //Sounds Hook
   const {
