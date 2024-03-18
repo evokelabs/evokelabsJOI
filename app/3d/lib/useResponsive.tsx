@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import gsap from 'gsap'
 import { useCameraSettings } from '@/app/libs/useCameraSettings'
-import { ASPECT_RATIO_OFFSET, HTML_SCALE_RESPONSIVE, OFFSET_Y_VALUES, POSITION_REF_RESPONSIVE } from './responsiveValues'
+import { HTML_SCALE_RESPONSIVE, OFFSET_Y_VALUES, POSITION_REF_RESPONSIVE } from './responsiveValues'
 import { LG_BREAKPOINT, MD_BREAKPOINT, SM_BREAKPOINT, XL_BREAKPOINT, _2XL_BREAKPOINT, _3XL_BREAKPOINT } from '@/app/libs/breakPoints'
 import { useScreenSize } from '@/app/libs/useScreenSize'
 
@@ -26,16 +26,7 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
 
   useEffect(() => {
     const logAspectRatioAndUpdateOffset = () => {
-      const aspectRatio = window.innerHeight / window.innerWidth
       let newOffset = 0
-
-      for (const range of ASPECT_RATIO_OFFSET[screenSize]) {
-        if (aspectRatio >= range.min && aspectRatio < range.max) {
-          newOffset = range.offset
-          console.log('newOffset:', newOffset, 'aspectRatio:', aspectRatio, 'range:', range)
-          break
-        }
-      }
 
       setOffset(newOffset)
     }
