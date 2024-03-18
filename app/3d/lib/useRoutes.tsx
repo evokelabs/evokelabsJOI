@@ -1,23 +1,14 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { useRouter } from 'next/router'
 
-export const useRoutes = () => {
-  const ROUTE_CONFIG = useMemo(
-    () => [
-      { labels: ['CORPO GUIDE', 'SERVICES'], route: '/services' },
-      { labels: ['PAST GIGS', 'PORTFOLIO'], route: '/portfolio' },
-      { labels: ['BACKSTORY', 'HISTORY'], route: '/history' },
-      { labels: ['DOSSIER', 'RESUME'], route: '/resume' },
-      { labels: ['JOI SPECIAL', 'INTRODUCING JOI'], route: '/joi' },
-      { labels: ['FIX A BOOKING', 'AVAILABILITIES'], route: '/availabilities', callToAction: true }
-    ],
-    []
-  )
+export const useRoutes = (
+  currentRouteSelection: number | null,
+  currentPortfolioSelection: number | string | null, // Updated type
+  setCurrentRouteSelection: React.Dispatch<React.SetStateAction<number | null>>,
+  setCurrentPortfolioSelection: React.Dispatch<React.SetStateAction<string | null>>,
+  ROUTE_CONFIG: { labels: string[]; route: string; callToAction?: boolean }[]
+) => {
   const router = useRouter()
-
-  const currentRouteIndex = ROUTE_CONFIG.findIndex(route => route.route === router.pathname)
-  const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(currentRouteIndex)
-  const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>(null)
 
   const [JOILineSpeak, setJOILineSpeak] = useState<null | number>(null)
   const [isChainPlaying, setIsChainPlaying] = useState(false)
@@ -76,12 +67,8 @@ export const useRoutes = () => {
     }
   }, [currentRouteSelection, currentPortfolioSelection])
   return {
-    currentRouteSelection,
-    currentPortfolioSelection,
     JOILineSpeak,
     setJOILineSpeak,
-    setCurrentRouteSelection,
-    setCurrentPortfolioSelection,
     ROUTE_CONFIG,
     isChainPlaying,
     setIsChainPlaying
