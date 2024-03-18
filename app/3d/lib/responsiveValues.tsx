@@ -141,3 +141,13 @@ export const ASPECT_RATIO_OFFSET: AspectRatioOffsetType = {
     { min: 1.5, max: Infinity, offset: 0.1 }
   ]
 }
+
+export const CAMERA_X_OFFSET: Record<string, number> = {
+  BASE: 2.73,
+  SM: 2.72,
+  MD: 2.9,
+  LG: 2.9,
+  XL: 2.8,
+  '2XL': 2.8,
+  '3XL': 2.7
+}
