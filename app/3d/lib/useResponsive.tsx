@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { useCameraSettings } from '@/app/libs/useCameraSettings'
-
-type Y_VALUES_TYPE = Record<string, Record<string, number>>
+import { OFFSET_Y_VALUES } from './OFFSET_Y_VALUES'
 
 export const useResponsive = (currentRouteSelection: number | null, currentPortfolioSelection: string | null) => {
   let tl = gsap.timeline()
@@ -41,85 +40,6 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
     }
   }
 
-  const Y_VALUES: Y_VALUES_TYPE = {
-    BASE: {
-      0: 1.22,
-      1: 1.22,
-      2: 1.3,
-      3: 1.22,
-      4: 1.28,
-      5: 1.22,
-      6: 1.38, // Home Default
-      7: 1.3, // Home Expanded
-      8: 1.3 // Portfolio Item
-    },
-    SM: {
-      0: 1.31,
-      1: 1.31,
-      2: 1.36,
-      3: 1.31,
-      4: 1.36,
-      5: 1.31,
-      6: 1.38, // Home Default
-      7: 1.36, // Home Expanded
-      8: 1.3 // Portfolio Item
-    },
-    MD: {
-      0: 1.34,
-      1: 1.34,
-      2: 1.38,
-      3: 1.34,
-      4: 1.33,
-      5: 1.4,
-      6: 1.58, // Home Default
-      7: 1.45, // Home Expanded
-      8: 1.35 // Portfoio Item
-    },
-    LG: {
-      0: 1.34,
-      1: 1.34,
-      2: 1.38,
-      3: 1.38,
-      4: 1.33,
-      5: 1.4,
-      6: 1.58, // Home Default
-      7: 1.45, // Home Expanded
-      8: 1.35 // Portfoio Item
-    },
-    XL: {
-      0: 1.41,
-      1: 1.41,
-      2: 1.49,
-      3: 1.41,
-      4: 1.425,
-      5: 1.51,
-      6: 1.74, // Home Default
-      7: 1.2, // Home Expanded
-      8: 1.2 // Portfoio Item
-    },
-    '2XL': {
-      0: 1.48,
-      1: 1.48,
-      2: 1.5,
-      3: 1.48,
-      4: 1.5,
-      5: 1.58,
-      6: 1.82, // Home Default
-      7: 1.64, // Home Expanded
-      8: 1.5 // Portfoio Item
-    },
-    '3XL': {
-      0: 1.7,
-      1: 1.7,
-      2: 1.74,
-      3: 1.7,
-      4: 1.72,
-      5: 1.8,
-      6: 2, // Home Default
-      7: 1.85, // Home Expanded
-      8: 1.74 // Portfoio Item
-    }
-  }
   //ASPECT RATIO FUNCTION
   useEffect(() => {
     // Function to log the aspect ratio and update the offset
@@ -174,14 +94,14 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
     console.log('useEffect pass for responsive.tsx')
     const screenSize = getScreenSize()
     if (homePanelExpanded) {
-      newYRef.current = Y_VALUES[screenSize]['7']
+      newYRef.current = OFFSET_Y_VALUES[screenSize]['7']
     } else if (currentRouteSelection === 1 && currentPortfolioSelection !== null) {
-      newYRef.current = Y_VALUES[screenSize]['8']
+      newYRef.current = OFFSET_Y_VALUES[screenSize]['8']
       currentRouteSelection
     } else if (currentRouteSelection !== null) {
-      newYRef.current = Y_VALUES[screenSize][currentRouteSelection.toString()]
+      newYRef.current = OFFSET_Y_VALUES[screenSize][currentRouteSelection.toString()]
     } else {
-      newYRef.current = Y_VALUES[screenSize]['6']
+      newYRef.current = OFFSET_Y_VALUES[screenSize]['6']
     }
 
     // Calculate the new Y position with the offset

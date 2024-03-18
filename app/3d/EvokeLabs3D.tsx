@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { NextRouter } from 'next/router'
 import { Vector2 } from 'three'
 import { Canvas } from '@react-three/fiber'
@@ -51,6 +51,7 @@ import { useRoutes } from './lib/useRoutes'
 import { useUI } from './lib/useUI'
 import { usePreloader } from './lib/usePreloader'
 import { useResponsive } from './lib/useResponsive'
+import { ROUTE_CONFIG } from '../libs/ROUTE_CONFIG'
 
 // Constants
 // const debug = true
@@ -80,18 +81,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   } = usePreloader()
 
   // Route Hook
-
-  const ROUTE_CONFIG = useMemo(
-    () => [
-      { labels: ['CORPO GUIDE', 'SERVICES'], route: '/services' },
-      { labels: ['PAST GIGS', 'PORTFOLIO'], route: '/portfolio' },
-      { labels: ['BACKSTORY', 'HISTORY'], route: '/history' },
-      { labels: ['DOSSIER', 'RESUME'], route: '/resume' },
-      { labels: ['JOI SPECIAL', 'INTRODUCING JOI'], route: '/joi' },
-      { labels: ['FIX A BOOKING', 'AVAILABILITIES'], route: '/availabilities', callToAction: true }
-    ],
-    []
-  )
 
   const currentRouteIndex = ROUTE_CONFIG.findIndex(route => route.route === router.pathname)
 
