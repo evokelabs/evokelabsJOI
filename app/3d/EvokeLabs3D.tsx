@@ -1,14 +1,16 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Canvas, ThreeEvent } from '@react-three/fiber'
+import { useEffect, useRef, useState } from 'react'
+import { Canvas } from '@react-three/fiber'
 import { Html, OrbitControls } from '@react-three/drei'
 
-import CameraRig from './cameras/CameraRig'
 import { Lights } from './lights'
+
+import CameraRig from './cameras/CameraRig'
 import CyberpunkMap from './models/CyberpunkMap'
 import CyberpunkCar from './models/CyberpunkCar/index'
+import JOI from './models/JOI/index'
+
 import VideoSkybox from './textures/VideoSkyBox'
 import Rain from './particles/Rain'
-import JOI from './models/JOI/index'
 
 import { AnimationContext } from '../libs/AnimationContext'
 import { useCameraSettings } from '../libs/useCameraSettings'
@@ -39,20 +41,18 @@ import { SoundControlContext } from '../libs/SoundControlContext'
 import { PortfolioContext } from '../libs/PortfolioContext'
 import Draggable from 'react-draggable'
 import { GPUContext } from '../libs/GPUContext'
-import gsap from 'gsap'
 import { useGPU } from './lib/useGPU'
 import { useSounds } from './lib/useSounds'
 import { useRoutes } from './lib/useRoutes'
 import { useUI } from './lib/useUI'
 
+import gsap from 'gsap'
+import { usePreloader } from './lib/usePreloader'
+
 // Constants
 // const debug = true
 const debug = false
 const INITIAL_CAMERA_POSITION = [0.84, 1.5, 0] as const
-// const MENU_HOME_WAIT_TIMER_COOKIE = 18000
-const MENU_HOME_WAIT_TIMER_COOKIE = 0
-// const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
-const MENU_HOME_WAIT_TIMER_NOCOOKIE = 0
 
 let tl = gsap.timeline()
 
@@ -60,45 +60,18 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   type Y_VALUES_TYPE = Record<string, Record<string, number>>
 
   // State
-  const [shouldAmbientLightPlay, setAmbientLightPlay] = useState(false)
-  const [shouldPointLightPlay, setPointLightPlay] = useState(false)
   const [shouldJOISpeak, setShouldJOISpeak] = useState(false)
 
-  //Animations states
-  const [shouldMapDarkness, setShouldMapDarkness] = useState(false)
   // Camera settings
   const { cameraTarget, fov } = useCameraSettings()
 
   //JOI Speech settings
   const [JOILineCaption, setJOILineCaption] = useState<string | null>(null)
   const [isAudioPlaying, setIsAudioPlaying] = useState(false)
-  // Preloader settings
-  const [isPreLoaderFinished, setIsPreLoaderFinished] = useState(false)
-  // Animation settings
-  const [isCarReady, setIsCarReady] = useState(false)
-  // Calculate visitedCookie and initialTimer once outside the useEffect
-  const visitedCookie =
-    typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
-  const initialTimer = visitedCookie ? MENU_HOME_WAIT_TIMER_COOKIE : MENU_HOME_WAIT_TIMER_NOCOOKIE
 
+  // Calculate visitedCookie and initialTimer once outside the useEffect
   // Use useRef to preserve the value of newY over time
   const newYRef = useRef(0)
-
-  useEffect(() => {
-    const menuTimer = setTimeout(() => {
-      setIsPreLoaderFinished(true)
-    }, initialTimer)
-
-    const carTimer = setTimeout(() => {
-      setIsCarReady(true)
-    }, initialTimer / 2)
-
-    // Cleanup function to clear the timeouts if the component unmounts before the timeouts finish
-    return () => {
-      clearTimeout(menuTimer)
-      clearTimeout(carTimer)
-    }
-  }, []) // Empty dependency array so this effect only runs once on mount
 
   //Routes settings
   const [homePanelExpanded, setHomePanelExpanded] = useState(false)
@@ -260,23 +233,17 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     }
   }, []) // Empty dependency array so the effect only runs once
 
-  const [menuHomeWaitTimer, setMenuHomeWaitTimer] = useState(initialTimer)
-
-  useEffect(() => {
-    const menuTimer = setTimeout(() => {
-      setIsPreLoaderFinished(true)
-    }, menuHomeWaitTimer)
-
-    const carTimer = setTimeout(() => {
-      setIsCarReady(true)
-    }, menuHomeWaitTimer / 2)
-
-    // Cleanup function to clear the timeouts if the component unmounts before the timeouts finish
-    return () => {
-      clearTimeout(menuTimer)
-      clearTimeout(carTimer)
-    }
-  }, [menuHomeWaitTimer])
+  //Preloader hook
+  const {
+    shouldMapDarkness,
+    setShouldMapDarkness,
+    setAmbientLightPlay,
+    setPointLightPlay,
+    shouldAmbientLightPlay,
+    shouldPointLightPlay,
+    isPreLoaderFinished,
+    isCarReady
+  } = usePreloader()
 
   //UI handlers hook
   const {
