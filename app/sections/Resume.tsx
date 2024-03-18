@@ -33,7 +33,7 @@ const Resume = () => {
           }
           heading='Resume'
           button={
-            <div className='sm:block scale-[60%] h-[38px] lg:scale-[100%] sm:w-[100%] origin-top-right right-0 md:right-2 relative -mt-2 '>
+            <div className='sm:block scale-[60%] h-[38px] lg:scale-[100%] sm:w-[100%] origin-top-right right-0 sm:right-10 md:right-2 relative -mt-2 '>
               <ButtonDefault label='HARDCOPY' svgIcon={<HardcopySVG />} />
             </div>
           }

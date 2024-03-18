@@ -136,9 +136,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   }
 
   const htmlRef = useRef<HTMLDivElement>(null)
-  const [position, setPosition] = useState<[number, number, number]>([0.67, 1.31, 1.7])
+  const [position, setPosition] = useState<[number, number, number]>([0, 0, 0])
 
-  const positionRef = useRef<[number, number, number]>([0.685, 0, 1.7])
+  const positionRef = useRef<[number, number, number]>([0.68, 0, 1.7])
 
   let newY = 0
 
@@ -169,7 +169,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     BASE: {
       0: 1.22,
       1: 1.22,
-      2: 1.3, // Portfolio Item
+      2: 1.3,
       3: 1.22,
       4: 1.28,
       5: 1.22,
@@ -178,16 +178,48 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       8: 1.3 // Portfolio Item
     },
     SM: {
-      // Add the y values for the SM display size
+      0: 1.31,
+      1: 1.31,
+      2: 1.36,
+      3: 1.31,
+      4: 1.31,
+      5: 1.32,
+      6: 1.38, // Home Default
+      7: 1.36, // Home Expanded
+      8: 1.3 // Portfolio Item
     },
     MD: {
-      // Add the y values for the MD display size
+      0: 1.22,
+      1: 1.22,
+      2: 1.3,
+      3: 1.2,
+      4: 1.28,
+      5: 1.22,
+      6: 1.38, // Home Default
+      7: 1.3, // Home Expanded
+      8: 1.3 // Portfolio Item
     },
     LG: {
-      // Add the y values for the LG display size
+      0: 1.22,
+      1: 1.22,
+      2: 1.3,
+      3: 1.22,
+      4: 1.28,
+      5: 1.22,
+      6: 1.38, // Home Default
+      7: 1.3, // Home Expanded
+      8: 1.3 // Portfolio Item
     },
     XL: {
-      // Add the y values for the XL display size
+      0: 1.43,
+      1: 1.43,
+      2: 1.48,
+      3: 1.43,
+      4: 1.44,
+      5: 1.55,
+      6: 1.78, // Home Default
+      7: 1.6, // Home Expanded
+      8: 1.6 // Portfoio Item
     },
     '2XL': {
       0: 1.43,
@@ -378,9 +410,17 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
       console.log('Aspect ratio:', aspectRatio)
 
       if (aspectRatio < 0.25) {
-        setOffset(-0.06)
-      } else if (aspectRatio > 0.27) {
-        setOffset(0)
+        setOffset(-0.3)
+      } else if (aspectRatio > 0.27 && aspectRatio < 0.7) {
+        setOffset(-0.2)
+      } else if (aspectRatio > 0.7 && aspectRatio < 1.1) {
+        setOffset(-0.1)
+      } else if (aspectRatio > 1.1 && aspectRatio < 1.3) {
+        setOffset(0.01)
+      } else if (aspectRatio > 1.3 && aspectRatio < 1.5) {
+        setOffset(0.05)
+      } else if (aspectRatio > 1.5) {
+        setOffset(0.1)
       }
     }
 
@@ -515,10 +555,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                             onPointerUp={handleMouseUp}
                             className='flex flex-col-reverse h-screen p-4 relative translate-y-10 '
                           >
-                            <div className='left-1 scale-[54%] sm:scale-[62%] md:scale-[80%] lg:scale-90 2xl:scale-100 lg:w-[112%] 2xl:w-full origin-top-left min-w-[50em] '>
+                            <div className='left-1 scale-[54%] sm:scale-[54%] md:scale-[80%] lg:scale-90 2xl:scale-100 lg:w-[112%] 2xl:w-full origin-top-left min-w-[50em] '>
                               {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
                             </div>
-                            <div className='max-w-[26.5em] sm:max-w-[30.5em] md:max-w-[39em] lg:max-w-[70em] 2xl:max-w-[73em] '>
+                            <div className='max-w-[26.5em] sm:max-w-[26.5em] md:max-w-[39em] lg:max-w-[70em] 2xl:max-w-[73em] '>
                               {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                               {router.pathname === '/services' && <Services />}
                               {router.pathname.startsWith('/portfolio') && (

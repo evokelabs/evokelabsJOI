@@ -5,7 +5,7 @@ export const getFov = (width: number): number => {
     case width <= 640:
       return 85 // Mobile devices
     case width <= 768:
-      return 48 // Desktop Min
+      return 68 // Desktop Min
     case width <= 1024:
       return 48 // Desktop Min
     case width <= 1280:

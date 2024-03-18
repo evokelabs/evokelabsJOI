@@ -248,7 +248,7 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
   return (
     <>
       <div
-        className={`max-w-[26em] sm:max-w-[30em] md:max-w-[38em] lg:max-w-[69em] 2xl:max-w-[72em] w-full mb-4 mx-3.5 mr-2 group ${
+        className={`max-w-[26em] sm:max-w-[26em] md:max-w-[38em] lg:max-w-[69em] 2xl:max-w-[72em] w-full mb-4 mx-3.5 mr-2 group ${
           !isActive ? 'cursor-zoom-in' : 'cursor-zoom-out '
         }`}
         onMouseEnter={() => setIsHovered(true)}
