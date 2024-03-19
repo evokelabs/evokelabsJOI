@@ -4,7 +4,7 @@ import { Group, Mesh, Scene } from 'three'
 import { gsap } from 'gsap'
 import { useDracoLoader } from '@/app/libs/useDracoLoader'
 import { AnimationContext } from '@/app/libs/AnimationContext'
-import ShutterSoundControl from '@/app/audio/environment/ShuttersSoundControl'
+import ShutterSoundControl from '@/app/audio/ambienceSFX/ShuttersSoundControl'
 
 const CyberpunkMapLowPoly = () => {
   const { scene } = useThree()

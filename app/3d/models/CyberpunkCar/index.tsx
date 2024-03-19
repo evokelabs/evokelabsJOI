@@ -4,7 +4,7 @@ import { Object3D, Object3DEventMap } from 'three'
 import { useDracoLoader } from '@/app/libs/useDracoLoader'
 
 import CyberpunkCarAnimation from './controllers/CyberpunkCarAnimation'
-import CyberpunkCarSoundControl from '../../../audio/environment/CyberpunkCarSoundControl'
+import CyberpunkCarSoundControl from '../../../audio/ambienceSFX/CyberpunkCarSoundControl'
 
 import { CAR_OFFSET_X, CAR_OFFSET_Y, CAR_OFFSET_Z } from './constants'
 
