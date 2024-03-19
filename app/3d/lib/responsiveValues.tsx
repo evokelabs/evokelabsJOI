@@ -39,8 +39,8 @@ export const X_POSITION_VIEWPORT_RESPONSIVE: Record<string, number> = {
 }
 
 export const HTML_SCALE_RESPONSIVE: Record<string, number> = {
-  BASE: 0.032,
-  SM: 0.032,
+  BASE: 0.054,
+  SM: 0.051,
   MD: 0.038,
   LG: 0.033,
   XL: 0.035,
@@ -49,8 +49,8 @@ export const HTML_SCALE_RESPONSIVE: Record<string, number> = {
 }
 
 export const POSITION_REF_RESPONSIVE: Record<string, [number, number, number]> = {
-  BASE: [0.685, 1.4, 1.7],
-  SM: [0.68, 1.4, 1.7],
+  BASE: [0.58, 1.22, 1.9],
+  SM: [0.56, 1.3, 1.9],
   MD: [-0.04, 1.4, 1.9],
   LG: [-0.15, 1.4, 1.9],
   XL: [-0.1, 1.4, 1.9],
@@ -59,7 +59,7 @@ export const POSITION_REF_RESPONSIVE: Record<string, [number, number, number]> =
 }
 
 export const CAMERA_TARGET_RESPONSIVE: Record<string, number[]> = {
-  BASE: [0.83, 1.35, 2.1],
+  BASE: [0.83, 1.34, 2.1],
   SM: [0.82, 1.39, 2.1], //or [0, 1.35, 2.2]
   MD: [0.225, 1.39, 2.1],
   LG: [0.1, 1.39, 2.1],
