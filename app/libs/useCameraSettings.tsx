@@ -32,10 +32,5 @@ export const useCameraSettings = () => {
     }
   }, [])
 
-  // Log fov whenever it changes
-  useEffect(() => {
-    console.log('fov:', fov)
-  }, [fov])
-
   return { cameraTarget, fov }
 }

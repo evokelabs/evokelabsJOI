@@ -260,7 +260,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 </EffectComposer>
               ) : (
                 <EffectComposer disableNormalPass>
-                  <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={4} />
+                  <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={2} />
                   <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
                   <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
                   <Noise opacity={0.7} premultiply blendFunction={28} />
