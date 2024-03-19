@@ -24,14 +24,14 @@ export const OFFSET_Y_VALUES: Y_VALUES_TYPE = {
     8: 1.3 // Portfolio Item
   },
   MD: {
-    0: 1.34, // Services
-    1: 1.34, // Portfolio
-    2: 1.38, // History
-    3: 1.34, //Resume
-    4: 1.33, //JOI Special
+    0: 1.4, // Services
+    1: 1.4, // Portfolio
+    2: 1.4, // History
+    3: 1.4, //Resume
+    4: 1.4, //JOI Special
     5: 1.4, // Fix a booking
-    6: 1.58, // Home Default
-    7: 1.45, // Home Expanded
+    6: 1.4, // Home Default
+    7: 1.4, // Home Expanded
     8: 1.35 // Portfolio Item
   },
   LG: {
@@ -123,7 +123,7 @@ export const X_POSITION_VIEWPORT_RESPONSIVE: Record<string, number> = {
 export const HTML_SCALE_RESPONSIVE: Record<string, number> = {
   BASE: 0.032,
   SM: 0.032,
-  MD: 0.032,
+  MD: 0.038,
   LG: 0.033,
   XL: 0.035,
   '2XL': 0.031,
@@ -133,7 +133,7 @@ export const HTML_SCALE_RESPONSIVE: Record<string, number> = {
 export const POSITION_REF_RESPONSIVE: Record<string, [number, number, number]> = {
   BASE: [0.685, 0, 1.7],
   SM: [0.68, 0, 1.7],
-  MD: [-0.06, 0, 1.9],
+  MD: [-0.04, 0, 1.9],
   LG: [-0.15, 0, 1.9],
   XL: [-0.1, 0, 1.9],
   '2XL': [-0.0, 0, 1.9],
