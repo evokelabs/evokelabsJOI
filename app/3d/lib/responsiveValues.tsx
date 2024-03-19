@@ -1,85 +1,3 @@
-type Y_VALUES_TYPE = Record<string, Record<string, number>>
-
-export const OFFSET_Y_VALUES: Y_VALUES_TYPE = {
-  BASE: {
-    0: 1.28, // Services
-    1: 1.28, // Portfolio
-    2: 1.4, // History
-    3: 1.28, //Resume
-    4: 1.3, //JOI Special
-    5: 1.28, // Fix a booking
-    6: 1.38, // Home Default
-    7: 1.3, // Home Expanded
-    8: 1.4 // Portfolio Item
-  },
-  SM: {
-    0: 1.31, // Services
-    1: 1.31, // Portfolio
-    2: 1.36, // History
-    3: 1.31, //Resume
-    4: 1.36, //JOI Special
-    5: 1.31, // Fix a booking
-    6: 1.38, // Home Default
-    7: 1.36, // Home Expanded
-    8: 1.3 // Portfolio Item
-  },
-  MD: {
-    0: 1.4, // Services
-    1: 1.4, // Portfolio
-    2: 1.4, // History
-    3: 1.4, //Resume
-    4: 1.4, //JOI Special
-    5: 1.4, // Fix a booking
-    6: 1.4, // Home Default
-    7: 1.4, // Home Expanded
-    8: 1.35 // Portfolio Item
-  },
-  LG: {
-    0: 1.38, // Services
-    1: 1.38, // Portfolio
-    2: 1.38, // History
-    3: 1.38, //Resume
-    4: 1.38, //JOI Special
-    5: 1.37, // Fix a booking
-    6: 1.39, // Home Default
-    7: 1.39, // Home Expanded
-    8: 1.36 // Portfolio Item
-  },
-  XL: {
-    0: 1.39, // Services
-    1: 1.39, // Portfolio
-    2: 1.4, // History
-    3: 1.39, //Resume
-    4: 1.39, //JOI Special
-    5: 1.38, // Fix a booking
-    6: 1.4, // Home Default
-    7: 1.4, // Home Expanded
-    8: 1.37 // Portfolio Item
-  },
-  '2XL': {
-    0: 1.39, // Services
-    1: 1.39, // Portfolio
-    2: 1.4, // History
-    3: 1.39, //Resume
-    4: 1.39, //JOI Special
-    5: 1.4, // Fix a booking
-    6: 1.42, // Home Default
-    7: 1.42, // Home Expanded
-    8: 1.39 // Portfolio Item
-  },
-  '3XL': {
-    0: 1.38, // Services
-    1: 1.38, // Portfolio
-    2: 1.375, // History
-    3: 1.38, //Resume
-    4: 1.38, //JOI Special
-    5: 1.4, // Fix a booking
-    6: 1.4, // Home Default
-    7: 1.4, // Home Expanded
-    8: 1.38 // Portfolio Item
-  }
-}
-
 export const CAMERA_X_OFFSET_RESPONSIVE: Record<string, number> = {
   BASE: 2.68,
   SM: 2.73,
@@ -131,13 +49,13 @@ export const HTML_SCALE_RESPONSIVE: Record<string, number> = {
 }
 
 export const POSITION_REF_RESPONSIVE: Record<string, [number, number, number]> = {
-  BASE: [0.685, 0, 1.7],
-  SM: [0.68, 0, 1.7],
-  MD: [-0.04, 0, 1.9],
-  LG: [-0.15, 0, 1.9],
-  XL: [-0.1, 0, 1.9],
-  '2XL': [-0.0, 0, 1.9],
-  '3XL': [-0.065, 0, 1.9]
+  BASE: [0.685, 1.4, 1.7],
+  SM: [0.68, 1.4, 1.7],
+  MD: [-0.04, 1.4, 1.9],
+  LG: [-0.15, 1.4, 1.9],
+  XL: [-0.1, 1.4, 1.9],
+  '2XL': [-0.0, 1.4, 1.9],
+  '3XL': [-0.065, 1.4, 1.9]
 }
 
 export const CAMERA_TARGET_RESPONSIVE: Record<string, number[]> = {

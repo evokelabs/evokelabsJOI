@@ -1,21 +1,18 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import gsap from 'gsap'
 import { useCameraSettings } from '@/app/libs/useCameraSettings'
-import { HTML_SCALE_RESPONSIVE, OFFSET_Y_VALUES, POSITION_REF_RESPONSIVE } from './responsiveValues'
+import { HTML_SCALE_RESPONSIVE, POSITION_REF_RESPONSIVE } from './responsiveValues'
 import { LG_BREAKPOINT, MD_BREAKPOINT, SM_BREAKPOINT, XL_BREAKPOINT, _2XL_BREAKPOINT, _3XL_BREAKPOINT } from '@/app/libs/breakPoints'
 import { useScreenSize } from '@/app/libs/useScreenSize'
 
 export const useResponsive = (currentRouteSelection: number | null, currentPortfolioSelection: string | null) => {
-  const tl = useRef(gsap.timeline())
   const [homePanelExpanded, setHomePanelExpanded] = useState(false)
   const screenSize = useScreenSize()
   const initialPosition = POSITION_REF_RESPONSIVE[screenSize]
   const [position, setPosition] = useState<[number, number, number]>(initialPosition)
   const positionRef = useRef<[number, number, number]>(initialPosition)
   const htmlRef = useRef<HTMLDivElement>(null)
-  const newYRef = useRef(0)
   const { cameraTarget, fov } = useCameraSettings()
-  const [offset, setOffset] = useState(0)
   const htmlScale = HTML_SCALE_RESPONSIVE[screenSize]
 
   useEffect(() => {
@@ -23,56 +20,6 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
     setPosition(newPosition)
     positionRef.current = newPosition
   }, [screenSize])
-
-  useEffect(() => {
-    const logAspectRatioAndUpdateOffset = () => {
-      let newOffset = 0
-
-      setOffset(newOffset)
-    }
-
-    logAspectRatioAndUpdateOffset()
-    window.addEventListener('resize', logAspectRatioAndUpdateOffset)
-
-    return () => {
-      window.removeEventListener('resize', logAspectRatioAndUpdateOffset)
-    }
-  }, [screenSize])
-
-  const moveHTMLPanel = useCallback(
-    (newY: number) => {
-      tl.current.kill()
-      const tempObj = { y: position[1] }
-      tl.current = gsap.timeline()
-
-      tl.current.to(tempObj, {
-        duration: 0.35,
-        ease: 'circ.out',
-        y: newY,
-        onUpdate: () => {
-          const newPosition: [number, number, number] = [positionRef.current[0], tempObj.y, positionRef.current[2]]
-          positionRef.current = newPosition
-          setPosition(newPosition)
-        }
-      })
-    },
-    [position]
-  )
-
-  useEffect(() => {
-    if (homePanelExpanded) {
-      newYRef.current = OFFSET_Y_VALUES[screenSize]['7']
-    } else if (currentRouteSelection === 1 && currentPortfolioSelection !== null) {
-      newYRef.current = OFFSET_Y_VALUES[screenSize]['8']
-    } else if (currentRouteSelection !== null) {
-      newYRef.current = OFFSET_Y_VALUES[screenSize][currentRouteSelection.toString()]
-    } else {
-      newYRef.current = OFFSET_Y_VALUES[screenSize]['6']
-    }
-
-    const newYWithOffset = newYRef.current + offset
-    moveHTMLPanel(newYWithOffset)
-  }, [currentRouteSelection, currentPortfolioSelection, homePanelExpanded, offset, screenSize])
 
   return {
     htmlRef,
