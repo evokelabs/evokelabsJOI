@@ -301,7 +301,7 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
           </div>
         </div>
 
-        <div className='flex flex-row w-full h-3.5 relative '>
+        <div className='flex flex-row w-full h-3.5 relative  '>
           <div
             className={`bg-grid-blue w-full border-red border-b-2 border-l-2 border-opacity-60 mr-3 transition-colors duration-150  ${bottomBarBGColor}`}
           ></div>
