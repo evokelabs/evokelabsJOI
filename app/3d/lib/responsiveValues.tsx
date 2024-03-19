@@ -68,19 +68,17 @@ export const OFFSET_Y_VALUES: Y_VALUES_TYPE = {
     8: 1.5 // Portfolio Item
   },
   '3XL': {
-    0: 1.7, // Services
-    1: 1.7, // Portfolio
-    2: 1.74, // History
-    3: 1.7, //Resume
-    4: 1.72, //JOI Special
-    5: 1.8, // Fix a booking
-    6: 1.5, // Home Default
-    7: 1.85, // Home Expanded
-    8: 1.74 // Portfolio Item
+    0: 1.38, // Services
+    1: 1.38, // Portfolio
+    2: 1.375, // History
+    3: 1.38, //Resume
+    4: 1.38, //JOI Special
+    5: 1.4, // Fix a booking
+    6: 1.4, // Home Default
+    7: 1.4, // Home Expanded
+    8: 1.38 // Portfolio Item
   }
 }
-
-type AspectRatioRange = { min: number; max: number; offset: number }
 
 export const CAMERA_X_OFFSET_RESPONSIVE: Record<string, number> = {
   BASE: 2.68,
@@ -129,7 +127,7 @@ export const HTML_SCALE_RESPONSIVE: Record<string, number> = {
   LG: 0.041,
   XL: 0.038,
   '2XL': 0.0345,
-  '3XL': 0.05
+  '3XL': 0.031
 }
 
 export const POSITION_REF_RESPONSIVE: Record<string, [number, number, number]> = {
@@ -139,7 +137,7 @@ export const POSITION_REF_RESPONSIVE: Record<string, [number, number, number]> =
   LG: [-0.3, 0, 1.9],
   XL: [-0.1, 0, 1.9],
   '2XL': [0, 0, 1.9],
-  '3XL': [0, 0, 2]
+  '3XL': [-0.065, 0, 1.9]
 }
 
 export const CAMERA_TARGET_RESPONSIVE: Record<string, number[]> = {

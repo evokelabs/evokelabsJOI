@@ -181,7 +181,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                     ref={htmlRef}
                     scale={htmlScale}
                     prepend
-                    distanceFactor={0}
+                    distanceFactor={10}
                     transform
                     className='scale-x-[-1]'
                     position={position}
