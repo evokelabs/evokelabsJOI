@@ -35,15 +35,15 @@ export const OFFSET_Y_VALUES: Y_VALUES_TYPE = {
     8: 1.35 // Portfolio Item
   },
   LG: {
-    0: 1.34, // Services
-    1: 1.34, // Portfolio
+    0: 1.38, // Services
+    1: 1.38, // Portfolio
     2: 1.38, // History
     3: 1.38, //Resume
-    4: 1.33, //JOI Special
-    5: 1.4, // Fix a booking
-    6: 1.58, // Home Default
-    7: 1.45, // Home Expanded
-    8: 1.35 // Portfolio Item
+    4: 1.38, //JOI Special
+    5: 1.37, // Fix a booking
+    6: 1.39, // Home Default
+    7: 1.39, // Home Expanded
+    8: 1.36 // Portfolio Item
   },
   XL: {
     0: 1.39, // Services
@@ -124,7 +124,7 @@ export const HTML_SCALE_RESPONSIVE: Record<string, number> = {
   BASE: 0.032,
   SM: 0.032,
   MD: 0.032,
-  LG: 0.041,
+  LG: 0.033,
   XL: 0.035,
   '2XL': 0.031,
   '3XL': 0.031
@@ -134,7 +134,7 @@ export const POSITION_REF_RESPONSIVE: Record<string, [number, number, number]> =
   BASE: [0.685, 0, 1.7],
   SM: [0.68, 0, 1.7],
   MD: [-0.06, 0, 1.9],
-  LG: [-0.3, 0, 1.9],
+  LG: [-0.15, 0, 1.9],
   XL: [-0.1, 0, 1.9],
   '2XL': [-0.0, 0, 1.9],
   '3XL': [-0.065, 0, 1.9]
@@ -144,7 +144,7 @@ export const CAMERA_TARGET_RESPONSIVE: Record<string, number[]> = {
   BASE: [0.83, 1.35, 2.1],
   SM: [0.82, 1.39, 2.1], //or [0, 1.35, 2.2]
   MD: [0.225, 1.39, 2.1],
-  LG: [0.07, 1.39, 2.1],
+  LG: [0.1, 1.39, 2.1],
   XL: [0.15, 1.39, 2.1],
   '2XL': [0.2, 1.39, 2.1],
   '3XL': [-0.05, 1.39, 2.1]

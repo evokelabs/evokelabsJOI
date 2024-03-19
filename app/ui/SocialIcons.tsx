@@ -8,7 +8,7 @@ import Link from 'next/link'
 
 const SocialIcons = () => {
   return (
-    <div className='absolute top-0 right-0 pt-3 2xl:pt-5 xl:pr-1 flex flex-row z-[10000000000000000] 2xl:scale-100 md:scale-75 scale-50 origin-top-right'>
+    <div className='absolute top-0 right-0 pt-3 2xl:pt-5 xl:pr-1 flex flex-row z-[10000000000000000] 2xl:scale-100 lg:scale-[70%] md:scale-65 scale-50 origin-top-right'>
       <Link href='https://github.com/evokelabs' target='_blank'>
         <ButtonSocial SVGIcon={props => <GithubSVG {...props} />} />
       </Link>
