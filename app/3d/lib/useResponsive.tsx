@@ -34,18 +34,18 @@ export const useResponsive = (currentRouteSelection: number | null, currentPortf
 }
 
 export const getFov = (width: number): number => {
-  const isPortrait = window.innerHeight > window.innerWidth
+  const isPortrait = window.innerHeight * 1.5 > window.innerWidth
   switch (true) {
     case width <= SM_BREAKPOINT:
-      return isPortrait ? 90 : 85 // Mobile devices
+      return isPortrait ? 120 : 85 // Mobile devices
     case width <= MD_BREAKPOINT:
-      return isPortrait ? 70 : 68 // Desktop Min
+      return isPortrait ? 120 : 68 // Desktop Min
     case width <= LG_BREAKPOINT:
-      return isPortrait ? 40 : 35 // Desktop Min
+      return isPortrait ? 75 : 35 // Desktop Min
     case width <= XL_BREAKPOINT:
-      return isPortrait ? 35 : 30 // Desktop Med
+      return isPortrait ? 50 : 30 // Desktop Med
     case width <= _2XL_BREAKPOINT:
-      return isPortrait ? 34 : 29 // Desktop 2xl
+      return isPortrait ? 50 : 29 // Desktop 2xl
     case width <= _3XL_BREAKPOINT:
       return isPortrait ? 33 : 26 // Desktop 3xl
     default:
