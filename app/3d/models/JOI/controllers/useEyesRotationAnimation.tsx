@@ -39,8 +39,8 @@ export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) 
           target = eyeToCamera.applyMatrix4(rotationMatrix).add(rightEye.current.mesh.position)
         }
 
-        rightEye.current.mesh.lookAt(target)
-        leftEye.current.mesh.lookAt(target)
+        // rightEye.current.mesh.lookAt(target)
+        // leftEye.current.mesh.lookAt(target)
       } else {
         // Reset the eyes to their initial rotation
         if (rightEye.current.initialRotation && leftEye.current.initialRotation) {
@@ -55,6 +55,9 @@ export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) 
 
   useEffect(() => {
     animate()
+    /**
+     * The ID of the interval used for the eyes rotation animation.
+     */
     const intervalId = setInterval(() => {
       // Every TIME_BETWEEN_EYE_MOVEMENTS milliseconds, there's a 50% chance the eyes will stop looking at the camera
       if (Math.random() < 0.5) {
