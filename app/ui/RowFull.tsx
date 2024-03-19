@@ -27,11 +27,11 @@ const RowFull = ({
             <div className='absolute top-2.5'>{svgIcon}</div>
           </div>
           <div className={'w-full relative p-3 md:p-0 lg:p-5 lg:pl-5 md:text-left -mt-3 md:mt-0 text-center '}>
-            <h1 className='font-rajdhani font-semibold text-teal-blur text-[1.25rem] lg:text-[1.75rem] leading-none pb-1 md:pb-0'>
+            <h1 className='font-rajdhani font-semibold text-teal-blur text-[1.25rem] lg:text-[1.9rem] leading-none pb-1 md:pb-0'>
               {heading}
             </h1>
-            <h2 className='font-rajdhani font-semibold text-red-blur text-[0.95rem] lg:text-[1.25rem] leading-none '>{subHeading}</h2>
-            <p className='font-rajdhani font-medium text-red-blur text-[0.8rem] leading-4  lg:text-[1.125rem] lg:leading-5 mt-1'>
+            <h2 className='font-rajdhani font-bold text-red-blur text-[0.95rem] lg:text-[1.4rem] leading-none '>{subHeading}</h2>
+            <p className='font-rajdhani font-medium text-red-blur text-[0.8rem] leading-4  lg:text-[1.225rem] lg:leading-5 mt-1'>
               {paragraph}
             </p>
           </div>
