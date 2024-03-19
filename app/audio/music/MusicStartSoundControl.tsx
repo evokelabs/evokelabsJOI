@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
-import { Howl } from 'howler'
+import { useContext, useEffect, useState, useRef } from 'react'
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
 
 const AUDIO_SOURCE = '/sounds/musicStart.mp3'
@@ -10,41 +9,39 @@ const LOOP = false
 const MusicStartSoundControl = () => {
   const { muteMusic } = useContext(SoundControlContext)
   const [hasPlayed, setHasPlayed] = useState(false)
-  const [sound, setSound] = useState<Howl | null>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
-    const howl = new Howl({
-      html5: true,
-      src: [AUDIO_SOURCE],
-      loop: LOOP,
-      volume: muteMusic ? 0 : VOLUME_SET, // Start with the desired volume
-      onload: () => {
-        // Define a function to play the audio
-        const playAudio = () => {
-          // Start playing the audio
-          howl.play()
-          setHasPlayed(true) // Set hasPlayed to true after the audio has been played
-        }
+    const audio = new Audio(AUDIO_SOURCE)
+    audioRef.current = audio
+    audio.loop = LOOP
+    audio.volume = muteMusic ? 0 : VOLUME_SET // Start with the desired volume
 
-        setTimeout(playAudio, DELAY)
-      }
-    })
+    // Define a function to play the audio
+    const playAudio = () => {
+      // Start playing the audio
+      audio.play()
+      setHasPlayed(true) // Set hasPlayed to true after the audio has been played
+    }
 
-    setSound(howl)
+    setTimeout(playAudio, DELAY)
 
-    // Clean up the Howl instance when the component unmounts
+    // Clean up the Audio instance when the component unmounts
     return () => {
-      howl.unload()
+      audio.pause()
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Adjust the volume when muteMusic changes
   useEffect(() => {
-    if (hasPlayed && sound) {
-      sound.volume(muteMusic ? 0 : VOLUME_SET)
+    if (hasPlayed && audioRef.current) {
+      audioRef.current.volume = muteMusic ? 0 : VOLUME_SET
     }
-  }, [muteMusic, hasPlayed, sound])
+  }, [muteMusic, hasPlayed])
 
   return null
 }

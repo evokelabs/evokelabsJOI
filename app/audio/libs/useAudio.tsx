@@ -1,63 +1,50 @@
 import { useEffect, useRef } from 'react'
-import { Howl } from 'howler'
 
 function useAudio(audioSource: string, volume: number, delay: number, transitionDuration: number, loop: boolean) {
-  const sound = useRef<Howl | null>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
-    sound.current = new Howl({
-      src: [audioSource],
-      loop: loop,
-      volume: 0.001, // Start with a small positive volume
-      onload: () => {
-        // Define a function to play the audio
-        const playAudio = () => {
-          if (sound.current) {
-            // Start the volume transition from the current volume
-            const startVolume = sound.current.volume()
+    const audio = new Audio(audioSource)
+    audioRef.current = audio
+    audio.volume = 0.001 // Start with a small positive volume
+    audio.loop = loop
 
-            // Gradually change the volume to the desired level over the transition duration
-            const targetVolume = volume
-            sound.current.fade(startVolume, targetVolume, transitionDuration)
-
-            // Start playing the audio
-            sound.current.play()
-          }
-        }
-        setTimeout(playAudio, delay)
-      }
-    })
-
-    // Clean up the Howl instance when the component unmounts
-    return () => {
-      if (sound.current) {
-        sound.current.unload()
+    const playAudio = () => {
+      if (audioRef.current) {
+        audioRef.current.play()
       }
     }
-  }, [audioSource, delay, loop, transitionDuration, volume]) // Add volume as a dependency
 
-  // Define a function to update the volume
+    setTimeout(playAudio, delay)
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current.currentTime = 0
+      }
+    }
+  }, [audioSource, delay, loop])
+
   const updateVolume = () => {
-    if (sound.current) {
-      // Start the volume transition from the current volume
-      const startVolume = sound.current.volume()
-
-      // Gradually change the volume to the desired level over the transition duration
-      const targetVolume = volume
-      sound.current.fade(startVolume, targetVolume, transitionDuration)
+    if (audioRef.current) {
+      audioRef.current.volume = volume
     }
   }
 
   const play = () => {
-    sound.current?.play()
+    if (audioRef.current) {
+      audioRef.current.play()
+    }
   }
 
   const stop = () => {
-    sound.current?.stop()
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current.currentTime = 0
+    }
   }
 
-  // Call updateVolume when the volume prop changes
-  useEffect(updateVolume, [transitionDuration, volume])
+  useEffect(updateVolume, [volume])
 
   return { play, stop }
 }

@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
-import { Howl } from 'howler'
+import { useContext, useEffect, useState, useRef } from 'react'
 
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
@@ -8,8 +7,6 @@ const AUDIO_SOURCES = JOISpeech.preloader.map(item => item.filepath)
 
 const VOLUME = 0.55
 const DELAY = 500
-const TRANSITION_DURATION = 150
-const LOOP = false
 const INTERACTION_TIMEOUT = 10000 // 10 seconds
 
 const JOIPreloaderSpeech = () => {
@@ -17,6 +14,8 @@ const JOIPreloaderSpeech = () => {
   const [hasUserInteracted, setHasUserInteracted] = useState(false)
   const [hasPlayed, setHasPlayed] = useState(false)
   const [interactionTimeoutReached, setInteractionTimeoutReached] = useState(false)
+
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
     // Set up event listeners for user interaction
@@ -50,31 +49,25 @@ const JOIPreloaderSpeech = () => {
     const randomIndex = Math.floor(Math.random() * AUDIO_SOURCES.length)
     const audioSource = AUDIO_SOURCES[randomIndex]
 
-    const sound = new Howl({
-      html5: true,
-      src: [audioSource],
-      loop: LOOP,
-      volume: 0.001, // Start with a small positive volume
-      onload: () => {
-        // Define a function to play the audio
-        const playAudio = () => {
-          // Gradually increase the volume to the desired level over the transition duration
-          const targetVolume = muteJOI ? 0.001 : VOLUME
-          sound.fade(sound.volume(), targetVolume, TRANSITION_DURATION)
+    // Create a new Audio object and set its source
+    const audio = new Audio(audioSource)
+    audioRef.current = audio
 
-          // Start playing the audio
-          sound.play()
+    // Set the initial volume
+    audio.volume = muteJOI ? 0.001 : VOLUME
 
-          setHasPlayed(true) // Set hasPlayed to true after the audio has been played
-        }
+    // Define a function to play the audio
+    const playAudio = () => {
+      audio.play()
+      setHasPlayed(true) // Set hasPlayed to true after the audio has been played
+    }
 
-        setTimeout(playAudio, DELAY)
-      }
-    })
+    setTimeout(playAudio, DELAY)
 
-    // Clean up the Howl instance when the component unmounts
+    // Clean up the Audio object when the component unmounts
     return () => {
-      sound.unload()
+      audio.pause()
+      audio.currentTime = 0
     }
   }, [hasPlayed, hasUserInteracted, muteJOI, interactionTimeoutReached])
 
