@@ -181,7 +181,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                     ref={htmlRef}
                     scale={htmlScale}
                     prepend
-                    distanceFactor={10}
+                    distanceFactor={0}
                     transform
                     className='scale-x-[-1]'
                     position={position}
@@ -211,7 +211,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                           <div
                             onPointerDown={handleMouseDown}
                             onPointerUp={handleMouseUp}
-                            className='flex flex-col-reverse h-screen p-4 relative translate-y-10 '
+                            className='flex flex-col-reverse p-4 relative translate-y-10 '
                           >
                             <div className='left-1 scale-[54%] sm:scale-[54%] md:scale-[100%] md:w-full origin-top-left min-w-[50em] md:min-w-[74em] '>
                               {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
