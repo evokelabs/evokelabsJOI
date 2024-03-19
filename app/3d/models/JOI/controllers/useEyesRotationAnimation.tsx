@@ -39,8 +39,9 @@ export const useEyesRotationAnimation = (model: Object3D, camera: THREE.Camera) 
           target = eyeToCamera.applyMatrix4(rotationMatrix).add(rightEye.current.mesh.position)
         }
 
-        // rightEye.current.mesh.lookAt(target)
-        // leftEye.current.mesh.lookAt(target)
+        rightEye.current.mesh.lookAt(target)
+
+        leftEye.current.mesh.lookAt(target)
       } else {
         // Reset the eyes to their initial rotation
         if (rightEye.current.initialRotation && leftEye.current.initialRotation) {

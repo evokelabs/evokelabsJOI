@@ -54,7 +54,7 @@ import { useResponsive } from './lib/useResponsive'
 import { ROUTE_CONFIG } from '../libs/ROUTE_CONFIG'
 
 // Constants
-const INITIAL_CAMERA_POSITION = [0.84, 1.5, 0] as const
+const INITIAL_CAMERA_POSITION = [-0.3, 1.5, -1] as const
 
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // State
