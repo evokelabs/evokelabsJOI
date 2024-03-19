@@ -46,15 +46,15 @@ export const OFFSET_Y_VALUES: Y_VALUES_TYPE = {
     8: 1.35 // Portfolio Item
   },
   XL: {
-    0: 1.41, // Services
-    1: 1.41, // Portfolio
-    2: 1.49, // History
-    3: 1.41, //Resume
-    4: 1.425, //JOI Special
-    5: 1.51, // Fix a booking
-    6: 1.74, // Home Default
-    7: 1.2, // Home Expanded
-    8: 1.2 // Portfolio Item
+    0: 1.39, // Services
+    1: 1.39, // Portfolio
+    2: 1.4, // History
+    3: 1.39, //Resume
+    4: 1.39, //JOI Special
+    5: 1.38, // Fix a booking
+    6: 1.4, // Home Default
+    7: 1.4, // Home Expanded
+    8: 1.37 // Portfolio Item
   },
   '2XL': {
     0: 1.39, // Services
@@ -125,7 +125,7 @@ export const HTML_SCALE_RESPONSIVE: Record<string, number> = {
   SM: 0.032,
   MD: 0.032,
   LG: 0.041,
-  XL: 0.038,
+  XL: 0.035,
   '2XL': 0.031,
   '3XL': 0.031
 }
