@@ -10,11 +10,11 @@ export const AudioContext = createContext<AudioControls>({
   loopAudio: (audioBuffer: AudioBuffer, theme: string) => {},
   muteTheme: (theme: string) => {},
   unmuteTheme: (theme: string) => {},
-  muteMusic: false,
-  muteSFX: false,
-  muteRain: false,
-  muteSpeech: false,
-  muteAll: false,
+  muteMusic: true,
+  muteSFX: true,
+  muteRain: true,
+  muteSpeech: true,
+  muteAll: true,
   setMuteMusic: (value: boolean) => {},
   setMuteSFX: (value: boolean) => {},
   setMuteRain: (value: boolean) => {},
@@ -23,11 +23,11 @@ export const AudioContext = createContext<AudioControls>({
 })
 
 export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
-  const [muteMusic, setMuteMusic] = useState(false)
-  const [muteSFX, setMuteSFX] = useState(false)
-  const [muteRain, setMuteRain] = useState(false)
-  const [muteSpeech, setMuteSpeech] = useState(false)
-  const [muteAll, setMuteAll] = useState(false)
+  const [muteMusic, setMuteMusic] = useState(true)
+  const [muteSFX, setMuteSFX] = useState(true)
+  const [muteRain, setMuteRain] = useState(true)
+  const [muteSpeech, setMuteSpeech] = useState(true)
+  const [muteAll, setMuteAll] = useState(true)
 
   const muteTheme = (theme: string) => {
     console.log('mute theme called', theme)
@@ -72,7 +72,24 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
   }
 
   useEffect(() => {
-    startUpAudio()
+    const enableAudio = () => {
+      setMuteAll(false)
+      setMuteMusic(false)
+      setMuteSFX(false)
+      setMuteRain(false)
+      setMuteSpeech(false)
+      window.removeEventListener('click', enableAudio)
+      window.removeEventListener('touchstart', enableAudio)
+      startUpAudio()
+    }
+
+    window.addEventListener('click', enableAudio)
+    window.addEventListener('touchstart', enableAudio)
+
+    return () => {
+      window.removeEventListener('click', enableAudio)
+      window.removeEventListener('touchstart', enableAudio)
+    }
   }, [])
 
   return (
