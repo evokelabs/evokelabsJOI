@@ -4,12 +4,15 @@ import { Group, Mesh, Scene } from 'three'
 import { gsap } from 'gsap'
 import { useDracoLoader } from '@/app/libs/useDracoLoader'
 import { AnimationContext } from '@/app/libs/AnimationContext'
+import ShutterSoundControl from '@/app/audio/shuttersSoundControl'
 
-const CyberpunkMapLowPoly = () => {
+const CyberpunkMapLowPoly = ({ muteSFX }: { muteSFX: boolean }) => {
   const { scene } = useThree()
   const gltfLoader = useRef(useDracoLoader()).current
   const { setPointLightPlay, setAmbientLightPlay, shouldMapDarkness } = useContext(AnimationContext)
   // Controls shutter audio
+  const [playShutterAudio, setPlayShutterAudio] = useState(false)
+  const [shutterAudioVolume, setShutterAudioVolume] = useState(0.45)
   const meshRef = useRef<Group>()
   const [modelLoaded, setModelLoaded] = useState(false)
 
@@ -21,13 +24,16 @@ const CyberpunkMapLowPoly = () => {
       delay: 6,
       ease: 'linear',
       onStart: () => {
+        setPlayShutterAudio(true)
         setAmbientLightPlay(true)
 
         gsap.delayedCall(3, () => {
           setPointLightPlay(true)
         })
       },
-      onComplete: () => {}
+      onComplete: () => {
+        setPlayShutterAudio(false)
+      }
     })
   }
 
@@ -51,6 +57,9 @@ const CyberpunkMapLowPoly = () => {
       duration: duration,
       ease: 'power1.out',
       onStart: () => {
+        if (!playShutterAudio) {
+          setShutterAudioVolume(0.2)
+        }
         isAnimatingRef.current = true
         setPointLightPlay(pointLightState)
       },
@@ -116,7 +125,8 @@ const CyberpunkMapLowPoly = () => {
       })
     }
   }, [scene, gltfLoader])
-  return null
+
+  return playShutterAudio ? <ShutterSoundControl volume={shutterAudioVolume} delay={0} transitionDuration={0} loop={false} muteSFX={muteSFX}/> : null
 }
 
 export default CyberpunkMapLowPoly
