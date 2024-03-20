@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 
 export const usePreloader = () => {
-  const MENU_HOME_WAIT_TIMER_COOKIE = 0
-  const MENU_HOME_WAIT_TIMER_NOCOOKIE = 0
+  const MENU_HOME_WAIT_TIMER_COOKIE = 18000
+  const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
 
   const visitedCookie =
     typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
