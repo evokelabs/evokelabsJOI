@@ -217,7 +217,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
 
                 <Lights />
-                {isCarReady && <CyberpunkCar />}
+                {isCarReady && <CyberpunkCar muteSFX={muteSFX} />}
                 <WideMonitor />
                 {!lowGPU && <DeskItems />}
                 {lowGPU ? <CyberpunkMapLowPoly /> : <CyberpunkMap />}

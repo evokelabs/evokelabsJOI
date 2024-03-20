@@ -6,14 +6,15 @@ import { useDracoLoader } from '@/app/libs/useDracoLoader'
 import CyberpunkCarAnimation from './controllers/CyberpunkCarAnimation'
 
 import { CAR_OFFSET_X, CAR_OFFSET_Y, CAR_OFFSET_Z } from './constants'
+import CyberpunkCarSoundControl from '@/app/audio/cyberpunkCarSoundControl'
 
 export type CyberpunkRefType = {
   carRef: MutableRefObject<THREE.Mesh | THREE.Object3D | null>
 }
 
-const CyberpunkCar = () => {
+const CyberpunkCar = ({ muteSFX }: { muteSFX: boolean }) => {
   const { scene } = useThree()
-  const carRef = useRef<Object3D | null>(null)
+  const carRef = useRef<THREE.Mesh | THREE.Object3D | null>(null)
   const [isCarLoaded, setCarLoaded] = useState(false)
   const gltfRef = useRef<{ scene: Object3D<Object3DEventMap> } | null>(null)
 
@@ -53,7 +54,12 @@ const CyberpunkCar = () => {
     }
   }, [scene, loadModel])
 
-  return <>{isCarLoaded && <CyberpunkCarAnimation carRef={carRef} />}</>
+  return (
+    <>
+      {isCarLoaded && <CyberpunkCarAnimation carRef={carRef} />}
+      {isCarLoaded && <CyberpunkCarSoundControl carRef={{ carRef }} muteSFX={muteSFX} />}
+    </>
+  )
 }
 
 export default CyberpunkCar
