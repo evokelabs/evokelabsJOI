@@ -8,6 +8,8 @@ import { RoutesContext } from '../libs/RoutesContext'
 import { pauseAudio, playAudio } from '../audio/audioMaster'
 import { sfx } from '../audio/audioFiles'
 
+import { useAudio } from '../audio/audioContext'
+
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
     <svg width='22' height='14' viewBox='0 0 22 14' fill='none'>
@@ -38,7 +40,7 @@ const shuffle = (array: string[]) => {
   return array
 }
 
-const Home = () => {
+const Home = ({ muteSFX }: { muteSFX: boolean }) => {
   const TIMER = 5000
   const TYPE_ON_SPEED = 70
   const TYPE_OFF_SPEED = 35
@@ -72,10 +74,7 @@ const Home = () => {
   const [isTypingSound, setIsTypingSound] = useState(false)
   const [isScrabbleSound, setIsScrabbleSound] = useState(false)
 
-  const handleEndSound = useCallback(() => {
-    setIsTypingSound(false)
-  }, [])
-
+  //
   useEffect(() => {
     if (divRef.current) {
       gsap.to(divRef.current, {
@@ -246,20 +245,22 @@ const Home = () => {
   }, [])
 
   // Sound effects
+
   useEffect(() => {
-    if (isTypingSound) {
+    console.log('isTypingSound', isTypingSound, 'muteSFX', muteSFX)
+    if (isTypingSound && !muteSFX) {
       playAudio(sfx.TypeOnLoop)
-    } else {
+    } else if (!muteSFX) {
       pauseAudio(sfx.TypeOnLoop)
       playAudio(sfx.TypeOnEnd)
     }
     return () => {
       pauseAudio(sfx.TypeOnLoop)
     }
-  }, [isTypingSound])
+  }, [isTypingSound, muteSFX])
 
   useEffect(() => {
-    if (isScrabbleSound && homePanelExpanded) {
+    if (isScrabbleSound && homePanelExpanded && !muteSFX) {
       playAudio(sfx.scrabbleLoop)
     } else {
       pauseAudio(sfx.scrabbleLoop)
@@ -267,7 +268,7 @@ const Home = () => {
     return () => {
       pauseAudio(sfx.scrabbleLoop)
     }
-  }, [isScrabbleSound, homePanelExpanded])
+  }, [isScrabbleSound, homePanelExpanded, muteSFX])
 
   return (
     <>

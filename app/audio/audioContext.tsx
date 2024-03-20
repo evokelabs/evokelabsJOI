@@ -79,6 +79,7 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
       window.removeEventListener('click', enableAudio)
       window.removeEventListener('touchstart', enableAudio)
       startUpAudio()
+      console.log('enableAudio', muteSFX)
     }
 
     window.addEventListener('click', enableAudio)
@@ -89,6 +90,10 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
       window.removeEventListener('touchstart', enableAudio)
     }
   }, [])
+
+  useEffect(() => {
+    console.log('muteSFX', muteSFX)
+  }, [muteSFX])
 
   return (
     <AudioContext.Provider
@@ -117,8 +122,10 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
 
 export const useAudio = () => {
   const context = useContext(AudioContext)
+
   if (context === undefined) {
-    throw new Error('useAudio must be used within an AudioProvider')
+    throw new Error('useAudio must be used within a AudioProvider')
   }
+
   return context
 }

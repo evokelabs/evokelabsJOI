@@ -46,7 +46,8 @@ import { useUI } from './lib/useUI'
 import { usePreloader } from './lib/usePreloader'
 import { useResponsive } from './lib/useResponsive'
 import { ROUTE_CONFIG } from '../libs/ROUTE_CONFIG'
-import { AudioProvider } from '../audio/audioContext'
+import { AudioContext } from '../audio/audioContext'
+import { useSounds } from './lib/useSounds'
 
 // Constants
 const INITIAL_CAMERA_POSITION = [-0.3, 1.5, -1] as const
@@ -105,12 +106,34 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     eventSource
   } = useUI(setPosition)
 
+  //Sounds Hook
+  const { setMuteAll, setMuteMusic, setMuteRain, setMuteSFX, setMuteSpeech, muteAll, muteMusic, muteRain, muteSFX, muteSpeech } =
+    useSounds()
+
   // GPU Hook
   const { lowGPU, setLowGPU } = useGPU()
 
   return (
     <>
-      <AudioProvider>
+      <AudioContext.Provider
+        value={{
+          setMuteAll,
+          setMuteMusic,
+          setMuteRain,
+          setMuteSFX,
+          setMuteSpeech,
+          muteAll,
+          muteMusic,
+          muteRain,
+          muteSFX,
+          muteSpeech,
+          playAudio: () => {},
+          pauseAudio: () => {},
+          loopAudio: () => {},
+          muteTheme: () => {},
+          unmuteTheme: () => {}
+        }}
+      >
         <div ref={container} className='h-full'>
           <Canvas
             camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
@@ -174,7 +197,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                           {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
                         </div>
                         <div className='max-w-[26.5em] sm:max-w-[26.5em] md:max-w-[73em]'>
-                          {isPreLoaderFinished && router.pathname === '/' && <Home />}
+                          {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                           {router.pathname === '/services' && <Services />}
                           {router.pathname.startsWith('/portfolio') && <Portfolio setShouldMapDarkness={setShouldMapDarkness} />}
                           {router.pathname === '/history' && <History setShouldMapDarkness={setShouldMapDarkness} />}
@@ -224,7 +247,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         <SocialIcons />
         <SoundControlIcons />
         <JOISubtitles />
-      </AudioProvider>
+      </AudioContext.Provider>
     </>
   )
 }
