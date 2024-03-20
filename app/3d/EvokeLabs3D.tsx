@@ -77,7 +77,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(currentRouteIndex)
   const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>(null)
 
-  const { JOILineSpeak, setJOILineSpeak, isChainPlaying, setIsChainPlaying } = useRoutes(
+  useRoutes(
     currentRouteSelection,
     currentPortfolioSelection,
     setCurrentRouteSelection,

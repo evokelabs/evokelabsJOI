@@ -1,5 +1,11 @@
 import React, { createContext, useState, useContext, useEffect } from 'react'
 
+const CYBERPUNK_AMBIENCE_FADE_IN = 3000
+const RAIN_FADE_IN = 3000
+const MUSIC_START_FADE_IN = 3000
+const MUSIC_LOOP_FADE_IN = 3000
+const MUSIC_LOOP_DELAY = 7000
+
 // Define the paths to the sfx files
 const sfx = {
   CyberpunkPunkAmbienceLoop: { src: '/sounds/CyberpunkAmbienceLoop.ogg', volume: 0.3 },
@@ -58,6 +64,20 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     speech: false
   })
 
+  const fadeIn = (audio: HTMLAudioElement, duration: number, targetVolume: number) => {
+    const step = targetVolume / (duration / 100)
+    audio.volume = 0
+    audio.play()
+
+    const interval = setInterval(() => {
+      if (audio.volume < targetVolume) {
+        audio.volume = Math.min(audio.volume + step, targetVolume)
+      } else {
+        clearInterval(interval)
+      }
+    }, 100)
+  }
+
   const setMuteGroup = (group: string, value: boolean) => {
     setMuteGroups(prevState => ({ ...prevState, [group]: value }))
   }
@@ -73,36 +93,37 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const playAll = () => {
     // Create Audio objects for all audio files
     const sfxAudio = Object.entries(sfx).map(([key, { src, volume }]) => {
-      if (key === 'TypeOnEnd' || key === 'TypeOnLoop' || key === 'scrabbleLoop' || key === 'shutters' || key === 'engineLoop') {
-        return null
-      }
       const audio = new Audio(src)
       audio.volume = volume
-      if (key !== 'shutters') {
-        audio.loop = true
+      if (key === 'CyberpunkPunkAmbienceLoop') {
+        fadeIn(audio, CYBERPUNK_AMBIENCE_FADE_IN, volume)
+      } else if (key !== 'TypeOnEnd' && key !== 'TypeOnLoop' && key !== 'scrabbleLoop' && key !== 'shutters' && key !== 'engineLoop') {
+        audio.play()
       }
       return audio
     })
     const musicAudio = Object.entries(music).map(([key, { src, volume }]) => {
       const audio = new Audio(src)
       audio.volume = volume
-      if (key !== 'musicStart') {
-        audio.loop = true
+      audio.loop = key === 'musicLoop' // Loop if it's musicLoop
+      if (key === 'musicStart') {
+        fadeIn(audio, MUSIC_START_FADE_IN, volume)
+      } else if (key === 'musicLoop') {
+        setTimeout(() => {
+          fadeIn(audio, MUSIC_LOOP_FADE_IN, volume)
+        }, MUSIC_LOOP_DELAY)
       }
       return audio
     })
     const rainAudio = Object.entries(rain).map(([key, { src, volume }]) => {
       const audio = new Audio(src)
       audio.volume = volume
-      audio.loop = true
+      audio.loop = true // Loop the rain sound
+      fadeIn(audio, RAIN_FADE_IN, volume)
       return audio
     })
-
-    // Play all audio
-    sfxAudio.forEach(audio => audio && audio.play())
-    musicAudio.forEach(audio => audio.play())
-    rainAudio.forEach(audio => audio.play())
   }
+
   useEffect(() => {
     playAll()
   }, [])
