@@ -97,13 +97,13 @@ const Rain = () => {
         positions[i * 3] += velocities[i] * SLANT
 
         if (positions[i * 3 + 1] < MIN_FALL_HEIGHT - MIN_FALL_HEIGHT_OFFSET) {
-          if (!muteRainRef.current) {
-            // Reposition every raindrop that falls below the minimum height
-            // Randomize the height at which each raindrop is repositioned
-            positions[i * 3 + 1] = Math.random() * (MAX_FALL_HEIGHT - (MIN_FALL_HEIGHT - MIN_FALL_HEIGHT_OFFSET)) + MIN_FALL_HEIGHT
-            positions[i * 3] = Math.random() * 23 - 12
-            velocities[i] = 0
-          }
+          // if (!muteRainRef.current) {
+          // Reposition every raindrop that falls below the minimum height
+          // Randomize the height at which each raindrop is repositioned
+          positions[i * 3 + 1] = Math.random() * (MAX_FALL_HEIGHT - (MIN_FALL_HEIGHT - MIN_FALL_HEIGHT_OFFSET)) + MIN_FALL_HEIGHT
+          positions[i * 3] = Math.random() * 23 - 12
+          velocities[i] = 0
+          // }
         }
 
         position.set(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2])

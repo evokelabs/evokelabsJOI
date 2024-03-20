@@ -52,6 +52,7 @@ export const usePreloader = () => {
     setPointLightPlay,
     shouldAmbientLightPlay,
     shouldPointLightPlay,
+    setIsPreLoaderFinished,
     isPreLoaderFinished,
     isCarReady,
     setMenuHomeWaitTimer

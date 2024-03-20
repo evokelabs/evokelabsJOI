@@ -52,6 +52,7 @@ import { useUI } from './lib/useUI'
 import { usePreloader } from './lib/usePreloader'
 import { useResponsive } from './lib/useResponsive'
 import { ROUTE_CONFIG } from '../libs/ROUTE_CONFIG'
+import Preloader from '../sections/Preloader'
 
 // Constants
 const INITIAL_CAMERA_POSITION = [-0.3, 1.5, -1] as const
@@ -74,6 +75,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     setPointLightPlay,
     shouldAmbientLightPlay,
     shouldPointLightPlay,
+    setIsPreLoaderFinished,
     isPreLoaderFinished,
     isCarReady,
     setMenuHomeWaitTimer
@@ -237,42 +239,48 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                     </PortfolioContext.Provider>
                   </Html>
                   <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
-                    <VideoSkybox />
                     <ELAudioStartSoundControl />
+                    {isPreLoaderFinished ? (
+                      <>
+                        <VideoSkybox />
+
+                        <Lights />
+                        {isCarReady && <CyberpunkCar />}
+                        <WideMonitor />
+                        {!lowGPU && <DeskItems />}
+                        {lowGPU ? <CyberpunkMapLowPoly /> : <CyberpunkMap />}
+                        <JOI />
+
+                        {lowGPU ? (
+                          <EffectComposer disableNormalPass>
+                            <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
+                            <BrightnessContrast brightness={0.02} contrast={0.275} />
+                            <Vignette offset={0.0} darkness={1} />
+                          </EffectComposer>
+                        ) : (
+                          <EffectComposer disableNormalPass>
+                            <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={2} />
+                            <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
+                            <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
+                            <Noise opacity={0.7} premultiply blendFunction={28} />
+                            <BrightnessContrast brightness={0.02} contrast={0.275} />
+                            <Vignette offset={0.0} darkness={1} />
+                          </EffectComposer>
+                        )}
+                      </>
+                    ) : null}
                     <CameraRig fov={fov} debug={false} />
                     <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
-
-                    <Lights />
-                    {isCarReady && <CyberpunkCar />}
-                    <WideMonitor />
-                    {!lowGPU && <DeskItems />}
-                    {lowGPU ? <CyberpunkMapLowPoly /> : <CyberpunkMap />}
-                    <JOI />
                     <Rain />
                   </GPUContext.Provider>
                 </AnimationContext.Provider>
               </SoundsContext.Provider>
-              {lowGPU ? (
-                <EffectComposer disableNormalPass>
-                  <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
-                  <BrightnessContrast brightness={0.02} contrast={0.275} />
-                  <Vignette offset={0.0} darkness={1} />
-                </EffectComposer>
-              ) : (
-                <EffectComposer disableNormalPass>
-                  <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={2} />
-                  <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
-                  <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
-                  <Noise opacity={0.7} premultiply blendFunction={28} />
-                  <BrightnessContrast brightness={0.02} contrast={0.275} />
-                  <Vignette offset={0.0} darkness={1} />
-                </EffectComposer>
-              )}
             </Canvas>
           </div>
           <SocialIcons />
           <SoundControlIcons />
           <JOISubtitles />
+          {!isPreLoaderFinished && <Preloader setIsPreLoaderFinished={setIsPreLoaderFinished} />}
         </JOISpeechContext.Provider>
       </SoundControlContext.Provider>
     </>
