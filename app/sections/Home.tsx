@@ -245,17 +245,24 @@ const Home = () => {
     }
   }, [])
 
-  //Sound effects
+  // Sound effects
   useEffect(() => {
+    console.log('typing sound triggered:', isTypingSound)
     if (isTypingSound) {
-      console.log('playing typeOn Loop')
-      playAudio(sfx.TypeOnLoop) // Play the new audio
-    } else if (!isTypingSound) {
-      console.log('pausing typeOn Loop')
-      pauseAudio(sfx.TypeOnLoop) // Stop the typing sound
-      // playAudio(sfx.TypeOnEnd) // Play the end sound
+      playAudio(sfx.TypeOnLoop)
+    } else {
+      pauseAudio(sfx.TypeOnLoop)
     }
   }, [isTypingSound])
+
+  useEffect(() => {
+    console.log('scrabble sou triggered:', isScrabbleSound)
+    if (isScrabbleSound) {
+      playAudio(sfx.scrabbleLoop)
+    } else {
+      pauseAudio(sfx.scrabbleLoop)
+    }
+  }, [isScrabbleSound])
 
   return (
     <>
