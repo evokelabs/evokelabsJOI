@@ -238,7 +238,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   </Html>
 
                   <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
-                    <ELAudioStartSoundControl />
+                    {isPreLoaderFinished && <ELAudioStartSoundControl />}
                     {isPreLoaderFinished ? (
                       <>
                         <VideoSkybox />
