@@ -45,6 +45,14 @@ export interface AudioControls {
   loopAudio: (audioBuffer: AudioBuffer, theme: string) => void // Update this line
   muteTheme: (theme: string) => void
   unmuteTheme: (theme: string) => void
-  muteAll: boolean
   setMuteAll: (value: boolean) => void
+  muteMusic: boolean
+  muteSFX: boolean
+  muteRain: boolean
+  muteSpeech: boolean
+  muteAll: boolean
+  setMuteMusic: (value: boolean) => void
+  setMuteSFX: (value: boolean) => void
+  setMuteRain: (value: boolean) => void
+  setMuteSpeech: (value: boolean) => void
 }
