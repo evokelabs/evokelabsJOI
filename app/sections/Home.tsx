@@ -247,7 +247,6 @@ const Home = () => {
 
   // Sound effects
   useEffect(() => {
-    console.log('typing sound triggered:', isTypingSound)
     if (isTypingSound) {
       playAudio(sfx.TypeOnLoop)
     } else {
@@ -256,7 +255,6 @@ const Home = () => {
   }, [isTypingSound])
 
   useEffect(() => {
-    console.log('scrabble sou triggered:', isScrabbleSound)
     if (isScrabbleSound) {
       playAudio(sfx.scrabbleLoop)
     } else {
