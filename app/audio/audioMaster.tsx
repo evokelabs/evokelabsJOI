@@ -120,11 +120,11 @@ export const loopAudio = (audioBuffer: AudioBuffer, theme: string) => {
 }
 
 export const startUpAudio = () => {
-  // playAudio(rain.rainLoop)
-  // playAudio(sfx.CyberpunkPunkAmbienceLoop)
-  // playAudio(music.musicStart)
-  // playAudio(music.musicLoop)
-  // playJOIPreloader()
+  playAudio(rain.rainLoop)
+  playAudio(sfx.CyberpunkPunkAmbienceLoop)
+  playAudio(music.musicStart)
+  playAudio(music.musicLoop)
+  playJOIPreloader()
 }
 
 export const muteTheme = (theme: string) => {
