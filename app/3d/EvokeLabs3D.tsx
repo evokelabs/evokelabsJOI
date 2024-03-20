@@ -48,6 +48,8 @@ import { useResponsive } from './lib/useResponsive'
 import { ROUTE_CONFIG } from '../libs/ROUTE_CONFIG'
 import { AudioContext } from '../audio/audioContext'
 import { useSounds } from './lib/useSounds'
+import { JOISpeechContext } from '../libs/JOISpeechContext'
+import { SoundsContext } from '../libs/SoundsContext'
 
 // Constants
 const INITIAL_CAMERA_POSITION = [-0.3, 1.5, -1] as const
@@ -78,7 +80,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(currentRouteIndex)
   const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>(null)
 
-  useRoutes(
+  const { JOILineSpeak, setJOILineSpeak, isChainPlaying, setIsChainPlaying } = useRoutes(
     currentRouteSelection,
     currentPortfolioSelection,
     setCurrentRouteSelection,
@@ -106,9 +108,27 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     eventSource
   } = useUI(setPosition)
 
+  //JOI Speech settings
+  const [JOILineCaption, setJOILineCaption] = useState<string | null>(null)
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false)
+
   //Sounds Hook
-  const { setMuteAll, setMuteMusic, setMuteRain, setMuteSFX, setMuteSpeech, muteAll, muteMusic, muteRain, muteSFX, muteSpeech } =
-    useSounds()
+  const {
+    musicVolume,
+    setMusicVolume,
+    musicLoopTransitionDuration,
+    setMusicLoopTransitionDuration,
+    setMuteAll,
+    setMuteMusic,
+    setMuteRain,
+    setMuteSFX,
+    setMuteSpeech,
+    muteAll,
+    muteMusic,
+    muteRain,
+    muteSFX,
+    muteSpeech
+  } = useSounds()
 
   // GPU Hook
   const { lowGPU, setLowGPU } = useGPU()
@@ -134,130 +154,145 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           unmuteTheme: () => {}
         }}
       >
-        <div ref={container} className='h-full'>
-          <Canvas
-            camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
-            shadows
-            gl={{
-              powerPreference: 'high-performance'
-            }}
-            style={{ pointerEvents: 'none' }}
-            eventSource={eventSource}
-            eventPrefix='page'
-          >
-            <AnimationContext.Provider
-              value={{
-                shouldAmbientLightPlay,
-                shouldPointLightPlay,
-                shouldJOISpeak,
-                setAmbientLightPlay,
-                setPointLightPlay,
-                setShouldJOISpeak,
-                shouldMapDarkness,
-                setShouldMapDarkness
+        <JOISpeechContext.Provider
+          value={{ JOILineCaption, setJOILineCaption, isAudioPlaying, setIsAudioPlaying, isChainPlaying, setIsChainPlaying }}
+        >
+          <div ref={container} className='h-full'>
+            <Canvas
+              camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
+              shadows
+              gl={{
+                powerPreference: 'high-performance'
               }}
+              style={{ pointerEvents: 'none' }}
+              eventSource={eventSource}
+              eventPrefix='page'
             >
-              <Html
-                ref={htmlRef}
-                scale={htmlScale}
-                prepend
-                distanceFactor={10}
-                transform
-                className='scale-x-[-1]'
-                position={position}
-                onPointerDown={handleMouseDown}
-                onPointerUp={handleMouseUp}
-                onPointerMove={handleMouseMove}
+              <SoundsContext.Provider
+                value={{
+                  musicVolume,
+                  setMusicVolume,
+                  musicLoopTransitionDuration,
+                  setMusicLoopTransitionDuration,
+                  JOILineSpeak,
+                  setJOILineSpeak
+                }}
               >
-                <PortfolioContext.Provider
+                <AnimationContext.Provider
                   value={{
-                    selectedShowOnlyOption,
-                    setSelectedShowOnlyOption,
-                    selectedSortByOption,
-                    setSelectedSortByOption
+                    shouldAmbientLightPlay,
+                    shouldPointLightPlay,
+                    shouldJOISpeak,
+                    setAmbientLightPlay,
+                    setPointLightPlay,
+                    setShouldJOISpeak,
+                    shouldMapDarkness,
+                    setShouldMapDarkness
                   }}
                 >
-                  <RoutesContext.Provider
-                    value={{
-                      currentRouteSelection,
-                      setCurrentRouteSelection,
-                      currentPortfolioSelection,
-                      setCurrentPortfolioSelection,
-                      homePanelExpanded,
-                      setHomePanelExpanded
-                    }}
+                  <Html
+                    ref={htmlRef}
+                    scale={htmlScale}
+                    prepend
+                    distanceFactor={10}
+                    transform
+                    className='scale-x-[-1]'
+                    position={position}
+                    onPointerDown={handleMouseDown}
+                    onPointerUp={handleMouseUp}
+                    onPointerMove={handleMouseMove}
                   >
-                    <Draggable>
-                      <div
-                        onPointerDown={handleMouseDown}
-                        onPointerUp={handleMouseUp}
-                        className='flex flex-col-reverse p-4 relative translate-y-10 '
+                    <PortfolioContext.Provider
+                      value={{
+                        selectedShowOnlyOption,
+                        setSelectedShowOnlyOption,
+                        selectedSortByOption,
+                        setSelectedSortByOption
+                      }}
+                    >
+                      <RoutesContext.Provider
+                        value={{
+                          currentRouteSelection,
+                          setCurrentRouteSelection,
+                          currentPortfolioSelection,
+                          setCurrentPortfolioSelection,
+                          homePanelExpanded,
+                          setHomePanelExpanded
+                        }}
                       >
-                        <div className='left-1 scale-[54%] sm:scale-[54%] md:scale-[100%] md:w-full origin-top-left min-w-[50em] md:min-w-[74em] '>
-                          {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
-                        </div>
-                        <div className='max-w-[26.5em] sm:max-w-[26.5em] md:max-w-[73em]'>
-                          {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
-                          {router.pathname === '/services' && <Services />}
-                          {router.pathname.startsWith('/portfolio') && <Portfolio setShouldMapDarkness={setShouldMapDarkness} />}
-                          {router.pathname === '/history' && <History setShouldMapDarkness={setShouldMapDarkness} />}
-                          {router.pathname === '/resume' && <Resume />}
-                          {router.pathname === '/joi' && <JOISpecial setShouldMapDarkness={setShouldMapDarkness} />}
-                          {router.pathname === '/availabilities' && <Availabilities />}
-                        </div>
-                      </div>
-                    </Draggable>
-                  </RoutesContext.Provider>
-                </PortfolioContext.Provider>
-              </Html>
-              <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
-                <VideoSkybox />
+                        <Draggable>
+                          <div
+                            onPointerDown={handleMouseDown}
+                            onPointerUp={handleMouseUp}
+                            className='flex flex-col-reverse p-4 relative translate-y-10 '
+                          >
+                            <div className='left-1 scale-[54%] sm:scale-[54%] md:scale-[100%] md:w-full origin-top-left min-w-[50em] md:min-w-[74em] '>
+                              {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+                            </div>
+                            <div className='max-w-[26.5em] sm:max-w-[26.5em] md:max-w-[73em]'>
+                              {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
+                              {router.pathname === '/services' && <Services />}
+                              {router.pathname.startsWith('/portfolio') && <Portfolio setShouldMapDarkness={setShouldMapDarkness} />}
+                              {router.pathname === '/history' && <History setShouldMapDarkness={setShouldMapDarkness} />}
+                              {router.pathname === '/resume' && <Resume />}
+                              {router.pathname === '/joi' && <JOISpecial setShouldMapDarkness={setShouldMapDarkness} />}
+                              {router.pathname === '/availabilities' && <Availabilities />}
+                            </div>
+                          </div>
+                        </Draggable>
+                      </RoutesContext.Provider>
+                    </PortfolioContext.Provider>
+                  </Html>
+                  <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
+                    <VideoSkybox />
 
-                <CameraRig fov={fov} debug={false} />
-                <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
+                    <CameraRig fov={fov} debug={false} />
+                    <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
 
-                <Lights />
-                {isCarReady && <CyberpunkCar muteSFX={muteSFX} />}
-                <WideMonitor />
-                {!lowGPU && <DeskItems />}
-                {lowGPU ? <CyberpunkMapLowPoly muteSFX={muteSFX} /> : <CyberpunkMap muteSFX={muteSFX} />}
-                <JOI muteJOI={muteSpeech} />
-                <Rain muteRain={muteRain} />
-              </GPUContext.Provider>
-            </AnimationContext.Provider>
+                    <Lights />
+                    {isCarReady && <CyberpunkCar muteSFX={muteSFX} />}
+                    <WideMonitor />
 
-            {lowGPU ? (
-              <EffectComposer>
-                <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
-                <BrightnessContrast brightness={0.02} contrast={0.275} />
-                <Vignette offset={0.0} darkness={1} />
-              </EffectComposer>
-            ) : (
-              <EffectComposer>
-                <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={2} />
-                <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
-                <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
-                <Noise opacity={0.7} premultiply blendFunction={28} />
-                <BrightnessContrast brightness={0.02} contrast={0.275} />
-                <Vignette offset={0.0} darkness={1} />
-              </EffectComposer>
-            )}
-          </Canvas>
-        </div>
-        <SocialIcons />
-        <SoundControlIcons
-          muteMusic={muteMusic}
-          setMuteMusic={setMuteMusic}
-          muteSFX={muteSFX}
-          setMuteSFX={setMuteSFX}
-          muteRain={muteRain}
-          setMuteRain={setMuteRain}
-          muteSpeech={muteSpeech}
-          setMuteSpeech={setMuteSpeech}
-          setMuteAll={setMuteAll}
-          muteAll={muteAll}
-        />
-        <JOISubtitles />
+                    {!lowGPU && <DeskItems />}
+                    {lowGPU ? <CyberpunkMapLowPoly muteSFX={muteSFX} /> : <CyberpunkMap muteSFX={muteSFX} />}
+                    <JOI muteJOI={muteSpeech} />
+                    <Rain muteRain={muteRain} />
+                  </GPUContext.Provider>
+                </AnimationContext.Provider>
+              </SoundsContext.Provider>
+              {lowGPU ? (
+                <EffectComposer>
+                  <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
+                  <BrightnessContrast brightness={0.02} contrast={0.275} />
+                  <Vignette offset={0.0} darkness={1} />
+                </EffectComposer>
+              ) : (
+                <EffectComposer>
+                  <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={2} />
+                  <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
+                  <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
+                  <Noise opacity={0.7} premultiply blendFunction={28} />
+                  <BrightnessContrast brightness={0.02} contrast={0.275} />
+                  <Vignette offset={0.0} darkness={1} />
+                </EffectComposer>
+              )}
+            </Canvas>
+          </div>
+          <SocialIcons />
+          <SoundControlIcons
+            muteMusic={muteMusic}
+            setMuteMusic={setMuteMusic}
+            muteSFX={muteSFX}
+            setMuteSFX={setMuteSFX}
+            muteRain={muteRain}
+            setMuteRain={setMuteRain}
+            muteSpeech={muteSpeech}
+            setMuteSpeech={setMuteSpeech}
+            setMuteAll={setMuteAll}
+            muteAll={muteAll}
+          />
+          <JOISubtitles />
+        </JOISpeechContext.Provider>
       </AudioContext.Provider>
     </>
   )

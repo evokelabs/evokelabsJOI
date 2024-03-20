@@ -17,6 +17,9 @@ export const useSounds = () => {
   const [muteSpeech, setMuteSpeech] = useState(true)
   const [muteAll, setMuteAll] = useState(true)
 
+  const [musicVolume, setMusicVolume] = useState(0)
+  const [musicLoopTransitionDuration, setMusicLoopTransitionDuration] = useState(0.5)
+
   const muteTheme = (theme: ThemeGroups) => {
     muteThemeMaster(theme)
     switch (theme) {
@@ -79,6 +82,10 @@ export const useSounds = () => {
   }, [])
 
   return {
+    musicVolume,
+    setMusicVolume,
+    musicLoopTransitionDuration,
+    setMusicLoopTransitionDuration,
     playAudio,
     pauseAudio,
     loopAudio,
