@@ -247,7 +247,6 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
   // Sound effects
 
   useEffect(() => {
-    console.log('isTypingSound', isTypingSound, 'muteSFX', muteSFX)
     if (isTypingSound && !muteSFX) {
       playAudio(sfx.TypeOnLoop)
     } else if (!muteSFX) {

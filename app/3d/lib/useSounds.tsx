@@ -67,7 +67,6 @@ export const useSounds = () => {
       window.removeEventListener('click', enableAudio)
       window.removeEventListener('touchstart', enableAudio)
       startUpAudio()
-      console.log('enableAudio', muteSFX)
     }
 
     window.addEventListener('click', enableAudio)

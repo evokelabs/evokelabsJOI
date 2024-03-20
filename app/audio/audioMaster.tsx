@@ -3,6 +3,9 @@ import { Theme } from './audioTypes'
 
 const themes: Theme = { music, rain, speech, sfx }
 
+import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
+const AUDIO_SOURCES = JOISpeech.preloader.map(item => item.filepath)
+
 let audioContext: AudioContext | undefined
 let audioNodes: { [key: string]: GainNode } = {}
 if (typeof window !== 'undefined') {
@@ -19,19 +22,22 @@ export const loadAudio = async (url: string) => {
 
 let audioBuffers: { [key: string]: AudioBuffer } = {}
 
-export const playAudio = (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => {
-  let theme: string | undefined
+export const playAudio = (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }, theme?: string) => {
   let themeFile: typeof file | undefined
 
-  for (const key of Object.keys(themes)) {
-    for (const innerKey of Object.keys(themes[key])) {
-      if (themes[key][innerKey].src === file.src) {
-        theme = key + file.src
-        themeFile = themes[key][innerKey]
-        break
+  if (theme) {
+    themeFile = Object.values(themes[theme]).find(audioFile => audioFile.src === file.src)
+  } else {
+    for (const key of Object.keys(themes)) {
+      for (const innerKey of Object.keys(themes[key])) {
+        if (themes[key][innerKey].src === file.src) {
+          theme = key + file.src
+          themeFile = themes[key][innerKey]
+          break
+        }
       }
+      if (theme) break
     }
-    if (theme) break
   }
 
   if (!themeFile) return
@@ -118,6 +124,7 @@ export const startUpAudio = () => {
   playAudio(sfx.CyberpunkPunkAmbienceLoop)
   playAudio(music.musicStart)
   playAudio(music.musicLoop)
+  playJOIPreloader()
 }
 
 export const muteTheme = (theme: string) => {
@@ -133,6 +140,18 @@ export const unmuteTheme = (theme: string) => {
     if (key.startsWith(theme)) {
       audioNodes[key].gain.value = 1
     }
+  }
+}
+
+export const playJOIPreloader = () => {
+  const audioKeys = Object.keys(speech)
+  const randomIndex = Math.floor(Math.random() * audioKeys.length)
+  const audioKey = audioKeys[randomIndex]
+
+  const audioFile = speech[audioKey]
+
+  if (audioFile) {
+    playAudio(audioFile, 'speech')
   }
 }
 
