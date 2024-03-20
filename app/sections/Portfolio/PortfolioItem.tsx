@@ -6,7 +6,6 @@ import YouTubeSVG from '@/app/ui/svg/button/YouTubeSVG'
 import FigmaSVG from '@/app/ui/svg/button/FigmaSVG'
 import LaunchSVG from '@/app/ui/svg/button/LaunchSVG'
 import BackSVG from '@/app/ui/svg/button/BackSVG'
-import { SoundAudioLevelControls } from '../data/types'
 import { RoutesContext } from '@/app/libs/RoutesContext'
 import { Dispatch, SetStateAction, useContext, useEffect } from 'react'
 import VideoFrameMute from '@/app/ui/VideoFrameMute'
@@ -28,7 +27,6 @@ interface PortfolioItem {
 }
 
 interface PortfolioItemProps extends PortfolioItem {
-  soundAudioLevelControls: SoundAudioLevelControls
   setShouldMapDarkness: Dispatch<SetStateAction<boolean>>
 }
 const PortfolioItem: React.FC<PortfolioItemProps> = ({
@@ -42,18 +40,10 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   link,
   mainVideo,
   slug,
-  soundAudioLevelControls,
   setShouldMapDarkness,
   mutedVideo
 }) => {
   const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
-
-  const setUserMutedAll = (muteAll: boolean) => {
-    soundAudioLevelControls.setMuteAll(true)
-    soundAudioLevelControls.setMuteMusic(true)
-    soundAudioLevelControls.setMuteRain(true)
-    soundAudioLevelControls.setMuteSFX(true)
-  }
 
   useEffect(() => {
     // Cleanup function
@@ -91,9 +81,9 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
 
       <div className='mt-1 w-full'>
         {!mutedVideo ? (
-          <VideoFrame videoURL={mainVideo} soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+          <VideoFrame videoURL={mainVideo} setShouldMapDarkness={setShouldMapDarkness} />
         ) : (
-          <VideoFrameMute videoURL={mainVideo} soundAudioLevelControls={soundAudioLevelControls} />
+          <VideoFrameMute videoURL={mainVideo} />
         )}
       </div>
       {desc && (
@@ -108,11 +98,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
       {(link || desc) && (
         <div className='flex flex-row mt-2 md:mt-4 md:mb-2 justify-between md:w-full scale-[60%] md:scale-[100%] origin-top-left -mb-6 '>
           {link && (
-            <div
-              onClick={() => setUserMutedAll(true)}
-              onTouchStart={() => setUserMutedAll(true)}
-              className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full md:scale-100 origin-left'
-            >
+            <div className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full md:scale-100 origin-left'>
               <ButtonDefault label='LAUNCH' svgIcon={<LaunchSVG />} link={link} />
             </div>
           )}

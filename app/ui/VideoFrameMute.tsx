@@ -1,9 +1,7 @@
 import RedCRTBlur from './libs/RedCRTBlur'
 import { BLACK, RED, RED_BLACK } from '../libs/UIConstants'
 
-import { SoundAudioLevelControls } from '../sections/data/types'
-
-const VideoFrameMute = ({ videoURL, soundAudioLevelControls }: { videoURL: string; soundAudioLevelControls: SoundAudioLevelControls }) => {
+const VideoFrameMute = ({ videoURL }: { videoURL: string }) => {
   //Restore sound settings when unmounting
   return (
     <div>

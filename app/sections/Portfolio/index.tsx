@@ -7,16 +7,9 @@ import PortfolioItem from './PortfolioItem'
 import PortfolioTile from './PortfolioTile'
 import PortfolioPanelContent from './ui/PortfolioPanelContent'
 import ContentHeader from './ui/ContentHeader'
-import { SoundAudioLevelControls } from '../data/types'
 import { RoutesContext } from '@/app/libs/RoutesContext'
 
-const PortfolioHome = ({
-  soundAudioLevelControls,
-  setShouldMapDarkness
-}: {
-  soundAudioLevelControls: SoundAudioLevelControls
-  setShouldMapDarkness: Dispatch<SetStateAction<boolean>>
-}) => {
+const PortfolioHome = ({ setShouldMapDarkness }: { setShouldMapDarkness: Dispatch<SetStateAction<boolean>> }) => {
   const [portfolioData, setPortfolioData] = useState<PortfolioItem[]>(portfolio)
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null)
   const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
@@ -33,7 +26,7 @@ const PortfolioHome = ({
   }, [currentPortfolioSelection])
 
   if (selectedItem) {
-    return <PortfolioItem {...selectedItem} soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+    return <PortfolioItem {...selectedItem} setShouldMapDarkness={setShouldMapDarkness} />
   }
 
   return (

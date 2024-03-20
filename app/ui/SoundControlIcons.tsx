@@ -10,8 +10,6 @@ import SoundCrossIconSVG from './svg/button/SoundCrossIconSVG'
 import SoundEdgeTag from './PanelContent/SoundEdgeTag'
 import ButtonSocial from './ButtonSocial'
 
-import { SoundControlContext } from '@/app/libs/SoundControlContext'
-
 const ToggleButton = ({
   toggle,
   setToggle,
@@ -21,7 +19,7 @@ const ToggleButton = ({
   showCrossIcon = true,
   ButtonComponent = ButtonAlternative
 }: {
-  toggle: boolean
+  toggle?: boolean
   setToggle: React.Dispatch<React.SetStateAction<boolean>>
   SVGIcon?: (props: { isHovered: boolean }) => JSX.Element
   SVGIconOn?: (props: { isHovered: boolean }) => JSX.Element
@@ -59,25 +57,10 @@ const ToggleButton = ({
   )
 }
 const SoundControlIcons = () => {
-  const { muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI, setMuteAll, muteAll } =
-    useContext(SoundControlContext)
-
   const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(true)
 
   useEffect(() => {
-    // If all child toggles are false, set master toggle to false
-    // If any child toggle is true, set master toggle to true
-    setSoundControlMasterToggle(muteMusic || muteSFX || muteRain || muteJOI)
-    setMuteAll(muteMusic && muteSFX && muteRain && muteJOI)
-  }, [muteMusic, muteSFX, muteRain, muteJOI, muteAll, setMuteAll])
-
-  useEffect(() => {
     const enableAudio = () => {
-      setMuteAll(false)
-      setMuteMusic(false)
-      setMuteSFX(false)
-      setMuteRain(false)
-      setMuteJOI(false)
       setSoundControlMasterToggle(false)
       window.removeEventListener('click', enableAudio)
       window.removeEventListener('touchstart', enableAudio)
@@ -97,46 +80,15 @@ const SoundControlIcons = () => {
       <div className='absolute bottom-2 xl:bottom-5 right-0 pt-3 xl:pt-5 flex flex-row justify-end  z-[10000000000000000] 2xl:scale-100 lg:scale-[70%] md:scale-65 scale-50 origin-bottom-right'>
         <div className={`flex transition-all duration-500 overflow-hidden ${!soundControlMasterToggle ? 'max-w-4' : 'max-w-full'}`}>
           <SoundEdgeTag />
-          <ToggleButton
-            toggle={muteMusic}
-            setToggle={value => {
-              setMuteMusic(value)
-            }}
-            SVGIcon={props => <SoundMusicIconSVG {...props} />}
-          />
-          <ToggleButton
-            toggle={muteSFX}
-            setToggle={value => {
-              setMuteSFX(value)
-            }}
-            SVGIcon={props => <SoundSFXIconSVG {...props} />}
-          />
-          <ToggleButton
-            toggle={muteRain}
-            setToggle={value => {
-              setMuteRain(value)
-            }}
-            SVGIcon={props => <SoundRainIconSVG {...props} />}
-          />
-          <ToggleButton
-            toggle={muteJOI}
-            setToggle={value => {
-              setMuteJOI(value)
-            }}
-            SVGIcon={props => <SoundJOIIconSVG {...props} />}
-          />
+          <ToggleButton setToggle={value => {}} SVGIcon={props => <SoundMusicIconSVG {...props} />} />
+          <ToggleButton setToggle={value => {}} SVGIcon={props => <SoundSFXIconSVG {...props} />} />
+          <ToggleButton setToggle={value => {}} SVGIcon={props => <SoundRainIconSVG {...props} />} />
+          <ToggleButton setToggle={value => {}} SVGIcon={props => <SoundJOIIconSVG {...props} />} />
         </div>
 
         <ToggleButton
           toggle={soundControlMasterToggle}
-          setToggle={value => {
-            setMuteAll(value)
-            setSoundControlMasterToggle(value)
-            setMuteMusic(value)
-            setMuteSFX(value)
-            setMuteRain(value)
-            setMuteJOI(value)
-          }}
+          setToggle={value => {}}
           SVGIconOn={props => <SoundControlIconOffSVG {...props} />}
           SVGIconOff={props => <SoundControlIconOnSVG {...props} />}
           showCrossIcon={!soundControlMasterToggle} // Show cross icon when muted

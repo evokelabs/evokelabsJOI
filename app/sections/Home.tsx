@@ -4,8 +4,6 @@ import home from './data/home.json'
 import homeExpanded from './data/homeExpanded.json'
 import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
-import TypeOnSoundControl from '../audio/ui/TypeOnSoundControl'
-import ScrabbleOnSoundControl from '../audio/ui/ScrabbleSoundControl'
 import { RoutesContext } from '../libs/RoutesContext'
 
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
@@ -38,7 +36,7 @@ const shuffle = (array: string[]) => {
   return array
 }
 
-const Home = ({ muteSFX }: { muteSFX: boolean }) => {
+const Home = () => {
   const TIMER = 5000
   const TYPE_ON_SPEED = 70
   const TYPE_OFF_SPEED = 35
@@ -314,17 +312,6 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
           </div>
         </div>
       </div>
-
-      <TypeOnSoundControl
-        volume={muteSFX ? 0 : 0.45}
-        delay={0.1}
-        transitionDuration={10}
-        loop={true}
-        isTyping={isTypingSound}
-        onEndSound={handleEndSound}
-      />
-
-      <ScrabbleOnSoundControl volume={muteSFX ? 0 : 0.45} delay={0.1} transitionDuration={10} loop={true} isScrabble={isScrabbleSound} />
     </>
   )
 }

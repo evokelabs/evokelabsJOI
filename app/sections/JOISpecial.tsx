@@ -5,7 +5,6 @@ import VideoFrame from '../ui/VideoFrame'
 import ButtonDefault from '../ui/ButtonDefault'
 import JOISVG from '../ui/svg/mainmenu/JOISVG'
 import YouTubeSVG from '../ui/svg/button/YouTubeSVG'
-import { SoundAudioLevelControls } from './data/types'
 import { Dispatch, SetStateAction } from 'react'
 
 const ContentHead = () => {
@@ -31,20 +30,10 @@ const ContentHead = () => {
   )
 }
 
-const JOISpecial = ({
-  soundAudioLevelControls,
-  setShouldMapDarkness
-}: {
-  soundAudioLevelControls: SoundAudioLevelControls
-  setShouldMapDarkness: Dispatch<SetStateAction<boolean>>
-}) => {
+const JOISpecial = ({ setShouldMapDarkness }: { setShouldMapDarkness: Dispatch<SetStateAction<boolean>> }) => {
   return (
     <PanelContent headerTitle='JOI Special' contentHead={<ContentHead />}>
-      <VideoFrame
-        videoURL='./videos/JOI-Introduction.mp4'
-        soundAudioLevelControls={soundAudioLevelControls}
-        setShouldMapDarkness={setShouldMapDarkness}
-      />
+      <VideoFrame videoURL='./videos/JOI-Introduction.mp4' setShouldMapDarkness={setShouldMapDarkness} />
       <div className='flex flex-col md:flex-row justify-between gap-2 pb-1'>
         <div className='flex mt-2 md:mt-3 justify-start h-[2.6em] md:h-full'>
           <div className='scale-[60%] md:scale-100 origin-top-left'>
