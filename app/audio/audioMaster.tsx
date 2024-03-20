@@ -107,3 +107,22 @@ export const unmuteTheme = (theme: string) => {
     audioNodes[theme].gain.value = 1
   }
 }
+
+if (typeof window !== 'undefined') {
+  audioContext = new window.AudioContext()
+
+  const resumeAudioContext = () => {
+    if (audioContext && audioContext.state === 'suspended') {
+      audioContext.resume()
+    }
+
+    // Once the audio context is resumed, remove the event listeners to prevent them from firing again
+    window.removeEventListener('mousedown', resumeAudioContext)
+    window.removeEventListener('keydown', resumeAudioContext)
+    window.removeEventListener('touchstart', resumeAudioContext)
+  }
+
+  window.addEventListener('mousedown', resumeAudioContext)
+  window.addEventListener('keydown', resumeAudioContext)
+  window.addEventListener('touchstart', resumeAudioContext)
+}
