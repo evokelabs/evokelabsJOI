@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import { AudioContext } from '@/app/audio/audioContext'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 
 // Rain settings
@@ -12,7 +13,7 @@ const SIZE = 0.003
 const ROTATION = 0.75
 const SLANT = 0.05
 
-const Rain = () => {
+const Rain = ({ muteRain }: { muteRain: boolean }) => {
   const [isReady, setIsReady] = useState(false)
 
   const rainRef = useMemo(() => {
@@ -80,6 +81,11 @@ const Rain = () => {
     return { rain, positions, velocities, matrix, position }
   }, [])
 
+  const muteRainRef = useRef(muteRain)
+  useEffect(() => {
+    muteRainRef.current = muteRain
+  }, [muteRain])
+
   useEffect(() => {
     const animate = () => {
       const { rain, positions, velocities, matrix, position } = rainRef
@@ -90,11 +96,13 @@ const Rain = () => {
         positions[i * 3] += velocities[i] * SLANT
 
         if (positions[i * 3 + 1] < MIN_FALL_HEIGHT - MIN_FALL_HEIGHT_OFFSET) {
-          // Reposition every raindrop that falls below the minimum height
-          // Randomize the height at which each raindrop is repositioned
-          positions[i * 3 + 1] = Math.random() * (MAX_FALL_HEIGHT - (MIN_FALL_HEIGHT - MIN_FALL_HEIGHT_OFFSET)) + MIN_FALL_HEIGHT
-          positions[i * 3] = Math.random() * 23 - 12
-          velocities[i] = 0
+          if (!muteRainRef.current) {
+            // Reposition every raindrop that falls below the minimum height
+            // Randomize the height at which each raindrop is repositioned
+            positions[i * 3 + 1] = Math.random() * (MAX_FALL_HEIGHT - (MIN_FALL_HEIGHT - MIN_FALL_HEIGHT_OFFSET)) + MIN_FALL_HEIGHT
+            positions[i * 3] = Math.random() * 23 - 12
+            velocities[i] = 0
+          }
         }
 
         position.set(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2])

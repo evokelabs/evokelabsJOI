@@ -222,7 +222,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 {!lowGPU && <DeskItems />}
                 {lowGPU ? <CyberpunkMapLowPoly /> : <CyberpunkMap />}
                 <JOI />
-                <Rain />
+                <Rain muteRain={muteRain} />
               </GPUContext.Provider>
             </AnimationContext.Provider>
 
