@@ -7,6 +7,7 @@ import { SoundsContext } from '@/app/libs/SoundsContext'
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
 import Availabilities from '@/app/sections/data/availabilities.json'
 import { JOISpeechContext } from '@/app/libs/JOISpeechContext'
+import { audioContext } from '@/app/audio/audioMaster'
 
 const INTRO_FILES = JOISpeech.intro.map(item => item.filepath)
 const INTRO_TEXT = JOISpeech.intro.map(item => item.text)
@@ -76,10 +77,6 @@ export const useJOIVoice = ({ model, muteJOI }: { model: THREE.Object3D | null; 
       window.removeEventListener('keydown', handleUserInteraction)
     }
   }, []) // Empty dependency array so this effect only runs once on mount
-
-  useEffect(() => {
-    // audioContextRef.current = new AudioContext()
-  }, [])
 
   const getFilePath = useCallback(
     (JOILineSpeak: number) => {
@@ -185,8 +182,9 @@ export const useJOIVoice = ({ model, muteJOI }: { model: THREE.Object3D | null; 
 
   const timeoutRef = useRef<number | null>(null)
 
-  audioContextRef.current = new AudioContext()
-  const audioContext = audioContextRef.current
+  if (audioContext !== undefined) {
+    audioContextRef.current = audioContext
+  }
 
   useEffect(() => {
     if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited) || !hasUserInteracted) return
