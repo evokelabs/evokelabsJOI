@@ -6,7 +6,7 @@ const themes: Theme = { music, rain, speech, sfx }
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
 const AUDIO_SOURCES = JOISpeech.preloader.map(item => item.filepath)
 
-let audioContext: AudioContext | undefined
+export let audioContext: AudioContext | undefined
 let audioNodes: { [key: string]: GainNode } = {}
 if (typeof window !== 'undefined') {
   audioContext = new window.AudioContext()
@@ -120,11 +120,11 @@ export const loopAudio = (audioBuffer: AudioBuffer, theme: string) => {
 }
 
 export const startUpAudio = () => {
-  playAudio(rain.rainLoop)
-  playAudio(sfx.CyberpunkPunkAmbienceLoop)
-  playAudio(music.musicStart)
-  playAudio(music.musicLoop)
-  playJOIPreloader()
+  // playAudio(rain.rainLoop)
+  // playAudio(sfx.CyberpunkPunkAmbienceLoop)
+  // playAudio(music.musicStart)
+  // playAudio(music.musicLoop)
+  // playJOIPreloader()
 }
 
 export const muteTheme = (theme: string) => {
