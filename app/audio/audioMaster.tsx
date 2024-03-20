@@ -21,25 +21,31 @@ let audioBuffers: { [key: string]: AudioBuffer } = {}
 
 export const playAudio = (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => {
   let theme: string | undefined
+  let themeFile: typeof file | undefined
+
+  console.log('playAudio called', file.src)
+
   for (const key of Object.keys(themes)) {
     for (const innerKey of Object.keys(themes[key])) {
-      if (themes[key][innerKey] === file) {
-        theme = key
+      if (themes[key][innerKey].src === file.src) {
+        theme = key + file.src
+        themeFile = themes[key][innerKey]
         break
       }
     }
     if (theme) break
   }
 
-  const { src, volume, loop = false, fadeIn = 0, delay = 0 } = file
+  if (!themeFile) return
+
+  console.log('themeFile', themeFile)
+  const { src, volume, loop = false, fadeIn = 0, delay = 0 } = themeFile
 
   const play = (audioBuffer: AudioBuffer) => {
     if (audioContext) {
       const source = audioContext.createBufferSource()
-      source.buffer = audioBuffer
-      source.loop = loop
-
       const gainNode = audioContext.createGain()
+      source.buffer = audioBuffer
       source.loop = loop
 
       // Schedule the gain value to be 0 at the current time plus the delay
@@ -68,6 +74,7 @@ export const playAudio = (file: { src: string; volume: number; loop?: boolean; f
   }
 
   if (theme && audioBuffers[theme]) {
+    console.log('playing from buffer', theme)
     play(audioBuffers[theme])
   } else {
     loadAudio(src).then(audioBuffer => {
@@ -76,6 +83,7 @@ export const playAudio = (file: { src: string; volume: number; loop?: boolean; f
           audioBuffers[theme] = audioBuffer
         }
         play(audioBuffer)
+        console.log('playing from alternative audibuffer', audioBuffer)
       }
     })
   }
@@ -83,10 +91,11 @@ export const playAudio = (file: { src: string; volume: number; loop?: boolean; f
 
 export const pauseAudio = (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => {
   let theme: string | undefined
+
   for (const key of Object.keys(themes)) {
     for (const innerKey of Object.keys(themes[key])) {
-      if (themes[key][innerKey] === file) {
-        theme = key
+      if (themes[key][innerKey].src === file.src) {
+        theme = key + file.src
         break
       }
     }
