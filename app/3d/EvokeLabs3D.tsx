@@ -57,6 +57,9 @@ const INITIAL_CAMERA_POSITION = [-0.3, 1.5, -1] as const
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // State
   const [shouldJOISpeak, setShouldJOISpeak] = useState(false)
+  //JOI Speech settings
+  const [JOILineCaption, setJOILineCaption] = useState<string | null>(null)
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false)
 
   // Calculate visitedCookie and initialTimer once outside the useEffect
 
@@ -107,10 +110,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     container,
     eventSource
   } = useUI(setPosition)
-
-  //JOI Speech settings
-  const [JOILineCaption, setJOILineCaption] = useState<string | null>(null)
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false)
 
   //Sounds Hook
   const {
