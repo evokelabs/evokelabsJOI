@@ -251,6 +251,7 @@ const Home = () => {
       playAudio(sfx.TypeOnLoop)
     } else {
       pauseAudio(sfx.TypeOnLoop)
+      playAudio(sfx.TypeOnEnd)
     }
   }, [isTypingSound])
 
