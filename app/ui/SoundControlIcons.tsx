@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import SoundMusicIconSVG from './svg/button/SoundMusicIconSVG'
 import SoundSFXIconSVG from './svg/button/SoundSFXIconSVG'
 import SoundRainIconSVG from './svg/button/SoundRainIconSVG'
@@ -20,7 +20,7 @@ const ToggleButton = ({
   showCrossIcon = true,
   ButtonComponent = ButtonAlternative
 }: {
-  toggle?: boolean
+  toggle?: any
   setToggle: React.Dispatch<React.SetStateAction<boolean>>
   SVGIcon?: (props: { isHovered: boolean }) => JSX.Element
   SVGIconOn?: (props: { isHovered: boolean }) => JSX.Element
@@ -64,37 +64,29 @@ type ThemeToggles = { [key in Theme]: boolean }
 const themes: Theme[] = ['music', 'sfx', 'rain', 'joi']
 
 const SoundControlIcons = () => {
-  const { muteTheme, unmuteTheme } = useContext(AudioContext)
-  const [masterToggle, setMasterToggle] = useState(true)
-  const [themeToggles, setThemeToggles] = useState<ThemeToggles>({
-    music: true,
-    sfx: true,
-    rain: true,
-    joi: true
-  })
-
-  const handleMasterToggle = () => {
-    setMasterToggle(!masterToggle)
-    const newThemeToggles: ThemeToggles = {} as ThemeToggles
-    for (const theme of themes) {
-      newThemeToggles[theme] = !masterToggle
-      masterToggle ? muteTheme(theme) : unmuteTheme(theme)
-    }
-    setThemeToggles(newThemeToggles)
-  }
-
-  const handleThemeToggle = (theme: Theme) => {
-    setThemeToggles({ ...themeToggles, [theme]: !themeToggles[theme] })
-    themeToggles[theme] ? muteTheme(theme) : unmuteTheme(theme)
-    if (Object.values(themeToggles).every(value => value === false)) {
-      setMasterToggle(false)
-    }
-  }
+  const { muteTheme, unmuteTheme, setMuteAll, muteAll } = useContext(AudioContext)
 
   const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(true)
 
+  const themeStates = useMemo(
+    () => ({
+      music: muteTheme('music') as any,
+      sfx: muteTheme('sfx') as any,
+      rain: muteTheme('rain') as any,
+      joi: muteTheme('joi') as any
+    }),
+    [muteTheme]
+  )
+
+  useEffect(() => {
+    setSoundControlMasterToggle(Object.values(themeStates).some(Boolean))
+    setMuteAll(Object.values(themeStates).every(Boolean))
+  }, [themeStates, setMuteAll])
+
   useEffect(() => {
     const enableAudio = () => {
+      setMuteAll(false)
+      Object.keys(themeStates).forEach(theme => unmuteTheme(theme))
       setSoundControlMasterToggle(false)
       window.removeEventListener('click', enableAudio)
       window.removeEventListener('touchstart', enableAudio)
@@ -114,27 +106,44 @@ const SoundControlIcons = () => {
       <div className='absolute bottom-2 xl:bottom-5 right-0 pt-3 xl:pt-5 flex flex-row justify-end  z-[10000000000000000] 2xl:scale-100 lg:scale-[70%] md:scale-65 scale-50 origin-bottom-right'>
         <div className={`flex transition-all duration-500 overflow-hidden ${!soundControlMasterToggle ? 'max-w-4' : 'max-w-full'}`}>
           <SoundEdgeTag />
-          {themes.map((theme, index) => (
+          {Object.keys(themeStates).map(theme => (
             <ToggleButton
-              key={index}
-              toggle={themeToggles[theme]}
-              setToggle={() => handleThemeToggle(theme)}
-              SVGIcon={props => <SoundMusicIconSVG {...props} />}
+              key={theme}
+              toggle={themeStates[theme as Theme]}
+              setToggle={() => ((themeStates[theme as Theme] as any) ? unmuteTheme(theme as Theme) : muteTheme(theme as Theme))}
+              SVGIcon={props => {
+                switch (theme) {
+                  case 'music':
+                    return <SoundMusicIconSVG {...props} />
+                  case 'sfx':
+                    return <SoundSFXIconSVG {...props} />
+                  case 'rain':
+                    return <SoundRainIconSVG {...props} />
+                  case 'joi':
+                    return <SoundJOIIconSVG {...props} />
+                  default:
+                    return <div /> // return an empty div or some default SVG component
+                }
+              }}
             />
           ))}
         </div>
 
         <ToggleButton
-          toggle={masterToggle}
-          setToggle={handleMasterToggle}
+          toggle={soundControlMasterToggle}
+          setToggle={() => {
+            const newToggleState = !soundControlMasterToggle
+            setMuteAll(newToggleState)
+            setSoundControlMasterToggle(newToggleState)
+            Object.keys(themeStates).forEach(theme => (newToggleState ? muteTheme(theme) : unmuteTheme(theme)))
+          }}
           SVGIconOn={props => <SoundControlIconOffSVG {...props} />}
           SVGIconOff={props => <SoundControlIconOnSVG {...props} />}
-          showCrossIcon={!masterToggle} // Show cross icon when muted
+          showCrossIcon={!soundControlMasterToggle} // Show cross icon when muted
           ButtonComponent={ButtonSocial}
         />
       </div>
     </div>
   )
 }
-
 export default SoundControlIcons

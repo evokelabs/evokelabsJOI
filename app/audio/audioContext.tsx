@@ -7,7 +7,9 @@ export const AudioContext = createContext<AudioControls>({
   pauseAudio: (source: AudioBufferSourceNode) => {},
   loopAudio: (audioBuffer: AudioBuffer, theme: string) => {}, // Update this line
   muteTheme: (theme: string) => {},
-  unmuteTheme: (theme: string) => {}
+  unmuteTheme: (theme: string) => {},
+  muteAll: false,
+  setMuteAll: (value: boolean) => {}
 })
 
 export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
@@ -15,7 +17,21 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
     startUpAudio()
   }, [])
 
-  return <AudioContext.Provider value={{ playAudio, pauseAudio, loopAudio, muteTheme, unmuteTheme }}>{children}</AudioContext.Provider>
+  return (
+    <AudioContext.Provider
+      value={{
+        playAudio,
+        pauseAudio,
+        loopAudio,
+        muteTheme,
+        unmuteTheme,
+        muteAll: false,
+        setMuteAll: (value: boolean) => {}
+      }}
+    >
+      {children}
+    </AudioContext.Provider>
+  )
 }
 
 export const useAudio = () => {
