@@ -14,36 +14,7 @@ export const usePreloader = () => {
   const [shouldAmbientLightPlay, setAmbientLightPlay] = useState(false)
   const [shouldPointLightPlay, setPointLightPlay] = useState(false)
   const [isPreLoaderFinished, setIsPreLoaderFinished] = useState(false)
-
-  useEffect(() => {
-    const menuTimer = setTimeout(() => {
-      setIsPreLoaderFinished(true)
-    }, initialTimer)
-
-    const carTimer = setTimeout(() => {
-      setIsCarReady(true)
-    }, initialTimer / 2)
-
-    return () => {
-      clearTimeout(menuTimer)
-      clearTimeout(carTimer)
-    }
-  }, [])
-
-  useEffect(() => {
-    const menuTimer = setTimeout(() => {
-      setIsPreLoaderFinished(true)
-    }, menuHomeWaitTimer)
-
-    const carTimer = setTimeout(() => {
-      setIsCarReady(true)
-    }, menuHomeWaitTimer / 2)
-
-    return () => {
-      clearTimeout(menuTimer)
-      clearTimeout(carTimer)
-    }
-  }, [menuHomeWaitTimer])
+  const [isHomeReady, setisHomeReady] = useState(false)
 
   return {
     shouldMapDarkness,
