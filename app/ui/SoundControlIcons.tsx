@@ -20,7 +20,7 @@ const ToggleButton = ({
   showCrossIcon = true,
   ButtonComponent = ButtonAlternative
 }: {
-  toggle?: any
+  toggle: boolean
   setToggle: React.Dispatch<React.SetStateAction<boolean>>
   SVGIcon?: (props: { isHovered: boolean }) => JSX.Element
   SVGIconOn?: (props: { isHovered: boolean }) => JSX.Element
@@ -59,9 +59,6 @@ const ToggleButton = ({
 }
 
 type Theme = 'music' | 'sfx' | 'rain' | 'joi'
-type ThemeToggles = { [key in Theme]: boolean }
-
-const themes: Theme[] = ['music', 'sfx', 'rain', 'joi']
 
 const SoundControlIcons = () => {
   const { muteTheme, unmuteTheme, setMuteAll, muteAll } = useContext(AudioContext)
@@ -77,6 +74,13 @@ const SoundControlIcons = () => {
     }),
     [muteTheme]
   )
+
+  // useEffect(() => {
+  //   // If all child toggles are false, set master toggle to false
+  //   // If any child toggle is true, set master toggle to true
+  //   setSoundControlMasterToggle(muteMusic || muteSFX || muteRain || muteJOI)
+  //   setMuteAll(muteMusic && muteSFX && muteRain && muteJOI)
+  // }, [muteMusic, muteSFX, muteRain, muteJOI, muteAll, setMuteAll])
 
   useEffect(() => {
     setSoundControlMasterToggle(Object.values(themeStates).some(Boolean))
