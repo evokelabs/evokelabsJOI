@@ -9,6 +9,7 @@ import ButtonAlternative from './ButtonAlternative'
 import SoundCrossIconSVG from './svg/button/SoundCrossIconSVG'
 import SoundEdgeTag from './PanelContent/SoundEdgeTag'
 import ButtonSocial from './ButtonSocial'
+import { AudioContext } from '../audio/audioContext'
 
 const ToggleButton = ({
   toggle,
@@ -56,7 +57,40 @@ const ToggleButton = ({
     </div>
   )
 }
+
+type Theme = 'music' | 'sfx' | 'rain' | 'joi'
+type ThemeToggles = { [key in Theme]: boolean }
+
+const themes: Theme[] = ['music', 'sfx', 'rain', 'joi']
+
 const SoundControlIcons = () => {
+  const { muteTheme, unmuteTheme } = useContext(AudioContext)
+  const [masterToggle, setMasterToggle] = useState(true)
+  const [themeToggles, setThemeToggles] = useState<ThemeToggles>({
+    music: true,
+    sfx: true,
+    rain: true,
+    joi: true
+  })
+
+  const handleMasterToggle = () => {
+    setMasterToggle(!masterToggle)
+    const newThemeToggles: ThemeToggles = {} as ThemeToggles
+    for (const theme of themes) {
+      newThemeToggles[theme] = !masterToggle
+      masterToggle ? muteTheme(theme) : unmuteTheme(theme)
+    }
+    setThemeToggles(newThemeToggles)
+  }
+
+  const handleThemeToggle = (theme: Theme) => {
+    setThemeToggles({ ...themeToggles, [theme]: !themeToggles[theme] })
+    themeToggles[theme] ? muteTheme(theme) : unmuteTheme(theme)
+    if (Object.values(themeToggles).every(value => value === false)) {
+      setMasterToggle(false)
+    }
+  }
+
   const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(true)
 
   useEffect(() => {
