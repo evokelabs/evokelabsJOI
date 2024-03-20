@@ -11,6 +11,7 @@ import SoundEdgeTag from './PanelContent/SoundEdgeTag'
 import ButtonSocial from './ButtonSocial'
 
 import { AudioContext } from '../audio/audioContext'
+import { muteTheme, unmuteTheme } from '../audio/audioMaster'
 
 const ToggleButton = ({
   toggle,
@@ -97,12 +98,52 @@ const SoundControlIcons = () => {
       <div className='absolute bottom-2 xl:bottom-5 right-0 pt-3 xl:pt-5 flex flex-row justify-end  z-[10000000000000000] 2xl:scale-100 lg:scale-[70%] md:scale-65 scale-50 origin-bottom-right'>
         <div className={`flex transition-all duration-500 overflow-hidden ${!soundControlMasterToggle ? 'max-w-4' : 'max-w-full'}`}>
           <SoundEdgeTag />
-          <ToggleButton toggle={muteMusic} setToggle={() => setMuteMusic(!muteMusic)} SVGIcon={props => <SoundMusicIconSVG {...props} />} />
-          <ToggleButton toggle={muteSFX} setToggle={() => setMuteSFX(!muteSFX)} SVGIcon={props => <SoundSFXIconSVG {...props} />} />
-          <ToggleButton toggle={muteRain} setToggle={() => setMuteRain(!muteRain)} SVGIcon={props => <SoundRainIconSVG {...props} />} />
+          <ToggleButton
+            toggle={muteMusic}
+            setToggle={() => {
+              if (muteMusic) {
+                unmuteTheme('music')
+              } else {
+                muteTheme('music')
+              }
+              setMuteMusic(!muteMusic)
+            }}
+            SVGIcon={props => <SoundMusicIconSVG {...props} />}
+          />
+          <ToggleButton
+            toggle={muteSFX}
+            setToggle={() => {
+              if (muteSFX) {
+                unmuteTheme('sfx')
+              } else {
+                muteTheme('sfx')
+              }
+              setMuteSFX(!muteSFX)
+            }}
+            SVGIcon={props => <SoundSFXIconSVG {...props} />}
+          />
+          <ToggleButton
+            toggle={muteRain}
+            setToggle={() => {
+              if (muteRain) {
+                unmuteTheme('rain')
+              } else {
+                muteTheme('rain')
+              }
+              setMuteRain(!muteRain)
+            }}
+            SVGIcon={props => <SoundRainIconSVG {...props} />}
+          />
           <ToggleButton
             toggle={muteSpeech}
-            setToggle={() => setMuteSpeech(!muteSpeech)}
+            setToggle={() => {
+              if (muteSpeech) {
+                unmuteTheme('speech')
+              } else {
+                muteTheme('speech')
+              }
+              setMuteSpeech(!muteSpeech)
+            }}
             SVGIcon={props => <SoundJOIIconSVG {...props} />}
           />
         </div>
@@ -115,6 +156,17 @@ const SoundControlIcons = () => {
             setMuteSFX(value)
             setMuteRain(value)
             setMuteSpeech(value)
+            if (value) {
+              muteTheme('music')
+              muteTheme('sfx')
+              muteTheme('rain')
+              muteTheme('speech')
+            } else {
+              unmuteTheme('music')
+              unmuteTheme('sfx')
+              unmuteTheme('rain')
+              unmuteTheme('speech')
+            }
           }}
           SVGIconOn={props => <SoundControlIconOffSVG {...props} />}
           SVGIconOff={props => <SoundControlIconOnSVG {...props} />}

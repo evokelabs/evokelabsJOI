@@ -30,6 +30,7 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
   const [muteAll, setMuteAll] = useState(false)
 
   const muteTheme = (theme: string) => {
+    console.log('mute theme called', theme)
     muteThemeMaster(theme)
     switch (theme) {
       case 'music':
@@ -50,6 +51,7 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
   }
 
   const unmuteTheme = (theme: string) => {
+    console.log('unmute theme called', theme)
     unmuteThemeMaster(theme)
     switch (theme) {
       case 'music':
