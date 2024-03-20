@@ -33,6 +33,18 @@ const MusicLoopSoundControl = () => {
       setHasUserInteracted(true)
       clearTimeout(interactionTimeout) // Clear the timeout when the user interacts with the window
     }
+
+    window.addEventListener('click', handleUserInteraction)
+    window.addEventListener('touchstart', handleUserInteraction)
+    window.addEventListener('keydown', handleUserInteraction)
+
+    // Clean up the event listeners and timeout when the component unmounts
+    return () => {
+      window.removeEventListener('click', handleUserInteraction)
+      window.removeEventListener('touchstart', handleUserInteraction)
+      window.removeEventListener('keydown', handleUserInteraction)
+      clearTimeout(interactionTimeout)
+    }
   }, []) // Empty dependency array so this effect only runs once on mount
 
   useEffect(() => {
