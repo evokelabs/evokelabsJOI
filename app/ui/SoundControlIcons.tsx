@@ -59,10 +59,18 @@ const ToggleButton = ({
     </div>
   )
 }
-const SoundControlIcons = () => {
-  const { muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteSpeech, setMuteSpeech, setMuteAll, muteAll } =
-    useContext(AudioContext)
-
+const SoundControlIcons = ({
+  muteMusic,
+  setMuteMusic,
+  muteSFX,
+  setMuteSFX,
+  muteRain,
+  setMuteRain,
+  muteSpeech,
+  setMuteSpeech,
+  setMuteAll,
+  muteAll
+}) => {
   const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(true)
 
   const createToggleButton = (

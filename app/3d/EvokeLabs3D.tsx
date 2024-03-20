@@ -245,7 +245,18 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           </Canvas>
         </div>
         <SocialIcons />
-        <SoundControlIcons />
+        <SoundControlIcons
+          muteMusic={muteMusic}
+          setMuteMusic={setMuteMusic}
+          muteSFX={muteSFX}
+          setMuteSFX={setMuteSFX}
+          muteRain={muteRain}
+          setMuteRain={setMuteRain}
+          muteSpeech={muteSpeech}
+          setMuteSpeech={setMuteSpeech}
+          setMuteAll={setMuteAll}
+          muteAll={muteAll}
+        />
         <JOISubtitles />
       </AudioContext.Provider>
     </>

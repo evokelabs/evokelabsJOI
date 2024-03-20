@@ -1,123 +1,24 @@
-import React, { createContext, useContext, ReactNode, useEffect, useState } from 'react'
-import { playAudio, pauseAudio, loopAudio, startUpAudio } from './audioMaster'
-import { AudioControls, AudioProviderProps } from './audioTypes'
+import React, { createContext, useContext, ReactNode } from 'react'
+import { useSounds } from '../3d/lib/useSounds'
 
-import { muteTheme as muteThemeMaster, unmuteTheme as unmuteThemeMaster } from './audioMaster'
+interface SoundControls {
+  // Define the shape of your context here.
+  // For example, if useSounds returns an object with a play function and a pause function, you can do:
+  // play: () => void;
+  // pause: () => void;
+  // Adjust this to match the actual shape of your context.
+}
 
-export const AudioContext = createContext<AudioControls>({
-  playAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => {},
-  pauseAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => {},
-  loopAudio: (audioBuffer: AudioBuffer, theme: string) => {},
-  muteTheme: (theme: string) => {},
-  unmuteTheme: (theme: string) => {},
-  muteMusic: true,
-  muteSFX: true,
-  muteRain: true,
-  muteSpeech: true,
-  muteAll: true,
-  setMuteMusic: (value: boolean) => {},
-  setMuteSFX: (value: boolean) => {},
-  setMuteRain: (value: boolean) => {},
-  setMuteSpeech: (value: boolean) => {},
-  setMuteAll: (value: boolean) => {}
-})
+export const AudioContext = createContext<SoundControls | undefined>(undefined)
 
-export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
-  const [muteMusic, setMuteMusic] = useState(true)
-  const [muteSFX, setMuteSFX] = useState(true)
-  const [muteRain, setMuteRain] = useState(true)
-  const [muteSpeech, setMuteSpeech] = useState(true)
-  const [muteAll, setMuteAll] = useState(true)
+interface AudioProviderProps {
+  children: ReactNode
+}
 
-  const muteTheme = (theme: string) => {
-    muteThemeMaster(theme)
-    switch (theme) {
-      case 'music':
-        setMuteMusic(true)
-        break
-      case 'sfx':
-        setMuteSFX(true)
-        break
-      case 'rain':
-        setMuteRain(true)
-        break
-      case 'joi':
-        setMuteSpeech(true)
-        break
-      default:
-        break
-    }
-  }
+export const AudioProvider = ({ children }: AudioProviderProps) => {
+  const soundControls = useSounds()
 
-  const unmuteTheme = (theme: string) => {
-    unmuteThemeMaster(theme)
-    switch (theme) {
-      case 'music':
-        setMuteMusic(false)
-        break
-      case 'sfx':
-        setMuteSFX(false)
-        break
-      case 'rain':
-        setMuteRain(false)
-        break
-      case 'joi':
-        setMuteSpeech(false)
-        break
-      default:
-        break
-    }
-  }
-
-  useEffect(() => {
-    const enableAudio = () => {
-      setMuteAll(false)
-      setMuteMusic(false)
-      setMuteSFX(false)
-      setMuteRain(false)
-      setMuteSpeech(false)
-      window.removeEventListener('click', enableAudio)
-      window.removeEventListener('touchstart', enableAudio)
-      startUpAudio()
-      console.log('enableAudio', muteSFX)
-    }
-
-    window.addEventListener('click', enableAudio)
-    window.addEventListener('touchstart', enableAudio)
-
-    return () => {
-      window.removeEventListener('click', enableAudio)
-      window.removeEventListener('touchstart', enableAudio)
-    }
-  }, [])
-
-  useEffect(() => {
-    console.log('muteSFX', muteSFX)
-  }, [muteSFX])
-
-  return (
-    <AudioContext.Provider
-      value={{
-        playAudio,
-        pauseAudio,
-        loopAudio,
-        muteTheme,
-        unmuteTheme,
-        muteMusic,
-        muteSFX,
-        muteRain,
-        muteSpeech,
-        muteAll,
-        setMuteMusic,
-        setMuteSFX,
-        setMuteRain,
-        setMuteSpeech,
-        setMuteAll
-      }}
-    >
-      {children}
-    </AudioContext.Provider>
-  )
+  return <AudioContext.Provider value={soundControls}>{children}</AudioContext.Provider>
 }
 
 export const useAudio = () => {
