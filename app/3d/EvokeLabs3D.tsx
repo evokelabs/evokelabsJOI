@@ -46,7 +46,7 @@ import { useUI } from './lib/useUI'
 import { usePreloader } from './lib/usePreloader'
 import { useResponsive } from './lib/useResponsive'
 import { ROUTE_CONFIG } from '../libs/ROUTE_CONFIG'
-import { AudioProvider, useAudio } from '../audio/audioMaster'
+import { AudioProvider } from '../audio/audioContext'
 
 // Constants
 const INITIAL_CAMERA_POSITION = [-0.3, 1.5, -1] as const
