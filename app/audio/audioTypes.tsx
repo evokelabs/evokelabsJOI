@@ -40,19 +40,21 @@ export interface AudioProviderProps {
 }
 
 export interface AudioControls {
-  playAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => void
-  pauseAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => void
-  loopAudio: (audioBuffer: AudioBuffer, theme: string) => void // Update this line
-  muteTheme: (theme: string) => void
-  unmuteTheme: (theme: string) => void
-  setMuteAll: (value: boolean) => void
   muteMusic: boolean
-  muteSFX: boolean
-  muteRain: boolean
-  muteSpeech: boolean
-  muteAll: boolean
   setMuteMusic: (value: boolean) => void
+  muteSFX: boolean
   setMuteSFX: (value: boolean) => void
+  muteRain: boolean
   setMuteRain: (value: boolean) => void
+  muteSpeech: boolean
+  setMuteAll: (value: boolean) => void
+  muteAll: boolean
   setMuteSpeech: (value: boolean) => void
+  // playAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => void
+  // pauseAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => void
+  // loopAudio: (audioBuffer: AudioBuffer, theme: string) => void // Update this line
+  // muteTheme: (theme: string) => void
+  // unmuteTheme: (theme: string) => void
 }
+
+export type ThemeGroups = 'music' | 'sfx' | 'rain' | 'joi'

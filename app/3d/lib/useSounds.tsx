@@ -7,9 +7,8 @@ import {
   muteTheme as muteThemeMaster,
   unmuteTheme as unmuteThemeMaster
 } from '@/app/audio/audioMaster'
+import { ThemeGroups } from '@/app/audio/audioTypes'
 import { useState, useEffect } from 'react'
-
-type Theme = 'music' | 'sfx' | 'rain' | 'joi'
 
 export const useSounds = () => {
   const [muteMusic, setMuteMusic] = useState(true)
@@ -18,7 +17,7 @@ export const useSounds = () => {
   const [muteSpeech, setMuteSpeech] = useState(true)
   const [muteAll, setMuteAll] = useState(true)
 
-  const muteTheme = (theme: Theme) => {
+  const muteTheme = (theme: ThemeGroups) => {
     muteThemeMaster(theme)
     switch (theme) {
       case 'music':
@@ -38,7 +37,7 @@ export const useSounds = () => {
     }
   }
 
-  const unmuteTheme = (theme: Theme) => {
+  const unmuteTheme = (theme: ThemeGroups) => {
     unmuteThemeMaster(theme)
     switch (theme) {
       case 'music':
@@ -79,10 +78,6 @@ export const useSounds = () => {
       window.removeEventListener('touchstart', enableAudio)
     }
   }, [])
-
-  useEffect(() => {
-    console.log('muteSFX', muteSFX)
-  }, [muteSFX])
 
   return {
     playAudio,

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SoundMusicIconSVG from './svg/button/SoundMusicIconSVG'
 import SoundSFXIconSVG from './svg/button/SoundSFXIconSVG'
 import SoundRainIconSVG from './svg/button/SoundRainIconSVG'
@@ -10,8 +10,8 @@ import SoundCrossIconSVG from './svg/button/SoundCrossIconSVG'
 import SoundEdgeTag from './PanelContent/SoundEdgeTag'
 import ButtonSocial from './ButtonSocial'
 
-import { AudioContext } from '../audio/audioContext'
 import { muteTheme, unmuteTheme } from '../audio/audioMaster'
+import { AudioControls } from '../audio/audioTypes'
 
 const ToggleButton = ({
   toggle,
@@ -70,7 +70,7 @@ const SoundControlIcons = ({
   setMuteSpeech,
   setMuteAll,
   muteAll
-}) => {
+}: AudioControls) => {
   const [soundControlMasterToggle, setSoundControlMasterToggle] = useState(true)
 
   const createToggleButton = (
