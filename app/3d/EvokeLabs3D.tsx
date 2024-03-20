@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NextRouter } from 'next/router'
 import { Vector2 } from 'three'
 import { Canvas } from '@react-three/fiber'
@@ -46,6 +46,7 @@ import { useUI } from './lib/useUI'
 import { usePreloader } from './lib/usePreloader'
 import { useResponsive } from './lib/useResponsive'
 import { ROUTE_CONFIG } from '../libs/ROUTE_CONFIG'
+import { AudioProvider, useAudio } from '../audio/audioMaster'
 
 // Constants
 const INITIAL_CAMERA_POSITION = [-0.3, 1.5, -1] as const
@@ -109,119 +110,121 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
 
   return (
     <>
-      <div ref={container} className='h-full'>
-        <Canvas
-          camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
-          shadows
-          gl={{
-            powerPreference: 'high-performance'
-          }}
-          style={{ pointerEvents: 'none' }}
-          eventSource={eventSource}
-          eventPrefix='page'
-        >
-          <AnimationContext.Provider
-            value={{
-              shouldAmbientLightPlay,
-              shouldPointLightPlay,
-              shouldJOISpeak,
-              setAmbientLightPlay,
-              setPointLightPlay,
-              setShouldJOISpeak,
-              shouldMapDarkness,
-              setShouldMapDarkness
+      <AudioProvider>
+        <div ref={container} className='h-full'>
+          <Canvas
+            camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
+            shadows
+            gl={{
+              powerPreference: 'high-performance'
             }}
+            style={{ pointerEvents: 'none' }}
+            eventSource={eventSource}
+            eventPrefix='page'
           >
-            <Html
-              ref={htmlRef}
-              scale={htmlScale}
-              prepend
-              distanceFactor={10}
-              transform
-              className='scale-x-[-1]'
-              position={position}
-              onPointerDown={handleMouseDown}
-              onPointerUp={handleMouseUp}
-              onPointerMove={handleMouseMove}
+            <AnimationContext.Provider
+              value={{
+                shouldAmbientLightPlay,
+                shouldPointLightPlay,
+                shouldJOISpeak,
+                setAmbientLightPlay,
+                setPointLightPlay,
+                setShouldJOISpeak,
+                shouldMapDarkness,
+                setShouldMapDarkness
+              }}
             >
-              <PortfolioContext.Provider
-                value={{
-                  selectedShowOnlyOption,
-                  setSelectedShowOnlyOption,
-                  selectedSortByOption,
-                  setSelectedSortByOption
-                }}
+              <Html
+                ref={htmlRef}
+                scale={htmlScale}
+                prepend
+                distanceFactor={10}
+                transform
+                className='scale-x-[-1]'
+                position={position}
+                onPointerDown={handleMouseDown}
+                onPointerUp={handleMouseUp}
+                onPointerMove={handleMouseMove}
               >
-                <RoutesContext.Provider
+                <PortfolioContext.Provider
                   value={{
-                    currentRouteSelection,
-                    setCurrentRouteSelection,
-                    currentPortfolioSelection,
-                    setCurrentPortfolioSelection,
-                    homePanelExpanded,
-                    setHomePanelExpanded
+                    selectedShowOnlyOption,
+                    setSelectedShowOnlyOption,
+                    selectedSortByOption,
+                    setSelectedSortByOption
                   }}
                 >
-                  <Draggable>
-                    <div
-                      onPointerDown={handleMouseDown}
-                      onPointerUp={handleMouseUp}
-                      className='flex flex-col-reverse p-4 relative translate-y-10 '
-                    >
-                      <div className='left-1 scale-[54%] sm:scale-[54%] md:scale-[100%] md:w-full origin-top-left min-w-[50em] md:min-w-[74em] '>
-                        {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+                  <RoutesContext.Provider
+                    value={{
+                      currentRouteSelection,
+                      setCurrentRouteSelection,
+                      currentPortfolioSelection,
+                      setCurrentPortfolioSelection,
+                      homePanelExpanded,
+                      setHomePanelExpanded
+                    }}
+                  >
+                    <Draggable>
+                      <div
+                        onPointerDown={handleMouseDown}
+                        onPointerUp={handleMouseUp}
+                        className='flex flex-col-reverse p-4 relative translate-y-10 '
+                      >
+                        <div className='left-1 scale-[54%] sm:scale-[54%] md:scale-[100%] md:w-full origin-top-left min-w-[50em] md:min-w-[74em] '>
+                          {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+                        </div>
+                        <div className='max-w-[26.5em] sm:max-w-[26.5em] md:max-w-[73em]'>
+                          {isPreLoaderFinished && router.pathname === '/' && <Home />}
+                          {router.pathname === '/services' && <Services />}
+                          {router.pathname.startsWith('/portfolio') && <Portfolio setShouldMapDarkness={setShouldMapDarkness} />}
+                          {router.pathname === '/history' && <History setShouldMapDarkness={setShouldMapDarkness} />}
+                          {router.pathname === '/resume' && <Resume />}
+                          {router.pathname === '/joi' && <JOISpecial setShouldMapDarkness={setShouldMapDarkness} />}
+                          {router.pathname === '/availabilities' && <Availabilities />}
+                        </div>
                       </div>
-                      <div className='max-w-[26.5em] sm:max-w-[26.5em] md:max-w-[73em]'>
-                        {isPreLoaderFinished && router.pathname === '/' && <Home />}
-                        {router.pathname === '/services' && <Services />}
-                        {router.pathname.startsWith('/portfolio') && <Portfolio setShouldMapDarkness={setShouldMapDarkness} />}
-                        {router.pathname === '/history' && <History setShouldMapDarkness={setShouldMapDarkness} />}
-                        {router.pathname === '/resume' && <Resume />}
-                        {router.pathname === '/joi' && <JOISpecial setShouldMapDarkness={setShouldMapDarkness} />}
-                        {router.pathname === '/availabilities' && <Availabilities />}
-                      </div>
-                    </div>
-                  </Draggable>
-                </RoutesContext.Provider>
-              </PortfolioContext.Provider>
-            </Html>
-            <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
-              <VideoSkybox />
+                    </Draggable>
+                  </RoutesContext.Provider>
+                </PortfolioContext.Provider>
+              </Html>
+              <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
+                <VideoSkybox />
 
-              <CameraRig fov={fov} debug={false} />
-              <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
+                <CameraRig fov={fov} debug={false} />
+                <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
 
-              <Lights />
-              {isCarReady && <CyberpunkCar />}
-              <WideMonitor />
-              {!lowGPU && <DeskItems />}
-              {lowGPU ? <CyberpunkMapLowPoly /> : <CyberpunkMap />}
-              <JOI />
-              <Rain />
-            </GPUContext.Provider>
-          </AnimationContext.Provider>
+                <Lights />
+                {isCarReady && <CyberpunkCar />}
+                <WideMonitor />
+                {!lowGPU && <DeskItems />}
+                {lowGPU ? <CyberpunkMapLowPoly /> : <CyberpunkMap />}
+                <JOI />
+                <Rain />
+              </GPUContext.Provider>
+            </AnimationContext.Provider>
 
-          {lowGPU ? (
-            <EffectComposer>
-              <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
-              <BrightnessContrast brightness={0.02} contrast={0.275} />
-              <Vignette offset={0.0} darkness={1} />
-            </EffectComposer>
-          ) : (
-            <EffectComposer>
-              <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={2} />
-              <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
-              <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
-              <Noise opacity={0.7} premultiply blendFunction={28} />
-              <BrightnessContrast brightness={0.02} contrast={0.275} />
-              <Vignette offset={0.0} darkness={1} />
-            </EffectComposer>
-          )}
-        </Canvas>
-      </div>
-      <SocialIcons />
-      <SoundControlIcons />
-      <JOISubtitles />
+            {lowGPU ? (
+              <EffectComposer>
+                <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
+                <BrightnessContrast brightness={0.02} contrast={0.275} />
+                <Vignette offset={0.0} darkness={1} />
+              </EffectComposer>
+            ) : (
+              <EffectComposer>
+                <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={2} />
+                <Bloom mipmapBlur radius={0.65} luminanceThreshold={1} intensity={0.525} luminanceSmoothing={0.65} levels={5} />
+                <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
+                <Noise opacity={0.7} premultiply blendFunction={28} />
+                <BrightnessContrast brightness={0.02} contrast={0.275} />
+                <Vignette offset={0.0} darkness={1} />
+              </EffectComposer>
+            )}
+          </Canvas>
+        </div>
+        <SocialIcons />
+        <SoundControlIcons />
+        <JOISubtitles />
+      </AudioProvider>
     </>
   )
 }
