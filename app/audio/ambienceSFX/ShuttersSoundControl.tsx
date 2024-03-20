@@ -1,5 +1,6 @@
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
 import { useContext, useEffect, useRef } from 'react'
+import { audioContext } from '../webAPIContext'
 
 const AUDIO_SOURCE = '/sounds/shutters.mp3'
 
@@ -21,43 +22,45 @@ const ShutterSoundControl = ({
   const audioContextRef = useRef<AudioContext | null>(null)
 
   useEffect(() => {
-    // Create a new AudioContext and an audio element
+    if (audioContext) {
+      // Assign audioContext to audioContextRef.current
+      audioContextRef.current = audioContext
 
-    const audioContext = new AudioContext()
-    audioContextRef.current = audioContext // Assign audioContext to audioContextRef.current
-    audioElement.current = new Audio()
-    audioElement.current.src = AUDIO_SOURCE
+      // Create an audio element
+      audioElement.current = new Audio()
+      audioElement.current.src = AUDIO_SOURCE
 
-    // Create a GainNode to control the volume
-    gainNode.current = audioContext.createGain()
+      // Create a GainNode to control the volume
+      gainNode.current = audioContext.createGain()
 
-    // Create a MediaElementAudioSourceNode from the audio element
-    const source = audioContext.createMediaElementSource(audioElement.current)
-    source.connect(gainNode.current)
-    gainNode.current.connect(audioContext.destination)
+      // Create a MediaElementAudioSourceNode from the audio element
+      const source = audioContext.createMediaElementSource(audioElement.current)
+      source.connect(gainNode.current)
+      gainNode.current.connect(audioContext.destination)
 
-    // Define a function to play the audio
-    const playAudio = () => {
-      if (audioElement.current && gainNode.current && audioContext.state === 'running') {
-        audioElement.current.play()
-        audioElement.current.loop = loop
-      }
-    }
-
-    // Call playAudio only when audioContext is defined and in 'running' state
-    if (audioContext.state === 'running') {
-      setTimeout(playAudio, delay)
-    } else {
-      audioContext.onstatechange = () => {
-        if (audioContext.state === 'running') {
-          setTimeout(playAudio, delay)
+      // Define a function to play the audio
+      const playAudio = () => {
+        if (audioElement.current && gainNode.current && audioContextRef.current && audioContextRef.current.state === 'running') {
+          audioElement.current.play()
+          audioElement.current.loop = loop
         }
       }
-    }
 
-    // Clean up event listeners when the component unmounts
-    return () => {
-      audioElement.current?.removeEventListener('canplaythrough', playAudio)
+      // Call playAudio only when audioContext is defined and in 'running' state
+      if (audioContext.state === 'running') {
+        setTimeout(playAudio, delay)
+      } else {
+        audioContext.onstatechange = () => {
+          if (audioContext && audioContext.state === 'running') {
+            setTimeout(playAudio, delay)
+          }
+        }
+      }
+
+      // Clean up event listeners when the component unmounts
+      return () => {
+        audioElement.current?.removeEventListener('canplaythrough', playAudio)
+      }
     }
   }, [delay, loop])
 

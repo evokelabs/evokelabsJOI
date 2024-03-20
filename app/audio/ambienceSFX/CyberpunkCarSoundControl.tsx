@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber'
 
 import { CyberpunkRefType } from '../../3d/models/CyberpunkCar/index'
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
+import { audioContext } from '../webAPIContext'
 
 const SOUND_PATH = '/sounds/engineLoop.ogg'
 const MAX_VOLUME = 0.55
@@ -22,26 +23,28 @@ const CyberpunkCarSoundControl = ({ carRef }: CyberpunkRefType) => {
   useEffect(() => {
     const resumeAudio = async () => {
       if (!audioCtx) {
-        const newAudioCtx = new AudioContext()
-        const newGainNode = newAudioCtx.createGain()
-        const newPanner = newAudioCtx.createStereoPanner()
+        const newAudioCtx = audioContext
+        if (newAudioCtx) {
+          const newGainNode = newAudioCtx.createGain()
+          const newPanner = newAudioCtx.createStereoPanner()
 
-        setAudioCtx(newAudioCtx)
-        setGainNode(newGainNode)
-        setPanner(newPanner)
+          setAudioCtx(newAudioCtx)
+          setGainNode(newGainNode)
+          setPanner(newPanner)
 
-        const response = await fetch(SOUND_PATH)
-        const arrayBuffer = await response.arrayBuffer()
-        const audioBuffer = await newAudioCtx.decodeAudioData(arrayBuffer)
+          const response = await fetch(SOUND_PATH)
+          const arrayBuffer = await response.arrayBuffer()
+          const audioBuffer = await newAudioCtx.decodeAudioData(arrayBuffer)
 
-        const newAudioSrc = newAudioCtx.createBufferSource()
-        newAudioSrc.buffer = audioBuffer
-        newAudioSrc.loop = true
-        newAudioSrc.start()
+          const newAudioSrc = newAudioCtx.createBufferSource()
+          newAudioSrc.buffer = audioBuffer
+          newAudioSrc.loop = true
+          newAudioSrc.start()
 
-        newAudioSrc.connect(newGainNode)
-        newGainNode.connect(newPanner)
-        newPanner.connect(newAudioCtx.destination)
+          newAudioSrc.connect(newGainNode)
+          newGainNode.connect(newPanner)
+          newPanner.connect(newAudioCtx.destination)
+        }
       } else if (audioCtx.state === 'suspended') {
         await audioCtx.resume()
       }

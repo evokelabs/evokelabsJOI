@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
+import { audioContext } from '../webAPIContext'
 
 const AUDIO_SOURCE_LOOP = '/sounds/TypeOnLoop.ogg'
 const AUDIO_SOURCE_END = '/sounds/TypeOnEnd.ogg'
@@ -23,16 +24,17 @@ const TypeOnSoundControl: React.FC<TypeOnSoundControlProps> = ({
   const track = useRef<MediaElementAudioSourceNode | null>(null)
   const audioElement = useRef(new Audio(AUDIO_SOURCE_LOOP))
   const audioEndElement = useRef(new Audio(AUDIO_SOURCE_END))
-  const audioContext = useRef(new AudioContext())
+  const audioContextRef = useRef(audioContext)
 
   // Define a function to play the audio
   const playAudio = useCallback(() => {
-    audioContext.current.resume().then(() => {
-      audioElement.current.play()
-      audioElement.current.loop = loop
-    })
+    if (audioContextRef.current) {
+      audioContextRef.current.resume().then(() => {
+        audioElement.current.play()
+        audioElement.current.loop = loop
+      })
+    }
   }, [loop])
-
   // Define a function to stop the audio and play the end sound
   const stopAudio = useCallback(() => {
     audioElement.current.pause()
@@ -48,19 +50,24 @@ const TypeOnSoundControl: React.FC<TypeOnSoundControlProps> = ({
     const audioElementCurrent = audioElement.current
     const audioEndElementCurrent = audioEndElement.current
 
-    if (!track.current) {
-      track.current = audioContext.current.createMediaElementSource(audioElementCurrent)
+    if (!track.current && audioContextRef.current) {
+      track.current = audioContextRef.current.createMediaElementSource(audioElementCurrent)
     }
 
-    if (!endTrack.current) {
-      endTrack.current = audioContext.current.createMediaElementSource(audioEndElementCurrent)
+    if (!endTrack.current && audioContextRef.current) {
+      endTrack.current = audioContextRef.current.createMediaElementSource(audioEndElementCurrent)
     }
 
     audioElementCurrent.volume = volume
     audioEndElementCurrent.volume = volume
 
-    track.current.connect(audioContext.current.destination)
-    endTrack.current.connect(audioContext.current.destination)
+    if (track.current && audioContextRef.current) {
+      track.current.connect(audioContextRef.current.destination)
+    }
+
+    if (endTrack.current && audioContextRef.current) {
+      endTrack.current.connect(audioContextRef.current.destination)
+    }
 
     return () => {
       audioElementCurrent.pause()
