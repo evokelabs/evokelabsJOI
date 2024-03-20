@@ -126,16 +126,20 @@ export const startUpAudio = () => {
 
 export const muteTheme = (theme: string) => {
   console.log('mute theme called', theme)
-  if (theme && audioNodes[theme]) {
-    console.log('muting theme', theme)
-    audioNodes[theme].gain.value = 0
+  for (const key of Object.keys(audioNodes)) {
+    if (key.startsWith(theme)) {
+      console.log('muting theme', key)
+      audioNodes[key].gain.value = 0
+    }
   }
 }
 
 export const unmuteTheme = (theme: string) => {
   console.log('unmute theme called', theme)
-  if (theme && audioNodes[theme]) {
-    audioNodes[theme].gain.value = 1
+  for (const key of Object.keys(audioNodes)) {
+    if (key.startsWith(theme)) {
+      audioNodes[key].gain.value = 1
+    }
   }
 }
 
