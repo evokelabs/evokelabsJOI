@@ -1,11 +1,24 @@
 import React from 'react'
+import { SoundAudioLevelControls } from './data/types'
 
-const Preloader = ({ setIsPreLoaderFinished }: { setIsPreLoaderFinished: (value: boolean) => void }) => {
+const Preloader = ({
+  setIsPreLoaderFinished,
+  soundAudioLevelControls
+}: {
+  setIsPreLoaderFinished: (value: boolean) => void
+  soundAudioLevelControls: SoundAudioLevelControls
+}) => {
   return (
-    <div className='w-full h-full absolute top-0 left-0 z-[999999999999999999999999999]'>
+    <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000]'>
       <div className='flex h-full last:items-center justify-center '>
         <button
           onClick={() => {
+            soundAudioLevelControls.setMuteAll(false)
+            soundAudioLevelControls.setMuteMusic(false)
+            soundAudioLevelControls.setMuteRain(false)
+            soundAudioLevelControls.setMuteSFX(false)
+            soundAudioLevelControls.setMuteJOI(false)
+            soundAudioLevelControls.setMuteRain(false)
             setIsPreLoaderFinished(true)
           }}
         >

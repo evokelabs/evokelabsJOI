@@ -49,16 +49,6 @@ const CyberpunkCarSoundControl = ({ carRef }: CyberpunkRefType) => {
         await audioCtx.resume()
       }
     }
-
-    window.addEventListener('click', resumeAudio)
-    window.addEventListener('touchstart', resumeAudio)
-    window.addEventListener('keydown', resumeAudio)
-
-    return () => {
-      window.removeEventListener('click', resumeAudio)
-      window.removeEventListener('touchstart', resumeAudio)
-      window.removeEventListener('keydown', resumeAudio)
-    }
   }, [audioCtx])
 
   // On each frame, update the volume and pan of the sound based on the car's position.

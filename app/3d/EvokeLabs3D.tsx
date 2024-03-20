@@ -238,6 +238,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                       </RoutesContext.Provider>
                     </PortfolioContext.Provider>
                   </Html>
+
                   <GPUContext.Provider value={{ lowGPU, setLowGPU }}>
                     <ELAudioStartSoundControl />
                     {isPreLoaderFinished ? (
@@ -277,10 +278,12 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
               </SoundsContext.Provider>
             </Canvas>
           </div>
+          {!isPreLoaderFinished && (
+            <Preloader setIsPreLoaderFinished={setIsPreLoaderFinished} soundAudioLevelControls={soundAudioLevelControls} />
+          )}
           <SocialIcons />
-          <SoundControlIcons />
           <JOISubtitles />
-          {!isPreLoaderFinished && <Preloader setIsPreLoaderFinished={setIsPreLoaderFinished} />}
+          {isPreLoaderFinished && <SoundControlIcons />}
         </JOISpeechContext.Provider>
       </SoundControlContext.Provider>
     </>

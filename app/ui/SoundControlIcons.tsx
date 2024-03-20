@@ -79,22 +79,12 @@ const SoundControlIcons = () => {
       setMuteRain(false)
       setMuteJOI(false)
       setSoundControlMasterToggle(false)
-      window.removeEventListener('click', enableAudio)
-      window.removeEventListener('touchstart', enableAudio)
-    }
-
-    window.addEventListener('click', enableAudio)
-    window.addEventListener('touchstart', enableAudio)
-
-    return () => {
-      window.removeEventListener('click', enableAudio)
-      window.removeEventListener('touchstart', enableAudio)
     }
   }, [])
 
   return (
     <div className='relative'>
-      <div className='absolute bottom-2 xl:bottom-5 right-0 pt-3 xl:pt-5 flex flex-row justify-end  z-[10000000000000000] 2xl:scale-100 lg:scale-[70%] md:scale-65 scale-50 origin-bottom-right'>
+      <div className='absolute bottom-2 xl:bottom-5 right-0 pt-3 xl:pt-5 flex flex-row justify-end  z-[10000000] 2xl:scale-100 lg:scale-[70%] md:scale-65 scale-50 origin-bottom-right'>
         <div className={`flex transition-all duration-500 overflow-hidden ${!soundControlMasterToggle ? 'max-w-4' : 'max-w-full'}`}>
           <SoundEdgeTag />
           <ToggleButton
