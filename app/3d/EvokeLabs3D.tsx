@@ -221,7 +221,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 <WideMonitor />
                 {!lowGPU && <DeskItems />}
                 {lowGPU ? <CyberpunkMapLowPoly muteSFX={muteSFX} /> : <CyberpunkMap muteSFX={muteSFX} />}
-                <JOI />
+                <JOI muteJOI={muteSpeech} />
                 <Rain muteRain={muteRain} />
               </GPUContext.Provider>
             </AnimationContext.Provider>

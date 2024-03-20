@@ -13,7 +13,7 @@ import { useEyesBlinkingAnimation } from './controllers/useEyesBlinkingAnimation
 import { useMorphAnimation } from './controllers/useFacialMorphsAnimation'
 import { useJOIVoice } from './controllers/useJOIVoice'
 
-const JOI = () => {
+const JOI = ({ muteJOI }: { muteJOI: boolean }) => {
   const { scene, camera } = useThree()
 
   const gltf = useGLTF('/glb/JOI.glb')
@@ -28,7 +28,7 @@ const JOI = () => {
   useHeadAnimation(nodes)
   useEyesBlinkingAnimation(model as Mesh)
   useMorphAnimation(model)
-  useJOIVoice(model)
+  useJOIVoice({ model, muteJOI })
 
   useEffect(() => {
     if (!model) return
