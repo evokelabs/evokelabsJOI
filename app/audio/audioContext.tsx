@@ -1,8 +1,8 @@
-import React, { createContext, useContext, ReactNode } from 'react'
-import { playAudio, pauseAudio, loopAudio } from './audioMaster'
+import React, { createContext, useContext, ReactNode, useEffect } from 'react'
+import { playAudio, pauseAudio, loopAudio, startUpAudio } from './audioMaster'
 
 interface AudioControls {
-  playAudio: (audioBuffer: AudioBuffer) => void
+  playAudio: (audioBuffer: AudioBuffer, volume: number, loop?: boolean) => void
   pauseAudio: (source: AudioBufferSourceNode) => void
   loopAudio: (audioBuffer: AudioBuffer) => void
 }
@@ -18,6 +18,10 @@ interface AudioProviderProps {
 }
 
 export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
+  useEffect(() => {
+    startUpAudio()
+  }, [])
+
   return <AudioContext.Provider value={{ playAudio, pauseAudio, loopAudio }}>{children}</AudioContext.Provider>
 }
 

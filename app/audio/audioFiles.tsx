@@ -1,12 +1,6 @@
-export const CYBERPUNK_AMBIENCE_FADE_IN = 3000
-export const RAIN_FADE_IN = 3000
-export const MUSIC_START_FADE_IN = 3000
-export const MUSIC_LOOP_FADE_IN = 3000
-export const MUSIC_LOOP_DELAY = 7000
-
 // Define the paths to the sfx files
 export const sfx = {
-  CyberpunkPunkAmbienceLoop: { src: '/sounds/CyberpunkAmbienceLoop.ogg', volume: 0.3 },
+  CyberpunkPunkAmbienceLoop: { src: '/sounds/CyberpunkAmbienceLoop.ogg', volume: 0.3, fadeIn: 3000, delay: 13000 },
   engineLoop: { src: '/sounds/engineLoop.ogg', volume: 0.55 },
   shutters: { src: '/sounds/shutters.mp3', volume: 0.5 },
   TypeOnEnd: { src: '/sounds/TypeOnEnd.ogg', volume: 0.5 },
@@ -16,13 +10,13 @@ export const sfx = {
 
 // Define the paths to the music files
 export const music = {
-  musicLoop: { src: '/sounds/musicLoop.ogg', volume: 0.45 },
-  musicStart: { src: '/sounds/musicStart.mp3', volume: 0.45 }
+  musicLoop: { src: '/sounds/musicLoop.ogg', volume: 0.45, fadeIn: 3000, delay: 7000 },
+  musicStart: { src: '/sounds/musicStart.mp3', volume: 0.45, fadeIn: 3000 }
 }
 
 // Define the path to the rain file
 export const rain = {
-  rainLoop: { src: '/sounds/rainLoop.ogg', volume: 0.15 }
+  rainLoop: { src: '/sounds/rainLoop.ogg', volume: 0.15, fadeIn: 3000 }
 }
 
 export interface AudioContextType {
