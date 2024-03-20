@@ -65,8 +65,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const [JOILineCaption, setJOILineCaption] = useState<string | null>(null)
   const [isAudioPlaying, setIsAudioPlaying] = useState(false)
 
-  // Calculate visitedCookie and initialTimer once outside the useEffect
-
   //Preloader hook
   const {
     shouldMapDarkness,

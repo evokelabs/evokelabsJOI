@@ -18,7 +18,7 @@ const MAX_VOLUME = 255
 const MAX_INFLUENCE = 0.15
 const GAIN_NODE_VOLUME = 1.7
 const TIMEOUT_FAIL_SAFE = 7500
-const TIME_TO_SPEAK_ON_LOAD = 12800
+const TIME_TO_SPEAK_ON_LOAD = 10800
 const KEYS = ['services', 'portfolio', 'history', 'resume', 'JOISpecial', 'availability']
 
 export const useJOIVoice = (model: THREE.Object3D | null) => {
@@ -58,24 +58,6 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   }
 
   const JOISpeechData: JOISpeechType = JOISpeech
-
-  //Window event to detect if user interact with the document first
-  const [hasUserInteracted, setHasUserInteracted] = useState(false)
-
-  useEffect(() => {
-    // Set up event listeners for user interaction
-    const handleUserInteraction = () => setHasUserInteracted(true)
-    window.addEventListener('touchstart', handleUserInteraction)
-    window.addEventListener('click', handleUserInteraction)
-    window.addEventListener('keydown', handleUserInteraction)
-
-    // Clean up the event listeners when the component unmounts
-    return () => {
-      window.removeEventListener('touchstart', handleUserInteraction)
-      window.removeEventListener('click', handleUserInteraction)
-      window.removeEventListener('keydown', handleUserInteraction)
-    }
-  }, []) // Empty dependency array so this effect only runs once on mount
 
   const getFilePath = useCallback(
     (JOILineSpeak: number) => {
@@ -184,7 +166,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
   audioContextRef.current = audioContext
 
   useEffect(() => {
-    if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited) || !hasUserInteracted) return
+    if (!shouldJOISpeak || !model || hasPlayed || (JOILineSpeak === null && hasSiteHomeVisited)) return
 
     if (!audioContext || isPlaying.current) return
     if (audioFileRef.current) {
