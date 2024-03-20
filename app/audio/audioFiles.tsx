@@ -20,25 +20,3 @@ export const rain = {
 }
 
 export const speech = {}
-
-export interface AudioContextType {
-  muteAll: boolean
-  setMuteAll: (value: boolean) => void
-  muteGroups: {
-    sfx: boolean
-    music: boolean
-    rain: boolean
-    speech: boolean
-  }
-  setMuteGroup: (group: string, value: boolean) => void
-  audioGroups: {
-    sfx: typeof sfx
-    music: typeof music
-    rain: typeof rain
-  }
-  playAll: () => void
-}
-
-export interface AudioContextType {
-  playSpecificSfx: (soundKey: keyof typeof sfx) => void
-}

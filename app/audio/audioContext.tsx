@@ -1,25 +1,14 @@
 import React, { createContext, useContext, ReactNode, useEffect } from 'react'
 import { playAudio, pauseAudio, loopAudio, startUpAudio, muteTheme, unmuteTheme } from './audioMaster'
-
-interface AudioControls {
-  playAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => void
-  pauseAudio: (source: AudioBufferSourceNode) => void
-  loopAudio: (audioBuffer: AudioBuffer) => void
-  muteTheme: (theme: string) => void // Add this line
-  unmuteTheme: (theme: string) => void // Add this line
-}
+import { AudioControls, AudioProviderProps } from './audioTypes'
 
 export const AudioContext = createContext<AudioControls>({
   playAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => {},
   pauseAudio: (source: AudioBufferSourceNode) => {},
-  loopAudio: (audioBuffer: AudioBuffer) => {},
-  muteTheme: (theme: string) => {}, // Add this line
-  unmuteTheme: (theme: string) => {} // Add this line
+  loopAudio: (audioBuffer: AudioBuffer, theme: string) => {}, // Update this line
+  muteTheme: (theme: string) => {},
+  unmuteTheme: (theme: string) => {}
 })
-
-interface AudioProviderProps {
-  children: ReactNode
-}
 
 export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
   useEffect(() => {

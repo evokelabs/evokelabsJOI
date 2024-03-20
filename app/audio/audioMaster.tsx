@@ -1,4 +1,5 @@
 import { sfx, rain, music, speech } from './audioFiles'
+import { Theme } from './audioTypes'
 
 const themes: Theme = { music, rain, speech, sfx }
 
@@ -8,18 +9,6 @@ if (typeof window !== 'undefined') {
   audioContext = new window.AudioContext()
 }
 let audioSources: { [key: string]: AudioBufferSourceNode } = {}
-
-interface Theme {
-  [key: string]: {
-    [key: string]: {
-      src: string
-      volume: number
-      loop?: boolean
-      fadeIn?: number
-      delay?: number
-    }
-  }
-}
 
 export const loadAudio = async (url: string) => {
   const response = await fetch(url)
