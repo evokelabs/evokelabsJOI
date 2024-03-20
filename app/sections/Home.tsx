@@ -253,12 +253,18 @@ const Home = () => {
       pauseAudio(sfx.TypeOnLoop)
       playAudio(sfx.TypeOnEnd)
     }
+    return () => {
+      pauseAudio(sfx.TypeOnLoop)
+    }
   }, [isTypingSound])
 
   useEffect(() => {
     if (isScrabbleSound) {
       playAudio(sfx.scrabbleLoop)
     } else {
+      pauseAudio(sfx.scrabbleLoop)
+    }
+    return () => {
       pauseAudio(sfx.scrabbleLoop)
     }
   }, [isScrabbleSound])

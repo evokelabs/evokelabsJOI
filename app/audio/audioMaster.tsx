@@ -23,8 +23,6 @@ export const playAudio = (file: { src: string; volume: number; loop?: boolean; f
   let theme: string | undefined
   let themeFile: typeof file | undefined
 
-  console.log('playAudio called', file.src)
-
   for (const key of Object.keys(themes)) {
     for (const innerKey of Object.keys(themes[key])) {
       if (themes[key][innerKey].src === file.src) {
@@ -38,7 +36,6 @@ export const playAudio = (file: { src: string; volume: number; loop?: boolean; f
 
   if (!themeFile) return
 
-  console.log('themeFile', themeFile)
   const { src, volume, loop = false, fadeIn = 0, delay = 0 } = themeFile
 
   const play = (audioBuffer: AudioBuffer) => {
@@ -74,7 +71,6 @@ export const playAudio = (file: { src: string; volume: number; loop?: boolean; f
   }
 
   if (theme && audioBuffers[theme]) {
-    console.log('playing from buffer', theme)
     play(audioBuffers[theme])
   } else {
     loadAudio(src).then(audioBuffer => {
@@ -83,7 +79,6 @@ export const playAudio = (file: { src: string; volume: number; loop?: boolean; f
           audioBuffers[theme] = audioBuffer
         }
         play(audioBuffer)
-        console.log('playing from alternative audibuffer', audioBuffer)
       }
     })
   }
@@ -120,22 +115,20 @@ export const loopAudio = (audioBuffer: AudioBuffer, theme: string) => {
 
 export const startUpAudio = () => {
   playAudio(rain.rainLoop)
+  playAudio(sfx.CyberpunkPunkAmbienceLoop)
   playAudio(music.musicStart)
   playAudio(music.musicLoop)
 }
 
 export const muteTheme = (theme: string) => {
-  console.log('mute theme called', theme)
   for (const key of Object.keys(audioNodes)) {
     if (key.startsWith(theme)) {
-      console.log('muting theme', key)
       audioNodes[key].gain.value = 0
     }
   }
 }
 
 export const unmuteTheme = (theme: string) => {
-  console.log('unmute theme called', theme)
   for (const key of Object.keys(audioNodes)) {
     if (key.startsWith(theme)) {
       audioNodes[key].gain.value = 1
