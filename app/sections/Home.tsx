@@ -259,7 +259,7 @@ const Home = () => {
   }, [isTypingSound])
 
   useEffect(() => {
-    if (isScrabbleSound) {
+    if (isScrabbleSound && homePanelExpanded) {
       playAudio(sfx.scrabbleLoop)
     } else {
       pauseAudio(sfx.scrabbleLoop)
@@ -267,7 +267,7 @@ const Home = () => {
     return () => {
       pauseAudio(sfx.scrabbleLoop)
     }
-  }, [isScrabbleSound])
+  }, [isScrabbleSound, homePanelExpanded])
 
   return (
     <>
