@@ -2,13 +2,13 @@ import React, { createContext, useContext, ReactNode, useEffect } from 'react'
 import { playAudio, pauseAudio, loopAudio, startUpAudio } from './audioMaster'
 
 interface AudioControls {
-  playAudio: (audioBuffer: AudioBuffer, volume: number, loop?: boolean) => void
+  playAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => void
   pauseAudio: (source: AudioBufferSourceNode) => void
   loopAudio: (audioBuffer: AudioBuffer) => void
 }
 
 export const AudioContext = createContext<AudioControls>({
-  playAudio: (audioBuffer: AudioBuffer) => {},
+  playAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => {},
   pauseAudio: (source: AudioBufferSourceNode) => {},
   loopAudio: (audioBuffer: AudioBuffer) => {}
 })

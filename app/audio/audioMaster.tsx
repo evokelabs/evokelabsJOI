@@ -1,8 +1,23 @@
-import { sfx, rain, music} from './audioFiles'
+import { sfx, rain, music, speech } from './audioFiles'
+
+const themes: Theme = { music, rain, speech, sfx }
 
 let audioContext: AudioContext | undefined
+let audioNodes: { [key: string]: GainNode } = {}
 if (typeof window !== 'undefined') {
   audioContext = new window.AudioContext()
+}
+
+interface Theme {
+  [key: string]: {
+    [key: string]: {
+      src: string
+      volume: number
+      loop?: boolean
+      fadeIn?: number
+      delay?: number
+    }
+  }
 }
 
 export const loadAudio = async (url: string) => {
@@ -12,23 +27,53 @@ export const loadAudio = async (url: string) => {
   return audioBuffer
 }
 
-export const playAudio = (audioBuffer: AudioBuffer, volume: number, loop: boolean = false) => {
-  if (audioContext) {
-    const source = audioContext.createBufferSource()
-    const gainNode = audioContext.createGain()
-
-    source.buffer = audioBuffer
-    source.loop = loop
-
-    // Use the volume parameter to control the gain value
-    gainNode.gain.value = volume
-
-    // Connect the source to the gain node and connect the gain node to the destination
-    source.connect(gainNode)
-    gainNode.connect(audioContext.destination)
-
-    source.start()
+export const playAudio = (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => {
+  let theme: string | undefined
+  for (const key of Object.keys(themes)) {
+    for (const innerKey of Object.keys(themes[key])) {
+      if (themes[key][innerKey] === file) {
+        theme = key
+        break
+      }
+    }
+    if (theme) break
   }
+
+  const { src, volume, loop = false, fadeIn = 0, delay = 0 } = file
+
+  loadAudio(src).then(audioBuffer => {
+    if (audioContext && audioBuffer) {
+      const source = audioContext.createBufferSource()
+      const gainNode = audioContext.createGain()
+
+      source.buffer = audioBuffer
+      source.loop = loop
+
+      // Schedule the gain value to be 0 at the current time plus the delay
+      gainNode.gain.setValueAtTime(0, audioContext.currentTime + delay / 1000)
+
+      // Schedule a linear ramp to the target volume after the delay plus the fade-in time
+      gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + delay / 1000 + fadeIn / 1000)
+
+      // Connect the source to the gain node and connect the gain node to the destination
+      source.connect(gainNode)
+      gainNode.connect(audioContext.destination)
+
+      // If the theme's AudioNode doesn't exist, create it
+      if (theme && !audioNodes[theme]) {
+        audioNodes[theme] = audioContext.createGain()
+        audioNodes[theme].connect(audioContext.destination)
+      }
+
+      // Connect the gain node to the theme's AudioNode
+      if (theme) {
+        gainNode.connect(audioNodes[theme])
+      }
+
+      // Start the audio after the specified delay
+      source.start(audioContext.currentTime + delay / 1000)
+    }
+  })
 }
 
 export const pauseAudio = (source: AudioBufferSourceNode) => {
@@ -45,15 +90,20 @@ export const loopAudio = (audioBuffer: AudioBuffer) => {
   }
 }
 
-export const startUpAudio = async () => {
-  const rainBuffer = await loadAudio(rain.rainLoop.src)
-  const musicStartBuffer = await loadAudio(music.musicStart.src)
+export const startUpAudio = () => {
+  playAudio(rain.rainLoop)
+  playAudio(music.musicStart)
+  playAudio(music.musicLoop)
+}
 
-  if (rainBuffer) {
-    playAudio(rainBuffer, rain.rainLoop.volume, true)
+export const muteTheme = (theme: string) => {
+  if (audioNodes[theme]) {
+    audioNodes[theme].gain.value = 0
   }
+}
 
-  if (musicStartBuffer) {
-    playAudio(musicStartBuffer, music.musicStart.volume)
+export const unmuteTheme = (theme: string) => {
+  if (audioNodes[theme]) {
+    audioNodes[theme].gain.value = 1
   }
 }
