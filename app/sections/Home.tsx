@@ -5,6 +5,8 @@ import homeExpanded from './data/homeExpanded.json'
 import { BLUE_DARK, RED, RED_DULL } from '../libs/UIConstants'
 import RedCRTBlur from '../ui/libs/RedCRTBlur'
 import { RoutesContext } from '../libs/RoutesContext'
+import { pauseAudio, playAudio } from '../audio/audioMaster'
+import { sfx } from '../audio/audioFiles'
 
 const BottomRightCornerSVG = ({ color, tile }: { color: string; tile: string }) => {
   return (
@@ -242,6 +244,18 @@ const Home = () => {
       setHomePanelExpanded(false)
     }
   }, [])
+
+  //Sound effects
+  useEffect(() => {
+    if (isTypingSound) {
+      console.log('playing typeOn Loop')
+      playAudio(sfx.TypeOnLoop) // Play the new audio
+    } else if (!isTypingSound) {
+      console.log('pausing typeOn Loop')
+      pauseAudio(sfx.TypeOnLoop) // Stop the typing sound
+      // playAudio(sfx.TypeOnEnd) // Play the end sound
+    }
+  }, [isTypingSound])
 
   return (
     <>

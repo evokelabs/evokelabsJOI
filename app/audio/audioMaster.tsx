@@ -16,6 +16,9 @@ export const loadAudio = async (url: string) => {
   const audioBuffer = audioContext ? await audioContext.decodeAudioData(arrayBuffer) : null
   return audioBuffer
 }
+
+let audioBuffers: { [key: string]: AudioBuffer } = {}
+
 export const playAudio = (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => {
   let theme: string | undefined
   for (const key of Object.keys(themes)) {
@@ -30,12 +33,13 @@ export const playAudio = (file: { src: string; volume: number; loop?: boolean; f
 
   const { src, volume, loop = false, fadeIn = 0, delay = 0 } = file
 
-  loadAudio(src).then(audioBuffer => {
-    if (audioContext && audioBuffer) {
+  const play = (audioBuffer: AudioBuffer) => {
+    if (audioContext) {
       const source = audioContext.createBufferSource()
-      const gainNode = audioContext.createGain()
-
       source.buffer = audioBuffer
+      source.loop = loop
+
+      const gainNode = audioContext.createGain()
       source.loop = loop
 
       // Schedule the gain value to be 0 at the current time plus the delay
@@ -56,19 +60,43 @@ export const playAudio = (file: { src: string; volume: number; loop?: boolean; f
         gainNode.connect(audioNodes[theme])
       }
 
-      if (theme && !audioSources[theme]) {
+      source.start(audioContext.currentTime + delay / 1000)
+      if (theme) {
         audioSources[theme] = source
       }
-
-      // Start the audio after the specified delay
-
-      source.start(audioContext.currentTime + delay / 1000)
     }
-  })
+  }
+
+  if (theme && audioBuffers[theme]) {
+    play(audioBuffers[theme])
+  } else {
+    loadAudio(src).then(audioBuffer => {
+      if (audioBuffer) {
+        if (theme) {
+          audioBuffers[theme] = audioBuffer
+        }
+        play(audioBuffer)
+      }
+    })
+  }
 }
 
-export const pauseAudio = (source: AudioBufferSourceNode) => {
-  source.stop()
+export const pauseAudio = (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => {
+  let theme: string | undefined
+  for (const key of Object.keys(themes)) {
+    for (const innerKey of Object.keys(themes[key])) {
+      if (themes[key][innerKey] === file) {
+        theme = key
+        break
+      }
+    }
+    if (theme) break
+  }
+
+  if (theme && audioSources[theme]) {
+    audioSources[theme].stop()
+    delete audioSources[theme]
+  }
 }
 
 export const loopAudio = (audioBuffer: AudioBuffer, theme: string) => {

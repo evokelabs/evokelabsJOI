@@ -41,7 +41,7 @@ export interface AudioProviderProps {
 
 export interface AudioControls {
   playAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => void
-  pauseAudio: (source: AudioBufferSourceNode) => void
+  pauseAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => void
   loopAudio: (audioBuffer: AudioBuffer, theme: string) => void // Update this line
   muteTheme: (theme: string) => void
   unmuteTheme: (theme: string) => void

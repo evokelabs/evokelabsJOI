@@ -6,7 +6,7 @@ import { muteTheme as muteThemeMaster, unmuteTheme as unmuteThemeMaster } from '
 
 export const AudioContext = createContext<AudioControls>({
   playAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => {},
-  pauseAudio: (source: AudioBufferSourceNode) => {},
+  pauseAudio: (file: { src: string; volume: number; loop?: boolean; fadeIn?: number; delay?: number }) => {},
   loopAudio: (audioBuffer: AudioBuffer, theme: string) => {},
   muteTheme: (theme: string) => {},
   unmuteTheme: (theme: string) => {},
