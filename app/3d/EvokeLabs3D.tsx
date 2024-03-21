@@ -243,7 +243,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                     {isPreLoaderFinished ? (
                       <>
                         <VideoSkybox />
-
+                        <Rain />
                         <Lights />
                         {isCarReady && <CyberpunkCar />}
                         <WideMonitor />
