@@ -6,6 +6,43 @@ import { useDracoLoader } from '../libs/useDracoLoader'
 const TOTAL_BYTES_SIZE_JOI = 4909672
 const TOTAL_BYTES_SIZE_MAP = 3763556
 
+const PreloaderBar = ({ progress }: { progress: number }) => (
+  <div className='w-[30em] hide'>
+    <div className='relative h-auto w-full border-teal border py-[4px] px-[4px] bg-black flex justify-center items-center justify-items-center'>
+      <div
+        className='relative h-[4px] w-full bg-teal origin-left teal-blur'
+        style={{
+          transform: `scaleX(${progress / 100})`,
+          transformOrigin: 'left',
+          transition: 'transform 1s ease-out'
+        }}
+      />
+    </div>
+  </div>
+)
+
+const EnterButton = ({
+  setIsPreLoaderFinished,
+  soundAudioLevelControls
+}: {
+  setIsPreLoaderFinished: (value: boolean) => void
+  soundAudioLevelControls: SoundAudioLevelControls
+}) => (
+  <button
+    className='pointer-events-auto'
+    onClick={() => {
+      soundAudioLevelControls.setMuteAll(false)
+      soundAudioLevelControls.setMuteMusic(false)
+      soundAudioLevelControls.setMuteRain(false)
+      soundAudioLevelControls.setMuteSFX(false)
+      soundAudioLevelControls.setMuteJOI(false)
+      soundAudioLevelControls.setMuteRain(false)
+      setIsPreLoaderFinished(true)
+    }}
+  >
+    ENTER
+  </button>
+)
 const Preloader = ({
   setIsPreLoaderFinished,
   soundAudioLevelControls
@@ -74,37 +111,8 @@ const Preloader = ({
   return (
     <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
       <div className='flex flex-col h-full last:items-center justify-center'>
-        {isLoading && (
-          <div className='w-[30em] hide'>
-            <div className='relative h-auto w-full border-teal border py-[4px] px-[4px] bg-black flex justify-center items-center justify-items-center'>
-              <div
-                className='relative h-[4px] w-full bg-teal origin-left teal-blur'
-                style={{
-                  transform: `scaleX(${progress / 100})`,
-                  transformOrigin: 'left',
-                  transition: 'transform 1s ease-out'
-                }}
-              />
-            </div>
-          </div>
-        )}
-        {!isLoading && (
-          <button
-            className='pointer-events-auto'
-            disabled={isLoading}
-            onClick={() => {
-              soundAudioLevelControls.setMuteAll(false)
-              soundAudioLevelControls.setMuteMusic(false)
-              soundAudioLevelControls.setMuteRain(false)
-              soundAudioLevelControls.setMuteSFX(false)
-              soundAudioLevelControls.setMuteJOI(false)
-              soundAudioLevelControls.setMuteRain(false)
-              setIsPreLoaderFinished(true)
-            }}
-          >
-            ENTER
-          </button>
-        )}
+        {isLoading && <PreloaderBar progress={progress} />}
+        {!isLoading && <EnterButton setIsPreLoaderFinished={setIsPreLoaderFinished} soundAudioLevelControls={soundAudioLevelControls} />}
       </div>
     </div>
   )
