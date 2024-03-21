@@ -66,7 +66,7 @@ const Preloader = ({
     if (lowGPU !== expectedLowGPU) return // Don't load the model if lowGPU has changed
 
     setCurrentModelName(modelName)
-    console.log('Start loading model:', modelUrl) // Log the model URL
+    console.log('Start loading model')
     const response = await fetch(modelUrl)
 
     if (!response.ok) {
@@ -118,17 +118,14 @@ const Preloader = ({
     if (lowGPU === null || isJOILoaded) return // Don't run the effect if lowGPU is null or JOI model is already loaded
 
     const loadModels = async () => {
-      const isLowGPU = lowGPU // Store the value of lowGPU
-      console.log('lowGPU:', isLowGPU)
-      await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI, 'JOI MODEL', isLowGPU)
-      setIsJOILoaded(true) // Set isJOILoaded to true after JOI model has loaded
+      await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI, 'JOI')
       setProgress(0) // Reset progress
-      const secondModelUrl = isLowGPU ? '/glb/EvokeLabsMap-LowPoly.glb' : '/glb/EvokeLabsMap.glb'
-      await loadModel(secondModelUrl, TOTAL_BYTES_SIZE_MAP, 'MAP MODEL', isLowGPU)
+      await loadModel('/glb/EvokeLabsMap.glb', TOTAL_BYTES_SIZE_MAP, 'MAP') // Replace with the URL of the second model
+      setIsLoading(false)
     }
 
-    loadModels().then(() => setIsLoading(false)) // Set isLoading to false after both models have loaded
-  }, [lowGPU, isJOILoaded])
+    loadModels()
+  }, [])
 
   return (
     <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
