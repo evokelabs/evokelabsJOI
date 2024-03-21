@@ -3,6 +3,9 @@ import { LoadingManager } from 'three'
 import { SoundAudioLevelControls } from './data/types'
 import { useDracoLoader } from '../libs/useDracoLoader'
 
+const TOTAL_BYTES_SIZE_JOI = 4909672
+const TOTAL_BYTES_SIZE_MAP = 3763556
+
 const Preloader = ({
   setIsPreLoaderFinished,
   soundAudioLevelControls
@@ -16,32 +19,55 @@ const Preloader = ({
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    manager.onStart = (url, itemsLoaded, itemsTotal) => {
-      console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.')
-    }
+    const loadModel = async () => {
+      console.log('Start loading model')
+      const response = await fetch('/glb/JOI.glb')
 
-    manager.onLoad = () => {
-      console.log('Loading complete!')
-      setIsModelLoaded(true)
-    }
-
-    manager.onProgress = (url, itemsLoaded, itemsTotal) => {
-      console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.')
-
-      if (itemsLoaded > 0) {
-        const sizeOfCurrentItem = itemsLoaded / itemsTotal
-        const totalSize = sizeOfCurrentItem * itemsTotal
-        console.log('Estimated total size of GLB model: ' + totalSize + ' bytes')
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
       }
-      const progress = (itemsLoaded / itemsTotal) * 100
-      setProgress(progress)
+
+      if (!response.body) {
+        throw new Error('Response body is missing')
+      }
+
+      const reader = response.body.getReader()
+      let bytesReceived = 0
+      const chunks = []
+
+      while (true) {
+        const { done, value } = await reader.read()
+
+        if (done) {
+          break
+        }
+
+        chunks.push(value)
+        bytesReceived += value.length
+        const progress = (bytesReceived / TOTAL_BYTES_SIZE_JOI) * 100
+        setProgress(progress)
+        console.log(`Received ${bytesReceived} of ${TOTAL_BYTES_SIZE_JOI} bytes (${progress.toFixed(2)}%)`)
+      }
+
+      const arrayBuffer = new Uint8Array(bytesReceived)
+      let position = 0
+      for (const chunk of chunks) {
+        arrayBuffer.set(chunk, position)
+        position += chunk.length
+      }
+
+      // Now you can use the GLTFLoader to parse the model data
+      const blob = new Blob([arrayBuffer.buffer])
+      const url = URL.createObjectURL(blob)
+      loader.load(url, gltf => {
+        console.log('Model loaded')
+        // Handle the loaded model here
+      })
+
+      console.log('Loading completed')
     }
 
-    // Start loading the GLB file
-    // loader.load('/glb/JOI.glb', gltf => {
-    loader.load('/glb/EvokelabsRoom.glb', gltf => {
-      // Handle the loaded model here
-    })
+    loadModel()
   }, [])
 
   return (
