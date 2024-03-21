@@ -7,7 +7,8 @@ export const useRoutes = (
   setCurrentRouteSelection: React.Dispatch<React.SetStateAction<number | null>>,
   setCurrentPortfolioSelection: React.Dispatch<React.SetStateAction<string | null>>,
   ROUTE_CONFIG: { labels: string[]; route: string; callToAction?: boolean }[],
-  setMenuHomeWaitTimer: React.Dispatch<React.SetStateAction<number>>
+  setMenuHomeWaitTimer: React.Dispatch<React.SetStateAction<number>>,
+  setIsPreLoaderFinished: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const router = useRouter()
 
@@ -57,6 +58,7 @@ export const useRoutes = (
         router.push(selectedRoute.route)
       } else if (router.pathname !== '/') {
         setMenuHomeWaitTimer(0)
+        setIsPreLoaderFinished(true)
       }
     } else {
       const routeExists = ROUTE_CONFIG.some(route => router.pathname.startsWith(route.route))

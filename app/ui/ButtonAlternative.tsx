@@ -1,5 +1,5 @@
 import RedCRTBlur from './libs/RedCRTBlur'
-import { BLACK, BLUE_DARK, ORANGE, RED } from '../libs/UIConstants'
+import { BLACK, RED } from '../libs/UIConstants'
 import { useRef, useState } from 'react'
 import useButtonEventsController from './libs/useButtonEventsController'
 import useButtonInteractionController from './libs/useButtonInteractionController'

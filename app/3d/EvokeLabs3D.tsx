@@ -81,7 +81,6 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   } = usePreloader()
 
   // Route Hook
-
   const currentRouteIndex = ROUTE_CONFIG.findIndex(route => route.route === router.pathname)
 
   const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(currentRouteIndex)
@@ -93,7 +92,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     setCurrentRouteSelection,
     setCurrentPortfolioSelection,
     ROUTE_CONFIG,
-    setMenuHomeWaitTimer
+    setMenuHomeWaitTimer,
+    setIsPreLoaderFinished
   )
 
   //Responsive Hook
