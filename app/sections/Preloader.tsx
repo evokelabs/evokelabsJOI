@@ -72,7 +72,19 @@ const Preloader = ({
 
   return (
     <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
-      <div className='flex h-full last:items-center justify-center'>
+      <div className='flex flex-col h-full last:items-center justify-center'>
+        <div className='w-[30em]'>
+          <div className='relative h-auto w-full border-teal border py-[4px] px-[4px] bg-black flex justify-center items-center justify-items-center'>
+            <div
+              className='relative h-[4px] w-full bg-teal origin-left teal-blur'
+              style={{
+                transform: `scaleX(${progress / 100})`,
+                transformOrigin: 'left',
+                transition: 'transform 1s ease-out'
+              }}
+            />
+          </div>
+        </div>
         <button
           className='pointer-events-auto'
           disabled={!isModelLoaded}
@@ -89,7 +101,6 @@ const Preloader = ({
           ENTER
         </button>
       </div>
-      <div className='absolute bottom-0 left-0 bg-blue-500' style={{ width: `${progress}%` }} />
     </div>
   )
 }
