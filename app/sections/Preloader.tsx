@@ -64,7 +64,6 @@ const Preloader = ({
 
   const loadModel = async (modelUrl: string, totalBytes: number, modelName: string) => {
     setCurrentModelName(modelName)
-    console.log('Start loading model')
     const response = await fetch(modelUrl)
 
     if (!response.ok) {
@@ -103,27 +102,26 @@ const Preloader = ({
     const blob = new Blob([arrayBuffer.buffer])
     const blobUrl = URL.createObjectURL(blob)
     loader.load(blobUrl, gltf => {
-      console.log('Model loaded')
       // Handle the loaded model here
     })
-
-    console.log('Loading completed')
   }
 
   const isModelLoading = useRef(false)
 
-  useEffect(() => {
-    console.log('lowGPU', lowGPU)
-    if (lowGPU === null || isModelLoading.current) return // Don't run the effect if lowGPU is null or the models are already being loaded
+  const lowGPURef = useRef(lowGPU)
+  lowGPURef.current = lowGPU
 
-    const loadModels = async () => {
-      isModelLoading.current = true
-      await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI, 'JOI MODEL')
-      setProgress(0) // Reset progress
-      const secondModelUrl = lowGPU ? '/glb/EvokeLabsMap-LowPoly.glb' : '/glb/EvokeLabsMap.glb'
-      await loadModel(secondModelUrl, TOTAL_BYTES_SIZE_MAP, 'MAP MODEL')
-      isModelLoading.current = false
-    }
+  const loadModels = async () => {
+    isModelLoading.current = true
+    await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI, 'JOI MODEL')
+    setProgress(0) // Reset progress
+    const secondModelUrl = lowGPURef.current ? '/glb/EvokeLabsMap-LowPoly.glb' : '/glb/EvokeLabsMap.glb'
+    await loadModel(secondModelUrl, TOTAL_BYTES_SIZE_MAP, 'MAP MODEL')
+    isModelLoading.current = false
+  }
+
+  useEffect(() => {
+    if (lowGPU === null || isModelLoading.current) return // Don't run the effect if lowGPU is null or the models are already being loaded
 
     loadModels().then(() => setIsLoading(false)) // Set isLoading to false after both models have loaded
   }, [lowGPU])
