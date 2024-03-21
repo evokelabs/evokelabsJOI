@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { LoadingManager } from 'three'
 import { SoundAudioLevelControls } from './data/types'
 import { useDracoLoader } from '../libs/useDracoLoader'
+import { useGPU } from '../3d/lib/useGPU'
 
 const TOTAL_BYTES_SIZE_JOI = 4909672
 const TOTAL_BYTES_SIZE_MAP = 3763556
@@ -14,7 +15,7 @@ const PreloaderBar = ({ progress }: { progress: number }) => (
         style={{
           transform: `scaleX(${progress / 100})`,
           transformOrigin: 'left',
-          transition: 'transform 1s ease-out'
+          transition: 'transform 0.25s ease-out'
         }}
       />
     </div>
@@ -51,61 +52,71 @@ const Preloader = ({
   soundAudioLevelControls: SoundAudioLevelControls
 }) => {
   const [isLoading, setIsLoading] = useState(true)
-  const manager = new LoadingManager()
-  const loader = useDracoLoader(manager)
   const [progress, setProgress] = useState(0)
 
-  useEffect(() => {
-    const loadModel = async () => {
-      console.log('Start loading model')
-      const response = await fetch('/glb/JOI.glb')
+  const manager = new LoadingManager()
+  const loader = useDracoLoader(manager)
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok')
-      }
+  // GPU Hook
+  const { lowGPU } = useGPU()
 
-      if (!response.body) {
-        throw new Error('Response body is missing')
-      }
+  const loadModel = async (modelUrl: string, totalBytes: number) => {
+    console.log('Start loading model')
+    const response = await fetch(modelUrl)
 
-      const reader = response.body.getReader()
-      let bytesReceived = 0
-      const chunks = []
-
-      while (true) {
-        const { done, value } = await reader.read()
-
-        if (done) {
-          break
-        }
-
-        chunks.push(value)
-        bytesReceived += value.length
-        const progress = (bytesReceived / TOTAL_BYTES_SIZE_JOI) * 100
-        setProgress(progress)
-        console.log(`Received ${bytesReceived} of ${TOTAL_BYTES_SIZE_JOI} bytes (${progress.toFixed(2)}%)`)
-      }
-
-      const arrayBuffer = new Uint8Array(bytesReceived)
-      let position = 0
-      for (const chunk of chunks) {
-        arrayBuffer.set(chunk, position)
-        position += chunk.length
-      }
-
-      // Now you can use the GLTFLoader to parse the model data
-      const blob = new Blob([arrayBuffer.buffer])
-      const url = URL.createObjectURL(blob)
-      loader.load(url, gltf => {
-        console.log('Model loaded')
-        setIsLoading(false)
-        // Handle the loaded model here
-      })
-
-      console.log('Loading completed')
+    if (!response.ok) {
+      throw new Error('Network response was not ok')
     }
 
-    loadModel()
+    if (!response.body) {
+      throw new Error('Response body is missing')
+    }
+
+    const reader = response.body.getReader()
+    let bytesReceived = 0
+    const chunks = []
+
+    while (true) {
+      const { done, value } = await reader.read()
+
+      if (done) {
+        break
+      }
+
+      chunks.push(value)
+      bytesReceived += value.length
+      const progress = (bytesReceived / totalBytes) * 100
+      setProgress(progress)
+      console.log(`Received ${bytesReceived} of ${totalBytes} bytes (${progress.toFixed(2)}%)`)
+    }
+
+    const arrayBuffer = new Uint8Array(bytesReceived)
+    let position = 0
+    for (const chunk of chunks) {
+      arrayBuffer.set(chunk, position)
+      position += chunk.length
+    }
+
+    // Now you can use the GLTFLoader to parse the model data
+    const blob = new Blob([arrayBuffer.buffer])
+    const blobUrl = URL.createObjectURL(blob)
+    loader.load(blobUrl, gltf => {
+      console.log('Model loaded')
+      // Handle the loaded model here
+    })
+
+    console.log('Loading completed')
+  }
+
+  useEffect(() => {
+    const loadModels = async () => {
+      await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI)
+      setProgress(0) // Reset progress
+      await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI) // Replace with the URL of the second model
+      setIsLoading(false)
+    }
+
+    loadModels()
   }, [])
 
   return (
