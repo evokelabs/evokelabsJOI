@@ -9,9 +9,9 @@ const TOTAL_BYTES_SIZE_MAP = 3763556
 
 const PreloaderBar = ({ progress, modelName }: { progress: number; modelName: string }) => (
   <div className='w-[30em] hide'>
-    <div className='relative h-auto w-full border-teal border py-[4px] px-[4px] bg-black flex justify-center items-center justify-items-center m-1 shadow-teal-blur'>
+    <div className='relative h-auto w-full border-teal border py-[4px] px-[4px] bg-black flex justify-center items-center justify-items-center m-1'>
       <div
-        className='relative h-[4px] w-full bg-teal origin-left teal-blur shadow-teal-blur'
+        className='relative h-[4px] w-full bg-teal origin-left teal-blur'
         style={{
           transform: `scaleX(${progress / 100})`,
           transformOrigin: 'left',
