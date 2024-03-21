@@ -90,7 +90,6 @@ const Preloader = ({
       bytesReceived += value.length
       const progress = (bytesReceived / totalBytes) * 100
       setProgress(progress)
-      console.log(`Received ${bytesReceived} of ${totalBytes} bytes (${progress.toFixed(2)}%)`)
     }
 
     const arrayBuffer = new Uint8Array(bytesReceived)
@@ -120,7 +119,9 @@ const Preloader = ({
       isModelLoading.current = true
       await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI, 'JOI MODEL')
       setProgress(0) // Reset progress
-      const secondModelUrl = lowGPU ? '/glb/EvokeLabsMap-LowPoly.glb' : '/glb/EvokeLabsMap.glb'
+      console.log('lowGPU,', lowGPU)
+      const secondModelUrl = lowGPU === null || lowGPU ? '/glb/EvokeLabsMap-LowPoly.glb' : '/glb/EvokeLabsMap.glb'
+      console.log('secondModelUrl,', secondModelUrl)
       await loadModel(secondModelUrl, TOTAL_BYTES_SIZE_MAP, 'MAP MODEL')
       isModelLoading.current = false
     }
