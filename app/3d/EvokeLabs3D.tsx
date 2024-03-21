@@ -76,7 +76,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     setIsPreLoaderFinished,
     isPreLoaderFinished,
     isCarReady,
-    setMenuHomeWaitTimer
+    setMenuHomeWaitTimer,
+    isHomeReady
   } = usePreloader()
 
   // Route Hook
@@ -214,10 +215,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                             className='flex flex-col-reverse p-4 relative translate-y-10 '
                           >
                             <div className='left-1 scale-[54%] sm:scale-[54%] md:scale-[100%] md:w-full origin-top-left min-w-[50em] md:min-w-[74em] '>
-                              {isPreLoaderFinished && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+                              {isPreLoaderFinished && isHomeReady && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
                             </div>
                             <div className='max-w-[26.5em] sm:max-w-[26.5em] md:max-w-[73em]'>
-                              {isPreLoaderFinished && router.pathname === '/' && <Home muteSFX={muteSFX} />}
+                              {isPreLoaderFinished && isHomeReady && router.pathname === '/' && <Home muteSFX={muteSFX} />}
                               {router.pathname === '/services' && <Services />}
                               {router.pathname.startsWith('/portfolio') && (
                                 <Portfolio soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />

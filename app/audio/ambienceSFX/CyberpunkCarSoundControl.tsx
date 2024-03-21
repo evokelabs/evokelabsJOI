@@ -49,6 +49,7 @@ const CyberpunkCarSoundControl = ({ carRef }: CyberpunkRefType) => {
         await audioCtx.resume()
       }
     }
+    resumeAudio()
   }, [audioCtx])
 
   // On each frame, update the volume and pan of the sound based on the car's position.

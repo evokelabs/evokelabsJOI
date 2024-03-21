@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 
 export const usePreloader = () => {
-  const MENU_HOME_WAIT_TIMER_COOKIE = 18000
-  const MENU_HOME_WAIT_TIMER_NOCOOKIE = 21000
+  const MENU_HOME_WAIT_TIMER_COOKIE = 16500
+  const MENU_HOME_WAIT_TIMER_NOCOOKIE = 19000
 
   const visitedCookie =
     typeof document !== 'undefined' ? document.cookie.split('; ').find(row => row.startsWith('evokelabs-visited=')) : null
@@ -14,7 +14,24 @@ export const usePreloader = () => {
   const [shouldAmbientLightPlay, setAmbientLightPlay] = useState(false)
   const [shouldPointLightPlay, setPointLightPlay] = useState(false)
   const [isPreLoaderFinished, setIsPreLoaderFinished] = useState(false)
-  const [isHomeReady, setisHomeReady] = useState(false)
+  const [isHomeReady, setIsHomeReady] = useState(false)
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout
+
+    if (isPreLoaderFinished) {
+      timer = setTimeout(() => {
+        setIsHomeReady(true)
+        setIsCarReady(true)
+      }, menuHomeWaitTimer)
+    }
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
+    }
+  }, [menuHomeWaitTimer, isPreLoaderFinished])
 
   return {
     shouldMapDarkness,
@@ -26,6 +43,7 @@ export const usePreloader = () => {
     setIsPreLoaderFinished,
     isPreLoaderFinished,
     isCarReady,
-    setMenuHomeWaitTimer
+    setMenuHomeWaitTimer,
+    isHomeReady
   }
 }

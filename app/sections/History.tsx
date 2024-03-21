@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from 'react'
-import { RED } from '../libs/UIConstants'
 import ButtonDefault from '../ui/ButtonDefault'
 import IconSmall from '../ui/IconSmall'
 import PanelContent from '../ui/PanelContent'
@@ -7,7 +6,6 @@ import ContentHead from '../ui/PanelContent/ContentHead'
 import VideoFrame from '../ui/VideoFrame'
 import HistorySVG from '../ui/svg/mainmenu/HistorySVG'
 import { SoundAudioLevelControls } from './data/types'
-import { NextRouter } from 'next/router'
 
 const History = ({
   soundAudioLevelControls,
