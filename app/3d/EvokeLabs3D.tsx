@@ -268,10 +268,14 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                           </EffectComposer>
                         )}
                       </>
-                    ) : null}
+                    ) : (
+                      <>
+                        <Rain />
+                      </>
+                    )}
+
                     <CameraRig fov={fov} debug={false} />
                     <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
-                    <Rain />
                   </GPUContext.Provider>
                 </AnimationContext.Provider>
               </SoundsContext.Provider>

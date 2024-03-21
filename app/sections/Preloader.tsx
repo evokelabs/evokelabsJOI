@@ -9,9 +9,10 @@ const Preloader = ({
   soundAudioLevelControls: SoundAudioLevelControls
 }) => {
   return (
-    <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000]'>
-      <div className='flex h-full last:items-center justify-center '>
+    <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
+      <div className='flex h-full last:items-center justify-center'>
         <button
+          className='pointer-events-auto'
           onClick={() => {
             soundAudioLevelControls.setMuteAll(false)
             soundAudioLevelControls.setMuteMusic(false)
