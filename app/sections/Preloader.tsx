@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { LoadingManager } from 'three'
 import { SoundAudioLevelControls } from './data/types'
 import { useDracoLoader } from '../libs/useDracoLoader'
@@ -111,16 +111,22 @@ const Preloader = ({
     console.log('Loading completed')
   }
 
+  const isModelLoading = useRef(false)
+
   useEffect(() => {
+    if (isModelLoading.current) return // Don't run the effect if the models are already being loaded
+
     const loadModels = async () => {
-      await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI, 'JOI')
+      isModelLoading.current = true
+      await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI, 'JOI MODEL')
       setProgress(0) // Reset progress
-      await loadModel('/glb/EvokeLabsMap.glb', TOTAL_BYTES_SIZE_MAP, 'MAP') // Replace with the URL of the second model
-      setIsLoading(false)
+      const secondModelUrl = lowGPU ? '/glb/EvokeLabsMap-LowPoly.glb' : '/glb/EvokeLabsMap.glb'
+      await loadModel(secondModelUrl, TOTAL_BYTES_SIZE_MAP, 'MAP MODEL')
+      isModelLoading.current = false
     }
 
-    loadModels()
-  }, [])
+    loadModels().then(() => setIsLoading(false)) // Set isLoading to false after both models have loaded
+  }, [lowGPU])
 
   return (
     <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
