@@ -86,7 +86,7 @@ const CyberpunkMapLowPoly = () => {
 
   useEffect(() => {
     gltfLoader.load(
-      '/glb/EvokelabsRoomLowPoly.glb',
+      '/glb/EvokeLabsMap-LowPoly.glb',
       gltf => {
         if (meshRef.current) {
           scene.remove(meshRef.current)

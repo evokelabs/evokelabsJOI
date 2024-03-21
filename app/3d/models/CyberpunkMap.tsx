@@ -92,7 +92,7 @@ const CyberpunkMap = () => {
     const videoMaterialTablet = new MeshBasicMaterial({ map: videoTextureTablet })
 
     gltfLoader.load(
-      '/glb/EvokelabsRoom.glb',
+      '/glb/EvokelabsMap.glb',
       gltf => {
         if (meshRef.current) {
           scene.remove(meshRef.current)
