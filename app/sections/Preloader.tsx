@@ -113,15 +113,14 @@ const Preloader = ({
   const isModelLoading = useRef(false)
 
   useEffect(() => {
-    if (isModelLoading.current) return // Don't run the effect if the models are already being loaded
+    console.log('lowGPU', lowGPU)
+    if (lowGPU === null || isModelLoading.current) return // Don't run the effect if lowGPU is null or the models are already being loaded
 
     const loadModels = async () => {
       isModelLoading.current = true
       await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI, 'JOI MODEL')
       setProgress(0) // Reset progress
-      console.log('lowGPU,', lowGPU)
-      const secondModelUrl = lowGPU === null || lowGPU ? '/glb/EvokeLabsMap-LowPoly.glb' : '/glb/EvokeLabsMap.glb'
-      console.log('secondModelUrl,', secondModelUrl)
+      const secondModelUrl = lowGPU ? '/glb/EvokeLabsMap-LowPoly.glb' : '/glb/EvokeLabsMap.glb'
       await loadModel(secondModelUrl, TOTAL_BYTES_SIZE_MAP, 'MAP MODEL')
       isModelLoading.current = false
     }
