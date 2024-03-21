@@ -64,7 +64,7 @@ const Preloader = ({
 
   const loadModel = async (modelUrl: string, totalBytes: number, modelName: string) => {
     setCurrentModelName(modelName)
-    console.log('Start loading model')
+    console.log('Start loading model:', modelUrl) // Log the model URL
     const response = await fetch(modelUrl)
 
     if (!response.ok) {
@@ -113,14 +113,17 @@ const Preloader = ({
 
   useEffect(() => {
     const loadModels = async () => {
-      await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI, 'JOI')
+      const isLowGPU = lowGPU // Store the value of lowGPU
+      console.log('lowGPU:', isLowGPU)
+      await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI, 'JOI MODEL')
       setProgress(0) // Reset progress
-      await loadModel('/glb/EvokeLabsMap.glb', TOTAL_BYTES_SIZE_MAP, 'MAP') // Replace with the URL of the second model
+      const secondModelUrl = isLowGPU ? '/glb/EvokeLabsMap-LowPoly.glb' : '/glb/EvokeLabsMap.glb'
+      await loadModel(secondModelUrl, TOTAL_BYTES_SIZE_MAP, 'MAP MODEL')
       setIsLoading(false)
     }
 
     loadModels()
-  }, [])
+  }, [lowGPU])
 
   return (
     <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
