@@ -9,9 +9,9 @@ const TOTAL_BYTES_SIZE_MAP = 3763556
 
 const PreloaderBar = ({ progress, modelName }: { progress: number; modelName: string }) => (
   <div className='w-[30em] hide'>
-    <div className='relative h-auto w-full border-teal border py-[4px] px-[4px] bg-black flex justify-center items-center justify-items-center m-1'>
+    <div className='relative h-auto w-full border-teal border py-[4px] px-[4px] bg-black flex justify-center items-center justify-items-center m-1 shadow-teal-blur'>
       <div
-        className='relative h-[4px] w-full bg-teal origin-left teal-blur'
+        className='relative h-[4px] w-full bg-teal origin-left teal-blur shadow-teal-blur'
         style={{
           transform: `scaleX(${progress / 100})`,
           transformOrigin: 'left',
@@ -62,9 +62,7 @@ const Preloader = ({
   // GPU Hook
   const { lowGPU } = useGPU()
 
-  const loadModel = async (modelUrl: string, totalBytes: number, modelName: string, expectedLowGPU: boolean) => {
-    if (lowGPU !== expectedLowGPU) return // Don't load the model if lowGPU has changed
-
+  const loadModel = async (modelUrl: string, totalBytes: number, modelName: string) => {
     setCurrentModelName(modelName)
     console.log('Start loading model')
     const response = await fetch(modelUrl)
@@ -92,6 +90,7 @@ const Preloader = ({
       bytesReceived += value.length
       const progress = (bytesReceived / totalBytes) * 100
       setProgress(progress)
+      console.log(`Received ${bytesReceived} of ${totalBytes} bytes (${progress.toFixed(2)}%)`)
     }
 
     const arrayBuffer = new Uint8Array(bytesReceived)
@@ -112,11 +111,7 @@ const Preloader = ({
     console.log('Loading completed')
   }
 
-  const [isJOILoaded, setIsJOILoaded] = useState(false)
-
   useEffect(() => {
-    if (lowGPU === null || isJOILoaded) return // Don't run the effect if lowGPU is null or JOI model is already loaded
-
     const loadModels = async () => {
       await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI, 'JOI')
       setProgress(0) // Reset progress
