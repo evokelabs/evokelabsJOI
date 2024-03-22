@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useEffect, Dispatch, SetStateAction } from 'react'
 import gsap from 'gsap'
 
 const MASK_REMOVAL_DELAY = 9000
 
-export const usePreloaderMasking = (isPreLoaderFinished: unknown, currentRouteSelection: unknown) => {
-  const [maskRemoved, setMaskRemoved] = useState(false)
-
+export const usePreloaderMasking = (
+  isPreLoaderFinished: unknown,
+  currentRouteSelection: unknown,
+  setMaskRemoved: Dispatch<SetStateAction<boolean>>
+) => {
   useEffect(() => {
     console.log('currentRouteSelection', currentRouteSelection)
     if (isPreLoaderFinished && currentRouteSelection === null) {
@@ -73,5 +75,5 @@ export const usePreloaderMasking = (isPreLoaderFinished: unknown, currentRouteSe
     }
   }, [currentRouteSelection])
 
-  return maskRemoved
+  return null
 }

@@ -8,7 +8,8 @@ export const useRoutes = (
   setCurrentPortfolioSelection: React.Dispatch<React.SetStateAction<string | null>>,
   ROUTE_CONFIG: { labels: string[]; route: string; callToAction?: boolean }[],
   setMenuHomeWaitTimer: React.Dispatch<React.SetStateAction<number>>,
-  setIsPreLoaderFinished: React.Dispatch<React.SetStateAction<boolean>>
+  setIsPreLoaderFinished: React.Dispatch<React.SetStateAction<boolean>>,
+  setMaskRemoved: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const router = useRouter()
 
@@ -23,6 +24,8 @@ export const useRoutes = (
       prevPathname.current !== router.pathname
     ) {
       setJOILineSpeak(currentRouteSelection)
+      
+      setMaskRemoved(true)
     }
     prevPathname.current = router.pathname
   }, [router.pathname])
@@ -59,6 +62,7 @@ export const useRoutes = (
       } else if (router.pathname !== '/') {
         setMenuHomeWaitTimer(0)
         setIsPreLoaderFinished(true)
+        setMaskRemoved(true)
       }
     } else {
       const routeExists = ROUTE_CONFIG.some(route => router.pathname.startsWith(route.route))

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { NextRouter } from 'next/router'
 import { Vector2, Vector3 } from 'three'
 import { Canvas } from '@react-three/fiber'
@@ -54,9 +54,7 @@ import { useResponsive } from './lib/useResponsive'
 import { ROUTE_CONFIG } from '../libs/ROUTE_CONFIG'
 import Preloader from '../sections/Preloader'
 
-import { gsap } from 'gsap'
 import { usePreloaderMasking } from './lib/usePreloaderMasking'
-import Elabs from '../ui/svg/ElabsStroke'
 import PreloaderLogoIntroEffect from '../ui/PreloaderLogoIntroEffect'
 
 const RainOverlay = ({
@@ -96,6 +94,7 @@ const INITIAL_CAMERA_POSITION = [-0.3, 1.5, -1] as const
 const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // State
   const [shouldJOISpeak, setShouldJOISpeak] = useState(false)
+  const [maskRemoved, setMaskRemoved] = useState(false)
 
   //JOI Speech settings
   const [JOILineCaption, setJOILineCaption] = useState<string | null>(null)
@@ -129,7 +128,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     setCurrentPortfolioSelection,
     ROUTE_CONFIG,
     setMenuHomeWaitTimer,
-    setIsPreLoaderFinished
+    setIsPreLoaderFinished,
+    setMaskRemoved
   )
 
   //Responsive Hook
@@ -174,7 +174,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const { lowGPU, setLowGPU } = useGPU()
 
   // Preloader Masking Hook
-  const maskRemoved = usePreloaderMasking(isPreLoaderFinished, currentRouteSelection)
+  usePreloaderMasking(isPreLoaderFinished, currentRouteSelection, setMaskRemoved)
+
   return (
     <>
       <SoundControlContext.Provider
@@ -351,7 +352,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
             <Preloader setIsPreLoaderFinished={setIsPreLoaderFinished} soundAudioLevelControls={soundAudioLevelControls} />
           )}
 
-          {!maskRemoved && currentRouteSelection === null && <PreloaderLogoIntroEffect isPreLoaderFinished={isPreLoaderFinished} />}
+          {currentRouteSelection === null && isPreLoaderFinished && !maskRemoved && (
+            <PreloaderLogoIntroEffect isPreLoaderFinished={isPreLoaderFinished} />
+          )}
           <SocialIcons />
           <JOISubtitles />
           {isPreLoaderFinished && <SoundControlIcons />}
