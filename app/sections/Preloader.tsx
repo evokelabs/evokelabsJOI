@@ -249,7 +249,7 @@ const Preloader = ({
   return (
     <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
       <div
-        className={`flex flex-col h-full last:items-center justify-center space-y-1 relative scale-50 sm:scale-[70%] md:scale-100 pointer-events-auto ${
+        className={`flex flex-col h-full last:items-center justify-center space-y-1 relative scale-50 sm:scale-[70%] md:scale-100  ${
           !isLoading ? 'cursor-pointer' : ''
         }`}
         onClick={!isLoading ? handleEnter : undefined}

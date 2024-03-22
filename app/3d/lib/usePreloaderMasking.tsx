@@ -20,7 +20,7 @@ export const usePreloaderMasking = (isPreLoaderFinished: unknown, currentRouteSe
           ease: 'linear',
           yoyo: true,
           tween: 'circ.in',
-          delay: 4.5
+          delay: 4.4
         }
       )
 
