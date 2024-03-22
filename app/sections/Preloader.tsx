@@ -119,18 +119,22 @@ const EvokelabsFrame = () => {
 }
 
 const PreloaderBar = ({ progress, modelName }: { progress: number; modelName: string }) => (
-  <div className='w-[30em] hide'>
-    <div className='relative h-auto w-full border-teal border py-[4px] px-[4px] bg-black flex justify-center items-center justify-items-center m-1 shadow-teal-blur'>
-      <div
-        className='relative h-[4px] w-full bg-teal origin-left teal-blur shadow-teal-blur'
-        style={{
-          transform: `scaleX(${progress / 100})`,
-          transformOrigin: 'left',
-          transition: 'transform 0.25s ease-out'
-        }}
-      />
+  <div className='w-[40em] relative'>
+    <div className='w-full absolute bottom-5'>
+      <div className='relative h-auto w-full py-[4px] px-[5px] flex justify-center items-center justify-items-center bottom-1.5'>
+        <div
+          className='relative h-[3px] w-full bg-teal origin-left teal-blur shadow-teal-blur'
+          style={{
+            transform: `scaleX(${progress / 100})`,
+            transformOrigin: 'left',
+            transition: 'transform 0.25s ease-out'
+          }}
+        />
+      </div>
+      <div className='relative top-1.5'>
+        <p className='text-teal-blur font-rajdhani font-semibold text-center uppercase'>LOADING {modelName}</p>
+      </div>
     </div>
-    <p className='text-teal-blur font-rajdhani font-semibold text-center uppercase'>LOADING {modelName}</p>
   </div>
 )
 
@@ -153,7 +157,7 @@ const EnterButton = ({
       setIsPreLoaderFinished(true)
     }}
   >
-    CLICK TO ENTER
+    <div className='pt-[1px]'>CLICK TO ENTER</div>
   </button>
 )
 const Preloader = ({
@@ -239,7 +243,7 @@ const Preloader = ({
 
   return (
     <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
-      <div className='flex flex-col h-full last:items-center justify-center space-y-1'>
+      <div className='flex flex-col h-full last:items-center justify-center space-y-1 relative'>
         <EvokelabsLogo />
         <EvolvingDigitalMediaLogo />
         <EvokelabsFrame />
