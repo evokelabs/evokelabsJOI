@@ -295,13 +295,15 @@ const Preloader = ({
           <div className='relative bottom-0 '>
             {isLoading && <EvokelabsFrame />}
             {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
-            <div onClick={handleEnter} onTouchEnd={handleEnter} className='w-full h-full '>
-              <button className='border-teal border-2 shadow-teal-blur w-[640px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out '>
-                <div className='pt-[1px]'>
-                  {currentMessage} <span className='text-[30px] bottom-1 relative'>❤</span>
-                </div>
-              </button>
-            </div>
+            {!isLoading && (
+              <div onClick={handleEnter} onTouchEnd={handleEnter} className='w-full h-full '>
+                <button className='border-teal border-2 shadow-teal-blur w-[640px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out origin-left'>
+                  <div className='pt-[1px]'>
+                    {currentMessage} <span className='text-[30px] bottom-1 relative'>❤</span>
+                  </div>
+                </button>
+              </div>
+            )}
           </div>
           <div className='absolute '>
             <div className='relative w-auto h-auto md:block left-[22.75em] top-[2.15em]'>
