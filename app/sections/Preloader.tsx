@@ -138,17 +138,18 @@ const PreloaderBar = ({ progress, modelName }: { progress: number; modelName: st
   </div>
 )
 
-const EnterButton = ({ handleEnter }: { handleEnter: () => void }) => {
+const EnterButton = ({ handleEnter, currentMessage }: { handleEnter: () => void; currentMessage: string }) => {
   return (
     <div onClick={handleEnter} onTouchEnd={handleEnter} className='w-full h-full pointer-events-auto'>
-      <button className=' border-teal border-2 shadow-teal-blur w-[640px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl hover:bg-teal hover:text-black hover:text-black-blur duration-200 ease-out '>
+      <button className='border-teal border-2 shadow-teal-blur w-[640px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl hover:bg-teal hover:text-black hover:text-black-blur duration-200 ease-out '>
         <div className='pt-[1px]'>
-          CLICK HERE HANDSOME <span className='text-[30px] bottom-1 relative'>❤</span>
+          {currentMessage} <span className='text-[30px] bottom-1 relative'>❤</span>
         </div>
       </button>
     </div>
   )
 }
+
 const Preloader = ({
   setIsPreLoaderFinished,
   soundAudioLevelControls
@@ -240,6 +241,42 @@ const Preloader = ({
     setIsPreLoaderFinished(true)
   }
 
+  const TIMER = 3500
+  const TYPE_ON_SPEED = 70
+
+  const itemEntries = ['CLICK HERE HANDSOME', 'WHAT A DAY, HMM?', 'YOU LOOK LIKE A GOOD JOE'] // Replace with actual item entries
+
+  const [currentMessage, setCurrentMessage] = useState(itemEntries[0])
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const prevMessageRef = useRef(currentMessage)
+
+  useEffect(() => {
+    const animateMessage = async () => {
+      let animatedMessage = ''
+
+      // Typing animation
+      for (let i = 0; i < itemEntries[currentIndex].length; i++) {
+        await new Promise(resolve => setTimeout(resolve, TYPE_ON_SPEED))
+        animatedMessage += itemEntries[currentIndex][i]
+        setCurrentMessage(animatedMessage)
+      }
+
+      // Wait for TIMER milliseconds before starting the next message
+      await new Promise(resolve => setTimeout(resolve, TIMER))
+
+      // Update the current index
+      setCurrentIndex(currentIndex => (currentIndex + 1) % itemEntries.length)
+    }
+
+    animateMessage()
+  }, [currentIndex]) // Include currentIndex in the dependency array
+
+  useEffect(() => {
+    // Update the ref to the current message after animating
+    prevMessageRef.current = itemEntries[currentIndex]
+  }, [currentIndex]) // Include currentIndex in the dependency array
+
   return (
     <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
       <div
@@ -254,7 +291,7 @@ const Preloader = ({
         <div className='relative bottom-0 '>
           {isLoading && <EvokelabsFrame />}
           {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
-          {!isLoading && <EnterButton handleEnter={handleEnter} />}
+          {!isLoading && <EnterButton handleEnter={handleEnter} currentMessage={currentMessage} />}
         </div>
       </div>
     </div>
