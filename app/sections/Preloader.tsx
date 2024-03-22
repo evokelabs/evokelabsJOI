@@ -140,29 +140,19 @@ const PreloaderBar = ({ progress, modelName }: { progress: number; modelName: st
 
 const EnterButton = ({
   setIsPreLoaderFinished,
-  soundAudioLevelControls
+  soundAudioLevelControls,
+  handleEnter
 }: {
   setIsPreLoaderFinished: (value: boolean) => void
   soundAudioLevelControls: SoundAudioLevelControls
+  handleEnter: () => void
 }) => {
-  const handleEnter = () => {
-    soundAudioLevelControls.setMuteAll(false)
-    soundAudioLevelControls.setMuteMusic(false)
-    soundAudioLevelControls.setMuteRain(false)
-    soundAudioLevelControls.setMuteSFX(false)
-    soundAudioLevelControls.setMuteJOI(false)
-    soundAudioLevelControls.setMuteRain(false)
-    setIsPreLoaderFinished(true)
-  }
-
   return (
-    <button
-      className='pointer-events-auto border-teal border-2 shadow-teal-blur w-[640px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl hover:bg-teal hover:text-black hover:text-black-blur duration-200 ease-out '
-      onClick={handleEnter}
-      onTouchEnd={handleEnter}
-    >
-      <div className='pt-[1px]'>CLICK TO ENTER</div>
-    </button>
+    <div onClick={handleEnter} onTouchEnd={handleEnter} className='w-full h-full pointer-events-auto'>
+      <button className=' border-teal border-2 shadow-teal-blur w-[640px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl hover:bg-teal hover:text-black hover:text-black-blur duration-200 ease-out '>
+        <div className='pt-[1px]'>CLICK TO ENTER</div>
+      </button>
+    </div>
   )
 }
 const Preloader = ({
@@ -246,15 +236,37 @@ const Preloader = ({
     loadModels().then(() => setIsLoading(false)) // Set isLoading to false after both models have loaded
   }, [lowGPU])
 
+  const handleEnter = () => {
+    soundAudioLevelControls.setMuteAll(false)
+    soundAudioLevelControls.setMuteMusic(false)
+    soundAudioLevelControls.setMuteRain(false)
+    soundAudioLevelControls.setMuteSFX(false)
+    soundAudioLevelControls.setMuteJOI(false)
+    soundAudioLevelControls.setMuteRain(false)
+    setIsPreLoaderFinished(true)
+  }
+
   return (
     <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
-      <div className='flex flex-col h-full last:items-center justify-center space-y-1 relative scale-50 sm:scale-[70%] md:scale-100'>
+      <div
+        className={`flex flex-col h-full last:items-center justify-center space-y-1 relative scale-50 sm:scale-[70%] md:scale-100 pointer-events-auto ${
+          !isLoading ? 'cursor-pointer' : ''
+        }`}
+        onClick={!isLoading ? handleEnter : undefined}
+        onTouchEnd={!isLoading ? handleEnter : undefined}
+      >
         <EvokelabsLogo />
         <EvolvingDigitalMediaLogo />
         <div className='relative bottom-0 '>
           {isLoading && <EvokelabsFrame />}
           {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
-          {!isLoading && <EnterButton setIsPreLoaderFinished={setIsPreLoaderFinished} soundAudioLevelControls={soundAudioLevelControls} />}
+          {!isLoading && (
+            <EnterButton
+              setIsPreLoaderFinished={setIsPreLoaderFinished}
+              soundAudioLevelControls={soundAudioLevelControls}
+              handleEnter={handleEnter}
+            />
+          )}
         </div>
       </div>
     </div>
