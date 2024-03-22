@@ -56,6 +56,8 @@ import Preloader from '../sections/Preloader'
 
 import { gsap } from 'gsap'
 import { usePreloaderMasking } from './lib/usePreloaderMasking'
+import Elabs from '../ui/svg/ElabsStroke'
+import PreloaderLogoIntroEffect from '../ui/PreloaderLogoIntroEffect'
 
 const RainOverlay = ({
   fov,
@@ -341,13 +343,14 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                   </AnimationContext.Provider>
                 </SoundsContext.Provider>
               </Canvas>
+              d
             </div>
             {/* end masked elemnts */}
           </div>
           {!isPreLoaderFinished && (
             <Preloader setIsPreLoaderFinished={setIsPreLoaderFinished} soundAudioLevelControls={soundAudioLevelControls} />
           )}
-
+          {!maskRemoved && <PreloaderLogoIntroEffect />}
           <SocialIcons />
           <JOISubtitles />
           {isPreLoaderFinished && <SoundControlIcons />}

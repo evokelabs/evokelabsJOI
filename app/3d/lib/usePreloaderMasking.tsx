@@ -23,7 +23,7 @@ export const usePreloaderMasking = (isPreLoaderFinished: unknown, currentRouteSe
         endingScale = '2500% 2500%' // adjust as needed
       } else if (viewportWidth >= 768) {
         // md:scale-100
-        startingScale = '686px 735px'
+        startingScale = '735px 919px'
         endingScale = '2400% 2400%' // adjust as needed
       }
 
