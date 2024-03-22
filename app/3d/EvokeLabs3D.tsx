@@ -172,7 +172,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   const { lowGPU, setLowGPU } = useGPU()
 
   // Preloader Masking Hook
-  usePreloaderMasking(isPreLoaderFinished, currentRouteSelection)
+  const maskRemoved = usePreloaderMasking(isPreLoaderFinished, currentRouteSelection)
   return (
     <>
       <SoundControlContext.Provider
@@ -351,7 +351,9 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           <SocialIcons />
           <JOISubtitles />
           {isPreLoaderFinished && <SoundControlIcons />}
-          <RainOverlay fov={fov} eventSource={eventSource} isPreLoaderFinished={isPreLoaderFinished} cameraTarget={cameraTarget} />
+          {!maskRemoved && (
+            <RainOverlay fov={fov} eventSource={eventSource} isPreLoaderFinished={isPreLoaderFinished} cameraTarget={cameraTarget} />
+          )}
         </JOISpeechContext.Provider>
       </SoundControlContext.Provider>
     </>

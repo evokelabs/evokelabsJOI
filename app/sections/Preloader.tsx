@@ -138,15 +138,7 @@ const PreloaderBar = ({ progress, modelName }: { progress: number; modelName: st
   </div>
 )
 
-const EnterButton = ({
-  setIsPreLoaderFinished,
-  soundAudioLevelControls,
-  handleEnter
-}: {
-  setIsPreLoaderFinished: (value: boolean) => void
-  soundAudioLevelControls: SoundAudioLevelControls
-  handleEnter: () => void
-}) => {
+const EnterButton = ({ handleEnter }: { handleEnter: () => void }) => {
   return (
     <div onClick={handleEnter} onTouchEnd={handleEnter} className='w-full h-full pointer-events-auto'>
       <button className=' border-teal border-2 shadow-teal-blur w-[640px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl hover:bg-teal hover:text-black hover:text-black-blur duration-200 ease-out '>
@@ -251,7 +243,7 @@ const Preloader = ({
   return (
     <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
       <div
-        className={`flex flex-col h-full last:items-center justify-center space-y-1 relative scale-50 sm:scale-[70%] md:scale-100  ${
+        className={`flex flex-col h-full last:items-center justify-center space-y-1 relative scale-[50%] sm:scale-[70%] md:scale-100  ${
           !isLoading ? 'cursor-pointer' : ''
         }`}
         onClick={!isLoading ? handleEnter : undefined}
@@ -262,13 +254,7 @@ const Preloader = ({
         <div className='relative bottom-0 '>
           {isLoading && <EvokelabsFrame />}
           {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
-          {!isLoading && (
-            <EnterButton
-              setIsPreLoaderFinished={setIsPreLoaderFinished}
-              soundAudioLevelControls={soundAudioLevelControls}
-              handleEnter={handleEnter}
-            />
-          )}
+          {!isLoading && <EnterButton handleEnter={handleEnter} />}
         </div>
       </div>
     </div>
