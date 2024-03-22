@@ -33,8 +33,8 @@ const VideoFrame = ({
     const video = videoRef.current
     if (video && !video.seeking) {
       video.muted = false // Unmute the video
+      setShouldMapDarkness(true)
       if (!userMutedAll) {
-        setShouldMapDarkness(true)
         soundAudioLevelControls.setMuteMusic(true)
         soundAudioLevelControls.setMuteRain(true)
         soundAudioLevelControls.setMuteSFX(true)
