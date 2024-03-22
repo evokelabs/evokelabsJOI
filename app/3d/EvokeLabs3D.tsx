@@ -82,7 +82,7 @@ const RainOverlay = ({
       >
         <Rain isPreLoaderFinished={isPreLoaderFinished} />
         <CameraRig fov={fov} debug={false} />
-        <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
+        <OrbitControls target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
       </Canvas>
     </div>
   )
@@ -339,7 +339,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                       )}
 
                       <CameraRig fov={fov} debug={false} />
-                      <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
+                      <OrbitControls target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
                     </GPUContext.Provider>
                   </AnimationContext.Provider>
                 </SoundsContext.Provider>

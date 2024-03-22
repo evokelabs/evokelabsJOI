@@ -9,7 +9,8 @@ export const usePreloaderMasking = (
   setMaskRemoved: Dispatch<SetStateAction<boolean>>
 ) => {
   useEffect(() => {
-    if (isPreLoaderFinished && currentRouteSelection === null) {
+    const element = document.querySelector('.masked-element')
+    if (element && isPreLoaderFinished && currentRouteSelection === null) {
       // Determine the starting scale and ending scale based on the viewport width
       let startingScale = '686px 735px' // default scale
       let endingScale = '2500% 2500%' // default ending scale
