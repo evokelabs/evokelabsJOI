@@ -295,7 +295,7 @@ const Preloader = ({
           {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
           {!isLoading && <EnterButton handleEnter={handleEnter} currentMessage={currentMessage} />}
           {!isLoading && (
-            <div className='relative '>
+            <div className='relative'>
               <div className='absolute w-fit hidden md:block bottom-0 -right-[5.5em] animate-bounce'>
                 <div className='scale-[102%] origin-top-left'>
                   <JOISVG primaryColor='#53F6FF' />
