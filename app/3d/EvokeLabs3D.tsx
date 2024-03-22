@@ -350,7 +350,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           {!isPreLoaderFinished && (
             <Preloader setIsPreLoaderFinished={setIsPreLoaderFinished} soundAudioLevelControls={soundAudioLevelControls} />
           )}
-          {!maskRemoved && <PreloaderLogoIntroEffect />}
+
+          {!maskRemoved && <PreloaderLogoIntroEffect isPreLoaderFinished={isPreLoaderFinished} />}
           <SocialIcons />
           <JOISubtitles />
           {isPreLoaderFinished && <SoundControlIcons />}

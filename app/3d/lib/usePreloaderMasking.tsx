@@ -15,11 +15,11 @@ export const usePreloaderMasking = (isPreLoaderFinished: unknown, currentRouteSe
       const viewportWidth = window.innerWidth
       if (viewportWidth <= 640) {
         // scale-60
-        startingScale = '60% 60%'
+        startingScale = '100% 100%'
         endingScale = '2500% 2500%' // adjust as needed
       } else if (viewportWidth <= 768) {
         // sm:scale-70
-        startingScale = '70% 70%'
+        startingScale = '100% 100%'
         endingScale = '2500% 2500%' // adjust as needed
       } else if (viewportWidth >= 768) {
         // md:scale-100
