@@ -69,7 +69,7 @@ const config: Config = {
         },
         '.text-black-blur': {
           color: theme('colors.black'),
-          textShadow: '4px 0px 0px rgba(0, 0, 0, 0.0), 8px 0px 0px rgba(0, 0, 0, 0.0)'
+          textShadow: '4px 0px 0px rgba(0, 0, 0, 0.2), 8px 0px 0px rgba(0, 0, 0, 0.1)'
         },
         '.text-orange-blur': {
           color: theme('colors.orange'),
