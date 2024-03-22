@@ -9,7 +9,6 @@ const PreloaderLogoIntroEffect = ({ isPreLoaderFinished }: { isPreLoaderFinished
 
   useEffect(() => {
     if (isPreLoaderFinished && elabsFillRef.current && elabsStrokeRef.current) {
-      console.log('starting animation')
       gsap.fromTo(elabsFillRef.current, { opacity: 1 }, { opacity: 0, duration: 2.5, delay: 1 })
 
       const tl = gsap.timeline()

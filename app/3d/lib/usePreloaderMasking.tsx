@@ -9,7 +9,6 @@ export const usePreloaderMasking = (
   setMaskRemoved: Dispatch<SetStateAction<boolean>>
 ) => {
   useEffect(() => {
-    console.log('currentRouteSelection', currentRouteSelection)
     if (isPreLoaderFinished && currentRouteSelection === null) {
       // Determine the starting scale and ending scale based on the viewport width
       let startingScale = '686px 735px' // default scale
