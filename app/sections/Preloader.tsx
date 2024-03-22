@@ -282,20 +282,26 @@ const Preloader = ({
 
   return (
     <>
-      <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
+      <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none flex justify-center items-center group'>
         <div
-          className={`flex flex-col h-full last:items-center justify-center space-y-0.5 relative scale-[50%] sm:scale-[70%] md:scale-100  ${
-            !isLoading ? 'cursor-pointer' : ''
+          className={`flex flex-col last:items-center justify-center space-y-0.5 relative scale-[50%] sm:scale-[70%] md:scale-100 cursor-pointer pointer-events-auto w-fit h-fit ${
+            !isLoading ? 'cursor-pointer' : 'cursor-pointer'
           }`}
           onClick={!isLoading ? handleEnter : undefined}
           onTouchEnd={!isLoading ? handleEnter : undefined}
         >
           <EvokelabsLogo />
           <EvolvingDigitalMediaLogo />
-          <div className='relative bottom-0'>
+          <div className='relative bottom-0 '>
             {isLoading && <EvokelabsFrame />}
             {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
-            {!isLoading && <EnterButton handleEnter={handleEnter} currentMessage={currentMessage} />}
+            <div onClick={handleEnter} onTouchEnd={handleEnter} className='w-full h-full '>
+              <button className='border-teal border-2 shadow-teal-blur w-[640px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out '>
+                <div className='pt-[1px]'>
+                  {currentMessage} <span className='text-[30px] bottom-1 relative'>❤</span>
+                </div>
+              </button>
+            </div>
           </div>
           <div className='absolute '>
             <div className='relative w-auto h-auto md:block left-[22.75em] top-[2.15em]'>
