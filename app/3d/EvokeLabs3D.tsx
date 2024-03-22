@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NextRouter } from 'next/router'
 import { Vector2 } from 'three'
 import { Canvas } from '@react-three/fiber'
@@ -53,6 +53,8 @@ import { usePreloader } from './lib/usePreloader'
 import { useResponsive } from './lib/useResponsive'
 import { ROUTE_CONFIG } from '../libs/ROUTE_CONFIG'
 import Preloader from '../sections/Preloader'
+
+import { gsap } from 'gsap'
 
 // Constants
 const INITIAL_CAMERA_POSITION = [-0.3, 1.5, -1] as const
@@ -137,6 +139,37 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // GPU Hook
   const { lowGPU, setLowGPU } = useGPU()
 
+  useEffect(() => {
+    if (isPreLoaderFinished) {
+      gsap.fromTo(
+        '.masked-element',
+        {
+          webkitMaskSize: '686px 735px',
+          maskSize: '686px 735px',
+          webkitMaskPosition: '50% 40%', // center the mask
+          maskPosition: '50% 40%' // center the mask
+        },
+        {
+          duration: 5, // adjust duration as needed
+          webkitMaskSize: '1000% 1000%',
+          maskSize: '1000% 1000%',
+          ease: 'linear',
+          yoyo: true,
+          tween: 'circ.in',
+          delay: 4.3
+        }
+      )
+
+      // Remove the mask after 8 seconds
+      setTimeout(() => {
+        const element = document.querySelector('.masked-element')
+        if (element) {
+          element.classList.add('unmasked')
+        }
+      }, 8000)
+    }
+  }, [isPreLoaderFinished])
+
   return (
     <>
       <SoundControlContext.Provider
@@ -145,15 +178,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         <JOISpeechContext.Provider
           value={{ JOILineCaption, setJOILineCaption, isAudioPlaying, setIsAudioPlaying, isChainPlaying, setIsChainPlaying }}
         >
-          <div ref={container} className='h-full'>
-            <div
-              className={`absolute bg-no-repeat top-0 left-0 w-full h-full z-0 ${isPreLoaderFinished ? 'masked-element' : ''}`}
-              style={{
-                width: '100%',
-                height: '100%',
-                position: 'absolute'
-              }}
-            >
+          <div ref={container} className='h-full overflow-hidden '>
+            <div className={`relative bg-no-repeat top-0 left-0 w-full h-full z-0 ${isPreLoaderFinished ? 'masked-element' : ''}`}>
               <Canvas
                 camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
                 shadows
