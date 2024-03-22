@@ -152,9 +152,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         >
           <div ref={container} className='h-full overflow-hidden '>
             <div
-              className={`relative bg-no-repeat top-0 left-0 w-full h-full z-0 ${
-                isPreLoaderFinished && currentRouteSelection === null ? 'masked-element' : ''
-              }`}
+              // className={`relative bg-no-repeat top-0 left-0 w-full h-full z-0 ${
+              //   isPreLoaderFinished && currentRouteSelection === null ? 'masked-element' : ''
+              // }`}
+              className={`relative bg-no-repeat top-0 left-0 w-full h-full z-0 ${currentRouteSelection === null ? 'masked-element' : ''}`}
             >
               <Canvas
                 camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
