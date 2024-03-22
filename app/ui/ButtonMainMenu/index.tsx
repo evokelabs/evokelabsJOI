@@ -134,13 +134,13 @@ const ButtonMainMenu = ({
     }
 
     if (hoverArea) {
-      hoverArea.addEventListener('mouseenter', handleMouseEnter)
-      hoverArea.addEventListener('mouseleave', handleMouseLeave)
-      hoverArea.addEventListener('mousedown', handleMouseDown)
-      hoverArea.addEventListener('mouseup', handleMouseUp)
-      hoverArea.addEventListener('click', handleClick)
-      hoverArea.addEventListener('touchstart', handleClick)
-      hoverArea.addEventListener('touchend', handleTouchEnd)
+      hoverArea.addEventListener('mouseenter', handleMouseEnter, { passive: true })
+      hoverArea.addEventListener('mouseleave', handleMouseLeave, { passive: true })
+      hoverArea.addEventListener('mousedown', handleMouseDown, { passive: true })
+      hoverArea.addEventListener('mouseup', handleMouseUp, { passive: true })
+      hoverArea.addEventListener('click', handleClick, { passive: true })
+      hoverArea.addEventListener('touchstart', handleClick, { passive: true })
+      hoverArea.addEventListener('touchend', handleTouchEnd, { passive: true })
     }
 
     return () => {

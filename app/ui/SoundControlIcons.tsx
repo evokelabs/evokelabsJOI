@@ -83,8 +83,8 @@ const SoundControlIcons = () => {
       window.removeEventListener('touchstart', enableAudio)
     }
 
-    window.addEventListener('click', enableAudio)
-    window.addEventListener('touchstart', enableAudio)
+    window.addEventListener('click', enableAudio, { passive: true })
+    window.addEventListener('touchstart', enableAudio, { passive: true })
 
     return () => {
       window.removeEventListener('click', enableAudio)
