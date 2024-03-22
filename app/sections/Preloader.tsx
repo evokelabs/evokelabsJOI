@@ -7,6 +7,7 @@ import { TEAL } from '../libs/UIConstants'
 import TealCRTBlur from '../ui/libs/TealCRTBlur'
 import JOISVG from '../ui/svg/mainmenu/JOISVG'
 import IconSmall from '../ui/IconSmall'
+import Image from 'next/image'
 
 const TOTAL_BYTES_SIZE_JOI = 4909672
 const TOTAL_BYTES_SIZE_MAP = 3763556
@@ -280,33 +281,30 @@ const Preloader = ({
   }, [currentIndex]) // Include currentIndex in the dependency array
 
   return (
-    <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
-      <div
-        className={`flex flex-col h-full last:items-center justify-center space-y-0.5 relative scale-[50%] sm:scale-[70%] md:scale-100  ${
-          !isLoading ? 'cursor-pointer' : ''
-        }`}
-        onClick={!isLoading ? handleEnter : undefined}
-        onTouchEnd={!isLoading ? handleEnter : undefined}
-      >
-        <EvokelabsLogo />
-        <EvolvingDigitalMediaLogo />
-        <div className='relative bottom-0 '>
-          {isLoading && <EvokelabsFrame />}
-          {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
-          {!isLoading && <EnterButton handleEnter={handleEnter} currentMessage={currentMessage} />}
-          {!isLoading && (
-            <div className='relative'>
-              <div className='absolute w-fit hidden md:block bottom-0 -right-[5.5em] animate-bounce'>
-                <div className='scale-[102%] origin-top-left'>
-                  <JOISVG primaryColor='#53F6FF' />
-                  <IconSmall teal />
-                </div>
-              </div>
+    <>
+      <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
+        <div
+          className={`flex flex-col h-full last:items-center justify-center space-y-0.5 relative scale-[50%] sm:scale-[70%] md:scale-100  ${
+            !isLoading ? 'cursor-pointer' : ''
+          }`}
+          onClick={!isLoading ? handleEnter : undefined}
+          onTouchEnd={!isLoading ? handleEnter : undefined}
+        >
+          <EvokelabsLogo />
+          <EvolvingDigitalMediaLogo />
+          <div className='relative bottom-0'>
+            {isLoading && <EvokelabsFrame />}
+            {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
+            {!isLoading && <EnterButton handleEnter={handleEnter} currentMessage={currentMessage} />}
+          </div>
+          <div className='absolute '>
+            <div className='relative w-auto h-auto md:block left-[22.75em] top-[2.15em]'>
+              <img src='/images/JOI.png' alt='JOI' width={'84px'} height={'75px'} />
             </div>
-          )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
