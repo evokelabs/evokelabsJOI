@@ -139,9 +139,11 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // GPU Hook
   const { lowGPU, setLowGPU } = useGPU()
 
+
   useEffect(() => {
-    if (isPreLoaderFinished) {
-      gsap.fromTo(
+    console.log('currentRouteSelection', currentRouteSelection)
+    if (isPreLoaderFinished && currentRouteSelection === null) {
+      const maskAnimation = gsap.fromTo(
         '.masked-element',
         {
           webkitMaskSize: '686px 735px',
@@ -151,24 +153,43 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         },
         {
           duration: 5, // adjust duration as needed
-          webkitMaskSize: '1000% 1000%',
-          maskSize: '1000% 1000%',
+          webkitMaskSize: '1100% 1100%',
+          maskSize: '1100% 1100%',
           ease: 'linear',
           yoyo: true,
           tween: 'circ.in',
-          delay: 4.3
+          delay: 4.5
         }
       )
 
-      // Remove the mask after 8 seconds
-      setTimeout(() => {
+      // Remove the mask after 8 seconds or if currentRouteSelection changes
+      const timeoutId = setTimeout(() => {
         const element = document.querySelector('.masked-element')
         if (element) {
           element.classList.add('unmasked')
         }
-      }, 8000)
+      }, 9000)
+
+      return () => {
+        // If the component unmounts or currentRouteSelection changes, remove the mask and stop the animation
+        clearTimeout(timeoutId)
+        maskAnimation.kill()
+        const element = document.querySelector('.masked-element')
+        if (element) {
+          element.classList.add('unmasked')
+        }
+      }
     }
-  }, [isPreLoaderFinished])
+  }, [isPreLoaderFinished, currentRouteSelection])
+
+  useEffect(() => {
+    if (currentRouteSelection !== null) {
+      const element = document.querySelector('.masked-element')
+      if (element) {
+        element.classList.add('unmasked')
+      }
+    }
+  }, [currentRouteSelection])
 
   return (
     <>
@@ -179,7 +200,11 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           value={{ JOILineCaption, setJOILineCaption, isAudioPlaying, setIsAudioPlaying, isChainPlaying, setIsChainPlaying }}
         >
           <div ref={container} className='h-full overflow-hidden '>
-            <div className={`relative bg-no-repeat top-0 left-0 w-full h-full z-0 ${isPreLoaderFinished ? 'masked-element' : ''}`}>
+            <div
+              className={`relative bg-no-repeat top-0 left-0 w-full h-full z-0 ${
+                isPreLoaderFinished && currentRouteSelection === null ? 'masked-element' : ''
+              }`}
+            >
               <Canvas
                 camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
                 shadows
@@ -242,7 +267,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                             setHomePanelExpanded
                           }}
                         >
-                          {/* <Draggable>
+                          <Draggable>
                             <div
                               onPointerDown={handleMouseDown}
                               onPointerUp={handleMouseUp}
@@ -273,7 +298,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                                 {router.pathname === '/availabilities' && <Availabilities />}
                               </div>
                             </div>
-                          </Draggable> */}
+                          </Draggable>
                         </RoutesContext.Provider>
                       </PortfolioContext.Provider>
                     </Html>
