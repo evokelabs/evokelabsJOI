@@ -12,22 +12,19 @@ export const usePreloaderMasking = (isPreLoaderFinished: unknown, currentRouteSe
       // Determine the starting scale and ending scale based on the viewport width
       let startingScale = '686px 735px' // default scale
       let endingScale = '2500% 2500%' // default ending scale
-      let startingPosition = '50% 45%' // default position
       const viewportWidth = window.innerWidth
       if (viewportWidth <= 640) {
         // scale-60
         startingScale = '60% 60%'
         endingScale = '2500% 2500%' // adjust as needed
-        startingPosition = '50% 45%' // adjust for mobile
       } else if (viewportWidth <= 768) {
         // sm:scale-70
         startingScale = '70% 70%'
         endingScale = '2500% 2500%' // adjust as needed
-        startingPosition = '50% 45%' // adjust for mobile
       } else if (viewportWidth >= 768) {
         // md:scale-100
         startingScale = '686px 735px'
-        endingScale = '1200% 1200%' // adjust as needed
+        endingScale = '2400% 2400%' // adjust as needed
       }
 
       const maskAnimation = gsap.fromTo(
@@ -35,17 +32,14 @@ export const usePreloaderMasking = (isPreLoaderFinished: unknown, currentRouteSe
         {
           webkitMaskSize: startingScale,
           maskSize: startingScale,
-          webkitMaskPosition: startingPosition, // use startingPosition
-          maskPosition: startingPosition // use startingPosition
+          webkitMaskPosition: '50% 50%',
+          maskPosition: '50% 50%'
         },
         {
-          duration: 5, // adjust duration as needed
+          duration: 4, // adjust duration as needed
           webkitMaskSize: endingScale, // use endingScale
-          maskSize: endingScale, // use endingScale
-          ease: 'linear',
-          yoyo: true,
-          tween: 'circ.in',
-          delay: 5
+          ease: 'circ.in',
+          delay: 4.5
         }
       )
 

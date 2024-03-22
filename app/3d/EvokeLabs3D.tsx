@@ -351,9 +351,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           <SocialIcons />
           <JOISubtitles />
           {isPreLoaderFinished && <SoundControlIcons />}
-          {!maskRemoved && (
-            <RainOverlay fov={fov} eventSource={eventSource} isPreLoaderFinished={isPreLoaderFinished} cameraTarget={cameraTarget} />
-          )}
+          {!maskRemoved && <RainOverlay fov={fov} eventSource={eventSource} isPreLoaderFinished={false} cameraTarget={cameraTarget} />}
         </JOISpeechContext.Provider>
       </SoundControlContext.Provider>
     </>
