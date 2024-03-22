@@ -31,7 +31,7 @@ const VideoFrame = ({
 
   const handleVideoPlay = useCallback(() => {
     const video = videoRef.current
-    if (video) {
+    if (video && !video.seeking) {
       video.muted = false // Unmute the video
       if (!userMutedAll) {
         setShouldMapDarkness(true)
@@ -43,15 +43,18 @@ const VideoFrame = ({
   }, [userMutedAll, setShouldMapDarkness, soundAudioLevelControls])
 
   const handleVideoPause = () => {
-    setShouldMapDarkness(false)
-    if (userMutedAll) {
-      soundAudioLevelControls.setMuteMusic(true)
-      soundAudioLevelControls.setMuteRain(true)
-      soundAudioLevelControls.setMuteSFX(true)
-    } else {
-      soundAudioLevelControls.setMuteMusic(false)
-      soundAudioLevelControls.setMuteRain(false)
-      soundAudioLevelControls.setMuteSFX(false)
+    const video = videoRef.current
+    if (video && !video.seeking) {
+      setShouldMapDarkness(false)
+      if (userMutedAll) {
+        soundAudioLevelControls.setMuteMusic(true)
+        soundAudioLevelControls.setMuteRain(true)
+        soundAudioLevelControls.setMuteSFX(true)
+      } else {
+        soundAudioLevelControls.setMuteMusic(false)
+        soundAudioLevelControls.setMuteRain(false)
+        soundAudioLevelControls.setMuteSFX(false)
+      }
     }
   }
 
