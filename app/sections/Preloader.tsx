@@ -5,9 +5,6 @@ import { useDracoLoader } from '../libs/useDracoLoader'
 import { useGPU } from '../3d/lib/useGPU'
 import { TEAL } from '../libs/UIConstants'
 import TealCRTBlur from '../ui/libs/TealCRTBlur'
-import JOISVG from '../ui/svg/mainmenu/JOISVG'
-import IconSmall from '../ui/IconSmall'
-import Image from 'next/image'
 
 const TOTAL_BYTES_SIZE_JOI = 4909672
 const TOTAL_BYTES_SIZE_MAP = 3763556

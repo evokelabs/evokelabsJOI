@@ -49,8 +49,8 @@ export const HTML_SCALE_RESPONSIVE: Record<string, number> = {
 }
 
 export const POSITION_REF_RESPONSIVE: Record<string, [number, number, number]> = {
-  BASE: [0.59, 1.22, 1.9],
-  SM: [0.56, 1.3, 1.9],
+  BASE: [0.585, 1.22, 1.9],
+  SM: [0.59, 1.3, 1.9],
   MD: [-0.04, 1.4, 1.9],
   LG: [-0.15, 1.4, 1.9],
   XL: [-0.1, 1.4, 1.9],

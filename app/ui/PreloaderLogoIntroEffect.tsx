@@ -27,14 +27,14 @@ const PreloaderLogoIntroEffect = ({ isPreLoaderFinished }: { isPreLoaderFinished
     <>
       <div
         ref={elabsFillRef}
-        className='absolute top-0 left-1/4 lg:left-0 w-1/2 lg:w-full h-full flex justify-center items-center pointer-events-none '
+        className='absolute top-0 left-1/4 md:left-0 w-1/2 md:w-full h-full flex justify-center items-center pointer-events-none '
         style={{ opacity: 1 }}
       >
         <ElabsFill />
       </div>
       <div
         ref={elabsStrokeRef}
-        className='absolute top-0 left-1/4 lg:left-0 w-1/2 lg:w-full h-full justify-center items-center pointer-events-none flex '
+        className='absolute top-0 left-1/4 md:left-0 w-1/2 md:w-full h-full justify-center items-center pointer-events-none flex '
       >
         <ElabsStroke />
       </div>

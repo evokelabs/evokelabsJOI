@@ -1,5 +1,6 @@
 import { useEffect, Dispatch, SetStateAction } from 'react'
 import gsap from 'gsap'
+import { MD_BREAKPOINT, SM_BREAKPOINT } from '@/app/libs/breakPoints'
 
 const MASK_REMOVAL_DELAY = 9000
 
@@ -15,15 +16,15 @@ export const usePreloaderMasking = (
       let startingScale = '686px 735px' // default scale
       let endingScale = '2500% 2500%' // default ending scale
       const viewportWidth = window.innerWidth
-      if (viewportWidth <= 640) {
+      if (viewportWidth <= SM_BREAKPOINT) {
         // scale-60
         startingScale = '50% 50%'
         endingScale = '2500% 2500%' // adjust as needed
-      } else if (viewportWidth <= 768) {
+      } else if (viewportWidth <= MD_BREAKPOINT) {
         // sm:scale-70
-        startingScale = '100% 100%'
+        startingScale = '50% 50%'
         endingScale = '2500% 2500%' // adjust as needed
-      } else if (viewportWidth >= 768) {
+      } else if (viewportWidth >= MD_BREAKPOINT) {
         // md:scale-100
         startingScale = '735px 919px'
         endingScale = '2400% 2400%' // adjust as needed

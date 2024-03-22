@@ -37,9 +37,9 @@ export const getFov = (width: number): number => {
   const isPortrait = window.innerHeight * 1.5 > window.innerWidth
   switch (true) {
     case width <= SM_BREAKPOINT:
-      return isPortrait ? 120 : 85 // Mobile devices
+      return isPortrait ? 90 : 85 // Mobile devices
     case width <= MD_BREAKPOINT:
-      return isPortrait ? 120 : 68 // Desktop Min
+      return isPortrait ? 60 : 68 // Desktop Min
     case width <= LG_BREAKPOINT:
       return isPortrait ? 75 : 35 // Desktop Min
     case width <= XL_BREAKPOINT:
