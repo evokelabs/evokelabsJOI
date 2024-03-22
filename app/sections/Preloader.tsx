@@ -119,9 +119,9 @@ const EvokelabsFrame = () => {
 }
 
 const PreloaderBar = ({ progress, modelName }: { progress: number; modelName: string }) => (
-  <div className='w-[40em] relative'>
-    <div className='w-full absolute bottom-5'>
-      <div className='relative h-auto w-full py-[4px] px-[5px] flex justify-center items-center justify-items-center bottom-1.5'>
+  <div className='relative '>
+    <div className='w-[39.75em] absolute bottom-4 left-[1em]'>
+      <div className='relative h-auto w-full py-[4px] px-0 flex justify-center items-center justify-items-center bottom-1.5'>
         <div
           className='relative h-[3px] w-full bg-teal origin-left teal-blur shadow-teal-blur'
           style={{
@@ -146,7 +146,7 @@ const EnterButton = ({
   soundAudioLevelControls: SoundAudioLevelControls
 }) => (
   <button
-    className='pointer-events-auto border-teal border-2 shadow-teal-blur w-[640px] h-[50px] font-semibold font-rajdhani text-teal-blur text-5xl hover:bg-teal hover:text-black hover:text-black-blur duration-200 ease-out'
+    className='pointer-events-auto border-teal border-2 shadow-teal-blur w-[640px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl hover:bg-teal hover:text-black hover:text-black-blur duration-200 ease-out '
     onClick={() => {
       soundAudioLevelControls.setMuteAll(false)
       soundAudioLevelControls.setMuteMusic(false)
@@ -246,9 +246,11 @@ const Preloader = ({
       <div className='flex flex-col h-full last:items-center justify-center space-y-1 relative'>
         <EvokelabsLogo />
         <EvolvingDigitalMediaLogo />
-        <EvokelabsFrame />
-        {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
-        {!isLoading && <EnterButton setIsPreLoaderFinished={setIsPreLoaderFinished} soundAudioLevelControls={soundAudioLevelControls} />}
+        <div className='relative bottom-0 '>
+          {isLoading && <EvokelabsFrame />}
+          {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
+          {!isLoading && <EnterButton setIsPreLoaderFinished={setIsPreLoaderFinished} soundAudioLevelControls={soundAudioLevelControls} />}
+        </div>
       </div>
     </div>
   )
