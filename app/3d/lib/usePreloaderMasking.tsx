@@ -17,7 +17,7 @@ export const usePreloaderMasking = (
       const viewportWidth = window.innerWidth
       if (viewportWidth <= 640) {
         // scale-60
-        startingScale = '100% 100%'
+        startingScale = '50% 50%'
         endingScale = '2500% 2500%' // adjust as needed
       } else if (viewportWidth <= 768) {
         // sm:scale-70
