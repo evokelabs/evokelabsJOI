@@ -65,12 +65,21 @@ const VideoFrame = ({
     return () => {
       // Set videoError to false when the component unmounts
       setVideoError(false)
-      // Call handleVideoPlay when the component unmounts
-
+      // Call handleVideoPause when the component unmounts
       handleVideoPause()
+      // Set shouldMapDarkness to false when the component unmounts
+      setShouldMapDarkness(false)
+      if (userMutedAll) {
+        soundAudioLevelControls.setMuteMusic(true)
+        soundAudioLevelControls.setMuteRain(true)
+        soundAudioLevelControls.setMuteSFX(true)
+      } else {
+        soundAudioLevelControls.setMuteMusic(false)
+        soundAudioLevelControls.setMuteRain(false)
+        soundAudioLevelControls.setMuteSFX(false)
+      }
     }
   }, [])
-
   //Intelligent video sound control based on sound context
   useEffect(() => {
     initialMuteMusic.current = soundAudioLevelControls.muteAll
