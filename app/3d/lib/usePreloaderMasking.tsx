@@ -1,15 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import gsap from 'gsap'
 
-export const usePreloaderMasking = (isPreLoaderFinished: boolean, currentRouteSelection: string | null | number) => {
-  const [showRainOverlay, setShowRainOverlay] = useState(true)
-
+export const usePreloaderMasking = (isPreLoaderFinished: unknown, currentRouteSelection: unknown) => {
   useEffect(() => {
     console.log('currentRouteSelection', currentRouteSelection)
-    let timeoutId: NodeJS.Timeout | undefined
-    let maskAnimation: gsap.core.Tween | undefined
     if (isPreLoaderFinished && currentRouteSelection === null) {
-      maskAnimation = gsap.fromTo(
+      const maskAnimation = gsap.fromTo(
         '.masked-element',
         {
           webkitMaskSize: '686px 735px',
@@ -28,29 +24,23 @@ export const usePreloaderMasking = (isPreLoaderFinished: boolean, currentRouteSe
         }
       )
 
-      // Remove the mask and RainOverlay after 9 seconds or if currentRouteSelection changes
-      timeoutId = setTimeout(() => {
+      // Remove the mask after 8 seconds or if currentRouteSelection changes
+      const timeoutId = setTimeout(() => {
         const element = document.querySelector('.masked-element')
         if (element) {
           element.classList.add('unmasked')
         }
-        setShowRainOverlay(false)
       }, 9000)
-    }
 
-    return () => {
-      // If the component unmounts or currentRouteSelection changes, remove the mask and RainOverlay and stop the animation
-      if (timeoutId) {
+      return () => {
+        // If the component unmounts or currentRouteSelection changes, remove the mask and stop the animation
         clearTimeout(timeoutId)
-      }
-      if (maskAnimation) {
         maskAnimation.kill()
+        const element = document.querySelector('.masked-element')
+        if (element) {
+          element.classList.add('unmasked')
+        }
       }
-      const element = document.querySelector('.masked-element')
-      if (element) {
-        element.classList.add('unmasked')
-      }
-      setShowRainOverlay(false)
     }
   }, [isPreLoaderFinished, currentRouteSelection])
 
@@ -62,6 +52,4 @@ export const usePreloaderMasking = (isPreLoaderFinished: boolean, currentRouteSe
       }
     }
   }, [currentRouteSelection])
-
-  return showRainOverlay
 }
