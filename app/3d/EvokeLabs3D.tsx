@@ -186,7 +186,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           <div ref={container} className='h-full overflow-hidden  '>
             <div
               className={`relative bg-no-repeat top-0 left-0 w-full h-full z-0 ${
-                isPreLoaderFinished && currentRouteSelection === null ? 'masked-element' : ''
+                !maskRemoved && isPreLoaderFinished && currentRouteSelection === null ? 'masked-element' : ''
               }`}
             >
               <Canvas
