@@ -5,6 +5,8 @@ import { useDracoLoader } from '../libs/useDracoLoader'
 import { useGPU } from '../3d/lib/useGPU'
 import { TEAL } from '../libs/UIConstants'
 import TealCRTBlur from '../ui/libs/TealCRTBlur'
+import JOISVG from '../ui/svg/mainmenu/JOISVG'
+import IconSmall from '../ui/IconSmall'
 
 const TOTAL_BYTES_SIZE_JOI = 4909672
 const TOTAL_BYTES_SIZE_MAP = 3763556
@@ -280,7 +282,7 @@ const Preloader = ({
   return (
     <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none'>
       <div
-        className={`flex flex-col h-full last:items-center justify-center space-y-1 relative scale-[50%] sm:scale-[70%] md:scale-100  ${
+        className={`flex flex-col h-full last:items-center justify-center space-y-0.5 relative scale-[50%] sm:scale-[70%] md:scale-100  ${
           !isLoading ? 'cursor-pointer' : ''
         }`}
         onClick={!isLoading ? handleEnter : undefined}
@@ -292,6 +294,16 @@ const Preloader = ({
           {isLoading && <EvokelabsFrame />}
           {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
           {!isLoading && <EnterButton handleEnter={handleEnter} currentMessage={currentMessage} />}
+          {!isLoading && (
+            <div className='relative '>
+              <div className='absolute w-fit hidden md:block bottom-0 -right-[5.5em] animate-bounce'>
+                <div className='scale-[102%] origin-top-left'>
+                  <JOISVG primaryColor='#53F6FF' />
+                  <IconSmall teal />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

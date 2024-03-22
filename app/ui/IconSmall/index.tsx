@@ -1,27 +1,34 @@
 import React, { useRef } from 'react'
 import RedCRTBlur from '../libs/RedCRTBlur'
-import { BLUE_DARK, ORANGE, ORANGE_DARK, RED } from '@/app/libs/UIConstants'
+import { BLACK, BLUE_DARK, ORANGE, ORANGE_DARK, RED, TEAL } from '@/app/libs/UIConstants'
 import { BLUE_TILE_PATTERN } from '../libs/TitleFillsPatterns'
 import OrangeCRTBlur from '../libs/OrangeCRTBlur'
+import TealCRTBlur from '../libs/TealCRTBlur'
 
 const IconSmall = ({
   svgRef,
   pathBGFillRef,
   pathBGStrokeRef,
   pathFGFillRef,
-  callToAction = false
+  callToAction = false,
+  teal = false
 }: {
   svgRef?: React.RefObject<SVGSVGElement>
   pathBGFillRef?: React.RefObject<SVGPathElement>
   pathBGStrokeRef?: React.RefObject<SVGPathElement>
   pathFGFillRef?: React.RefObject<SVGPathElement>
   callToAction?: boolean
+  teal?: boolean
 }) => {
   const dummyRef = useRef(null)
 
-  const primaryColor = callToAction ? ORANGE : RED
-  const secondaryColor = callToAction ? ORANGE_DARK : BLUE_DARK
-  const filterBlur = callToAction ? 'url(#OrangeCRTBlur1) url(#OrangeCRTBlur2)' : 'url(#RedCRTBlur1) url(#RedCRTBlur2)'
+  const primaryColor = teal ? TEAL : callToAction ? ORANGE : RED
+  const secondaryColor = callToAction ? ORANGE_DARK : BLACK
+  const filterBlur = teal
+    ? 'url(#TealCRTBlur1) url(#TealCRTBlur2)'
+    : callToAction
+    ? 'url(#OrangeCRTBlur1) url(#OrangeCRTBlur2)'
+    : 'url(#RedCRTBlur1) url(#RedCRTBlur2)'
 
   return (
     <>
@@ -36,6 +43,7 @@ const IconSmall = ({
           fill={secondaryColor}
           fillOpacity={0.6}
         />
+        <TealCRTBlur />
         <RedCRTBlur />
         <OrangeCRTBlur />
         <g filter={filterBlur}>

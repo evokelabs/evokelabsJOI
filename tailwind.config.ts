@@ -43,6 +43,12 @@ const config: Config = {
       },
       screens: {
         '3xl': _3XL_BREAKPOINT.toString()
+      },
+      keyframes: {
+        bounce: {
+          '0%, 100%': { transform: 'translateX(7%)' },
+          '50%': { transform: 'translateX(0%)' }
+        }
       }
     }
   },
