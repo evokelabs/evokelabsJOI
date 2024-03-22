@@ -119,3 +119,24 @@ abbr:where([title]) {
   padding-top: 0.25rem;
   margin-bottom: 0.375rem;
 }
+
+@keyframes reveal {
+  from {
+    mask-size: 0 0;
+    mask-position: center 40%;
+  }
+  to {
+    mask-size: 700vw 700vh;
+    mask-position: center 34%;
+  }
+}
+
+.masked-element {
+  animation: reveal 5s linear infinite; /* adjust duration and timing function as needed */
+  mask-image: url('/glb/elabs-mask.svg');
+  -webkit-mask-image: url('/glb/elabs-mask.svg'); /* for Safari */
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat; /* for Safari */
+  mask-position: center;
+  -webkit-mask-position: center; /* for Safari */
+}

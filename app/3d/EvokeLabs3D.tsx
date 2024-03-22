@@ -53,7 +53,6 @@ import { usePreloader } from './lib/usePreloader'
 import { useResponsive } from './lib/useResponsive'
 import { ROUTE_CONFIG } from '../libs/ROUTE_CONFIG'
 import Preloader from '../sections/Preloader'
-import MaskEvokeLabs from '../ui/MaskEvokeLabs'
 
 // Constants
 const INITIAL_CAMERA_POSITION = [-0.3, 1.5, -1] as const
@@ -148,9 +147,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         >
           <div ref={container} className='h-full'>
             <div
-              className='absolute top-0 left-0 w-full h-full bg-black z-0'
+              className={`absolute bg-no-repeat top-0 left-0 w-full h-full z-0 ${isPreLoaderFinished ? 'masked-element' : ''}`}
               style={{
-                clipPath: 'circle(50% at 50% 50%)',
                 width: '100%',
                 height: '100%',
                 position: 'absolute'
@@ -218,7 +216,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                             setHomePanelExpanded
                           }}
                         >
-                          <Draggable>
+                          {/* <Draggable>
                             <div
                               onPointerDown={handleMouseDown}
                               onPointerUp={handleMouseUp}
@@ -249,7 +247,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                                 {router.pathname === '/availabilities' && <Availabilities />}
                               </div>
                             </div>
-                          </Draggable>
+                          </Draggable> */}
                         </RoutesContext.Provider>
                       </PortfolioContext.Provider>
                     </Html>
