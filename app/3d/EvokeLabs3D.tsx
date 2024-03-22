@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { NextRouter } from 'next/router'
-import { Vector2 } from 'three'
+import { Vector2, Vector3 } from 'three'
 import { Canvas } from '@react-three/fiber'
 import { Html, OrbitControls } from '@react-three/drei'
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ChromaticAberration, BrightnessContrast } from '@react-three/postprocessing'
@@ -56,6 +56,37 @@ import Preloader from '../sections/Preloader'
 
 import { gsap } from 'gsap'
 import { usePreloaderMasking } from './lib/usePreloaderMasking'
+
+const RainOverlay = ({
+  fov,
+  eventSource,
+  isPreLoaderFinished,
+  cameraTarget
+}: {
+  fov: number
+  eventSource: any
+  isPreLoaderFinished: boolean
+  cameraTarget: Vector3
+}) => {
+  return (
+    <div className='h-full w-full pointer-events-none relative top-[-100%] z-[-10] '>
+      <Canvas
+        camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
+        shadows
+        gl={{
+          powerPreference: 'high-performance'
+        }}
+        style={{ pointerEvents: 'none' }}
+        eventSource={eventSource}
+        eventPrefix='page'
+      >
+        <Rain isPreLoaderFinished={isPreLoaderFinished} />
+        <CameraRig fov={fov} debug={false} />
+        <OrbitControls makeDefault target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
+      </Canvas>
+    </div>
+  )
+}
 
 // Constants
 const INITIAL_CAMERA_POSITION = [-0.3, 1.5, -1] as const
@@ -150,12 +181,11 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
         <JOISpeechContext.Provider
           value={{ JOILineCaption, setJOILineCaption, isAudioPlaying, setIsAudioPlaying, isChainPlaying, setIsChainPlaying }}
         >
-          <div ref={container} className='h-full overflow-hidden '>
+          <div ref={container} className='h-full overflow-hidden  '>
             <div
-              // className={`relative bg-no-repeat top-0 left-0 w-full h-full z-0 ${
-              //   isPreLoaderFinished && currentRouteSelection === null ? 'masked-element' : ''
-              // }`}
-              className={`relative bg-no-repeat top-0 left-0 w-full h-full z-0 ${currentRouteSelection === null ? 'masked-element' : ''}`}
+              className={`relative bg-no-repeat top-0 left-0 w-full h-full z-0 ${
+                isPreLoaderFinished && currentRouteSelection === null ? 'masked-element' : ''
+              }`}
             >
               <Canvas
                 camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
@@ -312,8 +342,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                 </SoundsContext.Provider>
               </Canvas>
             </div>
+            {/* end masked elemnts */}
           </div>
-
           {!isPreLoaderFinished && (
             <Preloader setIsPreLoaderFinished={setIsPreLoaderFinished} soundAudioLevelControls={soundAudioLevelControls} />
           )}
@@ -321,6 +351,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           <SocialIcons />
           <JOISubtitles />
           {isPreLoaderFinished && <SoundControlIcons />}
+          <RainOverlay fov={fov} eventSource={eventSource} isPreLoaderFinished={isPreLoaderFinished} cameraTarget={cameraTarget} />
         </JOISpeechContext.Provider>
       </SoundControlContext.Provider>
     </>
