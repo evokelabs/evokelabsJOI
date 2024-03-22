@@ -151,7 +151,7 @@ const EnterButton = ({
     <div onClick={handleEnter} onTouchEnd={handleEnter} className='w-full h-full pointer-events-auto'>
       <button className=' border-teal border-2 shadow-teal-blur w-[640px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl hover:bg-teal hover:text-black hover:text-black-blur duration-200 ease-out '>
         <div className='pt-[1px]'>
-          CLICK HERE |R JOI AI <span className='text-[30px] bottom-1 relative'>❤</span>
+          CLICK HERE HANDSOME <span className='text-[30px] bottom-1 relative'>❤</span>
         </div>
       </button>
     </div>
