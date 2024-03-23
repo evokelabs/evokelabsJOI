@@ -44,14 +44,14 @@ const ContentHead = () => {
           </h2>
         </div>
         <div className='w-[170px] md:w-auto md:ml-12 relative md:block hidden'>
-          <ul className='ml-0 text-red font-medium text-[0.65rem] sm:text-[0.75rem] md:text-[1.375rem] font-default space-y-1 list-none md:list-square pl-1 md:pl-8 sm:w-auto'>
+          <ul className='ml-0 text-red font-medium text-[0.65rem] sm:text-[0.75rem] md:text-[1.375rem] font-default space-y-1 list-none md:list-square pl-1 md:pl-9 sm:w-auto'>
             <li className='leading-[1]'>Australian citizen with full work rights. </li>
             <li className='leading-[1]'>ABN / GST compliant for contract and freelance roles.</li>
             <li className='leading-[1]'>Open to onsite and/or remote gigs. Crypto accepted.</li>
           </ul>
         </div>
         <div className='ml-auto'>
-          <div className='flex flex-col text-right justify-center space-y-0 md:space-y-1 mr-2 md:mr-6'>
+          <div className='flex flex-col text-right justify-center space-y-0 md:space-y-1 mr-2 md:mr-6 relative top-0.5'>
             <ParagraphHighlight BGColor={RED} fontSize='sm' paragraph='<strong>Current location:</strong> Sydney, Australia' />
             <ParagraphHighlight BGColor={RED} fontSize='sm' paragraph='<strong>ABN:</strong> 53 470 501 232' />
           </div>
