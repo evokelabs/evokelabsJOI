@@ -298,7 +298,9 @@ const Preloader = ({
           onClick={!isLoading ? handleEnter : undefined}
           onTouchEnd={!isLoading ? handleEnter : undefined}
         >
-          <EvokelabsLogo />
+          <div className='relative scale-[113%] origin-bottom-left'>
+            <EvokelabsLogo />
+          </div>
           <EvolvingDigitalMediaLogo />
           <div className='relative bottom-0 '>
             {isLoading && <EvokelabsFrame />}
