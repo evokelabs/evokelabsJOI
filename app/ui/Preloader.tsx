@@ -11,7 +11,7 @@ const TOTAL_BYTES_SIZE_MAP = 3763556
 
 const EvokelabsLogo = () => {
   return (
-    <svg width='650' height='69' viewBox='0 0 639 69'>
+    <svg viewBox='0 0 639 69'>
       <TealCRTBlur />
       <g filter='url(#TealCRTBlur1) url(#TealCRTBlur2)'>
         <path
@@ -298,30 +298,34 @@ const Preloader = ({
           onClick={!isLoading ? handleEnter : undefined}
           onTouchEnd={!isLoading ? handleEnter : undefined}
         >
-          <div className='relative scale-[113%] origin-bottom-left'>
+          <div className='relative w-[45em]'>
             <EvokelabsLogo />
           </div>
-          <EvolvingDigitalMediaLogo />
-          <div className='relative bottom-0 '>
-            {isLoading && <EvokelabsFrame />}
-            {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
-            {!isLoading && (
-              <div className='flex w-full flex-row px-2.5 space-x-0.5' onClick={handleEnter} onTouchEnd={handleEnter}>
-                <div className='w-10 border-teal border-2 group-hover:bg-teal group-hover:text-black group-hover:text-black-blur text-teal-blur font-semibold font-orbitron flex justify-center items-center'>
-                  <span className='text-[14px]  absolute animate-ping'>▶</span>
-                  <span className='text-[14px] absolute'>▶</span>
-                </div>
-                <button className='border-teal border-2 shadow-teal-blur w-[597px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out origin-left overflow-hidden relative '>
-                  <div className='pt-[1px] absolute w-auto right-2 top-0 ' style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
-                    {currentMessage} <span className='text-[30px] bottom-1 relative'>❤</span>
+          <div className='-left-10 relative'>
+            <div className='relative -left-[0.04em]'>
+              <EvolvingDigitalMediaLogo />
+            </div>
+            <div className='relative mt-0.5'>
+              {isLoading && <EvokelabsFrame />}
+              {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
+              {!isLoading && (
+                <div className='flex w-full flex-row px-2.5 space-x-0.5' onClick={handleEnter} onTouchEnd={handleEnter}>
+                  <div className='w-10 border-teal border-2 group-hover:bg-teal group-hover:text-black group-hover:text-black-blur text-teal-blur font-semibold font-orbitron flex justify-center items-center'>
+                    <span className='text-[14px] absolute animate-ping'>▶</span>
+                    <span className='text-[14px] absolute'>▶</span>
                   </div>
-                </button>
-              </div>
-            )}
+                  <button className='border-teal border-2 shadow-teal-blur w-[597px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out origin-left overflow-hidden relative '>
+                    <div className='pt-[1px] relative  right-2 top-0 '>
+                      {currentMessage} <span className='text-[30px] bottom-1 relative'>❤</span>
+                    </div>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
           <div className='absolute '>
-            <div className='relative w-auto h-auto md:block left-[22.75em] top-[2.15em]'>
-              <div className={`absolute -right-3 -top-5 text-2xl transition-opacity duration-500`} style={{ opacity: isAnimating ? 1 : 0 }}>
+            <div className='relative w-auto h-auto md:block left-[20.2em] top-[2.4em]'>
+              <div className={`absolute -right-4 -top-5 text-2xl transition-opacity duration-500`} style={{ opacity: isAnimating ? 1 : 0 }}>
                 💬
               </div>
               <img src='/images/JOI.png' alt='JOI' width={'84px'} height={'75px'} />
