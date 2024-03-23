@@ -245,7 +245,7 @@ const Preloader = ({
   const TYPE_ON_SPEED = 80
 
   const itemEntries = [
-    'HELLO THERE HANDSOME!',
+    'WHY HELLO THERE HANDSOME!',
     'WHAT A DAY, HMM?',
     'YOU LOOK LONELY. I CAN FIX THAT!',
     'YOU LOOK LIKE A GOOD JOE!',
@@ -306,16 +306,16 @@ const Preloader = ({
         >
           <EvokelabsLogo />
           <EvolvingDigitalMediaLogo />
-          <div className='relative w-full'>
+          <div className='relative bottom-0 '>
             {isLoading && <EvokelabsFrame />}
             {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
             {!isLoading && (
-              <div className='flex w-full flex-row px-2.5 space-x-0.5' onClick={handleEnter} onTouchEnd={handleEnter} w-full>
+              <div className='flex w-full flex-row px-2.5 space-x-0.5' onClick={handleEnter} onTouchEnd={handleEnter}>
                 <div className='w-10 border-teal border-2 group-hover:bg-teal group-hover:text-black group-hover:text-black-blur text-teal-blur font-semibold font-orbitron flex justify-center items-center '>
                   ⟁
                 </div>
-                <button className='border-teal border-2 shadow-teal-blur w-[12.45em] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out origin-left overflow-hidden relative'>
-                  <div className='pt-[1px] absolute w-full right-2 top-0' style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
+                <button className='border-teal border-2 shadow-teal-blur w-[597px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out origin-left overflow-hidden relative'>
+                  <div className='pt-[1px] absolute w-auto right-2 top-0' style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
                     {currentMessage} <span className='text-[30px] bottom-1 relative'>❤</span>
                   </div>
                 </button>
