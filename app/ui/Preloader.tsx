@@ -233,7 +233,7 @@ const Preloader = ({
   const TYPE_ON_SPEED = 80
 
   const itemEntries = [
-    'CLICK HERE HANDSOME!',
+    'CLICK HERE, HANDSOME!',
     'WHAT A DAY, HMM?',
     'YOU LOOK LONELY. I CAN FIX THAT!',
     'YOU LOOK LIKE A GOOD JOE!',
