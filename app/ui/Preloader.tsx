@@ -127,7 +127,7 @@ const PreloaderBar = ({ progress, modelName }: { progress: number; modelName: st
           style={{
             transform: `scaleX(${progress / 100})`,
             transformOrigin: 'left',
-            transition: 'transform 0.25s ease-out'
+            transition: 'transform 0.1s ease-out'
           }}
         />
       </div>
