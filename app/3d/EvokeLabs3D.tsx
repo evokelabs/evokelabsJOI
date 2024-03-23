@@ -52,7 +52,7 @@ import { useUI } from './lib/useUI'
 import { usePreloader } from './lib/usePreloader'
 import { useResponsive } from './lib/useResponsive'
 import { ROUTE_CONFIG } from '../libs/ROUTE_CONFIG'
-import Preloader from '../sections/Preloader'
+import Preloader from '../ui/Preloader'
 
 import { usePreloaderMasking } from './lib/usePreloaderMasking'
 import PreloaderLogoIntroEffect from '../ui/PreloaderLogoIntroEffect'

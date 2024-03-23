@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { LoadingManager } from 'three'
-import { SoundAudioLevelControls } from './data/types'
+import { SoundAudioLevelControls } from '../sections/data/types'
 import { useDracoLoader } from '../libs/useDracoLoader'
 import { useGPU } from '../3d/lib/useGPU'
 import { TEAL } from '../libs/UIConstants'
-import TealCRTBlur from '../ui/libs/TealCRTBlur'
+import TealCRTBlur from './libs/TealCRTBlur'
 
 const TOTAL_BYTES_SIZE_JOI = 4909672
 const TOTAL_BYTES_SIZE_MAP = 3763556
@@ -241,10 +241,27 @@ const Preloader = ({
     setIsPreLoaderFinished(true)
   }
 
-  const TIMER = 3500
-  const TYPE_ON_SPEED = 70
+  const TIMER = 2500
+  const TYPE_ON_SPEED = 80
 
-  const itemEntries = ['CLICK HERE HANDSOME', 'WHAT A DAY, HMM?', 'YOU LOOK LIKE A GOOD JOE'] // Replace with actual item entries
+  const itemEntries = [
+    'HELLO THERE HANDSOME!',
+    'WHAT A DAY, HMM?',
+    'YOU LOOK LONELY. I CAN FIX THAT!',
+    'YOU LOOK LIKE A GOOD JOE!',
+    'LET US GO THEN YOU AND I',
+    'WHEN THE EVENING IS SPREAD OUT AGAINST THE SKY',
+    'LIKE A PATIENT ETHERISED UPON A TABLE',
+    'LET US GO THROUGH CERTAIN HALF-DESERTED STREETS',
+    'THE MUTTERING RETREATS',
+    'OF RESTLESS NIGHTS IN ONE-NIGHT CHEAP HOTELS',
+    'AND SAWDUST RESTAURANTS WITH OYSTER-SHELLS',
+    'STREETS THAT FOLLOW LIKE A TEDIOUS ARGUMENT',
+    'OF INSIDIOUS INTENT',
+    'TO LEAD YOU TO AN OVERWHELMING QUESTION',
+    'OH DO NOT ASK WHAT IS IT',
+    'LET US GO AND MAKE OUR VISIT'
+  ] // Replace with actual item entries
 
   const [currentMessage, setCurrentMessage] = useState(itemEntries[0])
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -289,13 +306,16 @@ const Preloader = ({
         >
           <EvokelabsLogo />
           <EvolvingDigitalMediaLogo />
-          <div className='relative bottom-0 '>
+          <div className='relative w-full'>
             {isLoading && <EvokelabsFrame />}
             {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
             {!isLoading && (
-              <div onClick={handleEnter} onTouchEnd={handleEnter} className='w-full h-full '>
-                <button className='border-teal border-2 shadow-teal-blur w-[640px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out origin-left'>
-                  <div className='pt-[1px]'>
+              <div className='flex w-full flex-row px-2.5 space-x-0.5' onClick={handleEnter} onTouchEnd={handleEnter} w-full>
+                <div className='w-10 border-teal border-2 group-hover:bg-teal group-hover:text-black group-hover:text-black-blur text-teal-blur font-semibold font-orbitron flex justify-center items-center '>
+                  ⟁
+                </div>
+                <button className='border-teal border-2 shadow-teal-blur w-[12.45em] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out origin-left overflow-hidden relative'>
+                  <div className='pt-[1px] absolute w-full right-2 top-0' style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
                     {currentMessage} <span className='text-[30px] bottom-1 relative'>❤</span>
                   </div>
                 </button>
