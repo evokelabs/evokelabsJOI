@@ -43,7 +43,7 @@ const ContentHead = () => {
             SERVICES
           </h2>
         </div>
-        <div className='w-[170px] md:w-auto md:ml-20 relative md:block hidden'>
+        <div className='w-[170px] md:w-auto md:ml-12 relative md:block hidden'>
           <ul className='ml-0 text-red font-medium text-[0.65rem] sm:text-[0.75rem] md:text-[1.375rem] font-default space-y-1 list-none md:list-square pl-1 md:pl-8 sm:w-auto'>
             <li className='leading-[1]'>Australian citizen with full work rights. </li>
             <li className='leading-[1]'>ABN / GST compliant for contract and freelance roles.</li>
@@ -66,7 +66,7 @@ const ContentHead = () => {
 const Services = () => {
   return (
     <PanelContent headerTitle='Corpo Guide' contentHead={<ContentHead />}>
-      <div className='mb-2 md:mb-5 space-y-0 md:space-y-2'>
+      <div className='mb-2 md:mb-5 -space-y-1 '>
         <HeadingHighlight BGColor={TEAL} fullWidth={false} heading='YOUR CREATIVE TECHNOLOGIST PARTNER' />
         <ParagraphHighlight
           BGColor={TEAL}
