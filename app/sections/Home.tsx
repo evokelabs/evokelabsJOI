@@ -287,7 +287,7 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
 
         <div
           ref={divRef}
-          className='px-5 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0 text-[1.2rem] md:text-[2.2rem] '
+          className='px-6 bg-grid-blue border-x-2 border-red border-opacity-60 border-b-0 shadow-red-blur overflow-hidden h-0 text-[1.2rem] md:text-[2.2rem] '
         >
           <div className='flex flex-col justify-between min-h-[10em] md:min-h-[8em]  '>
             <p className='mt-6 mb-4 text-teal-blur font-semibold leading-tight '>
