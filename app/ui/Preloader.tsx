@@ -232,7 +232,7 @@ const Preloader = ({
   const TIMER = 2500
   const TYPE_ON_SPEED = 80
 
-  const itemEntries = ['CLICK HERE, HANDSOME!', 'WHAT A DAY, HMM?', 'YOU LOOK LONELY,', 'I CAN FIX THAT!', 'YOU LOOK LIKE A GOOD JOE!'] // Replace with actual item entries
+  const itemEntries = ['CLICK HERE, HANDSOME!', 'WHAT A DAY, HMM?', 'YOU LOOK LONELY…', 'I CAN FIX THAT!', 'YOU LOOK LIKE A GOOD JOE!'] // Replace with actual item entries
 
   const [currentMessage, setCurrentMessage] = useState(itemEntries[0])
   const [currentIndex, setCurrentIndex] = useState(0)
