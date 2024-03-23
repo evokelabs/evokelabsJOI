@@ -273,9 +273,9 @@ const Preloader = ({
 
   return (
     <>
-      <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none flex justify-center items-center group'>
+      <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none flex justify-center items-center group px-2  '>
         <div
-          className={`flex flex-col last:items-center justify-center space-y-0.5 relative scale-[50%] sm:scale-[70%] md:scale-100 cursor-pointer pointer-events-auto w-fit h-fit ${
+          className={`flex flex-col last:items-center justify-center space-y-0.5 relative scale-[40%] sm:scale-[70%] md:scale-100 cursor-pointer pointer-events-auto w-fit h-fit ${
             !isLoading ? 'cursor-pointer' : 'cursor-pointer'
           }`}
           onClick={!isLoading ? handleEnter : undefined}
