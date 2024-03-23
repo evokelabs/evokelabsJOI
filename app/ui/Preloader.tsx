@@ -311,8 +311,8 @@ const Preloader = ({
             {isLoading && <PreloaderBar progress={progress} modelName={currentModelName} />}
             {!isLoading && (
               <div className='flex w-full flex-row px-2.5 space-x-0.5' onClick={handleEnter} onTouchEnd={handleEnter}>
-                <div className='w-10 border-teal border-2 group-hover:bg-teal group-hover:text-black group-hover:text-black-blur text-teal-blur font-semibold font-orbitron flex justify-center items-center '>
-                  ⟁
+                <div className='w-10 border-teal border-2 group-hover:bg-teal group-hover:text-black group-hover:text-black-blur text-teal-blur font-semibold font-orbitron flex justify-center items-center'>
+                  <span className='text-[14px] left-0 bottom-0 relative'>▶</span>
                 </div>
                 <button className='border-teal border-2 shadow-teal-blur w-[597px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out origin-left overflow-hidden relative'>
                   <div className='pt-[1px] absolute w-auto right-2 top-0' style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
