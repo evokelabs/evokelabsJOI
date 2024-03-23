@@ -232,7 +232,7 @@ const Preloader = ({
   const TIMER = 2500
   const TYPE_ON_SPEED = 80
 
-  const itemEntries = ['CLICK HERE, HANDSOME!', 'WHAT A DAY, HMM?', 'YOU LOOK LONELY...', 'I CAN FIX THAT!', 'YOU LOOK LIKE A GOOD JOE'] // Replace with actual item entries
+  const itemEntries = ['CLICK HERE, HANDSOME!', 'WHAT A DAY, HMM?', 'YOU LOOK LONELY...', 'I CAN FIX THAT!', 'YOU LOOK LIKE A GOOD JOE!'] // Replace with actual item entries
 
   const [currentMessage, setCurrentMessage] = useState(itemEntries[0])
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -298,7 +298,7 @@ const Preloader = ({
                     <span className='text-[14px] absolute'>▶</span>
                   </div>
                   <button className='border-teal border-2 shadow-teal-blur w-[597px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out origin-left overflow-hidden relative '>
-                    <div className='pt-[1px] relative right-2 top-0 '>
+                    <div className='pt-[1px] relative right-0 top-0 '>
                       {currentMessage} <span className='text-[30px] bottom-1 relative'>❤</span>
                     </div>
                   </button>
