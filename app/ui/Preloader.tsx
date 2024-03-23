@@ -319,7 +319,9 @@ const Preloader = ({
           </div>
           <div className='absolute '>
             <div className='relative w-auto h-auto md:block left-[22.75em] top-[2.15em]'>
-              {isAnimating && <div className='absolute -right-7 -top-8 animate-pulse text-4xl'>💬</div>}
+              <div className={`absolute -right-7 -top-8 text-4xl transition-opacity duration-500`} style={{ opacity: isAnimating ? 1 : 0 }}>
+                💬
+              </div>
               <img src='/images/JOI.png' alt='JOI' width={'84px'} height={'75px'} />
             </div>
           </div>
