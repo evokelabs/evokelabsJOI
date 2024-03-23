@@ -18,7 +18,7 @@ const HeadingSpan = ({ heading, BGColor }: { heading: string; BGColor: string })
       <span
         className={`${
           BGColor === RED ? 'bg-red shadow-red-blur' : BGColor === TEAL ? 'bg-teal shadow-teal-blur' : 'bg-orange shadow-orange-blur'
-        } px-2 lg:px-3 inline-block leading-[0.9] pt-0.5 `}
+        } px-2 lg:px-3 inline-block leading-[0.9] pt-1 `}
       >
         {heading}
       </span>
