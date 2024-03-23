@@ -56,6 +56,7 @@ import Preloader from '../sections/Preloader'
 
 import { usePreloaderMasking } from './lib/usePreloaderMasking'
 import PreloaderLogoIntroEffect from '../ui/PreloaderLogoIntroEffect'
+import { useScreenSize } from '../libs/useScreenSize'
 
 const RainOverlay = ({
   fov,
@@ -176,6 +177,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   // Preloader Masking Hook
   usePreloaderMasking(isPreLoaderFinished, currentRouteSelection, setMaskRemoved)
 
+  const screenSize = useScreenSize()
+
   return (
     <>
       <SoundControlContext.Provider
@@ -252,7 +255,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                             setHomePanelExpanded
                           }}
                         >
-                          <Draggable>
+                          <Draggable disabled={screenSize === 'BASE' || screenSize === 'SM'}>
                             <div
                               onPointerDown={handleMouseDown}
                               onPointerUp={handleMouseUp}
