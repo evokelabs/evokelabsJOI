@@ -39,13 +39,13 @@ export const getFov = (width: number): number => {
     case width <= SM_BREAKPOINT:
       return isPortrait ? 90 : 85 // Mobile devices
     case width <= MD_BREAKPOINT:
-      return isPortrait ? 60 : 68 // Desktop Min
+      return isPortrait ? 70 : 68 // Desktop Min
     case width <= LG_BREAKPOINT:
-      return isPortrait ? 75 : 35 // Desktop Min
+      return isPortrait ? 50 : 35 // Desktop Min
     case width <= XL_BREAKPOINT:
-      return isPortrait ? 50 : 30 // Desktop Med
+      return isPortrait ? 40 : 30 // Desktop Med
     case width <= _2XL_BREAKPOINT:
-      return isPortrait ? 50 : 29 // Desktop 2xl
+      return isPortrait ? 35 : 29 // Desktop 2xl
     case width <= _3XL_BREAKPOINT:
       return isPortrait ? 33 : 26 // Desktop 3xl
     default:
