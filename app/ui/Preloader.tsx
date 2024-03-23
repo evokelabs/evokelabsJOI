@@ -138,18 +138,6 @@ const PreloaderBar = ({ progress, modelName }: { progress: number; modelName: st
   </div>
 )
 
-const EnterButton = ({ handleEnter, currentMessage }: { handleEnter: () => void; currentMessage: string }) => {
-  return (
-    <div onClick={handleEnter} onTouchEnd={handleEnter} className='w-full h-full pointer-events-auto'>
-      <button className='border-teal border-2 shadow-teal-blur w-[640px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl hover:bg-teal hover:text-black hover:text-black-blur duration-200 ease-out '>
-        <div className='pt-[1px]'>
-          {currentMessage} <span className='text-[30px] bottom-1 relative'>❤</span>
-        </div>
-      </button>
-    </div>
-  )
-}
-
 const Preloader = ({
   setIsPreLoaderFinished,
   soundAudioLevelControls
@@ -245,7 +233,7 @@ const Preloader = ({
   const TYPE_ON_SPEED = 80
 
   const itemEntries = [
-    'WHY HELLO THERE HANDSOME!',
+    'CLICK HERE HANDSOME!',
     'WHAT A DAY, HMM?',
     'YOU LOOK LONELY. I CAN FIX THAT!',
     'YOU LOOK LIKE A GOOD JOE!',
@@ -268,9 +256,13 @@ const Preloader = ({
 
   const prevMessageRef = useRef(currentMessage)
 
+  const [isAnimating, setIsAnimating] = useState(false)
+
   useEffect(() => {
     const animateMessage = async () => {
       let animatedMessage = ''
+
+      setIsAnimating(true) // Start animation
 
       // Typing animation
       for (let i = 0; i < itemEntries[currentIndex].length; i++) {
@@ -278,6 +270,8 @@ const Preloader = ({
         animatedMessage += itemEntries[currentIndex][i]
         setCurrentMessage(animatedMessage)
       }
+
+      setIsAnimating(false) // End animation
 
       // Wait for TIMER milliseconds before starting the next message
       await new Promise(resolve => setTimeout(resolve, TIMER))
@@ -287,7 +281,7 @@ const Preloader = ({
     }
 
     animateMessage()
-  }, [currentIndex]) // Include currentIndex in the dependency array
+  }, [currentIndex])
 
   useEffect(() => {
     // Update the ref to the current message after animating
@@ -312,10 +306,11 @@ const Preloader = ({
             {!isLoading && (
               <div className='flex w-full flex-row px-2.5 space-x-0.5' onClick={handleEnter} onTouchEnd={handleEnter}>
                 <div className='w-10 border-teal border-2 group-hover:bg-teal group-hover:text-black group-hover:text-black-blur text-teal-blur font-semibold font-orbitron flex justify-center items-center'>
-                  <span className='text-[14px] left-0 bottom-0 relative'>▶</span>
+                  <span className='text-[14px]  absolute animate-ping'>▶</span>
+                  <span className='text-[14px] absolute'>▶</span>
                 </div>
-                <button className='border-teal border-2 shadow-teal-blur w-[597px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out origin-left overflow-hidden relative'>
-                  <div className='pt-[1px] absolute w-auto right-2 top-0' style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
+                <button className='border-teal border-2 shadow-teal-blur w-[597px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out origin-left overflow-hidden relative '>
+                  <div className='pt-[1px] absolute w-auto right-2 top-0 ' style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
                     {currentMessage} <span className='text-[30px] bottom-1 relative'>❤</span>
                   </div>
                 </button>
@@ -324,6 +319,7 @@ const Preloader = ({
           </div>
           <div className='absolute '>
             <div className='relative w-auto h-auto md:block left-[22.75em] top-[2.15em]'>
+              {isAnimating && <div className='absolute -right-7 -top-8 animate-pulse text-4xl'>💬</div>}
               <img src='/images/JOI.png' alt='JOI' width={'84px'} height={'75px'} />
             </div>
           </div>
