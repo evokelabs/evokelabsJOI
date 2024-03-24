@@ -80,11 +80,9 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
     <PanelBackground headerTitle='Past Gigs'>
       <div className='flex flex-row justify-between items-start md:items-center '>
         <div className='m-2 ml-0 relative flex flex-col justify-start'>
-          <h2 className='uppercase text-teal-blur text-[28px] md:text-[32px] font-semibold leading-7 inline-block bg-opacity-85 bg-black'>
-            {heading}
-          </h2>
+          <h2 className='uppercase text-teal-blur text-[28px] md:text-[32px] font-semibold leading-7 bg-opacity-85 inline'>{heading}</h2>
 
-          <h3 className='uppercase text-red-blur text-[15px] md:text-[19px] font-medium leading-tight inline-block bg-opacity-85 bg-black '>
+          <h3 className='uppercase text-red-blur text-[15px] md:text-[19px] font-medium leading-tight bg-opacity-85 inline'>
             {subHeading}
           </h3>
 
