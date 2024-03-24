@@ -31,10 +31,10 @@ const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, tech
           </div>
         </div>
       </div>
-      <div className='w-fit pt-0.5 pointer-events-none'>
-        <ul className='flex flex-wrap gap-x-2 gap-y-1 text-black uppercase font-semibold text-[16px] mt-5 -ml-2.5'>
+      <div className='w-fit pt-0.5 pointer-events-none overflow-hidden relative -left-3'>
+        <ul className='flex flex-wrap md:flex-nowrap gap-x-2 gap-y-1 text-black uppercase font-semibold text-[16px] mt-5 '>
           {technology.map(tech => (
-            <li key={tech} className='bg-red shadow-red-blur px-2'>
+            <li key={tech} className='bg-red shadow-red-blur px-2 md:whitespace-nowrap'>
               {tech}
             </li>
           ))}
