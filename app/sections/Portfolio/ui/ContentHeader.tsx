@@ -19,12 +19,27 @@ const SORT_BY_OPTIONS = ['Date (Newest)', 'Date (Oldest)', 'Title (A-Z)', 'Title
 const technologyMapping: { [key: string]: string[] } = {
   All: [],
   Creative: ['Figma', 'Adobe CC', 'Photoshop', 'Animate', 'Illustrator', 'Steam Workshop', 'Art Direction'],
-  Development: ['Foundation for Email', 'HTML5', 'CSS', 'PHP', 'Javascript', 'Wordpress', 'GSAP', 'react', 'next.js', 'aws', 'threejs'],
+  Development: [
+    'Foundation for Email',
+    'HTML5',
+    'CSS',
+    'PHP',
+    'Javascript',
+    'Wordpress',
+    'GSAP',
+    'react',
+    'next.js',
+    'aws',
+    'threejs',
+    'React',
+    'Nextjs',
+    'Typescript'
+  ],
   'EDM/CRM': ['Foundation for Email', 'mailchimp', 'hubspot', 'klaviyo', 'marketo', 'salesforce', 'adobe campaign'],
   'ui/ux': ['Figma', 'Art Direction', 'UX/UI'],
   Strategy: ['Social Media', 'Strategy', 'Doubleclick'],
   Motion: ['After Effects', '3d', 'Premiere'],
-  Technology: ['audio', 'VR/AR', 'unreal engine', 'artificial intelligence']
+  Technology: ['audio', 'VR/AR', 'unreal engine', 'AI']
 }
 
 const ContentHeader: React.FC<ContentHeadPortfolioProps> = ({ setPortfolioData, portfolioData }) => {

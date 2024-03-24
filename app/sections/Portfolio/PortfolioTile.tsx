@@ -25,7 +25,7 @@ const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, tech
             </h2>
           </div>
           <div>
-            <h3 className='uppercase text-red-blur text-[19px] font-medium leading-tight px-2 pt-0.5 inline-block bg-opacity-85 bg-black'>
+            <h3 className='uppercase text-red-blur text-[19px] font-semibold leading-tight px-2 pt-0.5 inline-block bg-opacity-85 bg-black'>
               {subHeading}
             </h3>
           </div>
