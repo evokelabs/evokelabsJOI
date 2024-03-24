@@ -8,7 +8,7 @@ import LaunchSVG from '@/app/ui/svg/button/LaunchSVG'
 import BackSVG from '@/app/ui/svg/button/BackSVG'
 import { SoundAudioLevelControls } from '../data/types'
 import { RoutesContext } from '@/app/libs/RoutesContext'
-import { Dispatch, SetStateAction, useContext, useEffect } from 'react'
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 import VideoFrameMute from '@/app/ui/VideoFrameMute'
 
 interface PortfolioItem {
@@ -48,7 +48,12 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
 }) => {
   const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
 
+  const [wasMuted, setWasMuted] = useState(false)
+
   const setUserMutedAll = (muteAll: boolean) => {
+    if (muteAll) {
+      setWasMuted(soundAudioLevelControls.muteAll || (soundAudioLevelControls.muteMusic && soundAudioLevelControls.muteSFX))
+    }
     soundAudioLevelControls.setMuteAll(muteAll)
     soundAudioLevelControls.setMuteMusic(muteAll)
     soundAudioLevelControls.setMuteRain(muteAll)
@@ -57,7 +62,9 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
 
   useEffect(() => {
     const handleFocus = () => {
-      setUserMutedAll(false)
+      if (!wasMuted) {
+        setUserMutedAll(false)
+      }
     }
 
     window.addEventListener('focus', handleFocus)
@@ -67,7 +74,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
       window.removeEventListener('focus', handleFocus)
       setCurrentPortfolioSelection(null)
     }
-  }, [])
+  }, [wasMuted])
 
   return (
     <PanelBackground headerTitle='Past Gigs'>
