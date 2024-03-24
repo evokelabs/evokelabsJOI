@@ -41,7 +41,7 @@ const Resume = () => {
     >
       <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
       <div className='mt-2 mb-3'>
-        <p className='font-rajdhani text-red-blur text-[1.15rem] leading-5 md:text-[1.375rem] font-semibold md:leading-[1.625rem]'>
+        <p className='font-rajdhani text-red-blur text-[1.15rem] leading-5 md:text-[1.4rem] font-semibold md:leading-[1.625rem]'>
           <span className='text-teal-blur font-bold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,
           design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative studios,
           corporations, and start-ups to deliver hundreds of successful digital projects. Specialising in front-end technologies and
@@ -66,42 +66,42 @@ const Resume = () => {
         <RowFull
           heading='AKCELO'
           subHeading='FRONT-END DEVELOPER | MAR 2019 - MAR 2021'
-          paragraph='Specialising in eDM development and CRM integration for various clients'
+          paragraph='Specialising in custom eDM HTML/CSS builds and CRM integration for various Akcelo clients.'
           svgIcon={<AkceloSVG />}
         />
 
         <RowFull
           heading='HUMMGROUP'
           subHeading='DIGITAL DESIGNER / DEVELOPER | MAR 2019 - MAR 2021'
-          paragraph='EDM developer and digital designer for Flexigroup’s marketing department.'
+          paragraph="EDM developer and digital designer at hummgroup's marketing department."
           svgIcon={<HummgroupSVG />}
         />
 
         <RowFull
           heading='UNIVERSITY OF SYDNEY'
           subHeading='DIGITAL DESIGNER / DEVELOPER | DEC 2018 - JAN 2019'
-          paragraph='Responsible for the design and development of UNSW HTML5 banner suites'
+          paragraph='Responsible for the design and development of a major UNSW HTML5 banner campaign.'
           svgIcon={<UniversityOfSydneySVG />}
         />
 
         <RowFull
           heading='RICHARDS ROSE'
           subHeading='DIGITAL DESIGNER / DEVELOPER | JULY 2015 - NOV 2018'
-          paragraph='Designed & developed dozens of digital campaigns - including motion builds,HTML5 banner builds, minisite builds, eDM builds, and Wordpress builds.Clients include Stan, Mitsubishi, Wild Turkey, Nivea and Skyy Vodka.'
+          paragraph='Designed & developed dozens of digital campaigns - including motion builds, HTML5 banner builds, minisite builds, eDM builds, and Wordpress builds. Clients include Stan, Mitsubishi, Wild Turkey, Nivea and Skyy Vodka. Also responsible for the design and development of the Richards Rose website.'
           svgIcon={<RichardsRoseSVG />}
         />
 
         <RowFull
           heading='AJF PARTNERSHIP'
           subHeading='DIGITAL DESIGNER / DEVELOPER | FEB 2013 - JULY 2015'
-          paragraph='Digital consultant for their inhouse team relating to interactive campaigns. Responsible for flash builds, eDM builds, HTML builds and motion builds. Clients include News Corp Australia, Mr Men, Rams Home Loans and Perpetual Limited.'
+          paragraph='Responsible for flash builds, eDM builds, HTML builds and motion builds. Clients include News Corp Australia, Mr Men, Rams Home Loans and Perpetual Limited.'
           svgIcon={<AJFPartnershipSVG />}
         />
 
         <RowFull
           heading='TECTONIC DIGITAL'
           subHeading='DIGITAL DESIGNER / DEVELOPER | JUL 2012 - NOV 2013'
-          paragraph='Daily responsibilities include responsive HTML builds, flash builds, motion builds, WordPress template builds and CSS/HTML frontend development. Most notable works include the art direction and flash builds across official Google products and services.'
+          paragraph='Responsibilities include responsive HTML builds, flash builds, motion builds, WordPress template builds and CSS/HTML frontend development. Most notable works include the art direction and flash builds across official Google products and services.'
           svgIcon={<TectonicDigitalSVG />}
         />
 
@@ -115,7 +115,7 @@ const Resume = () => {
         <RowFull
           heading='VMLY&R'
           subHeading='DIGITAL DESIGNER / DEVELOPER | 2006 - 2008'
-          paragraph='Responsible for minisites, designs, flash builds, actionscript development and edm development for clients such as such Telstra, Microsoft and Career One.'
+          paragraph='Responsible for minisites, digital designs, flash builds, actionscript development and edm development for clients such as such Telstra, Microsoft and Career One.'
           svgIcon={<VMLSVG />}
         />
       </div>
