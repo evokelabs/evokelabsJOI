@@ -44,7 +44,7 @@ const Resume = () => {
         <p className='font-rajdhani text-red-blur text-[1.15rem] leading-5 md:text-[1.44rem] font-semibold md:leading-[1.6rem]'>
           <span className='text-teal-blur font-bold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,
           design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative studios,
-          corporations, and start-ups to deliver hundreds of successful digital projects. Specialising in front-end tech and fostering
+          corporations, and start-ups to deliver hundreds of successful digital projects. Specialising in frontend tech and fostering
           positive team relations.
         </p>
       </div>
@@ -53,13 +53,13 @@ const Resume = () => {
         <RowFull
           heading='LEONARDO.AI'
           subHeading='LEAD FRONT-END DEVELOPER  | NOV 2022 - AUGUST 2023'
-          paragraph='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single page applications, multi page applications with API / GraphQL. Coding UI/UX designs into working builds using the latest JS libraries. Land'
+          paragraph="Responsible for the frontend build of Leonardo.AI, an Australian AI generative startup. Original architect of the platform's scalable frontend. Built most of Leonardo.AI reusable UI components & pages using Chakra UI. Collaborated with the UX team, stakeholders and other frontend engineers weekly for product review. Designed/developed new sections of the platform missed by the UX team. Created, maintained and increased the functionality of most AI tools. Submitted and coordinated new tasks, features and bugs to the team via Jira."
           svgIcon={<LeonardoAISVG />}
         />
         <RowFull
           heading='WAX INTERACTIVE'
           subHeading='SENIOR FRONT-END DEVELOPER | SEPT 2022 - NOV 2022'
-          paragraph='Coding UI/UX designs into working builds using the latest JS libraries. Landing pages, HTML5 banners, single page applications, multi page applications with API / GraphQL. Coding UI/UX designs into working builds using the latest JS libraries. Land'
+          paragraph='Complete overhaul of the thelimbic.com frontend using HTML, CSS and Javascript via WordPress. Provided website updates and frontend/backend maintenance for existing Wax Interactive clients. Assisted in inhouse creative services and UX/UI designs for frontend builds.'
           svgIcon={<WaxInteractiveSVG />}
         />
 
@@ -149,6 +149,9 @@ const Resume = () => {
             <p>
               <span className='text-teal-blur font-semibold'>Supplementary:</span> Google Web Designer, Animate, Audition, Cubase,
               Handbrake, Adobe Media Encoder, Sizmek, Google Doubleclick/Ad Manager, OBS, Oculus SDK.
+            </p>
+            <p>
+              <span className='text-teal-blur font-semibold'>AI:</span> ChatGPT, GitHub Copilot, Leonardo.AI, Stable Diffusion.
             </p>
           </div>
         </div>
