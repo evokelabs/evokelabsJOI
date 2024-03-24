@@ -49,15 +49,22 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
 
   const setUserMutedAll = (muteAll: boolean) => {
-    soundAudioLevelControls.setMuteAll(true)
-    soundAudioLevelControls.setMuteMusic(true)
-    soundAudioLevelControls.setMuteRain(true)
-    soundAudioLevelControls.setMuteSFX(true)
+    soundAudioLevelControls.setMuteAll(muteAll)
+    soundAudioLevelControls.setMuteMusic(muteAll)
+    soundAudioLevelControls.setMuteRain(muteAll)
+    soundAudioLevelControls.setMuteSFX(muteAll)
   }
 
   useEffect(() => {
+    const handleFocus = () => {
+      setUserMutedAll(false)
+    }
+
+    window.addEventListener('focus', handleFocus)
+
     // Cleanup function
     return () => {
+      window.removeEventListener('focus', handleFocus)
       setCurrentPortfolioSelection(null)
     }
   }, [])
