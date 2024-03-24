@@ -284,6 +284,12 @@ const Preloader = ({
           <div className='relative w-[45em]'>
             <EvokelabsLogo />
           </div>
+          <div className='absolute w-auto h-auto md:block -right-1.5 bottom-0'>
+            <div className={`absolute -right-4 -top-5 text-2xl transition-opacity duration-500`} style={{ opacity: isAnimating ? 1 : 0 }}>
+              💬
+            </div>
+            <img src='/images/JOI.png' alt='JOI' width={'84px'} height={'75px'} />
+          </div>
           <div className='-left-10 relative'>
             <div className='relative -left-[0.04em]'>
               <EvolvingDigitalMediaLogo />
@@ -304,14 +310,6 @@ const Preloader = ({
                   </button>
                 </div>
               )}
-            </div>
-          </div>
-          <div className='absolute '>
-            <div className='relative w-auto h-auto md:block left-[20.2em] top-[2.4em]'>
-              <div className={`absolute -right-4 -top-5 text-2xl transition-opacity duration-500`} style={{ opacity: isAnimating ? 1 : 0 }}>
-                💬
-              </div>
-              <img src='/images/JOI.png' alt='JOI' width={'84px'} height={'75px'} />
             </div>
           </div>
         </div>

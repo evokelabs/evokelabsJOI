@@ -21,6 +21,7 @@ import Motion from '@/app/ui/png/services/Motion.png'
 import SoftwareEngineer from '@/app/ui/png/services/SoftwareEngineer.png'
 import ThreeJS from '@/app/ui/png/services/ThreeJS.png'
 import Unreal from '@/app/ui/png/services/Unreal.png'
+import DevOp from '@/app/ui/png/services/DevOps.png'
 import VR from '@/app/ui/png/services/VR.png'
 import FixABookingSVG from '../ui/svg/button/FixABookingSVG'
 
@@ -141,6 +142,11 @@ const Services = () => {
           heading='MUSIC PRODUCTION/<br />SOUND DESIGN'
           paragraph='Supplementing our projects with original music and sound design. Music theory combined with VSTs, instruments and synths.'
           PNG={Audio}
+        />
+        <RowHalf
+          heading='DevOps/Cloud Services'
+          paragraph='Streamlining deployment and ensuring scalability / reliability through DevOps practices. Custom email configurations, domain management, AWS, and CloudFront.'
+          PNG={DevOp}
         />
       </div>
       <div>
