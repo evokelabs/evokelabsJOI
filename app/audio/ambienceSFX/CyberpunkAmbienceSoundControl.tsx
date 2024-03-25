@@ -4,7 +4,7 @@ import { SoundControlContext } from '@/app/libs/SoundControlContext'
 
 const AUDIO_SOURCE = '/sounds/CyberpunkAmbienceLoop.ogg'
 const VOLUME_SET = 0.3
-const DELAY = 2000
+const DELAY = 5000
 const TRANSITION_DURATION = 2500
 const LOOP = true
 
