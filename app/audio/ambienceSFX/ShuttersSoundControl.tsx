@@ -65,6 +65,17 @@ const ShutterSoundControl = ({
   }, [delay, loop])
 
   useEffect(() => {
+    const resumeAudioContext = async () => {
+      if (audioContext && audioContext.state === 'suspended') {
+        await audioContext.resume()
+      }
+    }
+
+    // Attempt to resume the AudioContext when the component mounts
+    resumeAudioContext()
+  }, [])
+
+  useEffect(() => {
     // Update the gain value when muteSFX changes
     if (gainNode.current && audioContextRef.current) {
       const targetVolume = muteSFX ? 0 : volume
