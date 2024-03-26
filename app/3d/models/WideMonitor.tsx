@@ -11,7 +11,7 @@ const WideMonitor = () => {
     // Create video elements
     const videoMonitor = document.createElement('video')
     videoMonitor.src = '/videos/monitor.mp4'
-    videoMonitor.loop = true
+    videoMonitor.loop = false
     videoMonitor.muted = true
     videoMonitor.play()
     // Create video textures
