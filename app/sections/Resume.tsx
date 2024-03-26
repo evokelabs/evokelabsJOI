@@ -53,7 +53,7 @@ const Resume = () => {
         <RowFull
           heading='LEONARDO.AI'
           subHeading='LEAD FRONT-END DEVELOPER  | NOV 2022 - AUGUST 2023'
-          paragraph="Responsible for the frontend build of Leonardo.AI, an Australian AI generative startup. Original architect of the platform's scalable frontend. Built most of Leonardo.AI reusable UI components & pages using Chakra UI. Collaborated with the UX team, stakeholders and other frontend engineers weekly for product review. Designed/developed new sections of the platform missed by the UX team. Created, maintained and increased the functionality of most AI tools. Submitted and coordinated new tasks, features and bugs to the team via Jira."
+          paragraph="Responsible for the frontend build of Leonardo.AI, an Australian AI generative startup. Original architect of the platform's scalable frontend. Built most of Leonardo.AI's reusable UI components and sections using Chakra UI. Collaborated with the UX team, stakeholders and other frontend engineers weekly for product review. Designed/developed new sections of the platform missed by the UX team. Created, maintained and increased the functionality of most AI tools. Submitted and coordinated new tasks, features and bugs to the team via Jira."
           svgIcon={<LeonardoAISVG />}
         />
         <RowFull
