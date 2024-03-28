@@ -1,11 +1,11 @@
 [
   {
     "id": 20,
-    "heading": "Evoke Labs",
+    "heading": "EvokeLabs.com",
     "slug": "evokelabs-joi",
-    "subHeading": "JOI Edition Build",
+    "subHeading": "Frontend Next.js Build & VR",
     "date": "2024-04-01",
-    "technology": ["Next.js", "React", "Typescript", "R3F", "GSAP", "3D", "Figma"],
+    "technology": ["Next.js", "React", "Typescript", "R3F", "GSAP", "3D", "Figma", "VR"],
     "desc": "",
     "thumb": "/portfolio/front/evokelabs.jpg",
     "video": "/portfolio/front/evokelabs.mp4",
@@ -21,7 +21,7 @@
     "subHeading": "Frontend Next.JS Build",
     "date": "2024-04-01",
     "technology": ["Next.js", "React", "Typescript", "R3F", "AI", "Figma", "Apollo", "Chakra UI"],
-    "desc": "<p>\"Heralded by some as the next Canva, the hottest GenAI startup in Australia today is Leonardo.AI\" -Hasura, Jan 2024</p><p>Turned a MVP into the world's best AI generative platform 😉</p><ul style='list-style:square;margin-left:1em;'><li>FE lead, original architect of the platform's scalable frontend.</li><li>Built most of the reusable UI components and sections used across the app.</li><li>Created, maintained and increased the functionality of most of the original AI tools.</li><li>7 million users worldwide.</li><li>4.5 million images generated a day.</li><li>Raised over $40 million in funding from investors within its first year.</li><li>Third most popular Discord channel in the world.</li><li>Now employs a global team of over 100.</li></ul>",
+    "desc": "<p>\"Heralded by some as the next Canva, the hottest GenAI startup in Australia today is Leonardo.AI\" -Hasura, Jan 2024</p><p>Turned a MVP into the world's best AI generative platform 😎</p><ul style='list-style:square;margin-left:1em;'><li>FE lead, original architect of the platform's scalable frontend.</li><li>Built most of the reusable UI components and sections used across the app.</li><li>Created, maintained and increased the functionality of most of the original AI tools.</li><li>7 million users worldwide.</li><li>4.5 million images generated a day.</li><li>Raised over $40 million in funding from investors within its first year.</li><li>Third most popular Discord channel in the world.</li><li>Now employs a global team of over 100.</li></ul>",
     "thumb": "/portfolio/front/leonardoai.jpg",
     "video": "/portfolio/front/leonardoai.mp4",
     "mainVideo": "/portfolio/items/leonardoai.mp4",
@@ -31,7 +31,7 @@
   },
   {
     "id": 18,
-    "heading": "The Limbic",
+    "heading": "TheLimbic.com",
     "slug": "thelimbic",
     "subHeading": "Frontend Wordpress Build",
     "date": "2024-04-01",

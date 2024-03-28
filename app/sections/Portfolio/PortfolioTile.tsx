@@ -15,8 +15,10 @@ const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, tech
   return (
     <>
       <div className='h-full relative flex items-end overflow-hidden'>
-        <div className='absolute top-0 w-full h-full'>
-          <video className='w-full h-full object-cover' loop autoPlay muted poster={thumb} src={video} />
+        <div className='absolute top-0 w-full h-full '>
+          <div className='md:w-[530px] md:h-[220px] md:overflow-hidden md:-left-0.5 relative'>
+            <video className='w-full h-full md:object-cover' loop autoPlay muted poster={thumb} src={video} />
+          </div>
         </div>
         <div className='relative pl-1 pb-1'>
           <div>

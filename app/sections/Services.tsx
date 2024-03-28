@@ -84,7 +84,7 @@ const Services = () => {
         />
         <RowHalf
           heading='Interactive UX/UI'
-          paragraph='Converting ideas into interfaces and interactions that satisfy. Storyboarding, wireframes, site maps, UI design, iconography, responsiveness and prototyping.'
+          paragraph='Converting ideas into interfaces and interactions that satisfy. Storyboarding, wireframing, site maps, UI design, iconography, responsiveness and prototyping.'
           PNG={Interactive}
         />
         <RowHalf
@@ -159,7 +159,7 @@ const Services = () => {
         />
         <RowThird
           heading='The experience factor'
-          paragraph='Feel the difference that two decades of experience makes. From the early days of Flash pioneering, to today’s cutting-edge advancements, I bring a wealth of knowledge and experience to your digital projects.'
+          paragraph='Feel the difference two decades of experience makes. From the early days of Flash pioneering, to today’s cutting-edge advancements, I bring a wealth of knowledge and experience to your digital projects.'
         />
         <RowThird
           heading='The people factor'
