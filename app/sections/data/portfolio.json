@@ -1,9 +1,9 @@
 [
   {
     "id": 20,
-    "heading": "EvokeLabs.com",
+    "heading": "JOI | EvokeLabs.com",
     "slug": "evokelabs-joi",
-    "subHeading": "Frontend Next.js Build & VR",
+    "subHeading": "VR & Frontend Next.js Build",
     "date": "2024-04-01",
     "technology": ["Next.js", "React", "Typescript", "R3F", "GSAP", "3D", "Figma", "VR"],
     "desc": "",
