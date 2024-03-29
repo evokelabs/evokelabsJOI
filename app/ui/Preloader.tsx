@@ -234,7 +234,7 @@ const Preloader = ({
 
   const itemEntries = ['CLICK HERE, HANDSOME!', 'WHAT A DAY, HMM?', 'YOU LOOK LONELY...', 'I CAN FIX THAT!', 'YOU LOOK LIKE A GOOD JOE!'] // Replace with actual item entries
 
-  const [currentMessage, setCurrentMessage] = useState(itemEntries[0])
+  const [currentMessage, setCurrentMessage] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const prevMessageRef = useRef(currentMessage)
@@ -242,29 +242,38 @@ const Preloader = ({
   const [isAnimating, setIsAnimating] = useState(false)
 
   useEffect(() => {
-    const animateMessage = async () => {
-      let animatedMessage = ''
+    if (!isLoading) {
+      setCurrentIndex(0) // Reset currentIndex to 0 when isLoading becomes false
+    }
+  }, [isLoading])
 
-      setIsAnimating(true) // Start animation
+  useEffect(() => {
+    if (!isLoading) {
+      // Only animate when isLoading is false
+      const animateMessage = async () => {
+        let animatedMessage = ''
 
-      // Typing animation
-      for (let i = 0; i < itemEntries[currentIndex].length; i++) {
-        await new Promise(resolve => setTimeout(resolve, TYPE_ON_SPEED))
-        animatedMessage += itemEntries[currentIndex][i]
-        setCurrentMessage(animatedMessage)
+        setIsAnimating(true) // Start animation
+
+        // Typing animation
+        for (let i = 0; i < itemEntries[currentIndex].length; i++) {
+          await new Promise(resolve => setTimeout(resolve, TYPE_ON_SPEED))
+          animatedMessage += itemEntries[currentIndex][i]
+          setCurrentMessage(animatedMessage)
+        }
+
+        setIsAnimating(false) // End animation
+
+        // Wait for TIMER milliseconds before starting the next message
+        await new Promise(resolve => setTimeout(resolve, TIMER))
+
+        // Update the current index
+        setCurrentIndex(currentIndex => (currentIndex + 1) % itemEntries.length)
       }
 
-      setIsAnimating(false) // End animation
-
-      // Wait for TIMER milliseconds before starting the next message
-      await new Promise(resolve => setTimeout(resolve, TIMER))
-
-      // Update the current index
-      setCurrentIndex(currentIndex => (currentIndex + 1) % itemEntries.length)
+      animateMessage()
     }
-
-    animateMessage()
-  }, [currentIndex])
+  }, [currentIndex, isLoading])
 
   useEffect(() => {
     // Update the ref to the current message after animating
@@ -308,7 +317,8 @@ const Preloader = ({
                   </div>
                   <button className='border-teal border-2 shadow-teal-blur w-[597px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out origin-left overflow-hidden relative '>
                     <div className='pt-[1px] relative right-0 top-0 '>
-                      {currentMessage} <span className='text-[30px] bottom-1 relative'>❤</span>
+                      {currentMessage}
+                      {currentMessage && <span className='text-[30px] bottom-1 relative ml-2'>❤</span>}
                     </div>
                   </button>
                 </div>
