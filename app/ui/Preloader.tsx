@@ -5,8 +5,8 @@ import { useDracoLoader } from '../libs/useDracoLoader'
 import { useGPU } from '../3d/lib/useGPU'
 import { TEAL } from '../libs/UIConstants'
 import TealCRTBlur from './libs/TealCRTBlur'
-import HeartIcon from './svg/heartIcon'
-import SpeechIcon from './svg/speechIcon'
+import HeartIcon from './svg/HeartIcon'
+import SpeechIcon from './svg/SpeechIcon'
 
 const TOTAL_BYTES_SIZE_JOI = 4909672
 const TOTAL_BYTES_SIZE_MAP = 3763556
@@ -297,7 +297,7 @@ const Preloader = ({
           </div>
           <div className='absolute w-auto h-auto md:block -right-1.5 bottom-0'>
             <div
-              className={`absolute -right-4 -top-5 text-2xl transition-opacity duration-500`}
+              className={`absolute -right-4 -top-4 text-2xl transition-opacity duration-500`}
               style={{ opacity: isAnimating && !isLoading ? 1 : 0 }}
             >
               <SpeechIcon />
@@ -321,7 +321,7 @@ const Preloader = ({
                     <div className='pt-[1px] relative right-0 top-0 '>
                       {currentMessage}
                       {currentMessage && (
-                        <div className='inline-block ml-2'>
+                        <div className='inline-block ml-2 relative bottom-1'>
                           <HeartIcon />
                         </div>
                       )}
