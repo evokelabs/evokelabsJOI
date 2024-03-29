@@ -5,6 +5,8 @@ import { useDracoLoader } from '../libs/useDracoLoader'
 import { useGPU } from '../3d/lib/useGPU'
 import { TEAL } from '../libs/UIConstants'
 import TealCRTBlur from './libs/TealCRTBlur'
+import HeartIcon from './svg/heartIcon'
+import SpeechIcon from './svg/speechIcon'
 
 const TOTAL_BYTES_SIZE_JOI = 4909672
 const TOTAL_BYTES_SIZE_MAP = 3763556
@@ -298,7 +300,7 @@ const Preloader = ({
               className={`absolute -right-4 -top-5 text-2xl transition-opacity duration-500`}
               style={{ opacity: isAnimating && !isLoading ? 1 : 0 }}
             >
-              💬
+              <SpeechIcon />
             </div>
             <img src='/images/JOI.png' alt='JOI' width={'84px'} height={'75px'} />
           </div>
@@ -318,7 +320,11 @@ const Preloader = ({
                   <button className='border-teal border-2 shadow-teal-blur w-[597px] h-[51px] font-semibold font-rajdhani text-teal-blur text-5xl group-hover:bg-teal group-hover:text-black group-hover:text-black-blur duration-200 ease-out origin-left overflow-hidden relative '>
                     <div className='pt-[1px] relative right-0 top-0 '>
                       {currentMessage}
-                      {currentMessage && <span className='text-[30px] bottom-1 relative ml-2'>❤</span>}
+                      {currentMessage && (
+                        <div className='inline-block ml-2'>
+                          <HeartIcon />
+                        </div>
+                      )}
                     </div>
                   </button>
                 </div>
