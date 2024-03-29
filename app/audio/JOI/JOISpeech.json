@@ -156,68 +156,68 @@
       "busy": [
         {
           "text": "Things are looking busy.",
-          "filepath": "/sounds/JOI-voice/06-Availability/Busy/01-busy.mp3"
+          "filepath": "/sounds/JOI-voice/06-Availability/busy/01-busy.mp3"
         },
         {
           "text": "Not a lot of downtime at the moment.",
-          "filepath": "/sounds/JOI-voice/06-Availability/Busy/02-downtime.mp3"
+          "filepath": "/sounds/JOI-voice/06-Availability/busy/02-downtime.mp3"
         },
         {
           "text": "We're completely booked.",
-          "filepath": "/sounds/JOI-voice/06-Availability/Busy/03-booked.mp3"
+          "filepath": "/sounds/JOI-voice/06-Availability/busy/03-booked.mp3"
         },
         {
           "text": "Sorry, now is not a good time.",
-          "filepath": "/sounds/JOI-voice/06-Availability/Busy/04-sorry.mp3"
+          "filepath": "/sounds/JOI-voice/06-Availability/busy/04-sorry.mp3"
         },
         {
           "text": "Apologies, we're at full capacity.",
-          "filepath": "/sounds/JOI-voice/06-Availability/Busy/05-capacity.mp3"
+          "filepath": "/sounds/JOI-voice/06-Availability/busy/05-capacity.mp3"
         },
         [
           {
             "email": [
               {
                 "text": "But you can still send an email.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Busy/01-email/01-butsend.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/busy/01-email/01-butsend.mp3"
               },
               {
                 "text": "You can still send an email.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Busy/01-email/02-sendemail.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/busy/01-email/02-sendemail.mp3"
               },
               {
                 "text": "You can still send a message.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Busy/01-email/03-sendmessage.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/busy/01-email/03-sendmessage.mp3"
               },
               {
                 "text": "You can still drop us an email.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Busy/01-email/04-dropemail.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/busy/01-email/04-dropemail.mp3"
               },
               {
                 "text": "Our email remains open.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Busy/01-email/05-emailopen.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/busy/01-email/05-emailopen.mp3"
               }
             ],
             "follow": [
               {
                 "text": "We'll get to it when we can.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Busy/02-follow/01-whenwecan.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/busy/02-follow/01-whenwecan.mp3"
               },
               {
                 "text": "Though we can't promise a speedy reply.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Busy/02-follow/02-speedyreply.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/busy/02-follow/02-speedyreply.mp3"
               },
               {
                 "text": "It won't be instant, but we'll get back to you.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Busy/02-follow/03-instant.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/busy/02-follow/03-instant.mp3"
               },
               {
                 "text": "We can connect at a later time.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Busy/02-follow/04-connect.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/busy/02-follow/04-connect.mp3"
               },
               {
                 "text": "We can catch up when things settle down.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Busy/02-follow/05-settledown.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/busy/02-follow/05-settledown.mp3"
               }
             ]
           }
@@ -228,72 +228,72 @@
       "open": [
         {
           "text": "Our timings are open and the future looks clear.",
-          "filepath": "/sounds/JOI-voice/06-Availability/Open/01-timings.mp3"
+          "filepath": "/sounds/JOI-voice/06-Availability/open/01-timings.mp3"
         },
         {
           "text": "Good news, our schedule is free.",
-          "filepath": "/sounds/JOI-voice/06-Availability/Open/02-freeschedule.mp3"
+          "filepath": "/sounds/JOI-voice/06-Availability/open/02-freeschedule.mp3"
         },
         {
           "text": "You're in luck, our calendar has some space.",
-          "filepath": "/sounds/JOI-voice/06-Availability/Open/03-calendar.mp3"
+          "filepath": "/sounds/JOI-voice/06-Availability/open/03-calendar.mp3"
         },
         {
           "text": "Now is an excellent time to get in touch.",
-          "filepath": "/sounds/JOI-voice/06-Availability/Open/04-getintouch.mp3"
+          "filepath": "/sounds/JOI-voice/06-Availability/open/04-getintouch.mp3"
         },
         {
           "text": "Great timing, we're free for new opportunities.",
-          "filepath": "/sounds/JOI-voice/06-Availability/Open/05-greattimings.mp3"
+          "filepath": "/sounds/JOI-voice/06-Availability/open/05-greattimings.mp3"
         },
         {
           "text": "And we're open, this is a perfect time to connect.",
-          "filepath": "/sounds/JOI-voice/06-Availability/Open/06-wereopen.mp3"
+          "filepath": "/sounds/JOI-voice/06-Availability/open/06-wereopen.mp3"
         },
         [
           {
             "email": [
               {
                 "text": "Send an email",
-                "filepath": "/sounds/JOI-voice/06-Availability/Open/01-email/01-sendemail.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/open/01-email/01-sendemail.mp3"
               },
               {
                 "text": "Drop us an email",
-                "filepath": "/sounds/JOI-voice/06-Availability/Open/01-email/02-dropemail.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/open/01-email/02-dropemail.mp3"
               },
               {
                 "text": "Flick us an email",
-                "filepath": "/sounds/JOI-voice/06-Availability/Open/01-email/03-flickemail.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/open/01-email/03-flickemail.mp3"
               },
               {
                 "text": "Slide into our inbox",
-                "filepath": "/sounds/JOI-voice/06-Availability/Open/01-email/04-slideintoourinbox.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/open/01-email/04-slideintoourinbox.mp3"
               },
               {
                 "text": "Pop us an email",
-                "filepath": "/sounds/JOI-voice/06-Availability/Open/01-email/05-popusanemail.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/open/01-email/05-popusanemail.mp3"
               }
             ],
             "follow": [
               {
                 "text": " and you'll get a speedy reply.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Open/02-follow/01-speedyreply.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/open/02-follow/01-speedyreply.mp3"
               },
               {
                 "text": " and you can expect a fast response.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Open/02-follow/02-fastresponse.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/open/02-follow/02-fastresponse.mp3"
               },
               {
                 "text": " and we'll make sure to reply promptly.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Open/02-follow/03-replypromptly.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/open/02-follow/03-replypromptly.mp3"
               },
               {
                 "text": "and we'll respond in a flash.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Open/02-follow/04-flash.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/open/02-follow/04-flash.mp3"
               },
               {
                 "text": " and we'll get back to you in record time.",
-                "filepath": "/sounds/JOI-voice/06-Availability/Open/02-follow/05-recordtime.mp3"
+                "filepath": "/sounds/JOI-voice/06-Availability/open/02-follow/05-recordtime.mp3"
               }
             ]
           }
