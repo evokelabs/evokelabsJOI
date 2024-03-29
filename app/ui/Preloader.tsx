@@ -285,7 +285,10 @@ const Preloader = ({
             <EvokelabsLogo />
           </div>
           <div className='absolute w-auto h-auto md:block -right-1.5 bottom-0'>
-            <div className={`absolute -right-4 -top-5 text-2xl transition-opacity duration-500`} style={{ opacity: isAnimating ? 1 : 0 }}>
+            <div
+              className={`absolute -right-4 -top-5 text-2xl transition-opacity duration-500`}
+              style={{ opacity: isAnimating && !isLoading ? 1 : 0 }}
+            >
               💬
             </div>
             <img src='/images/JOI.png' alt='JOI' width={'84px'} height={'75px'} />
