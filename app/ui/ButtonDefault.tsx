@@ -137,7 +137,7 @@ const SVGButton: React.FC<SVGButtonProps> = ({
       className={`relative cursor-pointer uppercase w-fit`}
       style={{ pointerEvents: isActive ? 'none' : 'all' }}
       onClick={handleClick}
-      onTouchStart={handleClick}
+      onTouchEnd={handleClick}
     >
       <svg ref={svgRef} width={width} height='71' viewBox={viewBox}>
         <path d={d1} fill={BLACK} ref={pathBGFillRef} />

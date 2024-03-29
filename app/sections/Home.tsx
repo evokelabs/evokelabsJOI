@@ -244,7 +244,7 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
       setHomePanelExpanded(false)
     }
   }, [])
-
+ 
   return (
     <>
       <div
@@ -257,7 +257,7 @@ const Home = ({ muteSFX }: { muteSFX: boolean }) => {
           setIsActive(!isActive)
           setHomePanelExpanded(!isActive)
         }}
-        onTouchStart={() => {
+        onTouchEnd={() => {
           setIsActive(!isActive)
           setHomePanelExpanded(!isActive)
         }}

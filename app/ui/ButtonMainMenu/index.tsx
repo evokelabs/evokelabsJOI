@@ -173,7 +173,7 @@ const ButtonMainMenu = ({
       className='cursor-pointer w-fit origin-top-left'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onTouchStart={() => setIsHovered(true)}
+      onTouchEnd={() => setIsHovered(true)}
       ref={hoverAreaRef}
       style={{ pointerEvents: isActive ? 'none' : 'all' }}
     >
