@@ -24,7 +24,7 @@ const PreloaderLogoIntroEffect = ({ isPreLoaderFinished }: { isPreLoaderFinished
   }
 
   return (
-    <>
+    <div className='overflow-hidden'>
       <div
         ref={elabsFillRef}
         className='absolute top-0 left-1/4 md:left-0 w-1/2 md:w-full h-full flex justify-center items-center pointer-events-none '
@@ -38,7 +38,7 @@ const PreloaderLogoIntroEffect = ({ isPreLoaderFinished }: { isPreLoaderFinished
       >
         <ElabsStroke />
       </div>
-    </>
+    </div>
   )
 }
 

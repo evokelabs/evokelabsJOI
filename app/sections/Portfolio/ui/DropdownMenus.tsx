@@ -46,7 +46,7 @@ const DropdownMenus: React.FC<DropdownMenuProps> = ({ options, defaultOption, on
           aria-haspopup='true'
           aria-expanded='true'
           onClick={() => setIsOpen(!isOpen)}
-          onTouchStart={() => setIsOpen(!isOpen)}
+          onTouchEnd={() => setIsOpen(!isOpen)}
         >
           {selectedOption}
           <PullDownIcon />
@@ -60,7 +60,7 @@ const DropdownMenus: React.FC<DropdownMenuProps> = ({ options, defaultOption, on
               <button
                 key={option}
                 onClick={handleSelect(option)}
-                onTouchStart={handleSelect(option)}
+                onTouchEnd={handleSelect(option)}
                 className='block text-left text-[17px] lg:text-[21px] pl-3 pr-8 py-2 font-rajdhani uppercase text-teal-blur hover:bg-grid-blue hover:text-red-blur w-full'
                 role='menuitem'
               >
