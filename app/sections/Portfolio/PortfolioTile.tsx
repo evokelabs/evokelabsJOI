@@ -9,9 +9,10 @@ interface PortfolioTileProps {
   thumb: string
   link: string
   mainVideo: string
+  isNew: boolean | undefined
 }
 
-const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, technology, thumb, video }) => {
+const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, technology, thumb, video, isNew }) => {
   return (
     <>
       <div className='h-full relative flex items-end overflow-hidden'>
@@ -42,6 +43,11 @@ const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, tech
           ))}
         </ul>
       </div>
+      {isNew && (
+        <div className='absolute top-0 right-0'>
+          <div className='mt-2 mr-2 bg-grid-red font-rajdhani font-semibold uppercase px-2 py-1 text-teal-blur border-1-red'>NEW</div>
+        </div>
+      )}
     </>
   )
 }

@@ -25,6 +25,7 @@ interface PortfolioItem {
   recommended: number
   slug: string
   mutedVideo: boolean
+  isNew?: boolean
 }
 
 interface PortfolioItemProps extends PortfolioItem {

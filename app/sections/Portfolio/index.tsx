@@ -50,6 +50,7 @@ const PortfolioHome = ({
               mainVideo={item.mainVideo}
               video={item.video}
               link={item.link}
+              isNew={item.isNew}
             />
           </PortfolioPanelContent>
         ))}

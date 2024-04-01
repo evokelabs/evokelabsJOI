@@ -12,7 +12,8 @@
     "mainVideo": "/portfolio/items/evokelabs.mp4",
     "link": "",
     "recommended": 1,
-    "mutedVideo": false
+    "mutedVideo": false,
+    "isNew": true
   },
   {
     "id": 19,
@@ -27,7 +28,8 @@
     "mainVideo": "/portfolio/items/leonardoai.mp4",
     "link": "https://app.leonardo.ai/",
     "recommended": 1,
-    "mutedVideo": true
+    "mutedVideo": true,
+    "isNew": true
   },
   {
     "id": 18,
