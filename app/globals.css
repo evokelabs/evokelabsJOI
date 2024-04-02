@@ -100,8 +100,21 @@ abbr:where([title]) {
 
 .react-calendar .react-calendar__tile--now {
   @apply text-teal-blur;
-  border: #f75049 1px solid;
+  border: #f75049 2px solid;
   background: #151a2b;
+  animation: borderColorChange 1.5s infinite;
+}
+
+@keyframes borderColorChange {
+  0% {
+    border-color: #f75049;
+  }
+  50% {
+    border-color: #53f6ff;
+  }
+  100% {
+    border-color: #f75049;
+  }
 }
 
 .react-calendar button {
