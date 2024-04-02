@@ -90,7 +90,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
           <div className='relative w-fit pointer-events-none'>
             <ul className='flex flex-wrap gap-2 text-black uppercase font-semibold text-[14px] md:text-[16px] mt-1'>
               {technology.map((tech, index) => (
-                <li key={index} className='bg-red shadow-red-blur px-2'>
+                <li key={index} className='bg-red shadow-red-blur px-2 pt-0.5'>
                   {tech}
                 </li>
               ))}

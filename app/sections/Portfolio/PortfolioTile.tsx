@@ -37,7 +37,7 @@ const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, tech
       <div className='w-fit pt-0.5 pointer-events-none overflow-hidden relative -left-3'>
         <ul className='flex flex-wrap md:flex-nowrap gap-x-2 gap-y-1 text-black uppercase font-semibold text-[16px] mt-5 '>
           {technology.map(tech => (
-            <li key={tech} className='bg-red shadow-red-blur px-2 md:whitespace-nowrap'>
+            <li key={tech} className='bg-red shadow-red-blur px-2 md:whitespace-nowrap pt-0.5'>
               {tech}
             </li>
           ))}

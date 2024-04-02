@@ -108,7 +108,7 @@ const SVGButton: React.FC<SVGButtonProps> = ({
         window.open('/resume/AdrianPikios-Evokelabs-Resume.pdf', '_blank')
         break
       case '4K VERSION':
-        window.open('https://www.youtube.com/evokelabs', '_self')
+        window.open('https://youtu.be/JO2AAWZs5sU', '_self')
         break
       case 'SEND AN EMAIL':
         window.open('mailto:adrian@evokelabs.com?subject=Enquiry from Evokelabs.com', '_self')
