@@ -31,7 +31,7 @@ import TypingAnimation from '../libs/TypingAnimation'
 const ContentHead = () => {
   return (
     <>
-      <div className='flex flex-row gap-0 md:gap-6 items-center '>
+      <div className='flex flex-row gap-0 md:gap-6 items-center -mb-0.5'>
         <div className='absolute md:block hidden'>
           <ServicesSVG />
           <IconSmall />
@@ -67,7 +67,7 @@ const ContentHead = () => {
 const Services = () => {
   return (
     <PanelContent headerTitle='Corpo Guide' contentHead={<ContentHead />}>
-      <div className='mb-2 md:mb-5 -space-y-1 '>
+      <div className='mb- md:mb-5 -space-y-1 '>
         <HeadingHighlight BGColor={TEAL} fullWidth={false} heading='YOUR CREATIVE TECHNOLOGIST PARTNER' />
         <ParagraphHighlight
           BGColor={TEAL}
