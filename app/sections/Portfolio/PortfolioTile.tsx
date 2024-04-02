@@ -45,7 +45,7 @@ const PortfolioTile: React.FC<PortfolioTileProps> = ({ heading, subHeading, tech
       </div>
       {isNew && (
         <div className='absolute top-1 right-1'>
-          <div className='mt-2 mr-2 bg-grid-red font-rajdhani font-semibold uppercase px-2 py-0 text-teal-blur border-2-red text-lg'>
+          <div className='mt-2 mr-2 bg-grid-red font-rajdhani font-semibold uppercase px-2 py-0 text-teal-blur border-2-red text-lg animate-borderColorChange'>
             NEW
           </div>
         </div>

@@ -8,6 +8,20 @@ const config: Config = {
   content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
+      animation: {
+        borderColorChange: 'borderColorChange 1.5s infinite'
+      },
+      keyframes: {
+        borderColorChange: {
+          '0%': { borderColor: '#f75049' },
+          '50%': { borderColor: '#53F6FF' },
+          '100%': { borderColor: '#f75049' }
+        },
+        bounce: {
+          '0%, 100%': { transform: 'translateX(7%)' },
+          '50%': { transform: 'translateX(0%)' }
+        }
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
@@ -43,12 +57,6 @@ const config: Config = {
       },
       screens: {
         '3xl': _3XL_BREAKPOINT.toString()
-      },
-      keyframes: {
-        bounce: {
-          '0%, 100%': { transform: 'translateX(7%)' },
-          '50%': { transform: 'translateX(0%)' }
-        }
       }
     }
   },
