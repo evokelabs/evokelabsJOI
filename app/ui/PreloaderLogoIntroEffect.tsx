@@ -27,12 +27,15 @@ const PreloaderLogoIntroEffect = ({ isPreLoaderFinished }: { isPreLoaderFinished
     <>
       <div
         ref={elabsFillRef}
-        className='absolute top-0 md:left-0 w-full h-full flex justify-center items-center pointer-events-none '
+        className='absolute top-0 scale-[60%] sm:scale-[70%] md:scale-100 md:left-0 w-full h-full flex justify-center items-center pointer-events-none '
         style={{ opacity: 1 }}
       >
         <ElabsFill />
       </div>
-      <div ref={elabsStrokeRef} className='absolute top-0 md:left-0 w-full h-full justify-center items-center pointer-events-none flex '>
+      <div
+        ref={elabsStrokeRef}
+        className='absolute top-0 scale-[60%] sm:scale-[70%] md:scale-100 md:left-0 w-full h-full justify-center items-center pointer-events-none flex '
+      >
         <ElabsStroke />
       </div>
     </>

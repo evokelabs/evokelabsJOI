@@ -18,11 +18,11 @@ export const usePreloaderMasking = (
       const viewportWidth = window.innerWidth
       if (viewportWidth <= SM_BREAKPOINT) {
         // scale-60
-        startingScale = '100% 100%'
+        startingScale = '60% 60%'
         endingScale = '2500% 2500%' // adjust as needed
       } else if (viewportWidth <= MD_BREAKPOINT) {
         // sm:scale-70
-        startingScale = '100% 100%'
+        startingScale = '70% 70%'
         endingScale = '2500% 2500%' // adjust as needed
       } else if (viewportWidth >= MD_BREAKPOINT) {
         // md:scale-100
