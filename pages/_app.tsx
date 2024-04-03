@@ -30,8 +30,8 @@ export default function RootLayout() {
         <meta name='twitter:description' content={String(metadata.description)} />
         <meta name='twitter:image' content='https://evokelabs.com/meta-cover-image.jpg' />
         <link rel='canonical' href='https://evokelabs.com/' />
-        <link rel='icon' type='image/svg+xml' href='favicon.svg' />
-        <link rel='alternate icon' href='favicon.ico' />
+        <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+        <link rel='alternate icon' href='/favicon.ico' />
       </Head>
       <Evokelabs3D router={router} />
     </>
