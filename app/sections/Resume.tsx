@@ -73,7 +73,7 @@ const Resume = () => {
         <RowFull
           heading='HUMMGROUP'
           subHeading='DIGITAL DESIGNER / DEVELOPER | MAR 2019 - MAR 2021'
-          paragraph="Inhouse EDM developer and digital designer for hummgroup's marketing department."
+          paragraph="Inhouse eDM developer and digital designer for hummgroup's marketing department."
           svgIcon={<HummgroupSVG />}
         />
 
