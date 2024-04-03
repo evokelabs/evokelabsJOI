@@ -31,7 +31,7 @@ const VideoFrame = ({
 
   const handleVideoPlay = useCallback(() => {
     const video = videoRef.current
-    if (video && !video.seeking) {
+    if (video) {
       video.muted = false // Unmute the video
       setShouldMapDarkness(true)
       if (!userMutedAll) {
