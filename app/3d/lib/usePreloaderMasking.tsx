@@ -2,7 +2,7 @@ import { useEffect, Dispatch, SetStateAction } from 'react'
 import gsap from 'gsap'
 import { MD_BREAKPOINT, SM_BREAKPOINT } from '@/app/libs/breakPoints'
 
-const MASK_REMOVAL_DELAY = 15000000
+const MASK_REMOVAL_DELAY = 15000
 
 export const usePreloaderMasking = (
   isPreLoaderFinished: unknown,
