@@ -9,8 +9,10 @@ const DELAY = 4000 // Delay in milliseconds
 
 const MusicLoopSoundControl = () => {
   const sound = useRef<Howl | null>(null)
+
   const { musicLoopTransitionDuration, setMusicVolume, musicVolume } = useContext(SoundsContext)
   const { muteMusic } = useContext(SoundControlContext)
+
   const [isMuted, setIsMuted] = useState(muteMusic)
   const [interactionTimeoutReached, setInteractionTimeoutReached] = useState(false)
 
@@ -27,31 +29,21 @@ const MusicLoopSoundControl = () => {
 
     const playAudio = () => {
       if (sound.current) {
-        // Check if the audio should be muted or not
-        if (isMuted) {
-          // Mute the audio immediately
-          sound.current.mute(true)
-          sound.current.volume(0)
-        } else {
-          // Unmute the audio
-          sound.current.mute(false)
+        // Start the volume transition from zero
+        const startVolume = 0
+        sound.current.volume(startVolume)
 
-          // Start the volume transition from zero
-          const startVolume = 0
-          sound.current.volume(startVolume)
+        // Gradually increase the volume to the desired level over the transition duration
+        const targetVolume = isMuted ? 0 : musicVolume
+        sound.current.fade(startVolume, targetVolume, musicLoopTransitionDuration)
 
-          // Gradually increase the volume to the desired level over the transition duration
-          const targetVolume = musicVolume
-          sound.current.fade(startVolume, targetVolume, musicLoopTransitionDuration)
-
-          // Start playing the audio after the volume transition has begun
-          setTimeout(
-            () => {
-              sound.current?.play()
-            },
-            interactionTimeoutReached ? 250 : DELAY
-          )
-        }
+        // Start playing the audio after the volume transition has begun
+        setTimeout(
+          () => {
+            sound.current?.play()
+          },
+          interactionTimeoutReached ? 250 : DELAY
+        )
       }
     }
 
@@ -67,19 +59,14 @@ const MusicLoopSoundControl = () => {
         sound.current.unload()
       }
     }
-  }, [])
+  }, []) // This effect runs whenever hasUserInteracted or interactionTimeoutReached changes
 
-  // This effect runs whenever isMuted, musicVolume, or musicLoopTransitionDuration changes
   useEffect(() => {
     if (sound.current) {
       if (isMuted) {
         // Instantly mute the audio
-        sound.current.mute(true)
         sound.current.volume(0)
       } else {
-        // Unmute the audio
-        sound.current.mute(false)
-
         // Gradually increase the volume to the desired level over the transition duration
         sound.current.fade(sound.current.volume(), musicVolume, musicLoopTransitionDuration)
       }
