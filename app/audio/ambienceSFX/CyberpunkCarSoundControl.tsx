@@ -15,8 +15,21 @@ const CyberpunkCarSoundControl = ({ carRef }: CyberpunkRefType) => {
   const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null)
   const [gainNode, setGainNode] = useState<GainNode | null>(null)
   const [panner, setPanner] = useState<StereoPannerNode | null>(null)
+  const [isDocumentVisible, setIsDocumentVisible] = useState(true)
 
   const { muteSFX } = useContext(SoundControlContext)
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsDocumentVisible(document.visibilityState === 'visible')
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [])
 
   // On mount and when audioCtx changes, set up the audio context, gain node, and panner.
   // Also, load and play the sound, and add event listeners to resume the audio when it's suspended.
@@ -55,10 +68,9 @@ const CyberpunkCarSoundControl = ({ carRef }: CyberpunkRefType) => {
   // On each frame, update the volume and pan of the sound based on the car's position.
   useFrame(() => {
     if (carRef.current && gainNode && panner) {
-      const currentMaxVolume = muteSFX ? 0 : MAX_VOLUME
+      const currentMaxVolume = muteSFX || !isDocumentVisible ? 0 : MAX_VOLUME
       const volume = currentMaxVolume - Math.abs(carRef.current.position.x) / VOLUME_DIVISOR
       gainNode.gain.value = Math.max(MIN_VOLUME, Math.min(currentMaxVolume, volume))
-
       const pan = carRef.current.position.x / -25
       panner.pan.value = Math.max(-1, Math.min(1, pan))
     }
