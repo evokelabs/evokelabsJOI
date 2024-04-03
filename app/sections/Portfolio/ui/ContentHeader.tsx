@@ -37,9 +37,9 @@ const technologyMapping: { [key: string]: string[] } = {
   ],
   'EDM/CRM': ['Foundation for Email', 'mailchimp', 'hubspot', 'klaviyo', 'marketo', 'salesforce', 'adobe campaign'],
   'ui/ux': ['Figma', 'Art Direction', 'UX/UI'],
-  Strategy: ['Social Media', 'Strategy', 'Doubleclick'],
-  Motion: ['After Effects', '3d', 'Premiere'],
-  Technology: ['audio', 'VR/AR', 'unreal engine', 'AI']
+  Strategy: ['Social Media', 'Strategy', 'Doubleclick', 'Figma', 'VR'],
+  Motion: ['After Effects', '3d', 'Premiere', 'VR'],
+  Technology: ['audio', 'VR/AR', 'unreal engine', 'AI', 'VR']
 }
 
 const ContentHeader: React.FC<ContentHeadPortfolioProps> = ({ setPortfolioData, portfolioData }) => {
