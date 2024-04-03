@@ -2,7 +2,7 @@ import { useEffect, Dispatch, SetStateAction } from 'react'
 import gsap from 'gsap'
 import { MD_BREAKPOINT, SM_BREAKPOINT } from '@/app/libs/breakPoints'
 
-const MASK_REMOVAL_DELAY = 15000
+const MASK_REMOVAL_DELAY = 15000000
 
 export const usePreloaderMasking = (
   isPreLoaderFinished: unknown,
@@ -13,20 +13,20 @@ export const usePreloaderMasking = (
     const element = document.querySelector('.masked-element')
     if (element && isPreLoaderFinished && currentRouteSelection === null) {
       // Determine the starting scale and ending scale based on the viewport width
-      let startingScale = '686px 735px' // default scale
+      let startingScale = '100% 100%' // default scale
       let endingScale = '2500% 2500%' // default ending scale
       const viewportWidth = window.innerWidth
       if (viewportWidth <= SM_BREAKPOINT) {
         // scale-60
-        startingScale = '50% 50%'
+        startingScale = '100% 100%'
         endingScale = '2500% 2500%' // adjust as needed
       } else if (viewportWidth <= MD_BREAKPOINT) {
         // sm:scale-70
-        startingScale = '50% 50%'
+        startingScale = '100% 100%'
         endingScale = '2500% 2500%' // adjust as needed
       } else if (viewportWidth >= MD_BREAKPOINT) {
         // md:scale-100
-        startingScale = '735px 919px'
+        startingScale = '100% 100%'
         endingScale = '2400% 2400%' // adjust as needed
       }
 

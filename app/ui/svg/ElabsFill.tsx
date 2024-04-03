@@ -2,7 +2,7 @@ import React from 'react'
 
 const ElabsFill = () => {
   return (
-    <svg width='735' height='919' viewBox='0 -1 735 919' fill='none'>
+    <svg width='100%' height='100%' viewBox='0 -1 735 919' fill='none'>
       <path
         fillRule='evenodd'
         clipRule='evenodd'

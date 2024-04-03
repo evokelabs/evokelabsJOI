@@ -3,7 +3,7 @@ import React from 'react'
 
 const ElabsStroke = () => {
   return (
-    <svg width='735' height='919' viewBox='0 0 735 919' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <svg width='100%' height='100%' viewBox='0 0 735 919' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <path
         fillRule='evenodd'
         clipRule='evenodd'

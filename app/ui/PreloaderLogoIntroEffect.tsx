@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import ElabsStroke from './svg/ElabsStroke'
 import ElabsFill from './svg/ElabsFill'
 
-const  PreloaderLogoIntroEffect = ({ isPreLoaderFinished }: { isPreLoaderFinished: boolean }) => {
+const PreloaderLogoIntroEffect = ({ isPreLoaderFinished }: { isPreLoaderFinished: boolean }) => {
   const elabsFillRef = useRef(null)
   const elabsStrokeRef = useRef(null)
 
@@ -27,15 +27,12 @@ const  PreloaderLogoIntroEffect = ({ isPreLoaderFinished }: { isPreLoaderFinishe
     <>
       <div
         ref={elabsFillRef}
-        className='absolute top-0 left-1/4 md:left-0 w-1/2 md:w-full h-full flex justify-center items-center pointer-events-none '
+        className='absolute top-0 md:left-0 w-full h-full flex justify-center items-center pointer-events-none '
         style={{ opacity: 1 }}
       >
         <ElabsFill />
       </div>
-      <div
-        ref={elabsStrokeRef}
-        className='absolute top-0 left-1/4 md:left-0 w-1/2 md:w-full h-full justify-center items-center pointer-events-none flex '
-      >
+      <div ref={elabsStrokeRef} className='absolute top-0 md:left-0 w-full h-full justify-center items-center pointer-events-none flex '>
         <ElabsStroke />
       </div>
     </>
