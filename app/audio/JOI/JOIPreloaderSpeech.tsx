@@ -1,11 +1,9 @@
 import { useContext, useEffect, useState } from 'react'
 import { Howl } from 'howler'
-
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
 
 const AUDIO_SOURCES = JOISpeech.preloader.map(item => item.filepath)
-
 const VOLUME = 0.55
 const DELAY = 500
 const TRANSITION_DURATION = 150
@@ -34,7 +32,6 @@ const JOIPreloaderSpeech = () => {
 
           // Start playing the audio
           sound.play()
-
           setHasPlayed(true) // Set hasPlayed to true after the audio has been played
         }
 
@@ -46,7 +43,7 @@ const JOIPreloaderSpeech = () => {
     return () => {
       sound.unload()
     }
-  }, [hasPlayed, muteJOI])
+  }, []) // Empty dependency array ensures the effect runs only once
 
   return null
 }
