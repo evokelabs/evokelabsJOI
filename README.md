@@ -1,5 +1,5 @@
 [![Evoke Labs | JOI Edition](public/meta-cover-image.jpg)](http://www.evokelabs.com)
-*"I do hope you're satisfied with our product" - JOI*
+*"I do hope you're satisfied with our product" -JOI*
 
 ```
 > git clone https://github.com/evokelabs/evokelabsJOI.git
