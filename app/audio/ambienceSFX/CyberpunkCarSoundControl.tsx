@@ -31,6 +31,12 @@ const CyberpunkCarSoundControl = ({ carRef }: CyberpunkRefType) => {
     }
   }, [])
 
+  useEffect(() => {
+    if (gainNode) {
+      gainNode.gain.value = muteSFX ? 0 : MAX_VOLUME
+    }
+  }, [muteSFX, gainNode])
+
   // On mount and when audioCtx changes, set up the audio context, gain node, and panner.
   // Also, load and play the sound, and add event listeners to resume the audio when it's suspended.
   useEffect(() => {
