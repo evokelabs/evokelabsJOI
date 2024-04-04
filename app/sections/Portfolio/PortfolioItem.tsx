@@ -4,6 +4,7 @@ import PanelBackground from '../../ui/PanelContent'
 import VideoFrame from '../../ui/VideoFrame'
 import YouTubeSVG from '@/app/ui/svg/button/YouTubeSVG'
 import FigmaSVG from '@/app/ui/svg/button/FigmaSVG'
+import GithubSVG from '@/app/ui/svg/button/GithubSVG'
 import LaunchSVG from '@/app/ui/svg/button/LaunchSVG'
 import BackSVG from '@/app/ui/svg/button/BackSVG'
 import { SoundAudioLevelControls } from '../data/types'
@@ -26,6 +27,8 @@ interface PortfolioItem {
   slug: string
   mutedVideo: boolean
   isNew?: boolean
+  figma?: string
+  github?: string
 }
 
 interface PortfolioItemProps extends PortfolioItem {
@@ -45,7 +48,9 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   slug,
   soundAudioLevelControls,
   setShouldMapDarkness,
-  mutedVideo
+  mutedVideo,
+  figma,
+  github
 }) => {
   const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
 
@@ -130,7 +135,36 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
             </div>
           )}
 
-          <div className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full  md:scale-100 origin-right md:place-items-end'>
+          <div
+            className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full  md:scale-100 origin-right md:place-items-end'
+            onClick={() => setUserMutedAll(true)}
+            onTouchEnd={() => setUserMutedAll(true)}
+          >
+            <ButtonDefault />
+          </div>
+        </div>
+      )}
+      {figma && github && (
+        <div className='flex flex-col gap-y-2 md:flex-row mt-2 md:mt-4 md:mb-2 md:w-full scale-[60%] md:scale-[100%] origin-top-left -mb-6 '>
+          <div
+            onClick={() => setUserMutedAll(true)}
+            onTouchEnd={() => setUserMutedAll(true)}
+            className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full md:scale-100 origin-left'
+          >
+            <ButtonDefault label={'UI/UX DESIGN'} svgIcon={<FigmaSVG />} link={figma} />
+          </div>
+          <div
+            onClick={() => setUserMutedAll(true)}
+            onTouchEnd={() => setUserMutedAll(true)}
+            className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full md:scale-100 origin-left'
+          >
+            <ButtonDefault label='SOURCE CODE' svgIcon={<GithubSVG />} link={github} />
+          </div>
+          <div
+            className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full  md:scale-100 origin-right md:place-items-end'
+            onClick={() => setUserMutedAll(true)}
+            onTouchEnd={() => setUserMutedAll(true)}
+          >
             <ButtonDefault />
           </div>
         </div>

@@ -124,6 +124,20 @@ const SVGButton: React.FC<SVGButtonProps> = ({
           console.log('No link provided for LAUNCH')
         }
         break
+      case 'UI/UX DESIGN':
+        if (link) {
+          window.open(link, '_blank')
+        } else {
+          console.log('No link provided for FIGMA')
+        }
+        break
+      case 'SOURCE CODE':
+        if (link) {
+          window.open(link, '_blank')
+        } else {
+          console.log('No link provided for GITHUB')
+        }
+        break
       // Add more cases as needed
       // case 'OTHER_LABEL':
       //   // Do something else
