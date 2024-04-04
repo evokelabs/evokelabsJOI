@@ -135,8 +135,8 @@ const Resume = () => {
               integration (REST/GraphQL/Apollo), ThreeJS, JQuery, SASS.
             </p>
             <p>
-              <span className='text-teal-blur font-semibold'>Frameworks/Libraries:</span> NextJS, React.js, WordPress, React Three Fibre,
-              Tailwind CSS, Bootstrap, Material Design, Chakra UI, Foundation For Email, Gulp, Lodash, Pug, Handlebars.
+              <span className='text-teal-blur font-semibold'>Frameworks/Libraries:</span> NextJS, React.js, Astro, WordPress, React Three
+              Fibre, Tailwind CSS, Bootstrap, Material Design, Chakra UI, Foundation For Email, Gulp, Lodash, Pug, Handlebars.
             </p>
             <p>
               <span className='text-teal-blur font-semibold'>Back End:</span> Node.js, Express, MongoDB, Firebase, Apollo, GraphQL, AWS,
@@ -151,7 +151,7 @@ const Resume = () => {
               Handbrake, Adobe Media Encoder, Sizmek, Google Doubleclick/Ad Manager, OBS, Oculus SDK.
             </p>
             <p>
-              <span className='text-teal-blur font-semibold'>AI:</span> ChatGPT, GitHub Copilot, Leonardo.AI, Stable Diffusion.
+              <span className='text-teal-blur font-semibold'>AI:</span> ChatGPT, GitHub Copilot, Leonardo.AI, Stable Diffusion, ElevenLabs.
             </p>
           </div>
         </div>
