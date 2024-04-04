@@ -145,7 +145,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
         </div>
       )}
       {figma && github && (
-        <div className='flex flex-col gap-y-2 md:flex-row mt-2 md:mt-4 md:mb-2 md:w-full scale-[60%] md:scale-[100%] origin-top-left -mb-6 '>
+        <div className='flex  gap-y-2 flex-row mt-2 md:mt-4 md:mb-2 md:w-full scale-[60%] md:scale-[100%] origin-top-left -mb-6 '>
           <div
             onClick={() => setUserMutedAll(true)}
             onTouchEnd={() => setUserMutedAll(true)}
@@ -156,7 +156,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
           <div
             onClick={() => setUserMutedAll(true)}
             onTouchEnd={() => setUserMutedAll(true)}
-            className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full md:scale-100 origin-left'
+            className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full md:scale-100 origin-left relative md:-left-6'
           >
             <ButtonDefault label='SOURCE CODE' svgIcon={<GithubSVG />} link={github} />
           </div>
