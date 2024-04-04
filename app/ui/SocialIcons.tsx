@@ -12,14 +12,14 @@ const SocialIcons = () => {
       <Link href='https://github.com/evokelabs' target='_blank'>
         <ButtonSocial SVGIcon={props => <GithubSVG {...props} />} />
       </Link>
-      <Link href='https://www.youtube.com/evokelabs' target='_blank'>
-        <ButtonSocial SVGIcon={props => <YouTubeSVG {...props} />} />
+      <Link href='https://www.linkedin.com/in/adrianpikios' target='_blank'>
+        <ButtonSocial SVGIcon={props => <LinkedInSVG {...props} />} />
       </Link>
       <Link href='https://twitter.com/evokelabs' target='_blank'>
         <ButtonSocial SVGIcon={props => <TwitterSVG {...props} />} />
       </Link>
-      <Link href='https://www.linkedin.com/in/adrianpikios' target='_blank'>
-        <ButtonSocial SVGIcon={props => <LinkedInSVG {...props} />} />
+      <Link href='https://www.youtube.com/evokelabs' target='_blank'>
+        <ButtonSocial SVGIcon={props => <YouTubeSVG {...props} />} />
       </Link>
     </div>
   )
