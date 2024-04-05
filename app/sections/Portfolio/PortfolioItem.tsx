@@ -135,11 +135,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
             </div>
           )}
 
-          <div
-            className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full  md:scale-100 origin-right md:place-items-end'
-            onClick={() => setUserMutedAll(true)}
-            onTouchEnd={() => setUserMutedAll(true)}
-          >
+          <div className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full  md:scale-100 origin-right md:place-items-end'>
             <ButtonDefault />
           </div>
         </div>
@@ -160,11 +156,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
           >
             <ButtonDefault label='SOURCE CODE' svgIcon={<GithubSVG />} link={github} />
           </div>
-          <div
-            className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full  md:scale-100 origin-right md:place-items-end'
-            onClick={() => setUserMutedAll(true)}
-            onTouchEnd={() => setUserMutedAll(true)}
-          >
+          <div className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full  md:scale-100 origin-right md:place-items-end'>
             <ButtonDefault />
           </div>
         </div>
