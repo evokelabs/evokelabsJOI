@@ -43,7 +43,7 @@ const JOIPreloaderSpeech = () => {
     return () => {
       sound.unload()
     }
-  }, []) // Empty dependency array ensures the effect runs only once
+  }, [muteJOI])
 
   return null
 }
