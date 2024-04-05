@@ -1,43 +1,13 @@
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 import ButtonDefault from '../../ui/ButtonDefault'
 import PanelContent from '../../ui/PanelContent'
-
+import PortfolioPanelContent from './ui/PortfolioPanelContent'
 import portfolio from '../data/portfolio.json'
 import PortfolioItem from './PortfolioItem'
 import PortfolioTile from './PortfolioTile'
 import ContentHeader from './ui/ContentHeader'
 import { SoundAudioLevelControls } from '../data/types'
 import { RoutesContext } from '@/app/libs/RoutesContext'
-
-interface PortfolioPanelContentProps {
-  children: React.ReactNode
-  onClick: () => void
-}
-
-const PortfolioPanelContent: React.FC<PortfolioPanelContentProps> = ({ children, onClick }) => {
-  const [startPos, setStartPos] = useState({ x: 0, y: 0 })
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setStartPos({ x: e.touches[0].clientX, y: e.touches[0].clientY })
-  }
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const endPos = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY }
-    const diffX = Math.abs(startPos.x - endPos.x)
-    const diffY = Math.abs(startPos.y - endPos.y)
-
-    // If the touch movement is less than 10 pixels, consider it a click.
-    if (diffX < 10 && diffY < 10) {
-      onClick()
-    }
-  }
-
-  return (
-    <div onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-      {children}
-    </div>
-  )
-}
 
 const PortfolioHome = ({
   soundAudioLevelControls,
