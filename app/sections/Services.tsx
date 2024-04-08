@@ -139,14 +139,14 @@ const Services = () => {
           PNG={Unreal}
         />
         <RowHalf
-          heading='MUSIC PRODUCTION/<br />SOUND DESIGN'
-          paragraph='Supplementing our projects with original music and sound design. Music theory combined with VSTs, instruments and synths.'
-          PNG={Audio}
-        />
-        <RowHalf
           heading='DevOps/Cloud Services'
           paragraph='Streamlining deployment and ensuring scalability / reliability through DevOps practices. Custom email configurations, domain management, AWS, and CloudFront.'
           PNG={DevOp}
+        />
+        <RowHalf
+          heading='MUSIC PRODUCTION/<br />SOUND DESIGN'
+          paragraph='Supplementing our projects with original music and sound design. Music theory combined with VSTs, instruments and synths.'
+          PNG={Audio}
         />
       </div>
       <div>
