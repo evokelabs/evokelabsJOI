@@ -46,15 +46,9 @@ const VideoFrame = ({
     const video = videoRef.current
     if (video && !video.seeking) {
       setShouldMapDarkness(false)
-      if (userMutedAll) {
-        soundAudioLevelControls.setMuteMusic(true)
-        soundAudioLevelControls.setMuteRain(true)
-        soundAudioLevelControls.setMuteSFX(true)
-      } else {
-        soundAudioLevelControls.setMuteMusic(false)
-        soundAudioLevelControls.setMuteRain(false)
-        soundAudioLevelControls.setMuteSFX(false)
-      }
+      soundAudioLevelControls.setMuteMusic(initialMuteMusic.current)
+      soundAudioLevelControls.setMuteRain(initialMuteRain.current)
+      soundAudioLevelControls.setMuteSFX(initialMuteSFX.current)
     }
   }
 
@@ -70,27 +64,39 @@ const VideoFrame = ({
       // Set shouldMapDarkness to false when the component unmounts
       setShouldMapDarkness(false)
       if (userMutedAll) {
+        console.log('Muting all sounds')
         soundAudioLevelControls.setMuteMusic(true)
         soundAudioLevelControls.setMuteRain(true)
         soundAudioLevelControls.setMuteSFX(true)
       } else {
-        soundAudioLevelControls.setMuteMusic(false)
-        soundAudioLevelControls.setMuteRain(false)
-        soundAudioLevelControls.setMuteSFX(false)
+        soundAudioLevelControls.setMuteMusic(initialMuteMusic.current)
+        soundAudioLevelControls.setMuteRain(initialMuteRain.current)
+        soundAudioLevelControls.setMuteSFX(initialMuteSFX.current)
+        console.log('Restoring sound settings', initialMuteMusic.current, initialMuteRain.current, initialMuteSFX.current)
       }
     }
   }, [])
-  //Intelligent video sound control based on sound context
-  useEffect(() => {
-    initialMuteMusic.current = soundAudioLevelControls.muteAll
-    initialMuteRain.current = soundAudioLevelControls.muteAll
-    initialMuteSFX.current = soundAudioLevelControls.muteAll
 
+  // Preserve the initial mute states
+  useEffect(() => {
+    initialMuteMusic.current = soundAudioLevelControls.muteMusic
+    initialMuteRain.current = soundAudioLevelControls.muteRain
+    initialMuteSFX.current = soundAudioLevelControls.muteSFX
+  }, [])
+
+  // Update the user mute states when soundAudioLevelControls.muteAll changes
+  // Update the user mute states when soundAudioLevelControls.muteAll changes
+  useEffect(() => {
     setUserMutedAll(soundAudioLevelControls.muteAll)
-    setUserMutedMusic(initialMuteMusic.current)
-    setUserMutedRain(initialMuteRain.current)
-    setUserMutedSFX(initialMuteSFX.current)
-  }, [soundAudioLevelControls.muteAll])
+    setUserMutedMusic(soundAudioLevelControls.muteMusic)
+    setUserMutedRain(soundAudioLevelControls.muteRain)
+    setUserMutedSFX(soundAudioLevelControls.muteSFX)
+  }, [
+    soundAudioLevelControls.muteAll,
+    soundAudioLevelControls.muteMusic,
+    soundAudioLevelControls.muteRain,
+    soundAudioLevelControls.muteSFX
+  ])
 
   //Restore sound settings when unmounting
   useEffect(() => {
