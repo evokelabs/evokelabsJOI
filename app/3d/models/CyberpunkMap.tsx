@@ -113,7 +113,7 @@ const CyberpunkMap = () => {
                 object.castShadow = true
                 break
               case 'VideoTexture-Tablet':
-                object.material = videoMaterialTablet
+                // object.material = videoMaterialTablet
                 break
               default:
                 object.castShadow = true

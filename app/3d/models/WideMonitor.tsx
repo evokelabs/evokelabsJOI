@@ -29,7 +29,7 @@ const WideMonitor = () => {
           if (object instanceof Mesh) {
             switch (object.name) {
               case 'VideoTexture-Widescreen':
-                object.material = videoMaterialMonitor
+                // object.material = videoMaterialMonitor
                 break
               default:
                 object.castShadow = true

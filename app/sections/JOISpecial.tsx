@@ -42,7 +42,7 @@ const JOISpecial = ({
   return (
     <PanelContent headerTitle='JOI Special' contentHead={<ContentHead />}>
       <VideoFrame
-        videoURL={`${cloudfrontURL}videos/JOI-Introduction.mp4`}
+        videoURL={`${cloudfrontURL}/videos/JOI-Introduction.mp4`}
         soundAudioLevelControls={soundAudioLevelControls}
         setShouldMapDarkness={setShouldMapDarkness}
       />
