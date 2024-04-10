@@ -1,4 +1,5 @@
 import { RED } from '../libs/UIConstants'
+import useSoundControl from '../libs/useSoundControl'
 import ButtonDefault from '../ui/ButtonDefault'
 import HeadingHighlight from '../ui/HeadingHighlight'
 import IconSmall from '../ui/IconSmall'
@@ -17,8 +18,15 @@ import TectonicDigitalSVG from '../ui/svg/resume/TectonicDigitalSVG'
 import UniversityOfSydneySVG from '../ui/svg/resume/UniversityOfSydneySVG'
 import VMLSVG from '../ui/svg/resume/VMLSVG'
 import WaxInteractiveSVG from '../ui/svg/resume/WaxInteractiveSVG'
+import { SoundAudioLevelControls } from './data/types'
 
-const Resume = () => {
+const Resume = ({ soundAudioLevelControls }: { soundAudioLevelControls: SoundAudioLevelControls }) => {
+  const { setUserMutedAll, wasMuted } = useSoundControl(soundAudioLevelControls)
+
+  const handleLinkClick = () => {
+    setUserMutedAll(true)
+  }
+
   return (
     <PanelBackground
       headerTitle='Dossier'
@@ -32,7 +40,10 @@ const Resume = () => {
           }
           heading='Resume'
           button={
-            <div className='sm:block scale-[60%] h-[38px] md:scale-[100%] sm:w-[100%] origin-top-right right-0 sm:right-10 md:right-2 relative -mt-3 sm:mt-3 md:-mt-1 lg:mt-0'>
+            <div
+              className='sm:block scale-[60%] h-[38px] md:scale-[100%] sm:w-[100%] origin-top-right right-0 sm:right-10 md:right-2 relative -mt-3 sm:mt-3 md:-mt-1 lg:mt-0'
+              onClick={handleLinkClick}
+            >
               <ButtonDefault label='HARDCOPY' svgIcon={<HardcopySVG />} />
             </div>
           }

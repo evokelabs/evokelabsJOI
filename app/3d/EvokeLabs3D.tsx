@@ -276,7 +276,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                                 {router.pathname === '/history' && (
                                   <History soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
                                 )}
-                                {router.pathname === '/resume' && <Resume />}
+                                {router.pathname === '/resume' && <Resume soundAudioLevelControls={soundAudioLevelControls} />}
                                 {router.pathname === '/joi' && (
                                   <JOISpecial
                                     soundAudioLevelControls={soundAudioLevelControls}
