@@ -1,15 +1,12 @@
-import HR from '@/app/ui/HR'
 import ButtonDefault from '../../ui/ButtonDefault'
 import PanelBackground from '../../ui/PanelContent'
 import VideoFrame from '../../ui/VideoFrame'
-import YouTubeSVG from '@/app/ui/svg/button/YouTubeSVG'
 import FigmaSVG from '@/app/ui/svg/button/FigmaSVG'
 import GithubSVG from '@/app/ui/svg/button/GithubSVG'
 import LaunchSVG from '@/app/ui/svg/button/LaunchSVG'
 import BackSVG from '@/app/ui/svg/button/BackSVG'
 import { SoundAudioLevelControls } from '../data/types'
-import { RoutesContext } from '@/app/libs/RoutesContext'
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import VideoFrameMute from '@/app/ui/VideoFrameMute'
 import useSoundControl from '@/app/libs/useSoundControl'
 
@@ -53,8 +50,6 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
   figma,
   github
 }) => {
-  const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
-
   const { setUserMutedAll, wasMuted } = useSoundControl(soundAudioLevelControls)
 
   return (
