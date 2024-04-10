@@ -4,8 +4,9 @@ import { useFrame } from '@react-three/fiber'
 import { CyberpunkRefType } from '../../3d/models/CyberpunkCar/index'
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
 import { audioContext } from '../webAPIContext'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
-const SOUND_PATH = '/sounds/engineLoop.ogg'
+const SOUND_PATH = `${cloudfrontURL}/sounds/engineLoop.ogg`
 const MAX_VOLUME = 0.55
 const MIN_VOLUME = 0
 const VOLUME_DIVISOR = 25

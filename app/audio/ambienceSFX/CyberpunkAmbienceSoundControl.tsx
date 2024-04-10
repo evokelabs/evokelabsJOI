@@ -1,8 +1,9 @@
 import { useContext } from 'react'
 import useAudio from '../libs/useAudio'
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
-const AUDIO_SOURCE = '/sounds/CyberpunkAmbienceLoop.ogg'
+const AUDIO_SOURCE = `${cloudfrontURL}/sounds/CyberpunkAmbienceLoop.ogg`
 const VOLUME_SET = 0.25
 const DELAY = 2500
 const TRANSITION_DURATION = 2500

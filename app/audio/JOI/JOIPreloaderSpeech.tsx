@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Howl } from 'howler'
 import JOISpeech from '@/app/audio/JOI/JOISpeech.json'
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
 const AUDIO_SOURCES = JOISpeech.preloader.map(item => item.filepath)
 const VOLUME = 0.55
@@ -20,7 +21,7 @@ const JOIPreloaderSpeech = () => {
 
     const sound = new Howl({
       html5: true,
-      src: [audioSource],
+      src: [cloudfrontURL + audioSource],
       loop: LOOP,
       volume: 0.001, // Start with a small positive volume
       onload: () => {

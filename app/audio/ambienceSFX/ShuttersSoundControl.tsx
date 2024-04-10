@@ -29,6 +29,7 @@ const ShutterSoundControl = ({
 
       // Create an audio element
       audioElement.current = new Audio()
+      audioElement.current.crossOrigin = 'anonymous'
       audioElement.current.src = AUDIO_SOURCE
 
       // Create a GainNode to control the volume

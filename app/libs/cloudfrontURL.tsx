@@ -1,1 +1,1 @@
-export const cloudfrontURL = 'https://evokelabs-video-portfolio.s3.amazonaws.com/'
+export const cloudfrontURL = 'https://d19s7v0o35zltc.cloudfront.net'

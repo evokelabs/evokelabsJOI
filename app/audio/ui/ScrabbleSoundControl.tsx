@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { audioContext } from '../webAPIContext'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
-const AUDIO_SOURCE_LOOP = '/sounds/scrabbleLoop.ogg'
+const AUDIO_SOURCE_LOOP = `${cloudfrontURL}/sounds/scrabbleLoop.ogg`
 
 type ScrabbleOnSoundControlProps = {
   volume?: number

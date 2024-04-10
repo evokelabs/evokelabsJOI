@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from 'react'
 import { Howl } from 'howler'
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
-const AUDIO_SOURCE = '/sounds/musicStart.mp3'
+const AUDIO_SOURCE = `${cloudfrontURL}/sounds/musicStart.mp3`
 const VOLUME_SET = 0.6
 const DELAY = 50
 const LOOP = false

@@ -39,7 +39,7 @@ const History = ({
         }
       >
         <VideoFrame
-          videoURL={`${cloudfrontURL}/videos/Evokelabs-History.mp4`}
+          videoURL={`/videos/Evokelabs-History.mp4`}
           soundAudioLevelControls={soundAudioLevelControls}
           setShouldMapDarkness={setShouldMapDarkness}
         />

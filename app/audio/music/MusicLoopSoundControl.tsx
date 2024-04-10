@@ -3,8 +3,9 @@ import { SoundsContext } from '@/app/libs/SoundsContext'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { Howl } from 'howler'
 import { DEFAULT_MUSIC_LOOP_VOLUME } from '../ELAudioStartSoundControl'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
-const AUDIO_SOURCE = '/sounds/musicLoop.ogg'
+const AUDIO_SOURCE = `${cloudfrontURL}/sounds/musicLoop.ogg`
 const DELAY = 4000 // Delay in milliseconds
 
 const MusicLoopSoundControl = () => {

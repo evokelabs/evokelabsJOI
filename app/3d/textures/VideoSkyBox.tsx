@@ -28,8 +28,7 @@ const VideoSkybox = () => {
 
     const isHighRes = window.screen.width > 1920 || window.screen.height > 1080
 
-    // const videoToLoad = isHighRes ? VIDEO_4K : VIDEO_NORMAL
-    const videoToLoad = VIDEO_NORMAL
+    const videoToLoad = isHighRes ? VIDEO_4K : VIDEO_NORMAL
 
     video.src = videoToLoad
     video.loop = true
