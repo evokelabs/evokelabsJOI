@@ -43,7 +43,7 @@ const JOIPreloaderSpeech = () => {
     return () => {
       sound.unload()
     }
-  }, [muteJOI])
+  }, [])
 
   return null
 }
