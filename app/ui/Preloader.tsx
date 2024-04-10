@@ -7,7 +7,7 @@ import { TEAL } from '../libs/UIConstants'
 import TealCRTBlur from './libs/TealCRTBlur'
 import HeartIcon from './svg/HeartIcon'
 import SpeechIcon from './svg/SpeechIcon'
-import { cloudfrontURL } from '../libs/cloudFrontURL'
+import { cloudfrontURL } from '../libs/cloudfrontURL'
 
 const TOTAL_BYTES_SIZE_JOI = 4909672
 const TOTAL_BYTES_SIZE_MAP = 3763556

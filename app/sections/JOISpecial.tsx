@@ -7,6 +7,7 @@ import JOISVG from '../ui/svg/mainmenu/JOISVG'
 import YouTubeSVG from '../ui/svg/button/YouTubeSVG'
 import { SoundAudioLevelControls } from './data/types'
 import { Dispatch, SetStateAction } from 'react'
+import { cloudfrontURL } from '../libs/cloudfrontURL'
 
 const ContentHead = () => {
   return (
@@ -41,7 +42,7 @@ const JOISpecial = ({
   return (
     <PanelContent headerTitle='JOI Special' contentHead={<ContentHead />}>
       <VideoFrame
-        videoURL='./videos/JOI-Introduction.mp4'
+        videoURL={`${cloudfrontURL}/videos/JOI-Introduction.mp4`}
         soundAudioLevelControls={soundAudioLevelControls}
         setShouldMapDarkness={setShouldMapDarkness}
       />

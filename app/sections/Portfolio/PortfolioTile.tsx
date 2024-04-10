@@ -1,4 +1,4 @@
-import { cloudfrontURL } from '@/app/libs/cloudFrontURL'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 import React from 'react'
 
 interface PortfolioTileProps {

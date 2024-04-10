@@ -5,7 +5,7 @@ import { gsap } from 'gsap'
 import { useDracoLoader } from '@/app/libs/useDracoLoader'
 import { AnimationContext } from '@/app/libs/AnimationContext'
 import ShutterSoundControl from '@/app/audio/ambienceSFX/ShuttersSoundControl'
-import { cloudfrontURL } from '@/app/libs/cloudFrontURL'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
 const CyberpunkMapLowPoly = () => {
   const { scene } = useThree()

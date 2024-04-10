@@ -1,3 +1,4 @@
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 import { useFrame } from '@react-three/fiber'
 import { useEffect, useRef, useState } from 'react'
 import { Mesh, BufferGeometry, MeshBasicMaterial, BackSide, VideoTexture, Texture, TextureLoader } from 'three'
@@ -10,9 +11,9 @@ declare global {
   }
 }
 
-const VIDEO_IMAGE = '/videos/CyberpunkCityBG.webp'
-const VIDEO_NORMAL = '/videos/CyberpunkCityBG.mp4'
-const VIDEO_4K = '/videos/CyberpunkCityBG-4K.mp4'
+const VIDEO_IMAGE = `${cloudfrontURL}/videos/CyberpunkCityBG.webp`
+const VIDEO_NORMAL = `${cloudfrontURL}/videos/CyberpunkCityBG.mp4`
+const VIDEO_4K = `${cloudfrontURL}/videos/CyberpunkCityBG-4K.mp4`
 
 const VideoSkybox = () => {
   const meshRef = useRef<Mesh<BufferGeometry, MeshBasicMaterial>>(null)

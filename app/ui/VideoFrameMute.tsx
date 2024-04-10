@@ -2,7 +2,7 @@ import RedCRTBlur from './libs/RedCRTBlur'
 import { BLACK, RED, RED_BLACK } from '../libs/UIConstants'
 
 import { SoundAudioLevelControls } from '../sections/data/types'
-import { cloudfrontURL } from '../libs/cloudFrontURL'
+import { cloudfrontURL } from '../libs/cloudfrontURL'
 
 const VideoFrameMute = ({ videoURL, soundAudioLevelControls }: { videoURL: string; soundAudioLevelControls: SoundAudioLevelControls }) => {
   //Restore sound settings when unmounting

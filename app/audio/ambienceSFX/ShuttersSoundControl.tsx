@@ -1,8 +1,9 @@
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
 import { useContext, useEffect, useRef } from 'react'
 import { audioContext } from '../webAPIContext'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
-const AUDIO_SOURCE = '/sounds/shutters.mp3'
+const AUDIO_SOURCE = `${cloudfrontURL}/sounds/shutters.mp3`
 
 const ShutterSoundControl = ({
   volume = 0,

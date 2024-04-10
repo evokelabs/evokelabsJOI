@@ -3,7 +3,7 @@ import { BLACK, RED, RED_BLACK } from '../libs/UIConstants'
 import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 
 import { SoundAudioLevelControls } from '../sections/data/types'
-import { cloudfrontURL } from '../libs/cloudFrontURL'
+import { cloudfrontURL } from '../libs/cloudfrontURL'
 
 const VideoFrame = ({
   videoURL,

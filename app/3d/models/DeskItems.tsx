@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Mesh, Scene } from 'three'
 import { useDracoLoader } from '@/app/libs/useDracoLoader'
-import { cloudfrontURL } from '@/app/libs/cloudFrontURL'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
 const DeskItems = () => {
   const { scene } = useThree()

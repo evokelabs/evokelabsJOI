@@ -7,7 +7,7 @@ import CyberpunkCarAnimation from './controllers/CyberpunkCarAnimation'
 import CyberpunkCarSoundControl from '../../../audio/ambienceSFX/CyberpunkCarSoundControl'
 
 import { CAR_OFFSET_X, CAR_OFFSET_Y, CAR_OFFSET_Z } from './constants'
-import { cloudfrontURL } from '@/app/libs/cloudFrontURL'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
 export type CyberpunkRefType = {
   carRef: MutableRefObject<THREE.Mesh | THREE.Object3D | null>

@@ -6,6 +6,7 @@ import ContentHead from '../ui/PanelContent/ContentHead'
 import VideoFrame from '../ui/VideoFrame'
 import HistorySVG from '../ui/svg/mainmenu/HistorySVG'
 import { SoundAudioLevelControls } from './data/types'
+import { cloudfrontURL } from '../libs/cloudfrontURL'
 
 const History = ({
   soundAudioLevelControls,
@@ -38,7 +39,7 @@ const History = ({
         }
       >
         <VideoFrame
-          videoURL='./videos/Evokelabs-History.mp4'
+          videoURL={`${cloudfrontURL}/videos/Evokelabs-History.mp4`}
           soundAudioLevelControls={soundAudioLevelControls}
           setShouldMapDarkness={setShouldMapDarkness}
         />
