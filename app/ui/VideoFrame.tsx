@@ -3,6 +3,7 @@ import { BLACK, RED, RED_BLACK } from '../libs/UIConstants'
 import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 
 import { SoundAudioLevelControls } from '../sections/data/types'
+import { cloudfrontURL } from '../libs/cloudFrontURL'
 
 const VideoFrame = ({
   videoURL,
@@ -150,7 +151,7 @@ const VideoFrame = ({
             muted
             className='w-full h-full object-contain'
             controls
-            src={videoURL}
+            src={cloudfrontURL + videoURL}
             onPlay={handleVideoPlay}
             onPause={handleVideoPause}
           />
