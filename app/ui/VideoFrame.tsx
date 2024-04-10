@@ -64,7 +64,6 @@ const VideoFrame = ({
       // Set shouldMapDarkness to false when the component unmounts
       setShouldMapDarkness(false)
       if (userMutedAll) {
-        console.log('Muting all sounds')
         soundAudioLevelControls.setMuteMusic(true)
         soundAudioLevelControls.setMuteRain(true)
         soundAudioLevelControls.setMuteSFX(true)
@@ -72,7 +71,6 @@ const VideoFrame = ({
         soundAudioLevelControls.setMuteMusic(initialMuteMusic.current)
         soundAudioLevelControls.setMuteRain(initialMuteRain.current)
         soundAudioLevelControls.setMuteSFX(initialMuteSFX.current)
-        console.log('Restoring sound settings', initialMuteMusic.current, initialMuteRain.current, initialMuteSFX.current)
       }
     }
   }, [])
