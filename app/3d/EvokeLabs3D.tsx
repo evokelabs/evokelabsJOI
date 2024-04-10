@@ -358,7 +358,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           {currentRouteSelection === null && isPreLoaderFinished && !maskRemoved && (
             <PreloaderLogoIntroEffect isPreLoaderFinished={isPreLoaderFinished} />
           )}
-          <SocialIcons />
+          <SocialIcons soundAudioLevelControls={soundAudioLevelControls} />
           <JOISubtitles />
           {isPreLoaderFinished && <SoundControlIcons />}
           {!maskRemoved && <RainOverlay fov={fov} eventSource={eventSource} isPreLoaderFinished={false} cameraTarget={cameraTarget} />}
