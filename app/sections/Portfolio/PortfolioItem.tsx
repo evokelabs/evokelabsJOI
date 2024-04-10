@@ -11,6 +11,7 @@ import { SoundAudioLevelControls } from '../data/types'
 import { RoutesContext } from '@/app/libs/RoutesContext'
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 import VideoFrameMute from '@/app/ui/VideoFrameMute'
+import useSoundControl from '@/app/libs/useSoundControl'
 
 interface PortfolioItem {
   id: number
@@ -54,33 +55,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
 }) => {
   const { currentPortfolioSelection, setCurrentPortfolioSelection } = useContext(RoutesContext)
 
-  const [wasMuted, setWasMuted] = useState(false)
-
-  const setUserMutedAll = (muteAll: boolean) => {
-    if (muteAll) {
-      setWasMuted(soundAudioLevelControls.muteAll || (soundAudioLevelControls.muteMusic && soundAudioLevelControls.muteSFX))
-    }
-    soundAudioLevelControls.setMuteAll(muteAll)
-    soundAudioLevelControls.setMuteMusic(muteAll)
-    soundAudioLevelControls.setMuteRain(muteAll)
-    soundAudioLevelControls.setMuteSFX(muteAll)
-  }
-
-  useEffect(() => {
-    const handleFocus = () => {
-      if (!wasMuted) {
-        setUserMutedAll(false)
-      }
-    }
-
-    window.addEventListener('focus', handleFocus)
-
-    // Cleanup function
-    return () => {
-      window.removeEventListener('focus', handleFocus)
-      setCurrentPortfolioSelection(null)
-    }
-  }, [wasMuted])
+  const { setUserMutedAll, wasMuted } = useSoundControl(soundAudioLevelControls)
 
   return (
     <PanelBackground headerTitle='Past Gigs'>
