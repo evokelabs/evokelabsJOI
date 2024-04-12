@@ -40,8 +40,14 @@ const ToggleButton = ({
         setToggle(!toggle)
       }}
       className='relative'
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => {
+        if (window.matchMedia('(hover: hover)').matches) {
+          setIsHovered(true)
+        }
+      }}
       onMouseLeave={() => setIsHovered(false)}
+      onTouchEnd={() => setIsHovered(false)}
+      onTouchStart={() => setIsHovered(true)}
     >
       {toggle ? (
         <>
