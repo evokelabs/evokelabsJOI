@@ -1,8 +1,9 @@
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
 import { useContext, useEffect, useRef } from 'react'
 import { audioContext } from '../webAPIContext'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
-const AUDIO_SOURCE = '/sounds/shutters.mp3'
+const AUDIO_SOURCE = `${cloudfrontURL}/sounds/shutters.mp3`
 
 const ShutterSoundControl = ({
   volume = 0,
@@ -28,6 +29,7 @@ const ShutterSoundControl = ({
 
       // Create an audio element
       audioElement.current = new Audio()
+      audioElement.current.crossOrigin = 'anonymous'
       audioElement.current.src = AUDIO_SOURCE
 
       // Create a GainNode to control the volume

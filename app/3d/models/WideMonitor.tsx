@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Mesh, MeshBasicMaterial, Scene, VideoTexture } from 'three'
 import { useDracoLoader } from '@/app/libs/useDracoLoader'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
 const WideMonitor = () => {
   const { scene } = useThree()
@@ -10,7 +11,7 @@ const WideMonitor = () => {
   useEffect(() => {
     // Create video elements
     const videoMonitor = document.createElement('video')
-    videoMonitor.src = '/videos/monitor.mp4'
+    videoMonitor.src = `${cloudfrontURL}/videos/monitor.mp4`
     videoMonitor.loop = false
     videoMonitor.muted = true
     videoMonitor.play()
@@ -21,14 +22,14 @@ const WideMonitor = () => {
       map: videoTextureMonitor
     })
     gltfLoader.load(
-      '/glb/WideMonitor.glb',
+      `${cloudfrontURL}/glb/WideMonitor.glb`,
       gltf => {
         scene.add(gltf.scene)
         gltf.scene.traverse(object => {
           if (object instanceof Mesh) {
             switch (object.name) {
               case 'VideoTexture-Widescreen':
-                object.material = videoMaterialMonitor
+                // object.material = videoMaterialMonitor
                 break
               default:
                 object.castShadow = true

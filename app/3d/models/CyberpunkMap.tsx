@@ -5,6 +5,7 @@ import { gsap } from 'gsap'
 import { useDracoLoader } from '@/app/libs/useDracoLoader'
 import { AnimationContext } from '@/app/libs/AnimationContext'
 import ShutterSoundControl from '@/app/audio/ambienceSFX/ShuttersSoundControl'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
 const CyberpunkMap = () => {
   const { scene } = useThree()
@@ -83,7 +84,7 @@ const CyberpunkMap = () => {
 
   useEffect(() => {
     const videoTablet = document.createElement('video')
-    videoTablet.src = '/videos/tablet.mp4'
+    videoTablet.src = `${cloudfrontURL}/videos/tablet.mp4`
     videoTablet.loop = true
     videoTablet.muted = true
     videoTablet.play()
@@ -92,7 +93,7 @@ const CyberpunkMap = () => {
     const videoMaterialTablet = new MeshBasicMaterial({ map: videoTextureTablet })
 
     gltfLoader.load(
-      '/glb/EvokeLabsMap.glb',
+      `${cloudfrontURL}/glb/EvokeLabsMap.glb`,
       gltf => {
         if (meshRef.current) {
           scene.remove(meshRef.current)
@@ -112,7 +113,7 @@ const CyberpunkMap = () => {
                 object.castShadow = true
                 break
               case 'VideoTexture-Tablet':
-                object.material = videoMaterialTablet
+                // object.material = videoMaterialTablet
                 break
               default:
                 object.castShadow = true

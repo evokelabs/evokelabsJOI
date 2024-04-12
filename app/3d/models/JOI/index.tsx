@@ -12,11 +12,12 @@ import { useEyesRotationAnimation } from './controllers/useEyesRotationAnimation
 import { useEyesBlinkingAnimation } from './controllers/useEyesBlinkingAnimation'
 import { useMorphAnimation } from './controllers/useFacialMorphsAnimation'
 import { useJOIVoice } from './controllers/useJOIVoice'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
 const JOI = () => {
   const { scene, camera } = useThree()
 
-  const gltf = useGLTF('/glb/JOI.glb')
+  const gltf = useGLTF(`${cloudfrontURL}/glb/JOI.glb`)
   const { nodes, animations } = gltf
   const model = nodes.Scene || nodes.scene
 

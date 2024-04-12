@@ -134,8 +134,8 @@ abbr:where([title]) {
 }
 
 .masked-element {
-  mask-image: url('/glb/elabs-mask.svg');
-  -webkit-mask-image: url('/glb/elabs-mask.svg'); /* for Safari */
+  mask-image: url('https://media.evokelabs.com/glb/elabs-mask.svg');
+  -webkit-mask-image: url('https://media.evokelabs.com/glb/elabs-mask.svg'); /* for Safari */
   mask-repeat: no-repeat;
   -webkit-mask-repeat: no-repeat; /* for Safari */
   mask-position: center;

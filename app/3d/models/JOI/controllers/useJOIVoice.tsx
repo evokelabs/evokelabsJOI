@@ -10,6 +10,7 @@ import Availabilities from '@/app/sections/data/availabilities.json'
 import { JOISpeechContext } from '@/app/libs/JOISpeechContext'
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
 import { audioContext } from '@/app/audio/webAPIContext'
+import { cloudfrontURL } from '@/app/libs/cloudfrontURL'
 
 const INTRO_FILES = JOISpeech.intro.map(item => item.filepath)
 const INTRO_TEXT = JOISpeech.intro.map(item => item.text)
@@ -108,7 +109,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           { filepath: randomFollowResponse.filepath, text: randomFollowResponse.text }
         ]
         const text = responseArray.map(item => item.text)
-        const filePath = responseArray.map(item => item.filepath)
+        const filePath = responseArray.map(item => `${cloudfrontURL}${item.filepath}`)
 
         setAvailabilityTextArray(prevState => [...prevState, ...text])
         setAvailabilityFilePathArray(prevState => [...prevState, ...filePath])
@@ -148,7 +149,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
         const nonFirstIntroFiles = introFiles.filter((_, index) => index !== 0)
         const randomFile = nonFirstIntroFiles[Math.floor(Math.random() * nonFirstIntroFiles.length)]
         setJOILineCaption(randomFile.text)
-        audioFileRef.current = randomFile.filepath
+        audioFileRef.current = `${cloudfrontURL}${randomFile.filepath}`
       } else {
         // If the cookie is not found, play the first file
         setJOILineCaption(INTRO_TEXT[0])
@@ -156,7 +157,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
       }
     } else if (JOILineSpeak !== null) {
       const randomFilePath = getFilePath(JOILineSpeak) // use getFilePath here
-      audioFileRef.current = randomFilePath
+      audioFileRef.current = `${cloudfrontURL}${randomFilePath}`
       if (!audioFileRef.current) return
     }
   }, [JOILineSpeak, getFilePath, hasSiteHomeVisited, model, setJOILineCaption, shouldJOISpeak])
@@ -214,7 +215,8 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
             timeoutRef.current = window.setTimeout(() => {
               isPlaying.current = false
             }, 4500)
-            audio.src = availabilityFilePath[audioIndex] // Update the source of the audio object
+
+            audio.src = `${cloudfrontURL}${availabilityFilePath[audioIndex]}` // Update the source of the audio
             setJOILineCaption(availabilityTextArray[audioIndex])
             setAudioIndexState(audioIndex) // Update the audio index state
             setIsAudioPlaying(false)
@@ -227,7 +229,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
               // }
               audioIndex++
               if (audioIndex < availabilityFilePath.length) {
-                setJOILineCaption(availabilityTextArray[audioIndex]) // Update the caption
+                setJOILineCaption(availabilityTextArray[audioIndex])
                 setAudioIndexState(audioIndex) // Update the audio index state
                 playSpeech(availabilityFilePath) // Play the next audio file
               } else {

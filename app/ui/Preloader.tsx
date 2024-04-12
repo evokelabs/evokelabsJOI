@@ -7,6 +7,7 @@ import { TEAL } from '../libs/UIConstants'
 import TealCRTBlur from './libs/TealCRTBlur'
 import HeartIcon from './svg/HeartIcon'
 import SpeechIcon from './svg/SpeechIcon'
+import { cloudfrontURL } from '../libs/cloudfrontURL'
 
 const TOTAL_BYTES_SIZE_JOI = 4909672
 const TOTAL_BYTES_SIZE_MAP = 3763556
@@ -208,9 +209,9 @@ const Preloader = ({
 
   const loadModels = async () => {
     isModelLoading.current = true
-    await loadModel('/glb/JOI.glb', TOTAL_BYTES_SIZE_JOI, 'JOI MODEL')
+    await loadModel(`${cloudfrontURL}/glb/JOI.glb`, TOTAL_BYTES_SIZE_JOI, 'JOI MODEL')
     setProgress(0) // Reset progress
-    const secondModelUrl = lowGPURef.current ? '/glb/EvokeLabsMap-LowPoly.glb' : '/glb/EvokeLabsMap.glb'
+    const secondModelUrl = lowGPURef.current ? `${cloudfrontURL}/glb/EvokeLabsMap-LowPoly.glb` : `${cloudfrontURL}/glb/EvokeLabsMap.glb`
     await loadModel(secondModelUrl, TOTAL_BYTES_SIZE_MAP, 'MAP MODEL')
     isModelLoading.current = false
   }
