@@ -12,6 +12,7 @@ const WideMonitor = () => {
     // Create video elements
     const videoMonitor = document.createElement('video')
     videoMonitor.src = `${cloudfrontURL}/videos/monitor.mp4`
+    videoMonitor.crossOrigin = 'anonymous'
     videoMonitor.loop = false
     videoMonitor.muted = true
     videoMonitor.play()

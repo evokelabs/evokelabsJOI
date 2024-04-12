@@ -31,6 +31,7 @@ const VideoSkybox = () => {
     const videoToLoad = isHighRes ? VIDEO_4K : VIDEO_NORMAL
 
     video.src = videoToLoad
+    video.crossOrigin = 'anonymous'
     video.loop = true
     video.muted = true
     video.addEventListener('loadeddata', () => {

@@ -85,6 +85,7 @@ const CyberpunkMap = () => {
   useEffect(() => {
     const videoTablet = document.createElement('video')
     videoTablet.src = `${cloudfrontURL}/videos/tablet.mp4`
+    videoTablet.crossOrigin = 'anonymous'
     videoTablet.loop = true
     videoTablet.muted = true
     videoTablet.play()
