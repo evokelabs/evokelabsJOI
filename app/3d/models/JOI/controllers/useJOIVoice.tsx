@@ -109,7 +109,7 @@ export const useJOIVoice = (model: THREE.Object3D | null) => {
           { filepath: randomFollowResponse.filepath, text: randomFollowResponse.text }
         ]
         const text = responseArray.map(item => item.text)
-        const filePath = responseArray.map(item => `${cloudfrontURL}${item.filepath}`)
+        const filePath = responseArray.map(item => `${item.filepath}`)
 
         setAvailabilityTextArray(prevState => [...prevState, ...text])
         setAvailabilityFilePathArray(prevState => [...prevState, ...filePath])

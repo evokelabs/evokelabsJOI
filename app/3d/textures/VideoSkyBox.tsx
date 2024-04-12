@@ -51,7 +51,12 @@ const VideoSkybox = () => {
     return null
   }
 
-  return
+  return (
+    <mesh ref={meshRef} scale={[-1, 0.55, 0.8]}>
+      <boxGeometry attach='geometry' args={[200, 200, 200]} />
+      <meshBasicMaterial side={BackSide} map={texture} />
+    </mesh>
+  )
 }
 
 export default VideoSkybox
