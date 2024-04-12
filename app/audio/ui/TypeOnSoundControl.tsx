@@ -24,7 +24,9 @@ const TypeOnSoundControl: React.FC<TypeOnSoundControlProps> = ({
 }) => {
   const track = useRef<MediaElementAudioSourceNode | null>(null)
   const audioElement = useRef(new Audio(AUDIO_SOURCE_LOOP))
+  audioElement.current.crossOrigin = 'anonymous'
   const audioEndElement = useRef(new Audio(AUDIO_SOURCE_END))
+  audioEndElement.current.crossOrigin = 'anonymous'
   const audioContextRef = useRef(audioContext)
 
   // Define a function to play the audio
