@@ -160,46 +160,50 @@ const Preloader = ({
 
   const loadModel = async (modelUrl: string, totalBytes: number, modelName: string) => {
     setCurrentModelName(modelName)
-    const response = await fetch(modelUrl)
+    try {
+      const response = await fetch(modelUrl)
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok')
-    }
-
-    if (!response.body) {
-      throw new Error('Response body is missing')
-    }
-
-    const reader = response.body.getReader()
-    let bytesReceived = 0
-    const chunks = []
-
-    while (true) {
-      const { done, value } = await reader.read()
-
-      if (done) {
-        break
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
       }
 
-      chunks.push(value)
-      bytesReceived += value.length
-      const progress = (bytesReceived / totalBytes) * 100
-      setProgress(progress)
-    }
+      if (!response.body) {
+        throw new Error('Response body is missing')
+      }
 
-    const arrayBuffer = new Uint8Array(bytesReceived)
-    let position = 0
-    for (const chunk of chunks) {
-      arrayBuffer.set(chunk, position)
-      position += chunk.length
-    }
+      const reader = response.body.getReader()
+      let bytesReceived = 0
+      const chunks = []
 
-    // Now you can use the GLTFLoader to parse the model data
-    const blob = new Blob([arrayBuffer.buffer])
-    const blobUrl = URL.createObjectURL(blob)
-    loader.load(blobUrl, gltf => {
-      // Handle the loaded model here
-    })
+      while (true) {
+        const { done, value } = await reader.read()
+
+        if (done) {
+          break
+        }
+
+        chunks.push(value)
+        bytesReceived += value.length
+        const progress = (bytesReceived / totalBytes) * 100
+        setProgress(progress)
+      }
+
+      const arrayBuffer = new Uint8Array(bytesReceived)
+      let position = 0
+      for (const chunk of chunks) {
+        arrayBuffer.set(chunk, position)
+        position += chunk.length
+      }
+
+      // Now you can use the GLTFLoader to parse the model data
+      const blob = new Blob([arrayBuffer.buffer])
+      const blobUrl = URL.createObjectURL(blob)
+      loader.load(blobUrl, gltf => {
+        // Handle the loaded model here
+      })
+    } catch (error) {
+      setCurrentModelName(`Failed to load ${modelName}: ${(error as Error).message}`)
+    }
   }
 
   const isModelLoading = useRef(false)
@@ -285,11 +289,13 @@ const Preloader = ({
 
   return (
     <>
-      <div className='w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none flex justify-center items-center group px-2  '>
+      <div
+        className={`w-full h-full absolute top-0 left-0 z-[10000000000000000] pointer-events-none flex justify-center items-center group px-2 ${
+          !isLoading ? 'cursor-pointer' : 'cursor-default'
+        } `}
+      >
         <div
-          className={`flex flex-col last:items-center justify-center space-y-0.5 relative scale-[40%] sm:scale-[70%] md:scale-100 cursor-pointer pointer-events-auto w-fit h-fit ${
-            !isLoading ? 'cursor-pointer' : 'cursor-pointer'
-          }`}
+          className={`flex flex-col last:items-center justify-center space-y-0.5 relative scale-[40%] sm:scale-[70%] md:scale-100 pointer-events-auto w-fit h-fit `}
           onClick={!isLoading ? handleEnter : undefined}
           onTouchEnd={!isLoading ? handleEnter : undefined}
         >
