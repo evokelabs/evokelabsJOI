@@ -150,7 +150,7 @@ const Preloader = ({
 }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [progress, setProgress] = useState(0)
-  const [currentModelName, setCurrentModelName] = useState('')
+  const [currentModelName, setCurrentModelName] = useState('JOI MODEL')
 
   const manager = new LoadingManager()
   const loader = useDracoLoader(manager)
