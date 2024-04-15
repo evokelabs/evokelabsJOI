@@ -5,21 +5,24 @@ export const useScreenSize = () => {
   const [screenSize, setScreenSize] = useState('BASE')
 
   const updateScreenSize = () => {
-    if (window.innerWidth < SM_BREAKPOINT) {
-      setScreenSize('BASE')
-    } else if (window.innerWidth < MD_BREAKPOINT) {
-      setScreenSize('SM')
-    } else if (window.innerWidth < LG_BREAKPOINT) {
-      setScreenSize('MD')
-    } else if (window.innerWidth < XL_BREAKPOINT) {
-      setScreenSize('LG')
-    } else if (window.innerWidth < _2XL_BREAKPOINT) {
-      setScreenSize('XL')
-    } else if (window.innerWidth < _3XL_BREAKPOINT) {
-      setScreenSize('2XL')
-    } else {
-      setScreenSize('3XL')
-    }
+    setTimeout(() => {
+      if (window.innerWidth < SM_BREAKPOINT) {
+        setScreenSize('BASE')
+      } else if (window.innerWidth < MD_BREAKPOINT) {
+        setScreenSize('SM')
+      } else if (window.innerWidth < LG_BREAKPOINT) {
+        setScreenSize('MD')
+      } else if (window.innerWidth < XL_BREAKPOINT) {
+        setScreenSize('LG')
+      } else if (window.innerWidth < _2XL_BREAKPOINT) {
+        setScreenSize('XL')
+      } else if (window.innerWidth < _3XL_BREAKPOINT) {
+        setScreenSize('2XL')
+      } else {
+        setScreenSize('3XL')
+      }
+    }, 50)
+    
   }
 
   useEffect(() => {

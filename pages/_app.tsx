@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import type { Metadata } from 'next'
 import Evokelabs3D from '@/app/3d/EvokeLabs3D'
+import ReactGA from 'react-ga'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 import '@/app/globals.css'
-
-import { useRouter } from 'next/router'
 
 const metadata: Metadata = {
   title: 'EVOKE LABS || Freelance Creative Technologist',
@@ -13,6 +14,11 @@ const metadata: Metadata = {
 
 export default function RootLayout() {
   const router = useRouter()
+
+  useEffect(() => {
+    ReactGA.initialize('G-14ZQLDYXHW')
+    ReactGA.pageview(router.asPath)
+  }, [router.asPath])
 
   return (
     <>
