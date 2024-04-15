@@ -9,21 +9,28 @@ export const useCameraSettings = () => {
 
   // Initialize cameraTarget state
   const [cameraTarget, setCameraTarget] = useState(new Vector3())
+  const [resizeTimestamp, setResizeTimestamp] = useState(Date.now())
 
   // Set the initial field of view based on the window width
   const initialFov = typeof window !== 'undefined' ? getFov(window.innerWidth) : 50
   const [fov, setFov] = useState(initialFov)
 
-  // Update cameraTarget whenever screenSize changes
+  // Update cameraTarget whenever screenSize changes or a resize event is triggered
   useEffect(() => {
     const newTarget = new Vector3(...CAMERA_TARGET_RESPONSIVE[screenSize])
     setCameraTarget(newTarget)
-  }, [screenSize])
+    console.log('setCameraTarget triggered ', newTarget)
+  }, [screenSize, resizeTimestamp])
 
-  // Update fov whenever the window is resized
+  // Update fov and resizeTimestamp whenever the window is resized
   useEffect(() => {
     const handleResize = () => {
-      setFov(getFov(window.innerWidth))
+      setTimeout(() => {
+        const width = window.visualViewport ? window.visualViewport.width : window.innerWidth
+        setFov(getFov(width))
+        setResizeTimestamp(Date.now())
+        console.log('width triggered ', width)
+      }, 50)
     }
 
     window.addEventListener('resize', handleResize)
