@@ -7,6 +7,7 @@ import JOISVG from '../ui/svg/mainmenu/JOISVG'
 import YouTubeSVG from '../ui/svg/button/YouTubeSVG'
 import { SoundAudioLevelControls } from './data/types'
 import { Dispatch, SetStateAction } from 'react'
+import useSoundControl from '@/app/libs/useSoundControl'
 
 const ContentHead = () => {
   return (
@@ -38,6 +39,7 @@ const JOISpecial = ({
   soundAudioLevelControls: SoundAudioLevelControls
   setShouldMapDarkness: Dispatch<SetStateAction<boolean>>
 }) => {
+  const { setUserMutedAll, wasMuted } = useSoundControl(soundAudioLevelControls)
   return (
     <PanelContent headerTitle='JOI Special' contentHead={<ContentHead />}>
       <VideoFrame
@@ -47,7 +49,11 @@ const JOISpecial = ({
       />
       <div className='flex flex-col md:flex-row justify-between gap-2 pb-1'>
         <div className='flex mt-2 md:mt-3 justify-start h-[2.6em] md:h-full'>
-          <div className='scale-[60%] md:scale-100 origin-top-left'>
+          <div
+            onClick={() => setUserMutedAll(true)}
+            onTouchEnd={() => setUserMutedAll(true)}
+            className='scale-[60%] md:scale-100 origin-top-left '
+          >
             <ButtonDefault label='4K VERSION' svgIcon={<YouTubeSVG />} />
           </div>
         </div>
