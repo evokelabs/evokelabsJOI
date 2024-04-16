@@ -17,6 +17,9 @@ export default function RootLayout() {
 
   useEffect(() => {
     ReactGA.initialize('G-14ZQLDYXHW')
+  }, [])
+
+  useEffect(() => {
     ReactGA.pageview(router.asPath)
   }, [router.asPath])
 
