@@ -19,7 +19,6 @@ export const useCameraSettings = () => {
   useEffect(() => {
     const newTarget = new Vector3(...CAMERA_TARGET_RESPONSIVE[screenSize])
     setCameraTarget(newTarget)
-    console.log('setCameraTarget triggered ', newTarget)
   }, [screenSize, resizeTimestamp])
 
   // Update fov and resizeTimestamp whenever the window is resized
@@ -29,7 +28,6 @@ export const useCameraSettings = () => {
         const width = window.visualViewport ? window.visualViewport.width : window.innerWidth
         setFov(getFov(width))
         setResizeTimestamp(Date.now())
-        console.log('width triggered ', width)
       }, 50)
     }
 

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import type { Metadata } from 'next'
 import Evokelabs3D from '@/app/3d/EvokeLabs3D'
-import ReactGA from 'react-ga'
+import ReactGA from 'react-ga4'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
@@ -18,10 +18,6 @@ export default function RootLayout() {
   useEffect(() => {
     ReactGA.initialize('G-14ZQLDYXHW')
   }, [])
-
-  useEffect(() => {
-    ReactGA.pageview(router.asPath)
-  }, [router.asPath])
 
   return (
     <>
