@@ -5,7 +5,7 @@ import { Howl } from 'howler'
 import { DEFAULT_MUSIC_LOOP_VOLUME } from '../ELAudioStartSoundControl'
 
 const AUDIO_SOURCE = '/sounds/musicLoop.ogg'
-const DELAY = 100000 // Delay in milliseconds
+const DELAY = 1500 // Delay in milliseconds
 
 const MusicLoopSoundControl = () => {
   const sound = useRef<Howl | null>(null)

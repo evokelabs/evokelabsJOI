@@ -4,9 +4,9 @@ import JOIPreloaderSpeech from './JOI/JOIPreloaderSpeech'
 import RainSoundControl from './ambienceSFX/RainSoundControl'
 import CyberpunkAmbienceSoundControl from './ambienceSFX/CyberpunkAmbienceSoundControl'
 
-export const DEFAULT_MUSIC_LOOP_VOLUME = 0.55
+export const DEFAULT_MUSIC_LOOP_VOLUME = 0.5
 export const LOW_MUSIC_LOOP_VOLUME = 0.2
-export const DEFAULT_MUSIC_LOOP_TRANSITION_DURATION = 8500
+export const DEFAULT_MUSIC_LOOP_TRANSITION_DURATION = 6000
 export const JOI_MUSIC_LOOP_TRANSITION_DURATION = 1250
 
 const ELAudioStartSoundControl = () => {

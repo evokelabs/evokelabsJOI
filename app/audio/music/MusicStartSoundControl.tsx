@@ -3,7 +3,7 @@ import { Howl } from 'howler'
 import { SoundControlContext } from '@/app/libs/SoundControlContext'
 
 const AUDIO_SOURCE = '/sounds/musicStart.mp3'
-const VOLUME_SET = 0.6
+const VOLUME_SET = 0.5
 const DELAY = 50
 const LOOP = false
 
