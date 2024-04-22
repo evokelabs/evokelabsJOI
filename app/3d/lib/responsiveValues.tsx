@@ -65,5 +65,5 @@ export const CAMERA_TARGET_RESPONSIVE: Record<string, number[]> = {
   LG: [0.1, 1.39, 2.1],
   XL: [0.15, 1.39, 2.1],
   '2XL': [0.2, 1.39, 2.1],
-  '3XL': [-0.05, 1.39, 2.1]
+  '3XL': [0.125, 1.39, 2.1]
 }
