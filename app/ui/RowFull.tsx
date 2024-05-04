@@ -18,10 +18,10 @@ const RowFull = ({
 }) => {
   return (
     <>
-      <div className='inline-flex w-full flex-row '>
+      <div className='inline-flex w-full flex-row'>
         <div className='relative items-center flex lg:min-h-[9em] bg-grid-darkRed border-l-2 border-red border-t-2 border-b-2 border-opacity-60 w-full flex-col md:flex-row'>
-          <div className='w-fit lg:w-[150px] p-2 pr-0 lg:p-2 z-20 relative'>
-            <div className='relative top-0 '>
+          <div className='w-fit lg:w-[150px] p-2 pr-0 lg:p-2 z-20 relative '>
+            <div className='relative'>
               <IconDefault />
             </div>
             <div className='absolute top-2.5'>{svgIcon}</div>

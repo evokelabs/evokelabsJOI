@@ -53,10 +53,19 @@ const Resume = ({ soundAudioLevelControls }: { soundAudioLevelControls: SoundAud
       <HeadingHighlight heading={'BIO'} fullWidth={true} BGColor={RED} />
       <div className='mt-2 mb-3'>
         <p className='font-rajdhani text-red-blur text-[1.15rem] leading-5 md:text-[1.44rem] font-semibold md:leading-[1.6rem]'>
-          <span className='text-teal-blur font-bold'>Creative Technologist</span> with over 20+ years of experience in digital strategy,
-          design, UI/UX, web development, motion, and 3D. Proven track record collaborating with advertising agencies, creative studios,
-          corporations, and start-ups to deliver hundreds of successful digital projects. Specialising in frontend tech and fostering
-          positive team relations.
+          <span className='text-teal-blur font-bold'>Senior Creative Technologist</span> with over 20 years of experience delivering
+          innovative digital solutions across diverse industries. Proven track record collaborating with advertising agencies, creative
+          studios, corporations, and startups to deliver hundreds of successful digital projects from concept to launch.
+        </p>
+        <br />
+        <p className='font-rajdhani text-red-blur text-[1.15rem] leading-5 md:text-[1.44rem] font-semibold md:leading-[1.6rem]'>
+          Specialising in <span className='font-bold'>frontend</span> technologies, including <span className='font-bold'>HTML</span>,{' '}
+          <span className='font-bold'>CSS</span>, <span className='font-bold'>JavaScript (ES6+)</span>,{' '}
+          <span className='font-bold'>Typescript</span> and <span className='font-bold '>Three.js</span>, while leveraging modern frameworks
+          such as <span className='font-bold'>React</span> and <span className='font-bold'>Next.js</span>. Strong background in{' '}
+          <span className='font-bold'>digital design</span> and <span className='font-bold'>UI/UX</span> to ensure a seamless frontend
+          experience. Passionate about <span className='font-bold'>WebGL</span> and <span className='font-bold'>VR </span>technologies.
+          Continuously expanding my <span className='font-bold'>software engineering</span> capabilities to develop end-to-end solutions.
         </p>
       </div>
       <HeadingHighlight heading={'Experience'} fullWidth={true} BGColor={RED} />
@@ -64,12 +73,17 @@ const Resume = ({ soundAudioLevelControls }: { soundAudioLevelControls: SoundAud
         <RowFull
           heading='LEONARDO.AI'
           subHeading='LEAD FRONT-END DEVELOPER  | NOV 2022 - AUGUST 2023'
-          paragraph="Responsible for the frontend build of Leonardo.AI, an Australian AI generative startup. Original architect of the platform's scalable frontend. Built most of Leonardo.AI's reusable UI components and sections using Chakra UI. Collaborated with the UX team, stakeholders and other frontend engineers weekly for product review. Designed/developed new sections of the platform missed by the UX team. Created, maintained and increased the functionality of most of the original AI tools. Submitted and coordinated new tasks, features and bugs to the team via Jira."
+          paragraph='Leonardo.ai, a Sydney based startup, is an AI image generation application 
+that uses Next.js and Stable Diffusion. As the initial frontend engineer, I played a significant role in the 
+platform’s success, supporting 15 million users worldwide, generating 4.5 
+million images daily, raising over $40 million in funding within its first year, 
+and becoming the third most popular Discord channel globally. It now 
+employs a global team of over 100.'
           svgIcon={<LeonardoAISVG />}
         />
         <RowFull
           heading='WAX INTERACTIVE'
-          subHeading='SENIOR FRONT-END DEVELOPER | SEPT 2022 - NOV 2022'
+          subHeading='SENIOR FRONT-END DEVELOPER | SEPT 2022 - AUGUST 2023'
           paragraph='Complete overhaul of the thelimbic.com frontend using HTML, CSS and Javascript via WordPress. Provided website updates and frontend/backend maintenance for existing Wax Interactive clients. Assisted in inhouse creative services and UX/UI designs for frontend builds.'
           svgIcon={<WaxInteractiveSVG />}
         />
@@ -77,7 +91,7 @@ const Resume = ({ soundAudioLevelControls }: { soundAudioLevelControls: SoundAud
         <RowFull
           heading='AKCELO'
           subHeading='FRONT-END DEVELOPER | MAR 2019 - MAR 2021'
-          paragraph='Specialising in custom eDM HTML/CSS builds and CRM integration for various Akcelo clients.'
+          paragraph='Specialising in custom eDM HTML/CSS builds and CRM integration for various Akcelo clients including TikTok.'
           svgIcon={<AkceloSVG />}
         />
 
@@ -135,13 +149,6 @@ const Resume = ({ soundAudioLevelControls }: { soundAudioLevelControls: SoundAud
         <div className='w-full md:flex-2'>
           <div className='text-[16px] md:text-[20px] text-red-blur font-medium space-y-1.5 leading-5'>
             <p>
-              <span className='text-teal-blur font-semibold'>Project/Team Management:</span> Google Suite, Trello, GitHub, Jira, Slack.
-            </p>
-            <p>
-              <span className='text-teal-blur font-semibold'>Design/UX:</span> Figma, Adobe XD, Photoshop, Illustrator, InDesign,
-              Powerpoint.
-            </p>
-            <p>
               <span className='text-teal-blur font-semibold'>Front End:</span> HTML5, CSS, Javascript ES6/ES8, GSAP, npm, Typescript, API
               integration (REST/GraphQL/Apollo), ThreeJS, JQuery, SASS.
             </p>
@@ -150,19 +157,28 @@ const Resume = ({ soundAudioLevelControls }: { soundAudioLevelControls: SoundAud
               Fibre, Tailwind CSS, Bootstrap, Material Design, Chakra UI, Foundation For Email, Gulp, Lodash, Pug, Handlebars.
             </p>
             <p>
-              <span className='text-teal-blur font-semibold'>Back End:</span> Node.js, Express, MongoDB, Firebase, Apollo, GraphQL, AWS,
-              Cloudfront, PHP.
+              <span className='text-teal-blur font-semibold'>Project/Team Management:</span> Google Suite, Trello, GitHub, Jira, Slack.
+            </p>
+            <p>
+              <span className='text-teal-blur font-semibold'>Design/UX:</span> Figma, Adobe XD, Photoshop, Illustrator, InDesign,
+              Powerpoint.
             </p>
             <p>
               <span className='text-teal-blur font-semibold'>Motion:</span> After Effects, Premiere, Blender, 3dsmax, Zbrush, Unreal Engine,
               Unity.
             </p>
+
+            <p>
+              <span className='text-teal-blur font-semibold'>Back End:</span> Node.js, Express, MongoDB, Firebase, Apollo, GraphQL, AWS,
+              Cloudfront, PHP.
+            </p>
+
+            <p>
+              <span className='text-teal-blur font-semibold'>AI:</span> ChatGPT, GitHub Copilot, Leonardo.AI, Stable Diffusion, ElevenLabs.
+            </p>
             <p>
               <span className='text-teal-blur font-semibold'>Supplementary:</span> Google Web Designer, Animate, Audition, Cubase,
               Handbrake, Adobe Media Encoder, Sizmek, Google Doubleclick/Ad Manager, OBS, Oculus SDK.
-            </p>
-            <p>
-              <span className='text-teal-blur font-semibold'>AI:</span> ChatGPT, GitHub Copilot, Leonardo.AI, Stable Diffusion, ElevenLabs.
             </p>
           </div>
         </div>
