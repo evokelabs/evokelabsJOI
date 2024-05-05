@@ -124,7 +124,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
             onTouchEnd={() => setUserMutedAll(true)}
             className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full md:scale-100 origin-left relative md:-left-6'
           >
-            <ButtonDefault label='SOURCE CODE' svgIcon={<GithubSVG />} link={github} />
+            <ButtonDefault label='SOURCE CODE' svgIcon={<GithubSVG isHovered={false} />} link={github} />
           </div>
           <div className='md:ml-auto flex flex-col justify-start md:justify-end md:w-full  md:scale-100 origin-right md:place-items-end'>
             <ButtonDefault />
