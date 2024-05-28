@@ -133,6 +133,11 @@ abbr:where([title]) {
   margin-bottom: 0.375rem;
 }
 
+.react-calendar__month-view__days__day--neighboringMonth {
+  visibility: hidden;
+  background: none;
+}
+
 .masked-element {
   mask-image: url('https://media.evokelabs.com/glb/elabs-mask.svg');
   -webkit-mask-image: url('https://media.evokelabs.com/glb/elabs-mask.svg'); /* for Safari */
