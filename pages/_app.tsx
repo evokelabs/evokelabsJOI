@@ -8,8 +8,8 @@ import { useRouter } from 'next/router'
 import '@/app/globals.css'
 
 const metadata: Metadata = {
-  title: 'EVOKE LABS || Freelance Creative Technologist',
-  description: 'Welcome to Evoke Labs: the online hub of Adrian Pikios, a Sydney-based freelance creative technologist.',
+  title: 'EVOKE LABS || Evolving Digital Media',
+  description: 'Welcome to Evoke Labs: the online hub of Adrian Pikios, Sydney-based Creative Technologist.',
 }
 
 export default function RootLayout() {
