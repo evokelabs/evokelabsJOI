@@ -67,6 +67,14 @@ export default function RootLayout() {
           name='twitter:image'
           content='https://www.evokelabs.com/meta-cover-image.jpg'
         />
+        <meta
+          name='robots'
+          content='index, follow'
+        />
+        <meta
+          httpEquiv='Content-Language'
+          content='en'
+        />
         <link
           rel='canonical'
           href='https://www.evokelabs.com/'

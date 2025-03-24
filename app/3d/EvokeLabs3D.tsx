@@ -62,7 +62,7 @@ const RainOverlay = ({
   fov,
   eventSource,
   isPreLoaderFinished,
-  cameraTarget
+  cameraTarget,
 }: {
   fov: number
   eventSource: any
@@ -75,15 +75,22 @@ const RainOverlay = ({
         camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
         shadows
         gl={{
-          powerPreference: 'high-performance'
+          powerPreference: 'high-performance',
         }}
         style={{ pointerEvents: 'none' }}
         eventSource={eventSource}
-        eventPrefix='page'
-      >
+        eventPrefix='page'>
         <Rain isPreLoaderFinished={isPreLoaderFinished} />
-        <CameraRig fov={fov} debug={false} />
-        <OrbitControls target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
+        <CameraRig
+          fov={fov}
+          debug={false}
+        />
+        <OrbitControls
+          target={cameraTarget}
+          enableZoom={false}
+          enablePan={false}
+          enableRotate={false}
+        />
       </Canvas>
     </div>
   )
@@ -113,11 +120,11 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     isPreLoaderFinished,
     isCarReady,
     setMenuHomeWaitTimer,
-    isHomeReady
+    isHomeReady,
   } = usePreloader()
 
   // Route Hook
-  const currentRouteIndex = ROUTE_CONFIG.findIndex(route => route.route === router.pathname)
+  const currentRouteIndex = ROUTE_CONFIG.findIndex((route) => route.route === router.pathname)
 
   const [currentRouteSelection, setCurrentRouteSelection] = useState<null | number>(currentRouteIndex)
   const [currentPortfolioSelection, setCurrentPortfolioSelection] = useState<null | string>(null)
@@ -130,13 +137,13 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     ROUTE_CONFIG,
     setMenuHomeWaitTimer,
     setIsPreLoaderFinished,
-    setMaskRemoved
+    setMaskRemoved,
   )
 
   //Responsive Hook
   const { htmlRef, setPosition, position, fov, cameraTarget, homePanelExpanded, setHomePanelExpanded, htmlScale } = useResponsive(
     currentRouteSelection,
-    currentPortfolioSelection
+    currentPortfolioSelection,
   )
 
   //UI handlers hook
@@ -149,7 +156,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     handleMouseUp,
     handleMouseMove,
     container,
-    eventSource
+    eventSource,
   } = useUI(setPosition)
 
   //Sounds Hook
@@ -168,7 +175,7 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
     muteMusic,
     muteRain,
     muteSFX,
-    muteJOI
+    muteJOI,
   } = useSounds()
 
   // GPU Hook
@@ -182,27 +189,25 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
   return (
     <>
       <SoundControlContext.Provider
-        value={{ muteAll, setMuteAll, muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI }}
-      >
+        value={{ muteAll, setMuteAll, muteMusic, setMuteMusic, muteSFX, setMuteSFX, muteRain, setMuteRain, muteJOI, setMuteJOI }}>
         <JOISpeechContext.Provider
-          value={{ JOILineCaption, setJOILineCaption, isAudioPlaying, setIsAudioPlaying, isChainPlaying, setIsChainPlaying }}
-        >
-          <div ref={container} className='h-full overflow-hidden  '>
+          value={{ JOILineCaption, setJOILineCaption, isAudioPlaying, setIsAudioPlaying, isChainPlaying, setIsChainPlaying }}>
+          <div
+            ref={container}
+            className='h-full overflow-hidden  '>
             <div
               className={`relative bg-no-repeat top-0 left-0 w-full h-full z-0 ${
                 !maskRemoved && isPreLoaderFinished && currentRouteSelection === null ? 'masked-element' : ''
-              }`}
-            >
+              }`}>
               <Canvas
                 camera={{ position: INITIAL_CAMERA_POSITION, fov, near: 0.01, far: 200 }}
                 shadows
                 gl={{
-                  powerPreference: 'high-performance'
+                  powerPreference: 'high-performance',
                 }}
                 style={{ pointerEvents: 'none' }}
                 eventSource={eventSource}
-                eventPrefix='page'
-              >
+                eventPrefix='page'>
                 <SoundsContext.Provider
                   value={{
                     musicVolume,
@@ -210,9 +215,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                     musicLoopTransitionDuration,
                     setMusicLoopTransitionDuration,
                     JOILineSpeak,
-                    setJOILineSpeak
-                  }}
-                >
+                    setJOILineSpeak,
+                  }}>
                   <AnimationContext.Provider
                     value={{
                       shouldAmbientLightPlay,
@@ -222,9 +226,8 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                       setPointLightPlay,
                       setShouldJOISpeak,
                       shouldMapDarkness,
-                      setShouldMapDarkness
-                    }}
-                  >
+                      setShouldMapDarkness,
+                    }}>
                     <Html
                       ref={htmlRef}
                       scale={htmlScale}
@@ -236,15 +239,14 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                       onPointerDown={handleMouseDown}
                       onPointerUp={handleMouseUp}
                       onPointerMove={handleMouseMove}
-                    >
+                      lang='en'>
                       <PortfolioContext.Provider
                         value={{
                           selectedShowOnlyOption,
                           setSelectedShowOnlyOption,
                           selectedSortByOption,
-                          setSelectedSortByOption
-                        }}
-                      >
+                          setSelectedSortByOption,
+                        }}>
                         <RoutesContext.Provider
                           value={{
                             currentRouteSelection,
@@ -252,17 +254,20 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                             currentPortfolioSelection,
                             setCurrentPortfolioSelection,
                             homePanelExpanded,
-                            setHomePanelExpanded
-                          }}
-                        >
+                            setHomePanelExpanded,
+                          }}>
                           <Draggable disabled={screenSize === 'BASE' || screenSize === 'SM'}>
                             <div
                               onPointerDown={handleMouseDown}
                               onPointerUp={handleMouseUp}
-                              className='flex flex-col-reverse p-4 relative translate-y-10 '
-                            >
+                              className='flex flex-col-reverse p-4 relative translate-y-10 '>
                               <div className='left-1 scale-[54%] sm:scale-[54%] md:scale-[100%] md:w-full origin-top-left min-w-[50em] md:min-w-[74em] '>
-                                {isPreLoaderFinished && isHomeReady && <MainMenu router={router} routeConfig={ROUTE_CONFIG} />}
+                                {isPreLoaderFinished && isHomeReady && (
+                                  <MainMenu
+                                    router={router}
+                                    routeConfig={ROUTE_CONFIG}
+                                  />
+                                )}
                               </div>
                               <div className='max-w-[26.5em] sm:max-w-[26.5em] md:max-w-[73em]'>
                                 {isPreLoaderFinished && isHomeReady && router.pathname === '/' && <Home muteSFX={muteSFX} />}
@@ -274,7 +279,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                                   />
                                 )}
                                 {router.pathname === '/history' && (
-                                  <History soundAudioLevelControls={soundAudioLevelControls} setShouldMapDarkness={setShouldMapDarkness} />
+                                  <History
+                                    soundAudioLevelControls={soundAudioLevelControls}
+                                    setShouldMapDarkness={setShouldMapDarkness}
+                                  />
                                 )}
                                 {router.pathname === '/resume' && <Resume soundAudioLevelControls={soundAudioLevelControls} />}
                                 {router.pathname === '/joi' && (
@@ -314,12 +322,23 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                                 luminanceSmoothing={0.65}
                                 levels={5}
                               />
-                              <BrightnessContrast brightness={0.02} contrast={0.275} />
-                              <Vignette offset={0.0} darkness={1} />
+                              <BrightnessContrast
+                                brightness={0.02}
+                                contrast={0.275}
+                              />
+                              <Vignette
+                                offset={0.0}
+                                darkness={1}
+                              />
                             </EffectComposer>
                           ) : (
                             <EffectComposer disableNormalPass>
-                              <DepthOfField target={[0.8, 1.75, 2.1]} focusDistance={0.002} focusRange={0.0035} bokehScale={2} />
+                              <DepthOfField
+                                target={[0.8, 1.75, 2.1]}
+                                focusDistance={0.002}
+                                focusRange={0.0035}
+                                bokehScale={2}
+                              />
                               <Bloom
                                 mipmapBlur
                                 radius={0.65}
@@ -328,10 +347,24 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                                 luminanceSmoothing={0.65}
                                 levels={5}
                               />
-                              <ChromaticAberration offset={new Vector2(0.02, 0.02)} radialModulation={true} modulationOffset={1.1} />
-                              <Noise opacity={0.7} premultiply blendFunction={28} />
-                              <BrightnessContrast brightness={0.02} contrast={0.275} />
-                              <Vignette offset={0.0} darkness={1} />
+                              <ChromaticAberration
+                                offset={new Vector2(0.02, 0.02)}
+                                radialModulation={true}
+                                modulationOffset={1.1}
+                              />
+                              <Noise
+                                opacity={0.7}
+                                premultiply
+                                blendFunction={28}
+                              />
+                              <BrightnessContrast
+                                brightness={0.02}
+                                contrast={0.275}
+                              />
+                              <Vignette
+                                offset={0.0}
+                                darkness={1}
+                              />
                             </EffectComposer>
                           )}
                         </>
@@ -341,8 +374,16 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
                         </>
                       )}
 
-                      <CameraRig fov={fov} debug={false} />
-                      <OrbitControls target={cameraTarget} enableZoom={false} enablePan={false} enableRotate={false} />
+                      <CameraRig
+                        fov={fov}
+                        debug={false}
+                      />
+                      <OrbitControls
+                        target={cameraTarget}
+                        enableZoom={false}
+                        enablePan={false}
+                        enableRotate={false}
+                      />
                     </GPUContext.Provider>
                   </AnimationContext.Provider>
                 </SoundsContext.Provider>
@@ -352,7 +393,10 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
             {/* end masked elemnts */}
           </div>
           {!isPreLoaderFinished && (
-            <Preloader setIsPreLoaderFinished={setIsPreLoaderFinished} soundAudioLevelControls={soundAudioLevelControls} />
+            <Preloader
+              setIsPreLoaderFinished={setIsPreLoaderFinished}
+              soundAudioLevelControls={soundAudioLevelControls}
+            />
           )}
 
           {currentRouteSelection === null && isPreLoaderFinished && !maskRemoved && (
@@ -361,7 +405,14 @@ const Evokelabs3D = ({ router }: { router: NextRouter }) => {
           <SocialIcons soundAudioLevelControls={soundAudioLevelControls} />
           <JOISubtitles />
           {isPreLoaderFinished && <SoundControlIcons />}
-          {!maskRemoved && <RainOverlay fov={fov} eventSource={eventSource} isPreLoaderFinished={false} cameraTarget={cameraTarget} />}
+          {!maskRemoved && (
+            <RainOverlay
+              fov={fov}
+              eventSource={eventSource}
+              isPreLoaderFinished={false}
+              cameraTarget={cameraTarget}
+            />
+          )}
         </JOISpeechContext.Provider>
       </SoundControlContext.Provider>
     </>
